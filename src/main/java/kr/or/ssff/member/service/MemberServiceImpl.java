@@ -24,8 +24,8 @@ import java.util.List;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService, InitializingBean, DisposableBean  {
-	
-	@Setter(onMethod_ = @Autowired)
+
+    @Autowired
 	private MemberMapper mapper;
 
     @Override

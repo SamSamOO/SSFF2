@@ -18,5 +18,11 @@ public interface StudyInsMapper {
 
     public boolean remove(Integer cont_No);
 
-    public int update(StudyInsDTO studyIns);
+    public int update(StudyInsDTO studyInsDTO);
+
+    public void insert(StudyInsDTO studyInsDTO);
+
+    public void delete(String uuid);
+
+    public List<StudyInsDTO> findByCont_No(Integer cont_No);
 }
