@@ -1,10 +1,7 @@
 package kr.or.ssff.member.controller;
 
-import kr.or.ssff.member.domain.ApplyMemberDTO;
-import kr.or.ssff.member.domain.MemberVO;
-import kr.or.ssff.member.service.MemberService;
-import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,11 +9,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.MemberVO;
+import kr.or.ssff.member.service.MemberService;
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 /*
 
  */
+
+
+
+
 
 
 @Log4j2
@@ -113,7 +118,17 @@ public class MemberController {
 		model.addAttribute("memberList", memberList); 
 		model.addAttribute("applyMemberList", applyMemberList); 
     } // studyModalTest
-    
+
+    /* 스터디 가입신청 [승인] btn -> 승인처리
+     * 매개변수:
+     * 반환: ??
+     * 작성자: 신지혜
+     * */
+    @PostMapping("/approvalStudy") //TODO 다녀와서 승인버튼 클릭시 로직 구현 시작!
+    public void approvalStudy(Integer apply_idx, Model model){
+
+    } // approvalStudy
+
     /* 스터디 카페 예약내역 페이지로 이동합니다
      * 파라메터 : nickname
      * 스터디 카페 예약내역 페이지
