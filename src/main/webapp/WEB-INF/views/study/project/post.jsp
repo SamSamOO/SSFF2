@@ -99,10 +99,21 @@
                                                         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             언어 선택
                                                         </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <a class="dropdown-item" onclick="tagClick('javascript')">javascript</a>
-                                                            <a class="dropdown-item" onclick="tagClick('typescript')">typescript</a>
-                                                            <a class="dropdown-item" onclick="tagClick('react')">react</a>
+                                                        <div id="dropdown-menu-id" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                            <a id ="dropdown-javascript" class="dropdown-item" onclick="tagClick('javascript')">javascript</a>
+                                                            <a id ="dropdown-typescript" class="dropdown-item" onclick="tagClick('typescript')">typescript</a>
+                                                            <a id ="dropdown-react" class="dropdown-item" onclick="tagClick('react')">react</a>
+                                                            <a id ="dropdown-vue" class="dropdown-item" onclick="tagClick('vue')">vue</a>
+                                                            <a id ="dropdown-node_js" class="dropdown-item" onclick="tagClick('node_js')">node_js</a>
+                                                            <a id ="dropdown-java" class="dropdown-item" onclick="tagClick('java')">java</a>
+                                                            <a id ="dropdown-spring" class="dropdown-item" onclick="tagClick('spring')">spring</a>
+                                                            <a id ="dropdown-kotlin" class="dropdown-item" onclick="tagClick('kotlin')">kotlin</a>
+                                                            <a id ="dropdown-c++" class="dropdown-item" onclick="tagClick('c++')">c++</a>
+                                                            <a id ="dropdown-go" class="dropdown-item" onclick="tagClick('go')">go</a>
+                                                            <a id ="dropdown-python" class="dropdown-item" onclick="tagClick('python')">python</a>
+                                                            <a id ="dropdown-django" class="dropdown-item" onclick="tagClick('django')">django</a>
+                                                            <a id ="dropdown-flutter" class="dropdown-item" onclick="tagClick('flutter')">flutter</a>
+                                                            <a id ="dropdown-swift" class="dropdown-item" onclick="tagClick('swift')">swift</a>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -145,28 +156,57 @@
 
   $(document).ready(function() {
     $('#summernote').summernote({
-      height: 300,                 // 에디터 높이
-      minHeight: null,             // 최소 높이
-      maxHeight: null,             // 최대 높이
+      height: 300,                  // 에디터 높이
+      minHeight: null,              // 최소 높이
+      maxHeight: null,              // 최대 높이
       focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
-      lang: "ko-KR",					// 한글 설정
+      lang: "ko-KR",				// 한글 설정
       placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
     });
-  });
+  }); //summernote 관련 설정
 
-function tagClick(name){
-    console.log(name);
+  let tag_count=0;  //선택한 태그 갯수 카운트. 0개부터 3개까지 가능
 
-    let tagArea = document.querySelector('#lang-sec-ul');
-    let new_pTag = document.createElement('li');
+  function tagClick(name){
+    if(tag_count>=3){
+      alert("태그는 3개를 초과하여 지정할 수 없습니다.")
+    }else{
+      tag_count+=1;
+      document.querySelector('#dropdown-'+name).remove(); //선택한 언어를 드롭다운에서 지워준다
 
-    new_pTag.setAttribute('class', 'mini-tag');
-    new_pTag.innerHTML = name+" ";
-    new_pTag.innerHTML +='<span onclick=tagRemove('+name+')>x</span>';
-    tagArea.appendChild(new_pTag);
-}
-function tagRemove(name){
-    console.log(name); /*this target 써볼것*/
-}
+      let tagArea = document.querySelector('#lang-sec-ul'); //태그를 추가할 곳을 정의해준다
+      let new_Tag = document.createElement('li'); //li 태그를 생성해준다
+
+      //생성한 태그에 속성과 내용을 채워준다
+      new_Tag.setAttribute('class', 'mini-tag');
+      new_Tag.setAttribute('id', name+'-tag');
+      new_Tag.innerHTML = name+" ";
+      new_Tag.innerHTML +='<span onclick=tagRemove(`'+name+'`) id="xButton-'+name+'">x</span>'; //x표 치는곳
+      new_Tag.innerHTML +='<input type="hidden" id='+name+' name="selected-tag" value='+name+'>';
+
+      //태그를 추가할 곳 하위에 새로 생성된 태그를 넣어준다
+      tagArea.appendChild(new_Tag);
+    };
+
+  }//tagClick
+
+  function tagRemove(name){ //x버튼을 누르면 동작하는 함수
+    document.querySelector('#'+name+'-tag').remove(); //태그를 삭제한다
+
+    tag_count-=1;
+
+    let tagArea = document.querySelector('#dropdown-menu-id');
+    let new_Tag = document.createElement('a');
+
+    //예시 : <a id ="dropdown-javascript" class="dropdown-item" onclick="tagClick('javascript')">javascript</a>
+    new_Tag.setAttribute('id', 'dropdown-'+name);
+    new_Tag.setAttribute('class', 'dropdown-item');
+    new_Tag.setAttribute('onclick', 'tagClick(`'+name+'`)');
+
+    new_Tag.innerHTML = name;
+    tagArea.appendChild(new_Tag);
+
+  }//tagRemove
+
 </script>
 </html>
