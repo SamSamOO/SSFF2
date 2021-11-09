@@ -204,11 +204,12 @@ h3 {
 
 
 /*********************글쓰기단************************************/
+/*글쓰기단의 전체 구성*/
 #post-body-wrapper{
   display: flex;
   justify-content: center;
 }
-
+/*제목, 팀이름 input*/
 #post-body input[type=text]{
   height:40px;
   width:100%;
@@ -220,15 +221,16 @@ h3 {
   text-align: center;
   margin:20px;
 }
+/*언어태그, 챌린지 유형*/
 #lang-sec{
   margin-top:20px;
   margin-bottom:20px;
   display:inline-block;
 }
+/*언어태그, 챌린지 유형에서 ':' 로 표현되는 설명*/
 #lang-sec span{
   font-size: 16px;
   font-weight: 500;
-
 }
 #lang-sec ul{
   list-style: none;
@@ -242,10 +244,31 @@ h3 {
   margin-right:10px;
   padding: 3px 5px;
   color: white;
+  cursor: pointer;
 }
 .mini-tag span{
   color:red;
+  cursor: pointer;
 }
+.form-control{
+  margin-left:20px;
+}
+#sido-sec{
+  margin-top:20px;
+  margin-bottom:20px;
+  display:inline-block;
+}
+#sido-sec span{
+  font-size: 16px;
+  font-weight: 500;
+}
+#sido-sec ul{
+  list-style: none;
+}
+#sido-sec li{
+  float: left;
+}
+/*제출 및 취소 버튼*/
 #button-sec ul{
   list-style: none;
 }

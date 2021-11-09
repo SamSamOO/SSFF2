@@ -5,10 +5,13 @@
 <!----------------Head 시작----------------------->
 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
+    <script src="../../../../resources/assets/js/location/location.js"></script>
     <title>챌린지 리스트</title>
     <!--head.html Include-->
     <jsp:include page="../../../commons/head.jsp"/>
+
 </head>
 
 <!----------------Head 종료----------------------->
@@ -70,10 +73,71 @@
                         <div class="card card-custom gutter-b card-stretch">
 
                             <!--카드 Body 시작-->
-                            <div class="card-header border-0 pt-5 card-body mt-5">
+                            <div class="card-header border-0 pt-5 card-body mt-5" id="post-body-wrapper">
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
+                                <div id="post-body">
+                                    <form action="" method="post" id="article-form" class="article-form" role="form">
+                                        <!--parameter 1 : 제목-->
+                                        <div id="title-sec">
+                                            <input type="text" id="title" name="title" placeholder="제목을 입력해 주세요">
+                                        </div>
+                                        <!--parameter 2 : 팀네임-->
+                                        <div id="teamname-sec">
+                                            <input type="text" id="teamname" name="teamname" placeholder="<팀명을 입력해 주세요>">
+                                        </div>
 
-                                    챌린지 포스트!
+                                        <!--parameter 3 : 유형태그-->
+                                        <div id="lang-sec">
+                                            <ul id="lang-sec-ul">
+                                                <li><span>챌린지 유형 :</span></li>
+                                                <li>
+                                                    <select id="challenge-type" name="challenge-type" class="form-control">
+                                                        <option value="">==챌린지 유형을 선택해 주세요==</option>
+                                                        <option value="유형1">유형1</option>
+                                                        <option value="유형2">유형2</option>
+                                                        <option value="유형3">유형3</option>
+                                                        <option value="유형4">유형4</option>
+                                                        <option value="유형5">유형5</option>
+                                                    </select>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+                                        <br> <!--이것만은 쓰고 싶지 않았는데..-->
+                                        <!--parameter 4 : 지역-->
+                                        <div id="sido-sec">
+                                            <ul id="sido-sec-ul">
+                                                <li><span>지역 :</span></li>
+                                                <li>
+                                                    <select id="location1" name="location1" class="form-control">
+                                                        <option value="">==시도 선택==</option>
+                                                    </select>
+                                                </li>
+                                                <li>
+                                                    <select id="location2" name="location2" class="form-control">
+                                                        <option value="">==시군구 선택==</option>
+                                                    </select>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <!--parameter 5 : 시작-종료일-->
+
+
+
+                                        <!--parameter 6 : 글내용-->
+                                        <div id="cont-sec">
+                                            <textarea id="summernote" name="editordata"></textarea>
+                                        </div>
+                                        <div id="button-sec">
+                                            <ul>
+                                                <li>글등록</li>
+                                                <li>취소</li>
+                                            </ul>
+                                        </div>
+                                    </form>
+                                </div>
                                 <!----------------------------------------------------------------------------------------------------------------------------->
                             </div>
                             <!--카드 Body 종료-->
@@ -93,5 +157,62 @@
             <jsp:include page="../../../commons/footer.jsp"/>
 </body>
 <!----------------Body 종료----------------------->
+<script>
 
+  $(document).ready(function() {
+    $('#summernote').summernote({
+      height: 300,                  // 에디터 높이
+      minHeight: null,              // 최소 높이
+      maxHeight: null,              // 최대 높이
+      focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+      lang: "ko-KR",				// 한글 설정
+      placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+    });
+  }); //summernote 관련 설정
+
+  let tag_count=0;  //선택한 태그 갯수 카운트. 0개부터 3개까지 가능
+
+  function tagClick(name){
+    if(tag_count>=3){
+      alert("태그는 3개를 초과하여 지정할 수 없습니다.")
+    }else{
+      tag_count+=1;
+      document.querySelector('#dropdown-'+name).remove(); //선택한 언어를 드롭다운에서 지워준다
+
+      let tagArea = document.querySelector('#lang-sec-ul'); //태그를 추가할 곳을 정의해준다
+      let new_Tag = document.createElement('li'); //li 태그를 생성해준다
+
+      //생성한 태그에 속성과 내용을 채워준다
+      new_Tag.setAttribute('class', 'mini-tag');
+      new_Tag.setAttribute('id', name+'-tag');
+      new_Tag.innerHTML = name+" ";
+      new_Tag.innerHTML +='<span onclick=tagRemove(`'+name+'`) id="xButton-'+name+'">x</span>'; //x표 치는곳
+      new_Tag.innerHTML +='<input type="hidden" id='+name+' name="selected-tag" value='+name+'>';
+
+      //태그를 추가할 곳 하위에 새로 생성된 태그를 넣어준다
+      tagArea.appendChild(new_Tag);
+    };
+
+  }//tagClick
+
+  function tagRemove(name){ //x버튼을 누르면 동작하는 함수
+    document.querySelector('#'+name+'-tag').remove(); //태그를 삭제한다
+
+    tag_count-=1;
+
+    let tagArea = document.querySelector('#dropdown-menu-id');
+    let new_Tag = document.createElement('a');
+
+    //예시 : <a id ="dropdown-javascript" class="dropdown-item" onclick="tagClick('javascript')">javascript</a>
+    new_Tag.setAttribute('id', 'dropdown-'+name);
+    new_Tag.setAttribute('class', 'dropdown-item');
+    new_Tag.setAttribute('onclick', 'tagClick(`'+name+'`)');
+
+    new_Tag.innerHTML = name;
+    tagArea.appendChild(new_Tag);
+
+  }//tagRemove
+  $('#sandbox-container .input-daterange').datepicker({
+  });
+</script>
 </html>
