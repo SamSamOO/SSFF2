@@ -1,6 +1,7 @@
 package kr.or.ssff.member.controller;
 
 import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.service.MemberService;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -45,8 +47,20 @@ public class MemberController {
      * 메인페이지로 이동합니다.
      * */
     @PostMapping("/join")
-    public String memberJoin(MemberVO member)  {
+    public String memberJoin(MemberDTO member, RedirectAttributes rttrs)  {
         log.debug("join({}) is invoked", "member = " + member);
+        MemberVO memberVO = new MemberVO(
+                member.getMember_no(),
+                member.getMember_id(),
+                member.getMember_pwd(),
+                member.getMember_name(),
+                member.getMember_name(),
+                null,null
+        );
+        boolean result = this.service.register(memberVO);
+        rttrs.addAttribute("result",result);
+
+
 
         return "redirect:/main";
     } // memberJoin
@@ -61,6 +75,7 @@ public class MemberController {
 
         return "member/login";
     } // memberLoginGo
+
 
     /* 로그인 기능 수행
      * 파라메터 :  email , password

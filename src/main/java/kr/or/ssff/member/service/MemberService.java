@@ -12,6 +12,8 @@ public interface MemberService {
     // 1. 새로운 게시물 등록
     public abstract boolean register();
 
+    // 1-1. 새로운 회원등록
+    public abstract boolean register(MemberVO member);
     // 2. 기존 게시글 수정(변경)
     public abstract boolean modify();
 

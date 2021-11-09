@@ -34,6 +34,11 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
     }
 
     @Override
+    public boolean register(MemberVO member) {
+        return false;
+    }
+
+    @Override
     public boolean modify() {
         return false;
     }
