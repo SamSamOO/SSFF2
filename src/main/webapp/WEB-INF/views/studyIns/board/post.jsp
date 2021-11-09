@@ -120,7 +120,23 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td></td>
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                                <div class="panel-heading">파일 첨부</div>
+                                                                <div class="panel-body">
+                                                                    <div class="form-group">
+                                                                        <input type="file" name="uploadFile" multiple/>
+                                                                    </div>
+                                                                    <div class="dropzone-upload uploadResult">
+                                                                        <ul>
+
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td colspan="4"></td>
@@ -165,9 +181,7 @@
             formElement.submit();
         });
 
-
     });
-
 
     // Class definition
     var KTQuilDemos = function () {
@@ -217,6 +231,47 @@
             }
         };
     }();
+
+    $(document).ready(function (e) {
+
+        let formObj = $("form[role='form']");
+        $("button[type='file']").on("click", function (e) {
+            e.preventDefault();
+            console.log("submit clicked");
+        });
+
+        let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+        let maxSize = 5242880; //5MB
+        function checkExtension(fileName, fileSize) {
+            if (fileSize >= maxSize) {
+                alert("파일 크기 초과");
+                return false;
+            }
+            if (regex.test(fileName)) {
+                alert("해당 종류의 파일은 업로드 할 수 없스빈다");
+                return false;
+
+            }
+            return true;
+        }
+
+
+    });
+
+    function showUploadResult(uploadResultArr) {
+        if (!uploadResultArr || uploadResultArr.length == 0) {
+            return;
+        }
+        let uploadUL = $(".uploadResult ul");
+        let str = "";
+        $(uploadResultArr).each(function (i, obj) {
+            //image type
+            if (obj.fileType) {
+                let fileCellPath = encodeURIComponent(obj.uploadPath+"/s_"+obj)
+            }
+        });
+    }
+
     jQuery(document).ready(function () {
         KTQuilDemos.init();
     });

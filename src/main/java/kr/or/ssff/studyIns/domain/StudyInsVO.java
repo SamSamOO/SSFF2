@@ -22,7 +22,7 @@ public class StudyInsVO {
     private String title;                        // 글 제목
     private Integer hit;                        //조회수
 
-    private StudyInsFileDTO studyInsFileDTO; //스터디 첨부파일 객체 (join용)
+
 
 }
 

@@ -12,6 +12,19 @@
 
     </delete>
 
+    <delete id="delete">
+
+        delete
+        from study_ins_file
+        where cont_No = #{cont_No};
+
+    </delete>
+
+    <insert id="insert">
+        insert into study_ins_file (file_No, cont_No, file_Name)
+        values (#{file_No}, #{cont_No}, #{file_Name});
+    </insert>
+
     <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
 
 		<![CDATA[
@@ -31,6 +44,15 @@
         ]]>
 
     </select>
+
+    <select id="findByBno" resultType="kr.or.ssff.studyIns.model.StudyInsFileDTO">
+
+        select *
+        from study_ins_file
+        where cont_No = #{cont_No};
+
+    </select>
+
     <update id="update">
         update si_board
         set title=#{title},
