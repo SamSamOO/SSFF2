@@ -26,7 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public class StudyInsController implements InitializingBean, DisposableBean {
 
-    @Setter(onMethod_ = {@Autowired})
+    @Autowired
     private StudyInsService service;
 
     @Override
