@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 
@@ -18,6 +18,16 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
 
     </style>
+    <script>
+        $(function () {
+            console.clear();
+            console.log("제이쿼리 시작");
+            $(`#regBtn`).on('click', function () {
+                console.log("regBtn 클릭");
+                self.location = "/studyIns/board/postGo";
+            });
+        });
+    </script>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -39,7 +49,6 @@
             <!------------------Header Wrapper : 메뉴 탭 종료------------------>
             <!--컨테이너 시작-->
             <div class="d-flex flex-row flex-column-fluid container">
-
                 <table class="table">
                     <thead>
                     <tr>
@@ -87,16 +96,21 @@
                             <td>
 
                                 <span class="label label-inline label-light-primary font-weight-bold">
-                                        ${list.write_Date}
+                                        <fmt:formatDate value="${list.write_Date}" pattern="yyyy/MM/dd"/>
                                 </span>
                             </td>
 
                         </tr>
                     </c:forEach>
+                    <tr>
+                        <td colspan="5">ddd</td>
+                        <td><button type="button" class="btn btn-outline-primary" id="regBtn">새 글 쓰기</button></td>
+                    </tr>
 
 
 
                     </tbody>
+
                 </table>
 
             </div>
