@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ssff.mapper.StudyInsMapper">
+    <delete id="remove">
+
+        delete
+        from si_board
+        where cont_No = #{cont_No}
+
+    </delete>
+
+    <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+
+		<![CDATA[
+        select *
+        from si_board
+        where cont_No = #{cont_No}
+        ]]>
+
+	</select>
+
+    <select id="getList" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+
+    <![CDATA[
+        select /*+ cont_no_desc(si_board) */ *
+        from si_board
+        where cont_no < 100
+        ]]>
+
+    </select>
+    <update id="update">
+        update si_board
+        set title=#{title},
+            cont=#{cont},
+            modify_Date=sysdate,
+            category=#{category}
+        where cont_No = #{cont_No}
+    </update>
+</mapper>
