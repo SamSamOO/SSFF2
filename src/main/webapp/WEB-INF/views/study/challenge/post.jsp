@@ -93,11 +93,11 @@
                                                 <li>
                                                     <select id="challenge-type" name="challenge-type" class="form-control">
                                                         <option value="">==챌린지 유형을 선택해 주세요==</option>
-                                                        <option value="유형1">유형1</option>
-                                                        <option value="유형2">유형2</option>
-                                                        <option value="유형3">유형3</option>
-                                                        <option value="유형4">유형4</option>
-                                                        <option value="유형5">유형5</option>
+                                                        <option value="유형1">유형10</option>
+                                                        <option value="유형2">유형20</option>
+                                                        <option value="유형3">유형30</option>
+                                                        <option value="유형4">유형40</option>
+                                                        <option value="유형5">유형50</option>
                                                     </select>
                                                 </li>
                                             </ul>
