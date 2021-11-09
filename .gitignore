@@ -199,4 +199,16 @@ fabric.properties
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# End of https://www.toptal.com/developers/gitignore/api/eclipse,intellij,java
+# End of https://www.toptal.com/developers/gitignore/api/eclipse,intellij,java!/.idea/compiler.xml
+
+!/.idea/encodings.xml
+
+!/.idea/jarRepositories.xml
+
+!/.idea/misc.xml
+
+!/.idea/runConfigurations.xml
+
+!/.idea/vcs.xml
+
+!/.idea/workspace.xml
