@@ -1,5 +1,6 @@
 package kr.or.ssff.studyIns.domain;
 
+import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import lombok.Value;
 
 import java.util.Date;
@@ -20,6 +21,8 @@ public class StudyInsVO {
     private String category;                //카테고리
     private String title;                        // 글 제목
     private Integer hit;                        //조회수
+
+    private StudyInsFileDTO studyInsFileDTO; //스터디 첨부파일 객체 (join용)
 
 }
 
