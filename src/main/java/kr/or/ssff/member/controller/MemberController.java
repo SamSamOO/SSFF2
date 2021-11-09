@@ -1,24 +1,27 @@
 package kr.or.ssff.member.controller;
 
-import kr.or.ssff.member.domain.ApplyMemberDTO;
-import kr.or.ssff.member.domain.MemberDTO;
-import kr.or.ssff.member.domain.MemberVO;
-import kr.or.ssff.member.service.MemberService;
-import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j2;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.MemberVO;
+import kr.or.ssff.member.service.MemberService;
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 
 /*
 
  */
+
+
+
+
 
 
 @Log4j2
@@ -47,20 +50,8 @@ public class MemberController {
      * 메인페이지로 이동합니다.
      * */
     @PostMapping("/join")
-    public String memberJoin(MemberDTO member, RedirectAttributes rttrs)  {
+    public String memberJoin(MemberVO member)  {
         log.debug("join({}) is invoked", "member = " + member);
-        MemberVO memberVO = new MemberVO(
-                member.getMember_no(),
-                member.getMember_id(),
-                member.getMember_pwd(),
-                member.getMember_name(),
-                member.getMember_name(),
-                null,null
-        );
-        boolean result = this.service.register(memberVO);
-        rttrs.addAttribute("result",result);
-
-
 
         return "redirect:/main";
     } // memberJoin
@@ -75,7 +66,6 @@ public class MemberController {
 
         return "member/login";
     } // memberLoginGo
-
 
     /* 로그인 기능 수행
      * 파라메터 :  email , password
@@ -128,7 +118,17 @@ public class MemberController {
 		model.addAttribute("memberList", memberList); 
 		model.addAttribute("applyMemberList", applyMemberList); 
     } // studyModalTest
-    
+
+    /* 스터디 가입신청 [승인] btn -> 승인처리
+     * 매개변수:
+     * 반환: ??
+     * 작성자: 신지혜
+     * */
+    @PostMapping("/approvalStudy") //TODO 다녀와서 승인버튼 클릭시 로직 구현 시작!
+    public void approvalStudy(Integer apply_idx, Model model){
+
+    } // approvalStudy
+
     /* 스터디 카페 예약내역 페이지로 이동합니다
      * 파라메터 : nickname
      * 스터디 카페 예약내역 페이지

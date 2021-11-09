@@ -1,5 +1,6 @@
 package kr.or.ssff.studyIns.controller;
 
+import java.util.Objects;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.service.StudyInsService;
@@ -16,8 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.Objects;
 
 @Log4j2
 @AllArgsConstructor
@@ -254,7 +253,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * */
     @PostMapping("/board/detail/modify")
     public String studyBoardDetailModify(StudyInsDTO studyIns, RedirectAttributes rttrs) {
-        log.info("studyBoardDetailModify({} , {} ) is invoked", "studyIns = " + studyIns ,", rttrs = " + rttrs);
+        log.info("studyBoardDetailModify({} , {} ) is invoked", "studyIns = " + studyIns, ", rttrs = " + rttrs);
 
         Objects.requireNonNull(service);
         if (service.modify(studyIns)) {
@@ -269,11 +268,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 매개변수:
      * 반환: 스터디 게시물 생성페이지 뷰단
      * */
-    @PostMapping("/board/postGo")
+    @GetMapping("/board/postGo")
     public String studyBoardPostGo() {
         log.debug("studyBoardPostGo() is invoked");
 
-        return "studyIns/board/postGo";
+
+
+        return "/studyIns/board/post";
     } // studyBoardPostGo
 
     /*
@@ -314,28 +315,3 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 //    return "";
 //  } // studyBoardPost
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
