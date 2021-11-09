@@ -12,23 +12,7 @@
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 
     <script>
-        $(function () {
-            console.clear();
-            console.debug("제이쿼리 시작");
-            $(`#listBtn`).on(`click`, function (e) {
-                e.preventDefault();
 
-                console.log('목록버튼이 클릭됨!');
-
-                const formElement = $("#formObj");
-                formElement.attr("action","/studyIns/board/list");
-                formElement.attr("method","get");
-                formElement.submit();
-            });
-            $(`#regBtn`).on(`click`, function () {
-                console.log("등록 버튼 클릭");
-            });
-        });
     </script>
 </head>
 
@@ -168,6 +152,23 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
+    $(function () {
+        console.clear();
+        console.debug("제이쿼리 시작");
+        $(`#listBtn`).on(`click`, function (e) {
+
+            console.log('목록버튼이 클릭됨!');
+
+            const formElement = $("#formObj");
+            formElement.attr("action", "/studyIns/board/list");
+            formElement.attr("method", "get");
+            formElement.submit();
+        });
+
+
+    });
+
+
     // Class definition
     var KTQuilDemos = function () {
         // Private functions
