@@ -319,10 +319,11 @@ License: You must have a valid license purchased only from themeforest(the above
                           <td class="datatable-cell" data-field="action"
                               aria-label="action"
                               style="width: 20%; text-align: center;">
-                            <button type="submit" id="approvalBtn"
+                            <%--<button type="submit" id="approvalBtn"
                                     class="btn btn-light-success font-weight-bold mr-2">승인</button>
                             <button type="button" id="refusalBtn"
-                                    class="btn btn-light-warning font-weight-bold mr-2">거부</button>
+                                    class="btn btn-light-warning font-weight-bold mr-2">거부</button>--%>
+                            <a href="javascript:void(0);" data-value="re" onclick="fn_refusal('${applyMemberList.apply_idx}','refusal');return false;" class="btn btn-light-warning font-weight-bold mr-2">거부</a>
                           </td>
                         
                         
@@ -391,7 +392,53 @@ License: You must have a valid license purchased only from themeforest(the above
 <!----------------Body 종료----------------------->
 <script type="text/javascript">
 
+  /* 회원의 스터디 참여 상태 정보를 변경하는 함수
+     가입신청 [거절, 승인] , [탈퇴]
+  매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
+  작성자 : 신지혜
+  */
+  function fn_refusal(apply_idx, action){
+    console.log(action)
+    
+    console.log($(this));
+    console.log("this?" + $(this).attr('text'));
+    console.log("this?" + $(this).attr('data-value'));
+    
+    if(!confirm("가입신청 거절 하시겠습니까?"))
 
+      return false;
+
+    var submitObj = new Object();
+    submitObj.apply_idx= apply_idx;
+    submitObj.action= action;
+   
+    console.log("JSON.stringify(submitObj): "+JSON.stringify(submitObj));
+
+    $.ajax({
+      url: "/member/refusal_action",
+      type: "POST",
+      contentType: "application/json;charset=UTF-8",
+      data:JSON.stringify(submitObj),
+      dataType : "json",
+      error:function(request,status,error){
+        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+      }
+
+      
+    })
+    .fail(function(e) { // TODO 왜 성공했는데 fail타지요?
+      alert("거절 실패하였습니다.");
+    })
+    .done(function() {
+      alert("참여신청 거절처리 되었습니다.");
+    })
+    .always(function() {
+
+    });
+
+    //TODO 완료시에 화면 다시 뿌려주기 위해서 테이블 동적생성 구문 추가 예정(필수)
+  } // end fn_refusal
+  
   // 페이징 처리하는 함수
   function pager() {
     let totalData; //총 데이터 수
@@ -409,7 +456,7 @@ License: You must have a valid license purchased only from themeforest(the above
     if (totalData === 0) {
       alert("해당 조건에 조회되는 데이터가 존재하지 않습니다.");
       $('.datatable-pager').hide(); // 숨김처리
-    }
+    } // if
 
     displayData(1, dataPerPage); //1번째페이지, 한페이지에 나타낼 글 수=체크박스 val(기본-5)
     paging(totalData, dataPerPage, pageCount, 1);
@@ -425,7 +472,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
       if (totalPage < pageCount) {
         pageCount = totalPage;
-      }
+      } // if
       console.log("totalPage : " + totalPage);
       let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
       // let pageGroup = Math.ceil(curPageId/pageCount); // 페이지 그룹
@@ -434,7 +481,7 @@ License: You must have a valid license purchased only from themeforest(the above
       console.log("last : " + last);
       if (last > totalPage) {
         last = totalPage;
-      }
+      } // if
 
       var first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
       if (first < 1) first = 1; // 첫페이지가 1보다 작을 경우 1로 세팅
@@ -458,7 +505,7 @@ License: You must have a valid license purchased only from themeforest(the above
         console.log("prev >딘ㄷ 0 : ");
         pageHtml += `<li><a title="First" class="datatable-pager-link datatable-pager-link-first datatable-pager-link-disabled" data-page="1" disabled="disabled"><i class="flaticon2-fast-back"></i></a></li>
 <li><a title="Previous" class="datatable-pager-link datatable-pager-link-prev datatable-pager-link-disabled" data-page="1" disabled="disabled"><i class="flaticon2-back"></i></a></li>`;
-      }
+      } // if-else
 
       //페이징 번호 표시
       for (var i = first; i <= last; i++) {
@@ -471,8 +518,8 @@ License: You must have a valid license purchased only from themeforest(the above
           pageHtml += `<li><a class="datatable-pager-link datatable-pager-link-number" data-page="`
               + i + `"
                            title="` + i + `">` + i + `</a></li>`;
-        }
-      }
+        } // if-else
+      } // for
 
       // 이후, 맨 뒤로 가기
       if (next < totalPage) {
@@ -482,7 +529,7 @@ License: You must have a valid license purchased only from themeforest(the above
       } else {
         pageHtml += `<li><a title="Next" class="datatable-pager-link datatable-pager-link-next datatable-pager-link-disabled"  data-page="`
             + (currentPage + 1) + `" disabled="disabled"><i class="flaticon2-next"></i></a></li>`
-      }
+      } // if-else
       if (last < totalPage) {
         pageHtml += `<li><a title="Last" class="datatable-pager-link datatable-pager-link-last"
                            data-page="` + totalPage
@@ -490,7 +537,7 @@ License: You must have a valid license purchased only from themeforest(the above
       } else {
         pageHtml += `<li><a title="Last" class="datatable-pager-link datatable-pager-link-last datatable-pager-link-disabled" data-page="`
             + totalPage + `" disabled="disabled"><i class="flaticon2-fast-next"></i></a></li>`
-      }
+      } // ir-else
 
       console.log($(".datatable-pager.datatable-paging-loaded"));
 
@@ -513,8 +560,8 @@ License: You must have a valid license purchased only from themeforest(the above
         paging(totalData, dataPerPage, pageCount, globalCurrentPage);
         //글 목록 표시 재호출
         displayData(globalCurrentPage, dataPerPage);
-      });
-    }
+      }); // click-fn
+    } // pager()
 
     //현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
     function displayData(currentPage, dataPerPage) {
@@ -532,8 +579,8 @@ License: You must have a valid license purchased only from themeforest(the above
           i++
       ) {
         $('tr[data-row="' + i + '"]').attr('style', ('display:""'));
-      }
-    }
+      } // for
+    } // displayData()
 
     // 페이지 사이즈 드롭다운 선택하면 화면단에서 적용하여 출력
     $('#pageSizePicker').change(function () {
@@ -542,7 +589,7 @@ License: You must have a valid license purchased only from themeforest(the above
       //전역 변수에 담긴 globalCurrent 값을 이용하여 페이지 이동없이 글 표시개수 변경
       paging(totalData, pageSizePickerValue, pageCount, currentPage);
       displayData(currentPage, pageSizePickerValue);
-    });
+    }); // change-fn
   }
 
 

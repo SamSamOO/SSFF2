@@ -30,7 +30,6 @@
 			<result column="REMOVED_OK" property="removed_ok"/>
 			<result column="CLOSED_OK" property="closed_ok"/>
 			<result column="DEAD_OK" property="dead_ok"/>
-
 		</association>
 
 		<association javaType="kr.or.ssff.member.domain.MemberDTO" property="memberDTO">
@@ -49,19 +48,25 @@
 		<!--  스터디 멤버 + 프로필사진(tn_member) + 스터디팀명(tn_recruit_board) 조회 : 신지혜  -->
 	<select 
 		id="getApplyMemberList"
-		parameterType="Integer"
+		parameterType="String"
 		resultMap ="applyMemberMap">
-		<![CDATA[
-		SELECT /*+ member_name_asc(apply_member) */ *
-		FROM (SELECT r.r_idx, r.teamname, a.apply_idx,a.member_Name, a.study_join_arciwf, a.study_join_change_date, a.study_boss_yn, a.attendance_days, m.member_profile
-					FROM recruit_board r JOIN  apply_member a on r.r_idx=a.r_idx
-															 JOIN member m
-																		on a.member_Name = m.member_Name)
-		WHERE r_idx > #{r_idx} and r_idx < 9020
+
+	 	<![CDATA[
+			SELECT /*+ member_name_asc(apply_member) */ *
+			FROM (SELECT r.r_idx, r.teamname, a.apply_idx,a.member_Name,
+									 a.study_join_arciwf, a.study_join_change_date, a.study_boss_yn,
+									 a.attendance_days, m.member_profile
+						FROM recruit_board r
+								JOIN  apply_member a
+										on r.r_idx=a.r_idx
+								JOIN member m
+										on a.member_Name = m.member_Name)
+			WHERE r_idx > #{r_idx} and r_idx < 9020
 		]]>
 
-		<!-- //TODO WHERE절 Test를 위해 and 조건 / 추후 단항조건으로 변경예정-->
+  <!-- //TODO WHERE절 Test를 위해 and 조건 / 추후 단항조건으로 변경예정-->
 	</select>
+
 
 		<!--  전체 회원 조회 : 신지혜  -->
 	<select 
@@ -72,7 +77,11 @@
 		FROM member
 
 	</select>
-	
+
+	<!-- 회원의 스터디 상태 변경  -->
+	<update id="applyAction" parameterType="String">
+		UPDATE apply_member SET study_join_arciwf = 'i' WHERE apply_idx =#{apply_idx}
+	</update>
 </mapper>
 
 

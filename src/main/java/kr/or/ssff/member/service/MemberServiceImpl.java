@@ -1,7 +1,10 @@
 package kr.or.ssff.member.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import javax.servlet.http.HttpServletResponse;
 import kr.or.ssff.mapper.MemberMapper;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -12,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 
 /*
  * 최초 작성자: 신지혜
@@ -24,8 +29,8 @@ import java.util.List;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService, InitializingBean, DisposableBean  {
-	
-	@Setter(onMethod_ = @Autowired)
+
+  @Setter(onMethod_= {@Autowired})
 	private MemberMapper mapper;
 
     @Override
@@ -78,9 +83,9 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 	   * 작성자	: 신지혜 
 	   */
 	@Override
-	public List<ApplyMemberDTO> getApplyMemberList(Integer r_idx) {
+	public List<ApplyMemberDTO> getApplyMemberList(String r_idx) {
 		//TODO 추후 클릭하는 스터디로 변경해야해~
-		r_idx= 9003; 
+		r_idx= "9003";
 		log.debug("getApplyMemberList({}) invoked");
 	
 		
@@ -89,8 +94,21 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 		
 		return allApplyMemberList; 
 	} // getApplyMemberList
-	
-	// ------------------------------------------------------------------------------- //
+
+  /* 특정 스터디의 가입상태를 변경(거절, 승인, 탈퇴)
+   * 매개변수: 스터디 참여번호
+   * 반환	:
+   * 작성자	: 신지혜
+   */
+  @Override
+  public void applyAction(String r_idx) {
+    log.debug("applyAction({}) invoked", r_idx );
+    this.mapper.applyAction(r_idx);
+
+
+  } // applyAction
+
+  // ------------------------------------------------------------------------------- //
 
 	@Override
 	public void destroy() throws Exception {
