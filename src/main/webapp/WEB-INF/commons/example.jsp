@@ -56,6 +56,8 @@
         <p><a href="/study/challenge/list">(예솔)여기 누르면 챌린지 리스트로</a> </p>
         <p><a href="/study/project/list">(예솔)여기 누르면 프로젝트 리스트로</a></p>
         <p>예솔 커밋테스트</p>
+
+        <p><a href="/manager/member/list">민ㅂ주</a></p>
       </div>
       <!--카드 Body 종료-->
     </div>
