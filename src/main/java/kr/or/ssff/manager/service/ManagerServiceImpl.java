@@ -3,6 +3,8 @@ package kr.or.ssff.manager.service;
 import kr.or.ssff.mapper.ManagerMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 
 @Service("managerService")
-public class ManagerServiceImpl implements ManagerService {
+public class ManagerServiceImpl implements ManagerService, InitializingBean, DisposableBean {
     @Autowired
     private ManagerMapper mapper;
 
@@ -53,15 +55,15 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public void destroy() throws Exception {
-// TODO Auto-generated method stub
+        log.info("destroy() is invoked");
     } // destroy
 
     @Override
     public void afterPropertiesSet() throws Exception {
-// TODO Auto-generated method stub
+        log.info("afterPropertiesSet() is invoked");
     } // afterPropertiesSet
 
-}
+}// end class
 
 
 

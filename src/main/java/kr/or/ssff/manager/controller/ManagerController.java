@@ -30,12 +30,20 @@ public class ManagerController {
      * 파라메터 : MemberVO 타입의 List --allMemberList
      * 반환 : 멤버리스트 조회페이지
      * */
-    @GetMapping("/member/list")
+
+    /*@GetMapping("/member/list")
     public String selectMemberList(List<MemberVO> allMemberList) {
         log.info("selectMemberList({}) is invoked", "allMemberList = " + allMemberList);
 
         return "manager/member/list";
-    } // selectMemberList
+    } // selectMemberList*/
+
+    @GetMapping("/member/list")
+    public String MemberListGo() {
+        log.info("selectMemberList() is invoked");
+
+        return "manager/member/list";
+    } // MemberListGo
 
     //TODO 상세정보 페이지에는 어떤 파라메터를 던져줘야하는지??
     //TODO
