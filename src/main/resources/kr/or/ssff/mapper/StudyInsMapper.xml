@@ -25,15 +25,12 @@
         values (#{file_No}, #{cont_No}, #{file_Name});
     </insert>
 
-    <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
-
-		<![CDATA[
+    <insert id="postCont">
+        insert into STUDY_INS_FILE (FILE_NO, CONT_NO, FILE_NAME)
         select *
-        from si_board
-        where cont_No = #{cont_No}
-        ]]>
-
-	</select>
+        from SI_BOARD si
+                 inner join STUDY_INS_FILE SIF on si.CONT_NO = SIF.CONT_NO
+    </insert>
 
     <select id="getList" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
 
@@ -52,6 +49,16 @@
         where cont_No = #{cont_No};
 
     </select>
+
+    <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+
+		<![CDATA[
+        select *
+        from si_board
+        where cont_No = #{cont_No}
+        ]]>
+
+	</select>
 
     <update id="update">
         update si_board

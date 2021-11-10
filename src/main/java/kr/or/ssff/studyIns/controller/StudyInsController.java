@@ -1,5 +1,7 @@
 package kr.or.ssff.studyIns.controller;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.Objects;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
@@ -49,6 +52,9 @@ public class StudyInsController implements InitializingBean, DisposableBean {
     @GetMapping("/board/fileBox/link")
     public String boardFileBoxLink(String boardId) {
         log.debug("boardFileBoxLink({}) is invoked", "boardId = " + boardId);
+
+
+
 
         return "studyIns/board/fileBoxLink";
     } // boardLink
@@ -283,8 +289,28 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/post")
-    public String studyBoardPost(StudyInsDTO studyInsDTO) {
-        log.debug("studyBoardPost({}) is invoked", "studyInsDTO = " + studyInsDTO);
+    public String studyBoardPost(StudyInsDTO studyInsDTO, MultipartFile[] uploadFile,RedirectAttributes rttrs) {
+        log.debug("studyBoardPost({} , {}) is invoked", "studyInsDTO = " + studyInsDTO , ", uploadFile = " + Arrays.deepToString(uploadFile));
+
+        String uploadFolder = "C:\\temp\\upload";
+
+        for (MultipartFile multipartFile : uploadFile) {
+            log.debug("------------------------------------");
+            log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
+            log.debug("Upload File Size : " + multipartFile.getSize());
+
+            File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+
+            try {
+                multipartFile.transferTo(saveFile);
+
+            } catch (Exception e) {
+                log.error(e.getMessage());
+
+            } // end catch
+        } // end for
+
+
 
         return "redirect:studyIns/board/detail";
     } // studyBoardPost

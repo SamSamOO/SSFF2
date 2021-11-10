@@ -14,13 +14,6 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
-	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/" />
-		<beans:property name="suffix" value=".jsp" />
-	</beans:bean>
-
-	<resources mapping="/resources/**" location="/resources/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -54,9 +47,10 @@
 <!--    </beans:bean>-->
 
 
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"/>
 	<!--예솔 작업-->
-	<context:component-scan base-package="kr.or.ssff.study.controller" />
-	<context:component-scan base-package="kr.or.ssff.study.service" />
+	<context:component-scan base-package="kr.or.ssff.study.controller"/>
+	<context:component-scan base-package="kr.or.ssff.study.service"/>
 
 	<!--상준 작업-->
 	<context:component-scan base-package="kr.or.ssff.studyIns.controller"/>

@@ -8,10 +8,13 @@
 <head>
     <title>게시물 상세 페이지입니다</title>
 
+
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"
+            integrity="sha512-3fMsI1vtU2e/tVxZORSEeuMhXnT9By80xlmXlsOku7hNwZSHJjwcOBpmy+uu+fyWwGCLkMvdVbHkeoXdAzBv+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -73,7 +76,7 @@
                             <!--카드 바디 시작-->
                             <div class="card-header border-0 pt-5 card-body mt-5">
                                 <div class="d-flex flex-row flex-column-fluid container">
-                                    <form action="/studyIns/board/post" method="post" id="formObj" style="width: 100%">
+                                    <form action="/studyIns/board/post" method="post" id="formObj" style="width: 100%" enctype="multipart/form-data">
 
                                         <input type="hidden" name="cont_No"
                                                value="<c:out value='${detail.cont_No}'/> "/>
@@ -130,7 +133,6 @@
                                                     <div class="uploadDiv">
                                                         <input type="file" name="uploadFile" multiple/>
                                                     </div>
-                                                    <button id="uploadBtn">Upload</button>
                                                 </td>
                                             </tr>
                                         </table>
@@ -225,35 +227,39 @@
     jQuery(document).ready(function () {
         KTQuilDemos.init();
     });
-    $(document).ready(function () {
-        $("#uploadBtn").on("click", function (e) {
-            e.preventDefault;
-            $(`#formObj`).attr('onsubmit', 'return false');
-
-            let formData = new FormData();
-            console.log(formData);
-            let inputFile = $("input[name='uploadFile']");
-            let files = inputFile[0].files;
-            console.log(files);
-
-            //add File Data to formData
-            for (let i = 0; i < files.length; i++) {
-                formData.append("uploadFile", files[i]);
-            }
-
-            $.ajax({
-                url: '/uploadAjaxAction',
-                processData: false,
-                contentType: false,
-                data: formData,
-                type: 'POST',
-                success: function (result) {
-                    alert("Uploaded");
-                }
-            }); // $ajax
-
-        });
-    });
+    // $(document).ready(function () {
+    //     $("#uploadBtn").on("click", function (e) {
+    //         e.preventDefault();
+    //         $(`#formObj`).attr('onsubmit','return false');
+    //
+    //         let formData = new FormData();
+    //
+    //         console.log(formData);
+    //         let inputFile = $("input[name='uploadFile']");
+    //         let files = inputFile[0].files;
+    //         console.log(files);
+    //
+    //         //add File Data to formData
+    //         for (let i = 0; i < files.length; i++) {
+    //             formData.append("uploadFile", files[i]);
+    //         }
+    //
+    //         $.ajax({
+    //             url: '/uploadAjaxAction',
+    //             processData: false,
+    //             contentType: false,
+    //             data: formData,
+    //             type: 'POST',
+    //             success: function (result) {
+    //                 alert("Uploaded");
+    //             },
+    //             error: function (result) {
+    //                 console.log(result);
+    //             }
+    //         }); // $ajax
+    //
+    //     });
+    // });
 </script>
 
 </html>
