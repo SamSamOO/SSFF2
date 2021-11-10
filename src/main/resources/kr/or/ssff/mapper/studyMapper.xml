@@ -3,8 +3,22 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="kr.or.ssff.study.mapper.StudyMapper">
-        
+<mapper namespace="kr.or.ssff.mapper.StudyMapper">
+  <insert id="insert">
+    <selectKey keyProperty="r_idx" order="BEFORE" resultType="int">
+      SELECT RECRUIT_BOARD_SQE.NEXTVAL
+      FROM dual
+    </selectKey>
+    INSERT INTO RECRUIT_BOARD (
+                               r_idx,member_name,type_pc,
+                               title,teamname,cont,hit,writedate,
+                               sido,ch_pattern,ch_start,ch_end
+                               )
+    VALUES(
+        #{r_idx}, 'admin', #{type_pc}, #{title},#{teamname},
+        #{cont},0,sysdate,#{sido},#{ch_pattern},#{ch_start},#{ch_end})
+  </insert>
+
 </mapper>
 
 
