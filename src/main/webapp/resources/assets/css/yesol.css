@@ -268,6 +268,22 @@ h3 {
 #sido-sec li{
   float: left;
 }
+#date-sec{
+  margin-top:20px;
+  margin-bottom:20px;
+  display:inline-block;
+}
+#date-sec span{
+  font-size: 16px;
+  font-weight: 500;
+}
+#date-sec ul{
+  list-style: none;
+}
+#date-sec li{
+  float: left;
+}
+
 /*제출 및 취소 버튼*/
 #button-sec ul{
   list-style: none;

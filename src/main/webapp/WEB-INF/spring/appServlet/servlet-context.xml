@@ -56,4 +56,7 @@
 	<context:component-scan base-package="kr.or.ssff.studyIns.controller"/>
 	<context:component-scan base-package="kr.or.ssff.studyIns.service"/>
 
+	<!--민주 작업-->
+	<context:component-scan base-package="kr.or.ssff.manager.controller"/>
+	<context:component-scan base-package="kr.or.ssff.manager.service"/>
 </beans:beans>
