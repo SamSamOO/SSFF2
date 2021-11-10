@@ -58,7 +58,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="d-flex align-items-center flex-wrap mr-2">
                                 <!--begin::Title-->
                                 <i class="fas fa-users"></i>&nbsp;&nbsp;
-                                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">Users</h5>
+                                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">회원 목록</h5>
                                 <!--end::Title-->
                                 <!--Breadcrumb : 로드맵 시작-->
                                 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -85,7 +85,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                                 <!--begin::Search Form 검색-->
                                 <div class="d-flex align-items-center" id="kt_subheader_search">
-                                    <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">450 Total</span>
+                                    <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">??? Total</span>
                                     <form class="ml-5">
                                         <div class="input-group input-group-sm input-group-solid"
                                              style="max-width: 175px">
