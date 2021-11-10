@@ -1,5 +1,6 @@
 package kr.or.ssff.mapper;
 
+import java.util.HashMap;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
 import kr.or.ssff.member.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberVO;
@@ -22,6 +23,6 @@ public interface MemberMapper {
 	public abstract List<MemberVO> getMemberList();
 
 	// 스터디 참여상태 변경
-	public abstract void applyAction(String r_idx);
+	public abstract void applyAction(HashMap<String, String> aMember);
 	
 } // end interface

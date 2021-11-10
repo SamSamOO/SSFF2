@@ -1,10 +1,8 @@
 package kr.or.ssff.member.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import kr.or.ssff.mapper.MemberMapper;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
-import kr.or.ssff.member.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -15,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 
 /*
  * 최초 작성자: 신지혜
@@ -101,9 +97,9 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
    * 작성자	: 신지혜
    */
   @Override
-  public void applyAction(String r_idx) {
-    log.debug("applyAction({}) invoked", r_idx );
-    this.mapper.applyAction(r_idx);
+  public void applyAction(HashMap<String, String> aMember) {
+    log.debug("applyAction({}) invoked", aMember );
+    this.mapper.applyAction(aMember);
 
 
   } // applyAction

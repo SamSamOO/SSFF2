@@ -79,8 +79,36 @@
 	</select>
 
 	<!-- 회원의 스터디 상태 변경  -->
-	<update id="applyAction" parameterType="String">
-		UPDATE apply_member SET study_join_arciwf = 'i' WHERE apply_idx =#{apply_idx}
+	<update id="applyAction" parameterType="hashMap" >
+
+	<choose>
+		<when test="action == 'refusal'"> <!-- 가입신청->거절 -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'r', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+		<when test="action == 'approval'"> <!-- 가입신청->승인 -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'i', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+		<when test="action == 'cancle'"> <!-- 가입신청->취소 -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'c', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+		<when test="action == 'withdrawal'"> <!-- 스터디 탈퇴 -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'w', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+		<when test="action == 'fail'"> <!-- 가입실패(결제x) -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'f', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+	</choose>
+
 	</update>
 </mapper>
 

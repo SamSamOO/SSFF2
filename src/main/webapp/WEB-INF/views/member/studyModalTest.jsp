@@ -319,11 +319,12 @@ License: You must have a valid license purchased only from themeforest(the above
                           <td class="datatable-cell" data-field="action"
                               aria-label="action"
                               style="width: 20%; text-align: center;">
-                            <%--<button type="submit" id="approvalBtn"
-                                    class="btn btn-light-success font-weight-bold mr-2">승인</button>
-                            <button type="button" id="refusalBtn"
-                                    class="btn btn-light-warning font-weight-bold mr-2">거부</button>--%>
-                            <a href="javascript:void(0);" data-value="re" onclick="fn_refusal('${applyMemberList.apply_idx}','refusal');return false;" class="btn btn-light-warning font-weight-bold mr-2">거부</a>
+                            <a href="javascript:void(0);" data-value="re"
+                                 onclick="applyAction('${applyMemberList.apply_idx}','approval');return false;"
+                                 class="btn btn-light-success font-weight-bold mr-2">승인</a>
+                            <a href="javascript:void(0);" data-value="re"
+                               onclick="applyAction('${applyMemberList.apply_idx}','refusal');return false;"
+                               class="btn btn-light-warning font-weight-bold mr-2">거부</a>
                           </td>
                         
                         
@@ -397,16 +398,16 @@ License: You must have a valid license purchased only from themeforest(the above
   매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
   작성자 : 신지혜
   */
-  function fn_refusal(apply_idx, action){
-    console.log(action)
-    
-    console.log($(this));
-    console.log("this?" + $(this).attr('text'));
-    console.log("this?" + $(this).attr('data-value'));
-    
-    if(!confirm("가입신청 거절 하시겠습니까?"))
-
+  function applyAction(apply_idx, action){
+    actionName =
+    action =='refusal' ? '가입신청 거절' :
+        action == 'approval' ? '가입신청 승인':
+            action == 'cancle' ? '가입신청 취소' :
+                                    '해당 스터디에서 탈퇴';
+    if(!confirm( actionName + " 하시겠습니까?")){
       return false;
+
+    }
 
     var submitObj = new Object();
     submitObj.apply_idx= apply_idx;
@@ -415,7 +416,7 @@ License: You must have a valid license purchased only from themeforest(the above
     console.log("JSON.stringify(submitObj): "+JSON.stringify(submitObj));
 
     $.ajax({
-      url: "/member/refusal_action",
+      url: "/member/apply_action",
       type: "POST",
       contentType: "application/json;charset=UTF-8",
       data:JSON.stringify(submitObj),
@@ -427,10 +428,10 @@ License: You must have a valid license purchased only from themeforest(the above
       
     })
     .fail(function(e) { // TODO 왜 성공했는데 fail타지요?
-      alert("거절 실패하였습니다.");
+      alert(actionName+ " 실패하였습니다.");
     })
     .done(function() {
-      alert("참여신청 거절처리 되었습니다.");
+      alert(actionName+ " 처리 되었습니다.");
     })
     .always(function() {
 

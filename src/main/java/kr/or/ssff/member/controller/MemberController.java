@@ -129,7 +129,7 @@ public class MemberController {
      * 반환: ??
      * 작성자: 신지혜
      * */
-    @PostMapping("/refusal_action") //TODO 다녀와서 승인버튼 클릭시 로직 구현 시작!
+    @PostMapping("/apply_action") //TODO 다녀와서 승인버튼 클릭시 로직 구현 시작!
     @ResponseBody
     public String applyAction(
         @RequestBody String filterJSON,
@@ -146,15 +146,10 @@ public class MemberController {
 
             HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
 
-            String searchIdx = String.valueOf(aMember.get("apply_idx"));
-            String searchAction = String.valueOf(aMember.get("action"));
+            log.info("\t+ aMember.get: {}",aMember.get("apply_idx"));
+            log.info("\t+ aMember.getaction: {}",aMember.get("action"));
 
-
-            log.info("\t+ searchAction: {}", searchAction);
-            log.info("\t+ searchIdx: {}", searchIdx);
-
-
-            this.service.applyAction(searchIdx);
+            this.service.applyAction(aMember);
 
         }catch(Exception e){
 

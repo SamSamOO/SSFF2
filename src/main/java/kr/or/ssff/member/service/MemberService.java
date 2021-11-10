@@ -1,7 +1,7 @@
 package kr.or.ssff.member.service;
 
+import java.util.HashMap;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
-import kr.or.ssff.member.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberVO;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public interface MemberService {
     public abstract List<ApplyMemberDTO> getApplyMemberList(String r_idx);
 
     // 스터디 가입 상태 변경
-    public abstract void applyAction(String r_idx);
+    public abstract void applyAction(HashMap<String, String> aMember);
 
 }// end interface
 
