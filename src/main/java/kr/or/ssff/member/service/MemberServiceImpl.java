@@ -91,7 +91,7 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 		return allApplyMemberList; 
 	} // getApplyMemberList
 
-  /* 특정 스터디의 가입상태를 변경(거절, 승인, 탈퇴)
+  /* 특정 스터디의 가입상태를 변경(거절, 승인, 탈퇴, 가입취소, 실패)
    * 매개변수: 스터디 참여번호
    * 반환	:
    * 작성자	: 신지혜

@@ -129,7 +129,7 @@ public class MemberController {
      * 반환: ??
      * 작성자: 신지혜
      * */
-    @PostMapping("/apply_action") //TODO 다녀와서 승인버튼 클릭시 로직 구현 시작!
+    @PostMapping("/apply_action")
     @ResponseBody
     public String applyAction(
         @RequestBody String filterJSON,

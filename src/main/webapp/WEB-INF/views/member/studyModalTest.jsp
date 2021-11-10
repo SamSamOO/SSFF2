@@ -44,14 +44,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 <body id="kt_body" class="header-fixed subheader-enabled page-loading">
-<hr>
 
-<!-- Model객체 전달여부 확인 좀  -->
-<%-- 1. applyMemberList: ${applyMemberList}
-  1. applyMemberList: ${applyMemberList[0].recruitBoardDTO.teamname}  --%>
-
-
-<hr>
 <!----------------메인 시작----------------------->
 <div class="d-flex flex-column flex-root">
   <!----------------페이지 시작----------------------->
@@ -70,20 +63,18 @@ License: You must have a valid license purchased only from themeforest(the above
         
         <!---------------- 지혜: 신청자/멤버 명단 모달창 시작 -------------------->
         <a href="#" class="btn btn-light-danger font-weight-bold"
-           data-toggle="modal" data-target="#memberListModal" onclick="pager();">멤버확인</a>
+           data-toggle="modal" data-target="#memberListModal" onclick="x();pager();">멤버확인</a>
         
         <div id="memberListModal" class="modal fade" role="dialog"
              aria-hidden="true">
           <div class="modal-dialog modal-xl">
             <div class="modal-content" style="min-height: 590px;">
               <div class="modal-header py-5" id="studyMemberTab">
-                <!--//TODO 호버, 클릭시 하단 리스트 on js-->
-                <div id="btnMemberList" style="width: 45%; background-color: #3c763d"><h5 class="modal-title">
+                <div id="btnMemberList" class="btn btn-success btn-lg btn-block"><h5 class="modal-title">
                   스터디 멤버 <span class="d-block text-muted font-size-sm">
 											스터디 멤버를 확인해보세요!</span>
                 </h5></div>
-                <!--//TODO 호버, 개설자일 때 display="" js, 클릭시 하단 리스트 on -->
-                <div id="btnApplyMemberList" style="width: 45%; background-color: #1c8b37"><h5 class="modal-title">
+                <div id="btnApplyMemberList" class="btn btn-primary btn-lg btn-block" style="display:none;"><h5 class="modal-title">
                   참여 신청자<span class="d-block text-muted font-size-sm">
                   가입신청한 회원을 확인해보세요!</span>
                 </h5></div>
@@ -95,287 +86,9 @@ License: You must have a valid license purchased only from themeforest(the above
                 </button>
               </div>
               <!--------------------------- 현재멤버 시작---------------------------->
-<%--                            <div class="modal-body" style="display: none;">--%>
-<%--                              <!--begin::Search Form-->--%>
-<%--                              <div class="mb-5">--%>
-<%--                                <div class="row align-items-center">--%>
-<%--                                  <div class="col-lg-9 col-xl-8">--%>
-<%--                                    <div class="row align-items-center">--%>
-<%--                                      <div class="col-md-4 my-2 my-md-0">--%>
-<%--                                        <div class="input-icon">--%>
-<%--                                          <input type="text" class="form-control"--%>
-<%--                                                 placeholder="Search..." id="kt_datatable_search_query_3"/>--%>
-<%--                                          <span> <i class="flaticon2-search-1 text-muted"></i>--%>
-<%--              															</span>--%>
-<%--                                        </div>--%>
-<%--                                      </div>--%>
-<%--                                    --%>
-<%--                                    </div>--%>
-<%--                                  </div>--%>
-<%--                                  <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">--%>
-<%--                                    <a href="#"--%>
-<%--                                       class="btn btn-light-primary px-6 font-weight-bold">Search</a>--%>
-<%--                                  </div>--%>
-<%--                                </div>--%>
-<%--                              </div>--%>
-<%--                              <!--end::Search Form-->--%>
-<%--                              --%>
-<%--                              --%>
-<%--                              <!--begin: Datatable-->--%>
-<%--                              <div--%>
-<%--                                  class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"--%>
-<%--                                  id="studyMemberList">--%>
-<%--                                <table class="datatable-table"--%>
-<%--                                       style="display: block; min-height: 400px; max-height: 400px;">--%>
-<%--                                  --%>
-<%--                                  <thead class="datatable-head">--%>
-<%--                                  <tr class="datatable-row" style="left: 0px;">--%>
-<%--                                    <th data-field=""--%>
-<%--                                        class="datatable-cell datatable-cell-sort"--%>
-<%--                                        style="width: 5%; text-align: center;"><span>&nbsp;</span></th>--%>
-<%--                                    --%>
-<%--                                    <th data-field="Number"--%>
-<%--                                        class="datatable-cell datatable-cell-sort"--%>
-<%--                                        style="width: 10%;"><span>#</span></th>--%>
-<%--                                    --%>
-<%--                                    <th data-field="studyTeamName"--%>
-<%--                                        class="datatable-cell datatable-cell-sort"--%>
-<%--                                        style="width: 45%;"><span style="text-align: center;">study&nbsp;Team&nbsp;Name</span>--%>
-<%--                                    </th>--%>
-<%--                                    --%>
-<%--                                    <th data-field="NickName"--%>
-<%--                                        class="datatable-cell datatable-cell-sort"--%>
-<%--                                        style="width: 40%;"><span style="text-align: center;">NickName</span></th>--%>
-<%--                                  </tr>--%>
-<%--                                  </thead>--%>
-<%--                                  --%>
-<%--                                  <tbody class="datatable-body ps">--%>
-<%--                                  <c:set var="num" value="0"/>--%>
-<%--                                  <c:forEach items="${applyMemberList}" var="applyMemberList">--%>
-<%--                                    <c:if test="${applyMemberList.study_join_arciwf eq 105}">--%>
-<%--                                      --%>
-<%--                                      --%>
-<%--                                        <c:set var="num" value="${num+1}"/>--%>
-<%--                                        <tr data-row="${num}" class="datatable-row" style="left: 0px;">--%>
-<%--                                          <td class="datatable-cell" data-field=""--%>
-<%--                                              style="width: 5%;"><span>&nbsp;</span></td>--%>
-<%--                                          --%>
-<%--                                          <td class="datatable-cell" data-field="Number"--%>
-<%--                                              aria-label="${num}" style="width: 10%;"><span>${num}</span>--%>
-<%--                                          </td>--%>
-<%--                                          --%>
-<%--                                          <td class="datatable-cell" data-field="studyTeamName"--%>
-<%--                                              aria-label="${applyMemberList.recruitBoardDTO.teamname}"--%>
-<%--                                              style="width: 45%;">--%>
-<%--                                            <span>${applyMemberList.recruitBoardDTO.teamname}</span>--%>
-<%--                                          </td>--%>
-<%--                                          --%>
-<%--                                          --%>
-<%--                                          <td data-field="NickName"--%>
-<%--                                              aria-label="${applyMemberList.member_name}"--%>
-<%--                                              class="datatable-cell" style="width: 40%;"><span>--%>
-<%--              																		<img class="symbol symbol-40 symbol-sm flex-shrink-0"--%>
-<%--                                                       src="${applyMemberList.memberDTO.member_profile}" alt="photo"--%>
-<%--                                                       style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->--%>
-<%--              																		${applyMemberList.member_name}--%>
-<%--              																</span></td>--%>
-<%--                                        --%>
-<%--                                        </tr>--%>
-<%--                                      --%>
-<%--                                    --%>
-<%--                                    </c:if>--%>
-<%--                                  </c:forEach>--%>
-<%--                                  <div class="ps__rail-x"><div class="ps__thumb-x" tabindex="0"></div></div>--%>
-<%--                                  <div class="ps__rail-y"><div class="ps__thumb-y" tabindex="0"></div></div>--%>
-<%--                                  </tbody>--%>
-<%--                                </table>--%>
-<%--                              --%>
-<%--                              </div>--%>
-<%--                              --%>
-<%--                              <div class="datatable-pager datatable-paging-loaded">--%>
-<%--                                <ul class="datatable-pager-nav my-2 mb-sm-0"></ul>--%>
-<%--                --%>
-<%--                                <div class="datatable-pager-info my-2 mb-sm-0">--%>
-<%--                                  <div class="dropdown bootstrap-select datatable-pager-size"--%>
-<%--                                       style="width: 60px;">--%>
-<%--                                    <select class="selectpicker datatable-pager-size"--%>
-<%--                                            title="Select page size" data-width="60px"--%>
-<%--                                            data-container="body" data-selected="5" id="pageSizePicker">--%>
-<%--                      --%>
-<%--                                      <option value="5">5</option>--%>
-<%--                                      <option value="10">10</option>--%>
-<%--                                      <option value="20">20</option>--%>
-<%--                                      <option value="30">30</option>--%>
-<%--                                      <option value="50">50</option>--%>
-<%--                                      <option value="100">100</option>--%>
-<%--                                    </select>--%>
-<%--                    --%>
-<%--                                    <div class="dropdown-menu ">--%>
-<%--                                      <div class="inner show" role="listbox" id="bs-select-10" tabindex="-1">--%>
-<%--                                        <ul class="dropdown-menu inner show" role="presentation"></ul>--%>
-<%--                                      </div>--%>
-<%--                                    </div>--%>
-<%--                                  </div>--%>
-<%--                                  <span class="datatable-pager-detail">Showing 11 - 15 of 1000</span>--%>
-<%--                                </div>--%>
-<%--                              </div>--%>
-              <!--------------------------- 현재멤버 종료---------------------------->
-              
-              
-              <!--------------------------- 가입신청자명단 시작---------------------------->
-              <div class="modal-body">
-                <!--begin::Search Form-->
-                <div class="mb-5">
-                  <div class="row align-items-center">
-                    <div class="col-lg-9 col-xl-8">
-                      <div class="row align-items-center">
-                        <div class="col-md-4 my-2 my-md-0">
-                          <div class="input-icon">
-                            <input type="text" class="form-control"
-                                   placeholder="Search..." id="kt_datatable_search_query_3"/>
-                            <span> <i class="flaticon2-search-1 text-muted"></i>
-															</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                      <a href="#"
-                         class="btn btn-light-primary px-6 font-weight-bold">Search</a>
-                    </div>
-                  </div>
-                </div>
-                <!--end::Search Form-->
-                
-                
-                <!--begin: Datatable-->
-                <div
-                    class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
-                    id="studyMemberList">
-                  <table class="datatable-table"
-                         style="display: block; min-height: 400px; max-height: 400px;">
-                    
-                    <thead class="datatable-head">
-                    <tr class="datatable-row" style="left: 0px;">
-                   
-                      
-                      <th data-field="number"
-                          class="datatable-cell datatable-cell-sort"
-                          style="width: 5%;"><span style="text-align: center;">#</span></th>
-                      <th data-field="applyIdx"
-                          class="datatable-cell datatable-cell-sort"
-                          style="width: 15%;"><span style="text-align: center;">apply idx</span></th>
-                      <th data-field="studyTeamName"
-                          class="datatable-cell datatable-cell-sort"
-                          style="width: 25%;"><span
-                          style="text-align: center;">study Team Name</span></th>
-                      
-                      <th data-field="nickName"
-                          class="datatable-cell datatable-cell-sort"
-                          style="width: 25%;"><span style="text-align: center;">NickName</span></th>
-                      
-                      
-                      <th data-field="action"
-                          class="datatable-cell datatable-cell-sort"
-                          style="width: 20%;"><span style="text-align: center;">action</span></th>
-                    </tr>
-                    </thead>
-                    
-                    <tbody class="datatable-body ps">
-                    <c:set var="num" value="0"/>
-                    
-                    <c:forEach items="${applyMemberList}" var="applyMemberList">
-                      <!-- 대기a97, 거절r72, 취소c99, 가입중i105, 탈퇴w119, 실패(결제x)f114 -->
-                      <c:if test="${applyMemberList.study_join_arciwf eq 97}">
-                        
-                        
-                        <c:set var="num" value="${num+1}"/>
-                        <tr data-row="${num}" class="datatable-row" style="left: 0px;">
-                          
-                          <td class="datatable-cell" data-field="Number"
-                              aria-label="${num}" style="width: 5%;"><span style="text-align: center;">${num}</span>
-                          </td>
-                          <td class="datatable-cell" data-field="applyIdx"
-                              aria-label="${applyMemberList.apply_idx}"
-                              style="width: 15%;">
-                            <span style="text-align: center;">${applyMemberList.apply_idx}</span>
-                          </td>
-                          <td class="datatable-cell" data-field="studyTeamName"
-                              aria-label="${applyMemberList.recruitBoardDTO.teamname}"
-                              style="width: 25%;">
-                            <span style="text-align: center;">${applyMemberList.recruitBoardDTO.teamname}</span>
-                          </td>
-                          
-                          <td data-field="NickName"
-                              aria-label="${applyMemberList.member_name}"
-                              class="datatable-cell" style="width: 25%;"><span style="text-align: center;">
-																		<img class="symbol symbol-40 symbol-sm flex-shrink-0"
-                                         src="${applyMemberList.memberDTO.member_profile}"
-                                         alt="photo"
-                                         style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
-																		${applyMemberList.member_name}
-																</span></td>
-                          
-                          <td class="datatable-cell" data-field="action"
-                              aria-label="action"
-                              style="width: 20%; text-align: center;">
-                            <a href="javascript:void(0);" data-value="re"
-                                 onclick="applyAction('${applyMemberList.apply_idx}','approval');return false;"
-                                 class="btn btn-light-success font-weight-bold mr-2">승인</a>
-                            <a href="javascript:void(0);" data-value="re"
-                               onclick="applyAction('${applyMemberList.apply_idx}','refusal');return false;"
-                               class="btn btn-light-warning font-weight-bold mr-2">거부</a>
-                          </td>
-                        
-                        
-                        </tr>
-                      
-                      
-                      </c:if>
-                    </c:forEach>
-                    <div class="ps__rail-x">
-                      <div class="ps__thumb-x" tabindex="0"></div>
-                    </div>
-                    <div class="ps__rail-y">
-                      <div class="ps__thumb-y" tabindex="0"></div>
-                    </div>
-                    </tbody>
-                  </table>
-                
-                </div>
-                
-                <div class="datatable-pager datatable-paging-loaded">
-                  <ul class="datatable-pager-nav my-2 mb-sm-0"></ul>
-                  
-                  <div class="datatable-pager-info my-2 mb-sm-0">
-                    <div class="dropdown bootstrap-select datatable-pager-size"
-                         style="width: 60px;">
-                      <select class="selectpicker datatable-pager-size"
-                              title="Select page size" data-width="60px"
-                              data-container="body" data-selected="5" id="pageSizePicker">
-                        
-                        <option value="5">5</option>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                      </select>
-                      
-                      <div class="dropdown-menu ">
-                        <div class="inner show" role="listbox" id="bs-select-10" tabindex="-1">
-                          <ul class="dropdown-menu inner show" role="presentation"></ul>
-                        </div>
-                      </div>
-                    </div>
-                    <span class="datatable-pager-detail">Showing 11 - 15 of 1000</span>
-                  </div>
-                </div>
-                
-                <!--------------------------- 가입신청자명단 종료---------------------------->
-                <!--end: Datatable-->
-              
-              
+             <div class="modal-body">
+>
+
               </div>
             </div>
           </div>
@@ -392,7 +105,280 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!----------------Body 종료----------------------->
 <script type="text/javascript">
+  
+  function x() { // TODO 멤버 확인버튼 누를때 스터디번호, 개설자여부 받아와야함! 민주, 예솔 작업시 버튼에 값 매칭하기
+    let putHtml = '';
+    putHtml +=
+      `<div class="mb-5">
+        <div class="row align-items-center">
+          <div class="col-lg-9 col-xl-8">
+            <div class="row align-items-center">
+              <div class="col-md-4 my-2 my-md-0">
+                <div class="input-icon">
+                  <input type="text" class="form-control"
+                         placeholder="Search..." id="kt_datatable_search_query_3"/>
+                  <span> <i class="flaticon2-search-1 text-muted"></i>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+            <a href="#"
+               class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+          </div>
+        </div>
+      </div>`
+    
+    // 일반 회원이라면
+      putHtml +=
 
+          `<div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
+        id="studyMemberList">
+      <table class="datatable-table"
+             style="display: block; min-height: 400px; max-height: 400px;">
+        
+        <thead class="datatable-head">
+        <tr class="datatable-row" style="left: 0px;">
+          <th data-field=""
+              class="datatable-cell datatable-cell-sort"
+              style="width: 5%; text-align: center;"><span>&nbsp;</span></th>
+          
+          <th data-field="Number"
+              class="datatable-cell datatable-cell-sort"
+              style="width: 10%;"><span>#</span></th>
+          
+          <th data-field="studyTeamName"
+              class="datatable-cell datatable-cell-sort"
+              style="width: 45%;"><span style="text-align: center;">study&nbsp;Team&nbsp;Name</span>
+          </th>
+          
+          <th data-field="NickName"
+              class="datatable-cell datatable-cell-sort"
+              style="width: 40%;"><span style="text-align: center;">NickName</span></th>
+        </tr>
+        </thead>
+        
+        <tbody class="datatable-body ps">
+        <c:set var="num" value="0"/>
+        <c:forEach items="${applyMemberList}" var="applyMemberList">
+          <c:if test="${applyMemberList.study_join_arciwf eq 105}">
+            
+              <c:set var="num" value="${num+1}"/>
+              <tr data-row="${num}" class="datatable-row" style="left: 0px;">
+                <td class="datatable-cell" data-field=""
+                    style="width: 5%;"><span>&nbsp;</span></td>
+                
+                <td class="datatable-cell" data-field="Number"
+                    aria-label="${num}" style="width: 10%;"><span>${num}</span>
+                </td>
+                
+                <td class="datatable-cell" data-field="studyTeamName"
+                    aria-label="${applyMemberList.recruitBoardDTO.teamname}"
+                    style="width: 45%;">
+                  <span>${applyMemberList.recruitBoardDTO.teamname}</span>
+                </td>
+                
+                
+                <td data-field="NickName"
+                    aria-label="${applyMemberList.member_name}"
+                    class="datatable-cell" style="width: 40%;"><span>
+                        <img class="symbol symbol-40 symbol-sm flex-shrink-0"
+                             src="${applyMemberList.memberDTO.member_profile}" alt="photo"
+                             style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
+                        ${applyMemberList.member_name}
+                    </span></td>
+              </tr>
+          
+          </c:if>
+        </c:forEach>
+        <div class="ps__rail-x"><div class="ps__thumb-x" tabindex="0"></div></div>
+        <div class="ps__rail-y"><div class="ps__thumb-y" tabindex="0"></div></div>
+        </tbody>
+      </table>
+    
+    </div>
+    
+    <div id="s-dtbl-pager" class="datatable-pager datatable-paging-loaded">
+      <ul class="datatable-pager-nav my-2 mb-sm-0"></ul>
+
+      <div class="datatable-pager-info my-2 mb-sm-0">
+        <div class="dropdown bootstrap-select datatable-pager-size"
+             style="width: 60px;">
+          <select class="selectpicker datatable-pager-size"
+                  title="Select page size" data-width="60px"
+                  data-container="body" data-selected="5" id="pageSizePicker">
+
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+
+          <div class="dropdown-menu">
+            <div class="inner show" role="listbox" id="bs-select-10" tabindex="-1">
+              <ul class="dropdown-menu inner show" role="presentation"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`
+    
+    if(1==1){     // TODO 개설자라면
+      // 참여신청자 버튼이 보이도록
+      $("#btnApplyMemberList").attr('style', ('display:""'));
+      putHtml +=
+      `<!--begin: Datatable-->
+        <div
+            class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
+            id="applyMemberList" style="display:none;">
+          <table class="datatable-table"
+                 style="display: block; min-height: 400px; max-height: 400px;">
+            
+            <thead class="datatable-head">
+            <tr class="datatable-row" style="left: 0px;">
+           
+              
+              <th data-field="number"
+                  class="datatable-cell datatable-cell-sort"
+                  style="width: 5%;"><span style="text-align: center;">#</span></th>
+              <th data-field="applyIdx"
+                  class="datatable-cell datatable-cell-sort"
+                  style="width: 15%;"><span style="text-align: center;">apply idx</span></th>
+              <th data-field="studyTeamName"
+                  class="datatable-cell datatable-cell-sort"
+                  style="width: 25%;"><span
+                  style="text-align: center;">study Team Name</span></th>
+              
+              <th data-field="nickName"
+                  class="datatable-cell datatable-cell-sort"
+                  style="width: 25%;"><span style="text-align: center;">NickName</span></th>
+              
+              
+              <th data-field="action"
+                  class="datatable-cell datatable-cell-sort"
+                  style="width: 20%;"><span style="text-align: center;">action</span></th>
+            </tr>
+            </thead>
+            
+            <tbody class="datatable-body ps">
+            <c:set var="num" value="0"/>
+            
+            <c:forEach items="${applyMemberList}" var="applyMemberList">
+              <!-- 대기a97, 거절r72, 취소c99, 가입중i105, 탈퇴w119, 실패(결제x)f114 -->
+              <c:if test="${applyMemberList.study_join_arciwf eq 97}">
+                
+                
+                <c:set var="num" value="${num+1}"/>
+                <tr data-row="${num}" class="datatable-row" style="left: 0px;">
+                  
+                  <td class="datatable-cell" data-field="Number"
+                      aria-label="${num}" style="width: 5%;"><span style="text-align: center;">${num}</span>
+                  </td>
+                  <td class="datatable-cell" data-field="applyIdx"
+                      aria-label="${applyMemberList.apply_idx}"
+                      style="width: 15%;">
+                    <span style="text-align: center;">${applyMemberList.apply_idx}</span>
+                  </td>
+                  <td class="datatable-cell" data-field="studyTeamName"
+                      aria-label="${applyMemberList.recruitBoardDTO.teamname}"
+                      style="width: 25%;">
+                    <span style="text-align: center;">${applyMemberList.recruitBoardDTO.teamname}</span>
+                  </td>
+                  
+                  <td data-field="NickName"
+                      aria-label="${applyMemberList.member_name}"
+                      class="datatable-cell" style="width: 25%;"><span style="text-align: center;">
+                            <img class="symbol symbol-40 symbol-sm flex-shrink-0"
+                                 src="${applyMemberList.memberDTO.member_profile}"
+                                 alt="photo"
+                                 style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
+                            ${applyMemberList.member_name}
+                        </span></td>
+                  
+                  <td class="datatable-cell" data-field="action"
+                      aria-label="action"
+                      style="width: 20%; text-align: center;">
+                    <a href="javascript:void(0);" data-value="re"
+                         onclick="applyAction('${applyMemberList.apply_idx}','approval');return false;"
+                         class="btn btn-light-success font-weight-bold mr-2">승인</a>
+                    <a href="javascript:void(0);" data-value="re"
+                       onclick="applyAction('${applyMemberList.apply_idx}','refusal');return false;"
+                       class="btn btn-light-warning font-weight-bold mr-2">거부</a>
+                  </td>
+                </tr>
+              
+              </c:if>
+            </c:forEach>
+            <div class="ps__rail-x">
+              <div class="ps__thumb-x" tabindex="0"></div>
+            </div>
+            <div class="ps__rail-y">
+              <div class="ps__thumb-y" tabindex="0"></div>
+            </div>
+            </tbody>
+          </table>
+        
+        </div>
+        <div id="a-dtbl-pager" class="datatable-pager datatable-paging-loaded" style="display:none;">
+          <ul class="datatable-pager-nav my-2 mb-sm-0"></ul>
+
+          <div class="datatable-pager-info my-2 mb-sm-0">
+            <div class="dropdown bootstrap-select datatable-pager-size"
+                 style="width: 60px;">
+              <select class="selectpicker datatable-pager-size"
+                      title="Select page size" data-width="60px"
+                      data-container="body" data-selected="5" id="pageSizePicker">
+  
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+
+              <div class="dropdown-menu">
+                <div class="inner show" role="listbox" id="bs-select-10" tabindex="-1">
+                  <ul class="dropdown-menu inner show" role="presentation"></ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`
+
+
+    } // if-else
+    
+    
+    
+    $('.modal-body').html(putHtml);
+  }
+  // TODO 페이징 공유되는 에러 잡기~~
+  $("#btnMemberList").click(function () { // studyMemberList
+    $("#btnApplyMemberList").attr('style', ('background-color:white'));
+    $("#applyMemberList").attr('style', ('display:none'));
+    $("#a-dtbl-pager").attr('style', ('display:none'));
+    $("#btnMemberList").attr('style', ('background-color:red'));
+    $("#studyMemberList").attr('style', ('display:""'));
+    $("#s-dtbl-pager").attr('style', ('display:""'));
+    
+  })
+  
+  $("#btnApplyMemberList").click(function () {// studyMemberList
+    $("#btnMemberList").attr('style', ('background-color:white'));
+    $("#studyMemberList").attr('style', ('display:none'));
+    $("#s-dtbl-pager").attr('style', ('display:none'));
+    $("#btnApplyMemberList").attr('style', ('background-color:red'));
+    $("#applyMemberList").attr('style', ('display:""'));
+    $("#a-dtbl-pager").attr('style', ('display:""'));
+  })
+  // 멤버목록 버튼 클릭시에 리스트가 보였다 안보였다 toggle
+
+  
+  
   /* 회원의 스터디 참여 상태 정보를 변경하는 함수
      가입신청 [거절, 승인] , [탈퇴]
   매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
@@ -423,12 +409,16 @@ License: You must have a valid license purchased only from themeforest(the above
       dataType : "json",
       error:function(request,status,error){
         console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+       
       }
 
       
     })
     .fail(function(e) { // TODO 왜 성공했는데 fail타지요?
       alert(actionName+ " 실패하였습니다.");
+      x();pager(); // TODO 왜 다시 못 뿌려주지요??
+      console.log("x();pager();");
+
     })
     .done(function() {
       alert(actionName+ " 처리 되었습니다.");
@@ -564,24 +554,7 @@ License: You must have a valid license purchased only from themeforest(the above
       }); // click-fn
     } // pager()
 
-    //현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
-    function displayData(currentPage, dataPerPage) {
-//기본 셋팅에서-> 숫자로 값 변동이 일어난다면 내용 숨기고 몇번째~몇번째 display만 변경하는 형식,
-      let chartHtml = "";
-      $('.datatable-body .datatable-row').attr('style', ('display:none'));
-      // $('tr[data-row="' +i+ '"]').attr('style', ('display:none'));
-//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림..
-      currentPage = Number(currentPage);
-      dataPerPage = Number(dataPerPage);
-
-      for (
-          var i = ((currentPage) - 1) * dataPerPage + 1;
-          i <= (currentPage - 1) * dataPerPage + dataPerPage;
-          i++
-      ) {
-        $('tr[data-row="' + i + '"]').attr('style', ('display:""'));
-      } // for
-    } // displayData()
+   
 
     // 페이지 사이즈 드롭다운 선택하면 화면단에서 적용하여 출력
     $('#pageSizePicker').change(function () {
@@ -593,7 +566,25 @@ License: You must have a valid license purchased only from themeforest(the above
     }); // change-fn
   }
 
+  //현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
+  function displayData(currentPage, dataPerPage) {
+//기본 셋팅에서-> 숫자로 값 변동이 일어난다면 내용 숨기고 몇번째~몇번째 display만 변경하는 형식,
+    let chartHtml = "";
+    $('.datatable-body .datatable-row').attr('style', ('display:none'));
+    // $('tr[data-row="' +i+ '"]').attr('style', ('display:none'));
+//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림..
+    currentPage = Number(currentPage);
+    dataPerPage = Number(dataPerPage);
 
+    for (
+        var i = ((currentPage) - 1) * dataPerPage + 1;
+        i <= (currentPage - 1) * dataPerPage + dataPerPage;
+        i++
+    ) {
+      $('tr[data-row="' + i + '"]').attr('style', ('display:""'));
+    } // for
+  } // displayData()
+  
 </script>
 </html>
 
