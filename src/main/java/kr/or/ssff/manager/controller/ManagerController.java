@@ -20,7 +20,7 @@ import java.util.List;
 @Log4j2
 
 @Controller
-@RequestMapping("/manager/*")
+@RequestMapping("/manager")
 public class ManagerController {
 
     @Autowired
