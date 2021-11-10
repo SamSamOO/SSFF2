@@ -235,9 +235,11 @@ public class StudyController {
      * */
     @PostMapping("/comment/remove")
     public String deleteComment() {
+
         log.info("deleteComment() is invoked");
 
         return "";
+
     }
 
 

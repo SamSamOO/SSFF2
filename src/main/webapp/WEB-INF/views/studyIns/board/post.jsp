@@ -137,7 +137,6 @@
                                     </form>
 
 
-
                                 </div>
                                 <!--카드 바디 종료-->
 
@@ -245,8 +244,13 @@
             $.ajax({
                 url: '/uploadAjaxAction',
                 processData: false,
-                contentType :
-            });
+                contentType: false,
+                data: formData,
+                type: 'POST',
+                success: function (result) {
+                    alert("Uploaded");
+                }
+            }); // $ajax
 
         });
     });
