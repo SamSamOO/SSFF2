@@ -237,7 +237,7 @@
             console.log(files);
 
             //add File Data to formData
-            for (let i = 0; i < files.length(); i++) {
+            for (let i = 0; i < files.length; i++) {
                 formData.append("uploadFile", files[i]);
             }
 
