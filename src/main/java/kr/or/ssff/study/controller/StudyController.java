@@ -1,5 +1,7 @@
 package kr.or.ssff.study.controller;
 
+import kr.or.ssff.study.domain.RecruitBoardDTO;
+import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
 
@@ -70,12 +73,30 @@ public class StudyController {
      * 반환 : 등록한 게시글 페이지로 이동합니다
      * //TODO 해당 작성한 게시글의 게시물번호를 파라메터로 전송해야합니다.
      * */
-    @PostMapping("/challenge/list/post")
-    public String insertChellengeDetail() {
+    @PostMapping("/challenge/post")
+    public String insertChallengeDetail(RecruitBoardDTO dto, RedirectAttributes rttrs) {
+        log.info("insertChallengeDetail() is invoked");
+        System.out.println("\t+ dto: " + dto);
+        log.info("\t+ dto: " + dto);
 
-        log.info("insertChellengeDetail() is invoked");
+        RecruitBoardVO vo =
+            new RecruitBoardVO(
+                null,null,'C',
+                dto.getTitle(),
+                dto.getTeamname(),
+                dto.getCont(),
+                null,
+                null,
+                dto.getSido(),
+                dto.getCh_pattern(),
+                dto.getCh_start(),
+                dto.getCh_end(),
+                null,null,null
+            );
 
-        return "redirect:/study/challenge/list/detail";
+        boolean result = this.service.register(vo);
+
+        return "redirect:/study/challenge/list";
     } // insertChellengeDetail
 
     /*챌린지형 게시글 수정 페이지로 이동합니다.
@@ -161,12 +182,12 @@ public class StudyController {
      * 반환 : 등록한 게시글 페이지로 이동합니다
      * //TODO 해당 작성한 게시글의 게시물번호를 파라메터로 전송해야합니다.
      * */
-    @PostMapping("/project/list/post")
-    public String insertProjectDetail() {
+    @PostMapping("/project/post")
+    public String insertProjectDetail(RecruitBoardDTO dto, RedirectAttributes rttrs) {
 
         log.info("insertProjectDetail() is invoked");
 
-        return "redirect:/study/project/list/detail";
+        return "redirect:/study/project/list";
     } // insertProjectDetail
 
     /*챌린지형 게시글 수정 페이지로 이동합니다.
@@ -235,10 +256,13 @@ public class StudyController {
      * */
     @PostMapping("/comment/remove")
     public String deleteComment() {
+
         log.info("deleteComment() is invoked");
 
         return "";
+
     }
+
 
 } // end class
 

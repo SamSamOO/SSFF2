@@ -1,5 +1,8 @@
 package kr.or.ssff.study.service;
 
+import kr.or.ssff.mapper.StudyMapper;
+import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.mapper.StudyMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -15,10 +18,17 @@ import java.util.List;
 @Service("studyService")
 public class StudyServiceImpl implements StudyService {
 
+    private StudyMapper mapper;
+
     @Override
-    public boolean register() {
-        return false;
-    }
+    public boolean register(RecruitBoardVO vo) {
+
+        int affectedRows = mapper.insert(vo);
+
+        log.info("\t + affectedRows:{}", affectedRows);
+
+        return affectedRows == 1;
+    }//register
 
     @Override
     public boolean modify() {

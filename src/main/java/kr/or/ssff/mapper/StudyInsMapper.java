@@ -1,9 +1,9 @@
 package kr.or.ssff.mapper;
 
+import java.util.List;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
-
-import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /*
@@ -16,7 +16,20 @@ public interface StudyInsMapper {
 
     public StudyInsVO read(Integer cont_No);
 
-    public boolean remove(Integer cont_No);
+    public Boolean remove(Integer cont_No);
 
-    public int update(StudyInsDTO studyIns);
+    public Integer update(StudyInsDTO studyInsDTO);
+
+    public void insert(StudyInsDTO studyInsDTO);
+
+    public void delete(String uuid);
+
+
+    public List<StudyInsDTO> findByCont_No(Integer cont_No);
+
+    //게시물 생성 .. 파일 보드..
+    public Integer insertBoardAndFiles(StudyInsDTO studyInsDTO, MultipartFile[] uploadFiles);
+
+    //cont_No가 가장 높은 게시물 번호 들고옴
+    public Integer findMaxContNo();
 }

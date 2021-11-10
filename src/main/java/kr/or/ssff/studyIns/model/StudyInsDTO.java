@@ -1,5 +1,6 @@
 package kr.or.ssff.studyIns.model;
 
+import java.util.List;
 import lombok.Data;
 
 import java.util.Date;
@@ -19,6 +20,7 @@ public class StudyInsDTO {
     private String cont;                        //내용
     private String category;                //카테고리
     private String title;                        // 글 제목
+
 }
 
 

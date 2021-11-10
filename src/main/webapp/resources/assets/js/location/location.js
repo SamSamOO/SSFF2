@@ -86,6 +86,11 @@ $(function() {
                 "제주특별자치도": [
                     "전체","제주시", "서귀포시"
                 ]
+            },
+            {
+                "온라인": [
+                    "온라인/비대면"
+                ]
             }
         ]
     }
@@ -132,6 +137,7 @@ $(function() {
     let sidoarr15 =data.data[14].전라북도;
     let sidoarr16 =data.data[15].전라남도;
     let sidoarr17 =data.data[16].제주특별자치도;
+    let sidoarr18 =data.data[17].온라인;
     $("select[name=location1]").change(function(){
         let test = $(this).val();
         if(test == "서울특별시"){
@@ -252,6 +258,13 @@ $(function() {
             for(let j=0;j<data.data[16].제주특별자치도.length;j++){
                 myhtml += "<option value=" + sidoarr17[j] +">" +
                     sidoarr17[j]+"</option>";
+            };
+            loca2.innerHTML =myhtml;
+        }else if(test == "온라인"){
+            let myhtml = "";
+            for(let j=0;j<data.data[17].온라인.length;j++){
+                myhtml += "<option value=" + sidoarr18[j] +">" +
+                    sidoarr18[j]+"</option>";
             };
             loca2.innerHTML =myhtml;
         }

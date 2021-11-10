@@ -1,6 +1,5 @@
 package kr.or.ssff.member.service;
 
-import java.util.HashMap;
 import kr.or.ssff.mapper.MemberMapper;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
@@ -26,7 +25,7 @@ import java.util.List;
 @Service("memberService")
 public class MemberServiceImpl implements MemberService, InitializingBean, DisposableBean  {
 
-  @Setter(onMethod_= {@Autowired})
+  @Setter(onMethod_= @Autowired)
 	private MemberMapper mapper;
 
     @Override
