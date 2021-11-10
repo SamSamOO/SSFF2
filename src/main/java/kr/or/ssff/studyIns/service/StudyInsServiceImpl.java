@@ -23,7 +23,7 @@ import java.util.Objects;
 @Service("studyInsService")
 public class StudyInsServiceImpl implements StudyInsService, InitializingBean, DisposableBean {
 
-    @Setter(onMethod_ = @Autowired)
+    @Autowired
     private StudyInsMapper mapper;
 
 

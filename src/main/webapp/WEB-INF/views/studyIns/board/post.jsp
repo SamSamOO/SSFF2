@@ -11,9 +11,7 @@
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 
-    <script>
 
-    </script>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -74,10 +72,11 @@
                         <div class="card card-custom gutter-b card-stretch">
                             <!--카드 바디 시작-->
                             <div class="card-header border-0 pt-5 card-body mt-5">
-                                <div class="d-flex flex-row flex-column-fluid container" style="">
-                                    <form action="/studyIns/board/post" method="post" id="formObj">
+                                <div class="d-flex flex-row flex-column-fluid container">
+                                    <form action="/studyIns/board/post" method="post" id="formObj" style="width: 100%">
 
-                                        <input type="hidden" name="cont_No" value="<c:out value='${detail.cont_No}'/> "/>
+                                        <input type="hidden" name="cont_No"
+                                               value="<c:out value='${detail.cont_No}'/> "/>
                                         <table style="width: 100%">
 
                                             <tr>
@@ -88,18 +87,19 @@
                                             <tr>
                                                 <td>
                                                     <label for="nickname">닉네임 : </label>
-                                                    <input id="nickname" maxlength="20" value="" name="nickname">
+                                                    <input id="nickname" maxlength="20" value=""
+                                                           name="nickname">
                                                 </td>
                                             </tr>
 
 
                                             <tr>
-                                                <td>
-                                                    <div class="card card-custom" style="width: 100%">
+                                                <td style="width: 100%;">
+                                                    <div class="card card-custom">
 
                                                         <div class="card-body">
                                                             <div id="kt_quil_2" style="height: 325px">
-                                                                Compose a message
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -120,17 +120,24 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="4"></td>
-                                                <td colspan="2">
+                                                <td colspan="4" align="right">
                                                     <button type="submit" id="submitBtn">등록하기</button>
                                                     <button type="button" id="listBtn">목록으로</button>
                                                 </td>
                                             </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="uploadDiv">
+                                                        <input type="file" name="uploadFile" multiple/>
+                                                    </div>
+                                                    <button id="uploadBtn">Upload</button>
+                                                </td>
+                                            </tr>
                                         </table>
                                     </form>
+
+
+
                                 </div>
                                 <!--카드 바디 종료-->
 
@@ -165,9 +172,7 @@
             formElement.submit();
         });
 
-
     });
-
 
     // Class definition
     var KTQuilDemos = function () {
@@ -217,8 +222,34 @@
             }
         };
     }();
+
     jQuery(document).ready(function () {
         KTQuilDemos.init();
     });
+    $(document).ready(function () {
+        $("#uploadBtn").on("click", function (e) {
+            e.preventDefault;
+            $(`#formObj`).attr('onsubmit', 'return false');
+
+            let formData = new FormData();
+            console.log(formData);
+            let inputFile = $("input[name='uploadFile']");
+            let files = inputFile[0].files;
+            console.log(files);
+
+            //add File Data to formData
+            for (let i = 0; i < files.length(); i++) {
+                formData.append("uploadFile", files[i]);
+            }
+
+            $.ajax({
+                url: '/uploadAjaxAction',
+                processData: false,
+                contentType :
+            });
+
+        });
+    });
 </script>
+
 </html>
