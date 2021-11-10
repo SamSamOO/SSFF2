@@ -67,7 +67,25 @@ License: You must have a valid license purchased only from themeforest(the above
         
         <div id="memberListModal" class="modal fade" role="dialog"
              aria-hidden="true">
-          <div class="modal-dialog modal-xl">
+          
+        </div>
+        <!--end::Modal-->
+        <!---------------- 지혜:  신청자/멤버 명단 모달창 종료 -------------------->
+        <!--contents.html Include-->
+        <jsp:include page="/WEB-INF/commons/example.jsp"></jsp:include>
+      </div>
+      <!--컨테이너 종료-->
+      <!--footer.html Include-->
+      <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+</body>
+
+<!----------------Body 종료----------------------->
+<script type="text/javascript">
+  
+  function x() { // TODO 멤버 확인버튼 누를때 스터디번호, 개설자여부 받아와야함! 민주, 예솔 작업시 버튼에 값 매칭하기
+    let putListModalHtml = '';
+    putListModalHtml +=
+        `<div class="modal-dialog modal-xl">
             <div class="modal-content" style="min-height: 590px;">
               <div class="modal-header py-5" id="studyMemberTab">
                 <div id="btnMemberList" class="btn btn-success btn-lg btn-block"><h5 class="modal-title">
@@ -85,30 +103,16 @@ License: You must have a valid license purchased only from themeforest(the above
                   <i aria-hidden="true" class="ki ki-close"></i>
                 </button>
               </div>
-              <!--------------------------- 현재멤버 시작---------------------------->
              <div class="modal-body">
 >
 
               </div>
             </div>
-          </div>
-        </div>
-        <!--end::Modal-->
-        <!---------------- 지혜:  신청자/멤버 명단 모달창 종료 -------------------->
-        <!--contents.html Include-->
-        <jsp:include page="/WEB-INF/commons/example.jsp"></jsp:include>
-      </div>
-      <!--컨테이너 종료-->
-      <!--footer.html Include-->
-      <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
-</body>
-
-<!----------------Body 종료----------------------->
-<script type="text/javascript">
-  
-  function x() { // TODO 멤버 확인버튼 누를때 스터디번호, 개설자여부 받아와야함! 민주, 예솔 작업시 버튼에 값 매칭하기
-    let putHtml = '';
-    putHtml +=
+          </div>`
+    $('#memberListModal').html(putListModalHtml);
+    
+    let putBodyHtml = '';
+    putBodyHtml +=
       `<div class="mb-5">
         <div class="row align-items-center">
           <div class="col-lg-9 col-xl-8">
@@ -131,7 +135,7 @@ License: You must have a valid license purchased only from themeforest(the above
       </div>`
     
     // 일반 회원이라면
-      putHtml +=
+      putBodyHtml +=
 
           `<div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
         id="studyMemberList">
@@ -229,7 +233,7 @@ License: You must have a valid license purchased only from themeforest(the above
     if(1==1){     // TODO 개설자라면
       // 참여신청자 버튼이 보이도록
       $("#btnApplyMemberList").attr('style', ('display:""'));
-      putHtml +=
+      putBodyHtml +=
       `<!--begin: Datatable-->
         <div
             class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
@@ -354,7 +358,7 @@ License: You must have a valid license purchased only from themeforest(the above
     
     
     
-    $('.modal-body').html(putHtml);
+    $('.modal-body').html(putBodyHtml);
   }
   // TODO 페이징 공유되는 에러 잡기~~
   $("#btnMemberList").click(function () { // studyMemberList
@@ -380,7 +384,7 @@ License: You must have a valid license purchased only from themeforest(the above
   
   
   /* 회원의 스터디 참여 상태 정보를 변경하는 함수
-     가입신청 [거절, 승인] , [탈퇴]
+     가입신청 [거절, 승인, 취소] , [탈퇴],
   매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
   작성자 : 신지혜
   */
@@ -430,7 +434,9 @@ License: You must have a valid license purchased only from themeforest(the above
     //TODO 완료시에 화면 다시 뿌려주기 위해서 테이블 동적생성 구문 추가 예정(필수)
   } // end fn_refusal
   
-  // 페이징 처리하는 함수
+  /* 페이징 처리하는 함수
+  * 신지혜
+  */
   function pager() {
     let totalData; //총 데이터 수
     let dataPerPage; //한 페이지에 나타낼 글 수
@@ -485,81 +491,104 @@ License: You must have a valid license purchased only from themeforest(the above
       let pageHtml = "";
 
       // 이전, 처음으로 가기
-      if (prev > 0) {
+      if (prev > 0) { // 이전, 처음으로 갈 수 있다면 이전, 처음버튼 활성화
         currentPage = Number(currentPage);
-
         console.log("prev > 0 : ");
-        pageHtml += `<li><a title="First" class="datatable-pager-link datatable-pager-link-first" data-page="1"><i class="flaticon2-fast-back"></i></a></li>
-<li><a title="Previous" class="datatable-pager-link datatable-pager-link-prev" data-page="`
-            + (currentPage - 1) + `"><i class="flaticon2-back"></i></a></li>`;
-      } else {
-        console.log("prev >딘ㄷ 0 : ");
-        pageHtml += `<li><a title="First" class="datatable-pager-link datatable-pager-link-first datatable-pager-link-disabled" data-page="1" disabled="disabled"><i class="flaticon2-fast-back"></i></a></li>
-<li><a title="Previous" class="datatable-pager-link datatable-pager-link-prev datatable-pager-link-disabled" data-page="1" disabled="disabled"><i class="flaticon2-back"></i></a></li>`;
+        pageHtml +=
+            `<li><a title="First"
+                    class="datatable-pager-link datatable-pager-link-first"
+                    data-page="1">
+                      <i class="flaticon2-fast-back"></i></a></li>
+             <li><a title="Previous"
+                    class="datatable-pager-link datatable-pager-link-prev"
+                    data-page="` + (currentPage - 1) + `">
+                      <i class="flaticon2-back"></i></a></li>`;
+      } else { // 현재 페이지가 첫번째 페이지라면 이전, 처음버튼 비활성화
+        pageHtml +=
+            `<li><a title="First"
+                    class="datatable-pager-link datatable-pager-link-first datatable-pager-link-disabled"
+                    data-page="1"
+                    disabled="disabled">
+                       <i class="flaticon2-fast-back"></i></a></li>
+              <li><a title="Previous"
+                      class="datatable-pager-link datatable-pager-link-prev datatable-pager-link-disabled"
+                      data-page="1"
+                      disabled="disabled">
+                        <i class="flaticon2-back"></i></a></li>`;
       } // if-else
 
       //페이징 번호 표시
       for (var i = first; i <= last; i++) {
 
-        if (currentPage == i) {
-          pageHtml += `<li><a class="datatable-pager-link datatable-pager-link-number datatable-pager-link-active" data-page="`
-              + i + `"
-                           title="` + i + `">` + i + `</a></li>`
-        } else {
-          pageHtml += `<li><a class="datatable-pager-link datatable-pager-link-number" data-page="`
-              + i + `"
-                           title="` + i + `">` + i + `</a></li>`;
+        if (currentPage == i) { // 내가 클릭한 페이지(현재페이지) 번호 버튼은 활성화!
+          pageHtml += `
+            <li><a class="datatable-pager-link datatable-pager-link-number
+                          datatable-pager-link-active"
+                   data-page="`+ i +`"
+                   title="`+ i +`">`+ i +`</a></li>`
+        } else { // 아닌 페이지 번호는 하얗게
+          pageHtml +=
+              `<li><a class="datatable-pager-link datatable-pager-link-number"
+                      data-page="`+ i +`"
+                      title="`+ i +`">`+ i +`</a></li>`;
         } // if-else
       } // for
 
       // 이후, 맨 뒤로 가기
-      if (next < totalPage) {
-        pageHtml += `<li><a title="Next" class="datatable-pager-link datatable-pager-link-next"
-                           data-page="` + (currentPage + 1)
-            + `"><i class="flaticon2-next"></i></a></li>`;
-      } else {
-        pageHtml += `<li><a title="Next" class="datatable-pager-link datatable-pager-link-next datatable-pager-link-disabled"  data-page="`
-            + (currentPage + 1) + `" disabled="disabled"><i class="flaticon2-next"></i></a></li>`
+      if (next < totalPage) { // 이후로 갈 수 있다면(=내 페이지가 맨 끝이 아니라면) 이후 버튼 활성화
+        pageHtml +=
+            `<li><a title="Next"
+                    class="datatable-pager-link datatable-pager-link-next"
+                    data-page="`+ (currentPage + 1) +`">
+                      <i class="flaticon2-next"></i></a></li>`;
+      } else { // 내 페이지가 맨 끝이라면 이후 버튼 비활성화
+        pageHtml +=
+            `<li><a title="Next"
+                    class="datatable-pager-link datatable-pager-link-next datatable-pager-link-disabled"
+                    data-page="`+ (currentPage + 1) +`"
+                    disabled="disabled">
+                      <i class="flaticon2-next"></i></a></li>`
       } // if-else
-      if (last < totalPage) {
-        pageHtml += `<li><a title="Last" class="datatable-pager-link datatable-pager-link-last"
-                           data-page="` + totalPage
-            + `"><i class="flaticon2-fast-next"></i></a></li>`;
-      } else {
-        pageHtml += `<li><a title="Last" class="datatable-pager-link datatable-pager-link-last datatable-pager-link-disabled" data-page="`
-            + totalPage + `" disabled="disabled"><i class="flaticon2-fast-next"></i></a></li>`
+      if (last < totalPage) { // 내 페이지가 맨 끝이 아니라면 마지막으로 가기 버튼 활성화
+        pageHtml +=
+            `<li><a title="Last"
+                    class="datatable-pager-link datatable-pager-link-last"
+                    data-page="`+ totalPage +`">
+                      <i class="flaticon2-fast-next"></i></a></li>`;
+      } else { // 내 페이지가 마지막이라면 마지막으로 가기 버튼 비활성화
+        pageHtml +=
+            `<li><a title="Last"
+                    class="datatable-pager-link datatable-pager-link-last
+                           datatable-pager-link-disabled"
+                    data-page="`+ totalPage +`"
+                    disabled="disabled">
+                    <i class="flaticon2-fast-next"></i></a></li>`
       } // ir-else
 
       console.log($(".datatable-pager.datatable-paging-loaded"));
 
       // 페이징 번호 그리기
       $(".datatable-pager-nav.my-2.mb-sm-0").html(pageHtml);
-      let displayCount = "";
 
       //페이징 번호 클릭 이벤트
       $(".datatable-pager.datatable-paging-loaded ul li a").click(function () {
-        let $id = $(this).attr("data-page");
-        console.log(`$(this).attr("data-page") =` + $id);
-        selectedPage = $(this).attr("data-page");
-        console.log("여기까지왔니");
-
-        // if ($id == "next") selectedPage = next;
-        // if ($id == "prev") selectedPage = prev;
-        //전역변수에 선택한 페이지 번호를 담는다...
-        globalCurrentPage = selectedPage;
+        //전역변수에 선택한 페이지 번호를 담아서
+        globalCurrentPage = $(this).attr("data-page");
+     
         //페이징 표시 재호출
         paging(totalData, dataPerPage, pageCount, globalCurrentPage);
+        
         //글 목록 표시 재호출
         displayData(globalCurrentPage, dataPerPage);
       }); // click-fn
     } // pager()
+ 
 
-   
-
-    // 페이지 사이즈 드롭다운 선택하면 화면단에서 적용하여 출력
+    // 페이지 사이즈 드롭다운 선택하면 화면단에서 적용하여 출력하는 함수
     $('#pageSizePicker').change(function () {
       let pageSizePickerValue = $("#pageSizePicker option:selected").val();
       console.log("pageSizePickerValue: " + pageSizePickerValue);
+      
       //전역 변수에 담긴 globalCurrent 값을 이용하여 페이지 이동없이 글 표시개수 변경
       paging(totalData, pageSizePickerValue, pageCount, currentPage);
       displayData(currentPage, pageSizePickerValue);
@@ -571,8 +600,8 @@ License: You must have a valid license purchased only from themeforest(the above
 //기본 셋팅에서-> 숫자로 값 변동이 일어난다면 내용 숨기고 몇번째~몇번째 display만 변경하는 형식,
     let chartHtml = "";
     $('.datatable-body .datatable-row').attr('style', ('display:none'));
-    // $('tr[data-row="' +i+ '"]').attr('style', ('display:none'));
-//Number로 변환하지 않으면 아래에서 +를 할 경우 스트링 결합이 되어버림..
+
+    //Number로 변환하지 않으면 아래에서 +를 할 경우 연산 아닌 결합됨!
     currentPage = Number(currentPage);
     dataPerPage = Number(dataPerPage);
 

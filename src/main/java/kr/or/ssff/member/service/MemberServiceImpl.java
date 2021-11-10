@@ -1,5 +1,7 @@
 package kr.or.ssff.member.service;
 
+import java.util.HashMap;
+import java.util.List;
 import kr.or.ssff.mapper.MemberMapper;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
@@ -10,8 +12,6 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /*
  * 최초 작성자: 신지혜
@@ -25,7 +25,7 @@ import java.util.List;
 @Service("memberService")
 public class MemberServiceImpl implements MemberService, InitializingBean, DisposableBean  {
 
-  @Setter(onMethod_= @Autowired)
+  @Setter(onMethod_=@Autowired)
 	private MemberMapper mapper;
 
     @Override
