@@ -275,10 +275,15 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 생성페이지 뷰단
      * */
     @GetMapping("/board/postGo")
-    public String studyBoardPostGo() {
-        log.debug("studyBoardPostGo() is invoked");
+    public String studyBoardPostGo(Model model) {
+        log.info("studyBoardPostGo({}) is invoked",  ", model = " + model);
 
+        Objects.requireNonNull(service);
+        Integer maxNumber = service.findMaxContNo();
 
+        log.info("maxNumber = {}", maxNumber);
+
+        model.addAttribute("maxNumber", maxNumber);
 
         return "/studyIns/board/post";
     } // studyBoardPostGo
@@ -309,8 +314,14 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
             } // end catch
         } // end for
+        Objects.requireNonNull(service);
 
+        if (service.register(studyInsDTO,uploadFile)) {
+            rttrs.addFlashAttribute("result", "success");
+        } // if
 
+        //리다이렉트 파라미터 값 전송!
+        rttrs.addAttribute("cont_No", service.findMaxContNo());
 
         return "redirect:studyIns/board/detail";
     } // studyBoardPost

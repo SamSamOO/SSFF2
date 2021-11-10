@@ -10,14 +10,14 @@
     <title>스터디 내 게시판</title>
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
-    </style>
+
 
     <script type="text/javascript" src="/resources/assets/js/pagination/pagination.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
 
-    </style>
+
     <script>
         $(function () {
             console.clear();

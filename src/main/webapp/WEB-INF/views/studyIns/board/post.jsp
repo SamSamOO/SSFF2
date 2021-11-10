@@ -11,10 +11,6 @@
 
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"
-            integrity="sha512-3fMsI1vtU2e/tVxZORSEeuMhXnT9By80xlmXlsOku7hNwZSHJjwcOBpmy+uu+fyWwGCLkMvdVbHkeoXdAzBv+w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -77,9 +73,8 @@
                             <div class="card-header border-0 pt-5 card-body mt-5">
                                 <div class="d-flex flex-row flex-column-fluid container">
                                     <form action="/studyIns/board/post" method="post" id="formObj" style="width: 100%" enctype="multipart/form-data">
-
-                                        <input type="hidden" name="cont_No"
-                                               value="<c:out value='${detail.cont_No}'/> "/>
+<%--                                        <input type="hidden" name="maxNumber" value="${maxNumber+1}">--%>
+<%--                                        <input type="hidden" name="r_Idx" value="9000"/>--%>
                                         <table style="width: 100%">
 
                                             <tr>
@@ -89,9 +84,9 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <label for="nickname">닉네임 : </label>
-                                                    <input id="nickname" maxlength="20" value=""
-                                                           name="nickname">
+                                                    <label for="member_Name">닉네임 : </label>
+                                                    <input id="member_Name" maxlength="20" value="Nickname11"
+                                                           name="member_Name">
                                                 </td>
                                             </tr>
 
@@ -101,9 +96,10 @@
                                                     <div class="card card-custom">
 
                                                         <div class="card-body">
-                                                            <div id="kt_quil_2" style="height: 325px">
+                                                            <div id="kt_quil_2"  style="height: 325px">
 
                                                             </div>
+                                                            <textarea name="cont" style="display:none" id="cont"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -172,6 +168,8 @@
             formElement.attr("method", "get");
             formElement.submit();
         });
+        $(`#cont`).val($(`#kt_quil_2`).html());
+
 
     });
 
@@ -227,6 +225,7 @@
     jQuery(document).ready(function () {
         KTQuilDemos.init();
     });
+
     // $(document).ready(function () {
     //     $("#uploadBtn").on("click", function (e) {
     //         e.preventDefault();
