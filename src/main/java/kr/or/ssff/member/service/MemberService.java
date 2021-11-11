@@ -1,5 +1,6 @@
 package kr.or.ssff.member.service;
 
+import java.util.HashMap;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
 
@@ -31,7 +32,10 @@ public interface MemberService {
     public abstract Integer getTotal();
 
     // 1. 특정 스터디의 멤버 조회 : 신지혜
-    public abstract List<ApplyMemberDTO> getApplyMemberList(Integer r_idx);
+    public abstract List<ApplyMemberDTO> getApplyMemberList(String r_idx);
+
+    // 스터디 가입 상태 변경
+    public abstract void applyAction(HashMap<String, String> aMember);
 
 }// end interface
 
