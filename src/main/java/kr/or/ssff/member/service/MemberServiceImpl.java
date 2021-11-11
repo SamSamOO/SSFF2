@@ -31,6 +31,7 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 	@Setter(onMethod_ = @Autowired)
 	private MemberMapper mapper;
 
+
     @Override
     public void insertMember(MemberVO memberVO) {
         log.debug("insertMember({}) is invoked", "memberVO = " + memberVO);
