@@ -88,11 +88,11 @@ License: You must have a valid license purchased only from themeforest(the above
         `<div class="modal-dialog modal-xl">
             <div class="modal-content" style="min-height: 590px;">
               <div class="modal-header py-5" id="studyMemberTab">
-                <div id="btnMemberList" class="btn btn-success btn-lg btn-block"><h5 class="modal-title">
+                <div id="btnMemberList" class="btn btn-success btn-lg btn-block" onclick="studyMemberListOn();"><h5 class="modal-title">
                   스터디 멤버 <span class="d-block text-muted font-size-sm">
 											스터디 멤버를 확인해보세요!</span>
                 </h5></div>
-                <div id="btnApplyMemberList" class="btn btn-primary btn-lg btn-block" style="display:none;"><h5 class="modal-title">
+                <div id="btnApplyMemberList" class="btn btn-primary btn-lg btn-block"  onclick="applyMemberListOn();" style="display:none;"><h5 class="modal-title">
                   참여 신청자<span class="d-block text-muted font-size-sm">
                   가입신청한 회원을 확인해보세요!</span>
                 </h5></div>
@@ -178,9 +178,9 @@ License: You must have a valid license purchased only from themeforest(the above
                 </td>
                 
                 <td class="datatable-cell" data-field="studyTeamName"
-                    aria-label="${applyMemberList.recruitBoardDTO.teamname}"
+                    aria-label="${applyMemberList.teamname}"
                     style="width: 45%;">
-                  <span>${applyMemberList.recruitBoardDTO.teamname}</span>
+                  <span>${applyMemberList.teamname}</span>
                 </td>
                 
                 
@@ -188,7 +188,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     aria-label="${applyMemberList.member_name}"
                     class="datatable-cell" style="width: 40%;"><span>
                         <img class="symbol symbol-40 symbol-sm flex-shrink-0"
-                             src="${applyMemberList.memberDTO.member_profile}" alt="photo"
+                             src="${applyMemberList.member_profile}" alt="photo"
                              style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
                         ${applyMemberList.member_name}
                     </span></td>
@@ -287,16 +287,16 @@ License: You must have a valid license purchased only from themeforest(the above
                     <span style="text-align: center;">${applyMemberList.apply_idx}</span>
                   </td>
                   <td class="datatable-cell" data-field="studyTeamName"
-                      aria-label="${applyMemberList.recruitBoardDTO.teamname}"
+                      aria-label="${applyMemberList.teamname}"
                       style="width: 25%;">
-                    <span style="text-align: center;">${applyMemberList.recruitBoardDTO.teamname}</span>
+                    <span style="text-align: center;">${applyMemberList.teamname}</span>
                   </td>
                   
                   <td data-field="NickName"
                       aria-label="${applyMemberList.member_name}"
                       class="datatable-cell" style="width: 25%;"><span style="text-align: center;">
                             <img class="symbol symbol-40 symbol-sm flex-shrink-0"
-                                 src="${applyMemberList.memberDTO.member_profile}"
+                                 src="${applyMemberList.member_profile}"
                                  alt="photo"
                                  style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
                             ${applyMemberList.member_name}
@@ -326,6 +326,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </table>
         
         </div>
+   
         <div id="a-dtbl-pager" class="datatable-pager datatable-paging-loaded" style="display:none;">
           <ul class="datatable-pager-nav my-2 mb-sm-0"></ul>
 
@@ -355,34 +356,66 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
     } // if-else
-    
-    
+
+//TODO 페이지 드롭다운 왜 안나올까낭~
     
     $('.modal-body').html(putBodyHtml);
   }
-  // TODO 페이징 공유되는 에러 잡기~~
-  $("#btnMemberList").click(function () { // studyMemberList
-    $("#btnApplyMemberList").attr('style', ('background-color:white'));
-    $("#applyMemberList").attr('style', ('display:none'));
-    $("#a-dtbl-pager").attr('style', ('display:none'));
-    $("#btnMemberList").attr('style', ('background-color:red'));
-    $("#studyMemberList").attr('style', ('display:""'));
-    $("#s-dtbl-pager").attr('style', ('display:""'));
-    
-  })
-  
-  $("#btnApplyMemberList").click(function () {// studyMemberList
-    $("#btnMemberList").attr('style', ('background-color:white'));
-    $("#studyMemberList").attr('style', ('display:none'));
-    $("#s-dtbl-pager").attr('style', ('display:none'));
-    $("#btnApplyMemberList").attr('style', ('background-color:red'));
-    $("#applyMemberList").attr('style', ('display:""'));
-    $("#a-dtbl-pager").attr('style', ('display:""'));
-  })
+
   // 멤버목록 버튼 클릭시에 리스트가 보였다 안보였다 toggle
 
+  // TODO 페이징 공유되는 에러 잡기~~
+  // $("#btnMemberList").click(function () { // studyMemberList
+  //   console.log("1번 클릭했니");
+  //   $("#btnApplyMemberList").attr('style', ('background-color:white'));
+  //   $("#applyMemberList").attr('style', ('display:none'));
+  //   $("#a-dtbl-pager").attr('style', ('display:none'));
+  //   $("#btnMemberList").attr('style', ('background-color:red'));
+  //   $("#studyMemberList").attr('style', ('display:""'));
+  //   $("#s-dtbl-pager").attr('style', ('display:""'));
+  //
+  // })
+  //
+  // $("#btnApplyMemberList").click(function () {// ApplyMemberList
+  //   console.log("2번 클릭했니")
+  //   $("#btnMemberList").attr('style', ('background-color:white'));
+  //   $("#studyMemberList").attr('style', ('display:none'));
+  //   $("#s-dtbl-pager").attr('style', ('display:none'));
+  //   $("#btnApplyMemberList").attr('style', ('background-color:red'));
+  //   $("#applyMemberList").attr('style', ('display:""'));
+  //   $("#a-dtbl-pager").attr('style', ('display:""'));
+  // })
   
   
+  // TODO  함수 2가지 부트스트랩화 (addCalss)
+  /* 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
+   * 매개변수 : 없음. 해당 버튼에 인라인으로 onclick event 부여
+   * 작성자 : 신지혜
+   */
+  function studyMemberListOn(){ // 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
+    console.log("studyMemberListOn 클릭했니");
+    $("#applyMemberList").attr('style', ('display:none'));
+    $("#a-dtbl-pager").attr('style', ('display:none'));
+    $("#studyMemberList").attr('style', ('display:""'));
+    $("#s-dtbl-pager").attr('style', ('display:""'));
+  
+  } // studyMemberListOn
+  
+  /* 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
+   * 매개변수 : 없음. 해당 버튼에 인라인으로 onclick event 부여
+   * 작성자 : 신지혜
+   */
+  function applyMemberListOn(){ // 참여자 누르면 참여자목록 활성화 / 스터디목록 비활성화
+    console.log("applyMemberListOn 클릭했니");
+    $("#studyMemberList").attr('style', ('display:none'));
+    $("#s-dtbl-pager").attr('style', ('display:none'));
+    $("#applyMemberList").attr('style', ('display:""'));
+    $("#a-dtbl-pager").attr('style', ('display:""'));
+
+  } // applyMemberListOn
+
+
+
   /* 회원의 스터디 참여 상태 정보를 변경하는 함수
      가입신청 [거절, 승인, 취소] , [탈퇴],
   매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
@@ -397,7 +430,7 @@ License: You must have a valid license purchased only from themeforest(the above
     if(!confirm( actionName + " 하시겠습니까?")){
       return false;
 
-    }
+    } // if
 
     var submitObj = new Object();
     submitObj.apply_idx= apply_idx;
@@ -405,6 +438,7 @@ License: You must have a valid license purchased only from themeforest(the above
    
     console.log("JSON.stringify(submitObj): "+JSON.stringify(submitObj));
 
+    // 받은 action과 참여번호를 json 객체로 /apply_action 전송하여 db update!!
     $.ajax({
       url: "/member/apply_action",
       type: "POST",
@@ -435,7 +469,7 @@ License: You must have a valid license purchased only from themeforest(the above
   } // end fn_refusal
   
   /* 페이징 처리하는 함수
-  * 신지혜
+  *  작성자: 신지혜
   */
   function pager() {
     let totalData; //총 데이터 수
