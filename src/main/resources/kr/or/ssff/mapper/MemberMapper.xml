@@ -4,60 +4,24 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ssff.mapper.MemberMapper">
 
-	<!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->
-	<resultMap type="kr.or.ssff.member.domain.ApplyMemberDTO" id="applyMemberMap">
-		<id column="APPLY_IDX" property="apply_idx"/>
-		<result column="R_IDX" property="r_idx"/>
-		<result column="MEMBER_NAME" property="member_name"/>
-		<result column="STUDY_JOIN_ARCIWF" property="study_join_arciwf"/>
-		<result column="STUDY_JOIN_CHANGE_DATE" property="study_join_change_date"/>
-		<result column="STUDY_BOSS_YN" property="study_boss_yn"/>
-		<result column="ATTENDANCE_DAYS" property="attendance_days"/>
-		
-		<association javaType="kr.or.ssff.study.domain.RecruitBoardDTO" property="recruitBoardDTO">
-			<id column="R_IDX" property="r_idx"/>
-			<result column="MEMBER_NAME" property="member_name"/>
-			<result column="TYPE_PC" property="type_pc"/>
-			<result column="TITLE" property="title"/>
-			<result column="TEAMNAME" property="teamname"/>
-			<result column="CONT" property="cont"/>
-			<result column="HIT" property="hit"/>
-			<result column="WRITEDATE" property="writedate"/>
-			<result column="SIDO" property="sido"/>
-			<result column="CH_PATTERN" property="ch_pattern"/>
-			<result column="CH_START" property="ch_start"/>
-			<result column="CH_END" property="ch_end"/>
-			<result column="REMOVED_OK" property="removed_ok"/>
-			<result column="CLOSED_OK" property="closed_ok"/>
-			<result column="DEAD_OK" property="dead_ok"/>
 
-		</association>
-
-		<association javaType="kr.or.ssff.member.domain.MemberDTO" property="memberDTO">
-			<id column="MEMBER_NAME" property="member_name"/>
-			<result column="MEMBER_NO" property="member_no"/>
-			<result column="MEMBER_ID" property="member_id"/>
-			<result column="MEMBER_PWD" property="member_pwd"/>
-			<result column="MEMBER_PROFILE" property="member_profile"/>
-			<result column="MEMBER_INTRODUCE" property="member_introduce"/>
-			<result column="MEMBER_ENABLED" property="member_enabled"/>
-		</association>
-
-	</resultMap>
-
-	
-		<!--  스터디 멤버 + 프로필사진(tn_member) + 스터디팀명(tn_recruit_board) 조회 : 신지혜  -->
-	<select 
+	<!--  스터디 멤버 + 프로필사진(tn_member) + 스터디팀명(tn_recruit_board) 조회 : 신지혜  -->
+	<select
 		id="getApplyMemberList"
-		parameterType="Integer"
-		resultMap ="applyMemberMap">
+		parameterType="String"
+		resultType="kr.or.ssff.member.domain.ApplyMemberListVO">
+
 		<![CDATA[
-		SELECT /*+ member_name_asc(apply_member) */ *
-		FROM (SELECT r.r_idx, r.teamname, a.apply_idx,a.member_Name, a.study_join_arciwf, a.study_join_change_date, a.study_boss_yn, a.attendance_days, m.member_profile
-					FROM recruit_board r JOIN  apply_member a on r.r_idx=a.r_idx
-															 JOIN member m
-																		on a.member_Name = m.member_Name)
-		WHERE r_idx > #{r_idx} and r_idx < 9020
+			SELECT /*+ member_name_asc(apply_member) */ *
+			FROM (SELECT a.apply_idx, a.r_idx, a.member_name, a.study_join_arciwf,
+			             a.study_join_change_date, a.study_boss_yn, a.attendance_days,
+			             r.teamname, m.member_profile
+						FROM apply_member a
+								JOIN  recruit_board r
+										on r.r_idx=a.r_idx
+								JOIN member m
+										on a.member_Name = m.member_Name)
+			WHERE r_idx > #{r_idx} and r_idx < 9020
 		]]>
 
 		<!-- //TODO WHERE절 Test를 위해 and 조건 / 추후 단항조건으로 변경예정-->
@@ -72,7 +36,39 @@
 		FROM member
 
 	</select>
-	
+
+	<!-- 회원의 스터디 참여 상태 정보 변경 : 신지혜  -->
+	<update id="applyAction" parameterType="hashMap" >
+
+	<choose>
+		<when test="action == 'refusal'"> <!-- 가입신청->거절 -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'r', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+		<when test="action == 'approval'"> <!-- 가입신청->승인 -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'i', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+		<when test="action == 'cancle'"> <!-- 가입신청->취소 -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'c', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+		<when test="action == 'withdrawal'"> <!-- 스터디 탈퇴 -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'w', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+		<when test="action == 'fail'"> <!-- 가입실패(결제x) -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'f', study_join_change_date = sysdate
+			WHERE apply_idx =#{apply_idx}
+		</when>
+	</choose>
+
+	</update>
 </mapper>
 
 

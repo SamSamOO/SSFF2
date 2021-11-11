@@ -8,10 +8,9 @@
 <head>
     <title>게시물 상세 페이지입니다</title>
 
+
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
-
-
 </head>
 
 <!----------------Head 종료----------------------->
@@ -73,10 +72,9 @@
                             <!--카드 바디 시작-->
                             <div class="card-header border-0 pt-5 card-body mt-5">
                                 <div class="d-flex flex-row flex-column-fluid container">
-                                    <form action="/studyIns/board/post" method="post" id="formObj" style="width: 100%">
-
-                                        <input type="hidden" name="cont_No"
-                                               value="<c:out value='${detail.cont_No}'/> "/>
+                                    <form action="/studyIns/board/post" method="post" id="formObj" style="width: 100%" enctype="multipart/form-data">
+<%--                                        <input type="hidden" name="maxNumber" value="${maxNumber+1}">--%>
+<%--                                        <input type="hidden" name="r_Idx" value="9000"/>--%>
                                         <table style="width: 100%">
 
                                             <tr>
@@ -86,9 +84,9 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <label for="nickname">닉네임 : </label>
-                                                    <input id="nickname" maxlength="20" value=""
-                                                           name="nickname">
+                                                    <label for="member_Name">닉네임 : </label>
+                                                    <input id="member_Name" maxlength="20" value="Nickname11"
+                                                           name="member_Name">
                                                 </td>
                                             </tr>
 
@@ -98,9 +96,10 @@
                                                     <div class="card card-custom">
 
                                                         <div class="card-body">
-                                                            <div id="kt_quil_2" style="height: 325px">
+                                                            <div id="kt_quil_2"  style="height: 325px">
 
                                                             </div>
+                                                            <textarea name="cont" style="display:none" id="cont"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -130,12 +129,10 @@
                                                     <div class="uploadDiv">
                                                         <input type="file" name="uploadFile" multiple/>
                                                     </div>
-                                                    <button id="uploadBtn">Upload</button>
                                                 </td>
                                             </tr>
                                         </table>
                                     </form>
-
 
 
                                 </div>
@@ -171,6 +168,8 @@
             formElement.attr("method", "get");
             formElement.submit();
         });
+        $(`#cont`).val($(`#kt_quil_2`).html());
+
 
     });
 
@@ -226,30 +225,40 @@
     jQuery(document).ready(function () {
         KTQuilDemos.init();
     });
-    $(document).ready(function () {
-        $("#uploadBtn").on("click", function (e) {
-            e.preventDefault;
-            $(`#formObj`).attr('onsubmit', 'return false');
 
-            let formData = new FormData();
-            console.log(formData);
-            let inputFile = $("input[name='uploadFile']");
-            let files = inputFile[0].files;
-            console.log(files);
-
-            //add File Data to formData
-            for (let i = 0; i < files.length(); i++) {
-                formData.append("uploadFile", files[i]);
-            }
-
-            $.ajax({
-                url: '/uploadAjaxAction',
-                processData: false,
-                contentType :
-            });
-
-        });
-    });
+    // $(document).ready(function () {
+    //     $("#uploadBtn").on("click", function (e) {
+    //         e.preventDefault();
+    //         $(`#formObj`).attr('onsubmit','return false');
+    //
+    //         let formData = new FormData();
+    //
+    //         console.log(formData);
+    //         let inputFile = $("input[name='uploadFile']");
+    //         let files = inputFile[0].files;
+    //         console.log(files);
+    //
+    //         //add File Data to formData
+    //         for (let i = 0; i < files.length; i++) {
+    //             formData.append("uploadFile", files[i]);
+    //         }
+    //
+    //         $.ajax({
+    //             url: '/uploadAjaxAction',
+    //             processData: false,
+    //             contentType: false,
+    //             data: formData,
+    //             type: 'POST',
+    //             success: function (result) {
+    //                 alert("Uploaded");
+    //             },
+    //             error: function (result) {
+    //                 console.log(result);
+    //             }
+    //         }); // $ajax
+    //
+    //     });
+    // });
 </script>
 
 </html>
