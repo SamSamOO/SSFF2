@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
+<%@taglib	uri="http://java.sun.com/jsp/jstl/core"	prefix="c" %>
+<%@taglib	uri="http://java.sun.com/jsp/jstl/fmt"	prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <!----------------Head 시작----------------------->
@@ -153,46 +155,24 @@
 
 
                                     <ul class="studylist-content-ul">
-                                        <li class="studylist-content">
-                                            <p class="studylist-content-title">[잇들] 퇴근후 it서적 독서모임에 초대합니다</p>
+                                        <c:forEach items="${list}" var="list">
+                                            <li class="studylist-content">
+                                                <p class="studylist-content-title">${list.title}</p>
 
-                                            <ul class="studylist-content-info">
-                                                <li><span class="span-sido">서울시 강남구 </span> 의,</li>
-                                                <li><span class="span-cate">자기계발 </span></li>
-                                            </ul>
+                                                <ul class="studylist-content-info">
+                                                    <li><span class="span-sido">${list.sido} </span> 의,</li>
+                                                    <li><span class="span-cate">${list.ch_pattern} </span></li>
+                                                </ul>
 
-                                            <ul class="studylist-hitAndRepl">
-                                                <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
-                                                <li>2</li>
-                                                <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
-                                                <li>30</li>
-                                            </ul>
-                                        </li>
+                                                <ul class="studylist-hitAndRepl">
+                                                    <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
+                                                    <li>99</li>
+                                                    <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
+                                                    <li>${list.hit}</li>
+                                                </ul>
+                                            </li>
+                                        </c:forEach>
 
-                                        <li class="studylist-content">
-                                            <p class="studylist-content-title">공부시간인증</p>
-
-                                            <ul class="studylist-content-info">
-                                                <li><span class="span-sido">온라인 모임 </span> 의,</li>
-                                                <li><span class="span-cate">자기계발 </span></li>
-                                            </ul>
-
-                                            <ul class="studylist-hitAndRepl">
-                                                <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
-                                                <li>2</li>
-                                                <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
-                                                <li>30</li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
                                     </ul>
 
                                 </div>
