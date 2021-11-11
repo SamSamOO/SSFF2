@@ -4,6 +4,7 @@ import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 /*
@@ -24,7 +25,7 @@ public interface StudyInsService {
     public abstract boolean modify(StudyInsDTO studyIns);
 
     //05. 게시물 등록 : 박상준
-    public abstract boolean register(StudyInsDTO studyInsDTO, MultipartFile[] uploadFile);
+    public abstract boolean register(@RequestParam("cont_No")Integer cont_No,StudyInsDTO studyInsDTO ,@RequestParam(value = "uploadFile") MultipartFile[] uploadFile);
 
     //06. 게시물 번호 최대값 들고옴 : 박상준
     public abstract Integer findMaxContNo();

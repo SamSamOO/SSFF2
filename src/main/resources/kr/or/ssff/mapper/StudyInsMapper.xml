@@ -25,13 +25,19 @@
         values (#{file_No}, #{cont_No}, #{file_Name})
     </insert>
 
-    <insert id="insertBoardAndFiles">
-        insert all into SI_BOARD(cont_no, member_name, r_idx, cont, category, title,REMOVED_OK)
-        values (#{CONT_NO}, #{MEMBER_NAME}, #{R_IDX}, #{CONT}, #{CATEGORY}, #{TITLE},'n')
-        into STUDY_INS_FILE(file_no, cont_no, file_name)
-        values (#{FILE_NO}, #{CONT_NO}, #{FILE_NAME})
-        select *
-        from dual
+    <insert id="insertBoard">
+        insert into SI_BOARD(cont_No, member_name, r_idx, cont, category, title, REMOVED_OK, WRITE_DATE)
+        values (#{cont_No}, #{member_Name}, #{r_Idx}, #{cont}, #{category}, #{title}, 'n', sysdate)
+
+
+    </insert>
+    <insert id="insertFiles" parameterType="java.util.List">
+        insert into STUDY_INS_FILE(CONT_NO, FILE_NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.cont_No}, #{item.file_Name})
+        </foreach>
+
 
     </insert>
 
