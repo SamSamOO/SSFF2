@@ -215,3 +215,4 @@ hs_err_pid*
 !/src/main/webapp/WEB-INF/classes/
 .idea\
 out\
+!/.idea/

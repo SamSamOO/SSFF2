@@ -3,6 +3,8 @@ package kr.or.ssff.mapper;
 import java.util.List;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
+import kr.or.ssff.studyIns.model.StudyInsFileDTO;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -28,7 +30,10 @@ public interface StudyInsMapper {
     public List<StudyInsDTO> findByCont_No(Integer cont_No);
 
     //게시물 생성 .. 파일 보드..
-    public Integer insertBoardAndFiles(StudyInsDTO studyInsDTO, MultipartFile[] uploadFiles);
+    public Integer insertBoard(StudyInsDTO studyInsDTO);
+
+    //게시물에 파일 업로드 .. 파일 보드..
+    public Integer insertFiles(List<StudyInsFileDTO> list);
 
     //cont_No가 가장 높은 게시물 번호 들고옴
     public Integer findMaxContNo();
