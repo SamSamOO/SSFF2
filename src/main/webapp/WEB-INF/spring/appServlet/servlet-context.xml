@@ -30,6 +30,11 @@
 
 	<context:component-scan base-package="kr.or.ssff.controller" />
 
+	<!-- 순형 작업 -->
+	<context:component-scan base-package="kr.or.ssff.member.controller" />
+	<context:component-scan base-package="kr.or.ssff.member.service" />
+
+
 	<!--지혜 작업-->
 	<context:component-scan base-package="kr.or.ssff.cafe.controller" />
 	<context:component-scan base-package="kr.or.ssff.cafe.service" />
@@ -38,8 +43,7 @@
 	<context:component-scan base-package="kr.or.ssff.payment.service" />
 
 
-	<context:component-scan base-package="kr.or.ssff.member.controller" />
-	<context:component-scan base-package="kr.or.ssff.member.service" />
+
 
 	<!-- 파일 업로드를 위한 설정을 추가 -->
 

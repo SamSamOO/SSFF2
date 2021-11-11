@@ -1,7 +1,9 @@
 package kr.or.ssff.member.service;
 
 import kr.or.ssff.mapper.MemberMapper;
+
 import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.List;
 
 /*
@@ -29,12 +32,16 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 	private MemberMapper mapper;
 
     @Override
-    public boolean register() {
-        return false;
+    public void insertMember(MemberVO memberVO) {
+        log.debug("insertMember({}) is invoked", "memberVO = " + memberVO);
+
+        mapper.insertMember(memberVO);
+
     }
 
+
     @Override
-    public boolean register(MemberVO member) {
+    public boolean register() {
         return false;
     }
 

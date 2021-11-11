@@ -1,6 +1,7 @@
 package kr.or.ssff.member.service;
 
 import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
 
 import java.util.List;
@@ -9,11 +10,19 @@ import java.util.List;
 
  */
 public interface MemberService {
+    //-------------멤버 CRUD 순형 ---------------//
+    //1.화원가입
+    public void insertMember(MemberVO memberVO);
+
+
+
+
+
+    //-------------멤버 CRUD 순형 ---------------//
     // 1. 새로운 게시물 등록
     public abstract boolean register();
 
-    // 1-1. 새로운 회원등록
-    public abstract boolean register(MemberVO member);
+
     // 2. 기존 게시글 수정(변경)
     public abstract boolean modify();
 

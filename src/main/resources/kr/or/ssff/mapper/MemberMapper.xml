@@ -4,6 +4,23 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ssff.mapper.MemberMapper">
 
+	<!-- 회원가입 로직 - 장순형 -->
+	<insert id="insertMember"
+			parameterType="kr.or.ssff.member.domain.MemberVO">
+
+		<selectKey keyProperty="member_no" order="BEFORE" resultType="int">
+			SELECT MEMBER_SQE.NEXTVAL
+			FROM dual
+		</selectKey>
+<![CDATA[
+
+		insert into member(MEMBER_NO, MEMBER_ID,MEMBER_PWD,MEMBER_NAME,
+		                   MEMBER_PROFILE,MEMBER_INTRODUCE)
+		values (#{member_no},#{member_id},#{member_pwd},#{member_name},'defualt.jpg',#{member_introduce, jdbcType=VARCHAR})
+		]]>
+
+	</insert>
+
 	<!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->
 	<resultMap type="kr.or.ssff.member.domain.ApplyMemberDTO" id="applyMemberMap">
 		<id column="APPLY_IDX" property="apply_idx"/>
@@ -72,6 +89,8 @@
 		FROM member
 
 	</select>
+
+
 	
 </mapper>
 

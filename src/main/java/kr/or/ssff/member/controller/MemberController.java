@@ -2,6 +2,8 @@ package kr.or.ssff.member.controller;
 
 import java.util.List;
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,7 @@ import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.service.MemberService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
 
@@ -34,6 +37,11 @@ public class MemberController {
 	@Autowired
     private MemberService service;
 
+   // 장순형 스피릉 시큐리티 암호화
+//    @Setter(onMethod_= {@Autowired} )
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
     /* 회원가입 페이지 이동 --순형
      * 파라메터  : 없음
      * 회원가입 페이지
@@ -50,8 +58,11 @@ public class MemberController {
      * 메인페이지로 이동합니다.
      * */
     @PostMapping("/join")
-    public String memberJoin(MemberVO member)  {
-        log.debug("join({}) is invoked", "member = " + member);
+    public String memberJoin(MemberVO member, RedirectAttributes rttr, Model model)  {
+        log.debug("join({}) is invoked", "memberDTO = " + member);
+        service.insertMember(member);
+        rttr.addFlashAttribute("result",member.getMember_id());
+        System.out.println("가입이 완료되었습니다.");
 
         return "redirect:/main";
     } // memberJoin
