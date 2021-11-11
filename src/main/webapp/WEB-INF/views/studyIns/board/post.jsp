@@ -73,8 +73,10 @@
                             <div class="card-header border-0 pt-5 card-body mt-5">
                                 <div class="d-flex flex-row flex-column-fluid container">
                                     <form action="/studyIns/board/post" method="post" id="formObj" style="width: 100%" enctype="multipart/form-data">
-<%--                                        <input type="hidden" name="maxNumber" value="${maxNumber+1}">--%>
-<%--                                        <input type="hidden" name="r_Idx" value="9000"/>--%>
+                                        <input type="hidden" name="cont_No" value="${cont_No}">
+                                        <c:out value="${cont_No}"/>
+                                        <p>cont_No 출력</p>
+                                        <input type="hidden" name="r_Idx" value="9000"/>
                                         <table style="width: 100%">
 
                                             <tr>

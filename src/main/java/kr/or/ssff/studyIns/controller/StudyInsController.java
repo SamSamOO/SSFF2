@@ -283,7 +283,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         log.info("maxNumber = {}", maxNumber);
 
-        model.addAttribute("maxNumber", maxNumber);
+        model.addAttribute("cont_No", maxNumber);
 
         return "/studyIns/board/post";
     } // studyBoardPostGo
@@ -320,10 +320,11 @@ public class StudyInsController implements InitializingBean, DisposableBean {
             rttrs.addFlashAttribute("result", "success");
         } // if
 
-        //리다이렉트 파라미터 값 전송!
-        rttrs.addAttribute("cont_No", service.findMaxContNo());
+        log.debug(service.findMaxContNo());
 
-        return "redirect:studyIns/board/detail";
+        //리다이렉트 파라미터 값 전송!
+
+        return "redirect:/studyIns/board/detail";
     } // studyBoardPost
 
     //-------------------------------- 상준 채팅방--------------------------------//

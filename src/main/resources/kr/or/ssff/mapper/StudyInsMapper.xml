@@ -26,8 +26,8 @@
     </insert>
 
     <insert id="insertBoardAndFiles">
-        insert all into SI_BOARD(cont_no, member_name, r_idx, cont, category, title,REMOVED_OK)
-        values (#{CONT_NO}, #{MEMBER_NAME}, #{R_IDX}, #{CONT}, #{CATEGORY}, #{TITLE},'n')
+        insert all into SI_BOARD(cont_no, member_name, r_idx, cont, category, title,REMOVED_OK,WRITE_DATE)
+        values (#{CONT_NO}, #{MEMBER_NAME}, #{R_IDX}, #{CONT}, #{CATEGORY}, #{TITLE},'n',sysdate)
         into STUDY_INS_FILE(file_no, cont_no, file_name)
         values (#{FILE_NO}, #{CONT_NO}, #{FILE_NAME})
         select *
