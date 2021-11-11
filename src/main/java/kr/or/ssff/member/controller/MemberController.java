@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.ApplyMemberListVO;
 import kr.or.ssff.member.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.service.MemberService;
@@ -117,7 +118,7 @@ public class MemberController {
     	r_idx = "9003"; //TODO 추후 클릭하는 스터디 정보로 변경
       log.debug("studyModalTest() is invoked");
       
-		List<ApplyMemberDTO> applyMemberList = this.service.getApplyMemberList(r_idx); 
+		List<ApplyMemberListVO> applyMemberList = this.service.getApplyMemberList(r_idx);
 		log.info("\t + >>>>>>>>>>>>>>>>applyMemberList:{}", applyMemberList);
 		log.info("\t+ list size: {}", applyMemberList.size()); 
 		
