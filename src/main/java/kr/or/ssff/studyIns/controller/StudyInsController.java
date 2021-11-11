@@ -1,5 +1,7 @@
 package kr.or.ssff.studyIns.controller;
 
+import java.io.File;
+import java.util.Arrays;
 import java.util.Objects;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
@@ -26,7 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public class StudyInsController implements InitializingBean, DisposableBean {
 
-    @Setter(onMethod_ = {@Autowired})
+    @Autowired
     private StudyInsService service;
 
     @Override
@@ -49,6 +52,9 @@ public class StudyInsController implements InitializingBean, DisposableBean {
     @GetMapping("/board/fileBox/link")
     public String boardFileBoxLink(String boardId) {
         log.debug("boardFileBoxLink({}) is invoked", "boardId = " + boardId);
+
+
+
 
         return "studyIns/board/fileBoxLink";
     } // boardLink
@@ -269,10 +275,15 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 생성페이지 뷰단
      * */
     @GetMapping("/board/postGo")
-    public String studyBoardPostGo() {
-        log.debug("studyBoardPostGo() is invoked");
+    public String studyBoardPostGo(Model model) {
+        log.info("studyBoardPostGo({}) is invoked",  ", model = " + model);
 
+        Objects.requireNonNull(service);
+        Integer maxNumber = service.findMaxContNo();
 
+        log.info("maxNumber = {}", maxNumber);
+
+        model.addAttribute("cont_No", maxNumber);
 
         return "/studyIns/board/post";
     } // studyBoardPostGo
@@ -283,10 +294,37 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/post")
-    public String studyBoardPost(StudyInsDTO studyInsDTO) {
-        log.debug("studyBoardPost({}) is invoked", "studyInsDTO = " + studyInsDTO);
+    public String studyBoardPost(@RequestParam("cont_No") Integer cont_No,StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile",required = false) MultipartFile[] uploadFile,RedirectAttributes rttrs) {
+        log.debug("studyBoardPost({} , {}) is invoked", "studyInsDTO = " + studyInsDTO , ", uploadFile = " + Arrays.deepToString(uploadFile));
 
-        return "redirect:studyIns/board/detail";
+        String uploadFolder = "C:\\temp\\upload";
+
+        for (MultipartFile multipartFile : uploadFile) {
+            log.debug("------------------------------------");
+            log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
+            log.debug("Upload File Size : " + multipartFile.getSize());
+
+            File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+
+            try {
+                multipartFile.transferTo(saveFile);
+
+            } catch (Exception e) {
+                log.error(e.getMessage());
+
+            } // end catch
+        } // end for
+        Objects.requireNonNull(service);
+
+        if (service.register(cont_No,studyInsDTO,uploadFile)) {
+            rttrs.addFlashAttribute("result", "success");
+        } // if
+
+        log.debug(service.findMaxContNo());
+
+        //리다이렉트 파라미터 값 전송!
+        rttrs.addAttribute("CONT_NO", cont_No);
+        return "redirect:/studyIns/board/detail";
     } // studyBoardPost
 
     //-------------------------------- 상준 채팅방--------------------------------//

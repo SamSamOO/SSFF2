@@ -9,7 +9,7 @@
 <!------------------모바일 헤더 시작------------------>
 <div id="kt_header_mobile" class="header-mobile">
     <!--로고 시작-->
-    <a href="#">
+    <a href="/">
         <img alt="Logo" src="/resources/assets/media/logos/logo-c1.png" class="max-h-30px" />
     </a>
     <!--로고 종료-->
@@ -20,12 +20,14 @@
         </button>
 
         <!--begin::User 헤더 메뉴 시작-->
-        <div class="dropdown">
+        <div class="dropdown dropdown-inline">
             <!--begin::Toggle-->
             <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px">
                 <div class="btn btn-dropdown top-memu">
                     <!--유저 프로필 사진-->
-                    <img src="/resources/assets/media/users/300_21.jpg" alt="" />
+                    <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
+                        <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg"/>
+                    </div>
                     <i class="text-dark fas fa-angle-down"></i>
                 </div>
 
@@ -126,7 +128,9 @@
                 <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px">
                     <div class="btn btn-dropdown top-memu">
                         <!--유저 프로필 사진-->
-                        <img src="/resources/assets/media/users/300_21.jpg" alt="" />
+                        <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
+                            <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg"/>
+                        </div>
                         <!--유저 닉네임(비로그인시 숨김)-->
                         <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">유저 닉네임 </div>
                         <i class="text-dark fas fa-angle-down"></i>

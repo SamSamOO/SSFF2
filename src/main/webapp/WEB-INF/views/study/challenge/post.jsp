@@ -76,7 +76,7 @@
                             <div class="card-header border-0 pt-5 card-body mt-5" id="post-body-wrapper">
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
                                 <div id="post-body">
-                                    <form action="" method="post" id="article-form" class="article-form" role="form">
+                                    <form action="/study/challenge/post" method="post" id="article-form" class="article-form" role="form">
                                         <!--parameter 1 : 제목-->
                                         <div id="title-sec">
                                             <input type="text" id="title" name="title" placeholder="제목을 입력해 주세요">
@@ -89,26 +89,27 @@
                                         <!--parameter 3 : 유형태그-->
                                         <div id="lang-sec">
                                             <ul id="lang-sec-ul">
-                                                <li><span>챌린지 유형 :</span></li>
+                                                <li><span>스터디 유형 :</span></li>
                                                 <li>
-                                                    <select id="challenge-type" name="challenge-type" class="form-control">
-                                                        <option value="">==챌린지 유형을 선택해 주세요==</option>
-                                                        <option value="유형1">유형10</option>
-                                                        <option value="유형2">유형20</option>
-                                                        <option value="유형3">유형30</option>
-                                                        <option value="유형4">유형40</option>
-                                                        <option value="유형5">유형50</option>
+                                                    <select id="challenge-type" name="ch_pattern" class="form-control">
+                                                        <option value="">==스터디 유형을 선택해 주세요==</option>
+                                                        <option value="생활습관 스터디">생활습관 스터디</option>
+                                                        <option value="취업 스터디">취업 스터디</option>
+                                                        <option value="시험준비 스터디">시험준비 스터디</option>
+                                                        <option value="어학 스터디">어학 스터디</option>
+                                                        <option value="기타">기타</option>
                                                     </select>
                                                 </li>
                                             </ul>
                                         </div>
 
                                         <br> <!--이것만은 쓰고 싶지 않았는데..-->
+
                                         <!--parameter 4 : 지역-->
                                         <div id="sido-sec">
                                             <ul id="sido-sec-ul">
                                                 <li><span>지역 :</span></li>
-                                                <li>
+                                                <li style="margin-right: 10px">
                                                     <select id="location1" name="location1" class="form-control">
                                                         <option value="">==시도 선택==</option>
                                                     </select>
@@ -121,18 +122,30 @@
                                             </ul>
                                         </div>
 
+                                        <br> <!--이것만은 쓰고 싶지 않았는데..-->
 
                                         <!--parameter 5 : 시작-종료일-->
-
+                                        <div id="date-sec">
+                                            <ul id="date-sec-ul">
+                                                <li><span>시작일 :</span></li>
+                                                <li>
+                                                    <input type="date" id="study-start" name="ch_start" class="form-control">
+                                                </li>
+                                                <li style="margin-left: 35px"><span>종료일 :</span></li>
+                                                <li>
+                                                    <input type="date" id="study-end" name="ch_end" class="form-control">
+                                                </li>
+                                            </ul>
+                                        </div>
 
 
                                         <!--parameter 6 : 글내용-->
                                         <div id="cont-sec">
-                                            <textarea id="summernote" name="editordata"></textarea>
+                                            <textarea id="summernote" name="cont"></textarea>
                                         </div>
                                         <div id="button-sec">
                                             <ul>
-                                                <li>글등록</li>
+                                                <li onclick="onSubmit()">글등록</li>
                                                 <li>취소</li>
                                             </ul>
                                         </div>
@@ -166,53 +179,28 @@
       maxHeight: null,              // 최대 높이
       focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
       lang: "ko-KR",				// 한글 설정
-      placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+      placeholder: '최대 1000자까지 쓸 수 있습니다'	//placeholder 설정
     });
   }); //summernote 관련 설정
 
-  let tag_count=0;  //선택한 태그 갯수 카운트. 0개부터 3개까지 가능
 
-  function tagClick(name){
-    if(tag_count>=3){
-      alert("태그는 3개를 초과하여 지정할 수 없습니다.")
-    }else{
-      tag_count+=1;
-      document.querySelector('#dropdown-'+name).remove(); //선택한 언어를 드롭다운에서 지워준다
+  function onSubmit() {
+    let str1 = document.querySelector('#location1').value;
+    let str2 = document.querySelector('#location2').value;
 
-      let tagArea = document.querySelector('#lang-sec-ul'); //태그를 추가할 곳을 정의해준다
-      let new_Tag = document.createElement('li'); //li 태그를 생성해준다
+    let tagArea = document.querySelector('#sido-sec-ul'); //태그를 추가할 곳을 정의해준다
+    let new_Tag = document.createElement('input');
 
-      //생성한 태그에 속성과 내용을 채워준다
-      new_Tag.setAttribute('class', 'mini-tag');
-      new_Tag.setAttribute('id', name+'-tag');
-      new_Tag.innerHTML = name+" ";
-      new_Tag.innerHTML +='<span onclick=tagRemove(`'+name+'`) id="xButton-'+name+'">x</span>'; //x표 치는곳
-      new_Tag.innerHTML +='<input type="hidden" id='+name+' name="selected-tag" value='+name+'>';
+    new_Tag.setAttribute('type', 'hidden');
+    new_Tag.setAttribute('name', 'sido');
+    new_Tag.setAttribute('value', str1 + " " + str2);
 
-      //태그를 추가할 곳 하위에 새로 생성된 태그를 넣어준다
-      tagArea.appendChild(new_Tag);
-    };
-
-  }//tagClick
-
-  function tagRemove(name){ //x버튼을 누르면 동작하는 함수
-    document.querySelector('#'+name+'-tag').remove(); //태그를 삭제한다
-
-    tag_count-=1;
-
-    let tagArea = document.querySelector('#dropdown-menu-id');
-    let new_Tag = document.createElement('a');
-
-    //예시 : <a id ="dropdown-javascript" class="dropdown-item" onclick="tagClick('javascript')">javascript</a>
-    new_Tag.setAttribute('id', 'dropdown-'+name);
-    new_Tag.setAttribute('class', 'dropdown-item');
-    new_Tag.setAttribute('onclick', 'tagClick(`'+name+'`)');
-
-    new_Tag.innerHTML = name;
     tagArea.appendChild(new_Tag);
 
-  }//tagRemove
-  $('#sandbox-container .input-daterange').datepicker({
-  });
+    document.querySelector('#article-form').submit();
+
+  }//onSubmit
+
+
 </script>
 </html>

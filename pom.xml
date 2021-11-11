@@ -284,6 +284,14 @@
 			<version>1.4</version>
 		</dependency>
 
+
+		<!--이미지 크기 변환 라이브러리-->
+		<dependency>
+			<groupId>org.imgscalr</groupId>
+			<artifactId>imgscalr-lib</artifactId>
+			<version>4.2</version>
+		</dependency>
+
 		<!--inject-->
 		<dependency>
 			<groupId>javax.inject</groupId>

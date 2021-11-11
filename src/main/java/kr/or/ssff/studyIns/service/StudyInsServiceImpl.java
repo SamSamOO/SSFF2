@@ -1,18 +1,21 @@
 package kr.or.ssff.studyIns.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
 import kr.or.ssff.mapper.StudyInsMapper;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
+import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Objects;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 /*
 
@@ -23,7 +26,7 @@ import java.util.Objects;
 @Service("studyInsService")
 public class StudyInsServiceImpl implements StudyInsService, InitializingBean, DisposableBean {
 
-    @Setter(onMethod_ = @Autowired)
+    @Autowired
     private StudyInsMapper mapper;
 
 
@@ -72,6 +75,34 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
         return mapper.remove(cont_No);
     }
+
+    /* 게시물을 수정하는 함수입니다. (SI_BOARD table)
+     * 매개변수:
+     * 반환	:  해당 게시물
+     * 작성자	: 박상준
+     */
+
+    @Override
+    public boolean register(Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile) {
+        log.info("register({}) is invoked", "cont_No = " + cont_No + ", studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
+        Objects.requireNonNull(mapper);
+
+        studyInsDTO.setCont_No(cont_No);
+
+        List<StudyInsFileDTO> list = new ArrayList<>();
+        for (int i = 0; i < uploadFile.length; i++) {
+            StudyInsFileDTO studyInsFileDTO = new StudyInsFileDTO();
+            studyInsFileDTO.setCont_No(cont_No);
+            studyInsFileDTO.setFile_Name(uploadFile[i].getOriginalFilename());
+            list.add(studyInsFileDTO);
+        }
+
+        int affectedRows = mapper.insertBoard(studyInsDTO);
+
+        int ar2 = mapper.insertFiles( list);
+        return affectedRows == 1;
+    }
+
     /* 게시물을 수정하는 함수입니다. (SI_BOARD table)
      * 매개변수: 게시물 번호
      * 반환	:  해당 게시판
@@ -87,6 +118,15 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
         return (affectedRows == 1) ? true : false;
     } // modify
+
+
+    @Override
+    public Integer findMaxContNo() {
+        log.debug("findMaxContNo() is invoked" + mapper.findMaxContNo());
+
+        Objects.requireNonNull(mapper);
+        return mapper.findMaxContNo();
+    }
 
     @Override
     public void destroy() throws Exception {

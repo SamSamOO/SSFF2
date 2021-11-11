@@ -79,7 +79,7 @@
                             <div class="card-header border-0 pt-5 card-body mt-5" id="post-body-wrapper">
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
                                 <div id="post-body">
-                                    <form action="" method="post" id="article-form" class="article-form" role="form">
+                                    <form action="/study/project/post" method="post" id="article-form" class="article-form" role="form">
                                         <!--parameter 1 : 제목-->
                                         <div id="title-sec">
                                             <input type="text" id="title" name="title" placeholder="제목을 입력해 주세요">
@@ -121,11 +121,11 @@
                                         </div>
                                         <!--parameter 4 : 글내용-->
                                         <div id="cont-sec">
-                                            <textarea id="summernote" name="editordata"></textarea>
+                                            <textarea id="summernote" name="cont"></textarea>
                                         </div>
                                         <div id="button-sec">
                                             <ul>
-                                                <li>글등록</li>
+                                                <li onclick="document.querySelector('#article-form').submit();">글등록</li>
                                                 <li>취소</li>
                                             </ul>
                                         </div>
@@ -161,7 +161,7 @@
       maxHeight: null,              // 최대 높이
       focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
       lang: "ko-KR",				// 한글 설정
-      placeholder: '최대 2048자까지 쓸 수 있습니다'	//placeholder 설정
+      placeholder: '최대 1000자까지 쓸 수 있습니다'	//placeholder 설정
     });
   }); //summernote 관련 설정
 
@@ -182,7 +182,7 @@
       new_Tag.setAttribute('id', name+'-tag');
       new_Tag.innerHTML = name+" ";
       new_Tag.innerHTML +='<span onclick=tagRemove(`'+name+'`) id="xButton-'+name+'">x</span>'; //x표 치는곳
-      new_Tag.innerHTML +='<input type="hidden" id='+name+' name="selected-tag" value='+name+'>';
+      new_Tag.innerHTML +='<input type="hidden" id='+name+' name="tag" value='+name+'>';
 
       //태그를 추가할 곳 하위에 새로 생성된 태그를 넣어준다
       tagArea.appendChild(new_Tag);

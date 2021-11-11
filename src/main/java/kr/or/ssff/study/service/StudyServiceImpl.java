@@ -1,5 +1,8 @@
 package kr.or.ssff.study.service;
 
+import kr.or.ssff.mapper.StudyMapper;
+import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.mapper.StudyMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -15,10 +18,17 @@ import java.util.List;
 @Service("studyService")
 public class StudyServiceImpl implements StudyService {
 
+    private StudyMapper mapper;
+
     @Override
-    public boolean register() {
-        return false;
-    }
+    public boolean register(RecruitBoardVO vo) {
+
+        int affectedRows = mapper.insert(vo);
+
+        log.info("\t + affectedRows:{}", affectedRows);
+
+        return affectedRows == 1;
+    }//register (글 등록)
 
     @Override
     public boolean modify() {
@@ -36,12 +46,14 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public List<String> getList() {
-        return null;
-    }
+    public List<RecruitBoardVO> getList() {
+        List<RecruitBoardVO> allBoard = this.mapper.getList();
+
+        return this.mapper.getList();
+    }//getList(글반환)
 
     @Override
-    public List<String> getListPerPage() {
+    public List<RecruitBoardVO> getListPerPage() {
         return null;
     }
 
@@ -49,7 +61,29 @@ public class StudyServiceImpl implements StudyService {
     public Integer getTotal() {
         return null;
     }
-}
+
+    @Override
+    public boolean registerLangTag(Integer r_idx,String tag) {
+        int affectedRows = mapper.insertTag(r_idx,tag);
+
+        return affectedRows == 1;
+
+    }//registerLangTag(프로젝트 - 언어태그 삽입)
+
+    @Override
+    public Integer getCurrentR_idx() {
+
+        int currentR_idx = this.mapper.getCurrentR_idx();
+
+        return currentR_idx;
+    }//가장 마지막에 쓴 게시글 번호 가져오기(프로젝트)
+
+
+
+
+}//end class
+
+
 
 
 

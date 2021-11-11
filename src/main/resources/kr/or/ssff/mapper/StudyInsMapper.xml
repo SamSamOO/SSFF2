@@ -12,15 +12,34 @@
 
     </delete>
 
-    <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+    <delete id="delete">
 
-		<![CDATA[
-        select *
-        from si_board
+        delete
+        from study_ins_file
         where cont_No = #{cont_No}
-        ]]>
 
-	</select>
+    </delete>
+
+    <insert id="insert">
+        insert into study_ins_file (file_No, cont_No, file_Name)
+        values (#{file_No}, #{cont_No}, #{file_Name})
+    </insert>
+
+    <insert id="insertBoard">
+        insert into SI_BOARD(cont_No, member_name, r_idx, cont, category, title, REMOVED_OK, WRITE_DATE)
+        values (#{cont_No}, #{member_Name}, #{r_Idx}, #{cont}, #{category}, #{title}, 'n', sysdate)
+
+
+    </insert>
+    <insert id="insertFiles" parameterType="java.util.List">
+        insert into STUDY_INS_FILE(CONT_NO, FILE_NAME)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.cont_No}, #{item.file_Name})
+        </foreach>
+
+
+    </insert>
 
     <select id="getList" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
 
@@ -31,6 +50,29 @@
         ]]>
 
     </select>
+    <select id="findMaxContNo" resultType="integer">
+        select MAX(nvl2(CONT_NO, CONT_NO, 0))
+        from SI_BOARD
+
+    </select>
+    <select id="findByBno" resultType="kr.or.ssff.studyIns.model.StudyInsFileDTO">
+
+        select *
+        from study_ins_file
+        where cont_No = #{cont_No}
+
+    </select>
+
+    <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+
+		<![CDATA[
+        select *
+        from si_board
+        where cont_No = #{cont_No}
+        ]]>
+
+	</select>
+
     <update id="update">
         update si_board
         set title=#{title},
