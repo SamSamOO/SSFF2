@@ -178,6 +178,19 @@
     //TODO 파일이 없는 경우 파일업로드를 안하게 해줘야합니다.
         $(`#cont`).val($(`.ql-editor`).html());
 
+        // $(`#uploadFile`).on("change", function (e) {
+        //     let formData = new FormData();
+        //     let inputFile = $("input[name='uploadFile']");
+        //     let files = inputFile[0].files;
+        //     console.log(files);
+        //     for (let i = 0; i < files.length; i++) {
+        //         if (!checkExtension(files[i].name, files[i].size)) {
+        //             return false;
+        //         }
+        //     }
+        //     formData.append("uploadFile", files[i]);
+        // });
+
 
     });
 
@@ -252,18 +265,7 @@
         }
     }
 
-    $(`#uploadFile`).on("change", function (e) {
-        let formData = new FormData();
-        let inputFile = $("input[name='uploadFile']");
-        let files = inputFile[0].files;
-        console.log(files);
-        for (let i = 0; i < files.length; i++) {
-            if (!checkExtension(files[i].name, files[i].size)) {
-                return false;
-            }
-        }
-        formData.append("uploadFile", files[i]);
-    });
+
     // $(document).ready(function () {
     //     $("#uploadBtn").on("click", function (e) {
     //         e.preventDefault();
@@ -282,7 +284,7 @@
     //         }
     //
     //         $.ajax({
-    //             url: '/uploadAjaxAction',
+    //             url: '/board/post',
     //             processData: false,
     //             contentType: false,
     //             data: formData,
@@ -296,7 +298,7 @@
     //         }); // $ajax
     //
     //     });
-    // });
+    });
 </script>
 
 </html>

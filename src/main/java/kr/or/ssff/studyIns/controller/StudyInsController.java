@@ -1,12 +1,16 @@
 package kr.or.ssff.studyIns.controller;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -284,6 +288,15 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         return "/studyIns/board/post";
     } // studyBoardPostGo
 
+    private String getFolder() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+
+        String str = sdf.format(date);
+
+        return str.replace("-", File.separator);
+    }
+
     /*
      * 스터디 게시물 생성
      * 매개변수: //TODO 게시물vo?DTO?
@@ -296,12 +309,31 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         String uploadFolder = "C:\\temp\\upload";
 
+        /*폴더 만들기*/
+        File uploadPath = new File(uploadFolder, getFolder());
+        log.debug("upload path : " + uploadPath);
+
+        if (uploadPath.exists() == false) {
+            uploadPath.mkdir();
+
+        }
+        //make yyyy/MM/dd folder
+
+
         for (MultipartFile multipartFile : uploadFile) {
             log.debug("------------------------------------");
             log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
             log.debug("Upload File Size : " + multipartFile.getSize());
 
-            File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
+            String uploadFileName = multipartFile.getOriginalFilename();
+
+            //IE has file path
+            uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+            log.debug("only file name : " + uploadFileName);
+
+
+            File saveFile = new File(uploadPath, uploadFileName);
+
 
             try {
                 multipartFile.transferTo(saveFile);
