@@ -1,18 +1,12 @@
 package kr.or.ssff.member.controller;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
+
+
 import javax.servlet.http.HttpServletResponse;
-import kr.or.ssff.member.domain.ApplyMemberDTO;
 import kr.or.ssff.member.domain.ApplyMemberListVO;
-import kr.or.ssff.member.domain.ApplyMemberVO;
-import kr.or.ssff.member.domain.MemberVO;
-import kr.or.ssff.member.service.MemberService;
-import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.MemberVO;
+import kr.or.ssff.member.service.MemberService;
+import lombok.NoArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
 
@@ -39,8 +40,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class MemberController {
 
-	@Autowired
+    @Autowired
     private MemberService service;
+
+    // 장순형 스피릉 시큐리티 암호화
+//    @Setter(onMethod_= {@Autowired} )
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 
     /* 회원가입 페이지 이동 --순형
      * 파라메터  : 없음
@@ -58,8 +64,11 @@ public class MemberController {
      * 메인페이지로 이동합니다.
      * */
     @PostMapping("/join")
-    public String memberJoin(MemberVO member)  {
-        log.debug("join({}) is invoked", "member = " + member);
+    public String memberJoin(MemberVO member, RedirectAttributes rttr, Model model)  {
+        log.debug("join({}) is invoked", "memberDTO = " + member);
+        service.insertMember(member);
+        rttr.addFlashAttribute("result",member.getMember_id());
+        System.out.println("가입이 완료되었습니다.");
 
         return "redirect:/main";
     } // memberJoin
@@ -108,21 +117,21 @@ public class MemberController {
         return "/member/studyList";
     } // studyListGo
 
-    /* 참여신청자, 멤버목록 모달 민주랑 합치기 전에 여기서 먼저 작업 
+    /* 참여신청자, 멤버목록 모달 민주랑 합치기 전에 여기서 먼저 작업
      * 매개변수:
      * 반환: 스터디목록 뷰
-     * 작성자: 신지혜 
+     * 작성자: 신지혜
      * */
     @GetMapping("/studyModalTest")
     public void studyModalTest(String r_idx, Model model){
-    	r_idx = "9003"; //TODO 추후 클릭하는 스터디 정보로 변경
-      log.debug("studyModalTest() is invoked");
-      
-		List<ApplyMemberListVO> applyMemberList = this.service.getApplyMemberList(r_idx);
-		log.info("\t + >>>>>>>>>>>>>>>>applyMemberList:{}", applyMemberList);
-		log.info("\t+ list size: {}", applyMemberList.size()); 
-		
-		model.addAttribute("applyMemberList", applyMemberList);
+        r_idx = "9003"; //TODO 추후 클릭하는 스터디 정보로 변경
+        log.debug("studyModalTest() is invoked");
+
+        List<ApplyMemberListVO> applyMemberList = this.service.getApplyMemberList(r_idx);
+        log.info("\t + >>>>>>>>>>>>>>>>applyMemberList:{}", applyMemberList);
+        log.info("\t+ list size: {}", applyMemberList.size());
+
+        model.addAttribute("applyMemberList", applyMemberList);
     } // studyModalTest
 
     /* 스터디 가입상태 변경처리 (승인, 거절, 탈퇴)
@@ -159,7 +168,6 @@ public class MemberController {
 
         return "done";
     } // applyAction
-
 
     /* 스터디 카페 예약내역 페이지로 이동합니다
      * 파라메터 : nickname
