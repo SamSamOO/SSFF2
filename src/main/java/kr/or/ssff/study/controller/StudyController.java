@@ -2,6 +2,7 @@ package kr.or.ssff.study.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.service.StudyService;
@@ -165,9 +166,12 @@ public class StudyController {
 
         List<RecruitBoardVO> list= this.service.getList("P");
 
-        model.addAttribute("list", list);//list + lang tag. 한개의 게시물. -> 번호
+        List<LangVO> langList = this.service.getLangList();
 
+        model.addAttribute("list", list);//list + lang tag. 한개의 게시물. -> 번호
+        model.addAttribute("langList",langList);
         return "study/project/list";
+
     } // selectProjectListGo
 
 

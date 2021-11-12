@@ -122,15 +122,14 @@
 
                                     <ul class="studylist-content-ul">
                                         <c:forEach items="${list}" var="list">
-                                            <li class="studylist-content">
-                                                <p class="studylist-content-title">${list.title}</p>
 
-                                                <ul class="studylist-content-logo">
-                                                    <li><img src="../../../../resources/assets/image/javascript.png" width="40px"></li>
-                                                    <li><img src="../../../../resources/assets/image/spring.png" width="40px"></li>
-                                                    <li><img src="../../../../resources/assets/image/vue.png" width="40px"></li>
-                                                </ul>
-
+                                                <li class="studylist-content">
+                                                    <p class="studylist-content-title">${list.title}</p>
+                                                    <ul class="studylist-content-logo">
+                                                        <c:if test="${list.r_idx}==${langList.r_idx}">
+                                                            <li><img src="../../../../resources/assets/image/${langList.lang_name}.png" width="40px"></li>
+                                                        </c:if>
+                                                    </ul>
                                                 <ul class="studylist-hitAndRepl">
                                                     <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
                                                     <li>99</li>
@@ -138,9 +137,9 @@
                                                     <li>${list.hit}</li>
                                                 </ul>
                                             </li>
+
                                         </c:forEach>
                                     </ul>
-
                                 </div>
 
 

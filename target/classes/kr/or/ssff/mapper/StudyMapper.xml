@@ -25,12 +25,9 @@
   <select id="getList" resultType="kr.or.ssff.study.domain.RecruitBoardVO">
     <![CDATA[
         SELECT
-            /*+ index_desc(recruit_board) */
-            r_idx, member_name, type_pc, title,
-               teamname,cont,hit,writedate,sido,
-               ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok
+            /*+ index_desc(recruit_board) */ *
         FROM recruit_board
-        WHERE r_idx < 1000 and type_pc=#{type} and removed_ok='n'
+        WHERE r_idx < 1000 and type_pc='C' and removed_ok='n'
     ]]>
   </select>
 
@@ -42,12 +39,10 @@
   <!--게시글 번호로 언어 태그 등록하기-->
   <insert id="insertTag">
     INSERT INTO lang (r_idx, lang_name) VALUES (#{r_idx},#{tag})
+
   </insert>
 
-  <!--lang list 전체 가져오기-->
-  <select id="getLangList" resultType="kr.or.ssff.study.domain.LangVO">
-    SELECT r_idx,lang_name FROM lang;
-  </select>
+
 </mapper>
 
 
