@@ -1,20 +1,30 @@
 package kr.or.ssff.studyIns.controller;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
 import java.util.UUID;
+import javax.imageio.ImageIO;
+import kr.or.ssff.studyIns.Utils.MediaUtils;
+import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.log4j.Log4j2;
+import net.coobird.thumbnailator.Thumbnailator;
+import org.imgscalr.Scalr;
+import org.imgscalr.Scalr.Method;
+import org.imgscalr.Scalr.Mode;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -288,14 +298,6 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         return "/studyIns/board/post";
     } // studyBoardPostGo
 
-    private String getFolder() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-
-        String str = sdf.format(date);
-
-        return str.replace("-", File.separator);
-    }
 
     /*
      * 스터디 게시물 생성
@@ -310,15 +312,15 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         String uploadFolder = "C:\\temp\\upload";
 
         /*폴더 만들기*/
-        File uploadPath = new File(uploadFolder, getFolder());
+        File uploadPath = new File(uploadFolder, UploadFileUtils.getFolder());
         log.debug("upload path : " + uploadPath);
 
-        if (uploadPath.exists() == false) {
-            uploadPath.mkdir();
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
 
-        }
+        } // make folder
+
         //make yyyy/MM/dd folder
-
 
         for (MultipartFile multipartFile : uploadFile) {
             log.debug("------------------------------------");
@@ -331,13 +333,21 @@ public class StudyInsController implements InitializingBean, DisposableBean {
             uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
             log.debug("only file name : " + uploadFileName);
 
+            UUID uuid = UUID.randomUUID();
+            uploadFileName = uuid.toString() + "_" + uploadFileName;
 
             File saveFile = new File(uploadPath, uploadFileName);
-
 
             try {
                 multipartFile.transferTo(saveFile);
 
+                //check image type file
+                if (UploadFileUtils.checkImageType(saveFile)) {
+                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
+                    thumbnail.close();
+
+                }
             } catch (Exception e) {
                 log.error(e.getMessage());
 

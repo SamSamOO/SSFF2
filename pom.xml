@@ -185,6 +185,14 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!--============thumbnailator==============-->
+
+		<dependency>
+			<groupId>net.coobird</groupId>
+			<artifactId>thumbnailator</artifactId>
+			<version>0.4.14</version>
+			<scope>compile</scope>
+		</dependency>
 
 		<!-- ================ Misc ================= -->
 
@@ -269,6 +277,13 @@
 			<version>2.13.0</version>
 		</dependency>
 
+		<!--jackson-dataformat-xml-->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+			<version>2.13.0</version>
+		</dependency>
+
 
 		<!--commons-io-->
 		<dependency>
@@ -321,6 +336,7 @@
 			<artifactId>jackson-core-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
+
 		<!-- json object[e] -->
 
 	</dependencies>
