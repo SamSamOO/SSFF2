@@ -31,9 +31,9 @@ License: You must have a valid license purchased only from themeforest(the above
   <title>studyModalTest</title>
   <link rel="stylesheet" type="text/css" href="../../../resources/assets/css/style.bundle.css">
   <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
   
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
@@ -67,6 +67,7 @@ License: You must have a valid license purchased only from themeforest(the above
         
         <div id="memberListModal" class="modal fade" role="dialog"
              aria-hidden="true">
+        
           
         </div>
         <!--end::Modal-->
@@ -81,7 +82,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!----------------Body 종료----------------------->
 <script type="text/javascript">
-  
+// TODO 승인되고난 후 해당 버튼 비활성화(처리 중이라는 것을 확인시키기위한 view 작업 필요함)
   function x() { // TODO 멤버 확인버튼 누를때 스터디번호, 개설자여부 받아와야함! 민주, 예솔 작업시 버튼에 값 매칭하기
     let putListModalHtml = '';
     putListModalHtml +=
@@ -110,10 +111,10 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
           </div>`
     $('#memberListModal').html(putListModalHtml);
-    
+
     let putBodyHtml = '';
     putBodyHtml +=
-      `<div class="mb-5">
+        `<div class="mb-5">
         <div class="row align-items-center">
           <div class="col-lg-9 col-xl-8">
             <div class="row align-items-center">
@@ -133,11 +134,11 @@ License: You must have a valid license purchased only from themeforest(the above
           </div>
         </div>
       </div>`
-    
-    // 일반 회원이라면
-      putBodyHtml +=
 
-          `<div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
+    // 일반 회원이라면
+    putBodyHtml +=
+
+        `<div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
         id="studyMemberList">
       <table class="datatable-table"
              style="display: block; min-height: 400px; max-height: 400px;">
@@ -229,12 +230,12 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
       </div>
     </div>`
-    
+
     if(1==1){     // TODO 개설자라면
       // 참여신청자 버튼이 보이도록
       $("#btnApplyMemberList").attr('style', ('display:""'));
       putBodyHtml +=
-      `<!--begin: Datatable-->
+          `<!--begin: Datatable-->
         <div
             class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
             id="applyMemberList" style="display:none;">
@@ -358,35 +359,14 @@ License: You must have a valid license purchased only from themeforest(the above
     } // if-else
 
 //TODO 페이지 드롭다운 왜 안나올까낭~
-    
+
     $('.modal-body').html(putBodyHtml);
   }
 
   // 멤버목록 버튼 클릭시에 리스트가 보였다 안보였다 toggle
 
   // TODO 페이징 공유되는 에러 잡기~~
-  // $("#btnMemberList").click(function () { // studyMemberList
-  //   console.log("1번 클릭했니");
-  //   $("#btnApplyMemberList").attr('style', ('background-color:white'));
-  //   $("#applyMemberList").attr('style', ('display:none'));
-  //   $("#a-dtbl-pager").attr('style', ('display:none'));
-  //   $("#btnMemberList").attr('style', ('background-color:red'));
-  //   $("#studyMemberList").attr('style', ('display:""'));
-  //   $("#s-dtbl-pager").attr('style', ('display:""'));
-  //
-  // })
-  //
-  // $("#btnApplyMemberList").click(function () {// ApplyMemberList
-  //   console.log("2번 클릭했니")
-  //   $("#btnMemberList").attr('style', ('background-color:white'));
-  //   $("#studyMemberList").attr('style', ('display:none'));
-  //   $("#s-dtbl-pager").attr('style', ('display:none'));
-  //   $("#btnApplyMemberList").attr('style', ('background-color:red'));
-  //   $("#applyMemberList").attr('style', ('display:""'));
-  //   $("#a-dtbl-pager").attr('style', ('display:""'));
-  // })
-  
-  
+
   // TODO  함수 2가지 부트스트랩화 (addCalss)
   /* 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
    * 매개변수 : 없음. 해당 버튼에 인라인으로 onclick event 부여
@@ -398,9 +378,9 @@ License: You must have a valid license purchased only from themeforest(the above
     $("#a-dtbl-pager").attr('style', ('display:none'));
     $("#studyMemberList").attr('style', ('display:""'));
     $("#s-dtbl-pager").attr('style', ('display:""'));
-  
+
   } // studyMemberListOn
-  
+
   /* 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
    * 매개변수 : 없음. 해당 버튼에 인라인으로 onclick event 부여
    * 작성자 : 신지혜
@@ -423,10 +403,10 @@ License: You must have a valid license purchased only from themeforest(the above
   */
   function applyAction(apply_idx, action){
     actionName =
-    action =='refusal' ? '가입신청 거절' :
-        action == 'approval' ? '가입신청 승인':
-            action == 'cancle' ? '가입신청 취소' :
-                                    '해당 스터디에서 탈퇴';
+        action =='refusal' ? '가입신청 거절' :
+            action == 'approval' ? '가입신청 승인':
+                action == 'cancle' ? '가입신청 취소' :
+                    '해당 스터디에서 탈퇴';
     if(!confirm( actionName + " 하시겠습니까?")){
       return false;
 
@@ -435,7 +415,7 @@ License: You must have a valid license purchased only from themeforest(the above
     var submitObj = new Object();
     submitObj.apply_idx= apply_idx;
     submitObj.action= action;
-   
+
     console.log("JSON.stringify(submitObj): "+JSON.stringify(submitObj));
 
     // 받은 action과 참여번호를 json 객체로 /apply_action 전송하여 db update!!
@@ -447,10 +427,10 @@ License: You must have a valid license purchased only from themeforest(the above
       dataType : "json",
       error:function(request,status,error){
         console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-       
+
       }
 
-      
+
     })
     .fail(function(e) { // TODO 왜 성공했는데 fail타지요?
       alert(actionName+ " 실패하였습니다.");
@@ -467,7 +447,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     //TODO 완료시에 화면 다시 뿌려주기 위해서 테이블 동적생성 구문 추가 예정(필수)
   } // end fn_refusal
-  
+
   /* 페이징 처리하는 함수
   *  작성자: 신지혜
   */
@@ -608,21 +588,21 @@ License: You must have a valid license purchased only from themeforest(the above
       $(".datatable-pager.datatable-paging-loaded ul li a").click(function () {
         //전역변수에 선택한 페이지 번호를 담아서
         globalCurrentPage = $(this).attr("data-page");
-     
+
         //페이징 표시 재호출
         paging(totalData, dataPerPage, pageCount, globalCurrentPage);
-        
+
         //글 목록 표시 재호출
         displayData(globalCurrentPage, dataPerPage);
       }); // click-fn
     } // pager()
- 
+
 
     // 페이지 사이즈 드롭다운 선택하면 화면단에서 적용하여 출력하는 함수
     $('#pageSizePicker').change(function () {
       let pageSizePickerValue = $("#pageSizePicker option:selected").val();
       console.log("pageSizePickerValue: " + pageSizePickerValue);
-      
+
       //전역 변수에 담긴 globalCurrent 값을 이용하여 페이지 이동없이 글 표시개수 변경
       paging(totalData, pageSizePickerValue, pageCount, currentPage);
       displayData(currentPage, pageSizePickerValue);
@@ -647,7 +627,7 @@ License: You must have a valid license purchased only from themeforest(the above
       $('tr[data-row="' + i + '"]').attr('style', ('display:""'));
     } // for
   } // displayData()
-  
+
 </script>
 </html>
 

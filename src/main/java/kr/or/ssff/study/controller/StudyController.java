@@ -43,7 +43,7 @@ public class StudyController {
     public String selectChallengeListGo(Model model) {
         log.info("challengeListGo() is invoked");
 
-        List<RecruitBoardVO> list= this.service.getList();
+        List<RecruitBoardVO> list= this.service.getList("C");
 
         model.addAttribute("list", list);
 
@@ -163,7 +163,7 @@ public class StudyController {
     public String selectProjectListGo(Model model) {
         log.info("selectProjectListGo() is invoked");
 
-        List<RecruitBoardVO> list= this.service.getList();
+        List<RecruitBoardVO> list= this.service.getList("P");
 
         model.addAttribute("list", list);//list + lang tag. 한개의 게시물. -> 번호
 

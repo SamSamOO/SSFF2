@@ -15,10 +15,10 @@
 				name="driverClassName"
 				value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 
-		<property name="jdbcUrl"
-				  value ="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_Admin=/Library/전자지갑/Wallet_DB202110221035" />
 <!--		<property name="jdbcUrl"-->
-<!--			value="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP" />-->
+<!--				  value ="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_Admin=/Library/전자지갑/Wallet_DB202110221035" />-->
+		<property name="jdbcUrl"
+			value="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP" />
 
 
 
