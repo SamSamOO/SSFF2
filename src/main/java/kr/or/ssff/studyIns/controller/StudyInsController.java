@@ -283,7 +283,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         log.info("maxNumber = {}", maxNumber);
 
-        model.addAttribute("maxNumber", maxNumber);
+        model.addAttribute("cont_No", maxNumber);
 
         return "/studyIns/board/post";
     } // studyBoardPostGo
@@ -294,7 +294,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/post")
-    public String studyBoardPost(StudyInsDTO studyInsDTO, MultipartFile[] uploadFile,RedirectAttributes rttrs) {
+    public String studyBoardPost(@RequestParam("cont_No") Integer cont_No,StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile",required = false) MultipartFile[] uploadFile,RedirectAttributes rttrs) {
         log.debug("studyBoardPost({} , {}) is invoked", "studyInsDTO = " + studyInsDTO , ", uploadFile = " + Arrays.deepToString(uploadFile));
 
         String uploadFolder = "C:\\temp\\upload";
@@ -316,14 +316,15 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         } // end for
         Objects.requireNonNull(service);
 
-        if (service.register(studyInsDTO,uploadFile)) {
+        if (service.register(cont_No,studyInsDTO,uploadFile)) {
             rttrs.addFlashAttribute("result", "success");
         } // if
 
-        //리다이렉트 파라미터 값 전송!
-        rttrs.addAttribute("cont_No", service.findMaxContNo());
+        log.debug(service.findMaxContNo());
 
-        return "redirect:studyIns/board/detail";
+        //리다이렉트 파라미터 값 전송!
+        rttrs.addAttribute("CONT_NO", cont_No);
+        return "redirect:/studyIns/board/detail";
     } // studyBoardPost
 
     //-------------------------------- 상준 채팅방--------------------------------//

@@ -17,10 +17,7 @@ public interface MemberService {
     public void insertMember(MemberVO memberVO);
 
 
-
-
-
-    //-------------멤버 CRUD 순형 ---------------//
+    
     // 1. 새로운 게시물 등록
     public abstract boolean register();
 

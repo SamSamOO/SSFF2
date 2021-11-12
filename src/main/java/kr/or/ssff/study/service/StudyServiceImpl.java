@@ -28,7 +28,7 @@ public class StudyServiceImpl implements StudyService {
         log.info("\t + affectedRows:{}", affectedRows);
 
         return affectedRows == 1;
-    }//register
+    }//register (글 등록)
 
     @Override
     public boolean modify() {
@@ -46,12 +46,14 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public List<String> getList() {
-        return null;
-    }
+    public List<RecruitBoardVO> getList(String type) {
+        List<RecruitBoardVO> allBoard = this.mapper.getList(type);
+
+        return allBoard;
+    }//getList(글반환)
 
     @Override
-    public List<String> getListPerPage() {
+    public List<RecruitBoardVO> getListPerPage() {
         return null;
     }
 
@@ -59,7 +61,29 @@ public class StudyServiceImpl implements StudyService {
     public Integer getTotal() {
         return null;
     }
-}
+
+    @Override
+    public boolean registerLangTag(Integer r_idx,String tag) {
+        int affectedRows = mapper.insertTag(r_idx,tag);
+
+        return affectedRows == 1;
+
+    }//registerLangTag(프로젝트 - 언어태그 삽입)
+
+    @Override
+    public Integer getCurrentR_idx() {
+
+        int currentR_idx = this.mapper.getCurrentR_idx();
+
+        return currentR_idx;
+    }//가장 마지막에 쓴 게시글 번호 가져오기(프로젝트)
+
+
+
+
+}//end class
+
+
 
 
 

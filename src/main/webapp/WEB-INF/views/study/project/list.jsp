@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@taglib	uri="http://java.sun.com/jsp/jstl/core"	prefix="c" %>
+<%@taglib	uri="http://java.sun.com/jsp/jstl/fmt"	prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <!----------------Head 시작----------------------->
@@ -119,47 +121,24 @@
 
 
                                     <ul class="studylist-content-ul">
-                                        <li class="studylist-content">
-                                            <p class="studylist-content-title">은행 웹사이트 토이프로젝트 (12월 open)</p>
+                                        <c:forEach items="${list}" var="list">
+                                            <li class="studylist-content">
+                                                <p class="studylist-content-title">${list.title}</p>
 
-                                            <ul class="studylist-content-logo">
-                                                <li><img src="../../../../resources/assets/image/javascript.png" width="40px"></li>
-                                                <li><img src="../../../../resources/assets/image/spring.png" width="40px"></li>
-                                                <li><img src="../../../../resources/assets/image/vue.png" width="40px"></li>
-                                            </ul>
+                                                <ul class="studylist-content-logo">
+                                                    <li><img src="../../../../resources/assets/image/javascript.png" width="40px"></li>
+                                                    <li><img src="../../../../resources/assets/image/spring.png" width="40px"></li>
+                                                    <li><img src="../../../../resources/assets/image/vue.png" width="40px"></li>
+                                                </ul>
 
-                                            <ul class="studylist-hitAndRepl">
-                                                <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
-                                                <li>2</li>
-                                                <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
-                                                <li>30</li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="studylist-content">
-                                            <p class="studylist-content-title">1개월 클론코딩</p>
-
-                                            <ul class="studylist-content-logo">
-                                                <li><img src="../../../../resources/assets/image/java.png" width="40px"></li>
-                                                <li><img src="../../../../resources/assets/image/react.png" width="40px"></li>
-                                            </ul>
-
-                                            <ul class="studylist-hitAndRepl">
-                                                <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
-                                                <li>2</li>
-                                                <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
-                                                <li>30</li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
+                                                <ul class="studylist-hitAndRepl">
+                                                    <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
+                                                    <li>99</li>
+                                                    <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
+                                                    <li>${list.hit}</li>
+                                                </ul>
+                                            </li>
+                                        </c:forEach>
                                     </ul>
 
                                 </div>
