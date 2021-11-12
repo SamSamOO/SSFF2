@@ -1,9 +1,9 @@
 package kr.or.ssff.member.service;
 
-import java.util.HashMap;
-import java.util.List;
 import kr.or.ssff.mapper.MemberMapper;
-import kr.or.ssff.member.domain.ApplyMemberListVO;
+
+import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -12,6 +12,9 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
+import java.util.List;
 
 /*
  * 최초 작성자: 신지혜
@@ -24,9 +27,19 @@ import org.springframework.stereotype.Service;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService, InitializingBean, DisposableBean  {
-
-  @Setter(onMethod_=@Autowired)
+	
+	@Setter(onMethod_ = @Autowired)
 	private MemberMapper mapper;
+
+
+    @Override
+    public void insertMember(MemberVO memberVO) {
+        log.debug("insertMember({}) is invoked", "memberVO = " + memberVO);
+
+        mapper.insertMember(memberVO);
+
+    }
+
 
     @Override
     public boolean register() {
@@ -78,32 +91,19 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 	   * 작성자	: 신지혜 
 	   */
 	@Override
-	public List<ApplyMemberListVO> getApplyMemberList(String r_idx) {
+	public List<ApplyMemberDTO> getApplyMemberList(Integer r_idx) {
 		//TODO 추후 클릭하는 스터디로 변경해야해~
-		r_idx= "9003";
+		r_idx= 9003; 
 		log.debug("getApplyMemberList({}) invoked");
 	
 		
-		List<ApplyMemberListVO> allApplyMemberList = this.mapper.getApplyMemberList(r_idx);
+		List<ApplyMemberDTO> allApplyMemberList = this.mapper.getApplyMemberList(r_idx);
 		log.info("\t + allApplyMemberList:{}", allApplyMemberList);		
 		
 		return allApplyMemberList; 
 	} // getApplyMemberList
-
-  /* 특정 스터디의 가입상태를 변경(거절, 승인, 탈퇴, 가입취소, 실패)
-   * 매개변수: 스터디 참여번호
-   * 반환	:
-   * 작성자	: 신지혜
-   */
-  @Override
-  public void applyAction(HashMap<String, String> aMember) {
-    log.debug("applyAction({}) invoked", aMember );
-    this.mapper.applyAction(aMember);
-
-
-  } // applyAction
-
-  // ------------------------------------------------------------------------------- //
+	
+	// ------------------------------------------------------------------------------- //
 
 	@Override
 	public void destroy() throws Exception {

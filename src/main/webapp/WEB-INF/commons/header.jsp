@@ -38,11 +38,11 @@
                 <!--begin::Nav 헤더 메뉴 네비 시작-->
                 <div class="navi align-items-center p-3 rounded-top">
                     <!--begin::Item-->
-                    <a href="/custom/apps/user/profile-1/personal-information.html" class="navi-item">
+                    <a href="/member/loginGo" class="navi-item">
                         <div class="navi-link">
 
                             <div class="navi-text login">
-                                <div class="font-weight-bold">로그인</div>
+                                <div class="font-weight-bold">로그인 </div>
                             </div>
                         </div>
                     </a>
@@ -143,7 +143,7 @@
                     <!--begin::Nav 헤더 메뉴 네비 시작-->
                     <div class="navi align-items-center p-3 rounded-top">
                         <!--begin::Item-->
-                        <a href="custom/apps/user/profile-1/personal-information.html" class="navi-item">
+                        <a href="/member/loginGo" class="navi-item">
                             <div class="navi-link">
 
                                 <div class="navi-text login">

@@ -20,9 +20,9 @@ MEMBER_ENABLED	CHAR(1 BYTE)	No	'y' 	7	가입상태
 @Value
 public class MemberVO {
 	private Integer member_no;
-	private String member_name;
 	private String member_id;
 	private String member_pwd;
+	private String member_name;
 	private String member_profile;
 	private String member_introduce;
 	private Character member_enabled;
