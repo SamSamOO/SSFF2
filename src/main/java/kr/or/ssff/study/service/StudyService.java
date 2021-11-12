@@ -20,7 +20,7 @@ public interface StudyService {
     public abstract String get();
 
     // 5. 전체 목록 조회 - 정상동작중!
-    public abstract List<RecruitBoardVO> getList();
+    public abstract List<RecruitBoardVO> getList(String type);
 
     //5. 목록조회 with paging
     public abstract List<RecruitBoardVO> getListPerPage();

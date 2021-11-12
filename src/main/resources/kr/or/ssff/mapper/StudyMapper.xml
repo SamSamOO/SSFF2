@@ -27,7 +27,7 @@
         SELECT
             /*+ index_desc(recruit_board) */ *
         FROM recruit_board
-        WHERE r_idx < 1000 and type_pc='C' and removed_ok='n'
+        WHERE r_idx < 1000 and type_pc=#{type} and removed_ok='n'
     ]]>
   </select>
 
