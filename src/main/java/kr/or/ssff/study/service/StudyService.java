@@ -1,6 +1,7 @@
 package kr.or.ssff.study.service;
 
 import java.util.List;
+import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 
 /*
@@ -33,6 +34,10 @@ public interface StudyService {
 
     //8. P에서 최근에 등록한 글 번호 가져오기
     public abstract Integer getCurrentR_idx();
+
+    //9. p에서 lang list 가져오기
+    public abstract List<LangVO> getLangList();
+
 }
 
 
