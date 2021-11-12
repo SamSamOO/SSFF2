@@ -34,6 +34,8 @@ public class CafeController{
     return "cafe/list";
   } // selectCafeList
 
+
+
   /*
    * 스터디 카페 단일 상세화면을 조회
    * 매개변수: 스터디카페ID
@@ -45,6 +47,7 @@ public class CafeController{
 
     return "cafe/detail";
   } // selectCafe
+
 
   /*
    * 스터디 카페 예약 처리
