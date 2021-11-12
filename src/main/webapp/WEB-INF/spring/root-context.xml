@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -12,11 +12,11 @@
 		<description>이 빈의 설명을 넣어라!!!</description>
 
 		<property
-				name="driverClassName"
-				value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+			name="driverClassName"
+			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 
-<!--		<property name="jdbcUrl"-->
-<!--				  value ="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_Admin=/Library/전자지갑/Wallet_DB202110221035" />-->
+		<!--		<property name="jdbcUrl"-->
+		<!--				  value ="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_Admin=/Library/전자지갑/Wallet_DB202110221035" />-->
 		<property name="jdbcUrl"
 			value="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP" />
 
@@ -40,8 +40,8 @@
 
 	<!-- 데이터소스 빈 클래스 설정 -->
 	<bean
-			id="hikariDataSource"
-			class="com.zaxxer.hikari.HikariDataSource">
+		id="hikariDataSource"
+		class="com.zaxxer.hikari.HikariDataSource">
 
 		<constructor-arg ref="hikariConfig"/>
 	</bean>
@@ -49,12 +49,12 @@
 
 	<!-- MyBatis-Spring 연계라이브러리에서 제공되는 특수한 빈을 등록 -->
 	<bean
-			id="sqlSessionFactory"
-			class="org.mybatis.spring.SqlSessionFactoryBean">
+		id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="hikariDataSource"/>
 
 		<property name="configLocation"
-				  value="classpath:mybatis-config.xml"/>
+			value="classpath:mybatis-config.xml"/>
 	</bean>
 
 	<!-- MyBatis-Spring 연계라이브러리에서 제공되는 특수한 태그를 등록:

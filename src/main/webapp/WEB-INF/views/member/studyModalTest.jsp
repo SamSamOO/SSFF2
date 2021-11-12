@@ -68,7 +68,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <div id="memberListModal" class="modal fade" role="dialog"
              aria-hidden="true">
         
-          
+        
         </div>
         <!--end::Modal-->
         <!---------------- 지혜:  신청자/멤버 명단 모달창 종료 -------------------->
@@ -82,7 +82,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!----------------Body 종료----------------------->
 <script type="text/javascript">
-// TODO 승인되고난 후 해당 버튼 비활성화(처리 중이라는 것을 확인시키기위한 view 작업 필요함)
+  // TODO 승인되고난 후 해당 버튼 비활성화(처리 중이라는 것을 확인시키기위한 view 작업 필요함)
   function x() { // TODO 멤버 확인버튼 누를때 스터디번호, 개설자여부 받아와야함! 민주, 예솔 작업시 버튼에 값 매칭하기
     let putListModalHtml = '';
     putListModalHtml +=
@@ -232,7 +232,7 @@ License: You must have a valid license purchased only from themeforest(the above
     </div>`
 
     if(1==1){     // TODO 개설자라면
-      // 참여신청자 버튼이 보이도록
+                  // 참여신청자 버튼이 보이도록
       $("#btnApplyMemberList").attr('style', ('display:""'));
       putBodyHtml +=
           `<!--begin: Datatable-->
