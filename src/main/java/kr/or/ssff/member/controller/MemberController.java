@@ -144,6 +144,7 @@ public class MemberController {
         ModelMap model ) throws Exception {
         log.debug("studyModalTest({},{},{}) is invoked",filterJSON, response, model );
         try{
+            log.debug("");
             log.info("\t refusal_action_try");
             log.info("\t filterJSON: "+filterJSON);
             log.info("\t response: "+response);
