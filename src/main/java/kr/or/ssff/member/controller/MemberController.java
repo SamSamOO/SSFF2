@@ -127,7 +127,7 @@ public class MemberController {
         List<ApplyMemberListVO> applyMemberList = this.service.getApplyMemberList(r_idx);
         log.info("\t + >>>>>>>>>>>>>>>>applyMemberList:{}", applyMemberList);
         log.info("\t+ list size: {}", applyMemberList.size());
-        log.debug("");
+
         model.addAttribute("applyMemberList", applyMemberList);
     } // studyModalTest
 
@@ -144,7 +144,6 @@ public class MemberController {
         ModelMap model ) throws Exception {
         log.debug("studyModalTest({},{},{}) is invoked",filterJSON, response, model );
         try{
-            log.debug("");
             log.info("\t refusal_action_try");
             log.info("\t filterJSON: "+filterJSON);
             log.info("\t response: "+response);
