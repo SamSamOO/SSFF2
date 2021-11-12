@@ -32,19 +32,18 @@
 
     </insert>
     <insert id="insertFiles" parameterType="java.util.List">
-        insert into STUDY_INS_FILE(CONT_NO, FILE_NAME)
-        VALUES
-        <foreach collection="list" item="item" separator=",">
-            (#{item.cont_No}, #{item.file_Name})
-        </foreach>
+        insert into STUDY_INS_FILE(FILE_NO, CONT_NO, FILE_NAME) select STUDY_INS_FILE_SQE.nextval, A.*from(
+        <foreach collection="list" item="item" separator="UNION ALL ">
+            select #{item.cont_No} as CONT_NO, #{item.file_Name} as FILE_NAME from dual
 
-
+        </foreach>) A
     </insert>
+
 
     <select id="getList" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
 
     <![CDATA[
-        select /*+ cont_no_desc(si_board) */ *
+        select /*+ cont_no_desc(si_board) */ CONT_NO, MEMBER_NAME, R_IDX, WRITE_DATE, MODIFY_DATE, REMOVED_OK, CONT, CATEGORY, TITLE, HIT
         from si_board
         where cont_no < 100
         ]]>
@@ -57,7 +56,7 @@
     </select>
     <select id="findByBno" resultType="kr.or.ssff.studyIns.model.StudyInsFileDTO">
 
-        select *
+        select FILE_NO, CONT_NO, FILE_NAME
         from study_ins_file
         where cont_No = #{cont_No}
 
@@ -66,7 +65,7 @@
     <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
 
 		<![CDATA[
-        select *
+        select CONT_NO, MEMBER_NAME, R_IDX, WRITE_DATE, MODIFY_DATE, REMOVED_OK, CONT, CATEGORY, TITLE, HIT
         from si_board
         where cont_No = #{cont_No}
         ]]>
