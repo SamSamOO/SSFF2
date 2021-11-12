@@ -1,6 +1,7 @@
 package kr.or.ssff.study.service;
 
 import kr.or.ssff.mapper.StudyMapper;
+import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.mapper.StudyMapper;
 import lombok.AllArgsConstructor;
@@ -76,9 +77,15 @@ public class StudyServiceImpl implements StudyService {
         int currentR_idx = this.mapper.getCurrentR_idx();
 
         return currentR_idx;
-    }//가장 마지막에 쓴 게시글 번호 가져오기(프로젝트)
+    }//getCurrentR_idx가장 마지막에 쓴 게시글 번호 가져오기(프로젝트)
 
+    @Override
+    public List<LangVO> getLangList() {
 
+        List<LangVO> langlist = this.mapper.getLangList();
+
+        return langlist;
+    }//getLangList lang list 전체 가져오기
 
 
 }//end class
