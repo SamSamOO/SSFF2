@@ -7,7 +7,6 @@ import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
@@ -52,9 +51,6 @@ public class StudyInsController implements InitializingBean, DisposableBean {
     @GetMapping("/board/fileBox/link")
     public String boardFileBoxLink(String boardId) {
         log.debug("boardFileBoxLink({}) is invoked", "boardId = " + boardId);
-
-
-
 
         return "studyIns/board/fileBoxLink";
     } // boardLink
@@ -276,7 +272,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * */
     @GetMapping("/board/postGo")
     public String studyBoardPostGo(Model model) {
-        log.info("studyBoardPostGo({}) is invoked",  ", model = " + model);
+        log.info("studyBoardPostGo({}) is invoked", ", model = " + model);
 
         Objects.requireNonNull(service);
         Integer maxNumber = service.findMaxContNo();
@@ -294,8 +290,9 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/post")
-    public String studyBoardPost(@RequestParam("cont_No") Integer cont_No,StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile",required = false) MultipartFile[] uploadFile,RedirectAttributes rttrs) {
-        log.debug("studyBoardPost({} , {}) is invoked", "studyInsDTO = " + studyInsDTO , ", uploadFile = " + Arrays.deepToString(uploadFile));
+    public String studyBoardPost(@RequestParam("cont_No") Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile", required = false) MultipartFile[] uploadFile,
+        RedirectAttributes rttrs) {
+        log.debug("studyBoardPost({} , {}) is invoked", "studyInsDTO = " + studyInsDTO, ", uploadFile = " + Arrays.deepToString(uploadFile));
 
         String uploadFolder = "C:\\temp\\upload";
 
@@ -316,14 +313,14 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         } // end for
         Objects.requireNonNull(service);
 
-        if (service.register(cont_No,studyInsDTO,uploadFile)) {
+        if (service.register(cont_No, studyInsDTO, uploadFile)) {
             rttrs.addFlashAttribute("result", "success");
         } // if
 
         log.debug(service.findMaxContNo());
 
         //리다이렉트 파라미터 값 전송!
-        rttrs.addAttribute("CONT_NO", cont_No);
+        rttrs.addAttribute("cont_No", cont_No);
         return "redirect:/studyIns/board/detail";
     } // studyBoardPost
 

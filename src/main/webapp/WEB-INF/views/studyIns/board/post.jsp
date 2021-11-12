@@ -130,7 +130,7 @@
                                             <tr>
                                                 <td>
                                                     <div class="uploadDiv">
-                                                        <input type="file" name="uploadFile" multiple/>
+                                                        <input type="file" name="uploadFile" id="uploadFile" multiple/>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -143,8 +143,6 @@
 
                             </div>
                             <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
-
-
                             <!--대시보드 종료-->
                         </div>
                         <!--end::Content-->
@@ -159,19 +157,26 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
+    let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+    let maxSize = 5242880; //5MB
     $(function () {
         console.clear();
         console.debug("제이쿼리 시작");
+
         $(`#listBtn`).on(`click`, function (e) {
 
             console.log('목록버튼이 클릭됨!');
 
             const formElement = $("#formObj");
+
             formElement.attr("action", "/studyIns/board/list");
             formElement.attr("method", "get");
+
             formElement.submit();
+
         });
-        $(`#cont`).val($(`#kt_quil_2`).html());
+    //TODO 파일이 없는 경우 파일업로드를 안하게 해줘야합니다.
+        $(`#cont`).val($(`.ql-editor`).html());
 
 
     });
@@ -190,9 +195,16 @@
             });
             // Store accumulated changes
             var change = new Delta();
+            let content = quill.getContents();
+            console.log("content : " + content);
+            $(`#cont`).val($(`#kt_quil_2`).children('div').html())
             quill.on('text-change', function (delta) {
                 change = change.compose(delta);
+                console.log($(`#cont`).val($(`#kt_quil_2`).children('div').html()));
+
             });
+
+
             // Save periodically
             setInterval(function () {
                 if (change.length() > 0) {
@@ -216,7 +228,7 @@
                     return 'There are unsaved changes. Are you sure you want to leave?';
                 }
             }
-        }
+        };
         return {
             // public functions
             init: function () {
@@ -229,6 +241,29 @@
         KTQuilDemos.init();
     });
 
+    function checkExtension(fileName, fileSize) {
+        if (fileSize >= maxSize) {
+            sweetAlert("에러", "파일 사이즈 초과!", "warning");
+            return false;
+        }
+        if (regex.test(fileName)) {
+            sweetAlert("에러", "해당 종류의 파일은 업로드 할 수 없습니다.","warning");
+            return true;
+        }
+    }
+
+    $(`#uploadFile`).on("change", function (e) {
+        let formData = new FormData();
+        let inputFile = $("input[name='uploadFile']");
+        let files = inputFile[0].files;
+        console.log(files);
+        for (let i = 0; i < files.length; i++) {
+            if (!checkExtension(files[i].name, files[i].size)) {
+                return false;
+            }
+        }
+        formData.append("uploadFile", files[i]);
+    });
     // $(document).ready(function () {
     //     $("#uploadBtn").on("click", function (e) {
     //         e.preventDefault();
