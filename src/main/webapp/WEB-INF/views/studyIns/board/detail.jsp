@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -13,6 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
 
     <script>
+
         $(function () {
             console.clear();
             console.debug("제이쿼리 시작 ㅇㅇ");
@@ -34,6 +36,7 @@
                 formObj.submit();
             }); // onclick
         }); // jq
+
     </script>
 </head>
 
@@ -97,68 +100,65 @@
                             <!--카드 Body 시작-->
                             <div class="card-header border-0 pt-5 card-body mt-5">
 
-                                    <form action="/studyIns/board/detail/modify" method="POST" style="width: 100%">
-                                        <input type="hidden" name="cont_No" value="<c:out value='${detail.cont_No}' />">
-                                        <table style="width: 100%;  border-radius: 10px; border-style: hidden ; !important;">
-                                            <tr>
-                                                <th align="left" height="50px"><a href="javascript:history.back()">뒤로가기 들어갈곳</a></th>
-                                            </tr>
-                                            <tr>
-                                                <th style="text-align: center; font-weight: bold; font-size: 32px;height: 200px">제목 들어가는 곳${detail.title}</th>
-                                            </tr>
-                                            <tr style="height: 100px">
-                                                <td colspan="4">카테고리들어가는곳${detail.category}</td>
-                                                <td colspan="1">${detail.hit}조회수</td>
-                                                <%--세션아이디와 현재글 닉네임과 동일한 경우 수정 삭제버튼 보입니다. --%>
+                                <form action="/studyIns/board/detail/modify" method="POST" style="width: 100%">
+                                    <input type="hidden" name="cont_No" value="<c:out value='${detail.cont_No}' />">
+                                    <table style="width: 100%;  border-radius: 10px; border-style: hidden ; !important;">
+                                        <tr>
+                                            <th align="left" height="50px"><a href="javascript:history.back()">뒤로가기 들어갈곳</a></th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10" style="text-align: center; font-weight: bold; font-size: 26px;height: 100px">${detail.title}</td>
+                                        </tr>
+                                        <tr style="height: 100px">
+                                            <td colspan="6">카테고리 : ${detail.category}</td>
+                                            <%--TODO 세션아이디와 현재글 닉네임과 동일한 경우 수정 삭제버튼 보입니다. --%>
+                                            <td colspan="4" align="right">
+                                                <i class="far fa-eye"></i> ${detail.hit} <%--TODO 조회수 관련 함수 짜야합니다.--%>
 
-                                                <td colspan="4">
-                                                    <button type="button" id="modifyBtn">수정</button>
-                                                    <button type="button" id="removeBtn">삭제</button>
-                                                </td>
+                                                <button type="button" id="modifyBtn">수정</button>
+                                                <button type="button" id="removeBtn">삭제</button>
+                                                ${detail.member_Name}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th colspan="2">다운로드</th>
+                                            <td colspan="2"><a href="">파일이름</a></td>
 
-                                                <%----%>
-                                                <td colspan="1">${detail.member_Name}닉네임</td>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">다운로드</th>
-                                                <td colspan="2"><a href="">파일이름</a></td>
-                                                <th colspan="1">작성일자</th>
-                                                <td colspan="2">${detail.write_Date}</td>
+                                            <th colspan="1">작성일자</th>
+                                            <td colspan="2"><fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
 
-                                                <th colspan="1">수정일자</th>
-                                                <td colspan="12">${detail.modify_Date}</td>
-                                            </tr>
-                                            <tr style="height: 600px">
-                                                <td colspan="10">컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용
-                                            </tr>
-                                            <tr>
-                                                <td> 첨부 파일</td>
-                                                <td>
-
-                                                    파일네임
-
-                                                </td>
-                                            </tr>
+                                            <th colspan="1">수정일자</th>
+                                            <td colspan="2"><fmt:formatDate value="${detail.modify_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
+                                        </tr>
+                                        <tr style="height: 600px; border-top: lightblue ;border-style: solid">
+                                            <td colspan="10">${detail.cont}</td>
+                                        </tr>
+                                        <tr>
+                                            <td> 첨부 파일</td>
+                                            <td>
+                                                파일네임
+                                            </td>
+                                        </tr>
 
 
-                                        </table>
-                                    </form>
-                                </div>
-                                <!--카드 바디 종료-->
-
+                                    </table>
+                                </form>
                             </div>
-                            <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
+                            <!--카드 바디 종료-->
 
-
-                            <!--대시보드 종료-->
                         </div>
-                        <!--end::Content-->
+                        <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
+
+
+                        <!--대시보드 종료-->
                     </div>
-                    <!--end::Content Wrapper 내용물 종료-->
+                    <!--end::Content-->
                 </div>
-                <%--컨테이너 종료--%>
-                <!--footer.html Include-->
-                <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+                <!--end::Content Wrapper 내용물 종료-->
+            </div>
+            <%--컨테이너 종료--%>
+            <!--footer.html Include-->
+            <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
 </body>
 <!----------------Body 종료----------------------->
 </html>
