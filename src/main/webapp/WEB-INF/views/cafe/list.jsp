@@ -16,8 +16,65 @@
 
 <head>
   <title>cafeList</title>
+<style>
+  body{
+    background:#000;
+  }
 
+  section.awSlider .carousel{
+    display:table;
+    z-index:2;
+    -moz-box-shadow: 0 0 4px #444;
+    -webkit-box-shadow: 0 0 4px #444;
+    box-shadow: 0 0 15px rgba(1,1,1,.5);
+  }
+
+  section.awSlider{
+    margin:30px auto;
+    padding:30px;
+    position:relative;
+    display:table;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  section.awSlider:hover > img{
+    -ms-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    opacity:1;
+  }
+
+  section.awSlider img{
+    pointer-events: none;
+  }
+
+  section.awSlider > img{
+    position:absolute;
+    top:30px;
+    z-index:1;
+    transition:all .3s;
+    filter: blur(1.8vw);
+    -webkit-filter: blur(2vw);
+    -moz-filter: blur(2vw);
+    -o-filter: blur(2vw);
+    -ms-filter: blur(2vw);
+    -ms-transform: scale(1.1);
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+    opacity:.5;
+  }
   
+</style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
@@ -86,11 +143,50 @@
                 <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                   <!--begin::Card-->
                   <div class="card card-custom gutter-b card-stretch">
-                    <div id="image99">
-                    <div><img src="../../../../resources/assets/images/1.png" title="cafe_idx" width="100%"></div>
-                    <div><img src="../../../../resources/assets/images/2.png" title="cafe_idx" width="100%"></div>
-                    <div><img src="../../../../resources/assets/images/3.png" title="cafe_idx" width="100%"></div>
-                    </div>
+                    
+                    <section class="awSlider">
+                      <div  class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                          <li data-target=".carousel" data-slide-to="0" class="active"></li>
+                          <li data-target=".carousel" data-slide-to="1"></li>
+                          <li data-target=".carousel" data-slide-to="2"></li>
+                          <li data-target=".carousel" data-slide-to="3"></li>
+                        </ol>
+      
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner" role="listbox">
+                          <div class="item active">
+                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
+                            <div class="carousel-caption"> #1</div>
+                          </div>
+                          <div class="item">
+                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
+                            <div class="carousel-caption"> #2</div>
+                          </div>
+                          <div class="item">
+                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
+                            <div class="carousel-caption"> #3</div>
+                          </div>
+                          <div class="item">
+                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
+                            <div class="carousel-caption"> #4</div>
+                          </div>
+                        </div>
+      
+                        <!-- Controls -->
+                        <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
+                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                          <span class="sr-only">Geri</span>
+                        </a>
+                        <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
+                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                          <span class="sr-only">İleri</span>
+                        </a>
+                      </div>
+                    </section>
+                    
+                   
                       <!--begin::Body-->
                     <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
                       <span class="text-dark-75 font-weight-bolder" style="font-size: 28px !important;">[강남구] 메데메데 삼오오삼</span>
@@ -139,72 +235,24 @@
 <script>
   
   // 이미지 슬라이드
-  $(function(){
-    var winW=cnt=setId=0;
+  $('section.awSlider .carousel').carousel({
+    pause: "hover",
+    interval: 2000
+  });
 
-    resizeFn(); //함수 호출
-    setTimeout(resizeFn, 100); //오픈하자마다 실행
+  var startImage = $('section.awSlider .item.active > img').attr('src');
+  $('section.awSlider').append('<img src="' + startImage + '">');
 
-    function resizeFn(){ //반응형 이미지크기 조정함수
-      winW=$(window).innerWidth();
-
-      $(".slide").css({width: winW}); //창크기에 슬라이드이미지 맞춤
-
-    };
-
-    $(window).resize(function(){
-      resizeFn();	//창크기 변경될 때 마다 함수 반복 실행
-    });
-
-    autoplayFn(); //함수 호출
-
-    function autoplayFn(){ //2.5초마다 슬라이드 자동 작동
-      setId = setInterval(nextCountFn, 2500);
-    };
-
-
-
-    $(".pageBt").each(function(idx){ //page버튼 클릭시마다 해당 이미지로 이동
-      $(this).click(function(){
-        clearInterval(setId); //autoplay함수 정지
-        cnt = idx;
-        mainslideFn();
-      });
-    });
-
-
-    function nextCountFn(){ //count(cnt)가 증가될때마다 슬라이드 작동
-      cnt++;
-      mainslideFn();
-    };
-
-    function prevCountFn(){ //count가 감소될때마다 슬라이드 작동
-      cnt--;
-      mainslideFn();
-    };
-
-
-    function mainslideFn(){ //메인슬라이드 함수
-      $(".slideWrap").stop().animate({left: (-100*cnt)+"%"},600, function(){
-        if(cnt>3){
-          cnt=0; //count가 끝까지 이동했을때 다시 처음으로 돌아감
-        }
-        if(cnt<0){
-          cnt=3
-        }
-        $(".slideWrap").stop().animate({left: (-100*cnt)+"%"},0)
-      });
-      $(".pageBt").removeClass("addPageBt");
-      $(".pageBt").eq(cnt>3?cnt=0:cnt).addClass("addPageBt");
-    };
-    //animation사용시에는 stop을 넣어 부드럽게(덜컹거리지 않음)
-    //count 변경시마다 버튼색깔 변경됨
-
+  $('section.awSlider .carousel').on('slid.bs.carousel', function () {
+    var bscn = $(this).find('.item.active > img').attr('src');
+    $('section.awSlider > img').attr('src',bscn);
   });
 
 
-
-
+  /*
+  Philips ambilight tv
+  Üzerine gleince duruyor slide
+  */
 
 
 
