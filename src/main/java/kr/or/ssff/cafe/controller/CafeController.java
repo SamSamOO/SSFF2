@@ -1,18 +1,35 @@
 package kr.or.ssff.cafe.controller;
 
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 /*
 
  */
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.ReservationDTO;
+import kr.or.ssff.cafe.service.CafeService;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 @Log4j2
 @NoArgsConstructor
@@ -21,6 +38,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class CafeController{
 
+	@Setter(onMethod_= { @Autowired })
+  private CafeService service;
+
+
+
+
+  @PostMapping("/listData")
+  @ResponseBody   //없으면 AJAX 통신 안됨
+  public List<CafeListVO> getCafeList(
+      @RequestBody String filterJSON,
+      HttpServletResponse response,
+      ModelMap model ) throws Exception {
+    log.debug("getCafeList({},{},{}) is invoked",filterJSON, response, model );
+
+    List<CafeListVO> allCafeList = this.service.getCafeList();
+    List<CafeListVO> cafeList = null;
+    try{
+      log.info("\t refusal_action_try");
+      log.info("\t filterJSON: "+filterJSON);
+      log.info("\t response: "+response);
+      log.info("\t model: "+model);
+
+      ObjectMapper mapper = new ObjectMapper();
+
+      HashMap<String, Integer> page = mapper.readValue(filterJSON, new HashMap<String, Integer>().getClass());
+
+      int cp = page.get("curPage"); // 요청온 페이지
+      int ps = page.get("pageListSize"); // 18개씩 보여주자
+
+      log.info("\t+ cp: {}",cp);
+      log.info("\t+ ps: {}",ps);
+
+//      this.service.applyAction(aMember);
+
+
+      log.info("\t allCafeList: ");
+      log.info("\t allCafeList: "+allCafeList);
+
+      cafeList = allCafeList.subList((cp-1)*ps,(cp*ps)-1); // 조회한 리스트에서 요청온 index만큼만 담아주자
+      log.info("\t cafeList: "+cafeList);
+
+    }catch(Exception e){
+
+    }
+    response.setContentType("text/html; charset=UTF-8");
+
+    return cafeList;
+  } // getCafeList
+
+
 
   /*
    * 스터디 카페 리스트를 조회
@@ -28,10 +95,12 @@ public class CafeController{
    * 반환: 스터디 카페 리스트 뷰단
    * */
   @GetMapping("/list")
-  public String selectCafeList(){
+  public void selectCafeList(Model model){
     log.info("selectCafeList() is invoked");
 
-    return "cafe/list";
+    List<CafeListVO> cafeList = this.service.getCafeList();
+
+    model.addAttribute("cafeList", cafeList);
   } // selectCafeList
 
 
