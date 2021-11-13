@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en" class="js-focus-visible" data-js-focus-visible="">
+
+<head>
+  <script type="text/javascript" async="" src="https://www.google-analytics.com/analytics.js"></script>
+  <script type="text/javascript" async="" src="https://cdn.channel.io/plugin/ch-plugin-web.js" charset="UTF-8"></script>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="스페이스클라우드 SpaceCloud">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="원하는 공간에서, 우리다운 시간을">
+  <meta property="og:image" content="https://kr.object.ncloudstorage.com/scloud-service/pstatic-scloud/spacecloud_og_image.jpg">
+  <meta property="og:url" content="https://partner.spacecloud.kr">
+  <meta property="og:article:author" content="스페이스클라우드(SpaceCloud)">
+  <title>스페이스클라우드 호스트</title>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="shortcut icon" href="/spacecloud_icon.png" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/spacecloud_icon.png">
+  <link rel="stylesheet" charset="UTF-8" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
+  <meta name="appleid-signin-client-id" content="com.ncloud.spacecloud">
+  <meta name="appleid-signin-scope" content="name email">
+  <meta name="appleid-signin-redirect-uri" content="https://partner.spacecloud.kr/auth/callback?from=apple">
+  <meta name="appleid-signin-state" content="">
+  <meta name="appleid-signin-use-popup" content="false">
+  <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+  <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+  <script type="text/javascript" src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9d5a5837b32d1a5f69f5b689546b51c7"></script>
+  <script charset="UTF-8" src="https://t1.daumcdn.net/mapjsapi/js/main/4.4.2/kakao.js"></script>
+  <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-123322100-3"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+  <style type="text/css">
+    body.imp-payment-progress {
+      position: static
+    }
+
+    body.imp-payment-progress> :not(.imp-dialog) {
+      display: none
+    }
+
+    .imp-dialog {
+      display: none;
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 99999;
+    }
+
+    .imp-dialog .imp-frame-pc.imp-frame-danal,
+    .imp-dialog .imp-frame-pc.imp-frame-danal_tpay {
+      left: 50% !important;
+      margin-left: -345px;
+      width: 720px !important;
+      height: 700px !important;
+      margin-top: 50px;
+    }
+
+    .imp-dialog .imp-frame-pc.imp-frame-mobilians {
+      left: 50% !important;
+      margin-left: -410px;
+      width: 820px !important;
+      height: 700px !important;
+      margin-top: 50px;
+    }
+
+    .imp-dialog .imp-header {
+      display: none;
+      background: transparent;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 25px;
+    }
+
+    .imp-dialog .imp-close {
+      text-decoration: none;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAAAV1JREFUOBHNkz1Ow0AQhWMHioggUSFEyRGAggp6KqDhDHAFOioU/loQoqDlGhyAgmtQ0gEO31jz1iPbcZyOlUY7fvvem9mdZDD472vY0mDegrVBGaBF54qELuPYSNQkc4FjkHNCAu2JSLLkHxvsZ+Gg9FAXUw4M+CI+8zy/cuIvezQ1sx9iDOeS/YOwZT7m0VgqcITgOpwars5WOXvke9vPY8EgqVIJTxDeVXCZWWdPZLuOL9fOZ35G03tnjbyznS4zDaPNWe91iNE+hGlRFK/s74R19k0stNJ1six7w/QlqPXWAepOdWUbwDPULeKAPL7p3GGohMzqA7DzY0xvRWSfayrCCsIHBHGaKmTTr/+kQo0q1busuZl+Z+ktocrUOr2ppM3/tKY9hDiBuOfkaCa9TE8BLhyUXpxUYQSy7qiun0gh0W02wWbyYhUJgkcj7cMpRb2JsBfhNjrqBfwBsGIgzBGH3EgAAAAASUVORK5CYII=');
+    }
+
+    .imp-dialog.pc .imp-frame-danal-certification {
+      width: 410px !important;
+      height: 660px !important;
+      margin: 10px auto;
+      background: #fff;
+    }
+
+    .imp-dialog.pc.certification-danal {
+      background: rgb(255, 255, 255);
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .imp-dialog.pc.certification-danal .imp-header {
+      display: block;
+      width: 410px;
+      margin: 0 auto;
+    }
+
+    .imp-dialog.pc.certification-danal .imp-header .imp-close {
+      top: 18px;
+      right: 25px;
+      width: 19px;
+      height: 19px;
+    }
+
+    .imp-dialog.mobile.ios {
+      position: absolute;
+    }
+
+    .imp-dialog.mobile.certification-danal .imp-header {
+      display: block;
+    }
+
+    .imp-dialog.mobile.certification-danal .imp-header .imp-close {
+      top: 6px;
+      right: 10px;
+      width: 19px;
+      height: 19px;
+    }
+
+    .imp-dialog.pc.payment-settle_firm {
+      background: rgb(221, 221, 221);
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .imp-dialog.pc .imp-frame-settle_firm.layer {
+      width: 410px !important;
+      height: 700px !important;
+      margin: 10px auto;
+      background: #fff;
+    }
+
+    .imp-dialog.pc.payment-kakaopay {
+      background: rgb(221, 221, 221);
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    .imp-dialog.pc.payment-kakaopay .imp-frame-kakaopay {
+      width: 426px !important;
+      height: 550px !important;
+      left: 50% !important;
+      top: 50% !important;
+      margin-left: -213px !important;
+      margin-top: -275px !important;
+    }
+  </style>
+  <script>
+    function gtag() {
+      dataLayer.push(arguments)
+    }
+    window.dataLayer = window.dataLayer || [], gtag("js", new Date), gtag("config", "UA-123322100-3")
+  </script>
+  <link href="/static/css/1.34a3f620.chunk.css" rel="stylesheet">
+  <link href="/static/css/main.31164f87.chunk.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face {
+      font-weight: 400;
+      font-style: normal;
+      font-family: 'Circular-Loom';
+
+      src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Book-cd7d2bcec649b1243839a15d5eb8f0a3.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-weight: 500;
+      font-style: normal;
+      font-family: 'Circular-Loom';
+
+      src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Medium-d74eac43c78bd5852478998ce63dceb3.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-weight: 700;
+      font-style: normal;
+      font-family: 'Circular-Loom';
+
+      src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Bold-83b8ceaf77f49c7cffa44107561909e4.woff2') format('woff2');
+    }
+
+    @font-face {
+      font-weight: 900;
+      font-style: normal;
+      font-family: 'Circular-Loom';
+
+      src: url('https://cdn.loom.com/assets/fonts/circular/CircularXXWeb-Black-bf067ecb8aa777ceb6df7d72226febca.woff2') format('woff2');
+    }
+  </style>
+</head>
+
+<body>
+<div id="root">
+  <div class="wrap ">
+    <header class="header ">
+      <div class="page_title">
+        <h2>기본 정보</h2>
+      </div><a href="javascript:void(0);" class="nav_prev"><span class="sp_icon ico_prev">이전</span></a><a href="javascript:void(0);" class="nav_menu"><span class="sp_icon ico_menu">확장영역 열기</span><i class="sp_icon ico_new" style="display: none;">NEW</i></a>
+    </header>
+    <aside id="all_menu" role="navigation" style="transition-duration: 0.3s;">
+      <h2 class="blind">주메뉴</h2>
+      <div class="scroll_wrap">
+        <div class="scroll_inner">
+          <article id="drawerProfile" class="profile profile_background">
+            <dl>
+              <dt id="_ProfileText" class=""><strong id="_drawer_profile_name">신지혜</strong></dt>
+              <dd class="profile_img"><a href="/auth/mypage" id="_profile_img_circle" title="프로필 이미지">프로필 이미지</a></dd>
+              <dt style="color: rgb(255, 255, 255); text-align: left; font-size: 14px;"><a href="/auth/mypage" style="color: rgb(255, 255, 255); font-weight: 400; font-size: 14px; text-decoration: underline;">프로필 관리</a></dt>
+            </dl><span class="profile_dim"></span>
+          </article>
+          <div class="menu_top">
+            <ul>
+              <li><a href="/reservation"><i class="sp_icon ico_reservationlist"></i><span class="tit">예약 리스트 /<br>캘린더 관리</span><span class="case"><span><em>목록보기</em></span></span></a></li>
+              <li><a href="/review"><i class="sp_icon ico_review"></i><span class="tit">이용후기 /<br>Q&amp;A 관리</span><span class="case"><span><em>목록보기</em></span></span></a></li>
+              <li><a href="/manage/space"><i class="sp_icon current_state"></i><span class="tit">공간정보 관리</span><span class="case"><span><em>목록보기</em></span></span></a></li>
+            </ul>
+          </div><a href="https://spacebiz.kr" class="btn_link_spacebiz">스페이스비즈 / 검색 광고<i class="sp_icon ico_go"></i></a>
+          <nav id="gnb">
+            <ul>
+              <li><a href="/" class="depth_1">호스트센터 홈</a></li>
+              <li><a href="javascript:void(0);" class="depth_1 folded">광고/쿠폰 관리 <span class="tag-new">신규오픈</span></a>
+                <div>
+                  <ul class="depth_2">
+                    <li><a href="/ads/search">내 공간 검색광고</a></li>
+                    <li><a href="/ads/coupon">내 공간 쿠폰상품 <span class="tag-new">판매중</span></a></li>
+                    <li><a href="/ads/coupon/report">쿠폰 사용 내역</a></li>
+                  </ul>
+                </div>
+              </li>
+              <li><a href="/report/statistics" class="depth_1">통계</a></li>
+              <li><a href="/report/account" class="depth_1">정산</a></li>
+              <li><a href="/affiliate_infos" class="depth_1">제휴혜택/ 이벤트</a></li>
+              <li><a href="/board/notice" class="depth_1">공지사항</a></li>
+              <li><a href="/board/help" class="depth_1">도움말</a></li>
+              <li><a href="javascript:void(0);" title="고객문의" class="depth_1">1:1문의</a></li>
+              <li><a href="javascript:void(0);" class="depth_1 folded">서비스 정보</a>
+                <div>
+                  <ul class="depth_2">
+                    <li><a href="/policy/agreement">이용약관</a></li>
+                    <li><a href="/policy/person">개인정보처리방침</a></li>
+                    <li><a href="/policy/settlement">정산 및 환불 정책</a></li>
+                    <li><a href="/policy/operate">공간 관리 정책</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+            <div class="service_menu"><a href="javascript:void(0);" id="_login">로그아웃</a>
+              <p class="copyright">Powered by © NSPACE Corp.</p>
+            </div>
+          </nav><a href="javascript:void(0);" class="nav_menu_close"><i class="sp_icon ico_nav_close">메뉴 닫기</i></a>
+        </div>
+      </div><a href="https://spacecloud.kr" class="btn_fixed_guest">스페이스클라우드로 이동<i class="sp_icon ico_go"></i></a>
+    </aside>
+    <section id="contents" class="contents contents_register space_basic_info" role="main">
+      <div class="heading">
+        <h3>공간 정보를 입력해주세요.</h3><span class="option"><span class="txt_required"><span class="ico_required">* </span>필수입력</span></span>
+      </div>
+      <div class="box_form">
+        <div class="tit"><label for="space_name"><span>공간명</span><span class="ico_required">* </span></label>
+          <div class="tooltip_reg"><i class="sp_icon ico_alert"></i>
+            <div class="tooltip_reg_text">• 다른 공간과 구별될 수 있는 공간의 고유 업체명(브랜드명)을 입력해주세요! <br>※ 검수 반려 사유 : 업체명이 확인 되지 않는 공간명 <br><br>(예시) 인디워커스 하이브(o), 홍대 뷰가 예쁜 파티룸(x), 강남 회의실(x)</div>
+          </div>
+        </div><span class="option"><span class="txt_count"><em id="spcNmCnt">0</em>자/<em>18</em>자</span></span>
+        <div class="input "><input type="text" id="space_name" placeholder="고유 업체명을 입력해주세요. (예시) 인디워커스 하이브 회의실" required="" minlength="1" maxlength="18" value=""></div>
+        <p class="p_guide normal"><i class="sp_icon ico_alert"></i>사용 가능한 특수문자 : ( , ) , [ , ] , - , .(마침표), ,(쉼표)</p>
+        <p class="p_guide warn"><i class="sp_icon ico_alert"></i>공간이름 입력은 필수입니다.</p>
+      </div>
+      <div class="box_form">
+        <div class="tit"><label for="space_intro"><span>공간 유형</span><span class="ico_required">*</span></label>
+          <div class="tooltip_reg"><i class="sp_icon ico_alert"></i>
+            <div class="tooltip_reg_text">• 모임/연습/촬영/행사로 구분된 용도 중 1개의 용도 안에서만 유형을 선택할 수 있어요! <br>• 1개의 용도 안에서 등록하는 공간에 적절한 유형을 모두 선택해주세요. <br>• 검수 신청 후, 유형변경은 고객센터를 통해서만 가능합니다. <br>※ 검수 반려 사유 : 공간 상세 소개/이미지에서 선택한 유형에 대한 사용성이 충분히 확인되지 않는 경우</div>
+          </div>
+        </div>
+        <div style="padding-bottom: 20px;">
+          <p class="p_guide warn usual"><i class="sp_icon ico_alert"></i>빠른 검수 통과를 위해 반드시 공간에 적합한 유형을 선택해주세요! 부적합한 유형 선택시 검수 반려 사유가 됩니다.</p><span class="space_intro option"><span class="txt_guide ">최대 1개의 용도 내에서 적합한 것을 모두 선택해 주세요.</span><span class="txt_required">필수선택</span></span>
+        </div>
+        <div class="row ">
+          <table class="check_list space">
+            <tbody>
+            <tr>
+              <th class="depth_1 selected"><span>모임</span><span class="pointer"></span></th>
+              <td class="depth_2"><span><input type="checkbox" name="space" id="cate6"><label for="cate6" class="ellip">파티룸</label></span><span><input type="checkbox" name="space" id="cate10" checked=""><label for="cate10" class="ellip">스터디룸</label></span><span><input type="checkbox" name="space" id="cate61"><label for="cate61" class="ellip">강의실</label></span><span><input type="checkbox" name="space" id="cate9"><label for="cate9" class="ellip">카페</label></span><span><input type="checkbox" name="space" id="cate53"><label for="cate53" class="ellip">공유주방</label></span><span><input type="checkbox" name="space" id="cate1"><label for="cate1" class="ellip">회의실</label></span><span><input type="checkbox" name="space" id="cate2"><label for="cate2" class="ellip">세미나실</label></span></td>
+            </tr>
+            <tr>
+              <th class="depth_1 "><span>연습</span><span class="pointer"></span></th>
+              <td class="depth_2"><span><input type="checkbox" name="space" id="cate8"><label for="cate8" class="ellip">연습실</label></span><span><input type="checkbox" name="space" id="cate54"><label for="cate54" class="ellip">보컬연습실</label></span><span><input type="checkbox" name="space" id="cate55"><label for="cate55" class="ellip">악기연습실</label></span><span><input type="checkbox" name="space" id="cate56"><label for="cate56" class="ellip">녹음실</label></span><span><input type="checkbox" name="space" id="cate57"><label for="cate57" class="ellip">운동시설</label></span></td>
+            </tr>
+            <tr>
+              <th class="depth_1 "><span>촬영</span><span class="pointer"></span></th>
+              <td class="depth_2"><span><input type="checkbox" name="space" id="cate16"><label for="cate16" class="ellip">촬영스튜디오</label></span><span><input type="checkbox" name="space" id="cate58"><label for="cate58" class="ellip">호리존</label></span><span><input type="checkbox" name="space" id="cate59"><label for="cate59" class="ellip">라이브방송</label></span><span><input type="checkbox" name="space" id="cate60"><label for="cate60" class="ellip">실외촬영</label></span></td>
+            </tr>
+            <tr>
+              <th class="depth_1 "><span>행사</span><span class="pointer"></span></th>
+              <td class="depth_2"><span><input type="checkbox" name="space" id="cate7"><label for="cate7" class="ellip">공연장</label></span><span><input type="checkbox" name="space" id="cate62"><label for="cate62" class="ellip">갤러리</label></span><span><input type="checkbox" name="space" id="cate63"><label for="cate63" class="ellip">스몰웨딩</label></span><span><input type="checkbox" name="space" id="cate64"><label for="cate64" class="ellip">컨퍼런스</label></span></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="box_form">
+        <div class="tit"><label for="space_intro"><span>공간 한 줄 소개</span><span class="ico_required"> *</span></label>
+          <div class="tooltip_reg"><i class="sp_icon ico_alert"></i>
+            <div class="tooltip_reg_text">아래 항목중에 해당 사항이 있는 내용으로 한 줄 소개를 매력적으로 작성해보세요!<br>• 지리적 이점<br>• 유니크한 인테리어 컨셉<br>• 이용가능한 특별 장비<br>• 합리적인 이용 단가 등<br><br>(예시)<br>홍대입구역 1분거리, 사진찍기 좋은 루프탑/파티룸<br>층고 4.5m 살수차 진입 가능 대형 촬영스튜디오<br></div>
+          </div>
+        </div><span class="option"><span class="txt_count"><em>0</em>자/<em>27</em>자</span></span>
+        <div class="input "><input type="text" id="space_intro" placeholder="공간의 특장점을 한 문장으로 작성해주세요." minlength="1" maxlength="27" required="" value=""></div>
+        <p class="p_guide warn"><i class="sp_icon ico_alert"></i>공간을 소개하는 한 줄은 필수입니다.</p>
+      </div>
+      <div class="box_form">
+        <div class="tit"><label for="space_text"><span>공간 소개</span><span class="ico_required"> *</span></label>
+          <div class="tooltip_reg"><i class="sp_icon ico_alert"></i>
+            <div class="tooltip_reg_text">온라인 예약을 선호하는 게스트들은 공간에 대한 정보와 이미지만으로 예약 여부를 결정합니다.<br>아래 항목을 참고해 게스트들에게 공간의 매력과 이용 방식을 자세히 소개해보세요!<br><br>• 공간에 대한 콘셉/브랜딩 스토리<br>• 공간 이용 정보<br> - 공간 이용 가능 인원, 진행 가능한 행사 및 규모, 이용 가능한 시설 및 이용방식, 공간 이용 시간 등<br>• 장비나 시설 이용에 대한 추가 비용 정보<br> - 공간 세부 상품 옵션 설정에서 해당 금액을 청구할 수 있어요!<br>• 공간의 차별점 (해당 사항만)<br> - 지리적 장점, 이용 가능한 서비스, 특별한 콘텐츠 등<br>• 현재 진행중인 이벤트 내용 등<br><br>※ 검수 반려 사유<br>• 직거래 유도, 타 예약 서비스에 대한 안내, 개인 정보가 표기된 경우<br>• 공간 이용 외 다른 재화/서비스 필수 구매인 경우<br></div>
+          </div>
+        </div><span class="option"><span class="txt_count"><em>0</em>자/<em>500</em>자<span class="txt_guide">(최소 20자)</span></span></span>
+        <div class="input "><textarea id="space_text" name="" placeholder="게스트들에게 필요한 공간 정보를 상세하게 소개해주세요. 툴팁을 클릭해 작성 가이드를 확인할 수 있습니다." minlength="20" maxlength="500" required="" style="height: 108px;"></textarea></div>
+        <p class="p_guide warn"><i class="sp_icon ico_alert"></i>공간 소개는 필수 입력입니다.</p>
+      </div>
+      <div class="box_form">
+        <div class="tit"><label for="space_tag"><span>공간 태그</span><span class="ico_required"> *</span></label></div>
+        <p class="option">최대 5개</p>
+        <div class="input_add "><input type="text" name="" id="space_tag" placeholder="게스트들이 선호할만한 주요 특징들을 키워드로 입력해주세요. (최대 5개)" maxlength="30" value="">
+          <div class="btn_box"><a href="javascript:void(0);" class="btn active"><span class="btn_inner">추가</span></a></div>
+        </div>
+      </div>
+      <div class="box_form">
+        <div class="tit"><label for="space_nam">시설 안내<span class="ico_required">*</span></label></div><span class="option"><span class="txt_count"><em>0</em>자/<em>100</em>자</span></span>
+        <div class="input_add "><input type="text" name="space_guide" id="space_guide" placeholder="이용 가능한 시설에 대해 최대한 상세하게 입력해주세요. (최대 10개)" maxlength="100" value="">
+          <div class="btn_box"><a class="btn"><span class="btn_inner">추가</span></a></div>
+        </div>
+      </div>
+      <div class="box_form">
+        <div class="tit"><label for="space_nam">예약 시 주의사항<span class="ico_required">*</span></label></div><span class="option"><span class="txt_count"><em>0</em>자/<em>100</em>자</span></span>
+        <div class="input_add "><input type="text" name="space_rsv_caution" id="space_rsv_caution" placeholder="게스트들이 예약 시 확인해야 하는 주의사항을 상세하게 입력해주세요. (최대 10개)" maxlength="100" value="">
+          <div class="btn_box"><a href="javascript:void(0);" class="btn"><span class="btn_inner">추가</span></a></div>
+        </div>
+      </div>
+      <div class="box_form">
+        <div class="tit"><label for="space_url">웹사이트</label></div>
+        <div class="input "><input type="text" id="space_url" placeholder="웹사이트 URL을 입력해주세요." value=""></div>
+        <p class="p_guide warn"><i class="sp_icon ico_alert"></i>유효하지 않은 웹사이트 주소입니다.</p>
+      </div>
+      <div class="box_form"><span class="tit"><span>대표 이미지</span><span class="ico_required"> *</span>
+                        <div class="tooltip_reg"><i class="sp_icon ico_alert"></i>
+                            <div class="tooltip_reg_text">대표 이미지는 예약/이용이 가능한 공간의 전체 이미지가 잘 보이는 사진으로 등록해주세요!<br><br>※ 검수 반려 이미지<br>• 인물, 텍스트가 포함된 이미지<br>• 노출 등으로 제 3자에게 수치심을 주는 이미지<br>• 지도, 평면도, 약도 등의 이미지<br>• 홍보물/포스터, 이미지/도형 등이 합성된 편집 이미지<br>• 내용이 식별되지 않는 이미지<br></div>
+                        </div>
+                    </span>
+        <p class="option">2048 *1158 권장, 최대 3MB</p>
+        <div class="file ">
+          <div class="inner inner_img">이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)</div>
+          <div class="btn_box"><label class="btn" for="srimg">
+            <div>파일첨부</div><input type="file" class="_fileRel" name="uploadFile" id="srimg" accept="image/*" style="display: none;">
+          </label></div>
+        </div>
+        <p class="p_guide warn"><i class="sp_icon ico_alert"></i>대표이미지는 필수 입력입니다.</p>
+      </div>
+      <div class="box_form"><span class="tit">이미지<label for="sp_adrs"><span class="ico_required">*</span></label></span>
+        <p class="option">2048 * 1158 권장, 한 장당 최대 3MB<span class="txt_guide">(최대 10장)</span></p>
+        <div class="file ">
+          <div class="inner">
+            <div class="thum_attached"><input type="checkbox" id="imghttps://kr.object.ncloudstorage.com/scloud-service/service/163672616_0d725f89dddf48c283b52df8f9cb3cab.jpg" name="images"><label for="imghttps://kr.object.ncloudstorage.com/scloud-service/service/163672616_0d725f89dddf48c283b52df8f9cb3cab.jpg"><img src="https://kr.object.ncloudstorage.com/scloud-service/service/163672616_0d725f89dddf48c283b52df8f9cb3cab.jpg" alt="첨부 이미지"><span class="checkbox_type_add"><i class="sp_icon"></i><em class="blind">이미지 선택</em></span></label></div>
+            <div class="thum_attached"><input type="checkbox" id="imghttps://kr.object.ncloudstorage.com/scloud-service/service/163672617_dc9d8cb300455c4a81210eb63560a1be.png" name="images"><label for="imghttps://kr.object.ncloudstorage.com/scloud-service/service/163672617_dc9d8cb300455c4a81210eb63560a1be.png"><img src="https://kr.object.ncloudstorage.com/scloud-service/service/163672617_dc9d8cb300455c4a81210eb63560a1be.png" alt="첨부 이미지"><span class="checkbox_type_add"><i class="sp_icon"></i><em class="blind">이미지 선택</em></span></label></div>
+          </div>
+          <div class="btn_box"><label class="btn" for="snimg">
+            <div>파일첨부</div><input type="file" class="_fileRel" name="uploadFile" id="snimg" accept="image/*" placeholder="이미지 파일을 추가해 주세요. (JPG, JPEG, PNG)" style="display: none;">
+          </label>
+            <div class="nav_btn"><a class="btn_move "><i class="sp_icon ico_select_prev"></i><em class="blind">앞으로 순서 이동</em></a><a class="btn_move "><i class="sp_icon ico_select_del"></i><em class="blind">삭제</em></a><a class="btn_move "><i class="sp_icon ico_select_next"></i><em class="blind">뒤로 순서 이동</em></a></div>
+          </div>
+        </div>
+      </div>
+      <div class="box_form"><span class="tit"><label for="sp_adrs">주소(위치)<span class="ico_required">*</span></label></span>
+        <div class="file "><input type="text" name="" id="" placeholder="실제 서비스되는 공간의 주소를 입력해주세요. " readonly="" value="">
+          <div class="btn_box"><a class="btn" title="레이어 팝업 열림">주소등록</a></div>
+        </div>
+        <div class="input "><input type="text" name="" id="sp_adrs" placeholder="상세 주소" required="" value=""></div>
+        <p class="p_guide warn"><i class="sp_icon ico_alert"></i>주소(위치)는 필수 입력입니다.</p>
+      </div>
+    </section>
+    <div class="fixed_bar "><span class="btn_wrap"><a href="javascript:void(0);" class="fix_btn_prev">이전</a></span><span class="btn_wrap">
+                    <div class="transactable-button"><a href="javascript:void(0);" class="fix_btn_next">저장</a></div>
+                </span></div>
+    <div class="dimmed" style="display: none;"></div>
+  </div>
+  <div class="p_notification" style="top: -67px; transition: all 0.5s ease 0s;">공간 용도는 중복 선택이 불가합니다.</div>
+  <div class="layer_popup" id="_logoutLayer">
+    <div class="popup_wrap alert">
+      <div class="pop_container">
+        <p class="pop_tit">로그아웃 하시겠습니까?</p>
+        <p class="pop_txt"></p>
+        <div class="btns"><a href="javascript:void(0);" class="btn btn_full btn_negative">취소</a><a href="javascript:void(0);" class="btn btn_full btn_default">확인</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="layer_popup" id="_notifyConfirm" style="z-index: 200; position: fixed; top: 500px; display: none;">
+    <div class="popup_wrap alert">
+      <div class="pop_container">
+        <p class="pop_guide_txt">저장되지 않은 정보가 있습니다.<br><span class="accent">저장 후에 이동하시겠습니까?</span></p>
+        <div class="btns"><a class="btn btn_full btn_negative _cancel" href="javascript:void(0);">아니요</a><a class="btn btn_full btn_progress _confirm" href="javascript:void(0);">예</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="layer_popup address oversize" id="map" style="position: absolute; margin-top: 0px; top: 60px; margin-bottom: 100px;">
+    <div class="popup_wrap">
+      <div class="pop_header">주소등록</div>
+      <div class="pop_container">
+        <div class="box_form"><span class="tit"><label for="sp_adrspop">주소검색<span class="ico_required">*</span></label></span>
+          <div class="search_wrap">
+            <div class="input"><input type="text" name="" id="sp_adrspop" placeholder="주소 전체를 입력해주세요."></div>
+            <p class="p_guide normal"><i class="sp_icon ico_alert"></i>구 주소, 신 주소 둘다 가능 (Ex) 경기도 하남시 미사강변한강로 290-3</p><a href="javascript:void(0);" class="btn btn_full btn_default" id="_mapSearchBtn"><i class="sp_icon ico_btn_search"></i>검색</a>
+          </div>
+        </div>
+        <div class="btns"><a href="javascript:void(0);" class="btn btn_full btn_negative" id="_closeSearchAddr">닫기</a><a href="javascript:void(0);" class="btn btn_full btn_default" id="_registAddr">주소등록</a></div>
+      </div><a href="javascript:void(0);" class="btn_pop_close" title="레이어팝업 닫힘"><i class="sp_icon ico_pop_close">레이어팝업닫기</i></a>
+    </div>
+  </div>
+  <div class="layer_popup workspace _popup1">
+    <div class="popup_wrap">
+      <div class="pop_header">편의시설 설명</div>
+      <div class="pop_container">
+        <p class="pop_guide_txt border"><strong></strong>에 대한 설명, 이용방법, <br>(유료라면)가격을 텍스트로 입력해주세요.</p>
+        <div class="box_form">
+          <div class="tit"><label for="desc">편의시설 설명</label><span class="txt_required"></span></div><span class="option"><span class="txt_count"><em>0</em>자/<em>100</em>자</span></span>
+          <div class="input"><textarea name="desc" id="desc" placeholder="예시) 시간당 1,500원(현장결제)" maxlength="100"></textarea></div>
+        </div>
+        <div class="btns"><a href="javascript:void(0);" class="btn btn_full btn_negative">취소</a><a href="javascript:void(0);" class="btn btn_full btn_default">확인</a></div>
+      </div><a href="javascript:void(0);" class="btn_pop_close" title="레이어팝업 닫힘"><i class="sp_icon ico_pop_close">레이어팝업닫기</i></a>
+    </div>
+  </div>
+  <div class="layer_popup workspace _popup2" id="_notifyConfirm" style="z-index: 200; position: fixed; top: 100px; display: none;">
+    <div class="popup_wrap alert viurtual_container">
+      <div class="virtual_office_txt">비상주 서비스 제공시 동의사항을 확인해주세요.</div>
+      <div class="virtual_office_list">
+        <ul class="virtual_office_list_wrap">
+          <li class="check_list_virtual_office">1. 비상주서비스를 현재 제공하고 있거나, 제공 가능한 사업자입니다.</li>
+          <li class="check_list_virtual_office">2. 비상주 서비스를 이용하고자 하는 소비자에게 현장 또는 전화 상담을 통해 계약 안내를 직접 해주셔야 합니다.</li>
+          <li class="check_list_virtual_office">3. 비상주서비스 제공에 관한 근거있는 소비자 항의가 접수 되는 경우 자체적으로 미노출 할 수 있습니다.</li>
+          <li class="check_list_virtual_office">4. 스페이스클라우드는 비상주서비스 홍보 채널을 제공하는 정보 중개자이며,상품 등록과 계약과정에서의 책임은 사업자와 이용자간에 있습니다.</li>
+        </ul>
+        <div class="check_all_virtual_office"><input type="checkbox" class="checkbox" id="agreement_all"><label class="checkbox_virtual_office" for="agreement_all">위 내용을 확인하고 이해했습니다. </label></div>
+        <div class="virtual_office_btn"><a class="btn btn_full btn_negative _cancel agree_btn" href="javascript:void(0);">취소</a><a class="btn btn_full btn_progress _confirm agree_btn" href="javascript:void(0);">완료</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  ! function(l) {
+    function e(e) {
+      for (var r, t, n = e[0], o = e[1], u = e[2], f = 0, i = []; f < n.length; f++) t = n[f], p[t] && i.push(p[t][0]), p[t] = 0;
+      for (r in o) Object.prototype.hasOwnProperty.call(o, r) && (l[r] = o[r]);
+      for (s && s(e); i.length;) i.shift()();
+      return c.push.apply(c, u || []), a()
+    }
+
+    function a() {
+      for (var e, r = 0; r < c.length; r++) {
+        for (var t = c[r], n = !0, o = 1; o < t.length; o++) {
+          var u = t[o];
+          0 !== p[u] && (n = !1)
+        }
+        n && (c.splice(r--, 1), e = f(f.s = t[0]))
+      }
+      return e
+    }
+    var t = {},
+        p = {
+          2: 0
+        },
+        c = [];
+
+    function f(e) {
+      if (t[e]) return t[e].exports;
+      var r = t[e] = {
+        i: e,
+        l: !1,
+        exports: {}
+      };
+      return l[e].call(r.exports, r, r.exports, f), r.l = !0, r.exports
+    }
+    f.m = l, f.c = t, f.d = function(e, r, t) {
+      f.o(e, r) || Object.defineProperty(e, r, {
+        enumerable: !0,
+        get: t
+      })
+    }, f.r = function(e) {
+      "undefined" != typeof Symbol && Symbol.toStringTag && Object.defineProperty(e, Symbol.toStringTag, {
+        value: "Module"
+      }), Object.defineProperty(e, "__esModule", {
+        value: !0
+      })
+    }, f.t = function(r, e) {
+      if (1 & e && (r = f(r)), 8 & e) return r;
+      if (4 & e && "object" == typeof r && r && r.__esModule) return r;
+      var t = Object.create(null);
+      if (f.r(t), Object.defineProperty(t, "default", {
+        enumerable: !0,
+        value: r
+      }), 2 & e && "string" != typeof r)
+        for (var n in r) f.d(t, n, function(e) {
+          return r[e]
+        }.bind(null, n));
+      return t
+    }, f.n = function(e) {
+      var r = e && e.__esModule ? function() {
+        return e.default
+      } : function() {
+        return e
+      };
+      return f.d(r, "a", r), r
+    }, f.o = function(e, r) {
+      return Object.prototype.hasOwnProperty.call(e, r)
+    }, f.p = "/";
+    var r = window.webpackJsonp = window.webpackJsonp || [],
+        n = r.push.bind(r);
+    r.push = e, r = r.slice();
+    for (var o = 0; o < r.length; o++) e(r[o]);
+    var s = n;
+    a()
+  }([])
+</script>
+<script src="/static/js/1.9d64b2e7.chunk.js"></script>
+<script src="/static/js/main.57435cfa.chunk.js"></script>
+<div class="imp-dialog customizable"><iframe src="https://service.iamport.kr/payments/ready/imp11164915" width="100%" height="100%" frameborder="0" class="imp-frame imp-frame-pc imp-frame-default imp-frame-nice" style="position: absolute; inset: 0px; width: 100%; height: 100%;"></iframe><iframe src="https://service.iamport.kr/payments/ready/imp11164915/naverpay/spacecloud" width="100%" height="100%" frameborder="0" class="imp-frame imp-frame-pc imp-frame-naverpay" style="position: absolute; inset: 0px; width: 100%; height: 100%;"></iframe><iframe src="https://service.iamport.kr/payments/ready/imp11164915/nice/IMPnspa02m" width="100%" height="100%" frameborder="0" class="imp-frame imp-frame-pc imp-frame-nice" style="position: absolute; inset: 0px; width: 100%; height: 100%;"></iframe>
+  <div class="imp-header"><span class="imp-close"></span></div>
+</div>
+<div id="ch-plugin">
+  <div id="ch-plugin-core">
+    <style data-styled="active" data-styled-version="5.1.1"></style>
+    <style data-styled="active" data-styled-version="5.1.1"></style>
+    <div data-ch-testid="full-screen-push-message" hidden="" class="FullScreenPushMessagestyled__Wrapper-nxoc25-13 kkSXuR PushMessagestyled__PCPopupMessage-vqm8p7-1 bsIkbm" style="z-index: 100000000 !important;">
+      <div class="FullScreenPushMessagestyled__MainWrapper-nxoc25-12 gNRDiC">
+        <div class="FullScreenPushMessagestyled__SVGIconWrapper-nxoc25-0 kwDQOP">
+          <div name="cancel" size="16" width="24" height="24" class="SVGIconstyled__SVGIcon-sc-15isf0b-0 vUSyg"></div>
+        </div>
+        <div class="FullScreenPushMessagestyled__Header-nxoc25-7 bDhUju">
+          <div class="FullScreenPushMessagestyled__AvatarWrapper-nxoc25-1 hDPlJg">
+            <div size="24" radius="8" class="Avatarstyled__Wrapper-yfy5xq-0 cFLwHC"></div>
+          </div>
+          <div class="FullScreenPushMessagestyled__Name-nxoc25-3 idzays">(알 수 없음)</div>
+          <div class="FullScreenPushMessagestyled__HeaderContent-nxoc25-2 CmVgP">
+            <div class="FullScreenPushMessagestyled__Time-nxoc25-6 hPulhM">9:00 AM</div>
+          </div>
+        </div>
+        <div class="FullScreenPushMessagestyled__Content-nxoc25-11 rXAbU">
+          <div class="FullScreenPushMessagestyled__Text-nxoc25-8 ieowSu"></div>
+        </div>
+      </div>
+    </div>
+    <div size="300" class="Screenstyled__Screen-sc-3ge3qf-0 gNcrUK"></div>
+    <div data-ch-testid="launcher" class="Launcherstyled__Wrapper-oef45p-0 lnXuzH">
+      <div class="Launcherstyled__LauncherIconWrapper-oef45p-1 hgRlbE">
+        <div class="LauncherIconstyled__LauncherWrapper-mnslcf-0 fBGgqH launcherIcon">
+          <div style="position: absolute; inset: 0px; margin: auto;"><img src="https://cf.channel.io/asset/plugin/images/shadow-body.png" role="presentation" alt="" class="InnerIconstyled__Icon-sc-197h5bb-0 iNAyRo LauncherIconstyled__Bubble-mnslcf-1 cRwgrT" color="#7a4de4" width="48" height="48" defaultopacity="1" hoveredopacity="1" margintop="0" marginright="0" marginbottom="0" marginleft="0" style="position: absolute;"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="InnerIconstyled__Icon-sc-197h5bb-0 iNAyRo LauncherIconstyled__Bubble-mnslcf-1 cRwgrT" color="#7a4de4" defaultOpacity="1" hoveredOpacity="1" margintop="0" marginright="0" marginbottom="0" marginleft="0" style="position: absolute;">
+            <path fill="#7a4de4" fill-opacity="0.6" d="M24 6C14.0589 6 6 14.0589 6 24C6 33.9411 14.0589 42 24 42C26.5503 42 28.9767 41.4696 31.175 40.5132C32.4937 39.9394 33.9715 39.7362 35.3397 40.1796L39.7048 41.5942C40.8697 41.9717 41.9717 40.8697 41.5942 39.7048L40.1796 35.3397C39.7362 33.9715 39.9394 32.4937 40.5132 31.175C41.4696 28.9767 42 26.5503 42 24C42 14.0589 33.9411 6 24 6Z"></path>
+          </svg><img src="https://cf.channel.io/asset/plugin/images/gradient-body.png" role="presentation" alt="" class="InnerIconstyled__Icon-sc-197h5bb-0 iNAyRo LauncherIconstyled__Bubble-mnslcf-1 cRwgrT" color="#7a4de4" width="48" height="48" defaultopacity="1" hoveredopacity="1" margintop="0" marginright="0" marginbottom="0" marginleft="0" style="position: absolute;"><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="InnerIconstyled__Icon-sc-197h5bb-0 iNAyRo LauncherIconstyled__Bubble-mnslcf-1 cRwgrT" color="#7a4de4" defaultOpacity="1" hoveredOpacity="1" margintop="0" marginright="0" marginbottom="0" marginleft="0" style="position: absolute;">
+            <g filter="url(#filter0_i)">
+              <path fill="white" fill-opacity="0.01" d="M24 6C14.0589 6 6 14.0589 6 24C6 33.9411 14.0589 42 24 42C26.5503 42 28.9767 41.4696 31.175 40.5132C32.4937 39.9394 33.9715 39.7362 35.3397 40.1796L39.7048 41.5942C40.8697 41.9717 41.9717 40.8697 41.5942 39.7048L40.1796 35.3397C39.7362 33.9715 39.9394 32.4937 40.5132 31.175C41.4696 28.9767 42 26.5503 42 24C42 14.0589 33.9411 6 24 6Z"></path>
+            </g>
+            <defs>
+              <filter id="filter0_i" x="4" y="2" width="38" height="40" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix>
+                <feOffset dx="-2" dy="-4"></feOffset>
+                <feGaussianBlur stdDeviation="4"></feGaussianBlur>
+                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"></feComposite>
+                <feColorMatrix type="matrix" values="0 0 0 0 0.47843137254901963 0 0 0 0 0.30196078431372547 0 0 0 0 0.8941176470588236 0 0 0 0.2 0"></feColorMatrix>
+                <feBlend mode="normal" in2="shape" result="effect1_innerShadow"></feBlend>
+              </filter>
+            </defs>
+          </svg><svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" class="InnerIconstyled__Icon-sc-197h5bb-0 iNAyRo LauncherIconstyled__Bubble-mnslcf-1 cRwgrT" color="#7a4de4" defaultOpacity="1" hoveredOpacity="1" margintop="0" marginright="0" marginbottom="0" marginleft="0" style="position: absolute;">
+            <g filter="url(#filter0_f)">
+              <path fill="white" fill-opacity="0.15" d="M19.8462 20.1538C19.8462 22.448 19.2404 24.3077 17.4231 24.3077C15.6058 24.3077 15 22.448 15 20.1538C15 17.8597 15.6058 16 17.4231 16C19.2404 16 19.8462 17.8597 19.8462 20.1538Z"></path>
+              <path fill="white" fill-opacity="0.15" d="M24.0001 29.8462C21.201 29.8462 19.7599 27.5828 19.3109 25.9843C19.1615 25.4526 19.6016 25.0001 20.1539 25.0001H27.8462C28.3985 25.0001 28.8386 25.4526 28.6893 25.9843C28.2402 27.5828 26.7992 29.8462 24.0001 29.8462Z"></path>
+              <path fill="white" fill-opacity="0.15" d="M30.5768 24.3077C32.3941 24.3077 32.9999 22.448 32.9999 20.1538C32.9999 17.8597 32.3941 16 30.5768 16C28.7595 16 28.1537 17.8597 28.1537 20.1538C28.1537 22.448 28.7595 24.3077 30.5768 24.3077Z"></path>
+            </g>
+            <path fill="#7a4de4" d="M19.8462 19.1538C19.8462 21.448 19.2404 23.3077 17.4231 23.3077C15.6058 23.3077 15 21.448 15 19.1538C15 16.8597 15.6058 15 17.4231 15C19.2404 15 19.8462 16.8597 19.8462 19.1538Z"></path>
+            <path fill="#17113F" fill-opacity="0.7" d="M19.8462 19.1538C19.8462 21.448 19.2404 23.3077 17.4231 23.3077C15.6058 23.3077 15 21.448 15 19.1538C15 16.8597 15.6058 15 17.4231 15C19.2404 15 19.8462 16.8597 19.8462 19.1538Z"></path>
+            <path fill="#7a4de4" d="M24.0001 28.8462C21.201 28.8462 19.7599 26.5828 19.3109 24.9843C19.1615 24.4526 19.6016 24.0001 20.1539 24.0001H27.8462C28.3985 24.0001 28.8386 24.4526 28.6893 24.9843C28.2402 26.5828 26.7992 28.8462 24.0001 28.8462Z"></path>
+            <path fill="#17113F" fill-opacity="0.7" d="M24.0001 28.8462C21.201 28.8462 19.7599 26.5828 19.3109 24.9843C19.1615 24.4526 19.6016 24.0001 20.1539 24.0001H27.8462C28.3985 24.0001 28.8386 24.4526 28.6893 24.9843C28.2402 26.5828 26.7992 28.8462 24.0001 28.8462Z"></path>
+            <path fill="#7a4de4" d="M30.5768 23.3077C32.3941 23.3077 32.9999 21.448 32.9999 19.1538C32.9999 16.8597 32.3941 15 30.5768 15C28.7595 15 28.1537 16.8597 28.1537 19.1538C28.1537 21.448 28.7595 23.3077 30.5768 23.3077Z"></path>
+            <path fill="#17113F" fill-opacity="0.7" d="M30.5768 23.3077C32.3941 23.3077 32.9999 21.448 32.9999 19.1538C32.9999 16.8597 32.3941 15 30.5768 15C28.7595 15 28.1537 16.8597 28.1537 19.1538C28.1537 21.448 28.7595 23.3077 30.5768 23.3077Z"></path>
+            <defs>
+              <filter id="filter0_f" x="13" y="14" width="21.9999" height="17.8462" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                <feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood>
+                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"></feBlend>
+                <feGaussianBlur stdDeviation="1" result="effect1_foregroundBlur"></feGaussianBlur>
+              </filter>
+            </defs>
+          </svg></div>
+          <div data-ch-testid="badge" hidden="" class="Badgestyled__Badge-sc-1ztqq4-0 LauncherIconstyled__Badge-mnslcf-2 jSrwNh">0</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="ch-plugin-script" style="display:none" class="ch-messenger-hidden"><iframe id="ch-plugin-script-iframe" style="position:relative!important;height:100%;width:100%!important;border:none!important;"></iframe></div>
+</div>
+<style data-styled="active" data-styled-version="5.1.1"></style>
+</body>
+<loom-container id="lo-engage-ext-container">
+  <loom-shadow classname="resolved"></loom-shadow>
+</loom-container>
+
+</html>

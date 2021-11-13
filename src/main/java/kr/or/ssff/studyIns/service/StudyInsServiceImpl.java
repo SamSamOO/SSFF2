@@ -90,10 +90,13 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         studyInsDTO.setCont_No(cont_No);
 
         List<StudyInsFileDTO> list = new ArrayList<>();
+
         for (int i = 0; i < uploadFile.length; i++) {
+
             StudyInsFileDTO studyInsFileDTO = new StudyInsFileDTO();
             studyInsFileDTO.setCont_No(cont_No);
             studyInsFileDTO.setFile_Name(uploadFile[i].getOriginalFilename());
+
             list.add(studyInsFileDTO);
         }
 
