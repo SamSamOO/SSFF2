@@ -107,6 +107,9 @@ public class StudyController {
             );
 
         boolean result = this.service.register(vo);
+        //방금쓴 게시물 댓글번호 가져오기
+        Integer currentR_idx = this.service.getCurrentR_idx();
+        //
 
         return "redirect:/study/challenge/list";
     } // insertChallengeDetail

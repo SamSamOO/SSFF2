@@ -36,7 +36,7 @@
 
   <!--가장 최근에 쓴 게시글 번호 가져오기-->
   <select id="getCurrentR_idx" resultType="int">
-    select max(r_idx) from recruit_board where type_pc='P'
+    select max(r_idx) from recruit_board
   </select>
 
   <!--게시글 번호로 언어 태그 등록하기-->
