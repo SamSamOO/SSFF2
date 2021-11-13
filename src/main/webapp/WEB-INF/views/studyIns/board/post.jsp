@@ -159,7 +159,7 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-    let regex = new RegExp('/\.(gif|jpg|jpeg|png)$','i');
+    let regex = new RegExp(`/(.*?).(jpg|jpeg|png|gif|bmp)$`, `i`);
     let maxSize = 5242880; //5MB
     $(function () {
         console.clear();
