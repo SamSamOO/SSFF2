@@ -44,6 +44,7 @@ public class RecruitBoardVO {
 	private Character removed_ok;
 	private Character closed_ok;
 	private Character dead_ok;
+
 } // end class 
 
 
