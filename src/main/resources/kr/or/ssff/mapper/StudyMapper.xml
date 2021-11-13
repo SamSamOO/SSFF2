@@ -36,7 +36,9 @@
 
   <!--가장 최근에 쓴 게시글 번호 가져오기-->
   <select id="getCurrentR_idx" resultType="int">
-    select max(r_idx) from recruit_board
+<![CDATA[
+    select max(r_idx) from recruit_board WHERE r_idx < 1000
+    ]]>
   </select>
 
   <!--게시글 번호로 언어 태그 등록하기-->

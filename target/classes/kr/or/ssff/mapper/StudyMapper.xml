@@ -36,7 +36,9 @@
 
   <!--가장 최근에 쓴 게시글 번호 가져오기-->
   <select id="getCurrentR_idx" resultType="int">
-    select max(r_idx) from recruit_board where type_pc='P'
+<![CDATA[
+    select max(r_idx) from recruit_board WHERE r_idx < 1000
+    ]]>
   </select>
 
   <!--게시글 번호로 언어 태그 등록하기-->
@@ -46,7 +48,26 @@
 
   <!--lang list 전체 가져오기-->
   <select id="getLangList" resultType="kr.or.ssff.study.domain.LangVO">
-    SELECT r_idx,lang_name FROM lang;
+    SELECT r_idx,lang_name FROM lang
+  </select>
+
+  <!--글 하나 가져오기-->
+  <select id="get" resultType="kr.or.ssff.study.domain.RecruitBoardVO">
+    <![CDATA[
+    SELECT
+      r_idx, member_name, type_pc, title,
+      teamname,cont,hit,writedate,sido,
+      ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok
+    FROM recruit_board
+    WHERE r_idx=#{r_idx}
+    ]]>
+  </select>
+
+  <!--lang list 전체 가져오기-->
+  <select id="getLangTags" resultType="kr.or.ssff.study.domain.LangVO">
+    SELECT r_idx,lang_name
+    FROM lang
+    WHERE r_idx=#{r_idx}
   </select>
 </mapper>
 
