@@ -1,5 +1,8 @@
 package kr.or.ssff.study.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.Map;
 import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -42,16 +45,20 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public String get() {
-        return null;
-    }
+    public RecruitBoardVO get(Integer r_idx) {
+
+        RecruitBoardVO vo = this.mapper.get(r_idx);
+
+      return vo;
+    
+    }; //get
 
     @Override
     public List<RecruitBoardVO> getList(String type) {
         List<RecruitBoardVO> allBoard = this.mapper.getList(type);
 
         return allBoard;
-    }//getList(글반환)
+    }//getList(글 전체반환)
 
     @Override
     public List<RecruitBoardVO> getListPerPage() {
@@ -87,6 +94,46 @@ public class StudyServiceImpl implements StudyService {
         return langlist;
     }//getLangList lang list 전체 가져오기
 
+    @Override
+    public List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardVO> list, List<LangVO> langList) {
+        List<Map<String, Object>> rcBoardList = new ArrayList<Map<String, Object>>();
+        /*
+        list.forEach(rcBoard -> {
+            List<String> langNameList = new ArrayList<String>();
+            langList.forEach(lvo -> {
+                if (rcBoard.getR_idx().equals(lvo.getR_idx())) {
+                    langNameList.add(lvo.getLang_name());
+                }
+            });
+            // ObjectMapper
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map rcBoardMap = objectMapper.convertValue(rcBoard, Map.class);
+            rcBoardMap.put("langs", langNameList);
+            rcBoardList.add(rcBoardMap);
+        });
+        */
+        for (int i=0; i<list.size(); i++) {
+            List<String> langNameList = new ArrayList<String>();
+            for (int j=0; j<langList.size(); j++) {
+                if (list.get(i).getR_idx().equals(langList.get(j).getR_idx()) ) {
+                    langNameList.add(langList.get(j).getLang_name());
+                }
+            }
+            // ObjectMapper
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map rcBoardMap = objectMapper.convertValue(list.get(i), Map.class);
+            rcBoardMap.put("langs", langNameList);
+            rcBoardList.add(rcBoardMap);
+        }
+        return rcBoardList;
+    }//getRecruitBoardMap
+
+    @Override
+    public List<LangVO> getLangTagByR_idx(Integer r_idx) {
+        List<LangVO> langTagList = new ArrayList<LangVO>();
+        langTagList = this.mapper.getLangTags(r_idx);
+        return langTagList;
+    }//getLangTagByR_idx
 
 }//end class
 

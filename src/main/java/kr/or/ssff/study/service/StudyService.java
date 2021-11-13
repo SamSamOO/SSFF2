@@ -1,6 +1,7 @@
 package kr.or.ssff.study.service;
 
 import java.util.List;
+import java.util.Map;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 
@@ -18,7 +19,7 @@ public interface StudyService {
     public abstract boolean remove();
 
     // 4. 특정 게시글 상세조회
-    public abstract String get();
+    public abstract RecruitBoardVO get(Integer r_idx);
 
     // 5. 전체 목록 조회 - 정상동작중!
     public abstract List<RecruitBoardVO> getList(String type);
@@ -35,9 +36,14 @@ public interface StudyService {
     //8. P에서 최근에 등록한 글 번호 가져오기
     public abstract Integer getCurrentR_idx();
 
-    //9. p에서 lang list 가져오기
+    //9. p에서 lang list 가져오기(전체)
     public abstract List<LangVO> getLangList();
 
+    //10. list에 억지로 언어태그 넣기
+    public List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardVO> list, List<LangVO> langList);
+
+    //11. p에서 번호로 언어태그 가져오기
+    public List<LangVO> getLangTagByR_idx(Integer r_idx);
 }
 
 

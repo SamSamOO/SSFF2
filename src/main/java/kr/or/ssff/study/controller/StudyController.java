@@ -1,6 +1,7 @@
 package kr.or.ssff.study.controller;
 
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
@@ -57,11 +58,11 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 게시물 상세보기 페이지
      * */
     @GetMapping("/challenge/detail")
-    public String selectChallengeDetailGo() {
-
+    public void selectChallengeDetailGo(Integer r_idx ,Model model) {
         log.info("challengeDetailGo() is invoked");
 
-        return "study/challenge/detail";
+        RecruitBoardVO board = this.service.get(r_idx);
+        model.addAttribute("board",board);
     } // selectChallengeDetailGo
 
 
@@ -168,8 +169,12 @@ public class StudyController {
 
         List<LangVO> langList = this.service.getLangList();
 
-        model.addAttribute("list", list);//list + lang tag. 한개의 게시물. -> 번호
-        model.addAttribute("langList",langList);
+//        model.addAttribute("list", list);
+ //       model.addAttribute("langList",langList);
+
+        List<Map<String, Object>> liste = this.service.getRecruitBoardMap(list, langList);
+        model.addAttribute("list", liste);
+
         return "study/project/list";
 
     } // selectProjectListGo
@@ -180,11 +185,14 @@ public class StudyController {
      * 반환 : 프로젝트형 스터디 게시물 상세보기 페이지
      * */
     @GetMapping("/project/detail")
-    public String selectProjectDetailGo() {
-
+    public void selectProjectDetailGo(Integer r_idx ,Model model) {
         log.info("selectProjectDetailGo() is invoked");
 
-        return "study/project/detail";
+        RecruitBoardVO board = this.service.get(r_idx);
+        List<LangVO>langList = this.service.getLangTagByR_idx(r_idx);
+
+        model.addAttribute("board",board);
+        model.addAttribute("langList",langList);
     } // selectProjectDetailGo
 
 
