@@ -204,9 +204,9 @@
                       <!--begin::Info-->
                       <div class="mb-7">
                         <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">부제목이 올자리</span>
+                          <span class="text-dark-75 font-weight-bolder mr-2">#부제목 #올자리</span>
                         </div>
-                        <div class="d-flex justify-content-between align-items-cente my-1">
+                        <div class="justify-content-between align-items-center my-1">
                           <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
                           <a href="#" class="text-muted text-hover-primary">$76,810</a>
                         </div>
