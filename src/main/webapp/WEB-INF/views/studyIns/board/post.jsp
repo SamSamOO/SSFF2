@@ -159,7 +159,7 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-    let regex = new RegExp("(.*?)\.(jpg|png|gif|bmp)$");
+    let regex = new RegExp(`/(.*?).(jpg|jpeg|png|gif|bmp)$`, `i`);
     let maxSize = 5242880; //5MB
     $(function () {
         console.clear();
@@ -193,14 +193,14 @@
             for (let i = 0; i < files.length; i++) {
                 console.log(files.length);
                 str = `<p>` + files[i].name + `</p>`;
-                if (checkExtensionName((files[i].name).toLowerCase())) {
+                if (!checkExtensionName((files[i].name).toLowerCase())) {
                     console.log((files[i].name).toLowerCase());
 
                     //파일 업로드 부분 초기화
                     console.log('확장자 ....');
                     $(`#uploadFile`).val('');
                     str = '';
-                } else if (checkExtensionSize(files[i].size)) {
+                } else if (!checkExtensionSize(files[i].size)) {
 
                     console.log(files[i].size);
 
