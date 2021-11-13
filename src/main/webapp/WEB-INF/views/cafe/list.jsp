@@ -22,16 +22,16 @@
   }
 
   section.awSlider .carousel{
-    display:table;
+    /*display:table;
     z-index:2;
     -moz-box-shadow: 0 0 4px #444;
     -webkit-box-shadow: 0 0 4px #444;
-    box-shadow: 0 0 15px rgba(1,1,1,.5);
+    box-shadow: 0 0 15px rgba(1,1,1,.5);*/
   }
 
   section.awSlider{
-    margin:30px auto;
-    padding:30px;
+    margin:0px auto;
+    padding:20px;
     position:relative;
     display:table;
     -webkit-touch-callout: none;
@@ -152,6 +152,9 @@
                           <li data-target=".carousel" data-slide-to="1"></li>
                           <li data-target=".carousel" data-slide-to="2"></li>
                           <li data-target=".carousel" data-slide-to="3"></li>
+                          <li data-target=".carousel" data-slide-to="4"></li>
+                          <li data-target=".carousel" data-slide-to="5"></li>
+                        
                         </ol>
       
                         <!-- Wrapper for slides -->
@@ -172,6 +175,14 @@
                             <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
                             <div class="carousel-caption"> #4</div>
                           </div>
+                          <div class="item">
+                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
+                            <div class="carousel-caption"> #5</div>
+                          </div>
+                          <div class="item">
+                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
+                            <div class="carousel-caption"> #6</div>
+                          </div>
                         </div>
       
                         <!-- Controls -->
@@ -189,12 +200,11 @@
                    
                       <!--begin::Body-->
                     <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 28px !important;">[강남구] 메데메데 삼오오삼</span>
+                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">제목이 올자리</span>
                       <!--begin::Info-->
                       <div class="mb-7">
                         <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Budget:</span>
-                          <a href="#" class="text-muted text-hover-primary">$249,500</a>
+                          <span class="text-dark-75 font-weight-bolder mr-2">부제목이 올자리</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-cente my-1">
                           <span class="text-dark-75 font-weight-bolder mr-2">Expences:</span>
@@ -233,7 +243,7 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-  
+  /*
   // 이미지 슬라이드
   $('section.awSlider .carousel').carousel({
     pause: "hover",
@@ -245,14 +255,10 @@
 
   $('section.awSlider .carousel').on('slid.bs.carousel', function () {
     var bscn = $(this).find('.item.active > img').attr('src');
-    $('section.awSlider > img').attr('src',bscn);
-  });
+    // $('section.awSlider > img').attr('src',bscn);
+  });*/
 
 
-  /*
-  Philips ambilight tv
-  Üzerine gleince duruyor slide
-  */
 
 
 
