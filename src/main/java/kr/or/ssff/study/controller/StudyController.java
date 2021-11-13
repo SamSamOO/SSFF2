@@ -108,9 +108,9 @@ public class StudyController {
 
         boolean result = this.service.register(vo);
         //방금쓴 게시물 댓글번호 가져오기
-        Integer currentR_idx = this.service.getCurrentR_idx();
-        //스터디번호와 닉네임을 넣어서 applymember 테이블 데이터 추가하기
-        boolean result2 = this.service.registerApply(currentR_idx, "nickname55");
+        //Integer currentR_idx = this.service.getCurrentR_idx();
+        //스터디번호와 닉네임을 넣어서 applymember 테이블 데이터 추가하기(지혜 로직 나오는대로)
+        //boolean result2 = this.service.registerApply(currentR_idx, "nickname55");
 
         return "redirect:/study/challenge/list";
     } // insertChallengeDetail

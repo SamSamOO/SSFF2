@@ -69,6 +69,18 @@
     FROM lang
     WHERE r_idx=#{r_idx}
   </select>
+
+  <!--insert문-->
+  <insert id="insertApply">
+    INSERT INTO APPLY_MEMBER (
+    apply_idx,r_idx,member_name,study_join_arciwf,study_join_change_date,study_boss_yn,attendance_days
+    )
+    VALUES(
+    )
+  </insert>
+
+
+
 </mapper>
 
 

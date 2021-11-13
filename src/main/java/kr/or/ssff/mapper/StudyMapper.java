@@ -21,4 +21,6 @@ public interface StudyMapper {
     public abstract RecruitBoardVO get(@Param("r_idx")Integer r_idx);
     //글번호에 해당하는 언어태그 리스트 가져오기
     public abstract List<LangVO> getLangTags(@Param("r_idx")Integer r_idx);
+    //
+    public abstract Integer insertApply(@Param("r_idx")Integer r_idx,@Param("member_name")String member_name);
 }

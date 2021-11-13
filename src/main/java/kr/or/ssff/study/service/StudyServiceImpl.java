@@ -137,8 +137,11 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     public boolean registerApply(Integer r_idx, String member_name) {
+        int affectedRows = mapper.insertApply(r_idx,member_name);
 
-        return false;
+        log.info("\t + affectedRows:{}", affectedRows);
+
+        return affectedRows == 1;
     }
 
 }//end class
