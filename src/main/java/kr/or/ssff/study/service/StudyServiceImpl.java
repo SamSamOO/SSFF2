@@ -135,6 +135,12 @@ public class StudyServiceImpl implements StudyService {
         return langTagList;
     }//getLangTagByR_idx
 
+    @Override
+    public boolean registerApply(Integer r_idx, String member_name) {
+
+        return false;
+    }
+
 }//end class
 
 
