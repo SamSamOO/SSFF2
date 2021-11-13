@@ -207,12 +207,12 @@
                           <span class="text-dark-75 font-weight-bolder mr-2">부제목이 올자리</span>
                         </div>
                         <div class="d-flex justify-content-between align-items-cente my-1">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Expences:</span>
+                          <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
                           <a href="#" class="text-muted text-hover-primary">$76,810</a>
                         </div>
                         <div class="d-flex justify-content-between align-items-center">
                           <span class="text-dark-75 font-weight-bolder mr-2">Due Date:</span>
-                          <span class="text-muted font-weight-bold">21.05.2016</span>
+                          <span class="text-muted font-weight-bold" style="">21.05.2016</span>
                         </div>
                       </div>
                       <!--end::Info-->
