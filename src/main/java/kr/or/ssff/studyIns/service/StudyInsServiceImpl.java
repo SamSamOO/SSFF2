@@ -74,7 +74,6 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         log.debug("getFile({}) is invoked", "cont_No = " + cont_No);
 
         Objects.requireNonNull(mapper);
-
         return this.mapper.getFileList(cont_No);
     }
 

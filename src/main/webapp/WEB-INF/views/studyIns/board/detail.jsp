@@ -157,13 +157,13 @@
                                                             <c:set var="slash" value="/"/>
                                                             <c:forEach var="file" items="${fileList}">
                                                                 <c:if test="${fileListSize !=0}">
-                                                                    <a href="#"><img src="<spring:url value="/image/${fn:substring(file.uploadPath,15,30)}${slash}${file.uuid}${file.file_Name}"/>" width="100" height="50" alt="깨짐"/></a>
+                                                                    <a href="#"><img src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="500" height="400" alt="깨짐"/></a>
                                                                 </c:if>
                                                                 <c:if test="${fileListSize==0}">
-                                                                    이미지 업
+                                                                    이미지가 없습니다.
                                                                 </c:if>
 
-                                                                뭔데이거
+
                                                             </c:forEach>
                                                         </div>
                                                     </div>
