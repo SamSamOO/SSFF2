@@ -13,7 +13,7 @@ public interface StudyService {
     public abstract boolean register(RecruitBoardVO vo);
 
     // 2. 기존 게시글 수정
-    public abstract boolean modify();
+    public abstract boolean modify(RecruitBoardVO vo);
 
     // 3. 기존 게시글 삭제
     public abstract boolean remove();
