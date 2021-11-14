@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -12,11 +14,20 @@
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
+    <style>
+        #result-card img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            padding: 5px;
+            margin-top: 10px;
+            margin: auto;
 
+        }
+    </style>
     <script>
 
         $(function () {
-            console.clear();
             console.debug("제이쿼리 시작 ㅇㅇ");
 
             $(`#modifyBtn`).on('click', function () {
@@ -36,6 +47,7 @@
                 formObj.submit();
             }); // onclick
         }); // jq
+
 
     </script>
 </head>
@@ -134,9 +146,31 @@
                                             <td colspan="10">${detail.cont}</td>
                                         </tr>
                                         <tr>
-                                            <td> 첨부 파일</td>
                                             <td>
-                                                파일네임
+                                                <div class="form_section">
+                                                    <div class="form_section_title">
+                                                        <label>첨부파일 이미지</label>
+                                                    </div>
+                                                    <div class="form_section_content">
+                                                        <div id="uploadResult">
+                                                            <c:set var="fileListSize" value="${fn:length(fileList)}"/>
+                                                            <c:set var="slash" value="/"/>
+                                                            <c:forEach var="file" items="${fileList}">
+                                                                <c:if test="${fileListSize !=0}">
+                                                                    <a href="#"><img src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="500" height="400" alt="깨짐"/></a>
+                                                                </c:if>
+                                                                <c:if test="${fileListSize==0}">
+                                                                    이미지가 없습니다.
+                                                                </c:if>
+
+
+                                                            </c:forEach>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+
                                             </td>
                                         </tr>
 

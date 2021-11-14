@@ -8,18 +8,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
+import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
-import kr.or.ssff.studyIns.model.AttachFileDTO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
+import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
 import net.coobird.thumbnailator.Thumbnailator;
-import org.imgscalr.Scalr;
-import org.imgscalr.Scalr.Method;
-import org.imgscalr.Scalr.Mode;
-
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -211,13 +207,17 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         log.debug("studyBoardDetail({}) is invoked", "cont_no = " + cont_No + ", model = " + model);
 
         Objects.requireNonNull(service);
+        //내용물 불러오기
         StudyInsVO detail = service.get(cont_No);
+        //파일 들고오기 //TODO -- 트랜젝션 처리 피료???
+        List<StudyInsFileVO> listOfFile = service.getFile(cont_No);
 
         log.debug("안녕하세요");
         log.debug("detail = {}", detail);
+        log.debug("listOfFile = {}", listOfFile);
 
         model.addAttribute("detail", detail);
-
+        model.addAttribute("fileList", listOfFile);
         return "studyIns/board/detail";
     } // studyBoardDetail
 
@@ -307,10 +307,11 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         RedirectAttributes rttrs) {
         log.debug("studyBoardPost({} , {}) is invoked", "studyInsDTO = " + studyInsDTO, ", uploadFile = " + Arrays.deepToString(uploadFile));
 
-        String uploadFolder = "C:\\temp\\upload";
+        String uploadFolder = "C:/temp/upload";
 
         /*폴더 만들기*/
-        File uploadPath = new File(uploadFolder, UploadFileUtils.getFolder());
+        File uploadPath = new File(uploadFolder);
+
         /*날짜 경로입니다.*/
         String datePath = UploadFileUtils.getFolder();
 
@@ -325,7 +326,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
 
         /*이미지의 정보를 담는 객체*/
-        List<AttachFileDTO> list = new ArrayList<>();
+        List<StudyInsFileDTO> list = new ArrayList<>();
 
         for (MultipartFile multipartFile : uploadFile) {
             log.debug("------------------------------------");
@@ -333,18 +334,22 @@ public class StudyInsController implements InitializingBean, DisposableBean {
             log.debug("Upload File Size : " + multipartFile.getSize());
 
             /*이미지 정보 객체입니다.*/
-            AttachFileDTO dto = new AttachFileDTO();
+            StudyInsFileDTO dto = new StudyInsFileDTO();
+            dto.setCont_No(cont_No);
 
             String uploadFileName = multipartFile.getOriginalFilename();
-            dto.setFileName(uploadFileName);
-            dto.setUploadPath(datePath);
+
+            dto.setFile_Name(uploadFileName);//3 : fileName
+            dto.setUploadPath(uploadPath.toString());//4 : uploadPath
 
             //IE has file path
             uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
             log.debug("only file name : " + uploadFileName);
 
-            UUID uuid = UUID.randomUUID();
-            uploadFileName = uuid.toString() + "_" + uploadFileName;
+            String uuid = UUID.randomUUID().toString();
+            dto.setUuid(uuid); // 5 : uuid
+
+            uploadFileName = uuid + "_" + uploadFileName;
 
             File saveFile = new File(uploadPath, uploadFileName);
 
@@ -354,7 +359,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
                 //check image type file
                 if (UploadFileUtils.checkImageType(saveFile)) {
                     FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
+                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
                     thumbnail.close();
 
                 }
@@ -362,7 +367,11 @@ public class StudyInsController implements InitializingBean, DisposableBean {
                 log.error(e.getMessage());
 
             } // end catch
+            list.add(dto);
         } // end for
+
+        studyInsDTO.setFileDTO(list);
+
         Objects.requireNonNull(service);
 
         if (service.register(cont_No, studyInsDTO, uploadFile)) {
