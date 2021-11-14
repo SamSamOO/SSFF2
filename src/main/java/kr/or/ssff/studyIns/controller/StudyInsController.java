@@ -337,7 +337,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
             StudyInsFileDTO dto = new StudyInsFileDTO();
             dto.setCont_No(cont_No);
 
-            String uploadFileName = multipartFile.getOriginalFilename();
+            String uploadFileName = multipartFile.getOriginalFilename().replace(' ','_');
 
             dto.setFile_Name(uploadFileName);//3 : fileName
             dto.setUploadPath(uploadPath.toString());//4 : uploadPath
@@ -360,8 +360,8 @@ public class StudyInsController implements InitializingBean, DisposableBean {
                 if (UploadFileUtils.checkImageType(saveFile)) {
                     FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
                     Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
-                    thumbnail.close();
 
+                    thumbnail.close();
                 }
             } catch (Exception e) {
                 log.error(e.getMessage());
