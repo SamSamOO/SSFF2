@@ -35,12 +35,10 @@ public class CafeListVO {
   private String cafe_image_second;
   private String cafe_image_third;
   private String cafe_location;
+  private String cafe_idx;
   private Integer max_people;
   private Integer amount_hour;
-  private String room_image;
-  private Character cafe_remove_yn;
-  private String cafe_idx;
-
+  private String room_list;
 
 
 } // end class

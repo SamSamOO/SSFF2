@@ -1,6 +1,7 @@
 package kr.or.ssff.cafe.service;
 
 import java.util.List;
+import java.util.Map;
 import kr.or.ssff.cafe.domain.CafeListVO;
 
 /*

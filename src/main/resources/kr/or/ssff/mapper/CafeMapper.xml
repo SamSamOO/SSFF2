@@ -7,29 +7,31 @@
   <select id="selectCafeList" resultType="kr.or.ssff.cafe.domain.CafeListVO">
 
     SELECT
-      *
+      c.cafe_main_title,
+      c.cafe_sub_title,
+      c.cafe_image_first,
+      c.cafe_image_second,
+      c.cafe_image_third,
+      c.cafe_location,
+      c.cafe_idx,
+      r.max_people,
+      r.amount_hour,
+      r.romm_list
     FROM
-      (
+      cafe c
+        JOIN (
         SELECT
-
-          c.cafe_main_title,
-          c.cafe_sub_title,
-          c.cafe_image_first,
-          c.cafe_image_second,
-          c.cafe_image_third,
-          c.cafe_location,
-          r.max_people,
-          r.amount_hour,
-          r.room_image,
-          c.cafe_remove_yn,
-          c.cafe_idx
-
+          cafe_idx,
+          MAX(max_people) AS max_people,
+          MIN(amount_hour) AS amount_hour,
+          LISTAGG(room_image, ':') WITHIN GROUP (ORDER BY cafe_idx) AS romm_list
         FROM
-          cafe c
-            JOIN room r on c.cafe_idx = r.cafe_idx
-      )
+          room
+        GROUP BY
+          cafe_idx
+      ) r ON c.cafe_idx = r.cafe_idx
     WHERE
-      cafe_remove_yn ='n'
+      c.cafe_remove_yn = 'n'
 
   </select>
 

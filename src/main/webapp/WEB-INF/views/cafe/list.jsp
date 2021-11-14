@@ -81,7 +81,7 @@
     section.awSlider > img{
       position:absolute;
       top:30px;
-      z-index:1;
+      z-i:1;
       transition:all .3s;
       filter: blur(1.8vw);
       -webkit-filter: blur(2vw);
@@ -161,692 +161,7 @@
             <div class="자이제시작이야">
               <!--begin::Row-->
               <div class="row" id="cafeListCardLow">
-                <!--begin::Col-->
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                  <!--begin::Card-->
-                  <div class="card card-custom gutter-b card-stretch">
-      
-                    <section class="awSlider">
-                      <div  class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                          <li data-target=".carousel" data-slide-to="0" class="active"></li>
-                          <li data-target=".carousel" data-slide-to="1"></li>
-                          <li data-target=".carousel" data-slide-to="2"></li>
-                          <li data-target=".carousel" data-slide-to="3"></li>
-                          <li data-target=".carousel" data-slide-to="4"></li>
-                          <li data-target=".carousel" data-slide-to="5"></li>
-          
-                        </ol>
-          
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                          <div class="item active">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-                            <div class="carousel-caption"> #1</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-                            <div class="carousel-caption"> #2</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-                            <div class="carousel-caption"> #3</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #4</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #5</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #6</div>
-                          </div>
-                        </div>
-          
-                        <!-- Controls -->
-                        <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                          <span class="sr-only">Geri</span>
-                        </a>
-                        <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                          <span class="sr-only">İleri</span>
-                        </a>
-                      </div>
-                    </section>
-      
-      
-                    <!--begin::Body-->
-                    <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">제목이 올자리</span>
-                      <!--begin::Info-->
-                      <div class="mb-7">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">#부제목 #올자리</span>
-                        </div>
-                        <div class="justify-content-between align-items-center my-1">
-                          <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
-                          <a href="#" class="text-muted text-hover-primary">$76,810</a>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Due Date:</span>
-                          <span class="text-muted font-weight-bold" style="">21.05.2016</span>
-                        </div>
-                      </div>
-                      <!--end::Info-->
-                      <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">예약하기</a>
-                    </div>
-                    <!--end::Body-->
-                  </div>
-                  <!--end:: Card-->
-                </div>
-                <!--end::Col-->
-  
-  
-                <!--begin::Col-->
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                  <!--begin::Card-->
-                  <div class="card card-custom gutter-b card-stretch">
-      
-                    <section class="awSlider">
-                      <div  class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                          <li data-target=".carousel" data-slide-to="0" class="active"></li>
-                          <li data-target=".carousel" data-slide-to="1"></li>
-                          <li data-target=".carousel" data-slide-to="2"></li>
-                          <li data-target=".carousel" data-slide-to="3"></li>
-                          <li data-target=".carousel" data-slide-to="4"></li>
-                          <li data-target=".carousel" data-slide-to="5"></li>
-          
-                        </ol>
-          
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                          <div class="item active">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-                            <div class="carousel-caption"> #1</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-                            <div class="carousel-caption"> #2</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-                            <div class="carousel-caption"> #3</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #4</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #5</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #6</div>
-                          </div>
-                        </div>
-          
-                        <!-- Controls -->
-                        <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                          <span class="sr-only">Geri</span>
-                        </a>
-                        <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                          <span class="sr-only">İleri</span>
-                        </a>
-                      </div>
-                    </section>
-      
-      
-                    <!--begin::Body-->
-                    <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">제목이 올자리</span>
-                      <!--begin::Info-->
-                      <div class="mb-7">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">#부제목 #올자리</span>
-                        </div>
-                        <div class="justify-content-between align-items-center my-1">
-                          <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
-                          <a href="#" class="text-muted text-hover-primary">$76,810</a>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Due Date:</span>
-                          <span class="text-muted font-weight-bold" style="">21.05.2016</span>
-                        </div>
-                      </div>
-                      <!--end::Info-->
-                      <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">예약하기</a>
-                    </div>
-                    <!--end::Body-->
-                  </div>
-                  <!--end:: Card-->
-                </div>
-                <!--end::Col-->
-  
-  
-                <!--begin::Col-->
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                  <!--begin::Card-->
-                  <div class="card card-custom gutter-b card-stretch">
-      
-                    <section class="awSlider">
-                      <div  class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                          <li data-target=".carousel" data-slide-to="0" class="active"></li>
-                          <li data-target=".carousel" data-slide-to="1"></li>
-                          <li data-target=".carousel" data-slide-to="2"></li>
-                          <li data-target=".carousel" data-slide-to="3"></li>
-                          <li data-target=".carousel" data-slide-to="4"></li>
-                          <li data-target=".carousel" data-slide-to="5"></li>
-          
-                        </ol>
-          
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                          <div class="item active">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-                            <div class="carousel-caption"> #1</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-                            <div class="carousel-caption"> #2</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-                            <div class="carousel-caption"> #3</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #4</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #5</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #6</div>
-                          </div>
-                        </div>
-          
-                        <!-- Controls -->
-                        <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                          <span class="sr-only">Geri</span>
-                        </a>
-                        <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                          <span class="sr-only">İleri</span>
-                        </a>
-                      </div>
-                    </section>
-      
-      
-                    <!--begin::Body-->
-                    <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">제목이 올자리</span>
-                      <!--begin::Info-->
-                      <div class="mb-7">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">#부제목 #올자리</span>
-                        </div>
-                        <div class="justify-content-between align-items-center my-1">
-                          <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
-                          <a href="#" class="text-muted text-hover-primary">$76,810</a>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Due Date:</span>
-                          <span class="text-muted font-weight-bold" style="">21.05.2016</span>
-                        </div>
-                      </div>
-                      <!--end::Info-->
-                      <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">예약하기</a>
-                    </div>
-                    <!--end::Body-->
-                  </div>
-                  <!--end:: Card-->
-                </div>
-                <!--end::Col-->
-  
-                <!--begin::Col-->
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                  <!--begin::Card-->
-                  <div class="card card-custom gutter-b card-stretch">
-      
-                    <section class="awSlider">
-                      <div  class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                          <li data-target=".carousel" data-slide-to="0" class="active"></li>
-                          <li data-target=".carousel" data-slide-to="1"></li>
-                          <li data-target=".carousel" data-slide-to="2"></li>
-                          <li data-target=".carousel" data-slide-to="3"></li>
-                          <li data-target=".carousel" data-slide-to="4"></li>
-                          <li data-target=".carousel" data-slide-to="5"></li>
-          
-                        </ol>
-          
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                          <div class="item active">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-                            <div class="carousel-caption"> #1</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-                            <div class="carousel-caption"> #2</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-                            <div class="carousel-caption"> #3</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #4</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #5</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #6</div>
-                          </div>
-                        </div>
-          
-                        <!-- Controls -->
-                        <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                          <span class="sr-only">Geri</span>
-                        </a>
-                        <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                          <span class="sr-only">İleri</span>
-                        </a>
-                      </div>
-                    </section>
-      
-      
-                    <!--begin::Body-->
-                    <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">제목이 올자리</span>
-                      <!--begin::Info-->
-                      <div class="mb-7">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">#부제목 #올자리</span>
-                        </div>
-                        <div class="justify-content-between align-items-center my-1">
-                          <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
-                          <a href="#" class="text-muted text-hover-primary">$76,810</a>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Due Date:</span>
-                          <span class="text-muted font-weight-bold" style="">21.05.2016</span>
-                        </div>
-                      </div>
-                      <!--end::Info-->
-                      <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">예약하기</a>
-                    </div>
-                    <!--end::Body-->
-                  </div>
-                  <!--end:: Card-->
-                </div>
-                <!--end::Col-->
-  
-  
-                <!--begin::Col-->
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                  <!--begin::Card-->
-                  <div class="card card-custom gutter-b card-stretch">
-      
-                    <section class="awSlider">
-                      <div  class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                          <li data-target=".carousel" data-slide-to="0" class="active"></li>
-                          <li data-target=".carousel" data-slide-to="1"></li>
-                          <li data-target=".carousel" data-slide-to="2"></li>
-                          <li data-target=".carousel" data-slide-to="3"></li>
-                          <li data-target=".carousel" data-slide-to="4"></li>
-                          <li data-target=".carousel" data-slide-to="5"></li>
-          
-                        </ol>
-          
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                          <div class="item active">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-                            <div class="carousel-caption"> #1</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-                            <div class="carousel-caption"> #2</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-                            <div class="carousel-caption"> #3</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #4</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #5</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #6</div>
-                          </div>
-                        </div>
-          
-                        <!-- Controls -->
-                        <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                          <span class="sr-only">Geri</span>
-                        </a>
-                        <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                          <span class="sr-only">İleri</span>
-                        </a>
-                      </div>
-                    </section>
-      
-      
-                    <!--begin::Body-->
-                    <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">제목이 올자리</span>
-                      <!--begin::Info-->
-                      <div class="mb-7">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">#부제목 #올자리</span>
-                        </div>
-                        <div class="justify-content-between align-items-center my-1">
-                          <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
-                          <a href="#" class="text-muted text-hover-primary">$76,810</a>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Due Date:</span>
-                          <span class="text-muted font-weight-bold" style="">21.05.2016</span>
-                        </div>
-                      </div>
-                      <!--end::Info-->
-                      <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">예약하기</a>
-                    </div>
-                    <!--end::Body-->
-                  </div>
-                  <!--end:: Card-->
-                </div>
-                <!--end::Col-->
-  
-  
-                <!--begin::Col-->
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                  <!--begin::Card-->
-                  <div class="card card-custom gutter-b card-stretch">
-      
-                    <section class="awSlider">
-                      <div  class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                          <li data-target=".carousel" data-slide-to="0" class="active"></li>
-                          <li data-target=".carousel" data-slide-to="1"></li>
-                          <li data-target=".carousel" data-slide-to="2"></li>
-                          <li data-target=".carousel" data-slide-to="3"></li>
-                          <li data-target=".carousel" data-slide-to="4"></li>
-                          <li data-target=".carousel" data-slide-to="5"></li>
-          
-                        </ol>
-          
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                          <div class="item active">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-                            <div class="carousel-caption"> #1</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-                            <div class="carousel-caption"> #2</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-                            <div class="carousel-caption"> #3</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #4</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #5</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #6</div>
-                          </div>
-                        </div>
-          
-                        <!-- Controls -->
-                        <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                          <span class="sr-only">Geri</span>
-                        </a>
-                        <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                          <span class="sr-only">İleri</span>
-                        </a>
-                      </div>
-                    </section>
-      
-      
-                    <!--begin::Body-->
-                    <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">제목이 올자리</span>
-                      <!--begin::Info-->
-                      <div class="mb-7">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">#부제목 #올자리</span>
-                        </div>
-                        <div class="justify-content-between align-items-center my-1">
-                          <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
-                          <a href="#" class="text-muted text-hover-primary">$76,810</a>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Due Date:</span>
-                          <span class="text-muted font-weight-bold" style="">21.05.2016</span>
-                        </div>
-                      </div>
-                      <!--end::Info-->
-                      <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">예약하기</a>
-                    </div>
-                    <!--end::Body-->
-                  </div>
-                  <!--end:: Card-->
-                </div>
-                <!--end::Col-->
-  
-  
-                <!--begin::Col-->
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                  <!--begin::Card-->
-                  <div class="card card-custom gutter-b card-stretch">
-      
-                    <section class="awSlider">
-                      <div  class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                          <li data-target=".carousel" data-slide-to="0" class="active"></li>
-                          <li data-target=".carousel" data-slide-to="1"></li>
-                          <li data-target=".carousel" data-slide-to="2"></li>
-                          <li data-target=".carousel" data-slide-to="3"></li>
-                          <li data-target=".carousel" data-slide-to="4"></li>
-                          <li data-target=".carousel" data-slide-to="5"></li>
-          
-                        </ol>
-          
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                          <div class="item active">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-                            <div class="carousel-caption"> #1</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-                            <div class="carousel-caption"> #2</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-                            <div class="carousel-caption"> #3</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #4</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #5</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #6</div>
-                          </div>
-                        </div>
-          
-                        <!-- Controls -->
-                        <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                          <span class="sr-only">Geri</span>
-                        </a>
-                        <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                          <span class="sr-only">İleri</span>
-                        </a>
-                      </div>
-                    </section>
-      
-      
-                    <!--begin::Body-->
-                    <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">제목이 올자리</span>
-                      <!--begin::Info-->
-                      <div class="mb-7">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">#부제목 #올자리</span>
-                        </div>
-                        <div class="justify-content-between align-items-center my-1">
-                          <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
-                          <a href="#" class="text-muted text-hover-primary">$76,810</a>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Due Date:</span>
-                          <span class="text-muted font-weight-bold" style="">21.05.2016</span>
-                        </div>
-                      </div>
-                      <!--end::Info-->
-                      <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">예약하기</a>
-                    </div>
-                    <!--end::Body-->
-                  </div>
-                  <!--end:: Card-->
-                </div>
-                <!--end::Col-->
-  
-  
-                <!--begin::Col-->
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                  <!--begin::Card-->
-                  <div class="card card-custom gutter-b card-stretch">
-      
-                    <section class="awSlider">
-                      <div  class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                          <li data-target=".carousel" data-slide-to="0" class="active"></li>
-                          <li data-target=".carousel" data-slide-to="1"></li>
-                          <li data-target=".carousel" data-slide-to="2"></li>
-                          <li data-target=".carousel" data-slide-to="3"></li>
-                          <li data-target=".carousel" data-slide-to="4"></li>
-                          <li data-target=".carousel" data-slide-to="5"></li>
-          
-                        </ol>
-          
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                          <div class="item active">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-941.jpg">
-                            <div class="carousel-caption"> #1</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-101.jpg">
-                            <div class="carousel-caption"> #2</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg">
-                            <div class="carousel-caption"> #3</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #4</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #5</div>
-                          </div>
-                          <div class="item">
-                            <img src="http://www.adobewordpress.com/wp-content/uploads/2013/07/wallpaper-thumb-74.jpg">
-                            <div class="carousel-caption"> #6</div>
-                          </div>
-                        </div>
-          
-                        <!-- Controls -->
-                        <a class="left carousel-control" href=".carousel" role="button" data-slide="prev">
-                          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                          <span class="sr-only">Geri</span>
-                        </a>
-                        <a class="right carousel-control" href=".carousel" role="button" data-slide="next">
-                          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                          <span class="sr-only">İleri</span>
-                        </a>
-                      </div>
-                    </section>
-      
-      
-                    <!--begin::Body-->
-                    <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">제목이 올자리</span>
-                      <!--begin::Info-->
-                      <div class="mb-7">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">#부제목 #올자리</span>
-                        </div>
-                        <div class="justify-content-between align-items-center my-1">
-                          <span class="text-dark-75 font-weight-bolder mr-2">최소 이용금액:</span>
-                          <a href="#" class="text-muted text-hover-primary">$76,810</a>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 font-weight-bolder mr-2">Due Date:</span>
-                          <span class="text-muted font-weight-bold" style="">21.05.2016</span>
-                        </div>
-                      </div>
-                      <!--end::Info-->
-                      <a href="#" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">예약하기</a>
-                    </div>
-                    <!--end::Body-->
-                  </div>
-                  <!--end:: Card-->
-                </div>
-                <!--end::Col-->
-                
+              
                 
               </div>
               <!--begin::Row-->
@@ -868,150 +183,37 @@
 <!----------------Body 종료----------------------->
 <script>
   
-  /*
-    <ol class="carousel-indicators">
-      <li data-target=".carousel" data-slide-to="0" class="active"></li>
-      <li data-target=".carousel" data-slide-to="1"></li>
-      <li data-target=".carousel" data-slide-to="2"></li>
-      <li data-target=".carousel" data-slide-to="3"></li>
-      <li data-target=".carousel" data-slide-to="4"></li>
-      <li data-target=".carousel" data-slide-to="5"></li>
-    </ol>
-  * */
-
-
-
-  // cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성
- /* for (let i = 0; i < 6; i++) {
-    $li = $('<li>', {
-      "data-target"  : ".carousel",
-      "data-slide-to": i,
-    });
-    $('.carousel-indicators').append($li); // ol에 넣고
-    // 첫번째 버튼은 active
-
-    let $div = $('<div>').addClass("item")
-                         .append($('<img>').attr("img", "사진1"));
-
-    $('.carousel-inner').append($div);
-    // 첫번째 버튼은 active
-  }
-
-  let $aPrev = $('<a>', {
-    class       : "left carousel-control",
-    href        : ".carousel",
-    role        : "button",
-    "data-slide": "prev"
-  }).append(
-      $('<span>', {
-        class        : "glyphicon glyphicon-chevron-left",
-        "aria-hidden": ".true"
-      }))
-
-  let $aNext = $('<a>', {
-    class       : "left carousel-control",
-    href        : ".carousel",
-    role        : "button",
-    "data-slide": "next"
-  }).append(
-      $('<span>', {
-        class        : "glyphicon glyphicon-chevron-right",
-        "aria-hidden": ".true"
-      }))
-
-  let templet =
-          `     <!--begin::Col-->
-                <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                  <!--begin::Card-->
-                  <div class="card card-custom gutter-b card-stretch">
-                    
-                    <section class="awSlider">
-                      <div  class="carousel slide" data-ride="carousel">
-                        <!-- Indicators -->
-                        <ol class="carousel-indicators">
-                        </ol>
-      
-                        <!-- Wrapper for slides -->
-                        <div class="carousel-inner" role="listbox">
-                        </div>
-      
-                        <!-- Controls $aPrev $aNext -->
-                        
-                      </div>
-                    </section>
-                    
-                   
-                      <!--begin::Body-->
-                    <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
-                      <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">`
-  data.cafe_main_title`</span>
-                      <!--begin::Info-->
-                      <div class="mb-7">
-                        <div class="d-flex justify-content-between align-items-center">
-                          <span class="text-dark-75 mr-2">`
-  data.cafe_sub_title`</span>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center my-1">
-                      
-                          <span class="text-dark-75 font-weight-bolder" style="color: #bf7e00; font-size: 18px !important;">2,800
-                            <em class="text-dark-75"  style="font-size: 10px !important;">원/시간</em>
-                          </span>
-                          
-                          
-                          <span class="text-dark-75 " style="float: right; margin-top: 10px"><i
-                            class="fa fa-users" ></i> 최대 10인</span>
-                      
-                        </div>
-                   
-                      </div>
-                      <!--end::Info-->
-                      <a href="detail링크" class="btn btn-block btn-sm btn-light-success font-weight-bolder text-uppercase py-4">예약하기</a>
-                    </div>
-                    <!--end::Body-->
-                  </div>
-                  <!--end:: Card-->
-                </div>
-                <!--end::Col-->`
-              
-              */
+  
               
   console.log("g힘들어잉")
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  $(document).ready(function(){
+
+  $(document).ready(function () {
     start.init();
     console.log("start.init();")
 
   });
-  
+
   var start = {
-    param : {
-      curPage : 1,
-      pageListSize : 18,
+    param: {
+      curPage     : 1,
+      pageListSize: 18,
     },
 
-    init : function() {
+    init     : function () {
       this.testData();
       this.testEvent();
     },
-    testData : function() {
-      this.setListItems("${firstData}"); // 첫 진입시 데이터 셋팅
+    testData : function () {
+      start.testAjax();
+      // this.setListItems(data); // 첫 진입시 데이터 셋팅
     },
-    testEvent : function() {
+    testEvent: function () {
       // 무한 스크롤
-      $(window).scroll(function() {
+      $(window).scroll(function () {
         console.log("scroll;")
 
         // 맨 밑으로 스크롤이 갔을경우 if문을 탑니다.
-        if($(window).scrollTop() == $(document).height() - $(window).height()) {
+        if ($(window).scrollTop() == $(document).height() - $(window).height()) {
           console.log("scrollTop;")
           start.param.curPage++; // 현재 페이지에서 +1 처리.
 
@@ -1020,27 +222,33 @@
       });
     },
     // 무한 스크롤 ajax 요청
-    testAjax : function() {
+    testAjax: function () {
       $.ajax({
-               type     : 'POST',
-               url      : '/cafe/listData',
-               data     : JSON.stringify(start.param), // 다음 페이지 번호와 페이지 사이즈를 가지고 갑니다.
-               dataType : 'json',
-               contentType: "application/json",
-               success : successCallback,
-               error : errorCallback
+               type       : 'POST',
+               url        : '/cafe/listData',
+               data       : JSON.stringify(start.param), // 다음 페이지 번호와 페이지 사이즈를 가지고 갑니다.
+               dataType   : 'json',
+               contentType: "application/json; charset=utf-8",
+               success    : successCallback,
+               error      : errorCallback
              });
+
       // 성공
       function successCallback(data) {
-        console.log("data: " + data);
-        // if(data.testList.totListSize == 0 ){
-        //   $(".gridList").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
-        // }
-        // if(JSON.parse(data.testList).length != 0){
-        //   // testLoading.show(); //로딩 on(로딩바가 있을경우만 넣습니다. 없을경우 빼셔도 상관 없습니다.)
-        //   start.setListItems(JSON.parse(data.testList));  //테스트 데이터 리스트 입니다.
-        //   // testLoading.hide(); //로딩 off(로딩바가 있을경우만 넣습니다. 없을경우 빼셔도 상관 없습니다.)
-        // }
+        console.log("data: " + data.cafeList.length);
+        console.log("data: " + data.cafeList[1].cafe_idx); // cafe_idx_10
+        console.log("data: " + data.cafeList[1].roomImgs[1]); // 10번카페의 2번이미지입니다
+        console.log("data: " + data.cafeList[1].roomImgs.length); // 14
+
+        if (data.cafeList.length == 0) {
+          // $(".gridList").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
+          alert("더이상 표시할 항목이 없습니다");
+        }
+        if (data.length != 0) {
+          // testLoading.show(); //로딩바 on
+          start.setListItems(data);  //테스트 데이터 리스트 입니다.
+          // testLoading.hide(); //로딩 off
+        }
       }
 
       // 실패
@@ -1049,22 +257,134 @@
       }
     },
 
-    // 테스트 데이터 setting
-    setListItems : function (list) {
-      $.each(list, function(i, testData) {
+    // 데이터 setting
+    setListItems: function (data) {
 
-        console.log("?이건가")
-        // // 부모 엘리먼트에 append 할 데이터를 셋팅한다.
-        // var $li = $('<li>')
-        // .append($('<div>').text(testData.name))
-        // .append($('<div>').text(testData.phoneNm))
-        // .append($('<div>')
-        //         .append($('<span>').text(testData.birth)));
-        //
-        //
-        // // 부모 엘리먼트에 append
-        // $('#test_list').append($li);
-      })
+      let templet =
+              `<!--begin::Col-->
+              <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-stretch">
+
+                  <section class="awSlider">
+                    <div  class="carousel slide" data-ride="carousel">
+                      <!-- Indicators -->
+                      <ol class="carousel-indicators">
+                      </ol>
+              
+                      <!-- Wrapper for slides -->
+                      <div class="carousel-inner" role="listbox">
+                      </div>
+              
+                      <!-- Controls $aPrev $aNext -->
+                    </div>
+                  </section>
+
+                </div>
+<!--end::Card-->
+              </div>
+<!--end::Col-->`
+
+      console.log("템플릿 셋팅 완료했다 이거라고!");
+      console.log("data.cafeList[i].length" + data.cafeList[0].length);
+
+      let mainTitle = '';
+      let subTitle = '';
+      let amountHour = '';
+      let maxPeople = '';
+      let link = '';
+
+      for (let i = 0; i < data.cafeList.length; i++) {
+
+        // 기본 구조 셋팅!
+        $('#cafeListCardLow').append(templet);
+
+        console.log("이거 data" + data);
+        console.log("이거 data.cafeList[i].roomImgs.length : " + data.cafeList[0].roomImgs.length);
+
+        // cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성
+        for (let j = 0; j < data.cafeList[i].roomImgs.length; j++) {
+          $li = $('<li>', {
+            "data-target"  : ".carousel",
+            "data-slide-to": j,
+          });
+          $('ol').eq(i).append($li); // ol에 넣고
+
+          let $div = $('<div>').addClass("carousel-caption")
+          let $item = $('<div>').addClass("item")
+                                .append($('<img>').attr("src", "http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg"/*data.cafeList[i].roomImgs[j]*/))
+                                .append($div);
+
+          $('.carousel-inner').eq(i).append($item);
+
+        } // for
+
+        $('.carousel-indicators').eq(i).children().eq(0).addClass("active");
+        $('.carousel-inner').eq(i).children().eq(0).addClass("active");
+
+        let $aPrev = $('<a>', {
+          class       : "left carousel-control",
+          href        : ".carousel",
+          role        : "button",
+          "data-slide": "prev"
+        }).append(
+            $('<span>', {
+              class        : "glyphicon glyphicon-chevron-left",
+              "aria-hidden": "true"
+            }))
+
+        let $aNext = $('<a>', {
+          class       : "right carousel-control",
+          href        : ".carousel",
+          role        : "button",
+          "data-slide": "next"
+        }).append(
+            $('<span>', {
+              class        : "glyphicon glyphicon-chevron-right",
+              "aria-hidden": "true"
+            }))
+
+        $('.carousel.slide').eq(i).append($aPrev, $aNext);
+
+        mainTitle = String(data.cafeList[i].cafe_main_title);
+        subTitle = String(data.cafeList[i].cafe_sub_title);
+        amountHour = String(data.cafeList[i].amount_hour);
+        maxPeople = String(data.cafeList[i].max_people);
+        link = String("아직몰라잉~");
+
+        let cardHtml;
+        cardHtml = `
+    <!--begin::Body-->
+         <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
+           <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">
+                  ` + mainTitle + `</span>
+           <!--begin::Info-->
+           <div class="mb-7">
+             <div class="d-flex justify-content-between align-items-center">
+               <span class="text-dark-75 mr-2">
+                  ` + subTitle + `</span>
+             </div>
+             <div class="d-flex justify-content-between align-items-center my-1">
+
+               <span class="text-dark-75 font-weight-bolder"
+                       style="color: #bf7e00; font-size: 18px !important;">
+                   ` + amountHour + `
+                 <em class="text-dark-75"  style="font-size: 10px !important;">원/시간</em>
+               </span>
+               <span class="text-dark-75" style="float: right; margin-top: 10px"><i
+                 class="fa fa-users" ></i> 최대
+            ` + maxPeople + `인</span>
+            </div>
+           </div><a href="detail링크"
+                    class="btn btn-block btn-sm btn-light-success
+                           font-weight-bolder text-uppercase py-4">예약하기</a></div>`
+
+        $('.card.card-custom.gutter-b.card-stretch').eq(i).append(cardHtml);
+
+        
+      }
+      
+
     }
   }
 

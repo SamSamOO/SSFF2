@@ -1,10 +1,18 @@
 package kr.or.ssff.cafe.controller;
 
+import java.lang.ProcessHandle.Info;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import java.util.Map;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import net.sf.json.JSONString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /*
@@ -36,57 +45,94 @@ import lombok.extern.log4j.Log4j2;
 
 @RequestMapping("/cafe")
 @Controller
-public class CafeController{
+public class CafeController {
 
-	@Setter(onMethod_= { @Autowired })
+  @Setter(onMethod_ = {@Autowired})
   private CafeService service;
 
 
-
-
-  @PostMapping("/listData")
+  @RequestMapping(value= "/listData", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
   @ResponseBody   //없으면 AJAX 통신 안됨
-  public List<CafeListVO> getCafeList(
-      @RequestBody String filterJSON,
-      HttpServletResponse response,
-      ModelMap model ) throws Exception {
-    log.debug("getCafeList({},{},{}) is invoked",filterJSON, response, model );
+  public JSONObject getCafeList(
+      @RequestBody String filterJSON
+      ) throws Exception {
+    log.debug("getCafeList({}) is invoked", filterJSON);
+    log.info("ajax 요청 도착!");
 
-    List<CafeListVO> allCafeList = this.service.getCafeList();
-    List<CafeListVO> cafeList = null;
-    try{
-      log.info("\t refusal_action_try");
-      log.info("\t filterJSON: "+filterJSON);
-      log.info("\t response: "+response);
-      log.info("\t model: "+model);
+    // join상태의 모든 정보 담아내기 (중복정보 있는 상태)
+    List<CafeListVO> list = this.service.getCafeList();
 
+    //최종 완성될 JSONObject 선언(전체)
+    JSONObject jsonObject = new JSONObject();
+    //cafeInfo JSON정보를 담을 Array 선언
+    JSONArray arr = new JSONArray();
+    //cafe 하나의 정보가 들어갈 JSONObject 선언
+    JSONObject cafeInfo = new JSONObject();
+    //img를 모을 JSONObject 선언
+    JSONObject roomImgs = new JSONObject();
+
+    try {
       ObjectMapper mapper = new ObjectMapper();
 
-      HashMap<String, Integer> page = mapper.readValue(filterJSON, new HashMap<String, Integer>().getClass());
+      HashMap<String, Integer> page = mapper.readValue(filterJSON,
+          new HashMap<String, Integer>().getClass());
 
-      int cp = page.get("curPage"); // 요청온 페이지
+      int cp = page.get("curPage"); // 요청온 페이지 1
       int ps = page.get("pageListSize"); // 18개씩 보여주자
 
-      log.info("\t+ cp: {}",cp);
-      log.info("\t+ ps: {}",ps);
+      log.info("\t+ cp: {}", cp); // 시작
+      log.info("\t+ ps: {}", ps); // 18개 잘 왔니?
 
-//      this.service.applyAction(aMember);
+      log.info("\t list: " + list);
+
+      // 총 list수만큼 조회해서 ㅂjson 배열에 차곡차곡 남아주기
+      for (int i = 0; i < list.size(); i++) {
+
+        cafeInfo.put("cafe_idx", list.get(i).getCafe_idx());
+        cafeInfo.put("cafe_location", list.get(i).getCafe_location());
+        cafeInfo.put("amount_hour", list.get(i).getAmount_hour());
+        cafeInfo.put("cafe_main_title", list.get(i).getCafe_main_title());
+        cafeInfo.put("cafe_sub_title", list.get(i).getCafe_sub_title());
+        cafeInfo.put("max_people", list.get(i).getMax_people());
+
+        // 사진은 배열로 담기
+        List<String> imgList = new ArrayList<>();
+        imgList.add(list.get(i).getCafe_image_first());
+        imgList.add(list.get(i).getCafe_image_second());
+        imgList.add(list.get(i).getCafe_image_third());
+
+        // 세부 룸 정보는 한 컬럼에 모았기때문에 : 기준으로 잘 찢어서
+        String[] rImgs = list.get(i).getRoom_list().split(":");
+
+        // 찢은 길이만큼(=존재하는 row수만큼) 반복하며 차곡차곡 담아준다.
+        for (int j = 0; j < rImgs.length; j++) {
+          imgList.add(rImgs[j]);
+        }
+
+        // 카페이미지와 세부 룸 이미지를 하나의 객체로서 담아서
+        cafeInfo.put("roomImgs", imgList);
+        // json 배열에 전부 담아줍니다.
+        arr.add(cafeInfo);
+
+        log.info("1. arr {}: "+ arr);
+      }
+      log.info("2. arrsubList {}: "+ arr.subList(((cp-1)*ps),((cp*ps)-1)));
+      // 요청온 카드 수 만큼만 잘라서 제이슨 객체에 담아 가져가세요
+      jsonObject.put("cafeList", arr.subList(((cp-1)*ps),((cp*ps)-1)));
+      log.info("(cp-1)*ps ="+ ((cp-1)*ps));
+      log.info(" end ="+ ((cp*ps)-1));
 
 
-      log.info("\t allCafeList: ");
-      log.info("\t allCafeList: "+allCafeList);
 
-      cafeList = allCafeList.subList((cp-1)*ps,(cp*ps)-1); // 조회한 리스트에서 요청온 index만큼만 담아주자
-      log.info("\t cafeList: "+cafeList);
-
-    }catch(Exception e){
+    } catch (Exception e) {
 
     }
-    response.setContentType("text/html; charset=UTF-8");
 
-    return cafeList;
+
+    log.info("jsonObject {} =", jsonObject);
+
+    return jsonObject;
   } // getCafeList
-
 
 
   /*
@@ -95,7 +141,7 @@ public class CafeController{
    * 반환: 스터디 카페 리스트 뷰단
    * */
   @GetMapping("/list")
-  public void selectCafeList(Model model){
+  public void selectCafeList(Model model) {
     log.info("selectCafeList() is invoked");
 
     List<CafeListVO> cafeList = this.service.getCafeList();
@@ -104,15 +150,14 @@ public class CafeController{
   } // selectCafeList
 
 
-
   /*
    * 스터디 카페 단일 상세화면을 조회
    * 매개변수: 스터디카페ID
    * 반환: 스터디 카페 단일 상세화면 뷰단
    * */
   @GetMapping("/detail")
-  public String selectCafe(String cafeId){
-    log.info("selectCafe({}) is invoked","cafeId = " + cafeId);
+  public String selectCafe(String cafeId) {
+    log.info("selectCafe({}) is invoked", "cafeId = " + cafeId);
 
     return "cafe/detail";
   } // selectCafe
@@ -124,7 +169,7 @@ public class CafeController{
    * 반환: 결제화면(결제정상 처리여부 확인후 update
    * */
   @PostMapping("/reservation")
-  public String insertReservation(ReservationDTO reservationDTO){
+  public String insertReservation(ReservationDTO reservationDTO) {
 
     return "redirect:결제화면(시도)->정상: update결제id, 비정상: delete예약정보";
 
@@ -136,8 +181,8 @@ public class CafeController{
    * 반환: 스터디 카페 예약 내역 리스트 뷰단
    * */
   @GetMapping("/reservationList")
-  public String selectReservationList(String nickName){
-    log.info("selectReservationList({}) is invoked","nickName = " + nickName);
+  public String selectReservationList(String nickName) {
+    log.info("selectReservationList({}) is invoked", "nickName = " + nickName);
 
     return "cafe/reservationList";
   } // selectReservationList
@@ -150,7 +195,7 @@ public class CafeController{
    * 반환: 스터디 카페 등록 화면 뷰단
    * */
   @GetMapping("/registerView")
-  public String insertCafeView(){
+  public String insertCafeView() {
     log.info("insertCafeView() is invoked");
 
     return "cafe/registerView";
@@ -162,8 +207,8 @@ public class CafeController{
    * 반환: 스터디 카페 상세보기
    * */
   @PostMapping("/register")
-  public String insertCafe(CafeDTO cafeDTO){
-    log.info("insertCafe({}) is invoked","cafeDTO = " + cafeDTO);
+  public String insertCafe(CafeDTO cafeDTO) {
+    log.info("insertCafe({}) is invoked", "cafeDTO = " + cafeDTO);
 
     return "redirect:cafe/detail";
   } // insertCafe
@@ -174,8 +219,8 @@ public class CafeController{
    * 반환: 스터디 카페 수정 화면 뷰단
    * */
   @GetMapping("/modifyView")
-  public String updateCafeView(CafeVO cafeVO){
-    log.info("updateCafeView({}) is invoked","cafeVO = " + cafeVO);
+  public String updateCafeView(CafeVO cafeVO) {
+    log.info("updateCafeView({}) is invoked", "cafeVO = " + cafeVO);
 
     return "cafe/modifyView";
   } // updateCafeView
@@ -186,8 +231,8 @@ public class CafeController{
    * 반환: 스터디 카페 상세보기
    * */
   @PostMapping("/modify")
-  public String updateCafe(CafeDTO cafeDTO){
-    log.info("updateCafe({}) is invoked","cafeDTO = " + cafeDTO);
+  public String updateCafe(CafeDTO cafeDTO) {
+    log.info("updateCafe({}) is invoked", "cafeDTO = " + cafeDTO);
 
     return "redirect:cafe/detail";
   } // updateCafe
@@ -198,16 +243,13 @@ public class CafeController{
    * 반환: 카페 리스트 페이지로 이동
    * */
   @PostMapping("/remove")
-  public String deleteCafe(String cafeId){
-    log.info("deleteCafe({}) is invoked","cafeId = " + cafeId);
+  public String deleteCafe(String cafeId) {
+    log.info("deleteCafe({}) is invoked", "cafeId = " + cafeId);
 
     return "redirect:cafe/list";
   } // deleteCafe
-  
-  
-  
 
-  
+
 }
 
 

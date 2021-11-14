@@ -39,15 +39,10 @@ public class CafeServiceImpl
   public List<CafeListVO> getCafeList() {
     log.debug("CafeServiceImpl : selectCafeList() invoked");
 
-    List<CafeListVO> cafeList = this.mapper.selectCafeList();
+    List<CafeListVO> list = this.mapper.selectCafeList();
+    log.info("\t list: "+list);
 
-    // 이미지를 담을 공간
-    List<List> imgList = new ArrayList<>();
-    log.debug("cafeList : {}");
-    Map<String, List<List>> cafeImg = new HashMap<String, List<List>>();
-String temp = cafeList.cafe_idx;
-    cafeImg.put(cafeList.get(0).getCafe_idx(), imgList.add(cafeList.get(0).getCafe_image_first());
-    return cafeList;
+    return list;
   } // selectCafeList
 
   @Override
