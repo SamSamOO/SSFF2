@@ -182,8 +182,8 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-  
-  
+
+  let num = 0;
               
   console.log("g힘들어잉")
 
@@ -294,13 +294,13 @@
       let maxPeople = '';
       let link = '';
 
+      
+      
       for (let i = 0; i < data.cafeList.length; i++) {
 
         // 기본 구조 셋팅!
         $('#cafeListCardLow').append(templet);
 
-        console.log("이거 data" + data);
-        console.log("이거 data.cafeList[i].roomImgs.length : " + data.cafeList[0].roomImgs.length);
 
         // cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성
         for (let j = 0; j < data.cafeList[i].roomImgs.length; j++) {
@@ -308,19 +308,19 @@
             "data-target"  : ".carousel",
             "data-slide-to": j,
           });
-          $('ol').eq(i).append($li); // ol에 넣고
+          $('ol').eq(num).append($li); // ol에 넣고
 
           let $div = $('<div>').addClass("carousel-caption")
           let $item = $('<div>').addClass("item")
                                 .append($('<img>').attr("src", "http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg"/*data.cafeList[i].roomImgs[j]*/))
                                 .append($div);
 
-          $('.carousel-inner').eq(i).append($item);
+          $('.carousel-inner').eq(num).append($item);
 
         } // for
 
-        $('.carousel-indicators').eq(i).children().eq(0).addClass("active");
-        $('.carousel-inner').eq(i).children().eq(0).addClass("active");
+        $('.carousel-indicators').eq(num).children().eq(0).addClass("active");
+        $('.carousel-inner').eq(num).children().eq(0).addClass("active");
 
         let $aPrev = $('<a>', {
           class       : "left carousel-control",
@@ -344,7 +344,7 @@
               "aria-hidden": "true"
             }))
 
-        $('.carousel.slide').eq(i).append($aPrev, $aNext);
+        $('.carousel.slide').eq(num).append($aPrev, $aNext);
 
         mainTitle = String(data.cafeList[i].cafe_main_title);
         subTitle = String(data.cafeList[i].cafe_sub_title);
@@ -359,17 +359,19 @@
            <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">
                   ` + mainTitle + `</span>
            <!--begin::Info-->
-           <div class="mb-7">
-             <div class="d-flex justify-content-between align-items-center">
+           <div class="justify-content-between align-items-center my-1">
+             <span class="text-dark-75">
                <span class="text-dark-75 mr-2">
                   ` + subTitle + `</span>
+                <span class="text-dark-75" style="float: right;"><i
+                 class="fa fa-map-marker" ></i> 강남구~</span>
              </div>
              <div class="d-flex justify-content-between align-items-center my-1">
 
                <span class="text-dark-75 font-weight-bolder"
                        style="color: #bf7e00; font-size: 18px !important;">
                    ` + amountHour + `
-                 <em class="text-dark-75"  style="font-size: 10px !important;">원/시간</em>
+                 <em class="text-dark-75"  style="font-size: 10px !important;margin-top: 5px">원/시간</em>
                </span>
                <span class="text-dark-75" style="float: right; margin-top: 10px"><i
                  class="fa fa-users" ></i> 최대
@@ -379,12 +381,12 @@
                     class="btn btn-block btn-sm btn-light-success
                            font-weight-bolder text-uppercase py-4">예약하기</a></div>`
 
-        $('.card.card-custom.gutter-b.card-stretch').eq(i).append(cardHtml);
+        $('.card.card-custom.gutter-b.card-stretch').eq(num).append(cardHtml);
 
-        
+        num += 1;
       }
-      
 
+      console.log("num!" + num);
     }
   }
 
