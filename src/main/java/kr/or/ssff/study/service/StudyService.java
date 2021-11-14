@@ -13,7 +13,7 @@ public interface StudyService {
     public abstract boolean register(RecruitBoardVO vo);
 
     // 2. 기존 게시글 수정
-    public abstract boolean modify();
+    public abstract boolean modify(RecruitBoardVO vo);
 
     // 3. 기존 게시글 삭제
     public abstract boolean remove();
@@ -40,10 +40,13 @@ public interface StudyService {
     public abstract List<LangVO> getLangList();
 
     //10. list에 억지로 언어태그 넣기
-    public List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardVO> list, List<LangVO> langList);
+    public abstract List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardVO> list, List<LangVO> langList);
 
     //11. p에서 번호로 언어태그 가져오기
-    public List<LangVO> getLangTagByR_idx(Integer r_idx);
+    public abstract List<LangVO> getLangTagByR_idx(Integer r_idx);
+
+    //12.
+    public abstract boolean registerApply(Integer r_idx, String member_name);
 }
 
 
