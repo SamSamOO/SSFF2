@@ -114,7 +114,7 @@
                                         <div class="apply-sec">
                                             <ul>
                                                 <li><p>지원하기</p></li>
-                                                <li style="padding-right:10px">수정 | 삭제</li>
+                                                <li style="padding-right:10px"><a href="/study/project/modifyGo?r_idx=${board.r_idx}">수정</a> | 삭제</li>
                                                 <li style="padding-right:10px">
                                                     <img src="../../../../resources/assets/image/hit.png"
                                                          width="15px">

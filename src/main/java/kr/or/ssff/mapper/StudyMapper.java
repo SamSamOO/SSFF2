@@ -9,6 +9,8 @@ import org.apache.ibatis.annotations.Param;
 public interface StudyMapper {
     //글등록하기
     public abstract Integer insert(RecruitBoardVO vo);
+    //글수정하기
+    public abstract Integer update(RecruitBoardVO vo);
     //글리스트 반환(페이징 없이)
     public abstract List<RecruitBoardVO> getList(@Param("type")String type);
     //가장 최근의 글번호 가져오기

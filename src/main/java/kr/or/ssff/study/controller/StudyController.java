@@ -88,8 +88,6 @@ public class StudyController {
     @PostMapping("/challenge/post")
     public String insertChallengeDetail(RecruitBoardDTO dto, RedirectAttributes rttrs) {
         log.info("insertChallengeDetail() is invoked");
-        System.out.println("\t+ dto: " + dto);
-        log.info("\t+ dto: " + dto);
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
@@ -120,13 +118,12 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 챌린지형 게시글 수정 페이지.
      * */
-    @GetMapping("/challenge/detail/modifyGo")
-    public String updateChallengeDetailGo() {
-
-        log.info("modifyChallengeDetailGo() is invoked");
-
-        return "/study/challenge/list/detail/modify";
-    } // updateChallengeDetailGo
+    @GetMapping("/challenge/modifyGo")
+    public void updateChallengeDetailGo(Integer r_idx,Model model) {
+        log.info("updateChallengeDetailGo() is invoked");
+        RecruitBoardVO board = this.service.get(r_idx);
+        model.addAttribute("board",board);
+    }
 
 
     /*챌린지형 게시글 수정 기능을 수행합니다.
@@ -134,12 +131,27 @@ public class StudyController {
      * 반환 : 수정한 게시글 페이지로 이동합니다.
      * //TODO 파라미터??
      * */
-    @PostMapping("/challenge/detail/modify")
-    public String updateChallengeDetail() {
+    @PostMapping("/challenge/modify")
+    public String updateChallengeDetail(RecruitBoardDTO dto, RedirectAttributes rttrs) {
 
-        log.info("modifyChallengeDetail() is invoked");
+        RecruitBoardVO vo =
+            new RecruitBoardVO(
+                dto.getR_idx(), "nickname55",'C',
+                dto.getTitle(),
+                dto.getTeamname(),
+                dto.getCont(),
+                null,
+                null,
+                dto.getSido(),
+                dto.getCh_pattern(),
+                dto.getCh_start(),
+                dto.getCh_end(),
+                null,null,null
+            );
 
-        return "redirect:/study/challenge/list/detail";
+        boolean result = this.service.modify(vo);
+        rttrs.addAttribute("result", result);
+        return "redirect:/study/challenge/list";
     } // updateChallengeDetail
 
 
@@ -253,12 +265,15 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 프로젝트형 게시글 수정 페이지.
      * */
-    @GetMapping("/project/detail/modifyGo")
-    public String updateProjectDetailGo() {
+    @GetMapping("/project/modifyGo")
+    public void updateProjectDetailGo(Integer r_idx, Model model) {
 
-        log.info("updateProjectDetailGo() is invoked");
+        log.info("updateChallengeDetailGo() is invoked");
+        RecruitBoardVO board = this.service.get(r_idx);
+        List<LangVO>langList = this.service.getLangTagByR_idx(r_idx);
 
-        return "/study/project/list/detail/modify";
+        model.addAttribute("langList",langList);
+        model.addAttribute("board",board);
     } // updateProjectDetailGo
 
     /*프로젝트형 게시글 수정 기능을 수행합니다.

@@ -26,17 +26,16 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     public boolean register(RecruitBoardVO vo) {
-
         int affectedRows = mapper.insert(vo);
-
         log.info("\t + affectedRows:{}", affectedRows);
-
         return affectedRows == 1;
     }//register (글 등록)
 
     @Override
-    public boolean modify() {
-        return false;
+    public boolean modify(RecruitBoardVO vo) {
+        int affectedRows = mapper.update(vo);
+        log.info("\t + affectedRows:{}", affectedRows);
+        return affectedRows == 1;
     }
 
     @Override
