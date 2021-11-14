@@ -3,8 +3,9 @@ package kr.or.ssff.member.controller;
 import java.util.List;
 
 
-
+import kr.or.ssff.member.domain.MemberDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,12 @@ import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.service.MemberService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /*
 
@@ -36,6 +42,9 @@ public class MemberController {
 
 	@Autowired
     private MemberService service;
+
+    @Inject
+    BCryptPasswordEncoder passwordEncoder;
 
    // 장순형 스피릉 시큐리티 암호화
 //    @Setter(onMethod_= {@Autowired} )
@@ -58,19 +67,25 @@ public class MemberController {
      * 메인페이지로 이동합니다.
      * */
     @PostMapping("/join")
-    public String memberJoin(MemberVO member, RedirectAttributes rttr, Model model)  {
-        log.debug("join({}) is invoked", "memberDTO = " + member);
-        service.insertMember(member);
-        rttr.addFlashAttribute("result",member.getMember_id());
-        System.out.println("가입이 완료되었습니다.");
+    public String memberJoin(MemberDTO memberDTO, RedirectAttributes rttr, Model model)  {
+        log.debug("join({}) is invoked", "memberDTO = " + memberDTO);
 
-        return "redirect:/main";
+        this.service.insertMember(memberDTO);
+        return "redirect:/member/main";
     } // memberJoin
 
     /* 로그인 페이지 이동
      * 파라메터 : 없음
      * 로그인 페이지
      * */
+
+    @GetMapping("/main")
+    public String memberMainGo() {
+        log.debug("memberMainGo() is invoked");
+
+        return "/main";
+    } // memberMainGo
+
     @GetMapping("/loginGo")
     public String memberLoginGo() {
         log.debug("loginGo() is invoked");
@@ -83,11 +98,22 @@ public class MemberController {
      * 메인페이지로 이동합니다.
      * */
     @PostMapping("/login")
-    public String memberLogin(String email, String password) {
+    public String memberLogin (@RequestParam("member_id") String member_id,
+    @RequestParam("member_pwd") String member_pwd, HttpServletRequest req) {
         log.debug("login() is invoked");
 
-        return "redirect:/main";
+        HttpSession session = req.getSession();
+
+        boolean user = this.service.memberLogin(member_id,member_pwd);
+        log.info("\t+ user: {}", user);
+
+        if(user){
+            session.setAttribute("member_id", member_id);
+        }
+
+        return "redirect:/member/main";
     } // memberLogin
+
 
     /* 마이 페이지 이동
      * 파라메터 : nickname

@@ -1,5 +1,6 @@
 package kr.or.ssff.member.domain;
 
+import lombok.Data;
 import lombok.Value;
 
 /*
@@ -26,7 +27,9 @@ public class MemberVO {
 	private String member_profile;
 	private String member_introduce;
 	private Character member_enabled;
-} // end class 
+
+
+} // end class
 
 
 

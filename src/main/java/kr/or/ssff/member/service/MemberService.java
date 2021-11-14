@@ -12,8 +12,9 @@ import java.util.List;
 public interface MemberService {
     //-------------멤버 CRUD 순형 ---------------//
     //1.화원가입
-    public void insertMember(MemberVO memberVO);
-
+    public abstract boolean insertMember(MemberDTO memberDTO);
+    // 2. 로그인
+    public abstract boolean memberLogin(String email, String password);
 
 
 

@@ -47,6 +47,7 @@ var KTApp = function() {
             initPopover($(this));
         });
     }
+    
 
     var initFileInput = function() {
         // init bootstrap popover

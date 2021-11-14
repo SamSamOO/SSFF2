@@ -1,6 +1,7 @@
 package kr.or.ssff.mapper;
 
 import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
 
 import java.util.List;
@@ -15,7 +16,8 @@ import java.util.List;
 public interface MemberMapper {
 
 	//-------------- 장순형 CRUD ---------------//
-	public void insertMember(MemberVO member);
+	public abstract Integer insertMember(MemberDTO memberDTO);
+	public abstract MemberVO memberLogin(String member_id);
 
 	// 1. 특정 스터디의 멤버 조회 : 신지혜 
 	public abstract List<ApplyMemberDTO> getApplyMemberList(Integer r_idx);

@@ -8,6 +8,26 @@
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 
+    <script type="text/javascript">
+
+
+
+
+    </script>
+    <style>
+        .email_box{
+            display: flex;
+            flex-direction: row;
+
+        }
+
+        #member_id{
+            padding-right: 10px;
+            margin-right: 10px;
+        }
+
+    </style>
+
 </head>
 
 <body>
@@ -120,7 +140,7 @@
                         <!--end::Title-->
                         <!--begin::Form-->
                         <div class="d-flex justify-content-center flex-row-fluid">
-                            <form method="post" action="/member/join" class="pb-5 w-100 w-md-450px w-lg-500px fv-plugins-bootstrap fv-plugins-framework" novalidate="novalidate" id="kt_form">
+                            <form method="POST" action="/member/join" class="pb-5 w-100 w-md-450px w-lg-500px fv-plugins-bootstrap fv-plugins-framework" novalidate="novalidate" id="kt_form">
                                 <!--begin: Wizard Step 1-->
                                 <div class="pb-5" data-wizard-type="step-content" data-wizard-state="current">
                                     <!--begin::Title-->
@@ -132,9 +152,16 @@
                                     <!--begin::Title-->
                                     <!--begin::Form Group-->
                                     <div class="form-group fv-plugins-icon-container">
+
                                         <label class="font-size-h6 font-weight-bolder text-dark">E-Mail</label>
-                                        <input type="text" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_id" name="member_id" placeholder="E-Mail" value="">
-                                        <div class="fv-plugins-message-container"></div></div>
+                                        <div class="email_box">
+                                        <input type="text" class="form-control h-auto p-4 border-0 rounded-lg font-size-h6" id="member_id" name="member_id" placeholder="E-Mail" value="">
+                                         <input type="button" value="인증" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3 " />
+                                        </div>
+                                            <div class="fv-plugins-message-container"></div>
+
+                                    </div>
+
                                     <!--end::Form Group-->
                                     <!--begin::Form Group-->
 
@@ -180,11 +207,9 @@
 
                                 <div class="d-flex justify-content-between pt-3">
                                     <div>
-                                        <button type="submit" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3 text-align:center" >submit</button>
+                                        <button type="submit" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3 text-align:center" >submit</button>
 
-                                        <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-4 py-4 my-3" data-wizard-type="">돌아가기
-
-                                        </button>
+                                        <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3" >돌아가기</button>
                                     </div>
                                 </div>
                                 <!--end: Wizard Actions-->
@@ -210,5 +235,12 @@
 <!--begin::Page Scripts(used by this page)-->
 <script src="${pageContext.request.contextPath}/resources/assets/js/member/wizard-5.js"></script>
 <!--end::Page Scripts-->
+
 </body>
+<style>
+    .int_mobile_area{
+        position:relative;
+    }
+
+</style>
 </html>
