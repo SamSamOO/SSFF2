@@ -26,17 +26,16 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     public boolean register(RecruitBoardVO vo) {
-
         int affectedRows = mapper.insert(vo);
-
         log.info("\t + affectedRows:{}", affectedRows);
-
         return affectedRows == 1;
     }//register (글 등록)
 
     @Override
-    public boolean modify() {
-        return false;
+    public boolean modify(RecruitBoardVO vo) {
+        int affectedRows = mapper.update(vo);
+        log.info("\t + affectedRows:{}", affectedRows);
+        return affectedRows == 1;
     }
 
     @Override
@@ -134,6 +133,15 @@ public class StudyServiceImpl implements StudyService {
         langTagList = this.mapper.getLangTags(r_idx);
         return langTagList;
     }//getLangTagByR_idx
+
+    @Override
+    public boolean registerApply(Integer r_idx, String member_name) {
+        int affectedRows = mapper.insertApply(r_idx,member_name);
+
+        log.info("\t + affectedRows:{}", affectedRows);
+
+        return affectedRows == 1;
+    }
 
 }//end class
 
