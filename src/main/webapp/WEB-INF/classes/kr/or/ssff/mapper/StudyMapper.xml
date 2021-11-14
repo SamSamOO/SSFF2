@@ -36,7 +36,9 @@
 
   <!--가장 최근에 쓴 게시글 번호 가져오기-->
   <select id="getCurrentR_idx" resultType="int">
-    select max(r_idx) from recruit_board where type_pc='P'
+<![CDATA[
+    select max(r_idx) from recruit_board WHERE r_idx < 1000
+    ]]>
   </select>
 
   <!--게시글 번호로 언어 태그 등록하기-->
@@ -67,6 +69,31 @@
     FROM lang
     WHERE r_idx=#{r_idx}
   </select>
+
+  <!--Apply insert문 제작중-->
+  <insert id="insertApply">
+    INSERT INTO APPLY_MEMBER (
+    apply_idx,r_idx,member_name,study_join_arciwf,study_join_change_date,study_boss_yn,attendance_days
+    )
+    VALUES(
+    )
+  </insert>
+
+  <update id="update">
+    UPDATE recruit_board
+    SET
+      title = #{title},
+      teamname = #{teamname},
+      cont = #{cont},
+      sido = #{sido},
+      ch_pattern = #{ch_pattern}
+    WHERE
+      r_idx = #{r_idx}
+  </update>
+
+
+
+
 </mapper>
 
 

@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import kr.or.ssff.mapper.StudyInsMapper;
+import kr.or.ssff.studyIns.Utils.UploadFileUtils;
+import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
@@ -61,6 +63,21 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         return mapper.read(cont_No);
     }
 
+    /* 게시물 파일 리스트를 조회하는 함수입니다. (SI_BOARD table)
+     * 매개변수: 게시물 번호
+     * 반환	:  해당 게시물 번호의 게시물 fileList
+     * 작성자	: 박상준
+     */
+
+    @Override
+    public List<StudyInsFileVO> getFile(Integer cont_No) throws Exception {
+        log.debug("getFile({}) is invoked", "cont_No = " + cont_No);
+
+        Objects.requireNonNull(mapper);
+
+        return this.mapper.getFileList(cont_No);
+    }
+
     /* 게시물을 삭제하는 함수입니다. (SI_BOARD table)
      * 매개변수: 게시물 번호
      * 반환	:  해당 게시판
@@ -88,21 +105,14 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         Objects.requireNonNull(mapper);
 
         studyInsDTO.setCont_No(cont_No);
+        List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
 
-        List<StudyInsFileDTO> list = new ArrayList<>();
 
-        for (int i = 0; i < uploadFile.length; i++) {
 
-            StudyInsFileDTO studyInsFileDTO = new StudyInsFileDTO();
-            studyInsFileDTO.setCont_No(cont_No);
-            studyInsFileDTO.setFile_Name(uploadFile[i].getOriginalFilename());
-
-            list.add(studyInsFileDTO);
-        }
 
         int affectedRows = mapper.insertBoard(studyInsDTO);
 
-        int ar2 = mapper.insertFiles( list);
+        int ar2 = mapper.insertFiles( listOfFiles);
         return affectedRows == 1;
     }
 

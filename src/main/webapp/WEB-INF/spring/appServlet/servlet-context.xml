@@ -60,6 +60,9 @@
 	<context:component-scan base-package="kr.or.ssff.studyIns.controller"/>
 	<context:component-scan base-package="kr.or.ssff.studyIns.service"/>
 
+	<!--상준 : 로컬에서 이미지 불러오기 (우회)-->
+	<resources mapping="/image/*" location="file:///C:/temp/upload/"/>
+
 	<!--민주 작업-->
 	<context:component-scan base-package="kr.or.ssff.manager.controller"/>
 	<context:component-scan base-package="kr.or.ssff.manager.service"/>

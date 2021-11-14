@@ -1,5 +1,6 @@
 package kr.or.ssff.studyIns.service;
 
+import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 
@@ -17,6 +18,9 @@ public interface StudyInsService {
 
     //02. 게시물 조회 : 박상준
     public abstract StudyInsVO get(Integer cont_No) throws Exception;
+
+    //03 . 게시물 조회 파일불러오기 : 박상준
+    public abstract List<StudyInsFileVO> getFile(Integer cont_No) throws Exception;
 
     //03. 게시물 삭제 : 박상준
     public abstract boolean remove(Integer cont_no);
