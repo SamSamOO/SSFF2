@@ -17,7 +17,7 @@ import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-// import net.coobird.thumbnailator.Thumbnailator; // 오류나서 잠시 막았어용 : 지혜
+import net.coobird.thumbnailator.Thumbnailator;
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
 import org.imgscalr.Scalr.Mode;
@@ -344,7 +344,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
                 //check image type file
                 if (UploadFileUtils.checkImageType(saveFile)) {
                     FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-//                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
+                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
                     thumbnail.close();
 
                 }
