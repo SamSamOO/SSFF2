@@ -24,6 +24,7 @@
             margin: auto;
 
         }
+
     </style>
     <script>
 
@@ -75,14 +76,15 @@
             H = img1.height;
             O = "width=" + W + ",height=" + H + ",scrollbars=yes";
             imgWin = window.open("", "", O);
-            imgWin.document.write("<html lang='ko'><head><title>----------이미지 상세보기----------</title></head>");
+            imgWin.document.write("<html lang='ko'><head><title>----------이미지 상세보기----------클릭시 창이 닫힙니다.</title></head>");
             imgWin.document.write("<body topmargin=0 leftmargin=0>");
             imgWin.document.write("<img src=" + img + " onclick = self.close() style= cursor:pointer; title = '클릭하시면 창이 닫힙니다.'>");
             imgWin.document.close();
         }
     </script>
 </head>
-
+<c:set var="fileListSize" value="${fn:length(fileList)}"/>
+<c:set var="slash" value="/"/>
 <!----------------Head 종료----------------------->
 <!----------------Body 시작----------------------->
 
@@ -147,7 +149,7 @@
                                     <input type="hidden" name="cont_No" value="<c:out value='${detail.cont_No}' />">
                                     <table style="width: 100%;  border-radius: 10px; border-style: hidden ; !important;">
                                         <tr>
-                                            <th align="left" height="50px"><a href="javascript:history.back()">뒤로가기 들어갈곳</a></th>
+                                            <th align="left" height="50px"><i class="fas fa-arrow-left fa-3x" id="backBtn" style=""><a href="javascript:history.back()"></a></i> </th>
                                         </tr>
                                         <tr>
                                             <td colspan="10" style="text-align: center; font-weight: bold; font-size: 26px;height: 100px">${detail.title}</td>
@@ -156,40 +158,38 @@
                                             <td colspan="6">카테고리 : ${detail.category}</td>
                                             <%--TODO 세션아이디와 현재글 닉네임과 동일한 경우 수정 삭제버튼 보입니다. --%>
                                             <td colspan="4" align="right">
-                                                <i class="far fa-eye"></i> ${detail.hit} <%--TODO 조회수 관련 함수 짜야합니다.--%>
-
-                                                <button type="button" id="modifyBtn">수정</button>
-                                                <button type="button" id="removeBtn">삭제</button>
+                                                <i class="far fa-eye">&nbsp;${detail.hit}</i>  <%--TODO 조회수 관련 함수 짜야합니다.--%>
+                                                &nbsp;
+                                                <button type="button" id="modifyBtn" class="btn btn-light fa-1x">수정</button>
+                                                <button type="button" id="removeBtn" class="btn btn-light fa-1x">삭제</button>
                                                 ${detail.member_Name}
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th colspan="2">다운로드</th>
-                                            <td colspan="2"><a href="">파일이름</a></td>
 
-                                            <th colspan="1">작성일자</th>
-                                            <td colspan="2"><fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
+                                            <th colspan="4"> </th>
 
+                                            <th colspan="1" align="right">작성일자</th>
+                                            <td colspan="2" ><fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
                                             <th colspan="1">수정일자</th>
                                             <td colspan="2"><fmt:formatDate value="${detail.modify_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
                                         </tr>
                                         <tr style="height: 600px; border-top: lightblue ;border-style: solid">
-                                            <td colspan="10">${detail.cont}</td>
+                                            <td colspan="10" style=" padding: 50px">${detail.cont}</td>
                                         </tr>
                                         <tr>
                                             <td>
                                                 <div class="form_section">
                                                     <div class="form_section_title">
-                                                        <label>첨부파일 이미지</label>
+                                                        <label>첨부파일 이미지 -- 사진 클릭시 확대창이 표시됩니다.</label>
                                                     </div>
                                                     <div class="form_section_content">
                                                         <div id="uploadResult">
-                                                            <c:set var="fileListSize" value="${fn:length(fileList)}"/>
-                                                            <c:set var="slash" value="/"/>
+
                                                             <c:forEach var="file" items="${fileList}">
                                                                 <div>
                                                                 <c:if test="${fileListSize!=0}">
-                                                                    <p>${file.file_Name}</p>
+                                                                    <a href="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>"></a><p>${file.file_Name}</p>
                                                                 </c:if>
                                                                 <c:if test="${fileListSize==0}">
                                                                     이미지가 없습니다.
@@ -202,7 +202,7 @@
                                                             <c:forEach var="file" items="${fileList}">
 
                                                                 <c:if test="${fileListSize !=0}">
-                                                                    <img src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="200" height="100" alt="사진" onclick="doImgPop(`<spring:url value='/image/${file.uuid}_${file.file_Name}'/>`)"/>
+                                                                    <a href="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>"><img src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="200" height="100" alt="사진" /></a>
                                                                 </c:if>
 
                                                                 <c:if test="${fileListSize==0}">
