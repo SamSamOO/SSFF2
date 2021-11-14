@@ -1,30 +1,22 @@
 package kr.or.ssff.studyIns.controller;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.nio.file.Files;
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import javax.imageio.ImageIO;
-import kr.or.ssff.studyIns.Utils.MediaUtils;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.AttachFileDTO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-// import net.coobird.thumbnailator.Thumbnailator; // 오류나서 잠시 막았어용 : 지혜
-import org.imgscalr.Scalr;
-import org.imgscalr.Scalr.Method;
-import org.imgscalr.Scalr.Mode;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -313,6 +305,9 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         /*폴더 만들기*/
         File uploadPath = new File(uploadFolder, UploadFileUtils.getFolder());
+        /*날짜 경로입니다.*/
+        String datePath = UploadFileUtils.getFolder();
+
         log.debug("upload path : " + uploadPath);
 
         if (!uploadPath.exists()) {
@@ -322,12 +317,21 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         //make yyyy/MM/dd folder
 
+
+        /*이미지의 정보를 담는 객체*/
+        List<AttachFileDTO> list = new ArrayList<>();
+
         for (MultipartFile multipartFile : uploadFile) {
             log.debug("------------------------------------");
             log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
             log.debug("Upload File Size : " + multipartFile.getSize());
 
+            /*이미지 정보 객체입니다.*/
+            AttachFileDTO dto = new AttachFileDTO();
+
             String uploadFileName = multipartFile.getOriginalFilename();
+            dto.setFileName(uploadFileName);
+            dto.setUploadPath(datePath);
 
             //IE has file path
             uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);

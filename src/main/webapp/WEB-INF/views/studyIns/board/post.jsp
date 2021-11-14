@@ -159,7 +159,7 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-    let regex = new RegExp(`/(.*?).(jpg|jpeg|png|gif|bmp)$`, `i`);
+    let regex = new RegExp(`(.*?).(jpg|jpeg|png|gif|bmp)$`, `i`);
     let maxSize = 5242880; //5MB
     $(function () {
         console.clear();
@@ -193,11 +193,11 @@
             for (let i = 0; i < files.length; i++) {
                 console.log(files.length);
                 str = `<p>` + files[i].name + `</p>`;
-                if (!checkExtensionName((files[i].name).toLowerCase())) {
+                if (!checkExtensionName((files[i].name))) {
                     console.log((files[i].name).toLowerCase());
 
                     //파일 업로드 부분 초기화
-                    console.log('확장자 ....');
+                    console.log('확장자 에러입니다.');
                     $(`#uploadFile`).val('');
                     str = '';
                 } else if (!checkExtensionSize(files[i].size)) {
@@ -207,14 +207,22 @@
                     $(`#uploadFile`).val(``);
                     str = '';
                 } else {
+                    console.log(`append 완료`);
                     $(`#fileList`).append(str);
                 }
 
                 formData.append("uploadFile", files[i]);
 
-                console.log(formData)
-
+                console.log(formData);
             }
+            $.ajax({
+                url: '/board/postGo',
+                processData: false,
+                contentType : false,
+                data : formData,
+                type : 'POST',
+                dataType: 'json'
+            });
 
         });
 
@@ -283,10 +291,11 @@
 
         if (!regex.test(fileName)) { //이미지 확장자가 아닌경우
             alert('이미지만 가능합니다.');
-            console.log(fileName)
+            console.log(fileName);
 
             return false; //이미지 확장자가 아니라면 .. false 리턴합니다.
         }
+        return true;
     }
 
     function checkExtensionSize(fileSize) {
@@ -296,6 +305,17 @@
             console.log('......파일 사이즈')
             return false; //사이즈 초과시 false 리턴합니다.
         }
+        return true;
+
+    }
+
+    function showUploadImage(uploadResultArr) {
+        /*전달 받은 데이터 검증*/
+        if (!uploadResultArr || uploadResultArr.length == 0) {
+            return
+        }
+
+        let uploadResut=  $('')
     }
 
     // $(document).ready(function () {
