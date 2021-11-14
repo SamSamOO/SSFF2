@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -49,6 +49,37 @@
         }); // jq
 
 
+        function doImgPop(img){
+            img1= new Image();
+            img1.src = (img);
+            console.log(img1.src);
+
+            imgControll(img);
+        }
+
+        function imgControll(img){
+            let intervalID;
+            let controller;
+
+            if ((img1.width != 0) && (img1.height != 0)) {
+                viewImage(img);
+            } else {
+                controller = "imgControll('" + img + "')";
+                intervalID = setTimeout(controller, 20);
+            }
+        }
+
+        function viewImage(img) {
+            console.log(img);
+            W = img1.width;
+            H = img1.height;
+            O = "width=" + W + ",height=" + H + ",scrollbars=yes";
+            imgWin = window.open("", "", O);
+            imgWin.document.write("<html lang='ko'><head><title>----------이미지 상세보기----------</title></head>");
+            imgWin.document.write("<body topmargin=0 leftmargin=0>");
+            imgWin.document.write("<img src=" + img + " onclick = self.close() style= cursor:pointer; title = '클릭하시면 창이 닫힙니다.'>");
+            imgWin.document.close();
+        }
     </script>
 </head>
 
@@ -156,15 +187,30 @@
                                                             <c:set var="fileListSize" value="${fn:length(fileList)}"/>
                                                             <c:set var="slash" value="/"/>
                                                             <c:forEach var="file" items="${fileList}">
-                                                                <c:if test="${fileListSize !=0}">
-                                                                    <a href="#"><img src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="500" height="400" alt="깨짐"/></a>
+                                                                <div>
+                                                                <c:if test="${fileListSize!=0}">
+                                                                    <p>${file.file_Name}</p>
                                                                 </c:if>
                                                                 <c:if test="${fileListSize==0}">
                                                                     이미지가 없습니다.
                                                                 </c:if>
-
+                                                                </div>
 
                                                             </c:forEach>
+
+
+                                                            <c:forEach var="file" items="${fileList}">
+
+                                                                <c:if test="${fileListSize !=0}">
+                                                                    <img src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="200" height="100" alt="사진" onclick="doImgPop(`<spring:url value='/image/${file.uuid}_${file.file_Name}'/>`)"/>
+                                                                </c:if>
+
+                                                                <c:if test="${fileListSize==0}">
+                                                                    이미지가 없습니다.
+                                                                </c:if>
+
+                                                            </c:forEach>
+
                                                         </div>
                                                     </div>
                                                 </div>
