@@ -17,7 +17,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="SSFF2" options="-verbose -Xlint:all" />
-      <module name="ssff" options="-verbose -Xlint:all --add-exports jdk.hotspot.agent/images=ALL-UNNAMED" />
+      <module name="ssff" options="-verbose -Xlint:all" />
     </option>
   </component>
 </project>
