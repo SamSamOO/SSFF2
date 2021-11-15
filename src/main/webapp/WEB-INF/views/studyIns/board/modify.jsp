@@ -150,7 +150,7 @@
 
                                             <tr>
                                                 <td colspan="4" align="right">
-                                                    <button type="submit" id="submitBtn" class="btn btn-light-primary font-weight-bold mr-2" style="color:#8950FC ">등록하기</button>
+                                                    <button type="submit" id="submitBtn" class="btn btn-light-primary font-weight-bold mr-2" style="color:#8950FC ">수정하기</button>
                                                     <button type="button" id="listBtn" class="btn btn-light-primary font-weight-bold mr-2" style="color:#8950FC ">목록으로</button>
                                                 </td>
                                             </tr>
@@ -158,8 +158,8 @@
                                                 <td>
                                                     <div class="uploadDiv">
 
-                                                        <input type="file" name="uploadFile" id="uploadFile" multiple class="btn btn-secondary" value="" style="display: none"/>
-                                                        <label for="uploadFile" class="btn btn-secondary" >업로드 -- 이미지만 업로드할 수 있습니다.</label>
+                                                        <input type="file" name="uploadFile" id="uploadFile" multiple class="btn btn-secondary"/>
+<%--                                                        <label for="uploadFile" class="btn btn-secondary" >업로드 -- 이미지만 업로드할 수 있습니다.</label>--%>
                                                         <div id="fileList">
                                                             <c:forEach items="${listOfFiles}" var="file">
                                                                 <p>${file.file_Name}</p>
@@ -253,7 +253,7 @@
                 console.log(formData);
             }
             $.ajax({
-                url: '/board/postGo',
+                url: '/board/detail/modifyGo',
                 processData: false,
                 contentType: false,
                 data: formData,

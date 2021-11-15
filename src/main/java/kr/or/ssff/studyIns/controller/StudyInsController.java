@@ -268,15 +268,81 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/detail/modify")
-    public String studyBoardDetailModify(StudyInsDTO studyIns, RedirectAttributes rttrs) {
-        log.info("studyBoardDetailModify({} , {} ) is invoked", "studyIns = " + studyIns, ", rttrs = " + rttrs);
+    public String studyBoardDetailModify(StudyInsDTO studyInsDTO, MultipartFile[] uploadFile,RedirectAttributes rttrs) {
+        log.debug("studyBoardDetailModify({}) is invoked", "studyIns = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile) + ", rttrs = " + rttrs);
+
+        String uploadFolder = "C:/temp/upload";
+
+        /*폴더 만들기*/
+        File uploadPath = new File(uploadFolder);
+
+        /*날짜 경로입니다.*/
+        String datePath = UploadFileUtils.getFolder();
+
+        log.debug("upload path : " + uploadPath);
+
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+
+        } // make folder
+
+        //make yyyy/MM/dd folder
+
+
+        /*이미지의 정보를 담는 객체*/
+        List<StudyInsFileDTO> list = new ArrayList<>();
+
+        for (MultipartFile multipartFile : uploadFile) {
+            log.debug("------------------------------------");
+            log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
+            log.debug("Upload File Size : " + multipartFile.getSize());
+
+            /*이미지 정보 객체입니다.*/
+            StudyInsFileDTO dto = new StudyInsFileDTO();
+            dto.setCont_No(studyInsDTO.getCont_No());
+
+            String uploadFileName = multipartFile.getOriginalFilename().replace(' ','_');
+
+            dto.setFile_Name(uploadFileName);//3 : fileName
+            dto.setUploadPath(uploadPath.toString());//4 : uploadPath
+
+            //IE has file path
+            uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+            log.debug("only file name : " + uploadFileName);
+
+            String uuid = UUID.randomUUID().toString();
+            dto.setUuid(uuid); // 5 : uuid
+
+            uploadFileName = uuid + "_" + uploadFileName;
+
+            File saveFile = new File(uploadPath, uploadFileName);
+
+            try {
+                multipartFile.transferTo(saveFile);
+
+                //check image type file
+                if (UploadFileUtils.checkImageType(saveFile)) {
+                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
+
+                    thumbnail.close();
+                }
+            } catch (Exception e) {
+                log.error(e.getMessage());
+
+            } // end catch
+            list.add(dto);
+        } // end for
+
+        studyInsDTO.setFileDTO(list);
+
 
         Objects.requireNonNull(service);
-        if (service.modify(studyIns)) {
+        if (service.modify(studyInsDTO,uploadFile)) {
             rttrs.addFlashAttribute("result", "success");
         } // if
-
-        return "redirect:/studyIns/board/list";
+        rttrs.addAttribute("cont_No", studyInsDTO.getCont_No());
+        return "redirect:/studyIns/board/detail";
     } // studyBoardDetailModify
 
     /*
@@ -287,6 +353,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
     @GetMapping("/board/postGo")
     public String studyBoardPostGo(Model model) {
         log.info("studyBoardPostGo({}) is invoked", ", model = " + model);
+
 
         Objects.requireNonNull(service);
         Integer maxNumber = service.findMaxContNo();
