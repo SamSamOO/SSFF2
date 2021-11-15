@@ -1,11 +1,9 @@
 package kr.or.ssff.studyIns.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import kr.or.ssff.mapper.StudyInsMapper;
-import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
@@ -106,12 +104,9 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         studyInsDTO.setCont_No(cont_No);
         List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
 
-
-
-
         int affectedRows = mapper.insertBoard(studyInsDTO);
 
-        int ar2 = mapper.insertFiles( listOfFiles);
+        int ar2 = mapper.insertFiles(listOfFiles);
         return affectedRows == 1;
     }
 
@@ -122,11 +117,20 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      */
 
     @Override
-    public boolean modify(StudyInsDTO studyIns) {
-        log.debug("modify(board) invoked");
-
+    public boolean modify(StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile) {
+        log.debug("modify({}) is invoked", "studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
+        log.info("uploadFile = {}", Arrays.stream(uploadFile).toArray());
         Objects.requireNonNull(mapper);
-        int affectedRows = mapper.update(studyIns);
+
+        List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
+        log.info("listOfFiles = {}", listOfFiles.toArray());
+        int affectedRows = mapper.update(studyInsDTO);
+
+        /*파일 삭제후 다시 넣어줘야할 거같습니다....*/
+        int deleteFiles = mapper.deleteFiles(studyInsDTO);
+        log.info("deleteFiles = {}", deleteFiles);
+        int ar2 = mapper.insertFiles(listOfFiles);
+        log.info("ar2 = {}", ar2);
 
         return (affectedRows == 1) ? true : false;
     } // modify

@@ -1,5 +1,6 @@
 package kr.or.ssff.studyIns.service;
 
+import javax.swing.plaf.multi.MultiInternalFrameUI;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
@@ -26,7 +27,7 @@ public interface StudyInsService {
     public abstract boolean remove(Integer cont_no);
 
     //04. 게시물 수정 : 박상준
-    public abstract boolean modify(StudyInsDTO studyIns);
+    public abstract boolean modify(StudyInsDTO studyIns,@RequestParam(value = "uploadFile")MultipartFile[] uploadFile);
 
     //05. 게시물 등록 : 박상준
     public abstract boolean register(@RequestParam("cont_No")Integer cont_No,StudyInsDTO studyInsDTO ,@RequestParam(value = "uploadFile") MultipartFile[] uploadFile);
