@@ -29,6 +29,14 @@
   
   <style>
     /* ---------- carousel ---------- */
+
+    ul, breadcrumb.breadcrumb-transparent.breadcrumb-dot.font-weight-bold.p-0.my-2.font-size-sm{
+      list-style: none !important;
+    } /* TODO 블릿은 왜 안 없어집니까 */
+    
+    .container {
+      justify-content: flex-start !important;
+    }
     body{
       background:#000;
     }
@@ -108,22 +116,22 @@
 
 <body id="kt_body" class="header-fixed subheader-enabled page-loading">
 <!----------------메인 시작----------------------->
-<div class="d-flex flex-column flex-root"> <div class="tttt"></div>
+<div class="d-flex flex-column flex-root">
   <!----------------페이지 시작----------------------->
   <div class="d-flex flex-row flex-column-fluid page">
     <!--begin::Wrapper-->
     <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
       <!------------------header.html Include------------------>
-      <jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
+      <jsp:include page="../../commons/header.jsp"/>
       <!------------------Header Wrapper : 메뉴 탭 시작------------------>
       <!--menu.html Include-->
-      <jsp:include page="/WEB-INF/commons/menu_main.jsp"></jsp:include>
+      <jsp:include page="../../commons/menu_main.jsp"/>
       <!------------------Header Wrapper : 메뉴 탭 종료------------------>
       <!--컨테이너 시작-->
       <div class="d-flex flex-row flex-column-fluid container">
         <!--contents.html Include-->
+        <!--begin::Content Wrapper 내용물 시작-->
         <div class="main d-flex flex-column flex-row-fluid">
-          
           <!--Subheader : 서브헤더 페이지 제목란 시작-->
           <div class="subheader py-2 py-lg-6" id="kt_subheader">
             <div
@@ -133,16 +141,16 @@
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                   <!--Page Title : 페이지 제목 시작-->
-                  <h5 class="text-dark font-weight-bold my-1 mr-5">스터디 카페 리스트</h5>
+                  <h5 class="text-dark font-weight-bold my-1 mr-5">스터디카페 리스트</h5>
                   <!--Page Title : 페이지 제목 종료-->
                   <!--Breadcrumb : 로드맵 시작-->
                   <ul
                     class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                     <li class="breadcrumb-item">
-                      <a href="" class="text-muted">서브메뉴1</a>
+                      <a href="" class="text-muted">스터디카페</a>
                     </li>
                     <li class="breadcrumb-item">
-                      <a href="/cafe/reservationList?세션아이디" class="text-muted">예약내역확인</a>
+                      <a href="" class="text-muted">예약내역</a>
                     </li>
                   </ul>
                   <!--Breadcrumb : 로드맵 종료-->
@@ -150,27 +158,24 @@
                 <!--end::Page Heading-->
               </div>
               <!--end::Info-->
-      
+            
             </div>
           </div>
           <!--Subheader : 서브헤더 페이지 제목란 종료-->
           
           
           <div class="content flex-column-fluid" id="kt_content">
+            
             <!------------------ 본문 시작 ------------------>
-            <div class="자이제시작이야">
               <!--begin::Row-->
               <div class="row" id="cafeListCardLow">
               
                 
               </div>
               <!--begin::Row-->
-            </div>
             <!------------------ 본문 종료 ------------------>
           
-          </div>
-        
-        
+          </div>       
         
         
         </div>
@@ -183,83 +188,96 @@
 <!----------------Body 종료----------------------->
 <script>
 
+  // 페이지 처리를 위한 함수 / 카드 증가시 1씩 증가 
   let num = 0;
               
   console.log("g힘들어잉")
 
+  // 페이지 진입시 리스트 세팅 
   $(document).ready(function () {
     start.init();
     console.log("start.init();")
 
-  });
+  }); // ready
 
+  // 카드 리스트를 ajax 페이지 처리하여 뿌립니다. 
   var start = {
     param: {
       curPage     : 1,
-      pageListSize: 18,
+      pageListSize: 19,
     },
 
+    // 진입시 데이터 셋팅, 스크롤 감지 시작 
     init     : function () {
-      this.testData();
-      this.testEvent();
+      this.data();
+      this.scrollEvent();
     },
-    testData : function () {
-      start.testAjax();
-      // this.setListItems(data); // 첫 진입시 데이터 셋팅
+    
+    // 데이터 셋팅을 위해 ajax 요청 보냄 
+    data : function () {
+      start.callAjax();
     },
-    testEvent: function () {
-      // 무한 스크롤
+    
+    // 스크롤 이벤트 담당 함수 
+    scrollEvent: function () {
+      // 스크롤 감지 
       $(window).scroll(function () {
         console.log("scroll;")
 
         // 맨 밑으로 스크롤이 갔을경우 if문을 탑니다.
         if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+          
           console.log("scrollTop;")
           start.param.curPage++; // 현재 페이지에서 +1 처리.
 
-          start.testAjax(); //ajax 호출
+          start.callAjax(); //ajax 호출
         }
       });
     },
-    // 무한 스크롤 ajax 요청
-    testAjax: function () {
+    
+    // 백단으로 db 달라 요청
+    callAjax: function () {
       $.ajax({
                type       : 'POST',
                url        : '/cafe/listData',
-               data       : JSON.stringify(start.param), // 다음 페이지 번호와 페이지 사이즈를 가지고 갑니다.
-               dataType   : 'json',
+               data       : JSON.stringify(start.param), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+               dataType   : 'json', // 받을 데이터는 json
                contentType: "application/json; charset=utf-8",
                success    : successCallback,
                error      : errorCallback
              });
 
-      // 성공
+      // 성공시 데이터 처리
       function successCallback(data) {
         console.log("data: " + data.cafeList.length);
         console.log("data: " + data.cafeList[1].cafe_idx); // cafe_idx_10
         console.log("data: " + data.cafeList[1].roomImgs[1]); // 10번카페의 2번이미지입니다
         console.log("data: " + data.cafeList[1].roomImgs.length); // 14
 
+        // 불러온 데이터가 없다면
         if (data.cafeList.length == 0) {
           // $(".gridList").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
           alert("더이상 표시할 항목이 없습니다");
-        }
+        } // if
+        
+        // 데이터가 있다면 뿌리기
         if (data.length != 0) {
           // testLoading.show(); //로딩바 on
           start.setListItems(data);  //테스트 데이터 리스트 입니다.
           // testLoading.hide(); //로딩 off
-        }
-      }
+        } // if
+      } // successCallback
 
       // 실패
       function errorCallback() {
-        alert("실패");
-      }
-    },
+        alert("데이터 로드 실패");
+      } // errorCallback
+    }, // callAjax: function
 
     // 데이터 setting
     setListItems: function (data) {
 
+      // 기본 템플릿 셋팅
       let templet =
               `<!--begin::Col-->
               <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
@@ -285,24 +303,23 @@
               </div>
 <!--end::Col-->`
 
-      console.log("템플릿 셋팅 완료했다 이거라고!");
-      console.log("data.cafeList[i].length" + data.cafeList[0].length);
-
+      // 테이블 동적생성을 위해 불러온 data를 각 변수에 담아 활용
       let mainTitle = '';
       let subTitle = '';
       let amountHour = '';
       let maxPeople = '';
-      let link = '';
-
+      let splitLocation = '';
+      let location = '';
+      let cafeId = '';
       
-      
+      // 불러온 데이터 수만큼 돌며 카드 생성
       for (let i = 0; i < data.cafeList.length; i++) {
 
         // 기본 구조 셋팅!
         $('#cafeListCardLow').append(templet);
 
 
-        // cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성
+        // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 start
         for (let j = 0; j < data.cafeList[i].roomImgs.length; j++) {
           $li = $('<li>', {
             "data-target"  : ".carousel",
@@ -346,12 +363,19 @@
 
         $('.carousel.slide').eq(num).append($aPrev, $aNext);
 
+        // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 end
+        
+        
+        // 불러온 db를 순서대로 초기화
         mainTitle = String(data.cafeList[i].cafe_main_title);
         subTitle = String(data.cafeList[i].cafe_sub_title);
         amountHour = String(data.cafeList[i].amount_hour);
         maxPeople = String(data.cafeList[i].max_people);
-        link = String("아직몰라잉~");
+        splitLocation = (data.cafeList[i].cafe_location).split(' ', 2);
+        location = splitLocation[1];
+        cafeId = String(data.cafeList[i].cafe_idx);
 
+        
         let cardHtml;
         cardHtml = `
     <!--begin::Body-->
@@ -364,20 +388,20 @@
                <span class="text-dark-75 mr-2">
                   ` + subTitle + `</span>
                 <span class="text-dark-75" style="float: right;"><i
-                 class="fa fa-map-marker" ></i> 강남구~</span>
+                 class="fa fa-map-marker" ></i> `+ location +`</span>
              </div>
              <div class="d-flex justify-content-between align-items-center my-1">
 
                <span class="text-dark-75 font-weight-bolder"
                        style="color: #bf7e00; font-size: 18px !important;">
                    ` + amountHour + `
-                 <em class="text-dark-75"  style="font-size: 10px !important;margin-top: 5px">원/시간</em>
+                 <em class="text-dark-75"  style="font-size: 10px !important;">원/시간</em>
                </span>
-               <span class="text-dark-75" style="float: right; margin-top: 10px"><i
+               <span class="text-dark-75" style="float: right; margin-top: 5px"><i
                  class="fa fa-users" ></i> 최대
             ` + maxPeople + `인</span>
             </div>
-           </div><a href="detail링크"
+           </div><a href="/datail?cafe_idx="` + cafeId +`
                     class="btn btn-block btn-sm btn-light-success
                            font-weight-bolder text-uppercase py-4">예약하기</a></div>`
 

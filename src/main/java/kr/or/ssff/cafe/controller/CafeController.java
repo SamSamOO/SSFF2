@@ -51,11 +51,32 @@ public class CafeController {
   private CafeService service;
 
 
+
+  /*
+   * 스터디 카페 리스트를 조회
+   * 매개변수:
+   * 반환: 스터디 카페 리스트 뷰단
+   * */
+  @GetMapping("/list")
+  public void selectCafeList(Model model) {
+    log.info("selectCafeList() is invoked");
+
+    List<CafeListVO> cafeList = this.service.getCafeList();
+
+    model.addAttribute("cafeList", cafeList);
+  } // selectCafeList
+
+
+  /*
+   * 스터디 카페 리스트를 비동기 조회
+   * 매개변수: ajax로 전송받은 JSON객체
+   * 반환: 스터디 카페 리스트 정보를 담은 JSON객체
+   * */
   @RequestMapping(value= "/listData", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
   @ResponseBody   //없으면 AJAX 통신 안됨
   public JSONObject getCafeList(
       @RequestBody String filterJSON
-      ) throws Exception {
+  ) throws Exception {
     log.debug("getCafeList({}) is invoked", filterJSON);
     log.info("ajax 요청 도착!");
 
@@ -72,11 +93,15 @@ public class CafeController {
     JSONObject roomImgs = new JSONObject();
 
     try {
+
+      // filterJSON을 확인하기 위해 ObjectMapper 불러옴
       ObjectMapper mapper = new ObjectMapper();
 
+      // page에 json에 담겨온 리스트 정보를
       HashMap<String, Integer> page = mapper.readValue(filterJSON,
           new HashMap<String, Integer>().getClass());
 
+      // 나눠서 담아주고
       int cp = page.get("curPage"); // 요청온 페이지 1
       int ps = page.get("pageListSize"); // 18개씩 보여주자
 
@@ -85,7 +110,7 @@ public class CafeController {
 
       log.info("\t list: " + list);
 
-      // 총 list수만큼 조회해서 ㅂjson 배열에 차곡차곡 남아주기
+      // 총 list수만큼 조회해서 json 배열에 차곡차곡 남아주기
       for (int i = 0; i < list.size(); i++) {
 
         cafeInfo.put("cafe_idx", list.get(i).getCafe_idx());
@@ -101,7 +126,7 @@ public class CafeController {
         imgList.add(list.get(i).getCafe_image_second());
         imgList.add(list.get(i).getCafe_image_third());
 
-        // 세부 룸 정보는 한 컬럼에 모았기때문에 : 기준으로 잘 찢어서
+        // 세부 룸 이미지는 한 컬럼에 모았기때문에 : 기준으로 잘 찢어서
         String[] rImgs = list.get(i).getRoom_list().split(":");
 
         // 찢은 길이만큼(=존재하는 row수만큼) 반복하며 차곡차곡 담아준다.
@@ -109,45 +134,29 @@ public class CafeController {
           imgList.add(rImgs[j]);
         }
 
-        // 카페이미지와 세부 룸 이미지를 하나의 객체로서 담아서
+        // 카페이미지와 세부 룸 이미지를 모아 JSON에 배열로 추가
         cafeInfo.put("roomImgs", imgList);
-        // json 배열에 전부 담아줍니다.
+
+        // 카페 하나의 정보와 이미지를 배열에 담습니다.
         arr.add(cafeInfo);
 
         log.info("1. arr {}: "+ arr);
       }
       log.info("2. arrsubList {}: "+ arr.subList(((cp-1)*ps),((cp*ps)-1)));
+
       // 요청온 카드 수 만큼만 잘라서 제이슨 객체에 담아 가져가세요
       jsonObject.put("cafeList", arr.subList(((cp-1)*ps),((cp*ps)-1)));
       log.info("(cp-1)*ps ="+ ((cp-1)*ps));
       log.info(" end ="+ ((cp*ps)-1));
 
-
-
-    } catch (Exception e) {
-
-    }
-
+    } catch (Exception e) { ;; }
 
     log.info("jsonObject {} =", jsonObject);
 
+    // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)
     return jsonObject;
   } // getCafeList
 
-
-  /*
-   * 스터디 카페 리스트를 조회
-   * 매개변수:
-   * 반환: 스터디 카페 리스트 뷰단
-   * */
-  @GetMapping("/list")
-  public void selectCafeList(Model model) {
-    log.info("selectCafeList() is invoked");
-
-    List<CafeListVO> cafeList = this.service.getCafeList();
-
-    model.addAttribute("cafeList", cafeList);
-  } // selectCafeList
 
 
   /*
