@@ -30,7 +30,7 @@ import java.util.List;
 @Service("memberService")
 public class MemberServiceImpl implements MemberService, InitializingBean, DisposableBean  {
 
-  @Setter(onMethod_ = @Autowired)
+  @Setter(onMethod_ = @Autowired) // 지우고
   private MemberMapper mapper;
 
 

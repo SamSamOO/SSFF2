@@ -1,12 +1,13 @@
-package kr.or.ssff.studyIns.model;
+package kr.or.ssff.studyIns.domain;
 
 import lombok.Data;
+import lombok.Value;
 
 /*
 
  */
-@Data
-public class StudyInsFileDTO {
+@Value
+public class StudyInsFileVO {
 
     private Integer cont_No;
     private Integer fileNo;

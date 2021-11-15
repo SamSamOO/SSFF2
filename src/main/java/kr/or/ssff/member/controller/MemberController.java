@@ -37,7 +37,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class MemberController {
 
-    @Autowired
+    @Autowired //@Setter(onMethod_= { @Autowired })로 바꾸고 serviceimp 변경
     private MemberService service;
 
     // 장순형 스피릉 시큐리티 암호화
@@ -163,7 +163,7 @@ public class MemberController {
         }
         response.setContentType("text/html; charset=UTF-8");
 
-        return "done";
+        return filterJSON;
     } // applyAction
 
     /* 스터디 카페 예약내역 페이지로 이동합니다
