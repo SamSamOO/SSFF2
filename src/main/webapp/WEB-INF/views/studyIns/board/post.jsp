@@ -11,6 +11,7 @@
 
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+
 </head>
 
 <!----------------Head 종료----------------------->
@@ -81,13 +82,21 @@
                                         <table style="width: 100%">
 
                                             <tr>
-                                                <td class="row"><label for="title">제목 : </label>
-                                                    <input id="title" maxlength="50" value="" name="title">
+                                                <td colspan="3">
+                                                    <input id="title" required  placeholder="제목을 입력해 주세요" maxlength="50" value="" name="title" style="height: 40px; width: 100%; border:none; border-bottom: 1px solid #ced4da; border-radius: 4px; font-size: 30px; font-weight: bold; text-align: center; margin: 20px ">
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
-                                                    <label for="member_Name">닉네임 : </label>
+                                                <td colspan="1">
+                                                        <select name="category" class="selectpicker" required>
+                                                            <option value="인증" selected>인증</option>
+                                                            <option value="잡담">잡담</option>
+                                                            <option value="QnA">QnA</option>
+                                                            <option value="기타">기타</option>
+                                                        </select>
+                                                </td>
+                                                <td align="right" colspan="2">
+
                                                     <input id="member_Name" maxlength="20" value="nickname11"
                                                            name="member_Name">
                                                 </td>
@@ -95,32 +104,21 @@
 
 
                                             <tr>
-                                                <td style="width: 100%;">
+                                                <td  colspan="3" style="width: 100%;">
                                                     <div class="card card-custom">
 
                                                         <div class="card-body">
                                                             <div id="kt_quil_2" style="height: 325px">
 
                                                             </div>
-                                                            <textarea name="cont" style="display:none" id="cont"></textarea>
+                                                            <textarea required name="cont" style="display:none" id="cont"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
 
                                             </tr>
 
-                                            <tr>
-                                                <td>
-                                                    <div class="container">
-                                                        <select name="category" class="selectpicker">
-                                                            <option value="인증" selected>인증</option>
-                                                            <option value="잡담">잡담</option>
-                                                            <option value="QnA">QnA</option>
-                                                            <option value="기타">기타</option>
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                            </tr>
+
                                             <tr>
                                                 <td colspan="4" align="right">
                                                     <button type="submit" id="submitBtn">등록하기</button>
