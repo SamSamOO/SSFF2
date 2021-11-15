@@ -7,6 +7,7 @@
 <!----------------Head 시작----------------------->
 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
     <title>챌린지 리스트</title>
     <!--head.html Include-->
@@ -79,7 +80,7 @@
                                     <div id="article"><!--본문-->
                                         <div class="back-button">
                                             <img src="../../../../resources/assets/image/arrow.png"
-                                                 style="width:20px;">
+                                                 style="width:20px;" onclick="location.href='/study/challenge/list'">
                                         </div>
                                         <div class="title-sec">
                                             <h2>${board.title}</h2>
@@ -125,8 +126,9 @@
 
                                         <div class="reply-write">
                                             <div><p id="reply-count">n개의 댓글이 있습니다</p></div>
+                                            <input type="hidden" id="member_name" name ="member_name" value="nickname55"><!--나중에 세션 아이디로 바꿔야 될 부분-->
                                             <div><textarea id="reply-write-sec"></textarea></div>
-                                            <div id="reply-submit"><p>댓글등록</p></div>
+                                            <div id="reply-submit"><p onclick="replySubmit()">댓글등록</p></div>
                                         </div>
                                         <div class="reply-list">
 
@@ -216,5 +218,27 @@
             <jsp:include page="../../../commons/footer.jsp"/>
 </body>
 <!----------------Body 종료----------------------->
-
+<script>
+    function replySubmit(){
+      let jsonData= {
+        r_idx:${board.r_idx},
+        member_name:$('#member_name').val(),
+        c_cont:$('#reply-write-sec').val
+      }
+      $.ajax({
+        url:'/study/comment/post',
+        type:'POST',
+        dataType:'json',
+        contentType:'application/json;charset=UTF-8',
+        data: JSON.stringify(jsonData),
+        success: function (data) {
+          alert("댓글이 등록되었습니다");
+          $('#reply-content').val("");
+        },
+        error: function () {
+          alert('댓글 등록 실패');
+        }
+      });
+    }
+</script>
 </html>

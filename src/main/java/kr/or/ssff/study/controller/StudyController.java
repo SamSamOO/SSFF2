@@ -3,6 +3,7 @@ package kr.or.ssff.study.controller;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -12,9 +13,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
@@ -26,7 +31,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @NoArgsConstructor
 @Controller
 public class StudyController {
-
 
     @Autowired
     private StudyService service;
@@ -146,7 +150,7 @@ public class StudyController {
                 dto.getCh_pattern(),
                 dto.getCh_start(),
                 dto.getCh_end(),
-                null,null,null
+                null,dto.getClosed_ok(),null
             );
 
         boolean result = this.service.modify(vo);
@@ -244,7 +248,7 @@ public class StudyController {
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null, null,null
+                null, dto.getClosed_ok(),null
             );
         //새글 등록하기
         boolean result = this.service.register(vo);
@@ -281,13 +285,37 @@ public class StudyController {
      * 반환 : 수정한 게시글 페이지로 이동합니다.
      * //TODO 파라미터??
      * */
-    @PostMapping("/project/detail/modify")
-    public String updateProjectDetail() {
-
+    @PostMapping("/project/modify")
+    public String updateProjectDetail(RecruitBoardDTO dto, RedirectAttributes rttrs,HttpServletRequest request) {
         log.info("updateProjectDetail() is invoked");
 
-        return "redirect:/study/project/list/detail";
+        String[] taglist = request.getParameterValues("tag");
+
+        RecruitBoardVO vo =
+            new RecruitBoardVO(
+                dto.getR_idx(), "nickname55",'P',
+                dto.getTitle(),
+                dto.getTeamname(),
+                dto.getCont(),
+                null, null, null,
+                null, null, null,
+                null, null,null
+            );
+
+        boolean result = this.service.modify(vo);
+        rttrs.addAttribute("result", result);
+        
+        //기존에 있는 태그들 삭제
+        boolean deleteTagResult = this.service.deleteTag(dto.getR_idx());
+
+        //새로 태그들 입력
+        for(int i=0;i< taglist.length;i++){
+            boolean tagResult = this.service.registerLangTag(dto.getR_idx(),taglist[i]);
+        }
+
+        return "redirect:/study/project/list";
     } // updateProjectDetail
+
 
     /*프로젝트형 게시글을 삭제합니다
      * 파라메터 :
@@ -306,10 +334,10 @@ public class StudyController {
      * 반환 : //TODO --예솔
      * */
     @PostMapping("/comment/post")
-    public String insertComment() {
-        log.info("insertComment() is invoked");
+    public @ResponseBody boolean insertComment(@RequestBody String jsonData, HttpServletResponse response, ModelMap model) {
+        log.info("studyModalTest({},{},{}) is invoked",jsonData, response, model);
 
-        return "";
+        return true;
     }
 
     /*댓글 수정 기능 수행

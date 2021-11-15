@@ -70,7 +70,7 @@
     WHERE r_idx=#{r_idx}
   </select>
 
-  <!--Apply insert문 제작중-->
+  <!--Apply insert문 (제작중)-->
   <insert id="insertApply">
     INSERT INTO APPLY_MEMBER (
     apply_idx,r_idx,member_name,study_join_arciwf,study_join_change_date,study_boss_yn,attendance_days
@@ -79,6 +79,7 @@
     )
   </insert>
 
+  <!--update문(현재 C만 되는 상태)-->
   <update id="update">
     UPDATE recruit_board
     SET
@@ -91,8 +92,19 @@
       r_idx = #{r_idx}
   </update>
 
+  <!--언어태그 삭제하기-->
+  <delete id="deleteTag">
+    DELETE FROM lang WHERE r_idx=#{r_idx}
+  </delete>
 
-
+  <!--글 조회수 늘리기-->
+  <update id="hitUp">
+    UPDATE recruit_board
+    SET
+      hit =(select nvl(max(hit),0) + 1 from recruit_board where r_idx=#{r_idx})
+    WHERE
+      r_idx = #{r_idx}
+  </update>
 
 </mapper>
 

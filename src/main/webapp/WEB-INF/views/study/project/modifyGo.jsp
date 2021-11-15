@@ -81,7 +81,7 @@
                             <div class="card-header border-0 pt-5 card-body mt-5" id="post-body-wrapper">
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
                                 <div id="post-body">
-                                    <form action="/study/project/modify?r_idx=${r_idx}" method="post" id="article-form" class="article-form" role="form">
+                                    <form action="/study/project/modify?r_idx=${board.r_idx}" method="post" id="article-form" class="article-form" role="form">
                                         <!--parameter 1 : 제목-->
                                         <div id="title-sec">
                                             <input type="text" id="title" name="title" value="${board.title}">
@@ -121,14 +121,22 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                        <!--parameter 4 : 글내용-->
-                                        <div id="cont-sec">
-                                            <textarea id="summernote" name="cont"></textarea>
+                                        <!--parameter 4 : 마감 여부 -->
+                                        <div id="closed-sec">
+                                            <ul>
+                                                <li><span>마감 여부 :</span></li>
+                                                <li><input type="radio" name="closed_ok" value="n" checked><label>&nbsp;모집중</label></li>
+                                                <li><input type="radio" name="closed_ok" value="y"><label>&nbsp;마감</label></li>
+                                            </ul>
+                                        </div>
+                                        <!--parameter 5 : 글내용-->
+                                        <div id="cont-sec" style="margin-top:50px">
+                                            <textarea id="summernote" name="cont">${board.cont}</textarea>
                                         </div>
                                         <div id="button-sec">
                                             <ul>
                                                 <li onclick="document.querySelector('#article-form').submit();">수정하기</li>
-                                                <li>취소</li>
+                                                <li><a href="/study/project/detail?r_idx=${board.r_idx}">취소</a></li>
                                             </ul>
                                         </div>
                                     </form>
