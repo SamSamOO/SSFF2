@@ -111,7 +111,10 @@
                                         </div>
                                         <div class="apply-sec">
                                             <ul>
-                                                <li><p>지원하기</p></li>
+                                            <!-- TODO data-value="re" << 값 세션 아이디로 바꿔야 될 부분  -->
+                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                       																 onclick="applyChallenge('challenge')" 
+                       																 id="applyChallenge">지원하기</a></li>
                                                 <li style="padding-right:10px"><a href="/study/challenge/modifyGo?r_idx=${board.r_idx}">수정</a> | 삭제</li>
                                                 <li style="padding-right:10px">
                                                     <img src="../../../../resources/assets/image/hit.png"
@@ -126,7 +129,7 @@
 
                                         <div class="reply-write">
                                             <div><p id="reply-count">n개의 댓글이 있습니다</p></div>
-                                            <input type="hidden" id="member_name" name ="member_name" value="nickname55"><!--나중에 세션 아이디로 바꿔야 될 부분-->
+                                            <input type="hidden" id="member_name" name ="member_name" value="nickname101"><!--나중에 세션 아이디로 바꿔야 될 부분-->
                                             <div><textarea id="reply-write-sec"></textarea></div>
                                             <div id="reply-submit"><p onclick="replySubmit()">댓글등록</p></div>
                                         </div>
@@ -214,7 +217,8 @@
                 <!--end::Content Wrapper 내용물 종료-->
             </div>
             <!--컨테이너 종료-->
-            <!--footer.html Include-->
+            <!--footer.html Include--> 
+            &e
             <jsp:include page="../../../commons/footer.jsp"/>
 </body>
 <!----------------Body 종료----------------------->
@@ -240,5 +244,65 @@
         }
       });
     }
+    
+    // 접속자의 권한을 확인하는 함수 
+    function access(){
+    	
+    	
+    }
+    
+
+    // 지원신청 누르면 작업 고고
+    function applyChallenge(action){
+    	
+    	// 유형별로 다른 문구
+    	let actionName =
+            action == 'challenge' ? '스터디장이 승인하더라도\n스터디 시작일에 [ 10,000원 ]이 결제하지 않으면 \n 참여되지 않습니다.\n\n' : '';
+                
+    	
+    	if (!confirm("\n\n해당 스터디에서 지원신청 하시겠습니까?\n" + 
+    			"스터디장의 승인 이후 가입됩니다.\n" + actionName)) {
+            return false;
+      } // if
+    	
+      var submitObj = new Object();
+      submitObj.boss = 'n',
+      submitObj.r_idx = ${board.r_idx},
+      submitObj.member_name = 'nickname104';
+      
+      console.log("submitObj.boss: "+submitObj.boss);
+      console.log("submitObj.r_idx: "+submitObj.r_idx);
+      console.log("submitObj.member_name: "+ submitObj.member_name);
+      
+       $.ajax({
+                type       : 'POST',
+                url        : '/applyMember/insert',
+                data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+                dataType   : 'text', // 받을 데이터는 json
+                contentType: "application/json; charset=utf-8",
+                success    : successCallback,
+                error      : errorCallback
+              });
+
+       // 성공시 데이터 처리
+       function successCallback(data) {
+        console.log("data: " + data);
+    	   //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고
+    	    
+    	   // 참여신청 버튼 비활성화처리 //TODO 전역함수로도 설정해서 재신청 불가능하게~    	   
+    	  $('#applyChallenge').css("background-color","gray"); //색 변경
+    	  // $('#applyChallenge').unbind('mouseenter mouseleave'); // 호버 제거 안되죠?
+           $("#applyChallenge").attr('onclick', '').unbind('click');
+    
+           
+    	   $('#applyChallenge').text('지원완료'); // 글자 변경
+       } // successCallback
+
+       // 실패
+       function errorCallback() {
+        
+     	 alert("요청에 실패하였습니다. 다시 시도해주세요!");
+       } // errorCallback
+    }   
 </script>
 </html>

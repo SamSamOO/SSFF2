@@ -27,4 +27,10 @@ public interface ApplyMemberMapper {
 	public abstract void applyAction(HashMap<String, String> aMember);
 
 
+	// 스터디 참여신청(참여번호 생성) : 신지혜
+	public abstract Integer insertApply(HashMap<String, String> aMember);
+	
+	// 스터디 참여여부확인 : 신지혜
+	public abstract String selectApplyMember(HashMap<String, String> aMember);
+	
 } // end interface

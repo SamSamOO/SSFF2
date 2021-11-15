@@ -215,7 +215,7 @@
   }); // ready
 
   // 카드 리스트를 ajax 페이지 처리하여 뿌립니다. 
-  var start = {
+  let start = {
     param: {
       curPage     : 1,
       pageListSize: 19,

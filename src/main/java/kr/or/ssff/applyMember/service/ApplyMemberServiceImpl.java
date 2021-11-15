@@ -79,6 +79,31 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
 
   } // applyAction
 
+  
+  /* 가입신청(참여번호 생성)
+   * 매개변수: 스터디 참여번호, 닉네임, 스터디번호
+   * 반환	: 닉네임
+   * 작성자	: 신지혜
+   */
+	@Override
+	public String registerApply(HashMap<String, String> aMember) {
+		log.debug("registerApply({}) invoked", aMember);
+		String aMemberName = "";
+    // 참여멤버에 insert
+		Integer num = this.mapper.insertApply(aMember);
+		log.info("\t + num({}) ", num);
+		
+		if(1 == num) { // 잘 insert 했아면
+		aMemberName = this.mapper.selectApplyMember(aMember);
+		} // if 
+		log.info("\t + aMemberName({}) ", aMemberName);
+
+    // insert한 닉네임을 반환
+		return aMemberName;
+	} // registerApply
+  
+
+  
   // ------------------------------------------------------------------------------- //
 
   @Override
@@ -92,6 +117,14 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
     // TODO Auto-generated method stub
 
   }
+
+
+
+
+
+
+
+
 
 
 } // end 

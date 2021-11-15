@@ -18,10 +18,13 @@ public interface ApplyMemberService {
     // 특정 스터디의 멤버 조회 : 신지혜
     public abstract List<ApplyMemberListVO> getApplyMemberList(String r_idx);
 
-    // 스터디 가입 상태 변경
+    // 스터디 가입 상태 변경 : 신지혜
     public abstract void applyAction(HashMap<String, String> aMember);
 
+    // 스터디 가입 신청 : 신지혜
+    public abstract String registerApply(HashMap<String, String> aMember);
 
+    
 }// end interface
 
 

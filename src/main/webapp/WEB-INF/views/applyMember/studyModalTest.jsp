@@ -307,10 +307,10 @@ License: You must have a valid license purchased only from themeforest(the above
                       aria-label="action"
                       style="width: 20%; text-align: center;">
                     <a href="javascript:void(0);" data-value="re"
-                         onclick="applyAction('${applyMemberList.apply_idx}','approval');return false;"
-                         class="btn btn-light-success font-weight-bold mr-2">승인</a>
+                         onclick="applyAction('${applyMemberList.apply_idx}',${applyMemberList.study_join_arciwf},'approval');return false;"
+                         class="btn btn-light-success font-weight-bold mr-2">승인</a><!--//TODO 밸류값에 스터디 타입 엮어서 챌린지면 'approval->challenge'  -->
                     <a href="javascript:void(0);" data-value="re"
-                       onclick="applyAction('${applyMemberList.apply_idx}','refusal');return false;"
+                       onclick="applyAction('${applyMemberList.apply_idx}',${applyMemberList.study_join_arciwf},'refusal');return false;"
                        class="btn btn-light-warning font-weight-bold mr-2">거부</a>
                   </td>
                 </tr>
@@ -398,12 +398,12 @@ License: You must have a valid license purchased only from themeforest(the above
     매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
     작성자 : 신지혜
     */
-    function applyAction(apply_idx, action) {
+    function applyAction(apply_idx, study_type, action) {
         actionName =
             action == 'refusal' ? '가입신청 거절' :
                 action == 'approval' ? '가입신청 승인' :
                     action == 'cancle' ? '가입신청 취소' :
-                        '해당 스터디에서 탈퇴';
+						                        '해당 스터디에서 탈퇴';
         if (!confirm(actionName + " 하시겠습니까?")) {
             return false;
 
@@ -411,13 +411,14 @@ License: You must have a valid license purchased only from themeforest(the above
 
         var submitObj = new Object();
         submitObj.apply_idx = apply_idx;
+        submitObj.study_type = study_type;
         submitObj.action = action;
 
         console.log("JSON.stringify(submitObj): " + JSON.stringify(submitObj));
 
         // 받은 action과 참여번호를 json 객체로 /apply_action 전송하여 db update!!
         $.ajax({
-            url: "/member/apply_action",
+            url: "/applyMember/apply_action",
             type: "POST",
             contentType: "application/json;charset=UTF-8",
             data: JSON.stringify(submitObj),

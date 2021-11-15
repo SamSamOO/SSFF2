@@ -82,9 +82,10 @@ public class ApplyMemberController {
             ObjectMapper mapper = new ObjectMapper();
 
             HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
-
-            log.info("\t+ aMember.get: {}",aMember.get("apply_idx"));
-            log.info("\t+ aMember.getaction: {}",aMember.get("action"));
+            
+            log.info("\t+ aMember.study_type: {}",aMember.get("study_type"));
+            log.info("\t+ aMember.apply_idx: {}",aMember.get("apply_idx"));
+            log.info("\t+ aMember.action: {}",aMember.get("action"));
 
             this.service.applyAction(aMember);
 
@@ -96,6 +97,43 @@ public class ApplyMemberController {
         return filterJSON;
     } // applyAction
 
+    
+    /* 스터디 가입신청처리 
+     * 매개변수: 참여번호와 닉네임  
+     * 반환: 
+     * 작성자: 신지혜
+     * */
+    @PostMapping("/insert")
+    @ResponseBody
+    public String insertApplyMember(
+        @RequestBody String filterJSON,
+        HttpServletResponse response,
+        ModelMap model ) throws Exception {
+        log.debug("insertApplyMember({},{},{}) is invoked",filterJSON, response, model );
+        String aMemberName = "";
+        try{
+            log.info("\t refusal_action_try");
+            log.info("\t filterJSON: "+filterJSON);
+            log.info("\t response: "+response);
+            log.info("\t model: "+model);
+
+            ObjectMapper mapper = new ObjectMapper();
+
+            HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
+            
+            log.info("\t+ aMember.boss: {}",aMember.get("boss"));
+            log.info("\t+ aMember.r_idx: {}",aMember.get("r_idx"));
+            log.info("\t+ aMember.member_name: {}",aMember.get("member_name"));
+
+            aMemberName = this.service.registerApply(aMember);
+            log.info("\t aMemberName: "+aMemberName);
+        }catch(Exception e){
+
+        }
+        response.setContentType("text/html; charset=UTF-8");
+
+        return aMemberName;
+    } // applyAction
     
     /* 스터디 카페 예약내역 페이지로 이동합니다
      * 파라메터 : nickname
