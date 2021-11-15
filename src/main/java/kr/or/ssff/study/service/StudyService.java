@@ -18,7 +18,7 @@ public interface StudyService {
     // 3. 기존 게시글 삭제
     public abstract boolean remove();
 
-    // 4. 특정 게시글 상세조회
+    // 4. 특정 게시글 상세조회 + 조회수 1업
     public abstract RecruitBoardVO get(Integer r_idx);
 
     // 5. 전체 목록 조회 - 정상동작중!
@@ -45,8 +45,12 @@ public interface StudyService {
     //11. p에서 번호로 언어태그 가져오기
     public abstract List<LangVO> getLangTagByR_idx(Integer r_idx);
 
-    //12.
+    //12. 방장이 글씀과 동시에 apply table 에 들어가기
     public abstract boolean registerApply(Integer r_idx, String member_name);
+
+    //13. P에서 글수정시 새태그 등록을 위해 기존 태그 버리기
+    public abstract boolean deleteTag(Integer r_idx);
+
 }
 
 

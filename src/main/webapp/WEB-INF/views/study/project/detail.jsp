@@ -79,7 +79,7 @@
                                     <div id="article"><!--본문-->
                                         <div class="back-button">
                                             <img src="../../../../resources/assets/image/arrow.png"
-                                                 style="width:20px;">
+                                                 style="width:20px;" onclick="location.href='/study/project/list'">
                                         </div>
                                         <div class="title-sec">
                                             <h2>${board.title}</h2>

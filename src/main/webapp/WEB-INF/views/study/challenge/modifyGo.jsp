@@ -94,7 +94,7 @@
                                                 <li><span>스터디 유형 :</span></li>
                                                 <li>
                                                     <select id="challenge-type" name="ch_pattern" class="form-control">
-                                                        <option value="">==스터디 유형을 선택해 주세요==</option>
+                                                        <option value="${board.ch_pattern}">${board.ch_pattern}</option>
                                                         <option value="생활습관 스터디">생활습관 스터디</option>
                                                         <option value="취업 스터디">취업 스터디</option>
                                                         <option value="시험준비 스터디">시험준비 스터디</option>
@@ -113,12 +113,12 @@
                                                 <li><span>지역 :</span></li>
                                                 <li style="margin-right: 10px">
                                                     <select id="location1" name="location1" class="form-control">
-                                                        <option value="">==시도 선택==</option>
+                                                        <option value="" id="sido1">==시도 선택==</option>
                                                     </select>
                                                 </li>
                                                 <li>
                                                     <select id="location2" name="location2" class="form-control">
-                                                        <option value="">==시군구 선택==</option>
+                                                        <option value="" id="sido2">==시군구 선택==</option>
                                                     </select>
                                                 </li>
                                             </ul>
@@ -140,15 +140,23 @@
                                             </ul>
                                         </div>
 
+                                        <!--parameter 6 : 마감 여부 -->
+                                        <div id="closed-sec">
+                                            <ul>
+                                                <li><span>마감 여부 :</span></li>
+                                                <li><input type="radio" name="closed_ok" value="n" checked><label>&nbsp;모집중</label></li>
+                                                <li><input type="radio" name="closed_ok" value="y"><label>&nbsp;마감</label></li>
+                                            </ul>
+                                        </div>
 
-                                        <!--parameter 6 : 글내용-->
-                                        <div id="cont-sec">
+                                        <!--parameter 7 : 글내용-->
+                                        <div id="cont-sec" style="margin-top:50px">
                                             <textarea id="summernote" name="cont">${board.cont}</textarea>
                                         </div>
                                         <div id="button-sec">
                                             <ul>
                                                 <li onclick="onSubmit()">수정하기</li>
-                                                <li>취소</li>
+                                                <li><a href="/study/challenge/detail?r_idx=${board.r_idx}">취소</a></li>
                                             </ul>
                                         </div>
                                     </form>
@@ -183,6 +191,12 @@
       lang: "ko-KR",				// 한글 설정
       placeholder: '최대 1000자까지 쓸 수 있습니다'	//placeholder 설정
     });
+    let sido = "${board.sido}";
+    let arr = sido.split(' ');
+    document.querySelector("#sido1").innerHTML = arr[0];
+    document.querySelector("#sido1").value = arr[0];
+    document.querySelector("#sido2").innerHTML = arr[1];
+    document.querySelector("#sido2").innerHTML = arr[1];
   }); //summernote 관련 설정
 
 
@@ -202,7 +216,5 @@
     document.querySelector('#article-form').submit();
 
   }//onSubmit
-
-
 </script>
 </html>

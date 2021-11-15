@@ -45,7 +45,7 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     public RecruitBoardVO get(Integer r_idx) {
-
+        Integer hitup = this.mapper.hitUp(r_idx);
         RecruitBoardVO vo = this.mapper.get(r_idx);
 
       return vo;
@@ -141,7 +141,13 @@ public class StudyServiceImpl implements StudyService {
         log.info("\t + affectedRows:{}", affectedRows);
 
         return affectedRows == 1;
-    }
+    }//registerApply
+
+    @Override
+    public boolean deleteTag(Integer r_idx) {
+        int affectedRows = mapper.deleteTag(r_idx);
+        return affectedRows !=0;
+    }//deleteTag
 
 }//end class
 
