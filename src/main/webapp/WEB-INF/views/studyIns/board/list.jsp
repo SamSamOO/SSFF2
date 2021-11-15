@@ -79,7 +79,7 @@
                                 <td align="right">
 
                                     <label class="col-form-label text-right col-lg-3 col-sm-12">카테고리</label>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <div class="col-lg-4 col-md-5 col-sm-5">
                                         <select class="form-control selectpicker">
                                             <option data-content="<span class='label label-success label-inline label-rounded'>인증</span>">인증</option>
                                             <option data-content="<span class='label label-warning label-inline label-rounded'>잡담</span>">잡담</option>
@@ -105,7 +105,7 @@
                 </span>
                                 </td>
                                 <td>
-                <span class="label label-inline label-light-primary font-weight-bold">
+                <span class="label label-inline label-light-primary font-weight-bold ">
                     제목
                 </span>
                                 </td>
