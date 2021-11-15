@@ -252,11 +252,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         Objects.requireNonNull(service);
         StudyInsVO detail = service.get(cont_No);
+        List<StudyInsFileVO> listOfFiles = service.getFile(cont_No);
+
 
         log.debug("modifyDetail = {}", detail);
 
         model.addAttribute("detail", detail);
-
+        model.addAttribute("listOfFiles", listOfFiles);
         return "/studyIns/board/modify";
     } // studyBoardDetailModifyGo
 
