@@ -1,11 +1,6 @@
 package kr.or.ssff.mapper;
 
-import java.util.HashMap;
-import kr.or.ssff.member.domain.ApplyMemberDTO;
-import kr.or.ssff.member.domain.ApplyMemberListVO;
 import kr.or.ssff.member.domain.MemberVO;
-
-import java.util.List;
 
 
 /*
@@ -20,15 +15,6 @@ public interface MemberMapper {
 	public void insertMember(MemberVO member);
 
 
-	//-------------- 신지혜 스터디 참여멤버 관리 ---------------//
-	// 특정 스터디의 멤버 조회 : 신지혜
-	public abstract List<ApplyMemberListVO> getApplyMemberList(String r_idx);
-
-	// 전체 회원 목록 조회 : 신지혜
-	public abstract List<MemberVO> getMemberList();
-
-	// 스터디 참여상태 변경 : 신지혜
-	public abstract void applyAction(HashMap<String, String> aMember);
 
 
 } // end interface

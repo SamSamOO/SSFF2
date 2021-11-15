@@ -370,6 +370,19 @@ h3 {
 .apply-sec li p:hover{
   cursor: pointer;
 }
+
+/* p-> a태그로 변경해서 추가해놨어: 지혜*/
+#applyChallenge{
+  background-color: rgb(235, 171, 49);
+  padding: 7px 9px;
+  border-radius: 5px;
+  color:white;
+  font-weight: bold;
+}
+/*#applyChallenge:hover{
+  cursor: pointer;
+}*/
+
 #reply-sec{
   margin-top:80px;
 

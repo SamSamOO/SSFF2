@@ -1,4 +1,4 @@
-package kr.or.ssff.member.domain;
+package kr.or.ssff.applyMember.domain;
 
 import java.sql.Date;
 import lombok.Value;
