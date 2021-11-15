@@ -83,41 +83,41 @@
 
                                             <tr>
                                                 <td colspan="3">
-                                                    <input id="title" required  placeholder="제목을 입력해 주세요" maxlength="50" value="${detail.title}" name="title" style="height: 40px; width: 100%; border:none; border-bottom: 1px solid #ced4da; border-radius: 4px; font-size: 30px; font-weight: bold; text-align: center; margin: 20px ">
+                                                    <input id="title" required placeholder="제목을 입력해 주세요" maxlength="50" value="${detail.title}" name="title"
+                                                           style="height: 40px; width: 100%; border:none; border-bottom: 1px solid #ced4da; border-radius: 4px; font-size: 30px; font-weight: bold; text-align: center; margin: 20px ">
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td colspan="1">
                                                     <c:set var="category" value="${detail.category}"/>
                                                     <select name="category" class="selectpicker" required>
-                                                    <c:choose>
-                                                        <c:when test="${category eq '인증'}">
-                                                            <option value="인증" selected>인증</option>
-                                                            <option value="잡담">잡담</option>
-                                                            <option value="QnA">QnA</option>
-                                                            <option value="기타">기타</option>
-                                                        </c:when>
-                                                        <c:when test="${category eq '잡담'}">
-                                                            <option value="인증" >인증</option>
-                                                            <option value="잡담" selected>잡담</option>
-                                                            <option value="QnA">QnA</option>
-                                                            <option value="기타">기타</option>
-                                                        </c:when>
-                                                        <c:when test="${category eq 'QnA'}">
-                                                            <option value="인증">인증</option>
-                                                            <option value="잡담">잡담</option>
-                                                            <option value="QnA" selected>QnA</option>
-                                                            <option value="기타">기타</option>
-                                                        </c:when>
-                                                        <c:when test="${category eq '기타'}">
-                                                            <option value="인증" >인증</option>
-                                                            <option value="잡담">잡담</option>
-                                                            <option value="QnA">QnA</option>
-                                                            <option value="기타" selected>기타</option>
-                                                        </c:when>
-                                                    </c:choose>
+                                                        <c:choose>
+                                                            <c:when test="${category eq '인증'}">
+                                                                <option value="인증" selected>인증</option>
+                                                                <option value="잡담">잡담</option>
+                                                                <option value="QnA">QnA</option>
+                                                                <option value="기타">기타</option>
+                                                            </c:when>
+                                                            <c:when test="${category eq '잡담'}">
+                                                                <option value="인증">인증</option>
+                                                                <option value="잡담" selected>잡담</option>
+                                                                <option value="QnA">QnA</option>
+                                                                <option value="기타">기타</option>
+                                                            </c:when>
+                                                            <c:when test="${category eq 'QnA'}">
+                                                                <option value="인증">인증</option>
+                                                                <option value="잡담">잡담</option>
+                                                                <option value="QnA" selected>QnA</option>
+                                                                <option value="기타">기타</option>
+                                                            </c:when>
+                                                            <c:when test="${category eq '기타'}">
+                                                                <option value="인증">인증</option>
+                                                                <option value="잡담">잡담</option>
+                                                                <option value="QnA">QnA</option>
+                                                                <option value="기타" selected>기타</option>
+                                                            </c:when>
+                                                        </c:choose>
                                                     </select>
-
 
 
                                                 </td>
@@ -130,7 +130,7 @@
 
 
                                             <tr>
-                                                <td  colspan="3" style="width: 100%;">
+                                                <td colspan="3" style="width: 100%;">
                                                     <div class="card card-custom">
 
                                                         <div class="card-body">
@@ -144,6 +144,9 @@
 
                                             </tr>
 
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                            </tr>
 
                                             <tr>
                                                 <td colspan="4" align="right">
@@ -154,9 +157,13 @@
                                             <tr>
                                                 <td>
                                                     <div class="uploadDiv">
-                                                        <input type="file" name="uploadFile" id="uploadFile" multiple class="btn btn-secondary"/>
-                                                        <div id="fileList">
 
+                                                        <input type="file" name="uploadFile" id="uploadFile" multiple class="btn btn-secondary" value="" style="display: none"/>
+                                                        <label for="uploadFile" class="btn btn-secondary" >업로드 -- 이미지만 업로드할 수 있습니다.</label>
+                                                        <div id="fileList">
+                                                            <c:forEach items="${listOfFiles}" var="file">
+                                                                <p>${file.file_Name}</p>
+                                                            </c:forEach>
                                                         </div>
 
                                                     </div>
@@ -190,7 +197,10 @@
     $(function () {
         console.clear();
         console.debug("제이쿼리 시작");
+        <%--for (let i = 0; i <${listOfFiles.length}; i++) {--%>
+        <%--    $(`#uploadFile`).val()--%>
 
+        <%--}--%>
         $(`#listBtn`).on(`click`, function (e) {
 
             console.log('목록버튼이 클릭됨!');
@@ -205,6 +215,7 @@
         });
         //TODO 파일이 없는 경우 파일업로드를 안하게 해줘야합니다.
         $(`#cont`).val($(`.ql-editor`).html());
+        $(`#uploadFile`).val()
         $(`#uploadFile`).on('click', function () {
             $(`#fileList`).children("p").remove();
         });
@@ -244,9 +255,9 @@
             $.ajax({
                 url: '/board/postGo',
                 processData: false,
-                contentType : false,
-                data : formData,
-                type : 'POST',
+                contentType: false,
+                data: formData,
+                type: 'POST',
                 dataType: 'json'
             });
 
@@ -341,7 +352,7 @@
             return
         }
 
-        let uploadResut=  $('')
+        let uploadResut = $('')
     }
 
     // $(document).ready(function () {
