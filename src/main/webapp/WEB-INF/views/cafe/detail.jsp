@@ -1,14 +1,14 @@
 <%--
   스터디 카페 디테일 단
   User: 신지혜
-  Date: 2021-11-05
+  Date: 2021-11-15
   Time: 오후 3:23
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<%@taglib	uri="http://java.sun.com/jsp/jstl/core"	prefix="c" %>
-<%@taglib	uri="http://java.sun.com/jsp/jstl/fmt"	prefix="fmt" %>
+         pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -16,21 +16,7 @@
 
 <head>
   <title>cafeDetail</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"
-  />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  
-  
-  <style>
-
-  
-  </style>
-  
+  ??
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 </head>
@@ -86,29 +72,22 @@
             </div>
           </div>
           <!--Subheader : 서브헤더 페이지 제목란 종료-->
-          
-          
           <div class="content flex-column-fluid" id="kt_content">
             
             <!------------------ 본문 시작 ------------------>
-            <div class="자이제시작이야">
-              
-              <!--begin::Row-->
-              <div class="row" id="cafeListCardLow">
-              
-                
-              </div>
-              <!--begin::Row-->
+            
+            <!--begin::Row-->
+            <div class="row" id="cafeListCardLow">
+            
+            
             </div>
+            <!--begin::Row-->
             <!------------------ 본문 종료 ------------------>
           
           </div>
         
         
-        
-        
         </div>
-      
       </div>
       <!--컨테이너 종료-->
       <!--footer.html Include-->
