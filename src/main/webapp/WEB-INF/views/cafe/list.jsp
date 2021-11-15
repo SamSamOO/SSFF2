@@ -20,6 +20,7 @@
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
   />
+  <!-- TODO 3.4.1 min.css <얘때문에 내 메뉴 박살남  -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -34,9 +35,7 @@
       list-style: none !important;
     } /* TODO 블릿은 왜 안 없어집니까 */
     
-    .container {
-      justify-content: flex-start !important;
-    }
+  
     body{
       background:#000;
     }
@@ -375,6 +374,7 @@
         location = splitLocation[1];
         cafeId = String(data.cafeList[i].cafe_idx);
 
+        console.log(splitLocation + location + cafeId)
         
         let cardHtml;
         cardHtml = `
@@ -401,10 +401,11 @@
                  class="fa fa-users" ></i> 최대
             ` + maxPeople + `인</span>
             </div>
-           </div><a href="/datail?cafe_idx="` + cafeId +`
+           </div><a href="/cafe/detail?cafe_idx=`+cafeId+`"
                     class="btn btn-block btn-sm btn-light-success
                            font-weight-bolder text-uppercase py-4">예약하기</a></div>`
 
+        console.log($('.btn.btn-block.btn-sm.btn-light-success.font-weight-bolder.text-uppercase.py-4').attr("href"));
         $('.card.card-custom.gutter-b.card-stretch').eq(num).append(cardHtml);
 
         num += 1;
