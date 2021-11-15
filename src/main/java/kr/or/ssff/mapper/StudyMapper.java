@@ -25,4 +25,9 @@ public interface StudyMapper {
     public abstract List<LangVO> getLangTags(@Param("r_idx")Integer r_idx);
     //
     public abstract Integer insertApply(@Param("r_idx")Integer r_idx,@Param("member_name")String member_name);
+    //태그들 지우기
+    public abstract Integer deleteTag(@Param("r_idx")Integer r_idx);
+    //조회수 1업
+    public abstract Integer hitUp(@Param("r_idx")Integer r_idx);
+
 }
