@@ -187,6 +187,23 @@
 <!----------------Body 종료----------------------->
 <script>
 
+	// alert 문구 생성 
+  	  let warningAlert = `
+	 		  <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
+					<div class="alert-icon">
+						<i class="flaticon-warning"></i>
+					</div>
+					<div class="alert-text">표시할 항목이 없습니다.</div>
+					<div class="alert-close">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">
+								<i class="ki ki-close"></i>
+							</span>
+						</button>
+					</div>
+				</div>
+ 	  `
+ 	  
   // 페이지 처리를 위한 함수 / 카드 증가시 1씩 증가 
   let num = 0;
               
@@ -256,7 +273,7 @@
         // 불러온 데이터가 없다면
         if (data.cafeList.length == 0) {
           // $(".gridList").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
-          alert("더이상 표시할 항목이 없습니다");
+        	$('#cafeListCardLow').append(warningAlert);
         } // if
         
         // 데이터가 있다면 뿌리기
@@ -269,7 +286,8 @@
 
       // 실패
       function errorCallback() {
-        alert("데이터 로드 실패");
+       
+    	 $('#cafeListCardLow').append(warningAlert);
       } // errorCallback
     }, // callAjax: function
 
