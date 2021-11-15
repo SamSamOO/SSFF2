@@ -2,6 +2,7 @@ package kr.or.ssff.member.service;
 
 import kr.or.ssff.mapper.MemberMapper;
 
+import kr.or.ssff.member.Utils.MailHandler;
 import kr.or.ssff.member.Utils.TempKey;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
 import kr.or.ssff.member.domain.MemberDTO;
@@ -15,6 +16,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import javax.inject.Inject;
 import java.util.List;
@@ -28,32 +32,56 @@ import java.util.List;
 @Log4j2
 @AllArgsConstructor
 
+
 @Service("memberService")
 public class MemberServiceImpl implements MemberService, InitializingBean, DisposableBean  {
 
-    @Setter(onMethod_ = @Autowired)
+
+
+
+    @Setter(onMethod_ = {@Autowired})
     private MemberMapper mapper;
     BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private JavaMailSender mailSender;
 
+
     @Override
-    public boolean insertMember(MemberDTO memberDTO) {
+    public boolean insertMember(MemberDTO memberDTO) throws Exception{
         log.debug("insertMember({}) is invoked", "memberDTO = " + memberDTO);
         memberDTO.setMember_pwd(passwordEncoder.encode(memberDTO.getMember_pwd()));
         int affectedRows = this.mapper.insertMember(memberDTO);
+        // 인증키 생성
+        String key = new TempKey().getKey(10, false);
+        mapper.createAuthkey(memberDTO.getMember_id(),key );
+        MailHandler sendMail = new MailHandler(mailSender);
+
+        sendMail.setSubject("[삼삼오오 회원가입 서비스 이메일 인증 입니다.]");
+        sendMail.setText(new StringBuffer().append("<h1>삼삼오오 가입 메일인증 입니다</h1>")
+                .append("<a href='http://localhost:8070/member/emailConfirm?member_id=")
+                .append(memberDTO.getMember_id()).append("&key=").append(key)
+                .append("' target='_blenk'>가입 완료를 위해 이메일 이곳을 눌러주세요</a>").toString());
+        sendMail.setFrom("tnsgud2358@naver.com", "SAMSAMOO");
+        sendMail.setTo(memberDTO.getMember_id());
+        sendMail.send();
 
         return affectedRows > 0;
     }
 
     @Override
-    public boolean memberLogin(String member_id, String member_pwd) {
+    public boolean Login(String member_id, String member_pwd) {
         log.debug("memberLogin({}) is invoked",  member_id,member_pwd);
-        MemberVO memberVO = this.mapper.memberLogin(member_id);
+        MemberVO memberVO = this.mapper.Login(member_id);
 
-        return passwordEncoder.matches("password",memberVO.getMember_pwd() );
+        return passwordEncoder.matches(member_pwd,memberVO.getMember_pwd());
 
+
+    }
+
+    @Override
+    public void updateAuthstatus(String member_id) throws Exception {
+        mapper.updateAuthstatus(member_id);
     }
 
 

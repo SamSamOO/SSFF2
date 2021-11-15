@@ -27,6 +27,8 @@ public class MemberVO {
 	private String member_profile;
 	private String member_introduce;
 	private Character member_enabled;
+	private String Authkey;
+	private Integer AuthStatus;
 
 
 } // end class

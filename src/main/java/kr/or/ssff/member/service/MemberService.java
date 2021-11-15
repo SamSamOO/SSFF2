@@ -12,9 +12,13 @@ import java.util.List;
 public interface MemberService {
     //-------------멤버 CRUD 순형 ---------------//
     //1.화원가입
-    public abstract boolean insertMember(MemberDTO memberDTO);
+    public abstract boolean insertMember(MemberDTO memberDTO) throws Exception;
     // 2. 로그인
-    public abstract boolean memberLogin(String email, String password);
+    public abstract boolean Login(String member_id, String member_pwd);
+    // authstatus 1로 변경
+    public void updateAuthstatus(String member_id) throws Exception;
+
+
 
 
 

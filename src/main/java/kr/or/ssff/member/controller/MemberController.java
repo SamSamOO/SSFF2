@@ -1,9 +1,12 @@
 package kr.or.ssff.member.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import kr.or.ssff.member.domain.MemberDTO;
+import kr.or.ssff.member.service.MailSendService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -67,12 +70,32 @@ public class MemberController {
      * 메인페이지로 이동합니다.
      * */
     @PostMapping("/join")
-    public String memberJoin(MemberDTO memberDTO, RedirectAttributes rttr, Model model)  {
+    public String memberJoin(MemberDTO memberDTO, RedirectAttributes rttr, Model model)  throws Exception{
         log.debug("join({}) is invoked", "memberDTO = " + memberDTO);
 
         this.service.insertMember(memberDTO);
+        model.addAttribute("result", "ok");
+        model.addAttribute("refreshUrl", "2;url=../auth/login");
+
+
         return "redirect:/member/main";
     } // memberJoin
+
+
+    // 이메일 인증 확인하면 나오는 경로
+    @GetMapping("/emailConfirm")
+    public String emailConfirm(String member_id, Model model ) throws Exception {
+        // authstatus 권한 상태 1로 변경
+        service.updateAuthstatus(member_id);
+        log.info("updateAuthstatus ({})", member_id);
+
+        // jsp에서 쓰기위해 model에 담음
+        model.addAttribute("member_id", member_id);
+
+        return "member/emailConfirm";
+    }
+
+
 
     /* 로그인 페이지 이동
      * 파라메터 : 없음
@@ -98,14 +121,18 @@ public class MemberController {
      * 메인페이지로 이동합니다.
      * */
     @PostMapping("/login")
-    public String memberLogin (@RequestParam("member_id") String member_id,
-    @RequestParam("member_pwd") String member_pwd, HttpServletRequest req) {
-        log.debug("login() is invoked");
+    public String memberLogin (
+            @RequestParam("member_id") String member_id,
+            @RequestParam("member_pwd") String member_pwd,
+            HttpServletRequest req) {
+        log.debug("login() is invoked" + member_id,member_pwd);
 
         HttpSession session = req.getSession();
 
-        boolean user = this.service.memberLogin(member_id,member_pwd);
+
+        boolean user = this.service.Login(member_id,member_pwd);
         log.info("\t+ user: {}", user);
+
 
         if(user){
             session.setAttribute("member_id", member_id);
@@ -114,6 +141,13 @@ public class MemberController {
         return "redirect:/member/main";
     } // memberLogin
 
+    //로그아웃.
+    @PostMapping("/logout")
+    public String memberLogout() {
+        log.debug("loginGo() is invoked");
+
+        return "member/join";
+    }
 
     /* 마이 페이지 이동
      * 파라메터 : nickname
