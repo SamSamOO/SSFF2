@@ -1,7 +1,6 @@
-package kr.or.ssff.member.domain;
+package kr.or.ssff.applyMember.domain;
 
-import kr.or.ssff.study.domain.RecruitBoardDTO;
-import lombok.Data;
+import lombok.Value;
 
 import java.sql.Date;
 
@@ -20,8 +19,8 @@ STUDY_BOSS_YN			CHAR(1 BYTE)		No	'n' 6	개설자여부
 ATTENDANCE_DAYS			NUMBER				Yes		7	누적출석일수
  */
 
-@Data
-public class ApplyMemberDTO {
+@Value
+public class ApplyMemberVO {
 	private String apply_idx;
 	private Integer r_idx;
 	private String member_name;
@@ -30,8 +29,6 @@ public class ApplyMemberDTO {
 	private Character study_boss_yn;
 	private Integer attendance_days;
 	
-	private RecruitBoardDTO recruitBoardDTO;
-	private MemberDTO memberDTO;
 } // end class
 
 

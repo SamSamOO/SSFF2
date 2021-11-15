@@ -206,9 +206,7 @@
  	  
   // 페이지 처리를 위한 함수 / 카드 증가시 1씩 증가 
   let num = 0;
-              
-  console.log("g힘들어잉")
-
+            
   // 페이지 진입시 리스트 세팅 
   $(document).ready(function () {
     start.init();
@@ -300,25 +298,21 @@
               <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                 <!--begin::Card-->
                 <div class="card card-custom gutter-b card-stretch">
-
                   <section class="awSlider">
                     <div  class="carousel slide" data-ride="carousel">
                       <!-- Indicators -->
                       <ol class="carousel-indicators">
-                      </ol>
-              
+                      </ol>              
                       <!-- Wrapper for slides -->
                       <div class="carousel-inner" role="listbox">
-                      </div>
-              
+                      </div>              
                       <!-- Controls $aPrev $aNext -->
                     </div>
                   </section>
-
                 </div>
-<!--end::Card-->
+								<!--end::Card-->
               </div>
-<!--end::Col-->`
+							<!--end::Col-->`
 
       // 테이블 동적생성을 위해 불러온 data를 각 변수에 담아 활용
       let mainTitle = '';
@@ -334,7 +328,6 @@
 
         // 기본 구조 셋팅!
         $('#cafeListCardLow').append(templet);
-
 
         // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 start
         for (let j = 0; j < data.cafeList[i].roomImgs.length; j++) {
@@ -379,7 +372,8 @@
             }))
 
         $('.carousel.slide').eq(num).append($aPrev, $aNext);
-
+				// TODO 여기 같이 움직이는거 , 눈금자 빼기 
+				
         // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 end
         
         
