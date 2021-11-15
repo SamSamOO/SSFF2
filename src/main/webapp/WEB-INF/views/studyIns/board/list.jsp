@@ -151,6 +151,46 @@
                                     <button type="button" class="btn btn-outline-primary" id="regBtn">새 글 쓰기</button>
                                 </td>
                             </tr>
+                            <tr style="all: revert;" >
+                                <td>
+                                    <!--begin::Pagination-->
+                                    <div class="d-flex justify-content-between align-items-center flex-wrap ">
+                                        <div class="d-flex flex-wrap py-2 mr-3">
+                                            <a href="#" class="btn btn-icon btn-sm btn-light mr-2 my-1"><i class="ki ki-bold-double-arrow-back icon-xs"></i></a>
+                                            <a href="#" class="btn btn-icon btn-sm btn-light mr-2 my-1"><i class="ki ki-bold-arrow-back icon-xs"></i></a>
+
+                                            <a href="#" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">...</a>
+                                            <a href="#" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">23</a>
+                                            <a href="#" class="btn btn-icon btn-sm border-0 btn-light btn-hover-primary active mr-2 my-1">24</a>
+                                            <a href="#" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">25</a>
+                                            <a href="#" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">26</a>
+                                            <a href="#" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">27</a>
+                                            <a href="#" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">28</a>
+                                            <a href="#" class="btn btn-icon btn-sm border-0 btn-light mr-2 my-1">...</a>
+
+                                            <a href="#" class="btn btn-icon btn-sm btn-light mr-2 my-1"><i class="ki ki-bold-arrow-next icon-xs"></i></a>
+                                            <a href="#" class="btn btn-icon btn-sm btn-light mr-2 my-1"><i class="ki ki-bold-double-arrow-next icon-xs"></i></a>
+                                        </div>
+                                        <div class="d-flex align-items-center py-3">
+                                            <div class="d-flex align-items-center">
+                                                <div class="mr-2 text-muted">Loading...</div>
+                                                <div class="spinner mr-10"></div>
+                                            </div>
+
+                                            <select class="form-control form-control-sm font-weight-bold mr-4 border-0 bg-light" style="width: 75px;">
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="30">30</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                            <span class="text-muted">Displaying 10 of 230 records</span>
+                                        </div>
+                                    </div>
+                                    <!--end:: Pagination-->
+                                </td>
+
+                            </tr>
 
                             </tbody>
                         </table>
@@ -171,7 +211,7 @@
             async: false,
             type: 'POST',
             url: '데이터가 처리될 url주소',
-            data:'',
+            data: '',
             error: function (response, status, request) {
                 Swal.fire('에러 발생');
             },
