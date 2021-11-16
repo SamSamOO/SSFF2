@@ -116,7 +116,7 @@
                        																 onclick="applyChallenge('challenge')"
                        																 id="applyChallenge">지원하기</a></li>
                                                 <li style="padding-right:10px"><a href="/study/challenge/modifyGo?r_idx=${board.r_idx}">수정</a> |<a href="/study/challenge/remove?r_idx=${board.r_idx}">삭제</a></li>
-                                                <li><p>지원하기</p></li>
+
 
                                                 <li style="padding-right:10px">
                                                     <img src="../../../../resources/assets/image/hit.png"
