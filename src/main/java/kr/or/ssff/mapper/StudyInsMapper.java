@@ -29,7 +29,6 @@ public interface StudyInsMapper {
 
     public void delete(String uuid);
 
-
     public List<StudyInsDTO> findByCont_No(Integer cont_No);
 
     //게시물 생성 .. 파일 보드..
@@ -49,4 +48,8 @@ public interface StudyInsMapper {
 
     //removedOk 가 n인 게시물의 갯수를 리턴합니다.
     public Integer countArticle();
+
+
+    public List<StudyInsVO> getListByCategory(Criteria criteria, String category);
+
 }

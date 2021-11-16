@@ -31,7 +31,6 @@
         });
 
 
-
     </script>
     <style>
 
@@ -53,10 +52,10 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!------------------header.html Include------------------>
-            <jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/commons/header.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 시작------------------>
             <!--menu.html Include-->
-            <jsp:include page="/WEB-INF/commons/menu_main.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/commons/menu_main.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 종료------------------>
             <!--컨테이너 시작-->
             <div class="d-flex flex-row flex-column-fluid container">
@@ -87,8 +86,8 @@
                                         <label class="col-form-label text-right col-lg-3 col-sm-12">카테고리</label>
                                         <div class="col-lg-4 col-md-5 col-sm-5">
                                             <label>
-                                                <select class="form-control selectpicker">
-                                                    <option value="all" data-content="<span class='label label-success label-inline label-rounded'>전체</span>" selected>전체</option>
+                                                <select class="form-control selectpicker" id="category">
+                                                    <option value="all" data-content="<span class='label label-success label-inline label-rounded'>전체</span>">전체</option>
                                                     <option value="인증" data-content="<span class='label label-success label-inline label-rounded'>인증</span>">인증</option>
                                                     <option value="잡담" data-content="<span class='label label-warning label-inline label-rounded'>잡담</span>">잡담</option>
                                                     <option value="QnA" data-content="<span class='label label-primary label-inline label-rounded'>QnA</span>">QnA</option>
@@ -165,20 +164,21 @@
                                                 <ul class="pagination">
 
                                                     <c:if test="${pageMaker.prev}">
-                                                        <li class="paginate_button previous"><a
-                                                            href="${pageMaker.startPage -1}">Previous</a></li>
+                                                        <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-double-arrow-back icon-xs"
+                                                                                                                               href="${pageMaker.startPage -1}"></a></li>
                                                     </c:if>
 
                                                     <c:forEach var="num" begin="${pageMaker.startPage}"
                                                                end="${pageMaker.endPage}">
-                                                        <li class="paginate_button  ${pageMaker.criteria.pageNum == num ? "active":""} ">
+                                                        <li class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
                                                             <a href="${num}">${num}</a>
                                                         </li>
                                                     </c:forEach>
 
                                                     <c:if test="${pageMaker.next}">
-                                                        <li class="paginate_button next"><a
-                                                            href="${pageMaker.endPage +1 }">Next</a></li>
+                                                        <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
+                                                            <a class="ki ki-bold-arrow-next icon-xs" href="${pageMaker.endPage +1 }"></a>
+                                                        </li>
                                                     </c:if>
 
 
@@ -188,7 +188,6 @@
 
                                             <div class="d-flex align-items-center py-3">
                                                 <button type="button" class="btn btn-outline-primary" style="vertical-align: center" id="regBtn">새 글 쓰기</button>
-
                                             </div>
                                         </div>
                                         <!--end:: Pagination-->
@@ -214,27 +213,50 @@
             <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
 </body>
 <script>
-    $(`#dropDiv`).on("change", function () {
-        $.ajax({
-            async: false,
-            type: 'POST',
-            url: '데이터가 처리될 url주소',
-            data: '',
-            error: function (response, status, request) {
-                Swal.fire('에러 발생');
-            },
-            success: function (resHtml) {
-                Swal.fire('성공');
-            }
-        })
-    });
+    // $(`#dropDiv`).on("change", function () {
+    //     $.ajax({
+    //         async: false,
+    //         type: 'POST',
+    //         url: '데이터가 처리될 url주소',
+    //         data: '',
+    //         error: function (response, status, request) {
+    //             Swal.fire('에러 발생');
+    //         },
+    //         success: function (resHtml) {
+    //             Swal.fire('성공');
+    //         }
+    //     })
+    // });
+    $(function () {
+        $(`#category`).on(`change`, function () {
+            let kind = $(this).val(); // 셀렉트 값이 변경되는 경우, 해당 값을 kind에 담습니다.
+
+            $.ajax({
+                url: "/ajaxCategory",
+                type: "post",
+                cache: false,
+                headers: {"cache-control": "no-cache", "pragma": "no-cache"},
+                contentType: "text; charset=utf-8",
+                dataType:'json',
+                data:  kind, // 버튼의 value값에 따라 작동합니다,
+                success: function (data) {
+                    console.log(data);
+                    alert('성공');
+                },
+                error: function (data) {
+                    alert('에러' + data);
+                } // error
+            }) // aj
+        }); // select change
+    }); // jq
     var actionForm = $("#actionForm");
 
-    $(".paginate_button a").on("click", function(e) {
+    $(".paginate_button a").on("click", function (e) {
 
         e.preventDefault(); //기본 동작 제한
 
         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+
         actionForm.submit();
 
     });

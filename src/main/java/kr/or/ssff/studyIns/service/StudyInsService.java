@@ -40,6 +40,8 @@ public interface StudyInsService {
     //07. removedOk가 n인 게시물의 갯수를 들고옵니다 : 박상준
     public abstract Integer countArticle(String searchOption,String keyword);
 
+    //08 . 카테고리별 리스트
+    public  abstract List<StudyInsVO> getListByCategory(Criteria criteria, String filterJSON);
 } // end interface
 
 

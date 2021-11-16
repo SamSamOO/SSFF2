@@ -115,6 +115,35 @@
         ]]>
     </select>
 
+    <select id="getListByCategory" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+        <![CDATA[
+        select CONT_NO,
+               MEMBER_NAME,
+               R_IDX,
+               WRITE_DATE,
+               MODIFY_DATE,
+               REMOVED_OK,
+               CONT,
+               CATEGORY,
+               TITLE,
+               HIT
+        from (select /*+INDEX_DESC(si_board pk_si_board) */
+                  rownum rn,
+                  CONT_NO,
+                  MEMBER_NAME,
+                  R_IDX,
+                  WRITE_DATE,
+                  MODIFY_DATE,
+                  REMOVED_OK,
+                  CONT,
+                  CATEGORY,
+                  TITLE,
+                  HIT
+              from SI_BOARD
+              where rownum <= #{pageNum} * #{amount} and CATEGORY=#{category})
+        where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
 
 
 

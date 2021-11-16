@@ -11,6 +11,8 @@ import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +60,8 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         List<StudyInsVO> list = this.mapper.getListWithPaging(criteria);
 
         log.info("list = {}", list);
+
+        JSONObject jsonObject = new JSONObject();
 
         return list;
     }
@@ -160,6 +164,18 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
         Objects.requireNonNull(mapper);
         return mapper.findMaxContNo();
+    }
+
+    @Override
+    public List<StudyInsVO> getListByCategory(Criteria criteria, String filterJSON) {
+        log.info("getListByCategory({}) is invoked", "criteria = " + criteria + ", filterJSON = " + filterJSON);
+
+        Objects.requireNonNull(mapper);
+        List<StudyInsVO> list = this.mapper.getListByCategory(criteria, filterJSON);
+
+        log.info("list = {}", list);
+
+        return list;
     }
 
     @Override
