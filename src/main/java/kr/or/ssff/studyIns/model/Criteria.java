@@ -1,19 +1,15 @@
 package kr.or.ssff.studyIns.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /*
 
  */
-@Getter
-@Setter
-@ToString
+@Data
 public class Criteria {
 
-    private int pageNum;  // 페이지번호
-    private int amount;   // 한 페이지당 글개수
+    private int pageNum; // 페이지 번호
+    private int amount; // 페이지 출력 개수
 
     public Criteria() {
         this(1, 10);
@@ -24,6 +20,8 @@ public class Criteria {
         this.amount = amount;
     }
 }
+
+
 
 
 
