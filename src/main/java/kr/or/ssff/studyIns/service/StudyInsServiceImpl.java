@@ -6,10 +6,13 @@ import java.util.Objects;
 import kr.or.ssff.mapper.StudyInsMapper;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,20 +32,36 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
     @Autowired
     private StudyInsMapper mapper;
 
+    /* 게시글중 removedOK 가 'n'인 게시물의 개수를 들고옵니다 (SI_BOARD table)
+     * 매개변수: 없음
+     * 반환	: 게시물의 갯수
+     * 작성자	: 박상준
+     */
+
+    @Override
+    public Integer countArticle(String searchOption, String keyword) {
+        log.info("countArticle() is invoked");
+
+        Objects.requireNonNull(mapper);
+        return this.mapper.countArticle();
+    }
 
     /* 게시글의 목록을 조회하는 함수입니다. (SI_BOARD table)
      * 매개변수: 없음
      * 반환	: 게시글 리스트
      * 작성자	: 박상준
      */
-    @Override
-    public List<StudyInsVO> getList() throws Exception {
-        log.info("getList() is invoked");
 
+    @Override
+    public List<StudyInsVO> getList(Criteria criteria) throws Exception {
+        log.info("getList({}) is invoked", "criteria = " + criteria);
         Objects.requireNonNull(mapper);
 
-        List<StudyInsVO> list = this.mapper.getList();
+        List<StudyInsVO> list = this.mapper.getListWithPaging(criteria);
+
         log.info("list = {}", list);
+
+        JSONObject jsonObject = new JSONObject();
 
         return list;
     }
@@ -102,10 +121,13 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         Objects.requireNonNull(mapper);
 
         studyInsDTO.setCont_No(cont_No);
+        /*파일 리스트를 변수에 저장합니다.*/
         List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
 
+        /*게시물 내용 저장합니다.*/
         int affectedRows = mapper.insertBoard(studyInsDTO);
 
+        /*게시물 첨부파일을 저장합니다.*/
         int ar2 = mapper.insertFiles(listOfFiles);
         return affectedRows == 1;
     }
@@ -142,6 +164,18 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
         Objects.requireNonNull(mapper);
         return mapper.findMaxContNo();
+    }
+
+    @Override
+    public List<StudyInsVO> getListByCategory(Criteria criteria, String filterJSON) {
+        log.info("getListByCategory({}) is invoked", "criteria = " + criteria + ", filterJSON = " + filterJSON);
+
+        Objects.requireNonNull(mapper);
+        List<StudyInsVO> list = this.mapper.getListByCategory(criteria, filterJSON);
+
+        log.info("list = {}", list);
+
+        return list;
     }
 
     @Override

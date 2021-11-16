@@ -40,33 +40,16 @@
 
         </foreach>) A
     </insert>
-    <select id="getList" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
-
-    <![CDATA[
-        select /*+ cont_no_desc(si_board) */ CONT_NO,
-                                             MEMBER_NAME,
-                                             R_IDX,
-                                             WRITE_DATE,
-                                             MODIFY_DATE,
-                                             REMOVED_OK,
-                                             CONT,
-                                             CATEGORY,
-                                             TITLE,
-                                             HIT
-        from si_board
-        where REMOVED_OK = 'n'
-          and CONT_NO > 700
-        ]]>
-
-    </select>
 
 
+    <!-- 검색 조건 sql -->
     <select id="findMaxContNo" resultType="integer">
         select MAX(nvl2(CONT_NO, CONT_NO, 0))
         from SI_BOARD
 
     </select>
 
+    <!-- 페이징 sql -->
     <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
 
 		<![CDATA[
@@ -86,12 +69,83 @@
         ]]>
 
 	</select>
-
     <select id="getFileList" resultType="kr.or.ssff.studyIns.domain.StudyInsFileVO">
         select CONT_NO, FILENO, FILENAME, UPLOADPATH, UUID
         from STUDY_INS_FILE
         where CONT_NO = #{cont_No}
     </select>
+
+
+    <select id="countArticle" resultType="integer">
+        select count(*)
+        from SI_BOARD
+        where REMOVED_OK = 'n';
+
+    </select>
+
+
+
+    <select id="getListWithPaging" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+        <![CDATA[
+        select CONT_NO,
+               MEMBER_NAME,
+               R_IDX,
+               WRITE_DATE,
+               MODIFY_DATE,
+               REMOVED_OK,
+               CONT,
+               CATEGORY,
+               TITLE,
+               HIT
+        from (select /*+INDEX_DESC(si_board pk_si_board) */
+                  rownum rn,
+                  CONT_NO,
+                  MEMBER_NAME,
+                  R_IDX,
+                  WRITE_DATE,
+                  MODIFY_DATE,
+                  REMOVED_OK,
+                  CONT,
+                  CATEGORY,
+                  TITLE,
+                  HIT
+              from SI_BOARD
+              where rownum <= #{pageNum} * #{amount})
+        where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+
+    <select id="getListByCategory" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+        <![CDATA[
+        select CONT_NO,
+               MEMBER_NAME,
+               R_IDX,
+               WRITE_DATE,
+               MODIFY_DATE,
+               REMOVED_OK,
+               CONT,
+               CATEGORY,
+               TITLE,
+               HIT
+        from (select /*+INDEX_DESC(si_board pk_si_board) */
+                  rownum rn,
+                  CONT_NO,
+                  MEMBER_NAME,
+                  R_IDX,
+                  WRITE_DATE,
+                  MODIFY_DATE,
+                  REMOVED_OK,
+                  CONT,
+                  CATEGORY,
+                  TITLE,
+                  HIT
+              from SI_BOARD
+              where rownum <= #{pageNum} * #{amount} and CATEGORY=#{category})
+        where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+
+
 
     <update id="update">
         update si_board
