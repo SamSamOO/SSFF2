@@ -39,6 +39,9 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
     public List<StudyInsVO> getList() throws Exception {
         log.info("getList() is invoked");
 
+
+
+
         Objects.requireNonNull(mapper);
 
         List<StudyInsVO> list = this.mapper.getList();
@@ -102,10 +105,13 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         Objects.requireNonNull(mapper);
 
         studyInsDTO.setCont_No(cont_No);
+        /*파일 리스트를 변수에 저장합니다.*/
         List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
 
+        /*게시물 내용 저장합니다.*/
         int affectedRows = mapper.insertBoard(studyInsDTO);
 
+        /*게시물 첨부파일을 저장합니다.*/
         int ar2 = mapper.insertFiles(listOfFiles);
         return affectedRows == 1;
     }

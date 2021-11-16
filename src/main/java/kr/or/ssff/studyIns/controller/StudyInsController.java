@@ -186,8 +186,9 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 내 특정 스터디 게시판 뷰단임
      * */
     @GetMapping("/board/list")
-    public void studyBoardList(Model model) throws Exception {
+    public void studyBoardList(Model model , @RequestParam(defaultValue = "1") Integer curPage) throws Exception {
         log.debug("studyBoardList({}) is invoked", "model = " + model);
+
 
         Objects.requireNonNull(service);
 
