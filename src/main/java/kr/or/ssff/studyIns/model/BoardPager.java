@@ -71,13 +71,14 @@ public class BoardPager {
     public void setTotPage(int totPage) {
         this.totPage = totPage;
     }
-
     public int getTotBlock() {
+
         return totBlock;
     }
+    // 페이지 블록의 갯수 계산 ( 총 101페이지 >> 11개의 블록을 만들어야합니다)
 
     public void setTotBlock(int totBlock) {
-        this.totBlock = totBlock;
+        this.totBlock = (int)Math.ceil(totPage/BLOCK_SCALE);
     }
 
     public int getCurBlock() {
@@ -162,6 +163,14 @@ public class BoardPager {
             nextPage = totPage;
         }
 
+    }
+
+    public void setPageRange() {
+        //WHERE rn BETWEEN #{start} AND #{end}
+        //시작번호  = (현재 페이지-1)* 페이지당 게시물수 +1
+        pageBegin = (curPage - 1) * PAGE_SCALE + 1;
+        //끝번호 = 시작번호 + 페이지당 게시물 수 -1
+        pageEnd = pageBegin + PAGE_SCALE - 1;
     }
 }
 

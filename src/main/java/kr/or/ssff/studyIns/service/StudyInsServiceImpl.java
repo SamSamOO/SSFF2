@@ -29,14 +29,28 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
     @Autowired
     private StudyInsMapper mapper;
 
+    /* 게시글중 removedOK 가 'n'인 게시물의 개수를 들고옵니다 (SI_BOARD table)
+     * 매개변수: 없음
+     * 반환	: 게시물의 갯수
+     * 작성자	: 박상준
+     */
+
+    @Override
+    public Integer countArticle(String searchOption, String keyword) {
+        log.info("countArticle() is invoked");
+
+        Objects.requireNonNull(mapper);
+        return this.mapper.countArticle();
+    }
 
     /* 게시글의 목록을 조회하는 함수입니다. (SI_BOARD table)
      * 매개변수: 없음
      * 반환	: 게시글 리스트
      * 작성자	: 박상준
      */
+
     @Override
-    public List<StudyInsVO> getList() throws Exception {
+    public List<StudyInsVO> getList(Integer start,Integer end ,String searchOption , String keyword) throws Exception {
         log.info("getList() is invoked");
 
 
@@ -44,7 +58,7 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
         Objects.requireNonNull(mapper);
 
-        List<StudyInsVO> list = this.mapper.getList();
+        List<StudyInsVO> list = this.mapper.getList(start,end,searchOption,keyword);
         log.info("list = {}", list);
 
         return list;

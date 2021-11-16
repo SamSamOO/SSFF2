@@ -4,12 +4,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.BoardPager;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import kr.or.ssff.studyIns.service.StudyInsService;
@@ -186,14 +189,29 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 내 특정 스터디 게시판 뷰단임
      * */
     @GetMapping("/board/list")
-    public void studyBoardList(Model model , @RequestParam(defaultValue = "1") Integer curPage) throws Exception {
+    public void studyBoardList(Model model , @RequestParam(defaultValue = "1") Integer curPage, @RequestParam(defaultValue = "") String keyword,@RequestParam(defaultValue = "전체") String searchOption) throws Exception {
         log.debug("studyBoardList({}) is invoked", "model = " + model);
+        //레코의 갯수 계산
+        int count = service.countArticle(searchOption, keyword);
 
+        //페이지 나누기 관련 처리
+        BoardPager boardPager = new BoardPager(count, curPage);
+        int start = boardPager.getPageBegin();
+        int end = boardPager.getPageEnd();
+
+        List<StudyInsVO> list = service.getList(start, end, searchOption, keyword);
+
+        //데이터를 맵에 저장합니다
+        Map<String, Object> map = new HashMap<>();
+        map.put("list", list); // list
+        map.put("count", count); // 레코드의 갯수
+        map.put("serachOption", searchOption); // 검색옵션
+        map.put("keyword", keyword); // 검색의 키워드
+        map.put("boardPager", boardPager);
 
         Objects.requireNonNull(service);
 
-        model.addAttribute("list", service.getList());
-
+        model.addAttribute("map", map);
     } // studyBoardList
 
     //-------------------------------- 상준 게시물 CRUD--------------------------------//

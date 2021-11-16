@@ -13,7 +13,8 @@ import kr.or.ssff.studyIns.model.StudyInsFileDTO;
  */
 public interface StudyInsMapper {
 
-    public List<StudyInsVO> getList();
+    //게시글의 전체 목록 조회
+    public List<StudyInsVO> getList(Integer start , Integer end , String searchOption , String keyword);
 
     public StudyInsVO read(Integer cont_No);
 
@@ -42,4 +43,7 @@ public interface StudyInsMapper {
 
     //수정 파일 삭제하는 로직입니다. >> 수정때만 유효합니다. (삭제는 일단 살려둬야함)
     public Integer deleteFiles(StudyInsDTO studyInsDTO);
+
+    //removedOk 가 n인 게시물의 갯수를 리턴합니다.
+    public Integer countArticle();
 }
