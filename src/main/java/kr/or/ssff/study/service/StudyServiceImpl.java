@@ -7,6 +7,7 @@ import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.mapper.StudyMapper;
+import kr.or.ssff.study.domain.ReplyVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,9 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public boolean remove() {
-        return false;
+    public boolean remove(Integer r_idx) {
+        int affectedRows = mapper.delete(r_idx);
+        return affectedRows == 1;
     }
 
     @Override
@@ -148,6 +150,18 @@ public class StudyServiceImpl implements StudyService {
         int affectedRows = mapper.deleteTag(r_idx);
         return affectedRows !=0;
     }//deleteTag
+
+    @Override
+    public boolean replyRegister(ReplyVO vo) {
+        int affectedRows = mapper.insertReply(vo);
+        return affectedRows == 1;
+    }//replyPost
+
+    @Override
+    public List<ReplyVO> getReplyList(Integer r_idx) {
+        List<ReplyVO> allBoard = this.mapper.getReplyList(r_idx);
+        return allBoard;
+    }
 
 }//end class
 

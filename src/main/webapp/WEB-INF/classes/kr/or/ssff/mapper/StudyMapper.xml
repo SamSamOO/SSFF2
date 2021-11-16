@@ -79,7 +79,7 @@
     )
   </insert>
 
-  <!--update문(현재 C만 되는 상태)-->
+  <!--update문-->
   <update id="update">
     UPDATE recruit_board
     SET
@@ -106,6 +106,36 @@
       r_idx = #{r_idx}
   </update>
 
+  <!--댓글 등록하기-->
+  <insert id="insertReply">
+    <selectKey keyProperty="no" order="BEFORE" resultType="int">
+      SELECT REPLY_SQE.NEXTVAL
+      FROM dual
+    </selectKey>
+    INSERT INTO REPLY (
+    no,r_idx,member_name,c_cont,c_date,removed_ok
+    )
+    VALUES(
+    #{no}, #{r_idx}, #{member_name}, #{c_cont},sysdate,'n'
+    )
+  </insert>
+  <!--댓글 가져오기-->
+  <select id="getReplyList" resultType="kr.or.ssff.study.domain.ReplyVO">
+    SELECT
+        /*+ index_desc(reply) */
+        no,r_idx,member_name,c_cont,c_date,removed_ok
+    FROM reply
+    WHERE r_idx=#{r_idx}
+  </select>
+
+  <!--글삭제-->
+  <update id="delete">
+    UPDATE recruit_board
+    SET
+      removed_ok='y'
+    WHERE
+      r_idx = #{r_idx}
+  </update>
 </mapper>
 
 
