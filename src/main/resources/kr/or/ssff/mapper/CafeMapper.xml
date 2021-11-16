@@ -4,6 +4,8 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ssff.mapper.CafeMapper">
 
+
+<!-- 카페 리스트단 VIEW를 위한 카페 리스트 & 상세 룸 조회 : 신지혜 -->
   <select id="selectCafeList" resultType="kr.or.ssff.cafe.domain.CafeListVO">
 
     SELECT
@@ -16,7 +18,7 @@
       c.cafe_idx,
       r.max_people,
       r.amount_hour,
-      r.romm_list
+      r.room_list
     FROM
       cafe c
         JOIN (
@@ -24,7 +26,7 @@
           cafe_idx,
           MAX(max_people) AS max_people,
           MIN(amount_hour) AS amount_hour,
-          LISTAGG(room_image, ':') WITHIN GROUP (ORDER BY cafe_idx) AS romm_list
+          LISTAGG(room_image, ':') WITHIN GROUP (ORDER BY cafe_idx) AS room_list
         FROM
           room
         GROUP BY
@@ -35,6 +37,69 @@
 
   </select>
 
+
+<!-- 카페 디테일 VIEW를 위한 카페 리스트 & 상세 룸 조회 : 신지혜 -->
+  <select id="selectCafe" 
+				  parameterType="String"
+				  resultType="kr.or.ssff.cafe.domain.CafeInfoVO" >
+
+		SELECT
+		  d.cafe_idx,
+		  d.cafe_name,
+		  d.cafe_telephone_number,
+		  d.cafe_location,
+		  d.cafe_open_time,
+		  d.cafe_close_time,
+		  d.cafe_contact_phone_number,
+		  d.cafe_contact_email,
+		  d.cafe_main_title,
+		  d.cafe_sub_title,
+		  d.cafe_details,
+		  d.cafe_remove_yn,
+		  d.cafe_image_first,
+		  d.cafe_image_second,
+		  d.cafe_image_third,
+		  c.room_idx,
+		  c.max_people,
+		  c.amount_hour,
+		  c.total_room_number,
+		  c.room_image,
+		  c.room_list
+		FROM
+		  (
+		    SELECT
+		      a.cafe_idx,
+		      a.room_idx,
+		      a.max_people,
+		      a.amount_hour,
+		      a.total_room_number,
+		      a.room_image,
+		      b.room_list
+		    FROM
+		      room a
+		      JOIN (
+		        SELECT
+		          cafe_idx,
+		          LISTAGG(room_image, ':') WITHIN GROUP (
+		            ORDER BY
+		              cafe_idx
+		          ) AS room_list
+		        FROM
+		          room
+		        GROUP BY
+		          cafe_idx
+		      ) b ON a.cafe_idx = b.cafe_idx
+		  ) c
+		  JOIN cafe d ON c.cafe_idx = d.cafe_idx
+		WHERE
+		  d.cafe_remove_yn = 'n'
+		  AND d.cafe_idx = #{cafe_idx}
+  </select>
+  
+  
+  
+  
+  
 </mapper>
 
 
