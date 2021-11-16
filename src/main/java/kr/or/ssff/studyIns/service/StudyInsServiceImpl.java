@@ -6,6 +6,7 @@ import java.util.Objects;
 import kr.or.ssff.mapper.StudyInsMapper;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import lombok.AllArgsConstructor;
@@ -50,15 +51,12 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      */
 
     @Override
-    public List<StudyInsVO> getList(Integer start,Integer end ,String searchOption , String keyword) throws Exception {
-        log.info("getList() is invoked");
-
-
-
-
+    public List<StudyInsVO> getList(Criteria criteria) throws Exception {
+        log.info("getList({}) is invoked", "criteria = " + criteria);
         Objects.requireNonNull(mapper);
 
-        List<StudyInsVO> list = this.mapper.getList(start,end,searchOption,keyword);
+        List<StudyInsVO> list = this.mapper.getListWithPaging(criteria);
+
         log.info("list = {}", list);
 
         return list;

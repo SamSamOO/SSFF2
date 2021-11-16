@@ -3,6 +3,7 @@ package kr.or.ssff.mapper;
 import java.util.List;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 
@@ -15,6 +16,8 @@ public interface StudyInsMapper {
 
     //게시글의 전체 목록 조회
     public List<StudyInsVO> getList(Integer start , Integer end , String searchOption , String keyword);
+
+    public List<StudyInsVO> getListWithPaging(Criteria criteria);
 
     public StudyInsVO read(Integer cont_No);
 
