@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /*
@@ -30,6 +31,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.model.CafeDTO;
@@ -165,10 +167,13 @@ public class CafeController {
    * 반환: 스터디 카페 단일 상세화면 뷰단
    * */
   @GetMapping("/detail")
-  public String selectCafe(String cafeId) {
+  public void selectCafe(@RequestParam("cafe_idx") String cafeId, Model model) {
     log.info("selectCafe({}) is invoked", "cafeId = " + cafeId);
 
-    return "cafe/detail";
+    List<CafeInfoVO> cafeInfo = service.getCafe(cafeId);
+    log.info("cafeInfo{} : " ,cafeInfo);
+    
+    model.addAttribute("cafeInfo", cafeInfo);   
   } // selectCafe
 
 

@@ -73,6 +73,8 @@ public class ApplyMemberController {
         HttpServletResponse response,
         ModelMap model ) throws Exception {
         log.debug("studyModalTest({},{},{}) is invoked",filterJSON, response, model );
+
+        String result = "";
         try{
             log.info("\t refusal_action_try");
             log.info("\t filterJSON: "+filterJSON);
@@ -89,12 +91,13 @@ public class ApplyMemberController {
 
             this.service.applyAction(aMember);
 
+            result="done";
         }catch(Exception e){
 
         }
         response.setContentType("text/html; charset=UTF-8");
 
-        return filterJSON;
+        return result;
     } // applyAction
 
     

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
 import kr.or.ssff.mapper.ApplyMemberMapper;
@@ -85,6 +86,7 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
    * 반환	: 닉네임
    * 작성자	: 신지혜
    */
+  @Transactional
 	@Override
 	public String registerApply(HashMap<String, String> aMember) {
 		log.debug("registerApply({}) invoked", aMember);
