@@ -1,5 +1,8 @@
 package kr.or.ssff.study.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
@@ -7,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.study.domain.ReplyVO;
 import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -163,10 +167,10 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 챌린지형 리스트 페이지
      * */
-    @PostMapping("/challenge/detail/remove")
-    public String deleteChallengeDetail() {
-
+    @GetMapping("/challenge/remove")
+    public String removeChallengeDetail(Integer r_idx, RedirectAttributes rttrs) {
         log.info("removeChallengeDetail() is invoked");
+        boolean result = this.service.remove(r_idx);
 
         return "redirect:/study/challenge/list";
     } // deleteChallengeDetail
@@ -337,8 +341,51 @@ public class StudyController {
     public @ResponseBody boolean insertComment(@RequestBody String jsonData, HttpServletResponse response, ModelMap model) {
         log.info("studyModalTest({},{},{}) is invoked",jsonData, response, model);
 
+        ObjectMapper objMapper = new ObjectMapper();
+        HashMap<String, String> replyMap = new HashMap<String, String>();
+
+        try {
+            replyMap = objMapper.readValue(jsonData, new HashMap<String, String>().getClass());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        ReplyVO vo = new ReplyVO(
+            null,
+            Integer.parseInt(replyMap.get("r_idx")),
+            replyMap.get("member_name"),
+            replyMap.get("c_cont"),
+            null,null
+        );
+
+        boolean result = this.service.replyRegister(vo);
+
         return true;
     }
+
+
+    /*댓글 리스트 출력 기능 수행
+     * 파라메터 :
+     * 반환 : //TODO --예솔
+     * */
+    @PostMapping("/comment/get")
+    public @ResponseBody List<ReplyVO> getComment(@RequestBody String jsonData, HttpServletResponse response, ModelMap model) {
+        log.info("getComment({},{},{}) is invoked",jsonData, response, model);
+
+        ObjectMapper objMapper = new ObjectMapper();
+        HashMap<String, String> replyMap = new HashMap<String, String>();
+
+        try {
+            replyMap = objMapper.readValue(jsonData, new HashMap<String, String>().getClass());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        List<ReplyVO> list = this.service.getReplyList(Integer.parseInt(replyMap.get("r_idx")));
+
+        return list;
+    }
+
 
     /*댓글 수정 기능 수행
      * 파라메터 :
