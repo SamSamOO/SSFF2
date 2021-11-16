@@ -36,7 +36,8 @@
 	<context:component-scan base-package="kr.or.ssff.payment.controller" />
 	<context:component-scan base-package="kr.or.ssff.payment.service" />
 
-
+	<context:component-scan base-package="kr.or.ssff.applyMember.controller" />
+	<context:component-scan base-package="kr.or.ssff.applyMember.service" />
 
 
 	<!-- 파일 업로드를 위한 설정을 추가 -->

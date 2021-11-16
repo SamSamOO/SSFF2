@@ -40,4 +40,6 @@ public interface StudyInsMapper {
     //이미지 정보 불러오기 !! !! ㅅㅂ --필요없을지도..?
     public List<StudyInsFileVO> getFileList(Integer cont_No);
 
+    //수정 파일 삭제하는 로직입니다. >> 수정때만 유효합니다. (삭제는 일단 살려둬야함)
+    public Integer deleteFiles(StudyInsDTO studyInsDTO);
 }
