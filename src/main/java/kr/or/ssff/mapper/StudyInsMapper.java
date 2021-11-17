@@ -7,6 +7,7 @@ import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 /*
@@ -19,7 +20,7 @@ public interface StudyInsMapper {
     public List<StudyInsVO> getList(Integer start , Integer end , String searchOption , String keyword);
 
     //페이징 적용 및 카테고리 적용 리스트 출력
-    public List<StudyInsVO> getListWithPaging(@Param("pageNum") Integer pageNum,@Param("amount")Integer amount,@Param("category") String category);
+    public List<StudyInsVO> getListWithPaging(@Param("pageNum") Integer pageNum,@Param("amount")Integer amount,@Param("category") String category,@Param("keyword")String keyword);
 
     public StudyInsVO read(Integer cont_No);
 

@@ -53,12 +53,12 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      */
 
     @Override
-    public List<StudyInsVO> getList(Criteria criteria, String category) throws Exception {
-        log.info("getList({}) is invoked", "criteria = " + criteria + ", category = " + category);
+    public List<StudyInsVO> getList(Criteria criteria, String category,String keyword) throws Exception {
+        log.info("getList({}) is invoked", "criteria = " + criteria + ", category = " + category + ", keyword = " + keyword);
 
         Objects.requireNonNull(mapper);
 
-        List<StudyInsVO> list = this.mapper.getListWithPaging(criteria.getPageNum(),criteria.getAmount(), category);
+        List<StudyInsVO> list = this.mapper.getListWithPaging(criteria.getPageNum(),criteria.getAmount(), category,keyword);
 
         log.info("list = {}", list);
 

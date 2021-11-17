@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface StudyInsService {
 
     //01. 게시글 전체 목록 : 박상준
-    public abstract List<StudyInsVO> getList(Criteria criteria,String category) throws Exception;
+    public abstract List<StudyInsVO> getList(Criteria criteria,String category,String keyword) throws Exception;
 
     //02. 게시물 조회 : 박상준
     public abstract StudyInsVO get(Integer cont_No) throws Exception;
