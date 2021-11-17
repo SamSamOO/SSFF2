@@ -3,6 +3,7 @@ package kr.or.ssff.studyIns.service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import javax.naming.event.ObjectChangeListener;
 import kr.or.ssff.mapper.StudyInsMapper;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
@@ -185,8 +186,18 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         return list;
     }
 
+    /*공지글 보이게하는 함수 -- 상준*/
+    @Override
+    public List<StudyInsVO> showNotice() throws Exception {
 
+        log.info("showNotice() is invoked");
 
+        Objects.requireNonNull(mapper);
+        List<StudyInsVO> list = this.mapper.showNotice();
+
+        log.info("list = {}", list);
+        return list;
+    }
 
     @Override
     public void destroy() throws Exception {

@@ -77,15 +77,26 @@
 
 
     <select id="countArticle" resultType="integer">
-        select count(*)
-        from SI_BOARD
-        where REMOVED_OK = 'n' and CATEGORY=#{category}
+        <choose>
+
+            <when test="category=='전체'">
+                select count(*)
+                from SI_BOARD
+                where REMOVED_OK = 'n' and CATEGORY!='공지'
+            </when>
+
+            <otherwise>
+                select count(*)
+                from SI_BOARD where REMOVED_OK='n' and CATEGORY=#{category} and CATEGORY!='공지'
+            </otherwise>
+        </choose>
 
     </select>
 
 
     <select id="getListWithPaging" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
         <choose>
+
             <when test="category =='전체'">
                 <![CDATA[
         select CONT_NO,
@@ -111,7 +122,7 @@
                   TITLE,
                   HIT
               from SI_BOARD
-              where rownum <= #{pageNum} * #{amount} and REMOVED_OK='n')
+              where rownum <= #{pageNum} * #{amount} and REMOVED_OK='n' and CATEGORY!='공지')
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
             </when>
@@ -165,4 +176,21 @@
         where CONT_NO = #{cont_No}
 
     </update>
+
+    <select id="showNotice" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+        select /*+INDEX_DESC(si_board pk_si_board) */
+               CONT_NO,
+               MEMBER_NAME,
+               R_IDX,
+               WRITE_DATE,
+               MODIFY_DATE,
+               REMOVED_OK,
+               CONT,
+               CATEGORY,
+               TITLE,
+               HIT
+        from SI_BOARD
+        where CATEGORY = '공지'
+          and REMOVED_OK = 'n'
+    </select>
 </mapper>

@@ -81,7 +81,7 @@
                             <table class="table table-borderless">
 
                                 <tr>
-                                    <td colspan="7">ddddddddd</td>
+                                    <td colspan="7"></td>
                                     <td align="right">
 
                                         <label class="col-form-label text-right col-lg-3 col-sm-12">카테고리</label>
@@ -89,10 +89,11 @@
                                             <label>
                                                 <select class="form-control selectpicker" id="category">
                                                     <option value="전체" data-content="<span class='label label-success label-inline label-rounded'>전체</span>">전체</option>
-                                                    <option value="인증" data-content="<span class='label label-success label-inline label-rounded'>인증</span>">인증</option>
-                                                    <option value="잡담" data-content="<span class='label label-warning label-inline label-rounded'>잡담</span>">잡담</option>
-                                                    <option value="QnA" data-content="<span class='label label-primary label-inline label-rounded'>QnA</span>">QnA</option>
-                                                    <option value="기타" data-content="<span class='label label-danger label-inline label-rounded'>기타</span>">기타</option>
+                                                    <option value="공지" data-content="<span class='label label-danger label-inline label-rounded'>공지</span>">공지</option>
+                                                    <option value="인증" data-content="<span class='label label-primary label-inline label-rounded'>인증</span>">인증</option>
+                                                    <option value="잡담" data-content="<span class='label label-success label-inline label-rounded'>잡담</span>">잡담</option>
+                                                    <option value="QnA" data-content="<span class='label label-danger label-inline label-rounded'>QnA</span>">QnA</option>
+                                                    <option value="기타" data-content="<span class='label label-primary label-inline label-rounded'>기타</span>">기타</option>
                                                 </select>
                                             </label>
                                         </div>
@@ -137,6 +138,26 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <c:forEach begin="1" end="5" var="noticeList" items="${noticeList}">
+
+                                    <tr  style="background-color: oldlace">
+                                        <td>공지</td>
+                                        <td>공지</td>
+                                        <td><a
+                                            href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}"/> ">
+                                                <c:out value="${noticeList.title}"/><a/></td>
+                                        <td><c:out value="${fn:substring(noticeList.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
+                                        <td>${noticeList.member_Name} </td>
+                                        <td>
+                                <span class="label label-inline label-light-primary font-weight-bold">
+                                        <fmt:formatDate value="${noticeList.write_Date}" pattern="yyyy/MM/dd"/>
+                                </span>
+                                        </td>
+
+                                    </tr>
+                                </c:forEach>
+
+
                                 <c:forEach items="${list}" var="list">
 
                                     <tr>
@@ -161,25 +182,25 @@
                                         <!--begin::Pagination-->
                                         <div class="d-flex justify-content-between align-items-center flex-wrap ">
                                             <h2>${pageMaker}</h2>
-                                            <div class="w-20px"></div>
+                                            <div style="width: 8%"></div>
                                             <div class='pull-right'>
                                                 <ul class="pagination">
 
                                                     <c:if test="${pageMaker.prev}">
-                                                        <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-arrow-back icon-xs"
-                                                                                                                               href="${pageMaker.startPage -1}"></a></li>
+                                                        <li id="prev" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-arrow-back icon-xs p-4"
+                                                                                                                                         id="prev_a" href="${pageMaker.startPage -1}"></a></li>
                                                     </c:if>
 
                                                     <c:forEach var="num" begin="${pageMaker.startPage}"
                                                                end="${pageMaker.endPage}">
-                                                        <li class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
-                                                            <a href="${num}">${num}</a>
+                                                        <li id="num" class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
+                                                            <a class="p-4" id="num_a" href="${num}">${num}</a>
                                                         </li>
                                                     </c:forEach>
 
                                                     <c:if test="${pageMaker.next}">
-                                                        <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
-                                                            <a class="ki ki-bold-arrow-next icon-xs" href="${pageMaker.endPage +1 }"></a>
+                                                        <li id="next" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
+                                                            <a id="next_a" class="ki ki-bold-arrow-next icon-xs p-4" href="${pageMaker.endPage +1 }"></a>
                                                         </li>
                                                     </c:if>
 
@@ -217,6 +238,7 @@
     $(function () {
         $(`#category`).val('${category}').prop("selected", true);
         console.log('${category}');
+
     });
     // $(`#dropDiv`).on("change", function () {
     //     $.ajax({
@@ -235,7 +257,7 @@
 
     let actionForm = $("#actionForm");
     $(`#category`).on("change", function (e) {
-        console.log(`카테고리 변경되었습니다`+kind);
+        console.log(`카테고리 변경되었습니다` + kind);
 
         location.href = "/studyIns/board/list?category=" + $(`#category`).val();
 

@@ -56,4 +56,9 @@ public interface StudyInsMapper {
     //조회수 증가 쿼리입니다.
     public Integer updateHit(Integer cont_No);
 
+    //공지만 들고옵니다
+    public List<StudyInsVO> showNotice();
+
+
+
 }
