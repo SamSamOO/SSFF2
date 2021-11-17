@@ -1,8 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="ssff:war exploded">
-
     <output-path>$PROJECT_DIR$/src/main/webapp</output-path>
-
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -63,8 +61,6 @@
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
         </element>
       </element>
-
-
       <element id="javaee-facet-resources" facet="ssff/web/웹" />
     </root>
   </artifact>

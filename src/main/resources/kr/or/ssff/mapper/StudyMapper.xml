@@ -21,7 +21,7 @@
         #{cont},0,sysdate,#{sido},#{ch_pattern},#{ch_start},#{ch_end})
   </insert>
 
-  <!--  게시판 목록 조회 -->
+  <!--  게시판 목록 조회 (맨 첫 페이지기준으로 15개 리스팅)-->
   <select id="getList" resultType="kr.or.ssff.study.domain.RecruitBoardVO">
     <![CDATA[
         SELECT
@@ -31,6 +31,7 @@
                ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok
         FROM recruit_board
         WHERE r_idx < 1000 and type_pc=#{type} and removed_ok='n'
+
     ]]>
   </select>
 
@@ -147,6 +148,7 @@
       no = #{no}
   </update>
 
+  <!--댓글수정-->
   <update id="replyUpdate">
     UPDATE reply
     SET
@@ -154,6 +156,15 @@
     WHERE
       no = #{no}
   </update>
+
+<!--게시글 수 세기-->
+  <select id="getPostCount" resultType="int">
+    <![CDATA[
+    select count(r_idx)
+    from recruit_board
+    where removed_ok='n' and type_pc='C'
+    ]]>
+  </select>
 
 </mapper>
 

@@ -1,17 +1,25 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <!----------------Head 시작----------------------->
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
     <title>챌린지 리스트</title>
+
+    <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+
     <!--head.html Include-->
     <jsp:include page="../../../commons/head.jsp"/>
+
+<%--    <script>--%>
+<%--        console.debug("----  1   -------")--%>
+<%--    </script>--%>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -167,20 +175,28 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-    $(function(){
+    $(function () {
+      console.log("글번호:"+${board.r_idx});
       getReply();
     });//window-start
 
     function getReply(){
       let html ="";
-      let jsonData = {r_idx:"${board.r_idx}"};
+
+      let jsonData = {r_idx:${board.r_idx}};
+      console.debug(`------ 1. jsonData: %s ------`, jsonData)
+      console.debug(jsonData)
+      console.debug(`------ 2. jsonData.r_idx: %s  ------`, jsonData.r_idx)
+
       $.ajax({
-        url:"/study/comment/get",
+        url:"/studyRest/comment/get",
         type:'POST',
         dataType:'json',
         contentType:'application/json;charset=UTF-8',
         data: JSON.stringify(jsonData),
         success:function(data){
+          console.debug('---------- success -----------')
+
           //안의 내용 비우고
           $('.reply').empty();
           if(data.length ==0){
@@ -209,10 +225,13 @@
           }
           $('.reply').html(html);
         },
-        error:function(){
-          alert('댓글 로드 실패');
+        error:function(request,status,error){
+          console.debug('---------- error -----------')
+
+          // alert('댓글 로드 실패');
+          console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
         }
-      })
+      }) //.ajax
     }//getReply
 
     function replySubmit(){
@@ -222,7 +241,7 @@
         c_cont:$('#reply-write-sec').val()
       }
       $.ajax({
-        url:'/study/comment/post',
+        url:'/studyRest/comment/post',
         type:'POST',
         dataType:'json',
         contentType:'application/json;charset=UTF-8',
@@ -232,8 +251,9 @@
           $('#reply-write-sec').val("");
           getReply();
         },
-        error: function () {
+        error: function (request,status,error){
           alert('댓글 등록 실패');
+          console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
         }
       });
     }//replySubmit
@@ -243,7 +263,7 @@
         no:no
       }
       $.ajax({
-        url :"/study/comment/remove",
+        url :"/studyRest/comment/remove",
         type:'POST',
         dataType:'json',
         contentType:'application/json;charset=UTF-8',
@@ -277,7 +297,7 @@
         c_cont:$(temp).val()
       }
       $.ajax({
-        url :"/study/comment/modify",
+        url :"/studyRest/comment/modify",
         type:'POST',
         dataType:'json',
         contentType:'application/json;charset=UTF-8',
@@ -352,5 +372,6 @@
      	 alert("요청에 실패하였습니다. 다시 시도해주세요!");
        } // errorCallback
     }
+
 </script>
 </html>

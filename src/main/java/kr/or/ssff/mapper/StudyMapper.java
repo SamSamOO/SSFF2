@@ -40,4 +40,6 @@ public interface StudyMapper {
     public abstract Integer replyDelete(@Param("no")Integer no);
     //댓글 수정하기
     public abstract Integer replyUpdate(@Param("no")Integer no,@Param("c_cont")String c_cont);
+    //글 총갯수 구하기(타입 받음)
+    public abstract Integer getPostCount(@Param("type")String type);
 }

@@ -67,8 +67,9 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public Integer getTotal() {
-        return null;
+    public Integer getTotal(String type) {
+        int totalCount = mapper.getPostCount(type);
+        return totalCount;
     }
 
     @Override
