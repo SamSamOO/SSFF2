@@ -86,7 +86,7 @@
 
     <select id="getListWithPaging" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
         <choose>
-            <when test="category =='전체' and (keyword.equal('') or keyword==null)">
+            <when test="category =='전체' and (keyword.equals('') or keyword==null)">
                 <![CDATA[
         select CONT_NO,
                MEMBER_NAME,
@@ -204,7 +204,7 @@
               from SI_BOARD
               where rownum <= #{pageNum} * #{amount}
                 and CATEGORY = #{category})
-        where rn > (#{pageNum} - 1) * #{amount}
+        where rn > (#{pageNum} - 1) * #{amount} and CATEGORY=#{category}
         ]]>
 </otherwise>
         </choose>

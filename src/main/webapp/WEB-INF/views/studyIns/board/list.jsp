@@ -78,139 +78,146 @@
                             <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
                             <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
                             <input type="hidden" name="category" value="${category}">
+                            <input type="hidden" name="keyword" value="${pageMaker.criteria.keyword}"/>
                             <table class="table table-borderless">
 
                                 <tr>
-                                    <td colspan="7">ddddddddd</td>
-                                    <td align="right">
-
-                                        <label class="col-form-label text-right col-lg-3 col-sm-12">카테고리</label>
-                                        <div class="col-lg-4 col-md-5 col-sm-5">
-                                            <label>
-                                                <select class="form-control selectpicker" id="category">
-                                                    <option value="전체" data-content="<span class='label label-success label-inline label-rounded'>전체</span>">전체</option>
-                                                    <option value="인증" data-content="<span class='label label-success label-inline label-rounded'>인증</span>">인증</option>
-                                                    <option value="잡담" data-content="<span class='label label-warning label-inline label-rounded'>잡담</span>">잡담</option>
-                                                    <option value="QnA" data-content="<span class='label label-primary label-inline label-rounded'>QnA</span>">QnA</option>
-                                                    <option value="기타" data-content="<span class='label label-danger label-inline label-rounded'>기타</span>">기타</option>
-                                                </select>
-                                            </label>
+                                    <td colspan="7">
+                                        <div class="form-group">
+                                            <div class="input-icon input-icon-right">
+                                                <input id="keyword" type="text" class="form-control" placeholder="검색어 저격"/>
+                                                <span id="searchMe" style="cursor: crosshair" onclick="document.forms[0].submit()"><i class="flaticon2-search-1 icon-md"></i></span>
                                         </div>
-                                    </td>
-                                </tr>
-                            </table>
 
-                            <table class="table table-striped table-hover">
+                    </div>
+                    <td align="right">
 
-                                <thead>
-                                <tr id="mytr">
-                                    <td>
+                        <div class="col-lg-4 col-md-5 col-sm-5">
+                            <label>
+                                <select class="form-control selectpicker" id="category">
+                                    <option value="전체" data-content="<span class='label label-success label-inline label-rounded'>전체</span>">전체</option>
+                                    <option value="인증" data-content="<span class='label label-success label-inline label-rounded'>인증</span>">인증</option>
+                                    <option value="잡담" data-content="<span class='label label-warning label-inline label-rounded'>잡담</span>">잡담</option>
+                                    <option value="QnA" data-content="<span class='label label-primary label-inline label-rounded'>QnA</span>">QnA</option>
+                                    <option value="기타" data-content="<span class='label label-danger label-inline label-rounded'>기타</span>">기타</option>
+                                </select>
+                            </label>
+                        </div>
+                    </td>
+                    </tr>
+                    </table>
+
+                    <table class="table table-striped table-hover">
+
+                        <thead>
+                        <tr id="mytr">
+                            <td>
                 <span class="label label-inline label-light-primary font-weight-bold">
                     #
                 </span>
-                                    </td>
-                                    <td>
+                            </td>
+                            <td>
                 <span class="label label-inline label-light-primary font-weight-bold ">
                     카테고리
                 </span>
-                                    </td>
-                                    <td>
+                            </td>
+                            <td>
                 <span class="label label-inline label-light-primary font-weight-bold ">
                     제목
                 </span>
-                                    </td>
-                                    <td>
+                            </td>
+                            <td>
                 <span class="label label-inline label-light-primary font-weight-bold">
                     내용
                 </span>
-                                    </td>
-                                    <td>
+                            </td>
+                            <td>
                 <span class="label label-inline label-light-primary font-weight-bold">
                     닉네임
                 </span>
-                                    </td>
-                                    <td>
+                            </td>
+                            <td>
                 <span class="label label-inline label-light-primary font-weight-bold">
                     작성일자
                 </span>
-                                    </td>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${list}" var="list">
+                            </td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach items="${list}" var="list">
 
-                                    <tr>
-                                        <td>${list.cont_No}</td>
-                                        <td>${list.category}</td>
-                                        <td><a
-                                            href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}"/> ">
-                                                <c:out value="${list.title}"/> <a/></td>
-                                        <td><c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
-                                        <td>${list.member_Name} </td>
-                                        <td>
+                            <tr>
+                                <td>${list.cont_No}</td>
+                                <td>${list.category}</td>
+                                <td><a
+                                    href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}"/> ">
+                                        <c:out value="${list.title}"/> <a/></td>
+                                <td><c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
+                                <td>${list.member_Name} </td>
+                                <td>
 
                                 <span class="label label-inline label-light-primary font-weight-bold">
                                         <fmt:formatDate value="${list.write_Date}" pattern="yyyy/MM/dd"/>
                                 </span>
-                                        </td>
+                                </td>
 
-                                    </tr>
-                                </c:forEach>
-                                <tr style="background-color: white" class="align-center">
-                                    <td colspan="8">
-                                        <!--begin::Pagination-->
-                                        <div class="d-flex justify-content-between align-items-center flex-wrap ">
-                                            <h2>${pageMaker}</h2>
-                                            <div style="width: 8%"></div>
-                                            <div class=''>
-                                                <ul class="pagination">
+                            </tr>
+                        </c:forEach>
+                        <tr style="background-color: white" class="align-center">
+                            <td colspan="8">
+                                <!--begin::Pagination-->
+                                <div class="d-flex justify-content-between align-items-center flex-wrap ">
+                                    <h2>${pageMaker}</h2>
+                                    <div style="width: 8%"></div>
+                                    <div class=''>
+                                        <ul class="pagination">
 
-                                                    <c:if test="${pageMaker.prev}">
-                                                        <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-arrow-back icon-xs"
-                                                                                                                               href="${pageMaker.startPage -1}"></a></li>
-                                                    </c:if>
+                                            <c:if test="${pageMaker.prev}">
+                                                <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-arrow-back icon-xs"
+                                                                                                                       href="${pageMaker.startPage -1}"></a></li>
+                                            </c:if>
 
-                                                    <c:forEach var="num" begin="${pageMaker.startPage}"
-                                                               end="${pageMaker.endPage}">
-                                                        <li class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
-                                                            <a href="${num}">${num}</a>
-                                                        </li>
-                                                    </c:forEach>
+                                            <c:forEach var="num" begin="${pageMaker.startPage}"
+                                                       end="${pageMaker.endPage}">
+                                                <li class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
+                                                    <a href="${num}">${num}</a>
+                                                </li>
+                                            </c:forEach>
 
-                                                    <c:if test="${pageMaker.next}">
-                                                        <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
-                                                            <a class="ki ki-bold-arrow-next icon-xs" href="${pageMaker.endPage +1 }"></a>
-                                                        </li>
-                                                    </c:if>
-
-
-                                                </ul>
-                                            </div>
-                                            <div class="d-flex align-items-center py-3">
-                                                <button type="button" class="btn btn-outline-primary" style="vertical-align: center" id="regBtn">새 글 쓰기</button>
-                                            </div>
-                                        </div>
-                                        <!--end:: Pagination-->
-                                    </td>
-                                </tr>
-                                <%--                            <tr>--%>
+                                            <c:if test="${pageMaker.next}">
+                                                <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
+                                                    <a class="ki ki-bold-arrow-next icon-xs" href="${pageMaker.endPage +1 }"></a>
+                                                </li>
+                                            </c:if>
 
 
-                                <%--                            </tr>--%>
+                                        </ul>
+                                    </div>
+                                    <div class="d-flex align-items-center py-3">
+                                        <button type="button" class="btn btn-outline-primary" style="vertical-align: center" id="regBtn">새 글 쓰기</button>
+                                    </div>
+                                </div>
+                                <!--end:: Pagination-->
+                            </td>
+                        </tr>
+                        <%--                            <tr>--%>
 
-                                </tbody>
-                            </table>
-                        </form>
 
-                    </div>
+                        <%--                            </tr>--%>
+
+                        </tbody>
+                    </table>
+                    </form>
+
                 </div>
-                <!--카드 Body 종료-->
             </div>
-            <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
+            <!--카드 Body 종료-->
+        </div>
+        <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
 
-            <!--컨테이너 종료-->
-            <!--footer.html Include-->
-            <jsp:include page="/WEB-INF/commons/footer.jsp"/>
+        <!--컨테이너 종료-->
+        <!--footer.html Include-->
+        <jsp:include page="/WEB-INF/commons/footer.jsp"/>
 </body>
 <script>
     let kind = $(`#category`).val();
@@ -237,8 +244,13 @@
     $(`#category`).on("change", function (e) {
         console.log(`카테고리 변경되었습니다` + kind);
 
-
         location.href = "/studyIns/board/list?category=" + $(`#category option:selected`).val();
+
+    });
+    $("#searchMe").on("click", function (e) {
+
+        e.preventDefault(); // 기본 동작의 제한
+
 
     });
     $(".paginate_button a").on("click", function (e) {
@@ -246,7 +258,6 @@
         e.preventDefault(); //기본 동작 제한
 
         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-
         actionForm.submit();
 
     });
