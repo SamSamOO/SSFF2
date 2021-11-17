@@ -39,11 +39,11 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      */
 
     @Override
-    public Integer countArticle(String searchOption, String keyword) {
+    public Integer countArticle(String category) {
         log.info("countArticle() is invoked");
 
         Objects.requireNonNull(mapper);
-        return this.mapper.countArticle();
+        return this.mapper.countArticle(category);
     }
 
     /* 게시글의 목록을 조회하는 함수입니다. (SI_BOARD table)
@@ -157,8 +157,12 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
     } // modify
 
     @Override
-    public Integer updateHit(String cont_No) throws Exception {
-        return null;
+    public Integer updateHit(Integer cont_No) throws Exception {
+        log.debug("updateHit({}) is invoked", "cont_No = " + cont_No);
+
+        Objects.requireNonNull(mapper);
+
+        return this.mapper.updateHit(cont_No);
     }
 
     @Override

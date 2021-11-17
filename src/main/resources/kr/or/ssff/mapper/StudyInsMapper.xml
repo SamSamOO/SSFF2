@@ -79,7 +79,7 @@
     <select id="countArticle" resultType="integer">
         select count(*)
         from SI_BOARD
-        where REMOVED_OK = 'n';
+        where REMOVED_OK = 'n' and CATEGORY=#{category}
 
     </select>
 
@@ -111,14 +111,10 @@
                   TITLE,
                   HIT
               from SI_BOARD
-              where rownum <= #{pageNum} * #{amount})
+              where rownum <= #{pageNum} * #{amount} and REMOVED_OK='n')
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
             </when>
-
-
-
-
             <otherwise>
                 <![CDATA[
         select CONT_NO,
@@ -145,7 +141,7 @@
                   HIT
               from SI_BOARD
               where rownum <= #{pageNum} * #{amount}
-                and CATEGORY = #{category})
+                and CATEGORY = #{category} and REMOVED_OK='n')
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
             </otherwise>

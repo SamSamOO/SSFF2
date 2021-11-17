@@ -38,13 +38,13 @@ public interface StudyInsService {
     public abstract Integer findMaxContNo();
 
     //07. removedOk가 n인 게시물의 갯수를 들고옵니다 : 박상준
-    public abstract Integer countArticle(String searchOption,String keyword);
+    public abstract Integer countArticle(String category);
 
     //08 . 카테고리별 리스트
     public  abstract List<StudyInsVO> getListByCategory(Criteria criteria, String filterJSON);
 
     //09.  조회수 증가
-    public abstract Integer updateHit(String cont_No) throws Exception;
+    public abstract Integer updateHit(Integer cont_No) throws Exception;
 
 } // end interface
 

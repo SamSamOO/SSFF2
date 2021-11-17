@@ -2,6 +2,7 @@ package kr.or.ssff.studyIns.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.rmi.server.ServerCloneException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -196,11 +197,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         log.info("service.getList(criteria) = {}", service.getList(criteria, category));
 
         model.addAttribute("list", service.getList(criteria, category));
+
         model.addAttribute("category", category);
 
-        model.addAttribute("pageMaker", new PageDTO(criteria, 500));
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category)+1));
 
         log.info("criteria = {}", criteria);
+
         return "studyIns/board/list";
     } // studyBoardList
 
@@ -218,6 +221,9 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         Objects.requireNonNull(service);
         //내용물 불러오기
         StudyInsVO detail = service.get(cont_No);
+        //조회수 증가 쿼리
+        service.updateHit(cont_No);
+
         //파일 들고오기 //TODO -- 트랜젝션 처리 피료???
         List<StudyInsFileVO> listOfFile = service.getFile(cont_No);
 
