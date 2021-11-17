@@ -171,9 +171,9 @@
 
   function getReply(){
     let html ="";
-    let jsonData = {r_idx:"${board.r_idx}"};
+    let jsonData = {r_idx:${board.r_idx}};
     $.ajax({
-      url:"/study/comment/get",
+      url:"/studyRest/comment/get",
       type:'POST',
       dataType:'json',
       contentType:'application/json;charset=UTF-8',
@@ -220,7 +220,7 @@
       c_cont:$('#reply-write-sec').val()
     }
     $.ajax({
-      url:'/study/comment/post',
+      url:'/studyRest/comment/post',
       type:'POST',
       dataType:'json',
       contentType:'application/json;charset=UTF-8',
@@ -240,7 +240,7 @@
       no:no
     }
     $.ajax({
-      url :"/study/comment/remove",
+      url :"/studyRest/comment/remove",
       type:'POST',
       dataType:'json',
       contentType:'application/json;charset=UTF-8',
@@ -274,7 +274,7 @@
       c_cont:$(temp).val()
     }
     $.ajax({
-      url :"/study/comment/modify",
+      url :"/studyRest/comment/modify",
       type:'POST',
       dataType:'json',
       contentType:'application/json;charset=UTF-8',
