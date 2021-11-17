@@ -87,7 +87,8 @@
       teamname = #{teamname},
       cont = #{cont},
       sido = #{sido},
-      ch_pattern = #{ch_pattern}
+      ch_pattern = #{ch_pattern},
+      closed_ok= #{closed_ok}
     WHERE
       r_idx = #{r_idx}
   </update>
@@ -122,10 +123,10 @@
   <!--댓글 가져오기-->
   <select id="getReplyList" resultType="kr.or.ssff.study.domain.ReplyVO">
     SELECT
-        /*+ index_desc(reply) */
+        /*+ index_asc(reply) */
         no,r_idx,member_name,c_cont,c_date,removed_ok
     FROM reply
-    WHERE r_idx=#{r_idx}
+    WHERE r_idx=#{r_idx} and removed_ok='n'
   </select>
 
   <!--글삭제-->
@@ -136,6 +137,24 @@
     WHERE
       r_idx = #{r_idx}
   </update>
+
+  <!--댓글삭제-->
+  <update id="replyDelete">
+    UPDATE reply
+    SET
+      removed_ok='y'
+    WHERE
+      no = #{no}
+  </update>
+
+  <update id="replyUpdate">
+    UPDATE reply
+    SET
+      c_cont=#{c_cont}
+    WHERE
+      no = #{no}
+  </update>
+
 </mapper>
 
 

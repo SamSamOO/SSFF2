@@ -156,12 +156,12 @@
 
                                     <ul class="studylist-content-ul">
                                         <c:forEach items="${list}" var="list">
-                                            <li class="studylist-content">
+                                            <li class="studylist-content status-${list.closed_ok}">
                                                 <p class="studylist-content-title"><a href="/study/challenge/detail?r_idx=${list.r_idx}">${list.title}</a></p>
 
                                                 <ul class="studylist-content-info">
                                                     <li><span class="span-sido">${list.sido} </span> 의,</li>
-                                                    <li><span class="span-cate">${list.ch_pattern} </span></li>
+                                                    <li style="margin-top:10px"><span class="span-cate" >${list.ch_pattern} </span></li>
                                                 </ul>
 
                                                 <ul class="studylist-hitAndRepl">
@@ -196,5 +196,15 @@
             <jsp:include page="../../../commons/footer.jsp"/>
 </body>
 <!----------------Body 종료----------------------->
+<script>
+  $(function(){
+    let tagArea = document.querySelector('.status-y');
+    let new_Tag = document.createElement('div');
 
+    new_Tag.setAttribute('class', 'closed-ok-indicator');
+    new_Tag.innerHTML = '모집완료';
+
+    tagArea.appendChild(new_Tag);
+  });
+</script>
 </html>

@@ -79,7 +79,7 @@
                                     <!--스터디리스트 헤더 주황색 부분-->
                                     <h1>프로젝트 팀원 찾기</h1>
                                     <h3>프로젝트를 함께할 든든한 팀원을 삼삼오오에서 찾아보세요</h3>
-                                    <ul>
+                                    <ul style="padding-top:40px">
                                         <li><a href="/study/project/postGo"><img
                                                 src="../../../../resources/assets/image/writingBtn.png"
                                                 width="70px"></a></li>
@@ -143,7 +143,7 @@
 
                                     <ul class="studylist-content-ul">
                                         <c:forEach var="list" items="${list}">
-                                        <li class="studylist-content">
+                                        <li class="studylist-content status-${list.closed_ok}">
                                             <p class="studylist-content-title"><a href="/study/project/detail?r_idx=${list.r_idx}">${list.title}</a></p>
                                             <ul class="studylist-content-logo">
                                                 <c:forEach var="langs" items="${list.langs}">
@@ -167,6 +167,19 @@
                                     </ul>
                                 </div>
 
+                                <div id="pagination">
+                                    <ul id="pagination-ul">
+                                        <li>맨앞으로</li>
+                                        <li>이전페이지</li>
+                                        <li>1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li>4</li>
+                                        <li>5</li>
+                                        <li>다음페이지</li>
+                                        <li>맨뒤로</li>
+                                    </ul>
+                                </div>
 
                                 <!----------------------------------------------------------------------------------------------------------------------------->
                             </div>
@@ -188,5 +201,15 @@
             <jsp:include page="../../../commons/footer.jsp"/>
 </body>
 <!----------------Body 종료----------------------->
+<script>
+  $(function(){
+    let tagArea = document.querySelector('.status-y');
+    let new_Tag = document.createElement('div');
 
+    new_Tag.setAttribute('class', 'closed-ok-indicator');
+    new_Tag.innerHTML = '모집완료';
+
+    tagArea.appendChild(new_Tag);
+  });
+</script>
 </html>
