@@ -70,7 +70,7 @@
     WHERE r_idx=#{r_idx}
   </select>
 
-  <!--Apply insert문 제작중-->
+  <!--Apply insert문 (제작중)-->
   <insert id="insertApply">
     INSERT INTO APPLY_MEMBER (
     apply_idx,r_idx,member_name,study_join_arciwf,study_join_change_date,study_boss_yn,attendance_days

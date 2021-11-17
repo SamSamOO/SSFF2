@@ -87,7 +87,7 @@
                                         <div class="col-lg-4 col-md-5 col-sm-5">
                                             <label>
                                                 <select class="form-control selectpicker" id="category">
-                                                    <option value="all" data-content="<span class='label label-success label-inline label-rounded'>전체</span>">전체</option>
+                                                    <option value="전체" data-content="<span class='label label-success label-inline label-rounded'>전체</span>">전체</option>
                                                     <option value="인증" data-content="<span class='label label-success label-inline label-rounded'>인증</span>">인증</option>
                                                     <option value="잡담" data-content="<span class='label label-warning label-inline label-rounded'>잡담</span>">잡담</option>
                                                     <option value="QnA" data-content="<span class='label label-primary label-inline label-rounded'>QnA</span>">QnA</option>
@@ -160,11 +160,12 @@
                                         <!--begin::Pagination-->
                                         <div class="d-flex justify-content-between align-items-center flex-wrap ">
                                             <h2>${pageMaker}</h2>
+                                            <div class="w-20px"></div>
                                             <div class='pull-right'>
                                                 <ul class="pagination">
 
                                                     <c:if test="${pageMaker.prev}">
-                                                        <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-double-arrow-back icon-xs"
+                                                        <li class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-arrow-back icon-xs"
                                                                                                                                href="${pageMaker.startPage -1}"></a></li>
                                                     </c:if>
 
@@ -184,8 +185,6 @@
 
                                                 </ul>
                                             </div>
-
-
                                             <div class="d-flex align-items-center py-3">
                                                 <button type="button" class="btn btn-outline-primary" style="vertical-align: center" id="regBtn">새 글 쓰기</button>
                                             </div>
@@ -210,9 +209,10 @@
 
             <!--컨테이너 종료-->
             <!--footer.html Include-->
-            <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/commons/footer.jsp"/>
 </body>
 <script>
+    let kind = $(`#category`).val();
     // $(`#dropDiv`).on("change", function () {
     //     $.ajax({
     //         async: false,
@@ -227,30 +227,14 @@
     //         }
     //     })
     // });
-    $(function () {
-        $(`#category`).on(`change`, function () {
-            let kind = $(this).val(); // 셀렉트 값이 변경되는 경우, 해당 값을 kind에 담습니다.
 
-            $.ajax({
-                url: "/ajaxCategory",
-                type: "post",
-                cache: false,
-                headers: {"cache-control": "no-cache", "pragma": "no-cache"},
-                contentType: "text; charset=utf-8",
-                dataType:'json',
-                data:  kind, // 버튼의 value값에 따라 작동합니다,
-                success: function (data) {
-                    console.log(data);
-                    alert('성공');
-                },
-                error: function (data) {
-                    alert('에러' + data);
-                } // error
-            }) // aj
-        }); // select change
-    }); // jq
-    var actionForm = $("#actionForm");
+    let actionForm = $("#actionForm");
+    $(`#category`).on("change", function (e) {
+        console.log(`카테고리 변경되었습니다`+kind);
 
+        location.href = "/studyIns/board/list?category=" + $(`#category`).val();
+
+    });
     $(".paginate_button a").on("click", function (e) {
 
         e.preventDefault(); //기본 동작 제한

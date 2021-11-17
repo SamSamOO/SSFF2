@@ -84,9 +84,10 @@
     </select>
 
 
-
     <select id="getListWithPaging" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
-        <![CDATA[
+        <choose>
+            <when test="category =='전체'">
+                <![CDATA[
         select CONT_NO,
                MEMBER_NAME,
                R_IDX,
@@ -113,10 +114,10 @@
               where rownum <= #{pageNum} * #{amount})
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
-    </select>
+            </when>
 
-    <select id="getListByCategory" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
-        <![CDATA[
+            <otherwise>
+                <![CDATA[
         select CONT_NO,
                MEMBER_NAME,
                R_IDX,
@@ -140,11 +141,14 @@
                   TITLE,
                   HIT
               from SI_BOARD
-              where rownum <= #{pageNum} * #{amount} and CATEGORY=#{category})
+              where rownum <= #{pageNum} * #{amount}
+                and CATEGORY = #{category})
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
-    </select>
+            </otherwise>
+        </choose>
 
+    </select>
 
 
     <update id="update">

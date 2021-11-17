@@ -6,6 +6,7 @@ import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
+import org.apache.ibatis.annotations.Param;
 
 
 /*
@@ -17,7 +18,8 @@ public interface StudyInsMapper {
     //게시글의 전체 목록 조회
     public List<StudyInsVO> getList(Integer start , Integer end , String searchOption , String keyword);
 
-    public List<StudyInsVO> getListWithPaging(Criteria criteria);
+    //페이징 적용 및 카테고리 적용 리스트 출력
+    public List<StudyInsVO> getListWithPaging(@Param("pageNum") Integer pageNum,@Param("amount")Integer amount,@Param("category") String category);
 
     public StudyInsVO read(Integer cont_No);
 
