@@ -58,7 +58,11 @@ public interface StudyService {
     //15. 글번호로 댓글 다 가져오기
     public abstract List<ReplyVO>getReplyList(Integer r_idx);
 
+    //16. 댓글 삭제하기
+    public abstract boolean replyRemove(Integer no);
 
+    //17. 댓글 수정하기
+    public abstract boolean replyModify(Integer no, String c_cont);
 }
 
 

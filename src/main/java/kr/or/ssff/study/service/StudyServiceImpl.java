@@ -163,6 +163,18 @@ public class StudyServiceImpl implements StudyService {
         return allBoard;
     }
 
+    @Override
+    public boolean replyRemove(Integer no) {
+        int affectedRows = mapper.replyDelete(no);
+        return affectedRows == 1;
+    }
+
+    @Override
+    public boolean replyModify(Integer no, String c_cont) {
+        int affectedRows = mapper.replyUpdate(no,c_cont);
+        return affectedRows == 1;
+    }
+
 }//end class
 
 

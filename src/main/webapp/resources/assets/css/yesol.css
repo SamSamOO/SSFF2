@@ -144,6 +144,17 @@ h3 {
 }
 
 /****카드뉴스 중앙부****/
+.status-y{
+  background-color: #dcdcdc !important;
+  color: #ababab !important;
+}
+.closed-ok-indicator{
+  position: absolute;
+  background-color: black !important;
+  color: white !important;
+  border-radius: 5px;
+  padding: 3px 5px;
+}
 .studylist-content-logo {
   /*카드뉴스 안에 로고 있는 부분 UL*/
   list-style: none;
@@ -191,13 +202,28 @@ h3 {
   margin-top: 40px;
   float: right;
   flex: 1 1 auto;/*flex 실험중*/
-  padding-left: 110px;
+  padding-left: 100px;
 }
 .studylist-hitAndRepl li {
   /*카드뉴스안에 댓글이랑 조회수*/
   margin-left: 4px;
   margin-right: 4px;
   float: left;
+}
+#pagination{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+/*카드뉴스 페이징*/
+#pagination-ul{
+  list-style: none;
+}
+#pagination-ul li{
+  float: left;
+  padding:5px 5px;
+  margin-right:3px;
+  margin-left:3px;
+  background-color: red;
 }
 
 /*********************카드뉴스 설정********************************/

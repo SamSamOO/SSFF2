@@ -252,7 +252,7 @@ public class StudyController {
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null, dto.getClosed_ok(),null
+                null,null,null
             );
         //새글 등록하기
         boolean result = this.service.register(vo);
@@ -261,8 +261,10 @@ public class StudyController {
         Integer currentR_idx = this.service.getCurrentR_idx();
 
         //그 글번호로 언어 태그 등록하기
-        for(int i=0;i< taglist.length;i++){
-            boolean tagResult = this.service.registerLangTag(currentR_idx,taglist[i]);
+        if(taglist !=null){
+            for(int i=0;i< taglist.length;i++){
+                boolean tagResult = this.service.registerLangTag(currentR_idx,taglist[i]);
+            }
         }
 
         return "redirect:/study/project/list";
@@ -303,7 +305,7 @@ public class StudyController {
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null, null,null
+                null, dto.getClosed_ok(),null
             );
 
         boolean result = this.service.modify(vo);
@@ -325,13 +327,13 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 챌린지형 리스트 페이지
      * */
-    @PostMapping("/project/detail/remove")
-    public String deleteProjectDetail() {
+    @GetMapping("/project/remove")
+    public String removeProjectDetail(Integer r_idx, RedirectAttributes rttrs) {
+        log.info("removeProjectDetail() is invoked");
+        boolean result = this.service.remove(r_idx);
 
-        log.info("deleteProjectDetail() is invoked");
-
-        return "redirect:/study/project/list";
-    } // deleteProjectDetail
+        return "redirect:/study/challenge/list";
+    } // removeProjectDetail
 
     /*댓글 작성 기능 수행
      * 파라메터 :
@@ -392,10 +394,22 @@ public class StudyController {
      * 반환 : //TODO --예솔
      * */
     @PostMapping("/comment/modify")
-    public String updateComment() {
+    public @ResponseBody boolean updateComment(@RequestBody String jsonData, HttpServletResponse response, ModelMap model) {
         log.info("updateComment() is invoked");
+        log.info("updateComment({},{},{}) is invoked",jsonData, response, model);
 
-        return "";
+        ObjectMapper objMapper = new ObjectMapper();
+        HashMap<String, String> replyMap = new HashMap<String, String>();
+
+        try {
+            replyMap = objMapper.readValue(jsonData, new HashMap<String, String>().getClass());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        boolean result = this.service.replyModify(Integer.parseInt(replyMap.get("no")),replyMap.get("c_cont"));
+
+        return true;
     }
 
     /*댓글삭제 기능 수행
@@ -404,12 +418,21 @@ public class StudyController {
      * //TODO --예솔
      * */
     @PostMapping("/comment/remove")
-    public String deleteComment() {
+    public @ResponseBody boolean deleteComment(@RequestBody String jsonData, HttpServletResponse response, ModelMap model) {
+        log.info("deleteComment({},{},{}) is invoked",jsonData, response, model);
 
-        log.info("deleteComment() is invoked");
+        ObjectMapper objMapper = new ObjectMapper();
+        HashMap<String, String> replyMap = new HashMap<String, String>();
 
-        return "";
+        try {
+            replyMap = objMapper.readValue(jsonData, new HashMap<String, String>().getClass());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
+        boolean result = this.service.replyRemove(Integer.parseInt(replyMap.get("no")));
+
+        return true;
     }
 
 

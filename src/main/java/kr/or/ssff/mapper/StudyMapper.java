@@ -36,4 +36,8 @@ public interface StudyMapper {
     public abstract List<ReplyVO> getReplyList(@Param("r_idx")Integer r_idx);
     //글삭제하기
     public abstract Integer delete(@Param("r_idx")Integer r_idx);
+    //댓글삭제하기
+    public abstract Integer replyDelete(@Param("no")Integer no);
+    //댓글 수정하기
+    public abstract Integer replyUpdate(@Param("no")Integer no,@Param("c_cont")String c_cont);
 }
