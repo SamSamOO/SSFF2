@@ -51,7 +51,9 @@ public interface StudyInsMapper {
     //removedOk 가 n인 게시물의 갯수를 리턴합니다.
     public Integer countArticle();
 
-
     public List<StudyInsVO> getListByCategory(Criteria criteria, String category);
+
+    //조회수 증가 쿼리입니다.
+    public Integer updateHit(String cont_No);
 
 }

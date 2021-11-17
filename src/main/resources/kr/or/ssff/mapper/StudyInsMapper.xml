@@ -86,7 +86,7 @@
 
     <select id="getListWithPaging" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
         <choose>
-            <when test="category =='전체' and (keyword.equals('') or keyword==null)">
+            <when test="category =='전체'">
                 <![CDATA[
         select CONT_NO,
                MEMBER_NAME,
@@ -116,69 +116,11 @@
         ]]>
             </when>
 
-            <when test="category =='전체' and (!keyword.equals('') or keyword!=null)">
-                <![CDATA[
-        select CONT_NO,
-               MEMBER_NAME,
-               R_IDX,
-               WRITE_DATE,
-               MODIFY_DATE,
-               REMOVED_OK,
-               CONT,
-               CATEGORY,
-               TITLE,
-               HIT
-        from (select /*+INDEX_DESC(si_board pk_si_board) */
-                  rownum rn,
-                  CONT_NO,
-                  MEMBER_NAME,
-                  R_IDX,
-                  WRITE_DATE,
-                  MODIFY_DATE,
-                  REMOVED_OK,
-                  CONT,
-                  CATEGORY,
-                  TITLE,
-                  HIT
-              from SI_BOARD
-              where rownum <= #{pageNum} * #{amount} and CONT like '%'||#{keyword}||'%' or TITLE like '%'||#{keyword}||'%' or MEMBER_NAME like '%'||#{keyword}||'%')
-        where rn > (#{pageNum} - 1) * #{amount}
-        ]]>
-            </when>
 
 
-            <when test="category !='전체' and (!keyword.equals('') or keyword!=null)">
+
+            <otherwise>
                 <![CDATA[
-        select CONT_NO,
-               MEMBER_NAME,
-               R_IDX,
-               WRITE_DATE,
-               MODIFY_DATE,
-               REMOVED_OK,
-               CONT,
-               CATEGORY,
-               TITLE,
-               HIT
-        from (select /*+INDEX_DESC(si_board pk_si_board) */
-                  rownum rn,
-                  CONT_NO,
-                  MEMBER_NAME,
-                  R_IDX,
-                  WRITE_DATE,
-                  MODIFY_DATE,
-                  REMOVED_OK,
-                  CONT,
-                  CATEGORY,
-                  TITLE,
-                  HIT
-              from SI_BOARD
-              where rownum <= #{pageNum} * #{amount}
-                and CATEGORY = #{category} and CONT like '%'||#{keyword}||'%' or TITLE like '%'||#{keyword}||'%' or MEMBER_NAME like '%'||#{keyword}||'%')
-        where rn > (#{pageNum} - 1) * #{amount}
-        ]]>
-            </when>
-        <otherwise>
-    <![CDATA[
         select CONT_NO,
                MEMBER_NAME,
                R_IDX,
@@ -204,9 +146,9 @@
               from SI_BOARD
               where rownum <= #{pageNum} * #{amount}
                 and CATEGORY = #{category})
-        where rn > (#{pageNum} - 1) * #{amount} and CATEGORY=#{category}
+        where rn > (#{pageNum} - 1) * #{amount}
         ]]>
-</otherwise>
+            </otherwise>
         </choose>
 
     </select>
@@ -219,5 +161,12 @@
             modify_Date=sysdate,
             category=#{category}
         where cont_No = #{cont_No}
+    </update>
+
+    <update id="updateHit">
+        update SI_BOARD
+        set HIT = HIT + 1
+        where CONT_NO = #{cont_No}
+
     </update>
 </mapper>

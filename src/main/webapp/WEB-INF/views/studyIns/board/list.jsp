@@ -77,6 +77,7 @@
                         <form id="actionForm" method="get" action="/studyIns/board/list">
                             <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
                             <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
+                            <input type="hidden" name="category" value="${category}"/>
                             <table class="table table-borderless">
 
                                 <tr>
@@ -213,6 +214,10 @@
 </body>
 <script>
     let kind = $(`#category`).val();
+    $(function () {
+        $(`#category`).val('${category}').prop("selected", true);
+        console.log('${category}');
+    });
     // $(`#dropDiv`).on("change", function () {
     //     $.ajax({
     //         async: false,

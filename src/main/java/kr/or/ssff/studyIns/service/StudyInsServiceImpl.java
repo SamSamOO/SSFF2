@@ -53,12 +53,12 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      */
 
     @Override
-    public List<StudyInsVO> getList(Criteria criteria, String category,String keyword) throws Exception {
-        log.info("getList({}) is invoked", "criteria = " + criteria + ", category = " + category + ", keyword = " + keyword);
+    public List<StudyInsVO> getList(Criteria criteria, String category) throws Exception {
+        log.info("getList({}) is invoked", "criteria = " + criteria + ", category = " + category);
 
         Objects.requireNonNull(mapper);
 
-        List<StudyInsVO> list = this.mapper.getListWithPaging(criteria.getPageNum(),criteria.getAmount(), category,keyword);
+        List<StudyInsVO> list = this.mapper.getListWithPaging(criteria.getPageNum(),criteria.getAmount(), category);
 
         log.info("list = {}", list);
 
@@ -156,6 +156,10 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         return (affectedRows == 1) ? true : false;
     } // modify
 
+    @Override
+    public Integer updateHit(String cont_No) throws Exception {
+        return null;
+    }
 
     @Override
     public Integer findMaxContNo() {
@@ -176,6 +180,9 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
         return list;
     }
+
+
+
 
     @Override
     public void destroy() throws Exception {
