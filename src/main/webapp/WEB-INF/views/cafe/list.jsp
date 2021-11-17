@@ -391,7 +391,8 @@
         let cardHtml;
         cardHtml = `
     <!--begin::Body-->
-         <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
+         <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important; cursor:pointer;"
+               onclick="location.href='/cafe/detail?cafe_idx=`+cafeId+`'">
            <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">
                   ` + mainTitle + `</span>
            <!--begin::Info-->
@@ -413,9 +414,7 @@
                  class="fa fa-users" ></i> 최대
             ` + maxPeople + `인</span>
             </div>
-           </div><a href="/cafe/detail?cafe_idx=`+cafeId+`"
-                    class="btn btn-block btn-sm btn-light-success
-                           font-weight-bolder text-uppercase py-4">예약하기</a></div>`
+           `
 
         console.log($('.btn.btn-block.btn-sm.btn-light-success.font-weight-bolder.text-uppercase.py-4').attr("href"));
         $('.card.card-custom.gutter-b.card-stretch').eq(num).append(cardHtml);
