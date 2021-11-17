@@ -196,7 +196,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         log.info("service.getList(criteria) = {}", service.getList(criteria, category));
 
         model.addAttribute("list", service.getList(criteria, category));
-
+        model.addAttribute("category", category);
         model.addAttribute("pageMaker", new PageDTO(criteria, 500));
 
         log.info("criteria = {}", criteria);

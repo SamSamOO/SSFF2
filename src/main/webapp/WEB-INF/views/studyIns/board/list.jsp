@@ -77,6 +77,7 @@
                         <form id="actionForm" method="get" action="/studyIns/board/list">
                             <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
                             <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
+                            <input type="hidden" name="category" value="${category}">
                             <table class="table table-borderless">
 
                                 <tr>
@@ -160,8 +161,8 @@
                                         <!--begin::Pagination-->
                                         <div class="d-flex justify-content-between align-items-center flex-wrap ">
                                             <h2>${pageMaker}</h2>
-                                            <div class="w-20px"></div>
-                                            <div class='pull-right'>
+                                            <div style="width: 8%"></div>
+                                            <div class=''>
                                                 <ul class="pagination">
 
                                                     <c:if test="${pageMaker.prev}">
@@ -213,6 +214,10 @@
 </body>
 <script>
     let kind = $(`#category`).val();
+    $(function () {
+        $(`#category`).val('${category}').prop("selected", true);
+        console.log('${category}');
+    });
     // $(`#dropDiv`).on("change", function () {
     //     $.ajax({
     //         async: false,
@@ -230,9 +235,10 @@
 
     let actionForm = $("#actionForm");
     $(`#category`).on("change", function (e) {
-        console.log(`카테고리 변경되었습니다`+kind);
+        console.log(`카테고리 변경되었습니다` + kind);
 
-        location.href = "/studyIns/board/list?category=" + $(`#category`).val();
+
+        location.href = "/studyIns/board/list?category=" + $(`#category option:selected`).val();
 
     });
     $(".paginate_button a").on("click", function (e) {
