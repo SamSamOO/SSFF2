@@ -114,7 +114,7 @@
                                         <div class="apply-sec">
                                             <ul>
                                                 <li><p>지원하기</p></li>
-                                                <li style="padding-right:10px"><a href="/study/project/modifyGo?r_idx=${board.r_idx}">수정</a> | 삭제</li>
+                                                <li style="padding-right:10px"><a href="/study/project/modifyGo?r_idx=${board.r_idx}">수정</a> | <a href="/study/project/remove?r_idx=${board.r_idx}">삭제</a></li>
                                                 <li style="padding-right:10px">
                                                     <img src="../../../../resources/assets/image/hit.png"
                                                          width="15px">
@@ -128,72 +128,16 @@
 
                                         <div class="reply-write">
                                             <div><p id="reply-count">n개의 댓글이 있습니다</p></div>
+                                            <input type="hidden" id="member_name" name ="member_name" value="nickname55"><!--나중에 세션 아이디로 바꿔야 될 부분-->
                                             <div><textarea id="reply-write-sec"></textarea></div>
-                                            <div id="reply-submit"><p>댓글등록</p></div>
+                                            <div id="reply-submit"><p onclick="replySubmit()">댓글등록</p></div>
                                         </div>
                                         <div class="reply-list">
 
 
                                             <div class="reply">
                                                 <!-----------------------여기에 댓글 반복---------------------->
-                                                <div class="reply-detail"><!--댓글 하나 더미데이터-->
-                                                    <div class="reply-item-sec"> <!--사진,닉넴,날짜-->
-                                                        <div class="item1">
-                                                            <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                                                                <img alt="Profile Pic"
-                                                                     src="/resources/assets/media/users/300_21.jpg"/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="item2">
-                                                            <div>admintest22</div>
-                                                            <div>2021-11-01</div>
-                                                        </div>
-                                                        <div class="item3"><!--자기 글이면 수정 삭제 버튼-->
-                                                            <p>수정 | 삭제</p>
-                                                        </div>
-                                                    </div>
-                                                    <div><!--글 있는 단-->
-                                                        Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit, sed do eiusmod tempor
-                                                        incididunt.
-                                                        Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit, sed do eiusmod tempor
-                                                        incididunt.
-                                                        Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit, sed do eiusmod tempor
-                                                        incididunt.
-                                                    </div>
-                                                </div>
-                                                <!---------------------------------------------------------->
-                                                <!-----------------------여기에 댓글 반복---------------------->
-                                                <div class="reply-detail"><!--댓글 하나 더미데이터-->
-                                                    <div class="reply-item-sec"> <!--사진,닉넴,날짜-->
-                                                        <div class="item1">
-                                                            <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                                                                <img alt="Profile Pic"
-                                                                     src="/resources/assets/media/users/300_21.jpg"/>
-                                                            </div>
-                                                        </div>
-                                                        <div class="item2">
-                                                            <div>admintest22</div>
-                                                            <div>2021-11-01</div>
-                                                        </div>
-                                                        <div class="item3"><!--자기 글이면 수정 삭제 버튼-->
-                                                            <p>수정 | 삭제</p>
-                                                        </div>
-                                                    </div>
-                                                    <div><!--글 있는 단-->
-                                                        Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit, sed do eiusmod tempor
-                                                        incididunt.
-                                                        Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit, sed do eiusmod tempor
-                                                        incididunt.
-                                                        Lorem ipsum dolor sit amet, consectetur
-                                                        adipiscing elit, sed do eiusmod tempor
-                                                        incididunt.
-                                                    </div>
-                                                </div>
+
                                                 <!---------------------------------------------------------->
 
                                             </div>
@@ -220,5 +164,131 @@
             <jsp:include page="../../../commons/footer.jsp"/>
 </body>
 <!----------------Body 종료----------------------->
+<script>
+  $(function(){
+    getReply();
+  });//window-start
 
+  function getReply(){
+    let html ="";
+    let jsonData = {r_idx:${board.r_idx}};
+    $.ajax({
+      url:"/studyRest/comment/get",
+      type:'POST',
+      dataType:'json',
+      contentType:'application/json;charset=UTF-8',
+      data: JSON.stringify(jsonData),
+      success:function(data){
+        //안의 내용 비우고
+        $('.reply').empty();
+        if(data.length ==0){
+        }else{
+          // 반복하면서 채우기
+          for (let reply of data) {
+            html+='<div class="reply-detail">';
+            html+=  '<div class="reply-item-sec">';
+            html+=    '<div class="item1">';
+            html+=      '<div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">';
+            html+=        '<img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg"/>';
+            html+=      '</div>';
+            html+=    '</div>';
+            html+=    '<div class="item2">';
+            html+=      '<div>'+reply.member_name+'</div>';
+            html+=      '<div>'+reply.c_date+'</div>';
+            html+=    '</div>';
+            html+=    '<div class="item3">';
+            html+=      '<p><a href="javascript:modifyReply(`'+reply.no+'`,`'+reply.c_cont+'`)">수정</a> |' ;
+            html+=       '<a href="javascript:deleteReply(`'+reply.no+'`)">삭제</a></p>';
+            html+=    '</div>';
+            html+=  '</div>';
+            html+=  '<div id="reply-cont-sec-'+reply.no+'">'+reply.c_cont+'</div>';
+            html+='</div>';
+          }
+        }
+        $('.reply').html(html);
+      },
+      error:function(){
+        alert('댓글 로드 실패');
+      }
+    })
+  }//getReply
+
+  function replySubmit(){
+    let jsonData= {
+      r_idx:"${board.r_idx}",
+      member_name:$('#member_name').val(),
+      c_cont:$('#reply-write-sec').val()
+    }
+    $.ajax({
+      url:'/studyRest/comment/post',
+      type:'POST',
+      dataType:'json',
+      contentType:'application/json;charset=UTF-8',
+      data: JSON.stringify(jsonData),
+      success: function (data) {
+        alert("댓글이 등록되었습니다");
+        $('#reply-write-sec').val("");
+        getReply();
+      },
+      error: function () {
+        alert('댓글 등록 실패');
+      }
+    });
+  }//replySubmit
+  function deleteReply(no){
+    let jsonData= {
+      no:no
+    }
+    $.ajax({
+      url :"/studyRest/comment/remove",
+      type:'POST',
+      dataType:'json',
+      contentType:'application/json;charset=UTF-8',
+      data: JSON.stringify(jsonData),
+      success: function (data) {
+        alert("댓글이 삭제되었습니다");
+        $('#reply-write-sec').val("");
+        getReply();
+      },
+      error: function (request,status,error) {
+        alert('댓글 삭제 실패');
+        console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      }
+    });
+  }//deleteReply
+
+  function modifyReply(no,c_cont){
+    let source = "#" + "reply-cont-sec-"+no; //원래 글써져 있는 부분 reply-cont-sec-`'+reply.no+'
+    document.querySelector(source).innerHTML="";
+    $(source).append(
+        '<textarea name="replyUpdate" class="form-control" id="update-cont-'+no+'">'+c_cont+'</textarea>'+
+        '<input type="button" value="수정하기" Style="margin-top: 5px;" onclick="modifyReplySubmit('+no+')">'
+    );
+  }//modifyReply
+
+  function modifyReplySubmit(no){
+    let temp = "#" + "update-cont-"+no;
+    let temp2 = no+"";
+    let jsonData= {
+      no:temp2,
+      c_cont:$(temp).val()
+    }
+    $.ajax({
+      url :"/studyRest/comment/modify",
+      type:'POST',
+      dataType:'json',
+      contentType:'application/json;charset=UTF-8',
+      data: JSON.stringify(jsonData),
+      success: function (data) {
+        alert("댓글이 정상적으로 수정되었습니다.");
+        getReply();
+      },
+      error: function (request,status,error) {
+        alert('댓글 수정 실패');
+        console.log("code = "+ request.status + " message = " + request.responseText + " error = " + error);
+      }
+    });
+  }//modifyReplySubmit
+
+</script>
 </html>

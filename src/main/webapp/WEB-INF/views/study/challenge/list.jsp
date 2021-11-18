@@ -1,14 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <!----------------Head 시작----------------------->
 
 <head>
-    <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
+
     <title>챌린지 리스트</title>
+
+    <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
+
     <!--head.html Include-->
     <jsp:include page="../../../commons/head.jsp"/>
 </head>
@@ -16,10 +23,9 @@
 <!----------------Head 종료----------------------->
 <!----------------Body 시작----------------------->
 
-
 <body id="kt_body" class="header-fixed subheader-enabled page-loading">
 <!----------------메인 시작----------------------->
-<div class="d-flex flex-column flex-root">
+    <div class="d-flex flex-column flex-root">
     <!----------------페이지 시작----------------------->
     <div class="d-flex flex-row flex-column-fluid page">
         <!--begin::Wrapper-->
@@ -156,12 +162,12 @@
 
                                     <ul class="studylist-content-ul">
                                         <c:forEach items="${list}" var="list">
-                                            <li class="studylist-content">
+                                            <li class="studylist-content status-${list.closed_ok}">
                                                 <p class="studylist-content-title"><a href="/study/challenge/detail?r_idx=${list.r_idx}">${list.title}</a></p>
 
                                                 <ul class="studylist-content-info">
                                                     <li><span class="span-sido">${list.sido} </span> 의,</li>
-                                                    <li><span class="span-cate">${list.ch_pattern} </span></li>
+                                                    <li style="margin-top:10px"><span class="span-cate" >${list.ch_pattern} </span></li>
                                                 </ul>
 
                                                 <ul class="studylist-hitAndRepl">
@@ -176,7 +182,19 @@
                                     </ul>
 
                                 </div>
-
+                                <div id="pagination">
+                                    <ul id="pagination-ul">
+                                        <li>맨앞으로</li>
+                                        <li>이전페이지</li>
+                                        <li>1</li>
+                                        <li>2</li>
+                                        <li>3</li>
+                                        <li>4</li>
+                                        <li>5</li>
+                                        <li>다음페이지</li>
+                                        <li>맨뒤로</li>
+                                    </ul>
+                                </div>
 
                                 <!----------------------------------------------------------------------------------------------------------------------------->
                             </div>
@@ -196,5 +214,38 @@
             <jsp:include page="../../../commons/footer.jsp"/>
 </body>
 <!----------------Body 종료----------------------->
+<script>
+  let sc = {
+    totalPost: ${studyCriteria.totalPost},
+    postPerPage: ${studyCriteria.postPerPage},
+    totalPage: ${studyCriteria.totalPage},
+    currentPage: ${studyCriteria.currentPage},
+    pagePerBlock: ${studyCriteria.pagePerBlock},
+    currentBlock: ${studyCriteria.currentBlock},
+    totalBlock: ${studyCriteria.totalBlock}
+  }
+  $(function(){
+    // 모집완료는 회색으로 보이게 하는 로직 ///////////////////
 
+    closed_status();
+
+    //페이징 관련 찍어보기
+    console.log("sc.totalPost:"+sc.totalPost);
+    console.log("sc.postPerPage:"+sc.postPerPage);
+    console.log("sc.totalPage:"+sc.totalPage);
+    console.log("sc.currentPage:"+sc.currentPage);
+    console.log("sc.pagePerBlock:"+sc.pagePerBlock);
+    console.log("sc.currentBlock:"+sc.currentBlock);
+    console.log("sc.totalBlock:"+sc.totalBlock);
+  });
+
+  function closed_status(){
+    let tagArea = document.querySelector('.status-y');
+    let new_Tag = document.createElement('div');
+    new_Tag.setAttribute('class', 'closed-ok-indicator');
+    new_Tag.innerHTML = '모집완료';
+    tagArea.appendChild(new_Tag);
+  }
+
+</script>
 </html>

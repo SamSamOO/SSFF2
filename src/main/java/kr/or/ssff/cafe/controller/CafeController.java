@@ -38,6 +38,7 @@ public class CafeController {
     private CafeService service;
 
 
+
     /*
      * 스터디 카페 리스트를 조회
      * 매개변수:
@@ -58,7 +59,7 @@ public class CafeController {
      * 매개변수: ajax로 전송받은 JSON객체
      * 반환: 스터디 카페 리스트 정보를 담은 JSON객체
      * */
-    @RequestMapping(value = "/listData", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value= "/listData", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     @ResponseBody   //없으면 AJAX 통신 안됨
     public JSONObject getCafeList(
         @RequestBody String filterJSON
@@ -71,13 +72,10 @@ public class CafeController {
 
         //최종 완성될 JSONObject 선언(전체)
         JSONObject jsonObject = new JSONObject();
-
         //cafeInfo JSON정보를 담을 Array 선언
         JSONArray arr = new JSONArray();
-
         //cafe 하나의 정보가 들어갈 JSONObject 선언
         JSONObject cafeInfo = new JSONObject();
-
         //img를 모을 JSONObject 선언
         JSONObject roomImgs = new JSONObject();
 
@@ -129,25 +127,23 @@ public class CafeController {
                 // 카페 하나의 정보와 이미지를 배열에 담습니다.
                 arr.add(cafeInfo);
 
-                log.info("1. arr {}: " + arr);
+                log.info("1. arr {}: "+ arr);
             }
-            log.info("2. arrsubList {}: " + arr.subList(((cp - 1) * ps), ((cp * ps) - 1)));
+            log.info("2. arrsubList {}: "+ arr.subList(((cp-1)*ps),((cp*ps)-1)));
 
             // 요청온 카드 수 만큼만 잘라서 제이슨 객체에 담아 가져가세요
-            jsonObject.put("cafeList", arr.subList(((cp - 1) * ps), ((cp * ps) - 1)));
-            log.info("(cp-1)*ps =" + ((cp - 1) * ps));
-            log.info(" end =" + ((cp * ps) - 1));
+            jsonObject.put("cafeList", arr.subList(((cp-1)*ps),((cp*ps)-1)));
+            log.info("(cp-1)*ps ="+ ((cp-1)*ps));
+            log.info(" end ="+ ((cp*ps)-1));
 
-        } catch (Exception e) {
-            ;
-            ;
-        }
+        } catch (Exception e) { ;; }
 
         log.info("jsonObject {} =", jsonObject);
 
         // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)
         return jsonObject;
     } // getCafeList
+
 
 
     /*
@@ -160,7 +156,7 @@ public class CafeController {
         log.info("selectCafe({}) is invoked", "cafeId = " + cafeId);
 
         List<CafeInfoVO> cafeInfo = service.getCafe(cafeId);
-        log.info("cafeInfo{} : ", cafeInfo);
+        log.info("cafeInfo{} : " ,cafeInfo);
 
         model.addAttribute("cafeInfo", cafeInfo);
     } // selectCafe
@@ -254,28 +250,3 @@ public class CafeController {
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

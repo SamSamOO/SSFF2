@@ -13,7 +13,9 @@
 <link rel="canonical" href="https://keenthemes.com/metronic"/>
 <!--begin::Fonts-->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&family=Nanum+Gothic:400,700,800"/>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.js.map"></script>--%>
 <script>
+
 
 </script>
 <!--end::Fonts-->
