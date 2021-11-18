@@ -17,7 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface StudyInsService {
 
     //01. 게시글 전체 목록 : 박상준
-    public abstract List<StudyInsVO> getList(Criteria criteria) throws Exception;
+    public abstract List<StudyInsVO> getList(Criteria criteria, String category) throws Exception;
 
     //02. 게시물 조회 : 박상준
     public abstract StudyInsVO get(Integer cont_No) throws Exception;
@@ -29,19 +29,25 @@ public interface StudyInsService {
     public abstract boolean remove(Integer cont_no);
 
     //04. 게시물 수정 : 박상준
-    public abstract boolean modify(StudyInsDTO studyIns,@RequestParam(value = "uploadFile")MultipartFile[] uploadFile);
+    public abstract boolean modify(StudyInsDTO studyIns, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile);
 
     //05. 게시물 등록 : 박상준
-    public abstract boolean register(@RequestParam("cont_No")Integer cont_No,StudyInsDTO studyInsDTO ,@RequestParam(value = "uploadFile") MultipartFile[] uploadFile);
+    public abstract boolean register(@RequestParam("cont_No") Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile);
 
     //06. 게시물 번호 최대값 들고옴 : 박상준
     public abstract Integer findMaxContNo();
 
     //07. removedOk가 n인 게시물의 갯수를 들고옵니다 : 박상준
-    public abstract Integer countArticle(String searchOption,String keyword);
+    public abstract Integer countArticle(String category);
 
     //08 . 카테고리별 리스트
-    public  abstract List<StudyInsVO> getListByCategory(Criteria criteria, String filterJSON);
+    public abstract List<StudyInsVO> getListByCategory(Criteria criteria, String filterJSON);
+
+    //09.  조회수 증가
+    public abstract Integer updateHit(Integer cont_No) throws Exception;
+
+    //10.  공지글 보이기
+    public abstract List<StudyInsVO> showNotice() throws Exception;
 } // end interface
 
 

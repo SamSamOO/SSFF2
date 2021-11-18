@@ -2,11 +2,10 @@ package kr.or.ssff.studyIns.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.rmi.server.ServerCloneException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
@@ -20,22 +19,16 @@ import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
@@ -196,18 +189,24 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 내 특정 스터디 게시판 뷰단임
      * */
     @GetMapping("/board/list")
-    public String studyBoardList(Criteria criteria , Model model) throws Exception {
-        log.info("studyBoardList({}) is invoked", "criteria = " + criteria + ", model = " + model);
+    public String studyBoardList(@RequestParam(defaultValue = "전체") String category, Criteria criteria, Model model) throws Exception {
+        log.info("studyBoardList({}) is invoked", "category = " + category + ", criteria = " + criteria + ", model = " + model);
 
         Objects.requireNonNull(service);
-        log.info("service.getList(criteria) = {}", service.getList(criteria));
-        for (int i = 0; i < service.getList(criteria).size(); i++) {
-            log.info(service.getList(criteria).get(i));
-        }
-        model.addAttribute("list", service.getList(criteria));
-        model.addAttribute("pageMaker", new PageDTO(criteria, 1000));
+
+        log.info("service.getList(criteria) = {}", service.getList(criteria, category));
+
+
+        model.addAttribute("list", service.getList(criteria, category));
+
+        model.addAttribute("noticeList", service.showNotice());
+
+        model.addAttribute("category", category);
+
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category)+1));
 
         log.info("criteria = {}", criteria);
+
         return "studyIns/board/list";
     } // studyBoardList
 
@@ -225,6 +224,9 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         Objects.requireNonNull(service);
         //내용물 불러오기
         StudyInsVO detail = service.get(cont_No);
+        //조회수 증가 쿼리
+        service.updateHit(cont_No);
+
         //파일 들고오기 //TODO -- 트랜젝션 처리 피료???
         List<StudyInsFileVO> listOfFile = service.getFile(cont_No);
 
@@ -492,7 +494,6 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 //
 //    return "";
 //  } // studyBoardPost
-
 
 
 }
