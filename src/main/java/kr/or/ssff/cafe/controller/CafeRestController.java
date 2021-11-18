@@ -4,11 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
-import kr.or.ssff.cafe.domain.CafeVO;
-import kr.or.ssff.cafe.model.CafeDTO;
-import kr.or.ssff.cafe.model.ReservationDTO;
+import kr.or.ssff.cafe.domain.RoomRsrvVO;
 import kr.or.ssff.cafe.service.CafeService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,15 +13,9 @@ import lombok.extern.log4j.Log4j2;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -132,6 +123,35 @@ public class CafeRestController {
   } // getCafeList
 
 
+  /*
+   * 특정일자, 특정 room 예약정보만 비동기 조회
+   * 매개변수: ajax로 전송받은 JSON객체(룸번호, 조회날짜)
+   * 반환: 특정일자, 특정룸의 예약정보를 담은 JSON객체
+   * */
+  @RequestMapping(value= "/roomRsrvList", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+  //없으면 AJAX 통신 안됨
+  public  JSONObject getRoomRsrvList(
+      @RequestBody HashMap<String, String> filterJSON
+  )  {
+    log.debug("getRoomRsrvList({}) is invoked", filterJSON);
+    log.info("ajax 요청 도착!");
 
+    String SearchDate = filterJSON.get("date");
+    String SearchRoom = filterJSON.get("room");
+
+    log.debug("SearchDate({}) is ", SearchDate);
+    log.debug("SearchRoom({}) is ", SearchRoom);
+    // join상태의 모든 정보 담아내기 (중복정보 있는 상태)
+    List<RoomRsrvVO> list = this.service.getRoomRsrvList(SearchRoom, SearchDate);
+    log.debug("list({}) is ", list);
+    //최종 완성될 JSONObject 선언(전체)
+    JSONObject jsonObject = new JSONObject();
+
+    jsonObject.put("roomRsrvList", list);
+
+    log.debug("jsonObject({}) is ", jsonObject);
+
+    return jsonObject;
+  } // getCafeList
 
 }

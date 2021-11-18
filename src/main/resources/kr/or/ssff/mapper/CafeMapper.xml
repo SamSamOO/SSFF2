@@ -95,9 +95,29 @@
 		  d.cafe_remove_yn = 'n'
 		  AND d.cafe_idx = #{cafe_idx}
   </select>
-  
-  
-  
+
+
+
+	<!-- 특정일자, 특정 room 예약정보만 조회 : 신지혜 -->
+	<select id="selectRoomRsrvList"
+
+		resultType="kr.or.ssff.cafe.domain.RoomRsrvVO">
+
+		SELECT
+			a.room_idx,
+			a.use_date,
+			a.use_start_time,
+			a.use_end_time,
+			b.total_room_number
+		FROM
+			rsrv a
+				JOIN room b ON a.room_idx = b.room_idx
+		WHERE
+			a.room_idx = #{room_idx}
+			AND a.use_date = #{use_date}
+			AND a.rsrv_status_ynz = 'y'
+
+	</select>
   
   
 </mapper>

@@ -3,6 +3,7 @@ package kr.or.ssff.cafe.service;
 import java.util.List;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
+import kr.or.ssff.cafe.domain.RoomRsrvVO;
 import kr.or.ssff.mapper.CafeMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -59,6 +60,21 @@ public class CafeServiceImpl
 
         return cafeInfo;
     } //
+
+    /*
+     * 특정일자, 특정 room 예약정보 조회
+     * 매개변수: 룸번호, 조회날짜
+     * 반환: 특정일자, 특정룸의 예약정보
+     * */
+    @Override
+    public List<RoomRsrvVO> getRoomRsrvList(String room_idx, String use_date) {
+        log.debug("getRoomRsrvList invoked : {}, {}", room_idx, use_date);
+
+        List<RoomRsrvVO> roomRsrvList = this.mapper.selectRoomRsrvList(room_idx, use_date);
+        log.info("\t roomRsrvList: " );
+        log.info("\t roomRsrvList: " + roomRsrvList);
+        return roomRsrvList;
+    } // getRoomRsrvList
 
 
     //-----------------------------------------------//

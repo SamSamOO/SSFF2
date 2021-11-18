@@ -790,7 +790,8 @@
 																																						
 																																						<label class="radio radio-lg mb-7"
 																																						       value="${room.room_idx}"
-																																						       onclick="viewPicker('${room.room_idx}');">
+																																						       onclick="viewPicker('${room.room_idx}');
+																																								       ">
 																																								<input
 																																										type="radio" name="time" style=""> <span
 																																								style=""></span>
@@ -1027,11 +1028,17 @@
     $('#info-' + $id).css('display', 'block');
     $('#picker-time-' + $id).css('display', 'none');
     $("input:radio[name='time']").prop('checked', false);
+    console.log($('#select-year').html() + '/' +
+                $('#select-month').html().padStart(2, '0') + '/' +
+                $('#select-date').html().padStart(2, '0'));
+    console.log($('#select-room').html());
+    callAjax();
 
   } // viewInfo
 
   // 예약하기 선택시 해당 룸의 예약 정보가 하단에 노출되게
   function viewPicker(roomIdx) {
+
     // 클릭 이벤트가 발생하면 id중 info-로 시작하는 애들 disalbe
     // $('#info-' + $id)만 able
     // able -> css display : block
@@ -1048,9 +1055,7 @@
 
   }
 
-  $(function () {
 
-  })
 </script>
 
 
@@ -1188,6 +1193,7 @@
 
         loadYYMM(init.prevMonth()));
 
+    // 선택한 날짜 정보 담기
     $calBody.addEventListener('click', (e) => {
       // $(`div[id^='picker-time-']`).css('display', 'none');
       $(`div[id^='picker-']`).css('display', 'none');
@@ -1217,7 +1223,7 @@
       }
     });
 
-    // 이전, 현재 날짜는 클릭 안되게
+    // 달력 날짜 셋팅! 셀렉시 이전, 현재 날짜는 클릭 안되게
     $(function () {
 
       // 처음 진입시 이전달로 못가게
@@ -1256,38 +1262,145 @@
 
   /*--------------- 시간 선택 ----------------*/
 
-  loadTime(9, 22); //TODO 여기 이제 예약단..
+  // 페이지 처리를 위한 함수 / 카드 증가시 1씩 증가
+  let num = 0;
 
-  // 시간 선택하는 테이블을 불러오는 함수
-  function loadTime(openTime, closeTime) {
+  // 조회불가 팝업
+  const myAlert = `
+          <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
+            <div class="alert-icon">
+              <i class="flaticon-warning"></i>
+            </div>
+            <div class="alert-text"> 정보를 불러오지 못했어요. \n 다시 시도해주세요. </div>
+            <div class="alert-close">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															<span aria-hidden="true">
+																<i class="ki ki-close"></i>
+															</span>
+              </button>
+            </div>
+          </div>
+ 	  `;
 
-    let trtd = '';
-    let ot = openTime;
-    const ct = closeTime;
-    let runTime = closeTime - openTime;
-    let trCnt = (runTime % 4 != 0) ? Math.floor(runTime / 4) + 1 : (runTime / 4);
+  // 조회할 날짜와 룸번호 가지고 데이터 조회-> 시간정보 뿌립니다..
+  function callAjax() {
 
-    console.log("trCnt: " + trCnt);
+    let yy = $('#select-year').html();  // 선택된 연도
+    let mm = $('#select-month').html().padStart(2, '0'); // 선택된 월
+    let dd = $('#select-date').html().padStart(2, '0'); // 선택된 일자
+    let rr = $('#select-room').html();  // 선택된 룸
 
-    trtd += '<ul>';
-    for (let i = openTime; i < closeTime; i++) {
-      let fullTime = i + ':00'; // 시간 표시
+    var submitObj = new Object();
+    submitObj.date = yy + '/' + mm + '/' + dd;
+    submitObj.room = rr;
 
-      trtd += '<li class="time';
-      trtd += (i % 3 == 0) ? ' cal-none"' : '"';
-      trtd += ` data-time="` + i + `">`;
+    console.log("JSON.stringify(submitObj): " + JSON.stringify(submitObj));
 
-      trtd += fullTime + '</li>';
-    } // for
-    trtd += '</ul>';
+    $.ajax({
+             type       : 'POST',
+             url        : '/cafeRest/roomRsrvList',
+             data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+             dataType   : 'json', // 받을 데이터는 json
+             contentType: "application/json; charset=utf-8",
+             success    : successCallback,
+             error      : errorCallback
+           });
 
-    // 테이블 자리에 안착
-    $('.time-pick').html(trtd);
+    // 성공시 데이터 처리
+    function successCallback(data) {
+      console.log("data: " + data);
+      console.log("data: " + data.roomRsrvList.length);
 
-  }
+      // 카페 오픈시간
+      const ot = ${cafeInfo[0].cafe_open_time};
 
+      // 카페 마감시간
+      const ct = ${cafeInfo[0].cafe_close_time};
+
+      // 해당일자 해당룸의 총 예약건수 확인
+      const roomRsrvListCnt = data.roomRsrvList.length;
+
+      // 불러온 데이터가 없다면 (==해당일자 해당룸 예약없음 개이득~)
+      if (data.roomRsrvList.length == 0) {
+        loadTime();
+      } else { // 예약정보가 있다면
+
+        // 조회한 룸 보유 개수 알아내깅
+        let roomTotalCnt = data.roomRsrvList[0].total_room_number;
+
+        // 예약된 시간을 모두 담을 배열
+        let arr = [];
+
+        // 보유 개수보다 많은지 확인하기위해 '한 룸에 예약된 시간 모두 구하기
+        for (let i = 0; i < roomRsrvListCnt; i++) {
+          for (let j = data.roomRsrvList[i].use_start_time;
+              j < data.roomRsrvList[i].use_end_time; j++) {
+            arr.push(j);
+          } // for
+        } // for
+
+        // 테이블 담아 동적 생성하기위한 변수
+        let trtd = '';
+
+        trtd += '<ul>';
+        for (let i = ot; i < ct; i++) {
+          let fullTime = i + ':00'; // 시간 표시
+
+          let eCnt = arr.filter(e => i === e).length;
+
+          trtd += '<li class="time';
+          trtd += (eCnt >= roomTotalCnt) ? ' cal-none"' : '"';
+          trtd += ` data-time="` + i + `">`;
+
+          trtd += fullTime + '</li>';
+        } // for
+        trtd += '</ul>';
+
+        // 테이블 자리에 안착
+        $('.time-pick').html(trtd);
+
+      } // if
+    } // successCallback
+
+    // 실패
+    function errorCallback() {
+      $('d-flex.flex-row.flex-column-fluid.container').append(myAlert);
+    } // errorCallback
+		  
+    // 테이블 생성 함수
+    function loadTime() {
+
+      let trtd = '';
+
+      trtd += '<ul>';
+      for (let i = ot; i < ct; i++) {
+        let fullTime = i + ':00'; // 시간 표시
+
+        trtd += '<li class="time" ';
+        trtd += ' data-time="' + i + '">';
+        trtd += fullTime + '</li>';
+      } // for
+      trtd += '</ul>';
+
+      // 테이블 자리에 안착
+      $('.time-pick').html(trtd);
+
+    }
+
+  }// callAjax: function
+
+  
+
+</script>
+
+<script>
+  $('.time').click(function (e) {
+    console.log("zmfz~"+$(this));
+
+  })
+  // timeSelect table 선택 (예약 정보 조회 이후)
   $(function () {
-    let $fSelect;
+
     $('.time').click(function (e) {
       // 시작시간 출력단
       let st = isNaN(parseInt($('#select-start-time').html())) ? 0 : parseInt(
@@ -1298,6 +1411,7 @@
           $('#select-end-time').html());
 
       let result = false;
+
       // 총 이용시간 출력단
       let rt = isNaN(parseInt($('#select-end-time').html())) ? 0 : parseInt(
           $('#select-end-time').html());
@@ -1306,7 +1420,7 @@
       console.log("et: " + et);
 
       let selectTime = $(this).data('time');
-      console.log($(this));
+      console.log("클릭했어요~"+$(this));
       console.log($("li[class='time-active']"));
 
       // 클릭한 시간은 활성화 (시작시간 정하기)
@@ -1377,8 +1491,7 @@
 
     });
   });
-
-
+		
 </script>
 
 </html>
