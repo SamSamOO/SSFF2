@@ -440,10 +440,113 @@
 										<!------------------ 본문 시작 ------------------>
 										<!--begin::Content Wrapper-->
 										
-										<div class="d-flex flex-row flex-column-fluid container">
-												
-												
-												${fn:length(cafeInfo)}
+										<div class="d-flex flex-row flex-column-fluid container" id="container">
+						
+										
+										</div>
+										<!--end::Page Layout-->
+								</div>
+								<!--end::Content-->
+						</div>
+						<!--begin::Content Wrapper-->
+				</div>
+				<!--end::Container-->
+				<!------------------ 본문 종료 ------------------>
+		</div>
+</div>
+
+
+</div>
+</div>
+<!--컨테이너 종료-->
+<!--footer.html Include-->
+<jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+</body>
+<!----------------Body 종료----------------------->
+<script>
+  // 이미지 슬라이드
+  $(function () {
+    //initialize swiper when document ready
+    var mySwiper = new Swiper('.cafe-img.swiper-container', {
+      // Optional parameters
+      // 방향
+      slidesPerView: 9, // 슬라이드를 한번에 3개를 보여준다
+      // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+      spaceBetween: 30, // 슬라이드간 padding 값 30px 씩 떨어뜨려줌
+
+      // 그룹수가 맞지 않을 경우 빈칸으로 메우기
+      // 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
+      loopFillGroupWithBlank: true,
+
+      loop: false, // loop 를 true 로 할경우 무한반복 슬라이드, false 로 할경우 슬라이드의 끝에서 더보여지지 않음
+
+      // If we need pagination
+      pagination: {
+        el       : '.swiper-pagination',
+        clickable: true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
+      },
+
+      // 반응형
+      breakpoints: {
+        1280: {
+          slidesPerView : 3,
+          slidesPerGroup: 3,
+        },
+        720 : {
+          slidesPerView : 1,
+          slidesPerGroup: 1,
+        },
+      }
+    })
+
+    // var mySwiper = new Swiper('.timePick.swiper-container2', {
+    //   // Optional parameters
+    //   // 방향
+    //   slidesPerView: 9, // 슬라이드를 한번에 3개를 보여준다
+    //   // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+    //   spaceBetween     : 0, // 슬라이드간 padding 값 30px 씩 떨어뜨려줌
+    //   mousewheelControl: true,
+    //   freeMode         : true,//활성화하면 슬라이드에 고정된 위치가 없음 여러개 슬라이드 휙 움직임
+    //   direction        : getDirection(),
+    //   // 그룹수가 맞지 않을 경우 빈칸으로 메우기
+    //   // 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
+    //   // loopFillGroupWithBlank: true,
+    //   on  : {
+    //     resize: function () {
+    //       swiper.changeDirection(getDirection());
+    //     },
+    //   },
+    //   loop: false, // loop 를 true 로 할경우 무한반복 슬라이드, false 로 할경우 슬라이드의 끝에서 더보여지지 않음
+    //
+    //   // 반응형
+    //   breakpoints: {
+    //     1280: {
+    //       slidesPerView : 3,
+    //       slidesPerGroup: 3,
+    //     },
+    //     720 : {
+    //       slidesPerView : 1,
+    //       slidesPerGroup: 1,
+    //     }
+    //   }
+    // })
+    //
+    // function getDirection() {
+    //   var windowWidth = window.innerWidth;
+    //   var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
+    //
+    //   return direction;
+    // }
+  });
+
+
+</script>
+
+<script>
+
+  let cont =
+          `
+		         ${fn:length(cafeInfo)}
 												<c:if test="${cafeInfo == null or fn:length(cafeInfo) == 0}">비었음</c:if>
 												
 												
@@ -659,7 +762,7 @@
 																		
 																		
 																		<!--begin::Aside-->
-																		<div class="flex-column offcanvas-mobile w-300px w-xl-325px"
+																		<div class="flex-column offcanvas-mobile w-325px w-xl-325px"
 																		     id="kt_profile_aside" style="margin-left: 2em !important;">
 																				<!--begin::List Widget 17-->
 																				<div class="card card-custom gutter-b">
@@ -834,7 +937,7 @@
 																												</div>
 																												<!--end::Radio list-->
 																												
-																												<a href="#" class="btn btn-warning" role="button"
+																												<a onclick="goRsrv();" class="btn btn-warning" role="button"
 																												   style="display: block;">예약하기</a>
 																												
 																												<br>
@@ -909,107 +1012,14 @@
 										
 										</div>
 										<!--end::Aside-->
-								
-								</div>
-								<!--end::Page Layout-->
-						</div>
-						<!--end::Content-->
-				</div>
-				<!--begin::Content Wrapper-->
-		</div>
-		<!--end::Container-->
-		<!------------------ 본문 종료 ------------------>
-</div>
-</div>
+		         
+		         `;
 
 
-</div>
-</div>
-<!--컨테이너 종료-->
-<!--footer.html Include-->
-<jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
-</body>
-<!----------------Body 종료----------------------->
-<script>
-  // 이미지 슬라이드
-  $(function () {
-    //initialize swiper when document ready
-    var mySwiper = new Swiper('.cafe-img.swiper-container', {
-      // Optional parameters
-      // 방향
-      slidesPerView: 9, // 슬라이드를 한번에 3개를 보여준다
-      // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
-      spaceBetween: 30, // 슬라이드간 padding 값 30px 씩 떨어뜨려줌
-
-      // 그룹수가 맞지 않을 경우 빈칸으로 메우기
-      // 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
-      loopFillGroupWithBlank: true,
-
-      loop: false, // loop 를 true 로 할경우 무한반복 슬라이드, false 로 할경우 슬라이드의 끝에서 더보여지지 않음
-
-      // If we need pagination
-      pagination: {
-        el       : '.swiper-pagination',
-        clickable: true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
-      },
-
-      // 반응형
-      breakpoints: {
-        1280: {
-          slidesPerView : 3,
-          slidesPerGroup: 3,
-        },
-        720 : {
-          slidesPerView : 1,
-          slidesPerGroup: 1,
-        },
-      }
-    })
-
-    var mySwiper = new Swiper('.timePick.swiper-container2', {
-      // Optional parameters
-      // 방향
-      slidesPerView: 9, // 슬라이드를 한번에 3개를 보여준다
-      // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
-      spaceBetween     : 0, // 슬라이드간 padding 값 30px 씩 떨어뜨려줌
-      mousewheelControl: true,
-      freeMode         : true,//활성화하면 슬라이드에 고정된 위치가 없음 여러개 슬라이드 휙 움직임
-      direction        : getDirection(),
-      // 그룹수가 맞지 않을 경우 빈칸으로 메우기
-      // 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
-      // loopFillGroupWithBlank: true,
-      on  : {
-        resize: function () {
-          swiper.changeDirection(getDirection());
-        },
-      },
-      loop: false, // loop 를 true 로 할경우 무한반복 슬라이드, false 로 할경우 슬라이드의 끝에서 더보여지지 않음
-
-      // 반응형
-      breakpoints: {
-        1280: {
-          slidesPerView : 3,
-          slidesPerGroup: 3,
-        },
-        720 : {
-          slidesPerView : 1,
-          slidesPerGroup: 1,
-        }
-      }
-    })
-
-    function getDirection() {
-      var windowWidth = window.innerWidth;
-      var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
-
-      return direction;
-    }
-  });
+  $('#container').html(cont);
 
 
-</script>
 
-<script>
 
   // 룸 선택시 해당 룸의 상세 정보가 하단에 노출되게
   function viewInfo(roomIdx) {
@@ -1032,6 +1042,7 @@
                 $('#select-month').html().padStart(2, '0') + '/' +
                 $('#select-date').html().padStart(2, '0'));
     console.log($('#select-room').html());
+
     callAjax();
 
   } // viewInfo
@@ -1046,16 +1057,263 @@
 
     $id = roomIdx
     console.log("$id :" + $id)
-
     console.log($('#info-' + $id))
-    $select = 'picger-' + $id;
 
-    $(`div[id^='picker-']`).css('display', 'none');
-    $('#picker-time-' + $id).css('display', 'block');
+
+
+      $(`div[id^='picker-']`).css('display', 'none');
+      $('#picker-time-' + $id).css('display', 'block');
+
+
 
   }
 
+  /*--------------- 시간 선택 ----------------*/
 
+  // 페이지 처리를 위한 함수 / 카드 증가시 1씩 증가
+  let num = 0;
+
+  // 조회불가 팝업
+  const myAlert = `
+          <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
+            <div class="alert-icon">
+              <i class="flaticon-warning"></i>
+            </div>
+            <div class="alert-text"> 정보를 불러오지 못했어요. \n 다시 시도해주세요. </div>
+            <div class="alert-close">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															<span aria-hidden="true">
+																<i class="ki ki-close"></i>
+															</span>
+              </button>
+            </div>
+          </div>
+ 	  `;
+
+  // 조회할 날짜와 룸번호 가지고 데이터 조회-> 시간정보 뿌립니다..
+  function callAjax() {
+
+    let yy = $('#select-year').html();  // 선택된 연도
+    let mm = $('#select-month').html().padStart(2, '0'); // 선택된 월
+    let dd = $('#select-date').html().padStart(2, '0'); // 선택된 일자
+    let rr = $('#select-room').html();  // 선택된 룸
+
+    // 카페 오픈시간
+    const ot = ${cafeInfo[0].cafe_open_time};
+    // 카페 마감시간
+    const ct = ${cafeInfo[0].cafe_close_time};
+
+    // 전송할 예약예정 일자, 예약 예정 룸
+    var submitObj = new Object();
+    submitObj.date = yy + '/' + mm + '/' + dd;
+    submitObj.room = rr;
+
+    console.log("JSON.stringify(submitObj): " + JSON.stringify(submitObj));
+
+    $.ajax({
+             type       : 'POST',
+             url        : '/cafeRest/roomRsrvList',
+             data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+             dataType   : 'json', // 받을 데이터는 json
+             contentType: "application/json; charset=utf-8",
+             success    : successCallback,
+             error      : errorCallback
+           });
+
+    // 성공시 데이터 처리
+    function successCallback(data) {
+      console.log("data: " + data);
+      console.log("data: " + data.roomRsrvList.length);
+
+
+
+      // 해당일자 해당룸의 총 예약건수 확인
+      const roomRsrvListCnt = data.roomRsrvList.length;
+
+      // 불러온 데이터가 없다면 (==해당일자 해당룸 예약없음 개이득~)
+      if (data.roomRsrvList.length == 0) {
+        loadTime();
+      } else { // 예약정보가 있다면
+
+        // 조회한 룸 보유 개수 알아내깅
+        let roomTotalCnt = data.roomRsrvList[0].total_room_number;
+
+        // 예약된 시간을 모두 담을 배열
+        let arr = [];
+
+        // 보유 개수보다 많은지 확인하기위해 '한 룸에 예약된 시간 모두 구하기
+        for (let i = 0; i < roomRsrvListCnt; i++) {
+          for (let j = data.roomRsrvList[i].use_start_time;
+              j < data.roomRsrvList[i].use_end_time; j++) {
+            arr.push(j);
+          } // for
+        } // for
+
+        // 테이블 담아 동적 생성하기위한 변수
+        let trtd = '';
+
+        trtd += '<ul>';
+        for (let i = ot; i < ct; i++) {
+          let fullTime = i + ':00'; // 시간 표시
+
+          let eCnt = arr.filter(e => i === e).length;
+
+          trtd += '<li class="time';
+          trtd += (eCnt >= roomTotalCnt) ? ' cal-none"' : '"';
+          trtd += ` data-time="` + i + `">`;
+
+          trtd += fullTime + '</li>';
+        } // for
+        trtd += '</ul>';
+
+        // 테이블 자리에 안착
+        $('.time-pick').html(trtd);
+
+      } // if
+    } // successCallback
+
+    // 실패
+    function errorCallback() {
+      $('d-flex.flex-row.flex-column-fluid.container').append(myAlert);
+    } // errorCallback
+
+    // 테이블 생성 함수
+    function loadTime() {
+
+      let trtd = '';
+
+      trtd += '<ul>';
+      for (let i = ot; i < ct; i++) {
+        let fullTime = i + ':00'; // 시간 표시
+
+        trtd += '<li class="time" ';
+        trtd += ' data-time="' + i + '">';
+        trtd += fullTime + '</li>';
+      } // for
+      trtd += '</ul>';
+
+      // 테이블 자리에 안착
+      $('.time-pick').html(trtd);
+
+    }
+
+
+    // timeSelect table 선택 (예약 정보 조회 이후)
+    $(document).on("click", ".time", function (e) {
+
+      // 시작시간 출력단
+      let st = isNaN(parseInt($('#select-start-time').html())) ? 0 : parseInt(
+          $('#select-start-time').html());
+
+      // 종료시간 출력단
+      let et = isNaN(parseInt($('#select-end-time').html())) ? 0 : parseInt(
+          $('#select-end-time').html());
+
+      let result = false;
+
+      // 총 이용시간 출력단
+      let rt = isNaN(parseInt($('#select-end-time').html())) ? 0 : parseInt(
+          $('#select-end-time').html());
+
+      console.log("st: " + st);
+      console.log("et: " + et);
+
+      let selectTime = $(this).data('time');
+      console.log("클릭했어요~" + $(this));
+      console.log($("li[class='time-active']"));
+
+      // 클릭한 시간은 활성화 (시작시간 정하기)
+
+      if ((st == 0 && et == 0) || rt != 0 || (selectTime < st && st != 0)) {
+        console.log("1: ");
+        // 시간 모두 비활성화
+        $("li[class='time time-active']").removeClass('time-active');
+
+        // 모든 시간 비워주고
+        $('#select-start-time').empty();
+        $('#select-end-time').empty();
+        $('#select-time').empty();
+
+        // 선택한 시간 활성화
+        $(this).addClass('time-active');
+
+        // 시작 시간에 담기
+        $('#select-start-time').html(selectTime);
+
+      } // if
+
+      // 정상적 선택이라면 끝나는 시간 활성화
+      if (st != 0 && rt == 0) {
+
+        // 시간 하나만 선택!
+        if (selectTime === st) { // 시간 하나만 선택
+          console.log("3: ");
+          $('#select-end-time').html(selectTime);
+
+        } else if (selectTime > st) { // 다중 선택(정상)
+
+          // 비활성화 된 셀을 같이 클릭하면
+          if ($(this).prevUntil(".time.time-active").is('.time.cal-none')) {
+            alert("누르지말라구 ㅋㅋ3");
+            // 시간 모두 비활성화
+            $("li[class='time time-active']").removeClass('time-active');
+
+            // 모든 시간 비워주고
+            $('#select-start-time').empty();
+            $('#select-end-time').empty();
+            $('#select-time').empty();
+
+          } else { // 정상 선택이라면 ㄱㄱ
+
+            $(this).addClass('time-active');
+            $('#select-end-time').html(selectTime);
+            console.log("st: " + st);
+            console.log("et: " + et);
+
+            $(this).prevUntil(".time.time-active").addClass('time-active');
+
+          } // if-else
+
+        } // if-else
+
+        // 종료 시간 확인해서
+        et = selectTime;
+        // 단일 선택이라면 1시간 아니라면 총 이용시간 계산해서
+        rt = et - st == 0 ? 1 : et - st + 1;
+        // 이용시간에 담아주자~
+        $('#select-time').html(rt);
+
+        // console.log("ㅇㄱww::"+$(this).prevAll().css("background", "black"));
+        console.log("ㅇㄱss::" + $(this).prevAll().data('time'));
+
+      } // if
+    });
+
+		  
+  }// callAjax: function
+
+
+
+  
+  // 예약하기 버튼 클릭시 정보 담아서 예약하는 화면으로 가자~
+  function goRsrv() {
+    
+    // 일자
+    // let date = ;
+    // // 사용 시작 시간
+    // let st = ;
+    // // 사용 종료 시간
+    // let et = ;
+    // // 룸 번호
+    // let rn = ;
+    // // 사용자 닉네임
+		  // let nick = ;
+    
+    
+    
+    
+		  
+  }
 </script>
 
 
@@ -1260,238 +1518,9 @@
 
   };
 
-  /*--------------- 시간 선택 ----------------*/
-
-  // 페이지 처리를 위한 함수 / 카드 증가시 1씩 증가
-  let num = 0;
-
-  // 조회불가 팝업
-  const myAlert = `
-          <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
-            <div class="alert-icon">
-              <i class="flaticon-warning"></i>
-            </div>
-            <div class="alert-text"> 정보를 불러오지 못했어요. \n 다시 시도해주세요. </div>
-            <div class="alert-close">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-															<span aria-hidden="true">
-																<i class="ki ki-close"></i>
-															</span>
-              </button>
-            </div>
-          </div>
- 	  `;
-
-  // 조회할 날짜와 룸번호 가지고 데이터 조회-> 시간정보 뿌립니다..
-  function callAjax() {
-
-    let yy = $('#select-year').html();  // 선택된 연도
-    let mm = $('#select-month').html().padStart(2, '0'); // 선택된 월
-    let dd = $('#select-date').html().padStart(2, '0'); // 선택된 일자
-    let rr = $('#select-room').html();  // 선택된 룸
-
-    var submitObj = new Object();
-    submitObj.date = yy + '/' + mm + '/' + dd;
-    submitObj.room = rr;
-
-    console.log("JSON.stringify(submitObj): " + JSON.stringify(submitObj));
-
-    $.ajax({
-             type       : 'POST',
-             url        : '/cafeRest/roomRsrvList',
-             data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
-             dataType   : 'json', // 받을 데이터는 json
-             contentType: "application/json; charset=utf-8",
-             success    : successCallback,
-             error      : errorCallback
-           });
-
-    // 성공시 데이터 처리
-    function successCallback(data) {
-      console.log("data: " + data);
-      console.log("data: " + data.roomRsrvList.length);
-
-      // 카페 오픈시간
-      const ot = ${cafeInfo[0].cafe_open_time};
-
-      // 카페 마감시간
-      const ct = ${cafeInfo[0].cafe_close_time};
-
-      // 해당일자 해당룸의 총 예약건수 확인
-      const roomRsrvListCnt = data.roomRsrvList.length;
-
-      // 불러온 데이터가 없다면 (==해당일자 해당룸 예약없음 개이득~)
-      if (data.roomRsrvList.length == 0) {
-        loadTime();
-      } else { // 예약정보가 있다면
-
-        // 조회한 룸 보유 개수 알아내깅
-        let roomTotalCnt = data.roomRsrvList[0].total_room_number;
-
-        // 예약된 시간을 모두 담을 배열
-        let arr = [];
-
-        // 보유 개수보다 많은지 확인하기위해 '한 룸에 예약된 시간 모두 구하기
-        for (let i = 0; i < roomRsrvListCnt; i++) {
-          for (let j = data.roomRsrvList[i].use_start_time;
-              j < data.roomRsrvList[i].use_end_time; j++) {
-            arr.push(j);
-          } // for
-        } // for
-
-        // 테이블 담아 동적 생성하기위한 변수
-        let trtd = '';
-
-        trtd += '<ul>';
-        for (let i = ot; i < ct; i++) {
-          let fullTime = i + ':00'; // 시간 표시
-
-          let eCnt = arr.filter(e => i === e).length;
-
-          trtd += '<li class="time';
-          trtd += (eCnt >= roomTotalCnt) ? ' cal-none"' : '"';
-          trtd += ` data-time="` + i + `">`;
-
-          trtd += fullTime + '</li>';
-        } // for
-        trtd += '</ul>';
-
-        // 테이블 자리에 안착
-        $('.time-pick').html(trtd);
-
-      } // if
-    } // successCallback
-
-    // 실패
-    function errorCallback() {
-      $('d-flex.flex-row.flex-column-fluid.container').append(myAlert);
-    } // errorCallback
-		  
-    // 테이블 생성 함수
-    function loadTime() {
-
-      let trtd = '';
-
-      trtd += '<ul>';
-      for (let i = ot; i < ct; i++) {
-        let fullTime = i + ':00'; // 시간 표시
-
-        trtd += '<li class="time" ';
-        trtd += ' data-time="' + i + '">';
-        trtd += fullTime + '</li>';
-      } // for
-      trtd += '</ul>';
-
-      // 테이블 자리에 안착
-      $('.time-pick').html(trtd);
-
-    }
-
-  }// callAjax: function
-
-  
 
 </script>
 
-<script>
-  $('.time').click(function (e) {
-    console.log("zmfz~"+$(this));
 
-  })
-  // timeSelect table 선택 (예약 정보 조회 이후)
-  $(function () {
-
-    $('.time').click(function (e) {
-      // 시작시간 출력단
-      let st = isNaN(parseInt($('#select-start-time').html())) ? 0 : parseInt(
-          $('#select-start-time').html());
-
-      // 종료시간 출력단
-      let et = isNaN(parseInt($('#select-end-time').html())) ? 0 : parseInt(
-          $('#select-end-time').html());
-
-      let result = false;
-
-      // 총 이용시간 출력단
-      let rt = isNaN(parseInt($('#select-end-time').html())) ? 0 : parseInt(
-          $('#select-end-time').html());
-
-      console.log("st: " + st);
-      console.log("et: " + et);
-
-      let selectTime = $(this).data('time');
-      console.log("클릭했어요~"+$(this));
-      console.log($("li[class='time-active']"));
-
-      // 클릭한 시간은 활성화 (시작시간 정하기)
-
-      if ((st == 0 && et == 0) || rt != 0 || (selectTime < st && st != 0)) {
-        console.log("1: ");
-        // 시간 모두 비활성화
-        $("li[class='time time-active']").removeClass('time-active');
-
-        // 모든 시간 비워주고
-        $('#select-start-time').empty();
-        $('#select-end-time').empty();
-        $('#select-time').empty();
-
-        // 선택한 시간 활성화
-        $(this).addClass('time-active');
-
-        // 시작 시간에 담기
-        $('#select-start-time').html(selectTime);
-
-      } // if
-
-      // 정상적 선택이라면 끝나는 시간 활성화
-      if (st != 0 && rt == 0) {
-
-        // 시간 하나만 선택!
-        if (selectTime === st) { // 시간 하나만 선택
-          console.log("3: ");
-          $('#select-end-time').html(selectTime);
-
-        } else if (selectTime > st) { // 다중 선택(정상)
-
-          // 비활성화 된 셀을 같이 클릭하면
-          if ($(this).prevUntil(".time.time-active").is('.time.cal-none')) {
-            alert("누르지말라구 ㅋㅋ3");
-            // 시간 모두 비활성화
-            $("li[class='time time-active']").removeClass('time-active');
-
-            // 모든 시간 비워주고
-            $('#select-start-time').empty();
-            $('#select-end-time').empty();
-            $('#select-time').empty();
-
-          } else { // 정상 선택이라면 ㄱㄱ
-
-            $(this).addClass('time-active');
-            $('#select-end-time').html(selectTime);
-            console.log("st: " + st);
-            console.log("et: " + et);
-
-            $(this).prevUntil(".time.time-active").addClass('time-active');
-
-          } // if-else
-
-        } // if-else
-
-        // 종료 시간 확인해서
-        et = selectTime;
-        // 단일 선택이라면 1시간 아니라면 총 이용시간 계산해서
-        rt = et - st == 0 ? 1 : et - st + 1;
-        // 이용시간에 담아주자~
-        $('#select-time').html(rt);
-
-        // console.log("ㅇㄱww::"+$(this).prevAll().css("background", "black"));
-        console.log("ㅇㄱss::" + $(this).prevAll().data('time'));
-
-      } // if
-
-    });
-  });
-		
-</script>
 
 </html>
