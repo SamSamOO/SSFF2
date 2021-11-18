@@ -25,7 +25,7 @@ public class SocketController {
 
     @MessageMapping("/user/{name}")
     @SendTo("/topic/users")
-    public List<MemberDTO> showUsers(@DestinationVariable String name) {
+    public List<MemberDTO> showUsers(@DestinationVariable String name,@DestinationVariable) {
 
         log.info("showUsers({}) is invoked", "name = " + name);
 
@@ -39,6 +39,7 @@ public class SocketController {
             log.info("user = {}", user);
             //클라이언트 부분을 써야합니다.
         }
+        if()
         log.info("users = {}", users);
 
         return users;

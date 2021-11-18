@@ -15,8 +15,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
-    <script src="/resources/assets/js/sockjs-0.3.4.js"></script>
-    <script src="/resources/assets/js/stomp.js"></script>
+    <script src="<c:url value="/resources/assets/js/sockjs-0.3.4.js"/>"></script>
+    <script src="<c:url value="/resources/assets/js/stomp.js"/>"></script>
 
 
 </head>
@@ -56,7 +56,14 @@
                     <!--카드 Body 시작-->
                     <div class="card-body pt-2 pb-0 mt-n3">
                         <h2>Hi there</h2>
+                        <div class="chattingArea">
+                            <%--동적 생성 .. 해당 r_Idx에 맞는 채팅들을 시간순으로 들고와야합니다.--%>
+                        </div>
+
                         <label for="name">닉네임 입력</label><input id="name"/>
+
+                        <label for="msg_Cont"></label><textarea name="msg_Cont" id="msg_Cont"></textarea>
+
                         <button onclick="connect()">Enter</button>
                         <button onclick="send()">Send</button>
                         <button onclick="disconnect()">Discount</button>
