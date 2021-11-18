@@ -3,6 +3,7 @@ package kr.or.ssff.studyIns.service;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import javax.naming.event.ObjectChangeListener;
 import kr.or.ssff.mapper.StudyInsMapper;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
@@ -39,11 +40,11 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      */
 
     @Override
-    public Integer countArticle(String searchOption, String keyword) {
+    public Integer countArticle(String category) {
         log.info("countArticle() is invoked");
 
         Objects.requireNonNull(mapper);
-        return this.mapper.countArticle();
+        return this.mapper.countArticle(category);
     }
 
     /* 게시글의 목록을 조회하는 함수입니다. (SI_BOARD table)
@@ -53,15 +54,14 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      */
 
     @Override
-    public List<StudyInsVO> getList(Criteria criteria) throws Exception {
-        log.info("getList({}) is invoked", "criteria = " + criteria);
+    public List<StudyInsVO> getList(Criteria criteria, String category) throws Exception {
+        log.info("getList({}) is invoked", "criteria = " + criteria + ", category = " + category);
+
         Objects.requireNonNull(mapper);
 
-        List<StudyInsVO> list = this.mapper.getListWithPaging(criteria);
+        List<StudyInsVO> list = this.mapper.getListWithPaging(criteria.getPageNum(),criteria.getAmount(), category);
 
         log.info("list = {}", list);
-
-        JSONObject jsonObject = new JSONObject();
 
         return list;
     }
@@ -157,6 +157,14 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         return (affectedRows == 1) ? true : false;
     } // modify
 
+    @Override
+    public Integer updateHit(Integer cont_No) throws Exception {
+        log.debug("updateHit({}) is invoked", "cont_No = " + cont_No);
+
+        Objects.requireNonNull(mapper);
+
+        return this.mapper.updateHit(cont_No);
+    }
 
     @Override
     public Integer findMaxContNo() {
@@ -175,6 +183,19 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
         log.info("list = {}", list);
 
+        return list;
+    }
+
+    /*공지글 보이게하는 함수 -- 상준*/
+    @Override
+    public List<StudyInsVO> showNotice() throws Exception {
+
+        log.info("showNotice() is invoked");
+
+        Objects.requireNonNull(mapper);
+        List<StudyInsVO> list = this.mapper.showNotice();
+
+        log.info("list = {}", list);
         return list;
     }
 

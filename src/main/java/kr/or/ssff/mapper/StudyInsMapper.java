@@ -6,6 +6,7 @@ import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
+import org.apache.ibatis.annotations.Param;
 
 
 /*
@@ -17,7 +18,8 @@ public interface StudyInsMapper {
     //게시글의 전체 목록 조회
     public List<StudyInsVO> getList(Integer start , Integer end , String searchOption , String keyword);
 
-    public List<StudyInsVO> getListWithPaging(Criteria criteria);
+    //페이징 적용 및 카테고리 적용 리스트 출력
+    public List<StudyInsVO> getListWithPaging(@Param("pageNum") Integer pageNum,@Param("amount")Integer amount,@Param("category") String category);
 
     public StudyInsVO read(Integer cont_No);
 
@@ -47,9 +49,16 @@ public interface StudyInsMapper {
     public Integer deleteFiles(StudyInsDTO studyInsDTO);
 
     //removedOk 가 n인 게시물의 갯수를 리턴합니다.
-    public Integer countArticle();
-
+    public Integer countArticle(String category);
 
     public List<StudyInsVO> getListByCategory(Criteria criteria, String category);
+
+    //조회수 증가 쿼리입니다.
+    public Integer updateHit(Integer cont_No);
+
+    //공지만 들고옵니다
+    public List<StudyInsVO> showNotice();
+
+
 
 }

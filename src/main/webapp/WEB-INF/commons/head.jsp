@@ -37,7 +37,7 @@
 <!--end::Global Theme Styles-->
 <!--begin::Layout Themes(used by all pages)-->
 <!--end::Layout Themes-->
-<link rel="icon" type="image/png" sizes="32x32" href="/resources/assets/media/logos/ssff-favicon32x32.png"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/assets/media/logos/ssff-favicon32x132.png"/>
 <link rel="icon" type="image/png" sizes="196x196" href="/resources/assets/media/logos/ssff-favicon196x196.png"/>
 <link rel="shortcut icon" href="/resources/assets/media/logos/ssff-favicon.ico"/>
 

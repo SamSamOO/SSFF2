@@ -34,7 +34,110 @@
 		
 		<style>
 
+
     /*--------------- swiper [s] ---------------*/
+    /*.swiper-slide.bo-x {*/
+    /*  width: 45px !important;*/
+    /*  height: 30px;*/
+    /*  text-align:center;*/
+    /*  !*display:flex; !* 내용을 중앙정렬 하기위해 flex 사용 *!*!*/
+    /*  align-items:center; !* 위아래 기준 중앙정렬 *!*/
+    /*  justify-content:left; !* 좌우 기준 중앙정렬 *!*/
+    /*  border: 1px solid red;*/
+    /*  !*border: 2px solid #ffc000;*!*/
+    /*  !*background-color: #ffd014;*!*/
+
+    /*  text-align: center;*/
+    /*  font-size: 18px;*/
+    /*  background: #ffd014;*/
+
+    /*  !* Center slide text vertically *!*/
+    /*  display: -webkit-box;*/
+    /*  display: -ms-flexbox;*/
+    /*  display: -webkit-flex;*/
+    /*  display: flex;*/
+    /*  -webkit-box-pack: center;*/
+    /*  -ms-flex-pack: center;*/
+    /*  -webkit-justify-content: center;*/
+    /*  justify-content: center;*/
+    /*  -webkit-box-align: center;*/
+    /*  -ms-flex-align: center;*/
+    /*  -webkit-align-items: center;*/
+    /*  align-items: center;*/
+    /*  */
+    /*  */
+    /*}*/
+
+    /*.time_box >span.price{*/
+    /*  !*width: 50px !important;*!*/
+    /*  !*height: 30px;*!*/
+    /*  !*border: 1px solid #4a5562;*!*/
+    /*  cursor: pointer;*/
+    /*  list-style: none;*/
+    /*  color: #cc8c28;*/
+    /*  */
+    /*  width: 45px !important;*/
+    /*  min-width: 45px;*/
+    /*  height: 41px;*/
+    /*  font-size: 10px;*/
+    /*  padding-top: 3px;*/
+    /*  vertical-align: middle;*/
+    /*  word-break: break-all;*/
+    /*  word-wrap: break-word;*/
+    /*  text-align: center;*/
+    /*}*/
+
+    /*.time_box >span.time{*/
+    /*  position: absolute;*/
+    /*  left: -8px;*/
+    /*  top: -23px;*/
+    /*  width: 15px;*/
+    /*  text-align: center;*/
+    /*  color: #000;*/
+    /*  vertical-align: top;*/
+    /*  list-style: none;*/
+    /*}*/
+
+    /*.bo-x {*/
+    /*  width: auto;*/
+    /*  height: 30px;*/
+    /*}*/
+
+    /*.swiper-wrapper.time_list {*/
+    /*  align-items:center; !* 위아래 기준 중앙정렬 *!*/
+    /*  justify-content:left; !* 좌우 기준 중앙정렬 *!*/
+    /*  */
+    /*}*/
+    /*!*.meetspace .reserve_time_wrap .time_list li {*!*/
+    /*!*  position: relative;*!*/
+    /*!*  float: left;*!*/
+    /*!*  height: 103px;*!*/
+    /*!*  width: 45px;*!*/
+    /*!*  padding: 47px 0 14px;*!*/
+    /*!*}*!*/
+
+    /*.swiper-container2 {*/
+    /*  margin: 0 auto;*/
+    /*  position: relative;*/
+    /*  overflow: hidden;*/
+    /*  list-style: none;*/
+    /*  padding: 0;*/
+    /*  z-index: 1;*/
+
+    /*  width:230px;*/
+    /*  height:100px;*/
+    /*  border:1px solid silver;*/
+    /*  border-radius:7px;*/
+    /*  box-shadow:0 0 20px #ccc inset;*/
+
+    /*  align-items:center; !* 위아래 기준 중앙정렬 *!*/
+    /*  justify-content:left; !* 좌우 기준 중앙정렬 *!*/
+
+    /* */
+    /*  */
+    /*}*/
+
+
     .swiper-container {
       width: 100%;
       height: 100%;
@@ -76,11 +179,12 @@
       display: block;
       clear: both;
       float: none;
+      background-color: #bf7e00;
     }
 
     /* ======== Calendar ======== */
     .my-calendar {
-      width: 235px;
+      width: inherit;
       margin: 0px;
       padding: 0px;
       text-align: center;
@@ -90,11 +194,9 @@
     }
 
     .my-calendar .clicked-date {
-      border-radius: 25px;
-      margin-top: 36px;
-      float: left;
-      width: 42%;
-      padding: 46px 0 26px;
+      text-align: right;
+      width: inherit;
+      width: 100%;
       background: #ddd;
     }
 
@@ -104,17 +206,24 @@
       padding-left: 30px;
     }
 
+    .clicked-date {
+      display: none;
+    }
+
     .clicked-date .cal-day {
-      font-size: 24px;
+      font-size: 20px;
+      text-align: right;
+      width: inherit;
     }
 
     .clicked-date .cal-date {
-      font-size: 130px;
+      font-size: 20px;
+      text-align: right;
+      width: inherit;
     }
 
     .ctr-box {
       padding: 0 16px;
-      margin-bottom: 20px;
       font-size: 20px;
     }
 
@@ -158,7 +267,7 @@
       width: 14.2857%;
       padding-bottom: 5px;
       font-size: 16px;
-      font-weight: 900;
+      font-weight: 500;
     }
 
     .cal-table td {
@@ -166,6 +275,7 @@
       height: 15px;
       font-size: 15px;
       vertical-align: middle;
+      font-weight: 100;
     }
 
     .cal-table td.day {
@@ -173,10 +283,19 @@
       cursor: pointer;
     }
 
+    .cal-none { /* 이전 날짜 선택 불가 */
+      cursor: default !important;
+      background-color: #f5f5f5;
+      color: #dddddd;
+      pointer-events: none;
+    }
+
     .cal-table td.today {
       background: #ffd255;
       border-radius: 50%;
       color: #fff;
+      cursor: default !important; /* 현재날짜 선택불가 */
+      pointer-events: none;
     }
 
     .cal-table td.day-active {
@@ -195,7 +314,69 @@
       height: 4px;
       background: #FFC107;
     }
-		
+
+    /* ======== Calendar ======== */
+
+    /* ========== body ========== */
+    table.time-pick {
+      border-collapse: collapse;
+      text-align: center;
+      line-height: 1.5;
+
+    }
+
+    table.time-pick th {
+      width: 150px;
+      padding: 10px;
+      font-weight: bold;
+      vertical-align: top;
+      border: 1px solid #ccc;
+    }
+
+    table.time-pick td {
+      width: 350px;
+      padding: 10px;
+      vertical-align: top;
+      border: 1px solid #ccc;
+      cursor: pointer;
+    }
+
+    .time-active {
+      background-color: red;
+    }
+
+
+    .time-pick li {
+      border-collapse: collapse;
+      cursor: pointer;
+      height: 40px;
+      width: 63px;
+      text-align: center;
+
+      padding: 0px;
+
+
+      font-weight: bold;
+      vertical-align: top;
+      border: 1px solid #ccc;
+      list-style: none;
+
+      float: left;
+
+    }
+
+
+    .time-pick ul {
+
+
+      padding: 0px;
+
+
+    }
+
+    /*table.time-pick.time-active td {*/
+    /*  background-color: red;*/
+    /*}*/
 		
 		</style>
 		
@@ -297,7 +478,7 @@
 																														<!-- 이미지 슬라이드 [s] -->
 																														<div class="symbol-label min-w-65px min-h-100px pb-10">
 																																
-																																<div class="swiper-container mySwiper">
+																																<div class="cafe-img swiper-container mySwiper">
 																																		<div class="swiper-wrapper">
 																																				
 																																				<!-- 카페 이미지와 -->
@@ -328,8 +509,7 @@
 																														</div>
 																														<!-- 이미지 슬라이드 [e] -->
 																														
-																														<h1 class="display-4 mb-10"
-																														    style="margin-bottom: 0 !important;">${cafeInfo[0].cafe_main_title}</h1>
+																														<h1 class="display-4 mb-0">${cafeInfo[0].cafe_main_title}</h1>
 																												</div>
 																										
 																										</div>
@@ -374,15 +554,13 @@
 																																		class="pl-0 font-weight-bold text-muted text-uppercase">운영안내
 																																</th>
 																																
-																																
-																																<th
-																																		class="pl-0 font-weight-bold text-muted text-uppercase"></th>
+																																<th></th>
 																														</tr>
 																														</thead>
 																														<tbody>
 																														
 																														
-																														<tr class=" border-bottom-0">
+																														<tr class="border-bottom-0">
 																																
 																																<td
 																																		class="border-top-0 text-reft py-4 align-middle font-weight-boldest">
@@ -507,176 +685,244 @@
 																												
 																												<!-- begin::룸 선택 -->
 																												<div class="form-group mb-7">
-																														<label
-																																class="font-size-h3 font-weight-bolder text-dark mb-7">Room</label>
-																														<!--begin::Radio list-->
-																														<div class="radio-list">
+																														
+																														<div
+																																class="font-size-h4 font-weight-bolder text-dark mb-4"
+																																data-value="${room.room_idx}"
+																																style="border-bottom: 3px solid #6b984f; display: none;">날짜선택
+																														</div>
+																														
+																														<!-- .my-calendar -->
+																														<div class="my-calendar clearfix calendar-box mb-10">
 																																
-																																<c:forEach items="${cafeInfo}" var="room">
-																																		<div class="${room.room_idx}">
+																																<div class="clicked-date">
+																																		<span class="cal-day"></span>
+																																		<span class="cal-date"></span>
+																																</div>
+																																
+																																<div class="ctr-box clearfix mb-5 mt-5">
+																																		<button type="button" title="prev" class="btn-cal prev">
+																																		</button>
+																																		<span class="cal-year"></span>
+																																		<span> / </span>
+																																		<span class="cal-month"></span>
+																																		<button type="button" title="next" class="btn-cal next">
+																																		</button>
+																																</div>
+																																
+																																<table class="cal-table">
+																																		<thead>
+																																		<tr>
+																																				<th style="color:red">S</th>
+																																				<th>M</th>
+																																				<th>T</th>
+																																				<th>W</th>
+																																				<th>T</th>
+																																				<th>F</th>
+																																				<th style="color:blue">S</th>
+																																		</tr>
+																																		</thead>
+																																		<tbody class="cal-body"></tbody>
+																																</table>
+																														
+																														</div>
+																														<!-- // .my-calendar -->
+																												</div>
+																												
+																												<div id="select-rsrv-info">
+																														<span id="select-year"></span>
+																														<span id="select-month"></span>
+																														<span id="select-date"></span>
+																														<span id="select-room"></span>
+																														<span id="select-start-time"></span>
+																														<span id="select-end-time"></span>
+																														<span id="select-time"></span>
+																												</div>
+																												
+																												
+																												<label
+																														class="font-size-h3 font-weight-bolder text-dark mb-7"
+																														style="border-bottom: 3px solid #ebab31;">Room</label>
+																												<!--begin::Radio list-->
+																												<div class="radio-list">
+																														
+																														<c:forEach items="${cafeInfo}" var="room">
+																																<div class="${room.room_idx}">
+																																		
+																																		<!-- radio [ s ] -->
+																																		<label class="radio radio-lg mb-7"> <input
+																																				type="radio" name="room" value="${room.room_idx}"
+																																				onclick="viewInfo('${room.room_idx}');"> <span></span>
+																																				<div
+																																						class="font-size-lg text-dark-75 font-weight-bold"
+																																						data-value="${room.max_people}">
+																																								${room.max_people}인실
+																																				</div>
+																																				<div class="ml-auto text-muted font-weight-bold"
+																																				     data-value="${room.amount_hour}">
+																																								${room.amount_hour} 원/시간
+																																				</div>
+																																		</label>
+																																		<!-- radio [ e ] -->
+																																		
+																																		<!--begin::룸별 정보 동적생성구간 active로 활성화 ㄲ -->
+																																		<div class="card-body p-1 mb-7" id="info-${room.room_idx}"
+																																		     style="display: none;">
 																																				
-																																				<!-- radio [ s ] -->
-																																				<label class="radio radio-lg mb-7"> <input
-																																						type="radio" name="price" value="${room.room_idx}"
-																																						onclick="viewInfo('${room.room_idx}')"> <span></span>
-																																						<div
-																																								class="font-size-lg text-dark-75 font-weight-bold"
-																																								data-value="${room.max_people}">
-																																										${room.max_people}인실
-																																						</div>
-																																						<div class="ml-auto text-muted font-weight-bold"
-																																						     data-value="${room.amount_hour}">
-																																										${room.amount_hour} 원/시간
-																																						</div>
-																																				</label>
-																																				<!-- radio [ e ] -->
-																																				
-																																				<!--begin::룸별 정보 동적생성구간 active로 활성화 ㄲ -->
-																																				<div class="card-body p-1 mb-7" id="info-${room.room_idx}"
-																																				     style="display: none;">
+																																				<!--begin::Item-->
+																																				<div class="align-items-center mb-8">
 																																						
-																																						<!--begin::Item-->
-																																						<div class="align-items-center mb-8">
-																																								
-																																								<!-- begin::룸 선택 -->
-																																								<div class="form-group mb-7">
-																																										<div class="symbol-label min-w-65px min-h-120px"
-																																										     style="background-image: ${room.room_image};
-																																												     background-color: #7e62dc">룸이미지만
-																																												있다면..!
-																																										</div>
+																																						<!-- begin::룸 선택 -->
+																																						<div class="form-group mb-7">
+																																								<div class="symbol-label min-w-65px min-h-120px"
+																																								     style="background-image: ${room.room_image};
+																																										     background-color: #7e62dc">룸이미지만
+																																										있다면..!
 																																								</div>
-																																								<!-- end::룸 선택 -->
+																																						</div>
+																																						<!-- end::룸 선택 -->
+																																						
+																																						<div
+																																								class="font-size-h4 font-weight-bolder text-dark mb-4"
 																																								
+																																								style="border-bottom: 3px solid #6b984f;">예약선택
+																																						</div>
+																																						
+																																						<label class="radio radio-lg mb-7"
+																																						       value="${room.room_idx}"
+																																						       onclick="viewPicker('${room.room_idx}');">
+																																								<input
+																																										type="radio" name="time" style=""> <span
+																																								style=""></span>
+																																								<div class="font-size-lg text-dark-75 font-weight-bold"
+																																								     style="">&nbsp;시간 단위(최소 1시간부터)
+																																								</div>
+																																						</label>
+																																						
+																																						<div id="picker-time-${room.room_idx}"
+																																						
+																																						     style="display: none;">
 																																								<div
 																																										class="font-size-h4 font-weight-bolder text-dark mb-4"
-																																										
-																																										style="border-bottom: 3px solid #6b984f;">예약선택
+																																										data-value="${room.room_idx}"
+																																										style="border-bottom: 3px solid #6b984f;">시간선택
 																																								</div>
+																																								<!-- 시간 select table! -->
+																																										<%--																																								<table class="time-pick min-w-65px min-h-60px mt-5" id="time-picker"></table>--%>
+																																								<div class="time-pick min-w-65px min-h-60px mt-5"
+																																								     id="time-picker"
+																																								     style="height: 200px;"
+																																								>
 																																								
-																																								<label class="radio radio-lg mb-7" value="${room.room_idx}"
-																																								       onclick="viewPicker('${room.room_idx}')">
-																																										<input
-																																												type="radio" name="time" style=""> <span
-																																										style=""></span>
-																																										<div class="font-size-lg text-dark-75 font-weight-bold"
-																																										     style="">&nbsp;시간 단위(최소 1시간부터)
-																																										</div>
-																																								</label>
 																																								
-																																								<div id="picker-date-${room.room_idx}"
-																																								     style="display: none;">
-																																										<div
-																																												class="font-size-h4 font-weight-bolder text-dark mb-4"
-																																												data-value="${room.room_idx}"
-																																												style="border-bottom: 3px solid #6b984f;">날짜선택
-																																										</div>
-																																										
-																																										
-																																										<div class="min-w-65px min-h-300px">
-																																												<input class="font-size-lg text-dark-75"
-																																												       type="text" id="datepicker" style="  ">
-																																										</div>
 																																								</div>
-																																								<div id="picker-time-${room.room_idx}"
-																																								     style="display: none;">
-																																										<div
-																																												class="font-size-h4 font-weight-bolder text-dark mb-4"
-																																												data-value="${room.room_idx}"
-																																												style="border-bottom: 3px solid #6b984f;">시간선택
-																																										</div>
-																																										<div class="min-w-65px min-h-60px"
-																																										     style="border: 1px solid #6b984f;">시간선택할 공간
-																																										</div>
-																																								</div>
+																																						
 																																						</div>
-																																						
-																																						
-																																						<!--end::Item-->
 																																				
 																																				</div>
-																																				<!--begin::룸별 정보 동적생성구간-->
+																																				<!--end::Item-->
 																																		
 																																		</div>
-																																
-																																
-																																</c:forEach>
-																														
-																														</div>
-																														<!--end::Radio list-->
-																														<a href="#" class="btn btn-warning" role="button"
-																														   style="display: block;">예약하기</a>
-																														
-																														<div class="clicked-date">
-																																<div class="cal-day"></div>
-																																<div class="cal-date"></div>
-																														</div>
-																														
-																														<div class="container">
-																																<div class="my-calendar clearfix calendar-box">
-																																		
-																																		<div class="ctr-box clearfix">
-																																				<button type="button" title="prev" class="btn-cal prev">
-																																				</button>
-																																				<span class="cal-month"></span>
-																																				<span class="cal-year"></span>
-																																				<button type="button" title="next" class="btn-cal next">
-																																				</button>
-																																		</div>
-																																		<table class="cal-table">
-																																				<thead>
-																																				<tr>
-																																						<th>S</th>
-																																						<th>M</th>
-																																						<th>T</th>
-																																						<th>W</th>
-																																						<th>T</th>
-																																						<th>F</th>
-																																						<th>S</th>
-																																				</tr>
-																																				</thead>
-																																				<tbody class="cal-body"></tbody>
-																																		</table>
+																																		<!--begin::룸별 정보 동적생성구간-->
 																																
 																																</div>
-																																<!-- // .my-calendar -->
-																														</div>
+																														
+																														
+																														</c:forEach>
 																												
 																												</div>
+																												<!--end::Radio list-->
+																												
+																												<a href="#" class="btn btn-warning" role="button"
+																												   style="display: block;">예약하기</a>
+																												
+																												<br>
+																												<br>
+																												<br>
+																												
+																												<!-- 시간 swiper -->
+																												<%--																												<div class="timePick swiper-container2">--%>
+																												<%--																														<ul class="swiper-wrapper time_list">--%>
+																												<%--																																--%>
+																												<%--																																<!-- 카페 이미지와 -->--%>
+																												<%--&lt;%&ndash;																																<li class="swiper-slide bo-x">&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																		<span class="time time_half">오전</span>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																		<a class="time_box">&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																				<span class="time">0</span>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																				<span class="price"></span>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																		</a>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																</li>&ndash;%&gt;--%>
+																												<%--																																--%>
+																												<%--																																<c:forEach items="${cafeInfo}" var="room" varStatus="i">--%>
+																												<%--																																--%>
+																												<%--																																<li class="swiper-slide bo-x mt-10 mb-10">--%>
+																												<%--																																		<a class="time_box">--%>
+																												<%--																																				<span class="time">1</span>--%>
+																												<%--																																				<span class="price">2000</span></a>--%>
+																												<%--																																</li>--%>
+																												<%--																																	--%>
+																												
+																												<%--																																</c:forEach>--%>
+																												<%--																														--%>
+																												<%--&lt;%&ndash;																																<li class="swiper-slide bo-x">&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																		<span class="time time_half">오후</span>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																		<a	class="time_box">&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																				<span class="time">12</span>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																				<span class="price">2,000</span>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																		</a>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																</li>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																<li class="swiper-slide bo-x">&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																		<span class="time time_half">익일</span>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																		<a	class="time_box">&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																				<span class="time">0</span>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																				<span class="price"></span>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																		</a>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																																</li>&ndash;%&gt;--%>
+																												<%--&lt;%&ndash;																														</ul>&ndash;%&gt;--%>
+																												<%--																														<span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>--%>
+																												<%--																													--%>
+																												<%--																												</div>--%>
+																										
 																										
 																										</div>
-																										<!-- end::룸 선택 -->
 																								
 																								</div>
-																								<!--end::Item-->
 																						
 																						</div>
-																						<!--end::Container-->
 																				
 																				</div>
-																				<!--end::Body-->
-																				
-																				<div id="color-calendar"></div>
+																				<!-- end::룸 선택 -->
+																		
 																		</div>
-																		<!--end::List Widget 17-->
+																		<!--end::Item-->
 																
 																</div>
-																<!--end::Aside-->
+																<!--end::Container-->
 														
 														</div>
-														<!--end::Page Layout-->
+														<!--end::Body-->
+												
+												
 												</div>
-												<!--end::Content-->
+												<!--end::List Widget 17-->
+										
 										</div>
-										<!--begin::Content Wrapper-->
+										<!--end::Aside-->
+								
 								</div>
-								<!--end::Container-->
-								<!------------------ 본문 종료 ------------------>
+								<!--end::Page Layout-->
 						</div>
+						<!--end::Content-->
 				</div>
-		
-		
+				<!--begin::Content Wrapper-->
 		</div>
+		<!--end::Container-->
+		<!------------------ 본문 종료 ------------------>
+</div>
+</div>
+
+
+</div>
 </div>
 <!--컨테이너 종료-->
 <!--footer.html Include-->
@@ -687,7 +933,7 @@
   // 이미지 슬라이드
   $(function () {
     //initialize swiper when document ready
-    var mySwiper = new Swiper('.swiper-container', {
+    var mySwiper = new Swiper('.cafe-img.swiper-container', {
       // Optional parameters
       // 방향
       slidesPerView: 9, // 슬라이드를 한번에 3개를 보여준다
@@ -718,10 +964,50 @@
         },
       }
     })
+
+    var mySwiper = new Swiper('.timePick.swiper-container2', {
+      // Optional parameters
+      // 방향
+      slidesPerView: 9, // 슬라이드를 한번에 3개를 보여준다
+      // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+      spaceBetween     : 0, // 슬라이드간 padding 값 30px 씩 떨어뜨려줌
+      mousewheelControl: true,
+      freeMode         : true,//활성화하면 슬라이드에 고정된 위치가 없음 여러개 슬라이드 휙 움직임
+      direction        : getDirection(),
+      // 그룹수가 맞지 않을 경우 빈칸으로 메우기
+      // 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
+      // loopFillGroupWithBlank: true,
+      on  : {
+        resize: function () {
+          swiper.changeDirection(getDirection());
+        },
+      },
+      loop: false, // loop 를 true 로 할경우 무한반복 슬라이드, false 로 할경우 슬라이드의 끝에서 더보여지지 않음
+
+      // 반응형
+      breakpoints: {
+        1280: {
+          slidesPerView : 3,
+          slidesPerGroup: 3,
+        },
+        720 : {
+          slidesPerView : 1,
+          slidesPerGroup: 1,
+        }
+      }
+    })
+
+    function getDirection() {
+      var windowWidth = window.innerWidth;
+      var direction = window.innerWidth <= 760 ? 'vertical' : 'horizontal';
+
+      return direction;
+    }
   });
 
 
 </script>
+
 <script>
 
   // 룸 선택시 해당 룸의 상세 정보가 하단에 노출되게
@@ -736,8 +1022,12 @@
 
     console.log($('#info-' + $id))
 
+    $('#select-room').html(roomIdx);
     $(`div[id^='info-']`).css('display', 'none');
     $('#info-' + $id).css('display', 'block');
+    $('#picker-time-' + $id).css('display', 'none');
+    $("input:radio[name='time']").prop('checked', false);
+
   } // viewInfo
 
   // 예약하기 선택시 해당 룸의 예약 정보가 하단에 노출되게
@@ -754,152 +1044,340 @@
     $select = 'picger-' + $id;
 
     $(`div[id^='picker-']`).css('display', 'none');
-    $('#picker-date-' + $id).css('display', 'block');
     $('#picker-time-' + $id).css('display', 'block');
 
   }
 
+  $(function () {
 
+  })
 </script>
 
 
 <script>
+  calSet();
 
-  // ================================
-  // START YOUR APP HERE
-  // ================================
-  const init = {
-    monList     : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
-                   'September', 'October', 'November', 'December'],
-    dayList     : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-    today       : new Date(),
-    monForChange: new Date().getMonth(),
-    activeDate  : new Date(),
-    getFirstDay : (yy, mm) => new Date(yy, mm, 1),
-    getLastDay  : (yy, mm) => new Date(yy, mm + 1, 0),
-    nextMonth   : function () {
-      let d = new Date();
-      d.setDate(1);
-      d.setMonth(++this.monForChange);
-      this.activeDate = d;
-      return d;
-    },
-    prevMonth   : function () {
-      let d = new Date();
-      d.setDate(1);
-      d.setMonth(--this.monForChange);
-      this.activeDate = d;
-      return d;
-    },
-    addZero     : (num) => (num < 10) ? '0' + num : num,
-    activeDTag  : null,
-    getIndex    : function (node) {
-      let index = 0;
-      while (node = node.previousElementSibling) {
-        index++;
+  function calSet() {
+
+    // ================================
+    // 달력
+    // ================================
+    const init = {
+      monList     : ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+                     'September', 'October', 'November', 'December'],
+      dayList     : ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+      today       : new Date(),
+      monForChange: new Date().getMonth(),
+      activeDate  : new Date(),
+      getFirstDay : (yy, mm) => new Date(yy, mm, 1),
+      getLastDay  : (yy, mm) => new Date(yy, mm + 1, 0),
+      nextMonth   : function () {
+        let d = new Date();
+        d.setDate(1);
+        d.setMonth(++this.monForChange);
+        this.activeDate = d;
+        return d;
+      },
+      prevMonth   : function () {
+        let d = new Date();
+        d.setDate(1);
+        d.setMonth(--this.monForChange);
+        this.activeDate = d;
+        return d;
+      },
+      addZero     : (num) => (num < 10) ? '0' + num : num,
+      activeDTag  : null,
+      getIndex    : function (node) {
+        let index = 0;
+        while (node = node.previousElementSibling) {
+          index++;
+        }
+        return index;
       }
-      return index;
+    };
+
+    const $calBody = document.querySelector('.cal-body');
+    const $btnNext = document.querySelector('.btn-cal.next');
+    const $btnPrev = document.querySelector('.btn-cal.prev');
+
+    /**
+     * @param {number} date
+     * @param {number} dayIn
+     */
+    function loadDate(date, dayIn) {
+      document.querySelector('.cal-date').textContent = date;
+      document.querySelector('.cal-day').textContent = init.dayList[dayIn];
+
+      console.log(date)
     }
+
+    /**
+     * @param {date} fullDate
+     */
+    function loadYYMM(fullDate) {
+      let yy = fullDate.getFullYear();
+      let mm = fullDate.getMonth();
+      let firstDay = init.getFirstDay(yy, mm);
+      let lastDay = init.getLastDay(yy, mm);
+      let markToday;  // for marking today date
+
+      if (mm === init.today.getMonth() && yy === init.today.getFullYear()) {
+        markToday = init.today.getDate();
+      }
+// document.querySelector('.cal-month').textContent = mm;
+      document.querySelector('.cal-month').textContent = mm + 1;
+      document.querySelector('.cal-year').textContent = yy;
+
+      let trtd = '';
+      let startCount;
+      let countDay = 0;
+      for (let i = 0; i < 6; i++) {
+        trtd += '<tr>';
+        for (let j = 0; j < 7; j++) {
+          if (i === 0 && !startCount && j === firstDay.getDay()) {
+            startCount = 1;
+          }
+          if (!startCount) {
+            trtd += '<td>'
+          } else {
+            let fullDate = yy + '.' + init.addZero(mm + 1) + '.' + init.addZero(countDay + 1);
+            trtd += '<td class="day';
+            trtd += (markToday && markToday === countDay + 1) ? ' today" ' :
+                    (markToday > (countDay + 1)) ? ' cal-none"' :
+                    '"';
+            trtd += ` data-date="${countDay + 1}" data-fdate="${fullDate}">`;
+          }
+          trtd += (startCount) ? ++countDay : '';
+          if (countDay === lastDay.getDate()) {
+            startCount = 0;
+          }
+          trtd += '</td>';
+        }
+        trtd += '</tr>';
+      }
+
+      $calBody.innerHTML = trtd;
+    }
+
+    /**
+     * @param {string} val
+     */
+    function createNewList(val) {
+      let id = new Date().getTime() + '';
+      let yy = init.activeDate.getFullYear();
+      let mm = init.activeDate.getMonth() + 1;
+      let dd = init.activeDate.getDate();
+      const $target = $calBody.querySelector(`.day[data-date="${dd}"]`);
+
+      let date = yy + '.' + init.addZero(mm) + '.' + init.addZero(dd);
+
+      let eventData = {};
+      eventData['date'] = date;
+      eventData['memo'] = val;
+      eventData['complete'] = false;
+      eventData['id'] = id;
+      init.event.push(eventData);
+      $todoList.appendChild(createLi(id, val, date));
+    }
+
+    loadYYMM(init.today);
+    loadDate(init.today.getDate(), init.today.getDay());
+
+    $btnNext.addEventListener('click', () => loadYYMM(init.nextMonth()));
+    $btnPrev.addEventListener('click', () =>
+
+        loadYYMM(init.prevMonth()));
+
+    $calBody.addEventListener('click', (e) => {
+      // $(`div[id^='picker-time-']`).css('display', 'none');
+      $(`div[id^='picker-']`).css('display', 'none');
+      $(`div[id^='info-']`).css('display', 'none');
+      $("input:radio[name='room']").prop('checked', false);
+      $("input:radio[name='time']").prop('checked', false);
+      if (e.target.classList.contains('day')) {
+        if (init.activeDTag) {
+          init.activeDTag.classList.remove('day-active');
+
+        }
+        let day = Number(e.target.textContent);
+        let year = $('.cal-year').text();
+        let month = $('.cal-month').text();
+
+        loadDate(day, e.target.cellIndex);
+        e.target.classList.add('day-active');
+
+        // 확인위해 정보 담기
+        $('#select-date').html(day);
+        $('#select-month').html(month);
+        $('#select-year').html(year);
+
+        init.activeDTag = e.target;
+        init.activeDate.setDate(day);
+        // reloadTodo();
+      }
+    });
+
+    // 이전, 현재 날짜는 클릭 안되게
+    $(function () {
+
+      // 처음 진입시 이전달로 못가게
+      $(".btn-cal.prev").css("color", "#dddddd");
+      $(".btn-cal.prev").css("cursor", "default");
+      $(".btn-cal.prev").css("pointer-events", "none");
+
+      // 클릭 할 때마다 확인해서 현재보다 이전달로 못가게
+      $(".ctr-box.clearfix").on('click', function (e) {
+        let viewYear = $('.cal-year').text();
+        let viewMonth = $('.cal-month').text();
+
+        let today = new Date();
+        let month = today.getMonth() + 1;
+        let year = today.getFullYear();
+
+        if (viewYear == year && viewMonth == month) {
+          console.log("동일/ 못넘어감");
+
+          $(".btn-cal.prev").css("color", "#dddddd");
+          $(".btn-cal.prev").css("cursor", "default");
+          $(".btn-cal.prev").css("pointer-events", "none");
+
+        } else {
+          console.log("넘어감");
+          $(".btn-cal.prev").css("color", "#181C32");
+          $(".btn-cal.prev").css("cursor", "pointer");
+          $(".btn-cal.prev").css("pointer-events", "auto");
+
+        }
+      });
+
+    });
+
   };
 
-  const $calBody = document.querySelector('.cal-body');
-  const $btnNext = document.querySelector('.btn-cal.next');
-  const $btnPrev = document.querySelector('.btn-cal.prev');
+  /*--------------- 시간 선택 ----------------*/
 
-  /**
-   * @param {number} date
-   * @param {number} dayIn
-   */
-  function loadDate(date, dayIn) {
-    document.querySelector('.cal-date').textContent = date;
-    document.querySelector('.cal-day').textContent = init.dayList[dayIn];
-  }
+  loadTime(9, 22); //TODO 여기 이제 예약단..
 
-  /**
-   * @param {date} fullDate
-   */
-  function loadYYMM(fullDate) {
-    let yy = fullDate.getFullYear();
-    let mm = fullDate.getMonth();
-    let firstDay = init.getFirstDay(yy, mm);
-    let lastDay = init.getLastDay(yy, mm);
-    let markToday;  // for marking today date
-
-    if (mm === init.today.getMonth() && yy === init.today.getFullYear()) {
-      markToday = init.today.getDate();
-    }
-
-    document.querySelector('.cal-month').textContent = init.monList[mm];
-    document.querySelector('.cal-year').textContent = yy;
+  // 시간 선택하는 테이블을 불러오는 함수
+  function loadTime(openTime, closeTime) {
 
     let trtd = '';
-    let startCount;
-    let countDay = 0;
-    for (let i = 0; i < 6; i++) {
-      trtd += '<tr>';
-      for (let j = 0; j < 7; j++) {
-        if (i === 0 && !startCount && j === firstDay.getDay()) {
-          startCount = 1;
-        }
-        if (!startCount) {
-          trtd += '<td>'
-        } else {
-          let fullDate = yy + '.' + init.addZero(mm + 1) + '.' + init.addZero(countDay + 1);
-          trtd += '<td class="day';
-          trtd += (markToday && markToday === countDay + 1) ? ' today" ' : '"';
-          trtd += ` data-date="${countDay + 1}" data-fdate="${fullDate}">`;
-        }
-        trtd += (startCount) ? ++countDay : '';
-        if (countDay === lastDay.getDate()) {
-          startCount = 0;
-        }
-        trtd += '</td>';
-      }
-      trtd += '</tr>';
-    }
-    $calBody.innerHTML = trtd;
+    let ot = openTime;
+    const ct = closeTime;
+    let runTime = closeTime - openTime;
+    let trCnt = (runTime % 4 != 0) ? Math.floor(runTime / 4) + 1 : (runTime / 4);
+
+    console.log("trCnt: " + trCnt);
+
+    trtd += '<ul>';
+    for (let i = openTime; i < closeTime; i++) {
+      let fullTime = i + ':00'; // 시간 표시
+
+      trtd += '<li class="time';
+      trtd += (i % 3 == 0) ? ' cal-none"' : '"';
+      trtd += ` data-time="` + i + `">`;
+
+      trtd += fullTime + '</li>';
+    } // for
+    trtd += '</ul>';
+
+    // 테이블 자리에 안착
+    $('.time-pick').html(trtd);
+
   }
 
-  /**
-   * @param {string} val
-   */
-  function createNewList(val) {
-    let id = new Date().getTime() + '';
-    let yy = init.activeDate.getFullYear();
-    let mm = init.activeDate.getMonth() + 1;
-    let dd = init.activeDate.getDate();
-    const $target = $calBody.querySelector(`.day[data-date="${dd}"]`);
+  $(function () {
+    let $fSelect;
+    $('.time').click(function (e) {
+      // 시작시간 출력단
+      let st = isNaN(parseInt($('#select-start-time').html())) ? 0 : parseInt(
+          $('#select-start-time').html());
 
-    let date = yy + '.' + init.addZero(mm) + '.' + init.addZero(dd);
+      // 종료시간 출력단
+      let et = isNaN(parseInt($('#select-end-time').html())) ? 0 : parseInt(
+          $('#select-end-time').html());
 
-    let eventData = {};
-    eventData['date'] = date;
-    eventData['memo'] = val;
-    eventData['complete'] = false;
-    eventData['id'] = id;
-    init.event.push(eventData);
-    $todoList.appendChild(createLi(id, val, date));
-  }
+      let result = false;
+      // 총 이용시간 출력단
+      let rt = isNaN(parseInt($('#select-end-time').html())) ? 0 : parseInt(
+          $('#select-end-time').html());
 
-  loadYYMM(init.today);
-  loadDate(init.today.getDate(), init.today.getDay());
+      console.log("st: " + st);
+      console.log("et: " + et);
 
-  $btnNext.addEventListener('click', () => loadYYMM(init.nextMonth()));
-  $btnPrev.addEventListener('click', () => loadYYMM(init.prevMonth()));
+      let selectTime = $(this).data('time');
+      console.log($(this));
+      console.log($("li[class='time-active']"));
 
-  $calBody.addEventListener('click', (e) => {
-    if (e.target.classList.contains('day')) {
-      if (init.activeDTag) {
-        init.activeDTag.classList.remove('day-active');
-      }
-      let day = Number(e.target.textContent);
-      loadDate(day, e.target.cellIndex);
-      e.target.classList.add('day-active');
-      init.activeDTag = e.target;
-      init.activeDate.setDate(day);
-      reloadTodo();
-    }
+      // 클릭한 시간은 활성화 (시작시간 정하기)
+
+      if ((st == 0 && et == 0) || rt != 0 || (selectTime < st && st != 0)) {
+        console.log("1: ");
+        // 시간 모두 비활성화
+        $("li[class='time time-active']").removeClass('time-active');
+
+        // 모든 시간 비워주고
+        $('#select-start-time').empty();
+        $('#select-end-time').empty();
+        $('#select-time').empty();
+
+        // 선택한 시간 활성화
+        $(this).addClass('time-active');
+
+        // 시작 시간에 담기
+        $('#select-start-time').html(selectTime);
+
+      } // if
+
+      // 정상적 선택이라면 끝나는 시간 활성화
+      if (st != 0 && rt == 0) {
+
+        // 시간 하나만 선택!
+        if (selectTime === st) { // 시간 하나만 선택
+          console.log("3: ");
+          $('#select-end-time').html(selectTime);
+
+        } else if (selectTime > st) { // 다중 선택(정상)
+
+          // 비활성화 된 셀을 같이 클릭하면
+          if ($(this).prevUntil(".time.time-active").is('.time.cal-none')) {
+            alert("누르지말라구 ㅋㅋ3");
+            // 시간 모두 비활성화
+            $("li[class='time time-active']").removeClass('time-active');
+
+            // 모든 시간 비워주고
+            $('#select-start-time').empty();
+            $('#select-end-time').empty();
+            $('#select-time').empty();
+
+          } else { // 정상 선택이라면 ㄱㄱ
+
+            $(this).addClass('time-active');
+            $('#select-end-time').html(selectTime);
+            console.log("st: " + st);
+            console.log("et: " + et);
+
+            $(this).prevUntil(".time.time-active").addClass('time-active');
+
+          } // if-else
+
+        } // if-else
+
+        // 종료 시간 확인해서
+        et = selectTime;
+        // 단일 선택이라면 1시간 아니라면 총 이용시간 계산해서
+        rt = et - st == 0 ? 1 : et - st + 1;
+        // 이용시간에 담아주자~
+        $('#select-time').html(rt);
+
+        // console.log("ㅇㄱww::"+$(this).prevAll().css("background", "black"));
+        console.log("ㅇㄱss::" + $(this).prevAll().data('time'));
+
+      } // if
+
+    });
   });
+
 
 </script>
 
