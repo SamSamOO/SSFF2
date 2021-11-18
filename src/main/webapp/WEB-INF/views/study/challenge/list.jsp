@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
-<%@taglib	uri="http://java.sun.com/jsp/jstl/core"	prefix="c" %>
-<%@taglib	uri="http://java.sun.com/jsp/jstl/fmt"	prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <!----------------Head 시작----------------------->
@@ -157,7 +157,7 @@
                                     <ul class="studylist-content-ul">
                                         <c:forEach items="${list}" var="list">
                                             <li class="studylist-content">
-                                                <p class="studylist-content-title">${list.title}</p>
+                                                <p class="studylist-content-title"><a href="/study/challenge/detail?r_idx=${list.r_idx}">${list.title}</a></p>
 
                                                 <ul class="studylist-content-info">
                                                     <li><span class="span-sido">${list.sido} </span> 의,</li>

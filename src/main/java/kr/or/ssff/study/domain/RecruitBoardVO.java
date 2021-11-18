@@ -1,5 +1,6 @@
 package kr.or.ssff.study.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Value;
 
 import java.sql.Date;
@@ -36,6 +37,8 @@ public class RecruitBoardVO {
 	private String teamname;
 	private String cont;
 	private Integer hit;
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	private Date writedate;
 	private String sido;
 	private String ch_pattern;
@@ -44,6 +47,7 @@ public class RecruitBoardVO {
 	private Character removed_ok;
 	private Character closed_ok;
 	private Character dead_ok;
+
 } // end class 
 
 

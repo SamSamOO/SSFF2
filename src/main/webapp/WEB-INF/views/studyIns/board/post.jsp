@@ -11,6 +11,7 @@
 
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+
 </head>
 
 <!----------------Head 종료----------------------->
@@ -81,13 +82,21 @@
                                         <table style="width: 100%">
 
                                             <tr>
-                                                <td class="row"><label for="title">제목 : </label>
-                                                    <input id="title" maxlength="50" value="" name="title">
+                                                <td colspan="3">
+                                                    <input id="title" required  placeholder="제목을 입력해 주세요" maxlength="50" value="" name="title" style="height: 40px; width: 100%; border:none; border-bottom: 1px solid #ced4da; border-radius: 4px; font-size: 30px; font-weight: bold; text-align: center; margin: 20px ">
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td>
-                                                    <label for="member_Name">닉네임 : </label>
+                                                <td colspan="1">
+                                                        <select name="category" class="selectpicker" required>
+                                                            <option value="인증" selected>인증</option>
+                                                            <option value="잡담">잡담</option>
+                                                            <option value="QnA">QnA</option>
+                                                            <option value="기타">기타</option>
+                                                        </select>
+                                                </td>
+                                                <td align="right" colspan="2">
+
                                                     <input id="member_Name" maxlength="20" value="nickname11"
                                                            name="member_Name">
                                                 </td>
@@ -95,42 +104,35 @@
 
 
                                             <tr>
-                                                <td style="width: 100%;">
+                                                <td  colspan="3" style="width: 100%;">
                                                     <div class="card card-custom">
 
                                                         <div class="card-body">
-                                                            <div id="kt_quil_2"  style="height: 325px">
+                                                            <div id="kt_quil_2" style="height: 325px">
 
                                                             </div>
-                                                            <textarea name="cont" style="display:none" id="cont"></textarea>
+                                                            <textarea required name="cont" style="display:none" id="cont"></textarea>
                                                         </div>
                                                     </div>
                                                 </td>
 
                                             </tr>
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                            </tr>
 
                                             <tr>
-                                                <td>
-                                                    <div class="container">
-                                                        <select name="category" class="selectpicker">
-                                                            <option value="인증" selected>인증</option>
-                                                            <option value="잡담">잡담</option>
-                                                            <option value="QnA">QnA</option>
-                                                            <option value="기타">기타</option>
-                                                        </select>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
                                                 <td colspan="4" align="right">
-                                                    <button type="submit" id="submitBtn">등록하기</button>
-                                                    <button type="button" id="listBtn">목록으로</button>
+                                                    <button type="submit" id="submitBtn" class="btn btn-light-primary font-weight-bold mr-2" style="color:#8950FC ">등록하기</button>
+                                                    <button type="button" id="listBtn" class="btn btn-light-primary font-weight-bold mr-2" style="color:#8950FC ">목록으로</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <div class="uploadDiv">
-                                                        <input type="file" name="uploadFile" id="uploadFile" multiple/>
+                                                        <input type="file" name="uploadFile" id="uploadFile" multiple class="btn btn-secondary"/>
+                                                        <div id="fileList"></div>
+
                                                     </div>
                                                 </td>
                                             </tr>
@@ -157,7 +159,7 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-    let regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
+    let regex = new RegExp(`(.*?).(jpg|jpeg|png|gif|bmp)$`, `i`);
     let maxSize = 5242880; //5MB
     $(function () {
         console.clear();
@@ -175,22 +177,54 @@
             formElement.submit();
 
         });
-    //TODO 파일이 없는 경우 파일업로드를 안하게 해줘야합니다.
+        //TODO 파일이 없는 경우 파일업로드를 안하게 해줘야합니다.
         $(`#cont`).val($(`.ql-editor`).html());
+        $(`#uploadFile`).on('click', function () {
+            $(`#fileList`).children("p").remove();
+        });
+        $(`#uploadFile`).on("change", function (e) {
 
-        // $(`#uploadFile`).on("change", function (e) {
-        //     let formData = new FormData();
-        //     let inputFile = $("input[name='uploadFile']");
-        //     let files = inputFile[0].files;
-        //     console.log(files);
-        //     for (let i = 0; i < files.length; i++) {
-        //         if (!checkExtension(files[i].name, files[i].size)) {
-        //             return false;
-        //         }
-        //     }
-        //     formData.append("uploadFile", files[i]);
-        // });
+            let formData = new FormData();
+            let inputFile = $("input[name='uploadFile']");
+            let files = inputFile[0].files;
+            let str = '';
 
+            console.log(files);
+            for (let i = 0; i < files.length; i++) {
+                console.log(files.length);
+                str = `<p>` + files[i].name + `</p>`;
+                if (!checkExtensionName((files[i].name))) {
+                    console.log((files[i].name).toLowerCase());
+
+                    //파일 업로드 부분 초기화
+                    console.log('확장자 에러입니다.');
+                    $(`#uploadFile`).val('');
+                    str = '';
+                } else if (!checkExtensionSize(files[i].size)) {
+
+                    console.log(files[i].size);
+
+                    $(`#uploadFile`).val(``);
+                    str = '';
+                } else {
+                    console.log(`append 완료`);
+                    $(`#fileList`).append(str);
+                }
+
+                formData.append("uploadFile", files[i]);
+
+                console.log(formData);
+            }
+            $.ajax({
+                url: '/board/postGo',
+                processData: false,
+                contentType : false,
+                data : formData,
+                type : 'POST',
+                dataType: 'json'
+            });
+
+        });
 
     });
 
@@ -216,7 +250,6 @@
                 console.log($(`#cont`).val($(`#kt_quil_2`).children('div').html()));
 
             });
-
 
             // Save periodically
             setInterval(function () {
@@ -254,17 +287,36 @@
         KTQuilDemos.init();
     });
 
-    function checkExtension(fileName, fileSize) {
-        if (fileSize >= maxSize) {
-            sweetAlert("에러", "파일 사이즈 초과!", "warning");
-            return false;
+    function checkExtensionName(fileName) {
+
+        if (!regex.test(fileName)) { //이미지 확장자가 아닌경우
+            alert('이미지만 가능합니다.');
+            console.log(fileName);
+
+            return false; //이미지 확장자가 아니라면 .. false 리턴합니다.
         }
-        if (regex.test(fileName)) {
-            sweetAlert("에러", "해당 종류의 파일은 업로드 할 수 없습니다.","warning");
-            return true;
-        }
+        return true;
     }
 
+    function checkExtensionSize(fileSize) {
+
+        if (fileSize >= maxSize) {
+            alert('파일 사이즈 초과');
+            console.log('......파일 사이즈')
+            return false; //사이즈 초과시 false 리턴합니다.
+        }
+        return true;
+
+    }
+
+    function showUploadImage(uploadResultArr) {
+        /*전달 받은 데이터 검증*/
+        if (!uploadResultArr || uploadResultArr.length == 0) {
+            return
+        }
+
+        let uploadResut=  $('')
+    }
 
     // $(document).ready(function () {
     //     $("#uploadBtn").on("click", function (e) {
@@ -298,7 +350,7 @@
     //         }); // $ajax
     //
     //     });
-    });
+    // });
 </script>
 
 </html>

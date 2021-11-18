@@ -1,11 +1,11 @@
 package kr.or.ssff.mapper;
 
 import java.util.List;
+import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 
 /*
@@ -14,7 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface StudyInsMapper {
 
-    public List<StudyInsVO> getList();
+    //게시글의 전체 목록 조회
+    public List<StudyInsVO> getList(Integer start , Integer end , String searchOption , String keyword);
+
+    public List<StudyInsVO> getListWithPaging(Criteria criteria);
 
     public StudyInsVO read(Integer cont_No);
 
@@ -26,7 +29,6 @@ public interface StudyInsMapper {
 
     public void delete(String uuid);
 
-
     public List<StudyInsDTO> findByCont_No(Integer cont_No);
 
     //게시물 생성 .. 파일 보드..
@@ -37,4 +39,17 @@ public interface StudyInsMapper {
 
     //cont_No가 가장 높은 게시물 번호 들고옴
     public Integer findMaxContNo();
+
+    //이미지 정보 불러오기 !! !! ㅅㅂ --필요없을지도..?
+    public List<StudyInsFileVO> getFileList(Integer cont_No);
+
+    //수정 파일 삭제하는 로직입니다. >> 수정때만 유효합니다. (삭제는 일단 살려둬야함)
+    public Integer deleteFiles(StudyInsDTO studyInsDTO);
+
+    //removedOk 가 n인 게시물의 갯수를 리턴합니다.
+    public Integer countArticle();
+
+
+    public List<StudyInsVO> getListByCategory(Criteria criteria, String category);
+
 }

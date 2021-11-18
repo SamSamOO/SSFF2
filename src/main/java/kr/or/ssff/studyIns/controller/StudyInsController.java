@@ -1,27 +1,41 @@
 package kr.or.ssff.studyIns.controller;
 
 import java.io.File;
-import java.text.SimpleDateFormat;
+import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import kr.or.ssff.studyIns.Utils.UploadFileUtils;
+import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.Criteria;
+import kr.or.ssff.studyIns.model.PageDTO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
+import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.log4j.Log4j2;
+import net.coobird.thumbnailator.Thumbnailator;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
@@ -182,13 +196,19 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 내 특정 스터디 게시판 뷰단임
      * */
     @GetMapping("/board/list")
-    public void studyBoardList(Model model) throws Exception {
-        log.debug("studyBoardList({}) is invoked", "model = " + model);
+    public String studyBoardList(Criteria criteria , Model model) throws Exception {
+        log.info("studyBoardList({}) is invoked", "criteria = " + criteria + ", model = " + model);
 
         Objects.requireNonNull(service);
+        log.info("service.getList(criteria) = {}", service.getList(criteria));
+        for (int i = 0; i < service.getList(criteria).size(); i++) {
+            log.info(service.getList(criteria).get(i));
+        }
+        model.addAttribute("list", service.getList(criteria));
+        model.addAttribute("pageMaker", new PageDTO(criteria, 1000));
 
-        model.addAttribute("list", service.getList());
-
+        log.info("criteria = {}", criteria);
+        return "studyIns/board/list";
     } // studyBoardList
 
     //-------------------------------- 상준 게시물 CRUD--------------------------------//
@@ -203,13 +223,17 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         log.debug("studyBoardDetail({}) is invoked", "cont_no = " + cont_No + ", model = " + model);
 
         Objects.requireNonNull(service);
+        //내용물 불러오기
         StudyInsVO detail = service.get(cont_No);
+        //파일 들고오기 //TODO -- 트랜젝션 처리 피료???
+        List<StudyInsFileVO> listOfFile = service.getFile(cont_No);
 
         log.debug("안녕하세요");
         log.debug("detail = {}", detail);
+        log.debug("listOfFile = {}", listOfFile);
 
         model.addAttribute("detail", detail);
-
+        model.addAttribute("fileList", listOfFile);
         return "studyIns/board/detail";
     } // studyBoardDetail
 
@@ -244,11 +268,12 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         Objects.requireNonNull(service);
         StudyInsVO detail = service.get(cont_No);
+        List<StudyInsFileVO> listOfFiles = service.getFile(cont_No);
 
         log.debug("modifyDetail = {}", detail);
 
         model.addAttribute("detail", detail);
-
+        model.addAttribute("listOfFiles", listOfFiles);
         return "/studyIns/board/modify";
     } // studyBoardDetailModifyGo
 
@@ -258,15 +283,80 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/detail/modify")
-    public String studyBoardDetailModify(StudyInsDTO studyIns, RedirectAttributes rttrs) {
-        log.info("studyBoardDetailModify({} , {} ) is invoked", "studyIns = " + studyIns, ", rttrs = " + rttrs);
+    public String studyBoardDetailModify(StudyInsDTO studyInsDTO, MultipartFile[] uploadFile, RedirectAttributes rttrs) {
+        log.debug("studyBoardDetailModify({}) is invoked", "studyIns = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile) + ", rttrs = " + rttrs);
+
+        String uploadFolder = "C:/temp/upload";
+
+        /*폴더 만들기*/
+        File uploadPath = new File(uploadFolder);
+
+        /*날짜 경로입니다.*/
+        String datePath = UploadFileUtils.getFolder();
+
+        log.debug("upload path : " + uploadPath);
+
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+
+        } // make folder
+
+        //make yyyy/MM/dd folder
+
+
+        /*이미지의 정보를 담는 객체*/
+        List<StudyInsFileDTO> list = new ArrayList<>();
+
+        for (MultipartFile multipartFile : uploadFile) {
+            log.debug("------------------------------------");
+            log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
+            log.debug("Upload File Size : " + multipartFile.getSize());
+
+            /*이미지 정보 객체입니다.*/
+            StudyInsFileDTO dto = new StudyInsFileDTO();
+            dto.setCont_No(studyInsDTO.getCont_No());
+
+            String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
+
+            dto.setFile_Name(uploadFileName);//3 : fileName
+            dto.setUploadPath(uploadPath.toString());//4 : uploadPath
+
+            //IE has file path
+            uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+            log.debug("only file name : " + uploadFileName);
+
+            String uuid = UUID.randomUUID().toString();
+            dto.setUuid(uuid); // 5 : uuid
+
+            uploadFileName = uuid + "_" + uploadFileName;
+
+            File saveFile = new File(uploadPath, uploadFileName);
+
+            try {
+                multipartFile.transferTo(saveFile);
+
+                //check image type file
+                if (UploadFileUtils.checkImageType(saveFile)) {
+                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
+
+                    thumbnail.close();
+                }
+            } catch (Exception e) {
+                log.error(e.getMessage());
+
+            } // end catch
+            list.add(dto);
+        } // end for
+
+        studyInsDTO.setFileDTO(list);
 
         Objects.requireNonNull(service);
-        if (service.modify(studyIns)) {
+        if (service.modify(studyInsDTO, uploadFile)) {
             rttrs.addFlashAttribute("result", "success");
         } // if
-
-        return "redirect:/studyIns/board/list";
+        rttrs.addAttribute("cont_No", studyInsDTO.getCont_No());
+        return "redirect:/studyIns/board/detail";
     } // studyBoardDetailModify
 
     /*
@@ -288,14 +378,6 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         return "/studyIns/board/post";
     } // studyBoardPostGo
 
-    private String getFolder() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date();
-
-        String str = sdf.format(date);
-
-        return str.replace("-", File.separator);
-    }
 
     /*
      * 스터디 게시물 생성
@@ -307,42 +389,71 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         RedirectAttributes rttrs) {
         log.debug("studyBoardPost({} , {}) is invoked", "studyInsDTO = " + studyInsDTO, ", uploadFile = " + Arrays.deepToString(uploadFile));
 
-        String uploadFolder = "C:\\temp\\upload";
+        String uploadFolder = "C:/temp/upload";
 
         /*폴더 만들기*/
-        File uploadPath = new File(uploadFolder, getFolder());
+        File uploadPath = new File(uploadFolder);
+
+        /*날짜 경로입니다.*/
+        String datePath = UploadFileUtils.getFolder();
+
         log.debug("upload path : " + uploadPath);
 
-        if (uploadPath.exists() == false) {
-            uploadPath.mkdir();
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
 
-        }
+        } // make folder
+
         //make yyyy/MM/dd folder
 
+
+        /*이미지의 정보를 담는 객체*/
+        List<StudyInsFileDTO> list = new ArrayList<>();
 
         for (MultipartFile multipartFile : uploadFile) {
             log.debug("------------------------------------");
             log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
             log.debug("Upload File Size : " + multipartFile.getSize());
 
-            String uploadFileName = multipartFile.getOriginalFilename();
+            /*이미지 정보 객체입니다.*/
+            StudyInsFileDTO dto = new StudyInsFileDTO();
+            dto.setCont_No(cont_No);
+
+            String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
+
+            dto.setFile_Name(uploadFileName);//3 : fileName
+            dto.setUploadPath(uploadPath.toString());//4 : uploadPath
 
             //IE has file path
             uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
             log.debug("only file name : " + uploadFileName);
 
+            String uuid = UUID.randomUUID().toString();
+            dto.setUuid(uuid); // 5 : uuid
+
+            uploadFileName = uuid + "_" + uploadFileName;
 
             File saveFile = new File(uploadPath, uploadFileName);
-
 
             try {
                 multipartFile.transferTo(saveFile);
 
+                //check image type file
+                if (UploadFileUtils.checkImageType(saveFile)) {
+                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
+
+                    thumbnail.close();
+                }
             } catch (Exception e) {
                 log.error(e.getMessage());
 
             } // end catch
+            list.add(dto);
         } // end for
+
+        studyInsDTO.setFileDTO(list);
+
         Objects.requireNonNull(service);
 
         if (service.register(cont_No, studyInsDTO, uploadFile)) {
@@ -381,4 +492,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 //
 //    return "";
 //  } // studyBoardPost
+
+
+
 }

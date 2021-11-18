@@ -1,7 +1,10 @@
 package kr.or.ssff.study.service;
 
 import java.util.List;
+import java.util.Map;
+import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.study.domain.ReplyVO;
 
 /*
     일단 이거 임시로 만들어놓은 거임. 동작 안하니까 꼭 고쳐야 함
@@ -11,13 +14,13 @@ public interface StudyService {
     public abstract boolean register(RecruitBoardVO vo);
 
     // 2. 기존 게시글 수정
-    public abstract boolean modify();
+    public abstract boolean modify(RecruitBoardVO vo);
 
     // 3. 기존 게시글 삭제
-    public abstract boolean remove();
+    public abstract boolean remove(Integer r_idx);
 
-    // 4. 특정 게시글 상세조회
-    public abstract String get();
+    // 4. 특정 게시글 상세조회 + 조회수 1업
+    public abstract RecruitBoardVO get(Integer r_idx);
 
     // 5. 전체 목록 조회 - 정상동작중!
     public abstract List<RecruitBoardVO> getList(String type);
@@ -33,6 +36,29 @@ public interface StudyService {
 
     //8. P에서 최근에 등록한 글 번호 가져오기
     public abstract Integer getCurrentR_idx();
+
+    //9. p에서 lang list 가져오기(전체)
+    public abstract List<LangVO> getLangList();
+
+    //10. list에 억지로 언어태그 넣기
+    public abstract List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardVO> list, List<LangVO> langList);
+
+    //11. p에서 번호로 언어태그 가져오기
+    public abstract List<LangVO> getLangTagByR_idx(Integer r_idx);
+
+    //12. 방장이 글씀과 동시에 apply table 에 들어가기
+    public abstract boolean registerApply(Integer r_idx, String member_name);
+
+    //13. P에서 글수정시 새태그 등록을 위해 기존 태그 버리기
+    public abstract boolean deleteTag(Integer r_idx);
+
+    //14. 댓글 달기
+    public abstract boolean replyRegister(ReplyVO vo);
+
+    //15. 글번호로 댓글 다 가져오기
+    public abstract List<ReplyVO>getReplyList(Integer r_idx);
+
+
 }
 
 
