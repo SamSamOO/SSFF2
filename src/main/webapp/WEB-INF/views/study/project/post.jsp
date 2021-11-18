@@ -125,7 +125,7 @@
                                         </div>
                                         <div id="button-sec">
                                             <ul>
-                                                <li onclick="document.querySelector('#article-form').submit();">글등록</li>
+                                                <li onclick="onSubmit();">글등록</li>
                                                 <li>취소</li>
                                             </ul>
                                         </div>
@@ -208,5 +208,19 @@
 
   }//tagRemove
 
+  function onSubmit(){
+
+    if(document.querySelector('#title').value=="" ||document.querySelector('#teamname').value==""){
+      alert("제목과 팀명은 비울 수 없습니다.");
+      return;
+    }else if(document.querySelector('#title').value.length >25){
+      alert("제목 길이는 띄어쓰기 포함 25자보다 길 수 없습니다.");
+      return;
+    }else if(document.querySelector('#summernote').value==""){
+      alert("본문을 입력해 주세요");
+      return;
+    }
+    document.querySelector('#article-form').submit();
+  }
 </script>
 </html>

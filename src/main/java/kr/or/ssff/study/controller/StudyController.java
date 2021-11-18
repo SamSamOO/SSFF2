@@ -53,11 +53,14 @@ public class StudyController {
      * */
     @GetMapping("/challenge/list") //첫화면 기준으로 세팅
     public String selectChallengeListGo(Integer page, Model model) {
-        log.info("challengeListGo() is invoked");
-        
+        log.info("challengeListGo({},{}) is invoked.", page,model);
+
+        if(page ==null){
+            page = 1;
+        }
+
         //1. 해당 페이지에 속하는 데이터만 뿌리기
         List<RecruitBoardVO> list= this.service.getList("C",page);
-        
         
         //2. 페이징에 관한 설정
         //2-1. 게시물 갯수 세기
@@ -224,7 +227,9 @@ public class StudyController {
     @GetMapping("/project/list")
     public String selectProjectListGo(Integer page,Model model) {
         log.info("selectProjectListGo() is invoked");
-
+        if(page ==null){
+            page = 1;
+        }
         List<RecruitBoardVO> list= this.service.getList("P",page);
 
         List<LangVO> langList = this.service.getLangList();

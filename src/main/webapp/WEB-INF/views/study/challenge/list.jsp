@@ -167,7 +167,7 @@
 
                                                 <ul class="studylist-content-info">
                                                     <li><span class="span-sido">${list.sido} </span> 의,</li>
-                                                    <li style="margin-top:10px"><span class="span-cate" >${list.ch_pattern} </span></li>
+                                                    <li style="margin-top:10px"><span class="span-cate color-${list.ch_pattern}" >${list.ch_pattern} </span></li>
                                                 </ul>
 
                                                 <ul class="studylist-hitAndRepl">
@@ -218,6 +218,7 @@
   }
 
   $(function(){
+    cateColorChangeCSS();
     closed_status();
     createBoardPage();
   });
@@ -237,14 +238,6 @@
   }//closed_status
 
   function createBoardPage(){
-    //페이징 관련 찍어보기
-    console.log("sc.totalPost:"+sc.totalPost);
-    console.log("sc.postPerPage:"+sc.postPerPage);
-    console.log("sc.totalPage:"+sc.totalPage);
-    console.log("sc.currentPage:"+sc.currentPage);
-    console.log("sc.pagePerBlock:"+sc.pagePerBlock);
-    console.log("sc.currentBlock:"+sc.currentBlock);
-    console.log("sc.totalBlock:"+sc.totalBlock);
 
     if (sc.totalPage === 0) {
       sc.totalPage = 1;
@@ -311,5 +304,14 @@
       createBoardPage(sc);
     }
   }//nextBoardPage
+
+  function cateColorChangeCSS(){
+    $(".color-생활습관.스터디").css("backgroundColor", "rgb(255,51,153)");
+    $(".color-취업.스터디").css("backgroundColor", "rgb(204,204,0)");
+    $(".color-시험준비.스터디").css("backgroundColor", "rgb(0,153,153)");
+    $(".color-어학.스터디").css("backgroundColor", "rgb(51,204,204)");
+    $(".color-기타").css("backgroundColor", "rgb(153,102,255)");
+
+  }
 </script>
 </html>
