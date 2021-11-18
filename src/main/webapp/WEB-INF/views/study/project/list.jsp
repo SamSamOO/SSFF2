@@ -163,7 +163,7 @@
                                                 <li><img
                                                         src="../../../../resources/assets/image/repl.png"
                                                         width="15px"></li>
-                                                <li>99</li>
+                                                <li>${list.reply_count}</li>
                                                 <li><img
                                                         src="../../../../resources/assets/image/hit.png"
                                                         width="15px"></li>
@@ -231,14 +231,6 @@
   }//closed_status
 
   function createBoardPage(){
-    //페이징 관련 찍어보기
-    console.log("sc.totalPost:"+sc.totalPost);
-    console.log("sc.postPerPage:"+sc.postPerPage);
-    console.log("sc.totalPage:"+sc.totalPage);
-    console.log("sc.currentPage:"+sc.currentPage);
-    console.log("sc.pagePerBlock:"+sc.pagePerBlock);
-    console.log("sc.currentBlock:"+sc.currentBlock);
-    console.log("sc.totalBlock:"+sc.totalBlock);
 
     if (sc.totalPage === 0) {
       sc.totalPage = 1;

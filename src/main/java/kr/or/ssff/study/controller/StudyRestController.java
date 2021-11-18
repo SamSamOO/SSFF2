@@ -2,7 +2,9 @@ package kr.or.ssff.study.controller;
 
 import java.util.List;
 import java.util.Map;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.ReplyVO;
+import kr.or.ssff.study.domain.StudyCriteria;
 import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -83,8 +85,41 @@ public class StudyRestController {
         boolean result = this.service.replyRemove(jsonData.get("no"));
 
         return true;
-    }
+    }//deleteComment
 
+    @PostMapping("/challenge/list")
+    public @ResponseBody boolean getChallengeListByPageNum(@RequestBody Map<String, Integer> jsonData) {
+        //1. 해당 페이지에 속하는 데이터만 뿌리기
+        List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("C",jsonData.get("pageNum"));
+
+        //2. 페이징에 관한 설정
+        //2-1. 게시물 갯수 세기
+        Integer totalCount = this.service.getTotal("C");
+
+        //Criteria 생성
+        StudyCriteria sc= new StudyCriteria();
+
+        //Criteria 채우기(x7)
+        sc.setTotalPost(totalCount);
+        //postPerPage=15
+        sc.setTotalPage((int) Math.ceil(sc.getTotalPost() / 15.0));
+        sc.setCurrentPage(1);
+        //pagePerBlock=3
+        sc.setCurrentBlock(1);
+        sc.setTotalBlock((int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
+
+        //sc.setCurrentBlock(1) 에 대한 추가 설정
+        if (sc.getCurrentPage() > sc.getPagePerBlock()){
+            for (int i = 1; i <= sc.getTotalBlock(); i++){
+                if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1 && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)){
+                    sc.setCurrentBlock(i + 1);
+                    i = sc.getTotalBlock() + 1;
+                }
+            }
+        }
+
+        return true;
+    }
 
 
 
