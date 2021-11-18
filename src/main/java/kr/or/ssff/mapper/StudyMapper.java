@@ -2,7 +2,9 @@ package kr.or.ssff.mapper;
 
 import java.util.List;
 import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Param;
@@ -14,6 +16,9 @@ public interface StudyMapper {
     public abstract Integer update(RecruitBoardVO vo);
     //글리스트 반환
     public abstract List<RecruitBoardVO> getList(@Param("type")String type,@Param("page")Integer Page);
+
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(@Param("type")String type,@Param("page")Integer Page);
+
     //가장 최근의 글번호 가져오기
     public abstract Integer getCurrentR_idx();
     //글번호로 언어태그 등록하기
@@ -42,4 +47,6 @@ public interface StudyMapper {
     public abstract Integer replyUpdate(@Param("no")Integer no,@Param("c_cont")String c_cont);
     //글 총갯수 구하기(타입 받음)
     public abstract Integer getPostCount(@Param("type")String type);
+    //댓글 수 구하기
+    public abstract List<ReplyCountVO> replyCount();
 }

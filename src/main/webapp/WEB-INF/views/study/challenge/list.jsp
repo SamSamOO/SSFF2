@@ -172,7 +172,7 @@
 
                                                 <ul class="studylist-hitAndRepl">
                                                     <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
-                                                    <li>99</li>
+                                                    <li class="replyCount">${list.reply_count}</li>
                                                     <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
                                                     <li>${list.hit}</li>
                                                 </ul>
@@ -221,6 +221,7 @@
     cateColorChangeCSS();
     closed_status();
     createBoardPage();
+    //replyCountIsNull();
   });
 
   /*==========================function==========================*/
@@ -259,16 +260,16 @@
 
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";//[1]~[5]찍어주구
-
+        /*html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구*/
+        html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
         }
 
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
+        /*html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";*/
         html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";
-
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
         i = sc.totalPage + 1;
@@ -278,6 +279,7 @@
 
     if (sc.currentBlock != sc.totalBlock) {
       html += "<li><a>...</a></li>";
+      /*html += "<li onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";*/
       html += "<li><a href='/study/challenge/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";
       html += "<li><a onclick='nextBoardPage()'>≫</a></li>";
     }
@@ -305,6 +307,33 @@
     }
   }//nextBoardPage
 
+  function getBoardsByPageNum(pageNum){
+    let jsonData ={
+      pageNum:pageNum
+    }
+    $.ajax({
+      url:"/studyRest/challenge/list",
+      type:"POST",
+      dataType:"json",
+      contentType:"application/json",
+      data:JSON.stringify(jsonData),
+      success:function(response){
+        if(response){
+          createBoardTable(response);
+        }else{
+          alert("error occured")
+        }
+      },
+      error : function(request,status,error){
+        console.log(error);
+      }
+    })
+  }//getBoardsByPageNum
+
+
+
+
+
   function cateColorChangeCSS(){
     $(".color-생활습관.스터디").css("backgroundColor", "rgb(255,51,153)");
     $(".color-취업.스터디").css("backgroundColor", "rgb(204,204,0)");
@@ -312,6 +341,12 @@
     $(".color-어학.스터디").css("backgroundColor", "rgb(51,204,204)");
     $(".color-기타").css("backgroundColor", "rgb(153,102,255)");
 
-  }
+  }//cateColorChangeCSS
+
+  function replyCountIsNull(){
+    if(document.querySelectorAll('#replyCount').innerHTML =""){
+        document.querySelector('#replyCount').innerHTML = "0";
+    }
+  }//replyCountIsNull()
 </script>
 </html>

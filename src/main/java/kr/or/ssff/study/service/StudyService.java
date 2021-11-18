@@ -3,7 +3,9 @@ package kr.or.ssff.study.service;
 import java.util.List;
 import java.util.Map;
 import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 
 /*
@@ -25,6 +27,8 @@ public interface StudyService {
     // 5. 전체 목록 조회 - 정상동작중!
     public abstract List<RecruitBoardVO> getList(String type, Integer page);
 
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(String type, Integer page);
+
     //5. 목록조회 with paging
     public abstract List<RecruitBoardVO> getListPerPage();
 
@@ -41,7 +45,7 @@ public interface StudyService {
     public abstract List<LangVO> getLangList();
 
     //10. list에 억지로 언어태그 넣기
-    public abstract List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardVO> list, List<LangVO> langList);
+    public abstract List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardJoinReplyVO> list, List<LangVO> langList);
 
     //11. p에서 번호로 언어태그 가져오기
     public abstract List<LangVO> getLangTagByR_idx(Integer r_idx);
@@ -64,6 +68,8 @@ public interface StudyService {
     //17. 댓글 수정하기
     public abstract boolean replyModify(Integer no, String c_cont);
 
+    //18. 댓글 개수 가져오기
+    public abstract List<ReplyCountVO> getReplyCount();
 }
 
 

@@ -2,6 +2,7 @@ package kr.or.ssff.study.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 import kr.or.ssff.study.domain.StudyCriteria;
 import kr.or.ssff.study.service.StudyService;
@@ -60,7 +63,7 @@ public class StudyController {
         }
 
         //1. 해당 페이지에 속하는 데이터만 뿌리기
-        List<RecruitBoardVO> list= this.service.getList("C",page);
+        List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("C",page);
         
         //2. 페이징에 관한 설정
         //2-1. 게시물 갯수 세기
@@ -230,8 +233,8 @@ public class StudyController {
         if(page ==null){
             page = 1;
         }
-        List<RecruitBoardVO> list= this.service.getList("P",page);
-
+        //List<RecruitBoardVO> list= this.service.getList("P",page);
+        List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("P",page);
         List<LangVO> langList = this.service.getLangList();
 
         List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);

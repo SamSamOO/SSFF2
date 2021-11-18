@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Map;
 import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.mapper.StudyMapper;
+import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -63,6 +65,12 @@ public class StudyServiceImpl implements StudyService {
     }//getList(글 전체반환)
 
     @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReply(String type, Integer page) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReply(type,page);
+        return allBoard;
+    }
+
+    @Override
     public List<RecruitBoardVO> getListPerPage() {
         return null;
     }
@@ -98,7 +106,7 @@ public class StudyServiceImpl implements StudyService {
     }//getLangList lang list 전체 가져오기
 
     @Override
-    public List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardVO> list, List<LangVO> langList) {
+    public List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardJoinReplyVO> list, List<LangVO> langList) {
         List<Map<String, Object>> rcBoardList = new ArrayList<Map<String, Object>>();
         /*
         list.forEach(rcBoard -> {
@@ -175,6 +183,13 @@ public class StudyServiceImpl implements StudyService {
     public boolean replyModify(Integer no, String c_cont) {
         int affectedRows = mapper.replyUpdate(no,c_cont);
         return affectedRows == 1;
+    }
+
+    @Override
+    public List<ReplyCountVO> getReplyCount() {
+
+        List<ReplyCountVO> replyCount = mapper.replyCount();
+        return replyCount;
     }
 
 }//end class
