@@ -2,16 +2,12 @@ package kr.or.ssff.studyIns.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import kr.or.ssff.applyMember.domain.MemberDTO;
+import kr.or.ssff.studyIns.model.ChatMsgDTO;
 import lombok.extern.log4j.Log4j2;
-import org.apache.logging.log4j.message.SimpleMessage;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
 /*
 
@@ -20,26 +16,25 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 @Log4j2
 public class SocketController {
 
-    @Autowired
-    private SimpMessagingTemplate simpMessagingTemplate;
 
     @MessageMapping("/user/{name}")
     @SendTo("/topic/users")
-    public List<MemberDTO> showUsers(@DestinationVariable String name,@DestinationVariable) {
+    public List<ChatMsgDTO> showUsers(@DestinationVariable String name, String msg_Cont) {
 
-        log.info("showUsers({}) is invoked", "name = " + name);
+        log.info("showUsers({}) is invoked", "name = " + name + ", msg_Cont = " + msg_Cont);
 
-        List<MemberDTO> users = new ArrayList<MemberDTO>();
+        List<ChatMsgDTO> users = new ArrayList<ChatMsgDTO>();
+
         log.info("users = {}", users);
 
         if (name != null) {
-            MemberDTO user = new MemberDTO();
-            user.setMember_name(name);
-            users.add(user);
-            log.info("user = {}", user);
+            ChatMsgDTO chat = new ChatMsgDTO();
+            chat.setMember_Name(name);
+            chat.setR_Idx(9002);
+            chat.setMsg_Cont("안녕하세요 ㅅㅂ");
+            users.add(chat);
             //클라이언트 부분을 써야합니다.
         }
-        if()
         log.info("users = {}", users);
 
         return users;

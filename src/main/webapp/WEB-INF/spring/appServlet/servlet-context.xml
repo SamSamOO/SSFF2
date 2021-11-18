@@ -9,6 +9,7 @@
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
     <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 
+
     <!-- Enables the Spring MVC @Controller programming model -->
     <annotation-driven>
         <message-converters>
@@ -65,7 +66,6 @@
     <context:component-scan base-package="kr.or.ssff.studyIns.service"/>
     <context:component-scan base-package="kr.or.ssff.studyIns.configuration"/>
     <context:component-scan base-package="kr.or.ssff.studyIns.controller"/>
-
 
 
     <!--민주 작업-->

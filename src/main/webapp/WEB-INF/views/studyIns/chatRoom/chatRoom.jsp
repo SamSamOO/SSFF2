@@ -54,20 +54,22 @@
                     </div>
                     <!--카드 헤더 종료-->
                     <!--카드 Body 시작-->
+
                     <div class="card-body pt-2 pb-0 mt-n3">
                         <h2>Hi there</h2>
                         <div class="chattingArea">
                             <%--동적 생성 .. 해당 r_Idx에 맞는 채팅들을 시간순으로 들고와야합니다.--%>
                         </div>
-
-                        <label for="name">닉네임 입력</label><input id="name"/>
-
+                        <%--채팅방 번호 넘겨받기--%>
+                        <label for="name">채팅방 번호 넘겨받기</label><input id="name"/>
+                        <%--메시지--%>
                         <label for="msg_Cont"></label><textarea name="msg_Cont" id="msg_Cont"></textarea>
 
                         <button onclick="connect()">Enter</button>
                         <button onclick="send()">Send</button>
                         <button onclick="disconnect()">Discount</button>
                     </div>
+
                     <script>
                         function connect() {
                             let socket = new SockJS(`/users`);
@@ -90,7 +92,16 @@
                         function send() { // 해당 메서드는 데이터를 서버로 보냅니다.
                             console.log(`sending~!`);
                             let name = document.getElementById("name").value;
-                            stompClient.send("/app/user/" + name, {}, JSON.stringify({}));
+                            let msg_Cont = document.getElementById("msg_Cont").value;
+
+                            let chatMessage={
+                                sender:
+                            }
+
+                            console.log("name " + name);
+                            console.log("msg_Cont" + msg_Cont);
+
+                            stompClient.send("/app/user/" + name + msg_Cont, {}, {}, JSON.stringify({}));
                         }
 
                     </script>
