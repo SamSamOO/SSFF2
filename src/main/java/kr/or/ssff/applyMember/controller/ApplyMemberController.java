@@ -66,7 +66,7 @@ public class ApplyMemberController {
      * 반환: 
      * 작성자: 신지혜
      * */
-    @PostMapping("/apply_action")
+  /*  @PostMapping("/apply_action")
     @ResponseBody
     public String applyAction(
         @RequestBody String filterJSON,
@@ -84,7 +84,7 @@ public class ApplyMemberController {
             ObjectMapper mapper = new ObjectMapper();
 
             HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
-            
+
             log.info("\t+ aMember.study_type: {}",aMember.get("study_type"));
             log.info("\t+ aMember.apply_idx: {}",aMember.get("apply_idx"));
             log.info("\t+ aMember.action: {}",aMember.get("action"));
@@ -99,7 +99,7 @@ public class ApplyMemberController {
 
         return result;
     } // applyAction
-
+*/
     
     /* 스터디 가입신청처리 
      * 매개변수: 참여번호와 닉네임  

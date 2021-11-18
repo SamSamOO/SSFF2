@@ -24,7 +24,7 @@ public interface ApplyMemberMapper {
 	public abstract List<MemberVO> getMemberList();
 
 	// 스터디 참여상태 변경 : 신지혜
-	public abstract void applyAction(HashMap<String, String> aMember);
+	public abstract Integer applyAction(HashMap<String, String> aMember);
 
 
 	// 스터디 참여신청(참여번호 생성) : 신지혜

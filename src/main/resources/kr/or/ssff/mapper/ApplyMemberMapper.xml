@@ -25,6 +25,7 @@
 						a.study_boss_yn,
 						a.attendance_days,
 						r.teamname,
+					  r.type_pc,
 						m.member_profile
 					FROM
 						apply_member a
@@ -70,38 +71,38 @@
 	<!-- 회원의 스터디 참여 상태 정보 변경 : 신지혜  -->
 	<update id="applyAction" parameterType="hashMap" >
 
-		<choose>
-			<when test="action == 'refusal'"> <!-- 가입신청->거절 -->
+
+			<if test='action == "refusal"'> <!-- 가입신청->거절 -->
 				UPDATE apply_member
 				SET study_join_arciwf = 'r', study_join_change_date = sysdate
 				WHERE apply_idx =#{apply_idx}
-			</when>
-			<when test="action == 'approval' and study_type != 'c'"> <!-- 가입신청->승인 -->
+			</if>
+			<if test='action == "approval" and study_type == "c"'> <!-- 가입신청->승인 -->
 				UPDATE apply_member
 				SET study_join_arciwf = 'i', study_join_change_date = sysdate
 				WHERE apply_idx =#{apply_idx}
-			</when>
-			<when test="action == 'approval' and study_type == 'c'" > <!-- 챌린지가입신청->대기 -->
+			</if>
+			<if test='action == "approval" and study_type == "p"'> <!-- 챌린지가입신청->대기 -->
 				UPDATE apply_member
 				SET study_join_arciwf = 'g', study_join_change_date = sysdate
 				WHERE apply_idx =#{apply_idx}
-			</when>
-			<when test="action == 'cancle'"> <!-- 가입신청->취소 -->
+			</if>
+			<if test='action == "cancle"'> <!-- 가입신청->취소 -->
 				UPDATE apply_member
 				SET study_join_arciwf = 'c', study_join_change_date = sysdate
 				WHERE apply_idx =#{apply_idx}
-			</when>
-			<when test="action == 'withdrawal'"> <!-- 스터디 탈퇴 -->
+			</if>
+			<if test='action == "withdrawal"'> <!-- 스터디 탈퇴 -->
 				UPDATE apply_member
 				SET study_join_arciwf = 'w', study_join_change_date = sysdate
 				WHERE apply_idx =#{apply_idx}
-			</when>
-			<when test="action == 'fail'"> <!-- 가입실패(결제x) -->
+			</if>
+			<if test='action == "fail"'> <!-- 가입실패(결제x) -->
 				UPDATE apply_member
 				SET study_join_arciwf = 'f', study_join_change_date = sysdate
 				WHERE apply_idx =#{apply_idx}
-			</when>
-		</choose>
+			</if>
+
 
 	</update>
 	

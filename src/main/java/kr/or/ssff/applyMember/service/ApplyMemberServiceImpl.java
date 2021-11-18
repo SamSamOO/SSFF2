@@ -58,7 +58,7 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
   public List<ApplyMemberListVO> getApplyMemberList(String r_idx) {
     //TODO 추후 클릭하는 스터디로 변경해야해~
     r_idx= "9003";
-    log.debug("getApplyMemberList({}) invoked");
+    log.debug("getApplyMemberList({}) invoked", r_idx);
 
 
     List<ApplyMemberListVO> allApplyMemberList = this.mapper.getApplyMemberList(r_idx);
@@ -74,10 +74,13 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
    * 작성자	: 신지혜
    */
   @Override
-  public void applyAction(HashMap<String, String> aMember) {
+  public boolean applyAction(HashMap<String, String> aMember) {
     log.debug("applyAction({}) invoked", aMember );
-    this.mapper.applyAction(aMember);
+    int result = this.mapper.applyAction(aMember);
 
+    log.info("+\t result:{} ", result
+    );
+    return result==1;
   } // applyAction
 
   
