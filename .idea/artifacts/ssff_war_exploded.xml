@@ -1,6 +1,14 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="ssff:war exploded">
     <output-path>$PROJECT_DIR$/src/main/webapp</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>ssff</module>
+        <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
+      </options>
+    </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -32,6 +40,8 @@
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.5.2" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:5.5.2" />
           <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:5.5.2" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-websocket:5.3.11" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-messaging:5.3.11" />
           <element id="library" level="project" name="Maven: net.coobird:thumbnailator:0.4.14" />
           <element id="library" level="project" name="Maven: com.oracle.database.jdbc:ojdbc8:21.1.0.0" />
           <element id="library" level="project" name="Maven: com.oracle.database.security:oraclepki:21.1.0.0" />
@@ -60,6 +70,9 @@
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
         </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="ssff/web/웹" />
     </root>

@@ -17,7 +17,8 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 
     <script>
         $(function () {
@@ -140,7 +141,7 @@
                                 <tbody>
                                 <c:forEach begin="1" end="3" var="noticeList" items="${noticeList}">
 
-                                    <tr  style="background-color: oldlace">
+                                    <tr style="background-color: oldlace">
                                         <td>공지</td>
                                         <td>공지</td>
                                         <td><a
