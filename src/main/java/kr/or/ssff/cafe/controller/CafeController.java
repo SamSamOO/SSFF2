@@ -1,8 +1,5 @@
 package kr.or.ssff.cafe.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
@@ -13,19 +10,13 @@ import kr.or.ssff.cafe.service.CafeService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import oracle.jdbc.proxy.annotation.Post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Log4j2
@@ -70,20 +61,34 @@ public class CafeController {
   } // selectCafe
 
 
+
+
   /*
-   * 스터디 카페 단일 상세화면을 조회
-   * 매개변수: 스터디카페ID
+   * 스터디 카페 예약 상세화면을 조회
+   * 매개변수: 예약정보(룸id, 사용자
    * 반환: 스터디 카페 단일 상세화면 뷰단
    * */
-  @PostMapping("/reserve")
-  public void selectCafe(String cafeId, Model model) {
-    log.info("selectCafe({}) is invoked", "cafeId = " + cafeId);
+  @GetMapping("/reserve")
+  public void goReserve() {
+    log.info("goReserve({}) is invoked", "cafeId = "  );
 
-    List<CafeInfoVO> cafeInfo = service.getCafe(cafeId);
-    log.info("cafeInfo{} : " ,cafeInfo);
+//    model.addAttribute("reserveInfo", reserveInfo);
 
-    model.addAttribute("cafeInfo", cafeInfo);
-  } // selectCafe
+  } // insertReserve
+
+
+
+  /*
+   * 스터디 카페 예약 상세화면을 조회
+   * 매개변수: 예약정보(룸
+   * 반환: 스터디 카페 단일 상세화면 뷰단
+   * */
+  @PostMapping("/reserve/insert")
+  public void insertReserve
+  (String cafeId, Model model) {
+    log.info("insertReserve({}) is invoked", "cafeId = " + cafeId);
+
+  } // insertReserve
 
 
   /*
