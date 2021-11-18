@@ -138,7 +138,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach begin="1" end="5" var="noticeList" items="${noticeList}">
+                                <c:forEach begin="1" end="3" var="noticeList" items="${noticeList}">
 
                                     <tr  style="background-color: oldlace">
                                         <td>공지</td>
