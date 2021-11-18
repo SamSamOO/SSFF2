@@ -67,8 +67,9 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public Integer getTotal() {
-        return null;
+    public Integer getTotal(String type) {
+        int totalCount = mapper.getPostCount(type);
+        return totalCount;
     }
 
     @Override
@@ -161,6 +162,18 @@ public class StudyServiceImpl implements StudyService {
     public List<ReplyVO> getReplyList(Integer r_idx) {
         List<ReplyVO> allBoard = this.mapper.getReplyList(r_idx);
         return allBoard;
+    }
+
+    @Override
+    public boolean replyRemove(Integer no) {
+        int affectedRows = mapper.replyDelete(no);
+        return affectedRows == 1;
+    }
+
+    @Override
+    public boolean replyModify(Integer no, String c_cont) {
+        int affectedRows = mapper.replyUpdate(no,c_cont);
+        return affectedRows == 1;
     }
 
 }//end class

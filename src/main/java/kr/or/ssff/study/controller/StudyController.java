@@ -11,6 +11,7 @@ import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.domain.ReplyVO;
+import kr.or.ssff.study.domain.StudyCriteria;
 import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -38,6 +39,7 @@ public class StudyController {
 
     @Autowired
     private StudyService service;
+    private String jsonData;
 
     /*---------------------------------------------------------------*/
     /*-----------------------------챌린지형--------------------------*/
@@ -49,15 +51,40 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 리스트 페이지
      * ToDo 매핑 O , DB O , paging X
      * */
-    @GetMapping("/challenge/list")
+    @GetMapping("/challenge/list") //첫화면
     public String selectChallengeListGo(Model model) {
         log.info("challengeListGo() is invoked");
 
-        List<RecruitBoardVO> list= this.service.getList("C");
+        List<RecruitBoardVO> list= this.service.getList("C"); //이건 총 게시물. 곧 수정필요
+        Integer totalCount = this.service.getTotal("C");//게시물 갯수 세기
 
+        StudyCriteria sc= new StudyCriteria();
+
+        //Criteria 채우기
+        sc.setTotalPost(totalCount);
+        //postPerPage=15
+        sc.setTotalPage((int) Math.ceil(sc.getTotalPost() / 15.0));
+        sc.setCurrentPage(1);
+        //pagePerBlock=3
+        sc.setCurrentBlock(1);
+        sc.setTotalBlock((int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
+
+        //모델에다 전달해주기
         model.addAttribute("list", list);
+        model.addAttribute("studyCriteria", sc);
 
         return "study/challenge/list";
+    } //  selectChallengeListGo
+
+
+    /*챌린지형 스터디 리스트 페이지로 조회
+     * 파라메터 :
+     * 반환 : 챌린지형 스터디 리스트 페이지
+     * ToDo 매핑 O , DB O , paging X
+     * */
+    @PostMapping("/challenge/listPerPage") //페이지가 오기 시작할때 비동기
+    public String selectChallengeListPerPage(Model model) {
+        return null;
     } //  selectChallengeListGo
 
 
@@ -252,7 +279,7 @@ public class StudyController {
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null, dto.getClosed_ok(),null
+                null,null,null
             );
         //새글 등록하기
         boolean result = this.service.register(vo);
@@ -261,8 +288,10 @@ public class StudyController {
         Integer currentR_idx = this.service.getCurrentR_idx();
 
         //그 글번호로 언어 태그 등록하기
-        for(int i=0;i< taglist.length;i++){
-            boolean tagResult = this.service.registerLangTag(currentR_idx,taglist[i]);
+        if(taglist !=null){
+            for(int i=0;i< taglist.length;i++){
+                boolean tagResult = this.service.registerLangTag(currentR_idx,taglist[i]);
+            }
         }
 
         return "redirect:/study/project/list";
@@ -303,7 +332,7 @@ public class StudyController {
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null, null,null
+                null, dto.getClosed_ok(),null
             );
 
         boolean result = this.service.modify(vo);
@@ -325,92 +354,14 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 챌린지형 리스트 페이지
      * */
-    @PostMapping("/project/detail/remove")
-    public String deleteProjectDetail() {
+    @GetMapping("/project/remove")
+    public String removeProjectDetail(Integer r_idx, RedirectAttributes rttrs) {
+        log.info("removeProjectDetail() is invoked");
+        boolean result = this.service.remove(r_idx);
 
-        log.info("deleteProjectDetail() is invoked");
+        return "redirect:/study/challenge/list";
+    } // removeProjectDetail
 
-        return "redirect:/study/project/list";
-    } // deleteProjectDetail
-
-    /*댓글 작성 기능 수행
-     * 파라메터 :
-     * 반환 : //TODO --예솔
-     * */
-    @PostMapping("/comment/post")
-    public @ResponseBody boolean insertComment(@RequestBody String jsonData, HttpServletResponse response, ModelMap model) {
-        log.info("studyModalTest({},{},{}) is invoked",jsonData, response, model);
-
-        ObjectMapper objMapper = new ObjectMapper();
-        HashMap<String, String> replyMap = new HashMap<String, String>();
-
-        try {
-            replyMap = objMapper.readValue(jsonData, new HashMap<String, String>().getClass());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        ReplyVO vo = new ReplyVO(
-            null,
-            Integer.parseInt(replyMap.get("r_idx")),
-            replyMap.get("member_name"),
-            replyMap.get("c_cont"),
-            null,null
-        );
-
-        boolean result = this.service.replyRegister(vo);
-
-        return true;
-    }
-
-
-    /*댓글 리스트 출력 기능 수행
-     * 파라메터 :
-     * 반환 : //TODO --예솔
-     * */
-    @PostMapping("/comment/get")
-    public @ResponseBody List<ReplyVO> getComment(@RequestBody String jsonData, HttpServletResponse response, ModelMap model) {
-        log.info("getComment({},{},{}) is invoked",jsonData, response, model);
-
-        ObjectMapper objMapper = new ObjectMapper();
-        HashMap<String, String> replyMap = new HashMap<String, String>();
-
-        try {
-            replyMap = objMapper.readValue(jsonData, new HashMap<String, String>().getClass());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        List<ReplyVO> list = this.service.getReplyList(Integer.parseInt(replyMap.get("r_idx")));
-
-        return list;
-    }
-
-
-    /*댓글 수정 기능 수행
-     * 파라메터 :
-     * 반환 : //TODO --예솔
-     * */
-    @PostMapping("/comment/modify")
-    public String updateComment() {
-        log.info("updateComment() is invoked");
-
-        return "";
-    }
-
-    /*댓글삭제 기능 수행
-     *파라메터 :
-     * 반환 :
-     * //TODO --예솔
-     * */
-    @PostMapping("/comment/remove")
-    public String deleteComment() {
-
-        log.info("deleteComment() is invoked");
-
-        return "";
-
-    }
 
 
 } // end class

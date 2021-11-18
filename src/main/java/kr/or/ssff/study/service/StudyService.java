@@ -29,7 +29,7 @@ public interface StudyService {
     public abstract List<RecruitBoardVO> getListPerPage();
 
     //6. 게시글 총개수 구하기
-    public abstract Integer getTotal();
+    public abstract Integer getTotal(String type);
 
     //7. 태그 입력하기
     public abstract boolean registerLangTag(Integer r_idx,String tag);
@@ -58,6 +58,11 @@ public interface StudyService {
     //15. 글번호로 댓글 다 가져오기
     public abstract List<ReplyVO>getReplyList(Integer r_idx);
 
+    //16. 댓글 삭제하기
+    public abstract boolean replyRemove(Integer no);
+
+    //17. 댓글 수정하기
+    public abstract boolean replyModify(Integer no, String c_cont);
 
 }
 
