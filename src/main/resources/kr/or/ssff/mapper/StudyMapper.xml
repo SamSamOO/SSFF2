@@ -21,7 +21,7 @@
         #{cont},0,sysdate,#{sido},#{ch_pattern},#{ch_start},#{ch_end})
   </insert>
 
-  <!--  게시판 목록 조회 (맨 첫 페이지기준으로 15개 리스팅)-->
+  <!--  게시판 목록 조회-->
   <select id="getList" resultType="kr.or.ssff.study.domain.RecruitBoardVO">
     <![CDATA[
         SELECT
@@ -31,7 +31,8 @@
                ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok
         FROM recruit_board
         WHERE r_idx < 1000 and type_pc=#{type} and removed_ok='n'
-
+        OFFSET (#{page}-1)*15 ROW
+        FETCH NEXT 15 ROWS ONLY
     ]]>
   </select>
 

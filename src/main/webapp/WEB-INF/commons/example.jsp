@@ -53,8 +53,8 @@
       <!--카드 헤더 종료-->
       <!--카드 Body 시작-->
       <div class="card-body pt-2 pb-0 mt-n3">
-        <p><a href="/study/challenge/list">(예솔)여기 누르면 챌린지 리스트로</a> </p>
-        <p><a href="/study/project/list">(예솔)여기 누르면 프로젝트 리스트로</a></p>
+        <p><a href="/study/challenge/list?page=1">(예솔)여기 누르면 챌린지 리스트로</a> </p>
+        <p><a href="/study/project/list?page=1">(예솔)여기 누르면 프로젝트 리스트로</a></p>
         <p>예솔 커밋테스트</p>
 
         <p><a href="/manager/member/list">민ㅂ주</a></p>

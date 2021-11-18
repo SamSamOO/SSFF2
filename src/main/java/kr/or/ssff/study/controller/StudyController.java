@@ -51,16 +51,22 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 리스트 페이지
      * ToDo 매핑 O , DB O , paging X
      * */
-    @GetMapping("/challenge/list") //첫화면
-    public String selectChallengeListGo(Model model) {
+    @GetMapping("/challenge/list") //첫화면 기준으로 세팅
+    public String selectChallengeListGo(Integer page, Model model) {
         log.info("challengeListGo() is invoked");
-
-        List<RecruitBoardVO> list= this.service.getList("C"); //이건 총 게시물. 곧 수정필요
-        Integer totalCount = this.service.getTotal("C");//게시물 갯수 세기
-
+        
+        //1. 해당 페이지에 속하는 데이터만 뿌리기
+        List<RecruitBoardVO> list= this.service.getList("C",page);
+        
+        
+        //2. 페이징에 관한 설정
+        //2-1. 게시물 갯수 세기
+        Integer totalCount = this.service.getTotal("C");
+        
+        //Criteria 생성
         StudyCriteria sc= new StudyCriteria();
 
-        //Criteria 채우기
+        //Criteria 채우기(x7)
         sc.setTotalPost(totalCount);
         //postPerPage=15
         sc.setTotalPage((int) Math.ceil(sc.getTotalPost() / 15.0));
@@ -69,22 +75,21 @@ public class StudyController {
         sc.setCurrentBlock(1);
         sc.setTotalBlock((int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
 
+        //sc.setCurrentBlock(1) 에 대한 추가 설정
+        if (sc.getCurrentPage() > sc.getPagePerBlock()){
+            for (int i = 1; i <= sc.getTotalBlock(); i++){
+                if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1 && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)){
+                    sc.setCurrentBlock(i + 1);
+                    i = sc.getTotalBlock() + 1;
+                }
+            }
+        }
+
         //모델에다 전달해주기
         model.addAttribute("list", list);
         model.addAttribute("studyCriteria", sc);
 
         return "study/challenge/list";
-    } //  selectChallengeListGo
-
-
-    /*챌린지형 스터디 리스트 페이지로 조회
-     * 파라메터 :
-     * 반환 : 챌린지형 스터디 리스트 페이지
-     * ToDo 매핑 O , DB O , paging X
-     * */
-    @PostMapping("/challenge/listPerPage") //페이지가 오기 시작할때 비동기
-    public String selectChallengeListPerPage(Model model) {
-        return null;
     } //  selectChallengeListGo
 
 
@@ -212,23 +217,52 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 프로젝트형 스터디 리스트 페이지
      * */
+    /*프로젝트형 스터디 리스트 조회
+     * 파라메터 :
+     * 반환 : 프로젝트형 스터디 리스트 페이지
+     * */
     @GetMapping("/project/list")
-    public String selectProjectListGo(Model model) {
+    public String selectProjectListGo(Integer page,Model model) {
         log.info("selectProjectListGo() is invoked");
 
-        List<RecruitBoardVO> list= this.service.getList("P");
+        List<RecruitBoardVO> list= this.service.getList("P",page);
 
         List<LangVO> langList = this.service.getLangList();
 
-//        model.addAttribute("list", list);
- //       model.addAttribute("langList",langList);
+        List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);
 
-        List<Map<String, Object>> liste = this.service.getRecruitBoardMap(list, langList);
-        model.addAttribute("list", liste);
+        //2. 페이징에 관한 설정
+        //2-1. 게시물 갯수 세기
+        Integer totalCount = this.service.getTotal("P");
+        //Criteria 생성
+        StudyCriteria sc= new StudyCriteria();
+        //Criteria 채우기(x7)
+        sc.setTotalPost(totalCount);
+        //postPerPage=15
+        sc.setTotalPage((int) Math.ceil(sc.getTotalPost() / 15.0));
+        sc.setCurrentPage(1);
+        //pagePerBlock=3
+        sc.setCurrentBlock(1);
+        sc.setTotalBlock((int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
+
+        //sc.setCurrentBlock(1) 에 대한 추가 설정
+        if (sc.getCurrentPage() > sc.getPagePerBlock()){
+            for (int i = 1; i <= sc.getTotalBlock(); i++){
+                if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1 && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)){
+                    sc.setCurrentBlock(i + 1);
+                    i = sc.getTotalBlock() + 1;
+                }
+            }
+        }
+
+        model.addAttribute("list", listMap);
+        model.addAttribute("studyCriteria", sc);
+
 
         return "study/project/list";
 
     } // selectProjectListGo
+
 
 
     /*프로젝트형 스터디 게시물 상세 +

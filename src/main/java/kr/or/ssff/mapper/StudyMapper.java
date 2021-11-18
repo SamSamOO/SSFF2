@@ -12,8 +12,8 @@ public interface StudyMapper {
     public abstract Integer insert(RecruitBoardVO vo);
     //글수정하기
     public abstract Integer update(RecruitBoardVO vo);
-    //글리스트 반환(페이징 안되는 상태)
-    public abstract List<RecruitBoardVO> getList(@Param("type")String type);
+    //글리스트 반환
+    public abstract List<RecruitBoardVO> getList(@Param("type")String type,@Param("page")Integer Page);
     //가장 최근의 글번호 가져오기
     public abstract Integer getCurrentR_idx();
     //글번호로 언어태그 등록하기

@@ -23,7 +23,7 @@ public interface StudyService {
     public abstract RecruitBoardVO get(Integer r_idx);
 
     // 5. 전체 목록 조회 - 정상동작중!
-    public abstract List<RecruitBoardVO> getList(String type);
+    public abstract List<RecruitBoardVO> getList(String type, Integer page);
 
     //5. 목록조회 with paging
     public abstract List<RecruitBoardVO> getListPerPage();

@@ -55,8 +55,9 @@ public class StudyServiceImpl implements StudyService {
     }; //get
 
     @Override
-    public List<RecruitBoardVO> getList(String type) {
-        List<RecruitBoardVO> allBoard = this.mapper.getList(type);
+    public List<RecruitBoardVO> getList(String type,Integer page) {
+
+        List<RecruitBoardVO> allBoard = this.mapper.getList(type,page);
 
         return allBoard;
     }//getList(글 전체반환)

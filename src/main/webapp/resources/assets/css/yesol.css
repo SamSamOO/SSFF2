@@ -131,8 +131,8 @@ h3 {
   box-sizing: border-box;
   padding: 10px;
   margin: 5px;
-  display: flex;        /*flex 실험중*/
-  flex-direction:column;/*flex 실험중*/
+  display: flex;
+  flex-direction:column;
 }
 /****카드뉴스 상부****/
 .studylist-content-title {
@@ -141,6 +141,7 @@ h3 {
   padding-top: 25px;
   margin-bottom: 0px;
   flex: 1 1 35%;/*flex 실험중*/
+  height: 45px;
 }
 
 /****카드뉴스 중앙부****/
@@ -163,7 +164,7 @@ h3 {
   padding: 0;
   text-align: center;
   display: table;
-  flex: 1 1 auto;/*flex 실험중*/
+  flex: 1 1 auto;
 }
 
 .studylist-content-info{
@@ -173,7 +174,8 @@ h3 {
   margin-top: 30px;
   padding: 0;
   text-align: center;
-  flex: 1 1 auto;/*flex 실험중*/
+  display: table;
+  flex: 1 1 auto;
 }
 
 .studylist-content-info .span-sido{
@@ -210,11 +212,11 @@ h3 {
   margin-right: 4px;
   float: left;
 }
+/*카드뉴스 페이징*/
 #pagination{
   margin-top:10px;
   margin-bottom:10px;
 }
-/*카드뉴스 페이징*/
 #pagination-ul{
   list-style: none;
 }
