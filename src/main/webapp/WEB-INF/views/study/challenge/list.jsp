@@ -221,7 +221,7 @@
     cateColorChangeCSS();
     closed_status();
     createBoardPage();
-    //replyCountIsNull();
+
   });
 
   /*==========================function==========================*/
@@ -343,10 +343,6 @@
 
   }//cateColorChangeCSS
 
-  function replyCountIsNull(){
-    if(document.querySelectorAll('#replyCount').innerHTML =""){
-        document.querySelector('#replyCount').innerHTML = "0";
-    }
-  }//replyCountIsNull()
+
 </script>
 </html>
