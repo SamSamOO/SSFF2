@@ -18,7 +18,46 @@
 <head>
 		<title>예약하기</title>
 		
-		
+		<style>
+
+
+				/*---------- 모달 ----------*/
+
+    .modal-dialog.modal-80size {
+      width: 80%;
+      height: 80%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .modal-content.modal-80size {
+      height: auto;
+      min-height: 80%;
+    }
+    
+    .modal.modal-center {
+      text-align: center;
+    }
+
+    @media screen and (min-width: 768px) {
+      .modal.modal-center:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+      }
+    }
+
+    .modal-dialog.modal-center {
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    /*---------- 모달 ----------*/
+    
+				
+		</style>
 		<!--head.html Include-->
 		<jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 </head>
@@ -88,19 +127,28 @@
 										<!------------------ 본문 시작 ------------------>
 										<!--begin::Content-->
 										<div class="content flex-column-fluid" id="kt_content">
+												<form action="/cafe/reserve/insert" method="post" id="formObj">
+														
+														<input type="hidden" name="nickName" value="${roomRsrvInfoDTO.room_idx}">
+														<input type="hidden" name="use_date" value="${roomRsrvInfoDTO.use_date}">
+														<input type="hidden" name="use_start_time" value="${roomRsrvInfoDTO.use_start_time}">
+														<input type="hidden" name="use_end_time" value="${roomRsrvInfoDTO.use_end_time}">
+														<input type="hidden" name="room_idx" value="${roomRsrvInfoDTO.room_idx}">
+														<input type="hidden" name="total_amount" value="${roomRsrvInfoDTO.total_amount}">
+														
+														
+														
 												<!--begin::Card-->
 												<div class="card card-custom gutter-b">
 														<div class="card-body">
 																<div class="d-flex">
+																	
 																		
 																		
 																		<!--begin: Pic-->
 																		<div class="flex-shrink-0 w-xl-150px mr-7 mt-lg-0 mt-3">
 																				<div class="symbol symbol-50 symbol-lg-120">
-																						<img alt="룸사진" src="assets/media/project-logos/3.png">
-																				</div>
-																				<div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
-																						<span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
+																						<img alt="${cafeVO.cafe_image_first}" src="${cafeVO.cafe_image_first}">
 																				</div>
 																		</div>
 																		<!--end: Pic-->
@@ -110,82 +158,93 @@
 																		<div class="flex-grow-1">
 																				
 																				
-																				
 																				<!--begin: Title-->
 																				<div class="d-flex align-items-center flex-wrap">
 																						<div class="flex-grow-1 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
 																								
 																								<!--begin::Name-->
-																								<a href="#"
-																								   class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">Nexa
-																										- 카페이름
+																								<a href="/cafe/detail?cafe_idx=${cafeVO.cafe_idx}"
+																								   class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">
+																										${cafeVO.cafe_main_title}
 																										<i class="flaticon2-correct text-success icon-md ml-2"></i></a>
 																								<!--end::Name-->
-																								<a href="#"
-																								   class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">Nexa
-																										- 카페 홍보글 내용
-																										<i class="flaticon2-correct text-success icon-md ml-2"></i></a>
-																						
+																								<span
+																										class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">
+																										
+																										<c:forEach items="${fn:split(cafeVO.cafe_details,' ')}"
+																										           var="content">
+																												- ${content}
+																										</c:forEach>
+																										</span>
 																						</div>
-																						
-																						
 																						
 																						
 																						<div class="flex-grow-2 font-weight-bold text-dark-50 py-5 py-lg-2 mr-5">
 																								<ul class="list-group">
 																										<li class="list-group-item d-flex align-items-center">
 																												<span
-																												class="vg-icon-gray-500 mr-4">
-																											
-																													<i class="icon-2 flaticon-exclamation-2"></i>
-																											</span>
+																														class="vg-icon-gray-500 mr-10">
 																												
-																												카페명
+																													<i class="icon-2 flaticon-exclamation-2"></i>
+																														카페명
+																											</span>
+																												<span
+																														class="vg-icon-gray-500 mr-4">
+																														
+																														${cafeVO.cafe_name}
+																												</span>
+																										
 																										
 																										</li>
 																										
 																										<li class="list-group-item d-flex align-items-center">
 																												<span
-																														class="vg-icon-gray-500 mr-4">
+																														class="vg-icon-gray-500 mr-6">
 																											
 																													<i class="icon-2 flaticon-avatar"></i>
+																														대표자명
 																											</span>
 																												
-																												대표자명
+																												${cafeVO.boss_name}
 																										
 																										</li>
 																										<li class="list-group-item d-flex align-items-center">
 																												<span
-																														class="vg-icon-gray-500 mr-4">
+																														class="vg-icon-gray-500 mr-10">
 																											
 																													<i class="icon-2 flaticon-placeholder"></i>
+																														소재지
 																											</span>
 																												
-																												소재지
+																												<span
+																														class="vg-icon-gray-500 mr-4">
+																														
+																														${cafeVO.cafe_location}
+																												</span>
 																										
 																										</li>
 																										<li class="list-group-item d-flex align-items-center">
 																												<span
-																														class="vg-icon-gray-500 mr-4">
+																														class="vg-icon-gray-500 mr-2">
 																											
 																													<i class="icon-2 flaticon-add-label-button"></i>
+																														사업자번호
 																											</span>
-																												
-																												사업자번호
+																												${cafeVO.business_number}
 																										
 																										</li>
 																										<li class="list-group-item d-flex align-items-center">
 																												<span
-																														class="vg-icon-gray-500 mr-4">
+																														class="vg-icon-gray-500 mr-8">
 																											
 																													<i class="icon-2 flaticon-alarm"></i>
+																														대표번호
 																											</span>
-																												
-																												전화번호
+																												${cafeVO.cafe_telephone_number}
 																										
 																										</li>
 																								</ul>
-																								
+																						
 																						</div>
 																				</div>
 																				<!--end: Title-->
@@ -193,15 +252,12 @@
 																				<!--end: Content-->
 																		</div>
 																		<!--end: Info-->
+																	
 																</div>
 														
 														</div>
 												</div>
 												<!--end::Card-->
-												
-												
-												
-												
 												
 												
 												<!--begin::Card-->
@@ -262,13 +318,14 @@
 																								
 																								</div>
 																						</div>
-													
+																						
 																						
 																						<div class="form-group row">
 																								<label class="col-xl-3 col-lg-3 col-form-label text-right">성함</label>
 																								<div class="col-lg-9 col-xl-6">
 																										<div class="spinner spinner-sm spinner-success spinner-right">
 																												<input class="form-control form-control-lg form-control-solid"
+																												       name="rsrv_name"
 																												       type="text" value="nick84">
 																										</div>
 																								</div>
@@ -283,7 +340,7 @@
 																		<i class="la la-phone"></i>
 																	</span>
 																												</div>
-																												<input type="text"
+																												<input type="text" name="rsrv_phone_number"
 																												       class="form-control form-control-lg form-control-solid"
 																												       value="01012341234" placeholder="Phone">
 																										</div>
@@ -292,7 +349,7 @@
 																						</div>
 																						
 																						<div class="form-group row">
-																								<label class="col-xl-3 col-lg-3 col-form-label text-right">Email
+																								<label class="col-xl-3 col-lg-3 col-form-label text-right" >Email
 																										Address</label>
 																								<div class="col-lg-9 col-xl-6">
 																										<div class="input-group input-group-lg input-group-solid">
@@ -301,7 +358,7 @@
 																		<i class="la la-at"></i>
 																	</span>
 																												</div>
-																												<input type="text"
+																												<input type="text" name="rsrv_email"
 																												       class="form-control form-control-lg form-control-solid"
 																												       value="알림톡 못하면 메일해야함" placeholder="Email">
 																										</div>
@@ -315,8 +372,9 @@
 																								<label class="col-xl-3 col-lg-3 col-form-label text-right">요청사항</label>
 																								<div class="col-lg-9 col-xl-6">
 																										<textarea class="form-control form-control-lg form-control-solid"
-																										          id="exampleTextarea" rows="3"
-																										          placeholder="Type notes"></textarea>
+																										          id="rsrv_message" rows="3"
+																										          name="rsrv_message"
+																										          placeholder="요청사항을 입력해주세요."></textarea>
 																								</div>
 																						
 																						</div>
@@ -331,18 +389,13 @@
 																		</div>
 																		
 																		<!--end::Tab Content-->
-
+																
 																</div>
-
+														
 														</div>
 														<!--end::Body-->
 												</div>
 												<!--end::Card-->
-												
-												
-												
-												
-												
 												
 												
 												<!--  결제정보 시작 -->
@@ -361,7 +414,7 @@
 																								<span class="nav-icon mr-2">
 																									<i class="icon-2x flaticon-notepad"></i>
 																								</span>
-																								<span class="nav-text font-weight-bold">결제정보</span>
+																								<span class="nav-text font-weight-bold">결제</span>
 																						</li>
 																				</a>
 																		</ul>
@@ -383,12 +436,12 @@
 																				<tr class="datatable-row" style="left: 0px;">
 																						<th data-field="OrderID"
 																						    class="datatable-cell datatable-cell-sort datatable-cell-sorted"
-																						    data-sort="asc"><span style="width: 250px;">결제금액</span></th>
+																						    data-sort="asc"><span style="width: 250px;">결제정보</span></th>
 																				</tr>
 																				</thead>
 																				<tbody style="" class="datatable-body">
 																				<tr data-row="0" class="datatable-row" style="left: 0px;">
-																						<td class="datatable-cell-left datatable-cell" data-field="RecordID"
+																						<td class="col-4 datatable-cell-center datatable-cell" data-field="RecordID"
 																						    aria-label="400"><span><span
 																								class="font-weight-bolder">예약날짜</span></span></td>
 																						<td class="datatable-cell-sorted datatable-cell" data-field="OrderID"
@@ -397,7 +450,7 @@
 																								<div class="d-flex align-items-center">
 																										<div class="ml-4">
 																												<div class="text-dark-75 font-size-lg mb-0">
-																														2021.12.12</div>
+																														${roomRsrvInfoDTO.use_date}</div>
 																												
 																										</div>
 																								</div></span>
@@ -405,7 +458,7 @@
 																				</tr>
 																				
 																				<tr data-row="0" class="datatable-row" style="left: 0px;">
-																						<td class="datatable-cell-left datatable-cell" data-field="RecordID"
+																						<td class="col-4 datatable-cell-center datatable-cell" data-field="RecordID"
 																						    aria-label="400"><span><span
 																								class="font-weight-bolder">예약시간</span></span></td>
 																						<td class="datatable-cell-sorted datatable-cell" data-field="OrderID"
@@ -414,7 +467,11 @@
 																								<div class="d-flex align-items-center">
 																										<div class="ml-4">
 																												<div class="text-dark-75 font-size-lg mb-0">
-																														17~20시, 3시간</div>
+																														${roomRsrvInfoDTO.use_start_time}~
+																														${roomRsrvInfoDTO.use_end_time}시,
+																																
+																																${roomRsrvInfoDTO.use_end_time -
+																																		roomRsrvInfoDTO.use_start_time + 1} 시간</div>
 																												
 																										</div>
 																								</div></span>
@@ -422,7 +479,7 @@
 																				</tr>
 																				
 																				<tr data-row="0" class="datatable-row" style="left: 0px;">
-																						<td class="datatable-cell-left datatable-cell" data-field="RecordID"
+																						<td class="col-4 datatable-cell-center datatable-cell" data-field="RecordID"
 																						    aria-label="400"><span><span
 																								class="font-weight-bolder">공간유형</span></span></td>
 																						<td class="datatable-cell-sorted datatable-cell" data-field="OrderID"
@@ -431,15 +488,14 @@
 																								<div class="d-flex align-items-center">
 																										<div class="ml-4">
 																												<div class="text-dark-75 font-size-lg mb-0">
-																														4인실(룸번호)</div>
-																												
+																															${roomRsrvInfoDTO.max_people}(	${roomRsrvInfoDTO.room_idx})</div>
 																										</div>
 																								</div></span>
 																						</td>
 																				</tr>
 																				
 																				<tr data-row="0" class="datatable-row" style="left: 0px;">
-																						<td class="datatable-cell-left datatable-cell" data-field="RecordID"
+																						<td class="col-4 datatable-cell-center datatable-cell" data-field="RecordID"
 																						    aria-label="400"><span><span
 																								class="font-weight-bolder">결제금액</span></span></td>
 																						<td class="datatable-cell-sorted datatable-cell" data-field="OrderID"
@@ -448,7 +504,9 @@
 																								<div class="d-flex align-items-center">
 																										<div class="ml-4">
 																												<div class="text-dark-75 font-size-lg mb-0">
-																														18,000 원</div>
+																														
+																														<fmt:formatNumber value="${roomRsrvInfoDTO.total_amount}"
+																														                  pattern="#,###"/> 원</div>
 																												
 																										</div>
 																								</div></span>
@@ -461,12 +519,6 @@
 																
 																</div>
 																<!--end: Datatable-->
-																
-																
-																
-																
-																
-																
 																
 																
 																<div class="separator separator-dashed my-10"></div>
@@ -484,60 +536,15 @@
 																				</thead>
 																				<tbody style="" class="datatable-body">
 																				
-																				<tr data-row="0" class="datatable-row" style="left: 0px;">
-																						<td class="datatable-cell-left datatable-cell" data-field="RecordID"
+																				<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
+																						<td class="datatable-cell-left datatable-cell ml-15" data-field="RecordID"
 																						    aria-label="400"><span><span
-																								class="font-weight-bolder">1</span></span></td>
-																						<td class="datatable-cell-sorted datatable-cell" data-field="OrderID"
-																						    aria-label="0004-0800">
-																								<span style="">
-																								<div class="d-flex align-items-center">
-																										<div class="ml-4">
-																												<div class="text-dark-75 font-size-lg mb-0">
-																														블라블라</div>
-																												
-																										</div>
-																								</div></span>
-																						</td>
+																								class="font-weight-bolder">1. 다꺼져ㅠ 왜 안돼</span></span></td>
 																				</tr>
 																				
 																				</tbody>
 																		</table>
 																</div>
-																
-<%--																<!-- 테이블 하나 남네 -->--%>
-<%--																<div class="datatable datatable-bordered datatable-head-custom--%>
-<%--																		datatable-default datatable-primary datatable-loaded" id="kt_datatable2" style="">--%>
-<%--																		<table class="datatable-table"--%>
-<%--																		       style="display: block;margin-left: auto;margin-right: auto;width: 65%;">--%>
-<%--																				<thead class="datatable-head">--%>
-<%--																				<tr class="datatable-row" style="left: 0px;">--%>
-<%--																						<th data-field="OrderID"--%>
-<%--																						    class="datatable-cell datatable-cell-sort datatable-cell-sorted"--%>
-<%--																						    data-sort="asc"><span style="width: 250px;">Customer</span></th>--%>
-<%--																				</tr>--%>
-<%--																				</thead>--%>
-<%--																				<tbody style="" class="datatable-body">--%>
-<%--																				<tr data-row="0" class="datatable-row" style="left: 0px;">--%>
-<%--																						<td class="datatable-cell-left datatable-cell" data-field="RecordID"--%>
-<%--																						    aria-label="400"><span><span--%>
-<%--																								class="font-weight-bolder">200</span></span></td>--%>
-<%--																						<td class="datatable-cell-sorted datatable-cell" data-field="OrderID"--%>
-<%--																						    aria-label="0004-0800">--%>
-<%--																								<span style="">--%>
-<%--																								<div class="d-flex align-items-center">--%>
-<%--																										<div class="ml-4">--%>
-<%--																												<div class="text-dark-75 font-size-lg mb-0">--%>
-<%--																														Eduard Stoeck</div>--%>
-<%--																												--%>
-<%--																										</div>--%>
-<%--																								</div></span>--%>
-<%--																						</td>--%>
-<%--																				</tr>--%>
-<%--																				--%>
-<%--																				</tbody>--%>
-<%--																		</table>			--%>
-<%--																</div>--%>
 																
 																
 																<div class="separator separator-dashed my-10"></div>
@@ -547,44 +554,42 @@
 																		<label class="col-xl-3 col-lg-3 col-form-label text-right">Radios</label>
 																		<div class="col-9 col-form-label">
 																				<div class="radio-list">
-																						<label class="radio">
-																								<input type="radio" name="radios4">
+																						<label class="radio" for="card">
+																								<input type="radio" id="card" name="pay" value="">
 																								<span></span>신카</label>
-																						<label class="radio">
-																								<input type="radio" checked="checked" name="radios4">
+																						<label class="radio" for="cash">
+																								<input type="radio" id="cash" name="pay" value="">
 																								<span></span>출금</label>
-																						<label class="radio radio-disabled">
-																								<input type="radio" disabled="disabled" name="radios4">
-																								<span></span>Disabled</label>
+																						
 																				</div>
 																		</div>
 																</div>
 																
 																
-																<div class="form-group row align-items-center mb-0">
-																		<label class="col-xl-3 col-lg-3 col-form-label text-right"></label>
-																		
-																		<div class="d-flex col-lg-9 col-xl-6">
-																				<div class="checkbox-inline">
-																						<label class="checkbox">
-																								<input type="checkbox">
-																								<span></span>신용카드</label>
-																						<label class="checkbox">
-																								<input type="checkbox">
-																								<span></span>실시간출금</label>
-																						<label class="checkbox">
-																								<input type="checkbox">
-																								<span></span>또 머가있지;</label>
-																				</div>
-																		</div>
-																
-																</div>
+<%--																<div class="form-group row align-items-center mb-0">--%>
+<%--																		<label class="col-xl-3 col-lg-3 col-form-label text-right"></label>--%>
+<%--																		--%>
+<%--																		<div class="d-flex col-lg-9 col-xl-6">--%>
+<%--																				<div class="checkbox-inline">--%>
+<%--																						<label class="checkbox">--%>
+<%--																								<input type="checkbox">--%>
+<%--																								<span></span>신용카드</label>--%>
+<%--																						<label class="checkbox">--%>
+<%--																								<input type="checkbox">--%>
+<%--																								<span></span>실시간출금</label>--%>
+<%--																						<label class="checkbox">--%>
+<%--																								<input type="checkbox">--%>
+<%--																								<span></span>또 머가있지;</label>--%>
+<%--																				</div>--%>
+<%--																		</div>--%>
+<%--																--%>
+<%--																</div>--%>
 																
 																
 																<div class="separator separator-dashed my-10"></div>
 																
 																
-																<div class="form-group row">
+																<div class="form-group row mb-30">
 																		<label class="col-xl-3 col-lg-3 col-form-label text-right">약관</label>
 																		<div class="col-lg-9 col-xl-6">
 																				<div class="checkbox-list">
@@ -608,10 +613,95 @@
 																</div>
 																
 																<!--end::Body-->
+																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#my80sizeCenterModal">
+결제
+																</button>
+																<div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1" role="dialog" aria-labelledby="my80sizeCenterModalLabel">
+																		<div class="modal-dialog modal-80size modal-center" role="document">
+																				<div class="modal-content modal-80size">
+																						<div class="modal-header " style="background-color:#ffa800;">
+																								
+																								<h4 class="modal-title" id="myModalLabel">결제</h4>
+																						</div>
+																						<div class="modal-body">
+																								<div class="row justify-content-center py-8 px-8 py-md-10 px-md-0">
+																										<div class="col-md-10">
+																												<div class="table-responsive">
+																														<table class="table">
+																																<thead class="font-weight-boldest">
+																																<tr>
+																																		<th class="pl-0 mb-20 font-weight-bold text-muted text-uppercase">결제하시겠습니까?</th>
+																																		
+																																</tr>
+																																</thead>
+																																
+																																
+																																<tbody>
+																																
+																																<tr class="">
+																																		<td class="pl-0 pt-7 d-flex align-items-center">
+																																				<p><strong>예약공간</strong></p>
+																																		</td>
+																																		
+																																		<td class="text-primary pr-0 pt-7 text-right align-middle">${cafeVO.cafe_name}(${roomRsrvInfoDTO.room_idx})</td>
+																																</tr>
+																																
+																																<tr class="">
+																																		<td class="pl-0 pt-7 d-flex align-items-center">
+																																				<p><strong>예약날짜</strong></p>
+																																		</td>
+																																		
+																																		<td class="text-primary pr-0 pt-7 text-right align-middle">	${roomRsrvInfoDTO.use_date}</td>
+																																</tr>
+																																
+																																<tr class="">
+																																		<td class="pl-0 pt-7 d-flex align-items-center">
+																																				<p><strong>예약시간</strong></p>
+																																		</td>
+																																		
+																																		<td class="text-primary pr-0 pt-7 text-right align-middle">
+																																				${roomRsrvInfoDTO.use_start_time}~
+																																				${roomRsrvInfoDTO.use_end_time}시,
+																																						
+																																						${roomRsrvInfoDTO.use_end_time -
+																																								roomRsrvInfoDTO.use_start_time + 1}시간
+																																				
+																																		</td>
+																																</tr>
+																																
+																																
+																																
+																																<tr class="font-weight-boldest">
+																																		<td class="pl-0 pt-7 d-flex align-items-center">
+																																			결제예정금액</td>
+																																		
+																																		
+																																		<td class="text-primary pr-0 pt-7 text-right align-middle">
+																																				<fmt:formatNumber value="${roomRsrvInfoDTO.total_amount}"
+																																				                  pattern="#,###"/> 원</td>
+																																</tr>
+																																
+																																</tbody>
+																														</table>
+																												</div>
+																										</div>
+																								</div>
+																						</div>
+																						<div class="modal-footer">
+																								<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
+																						</div>
+																						<div class="modal-footer">
+																								<button type="submit" class="btn btn-default" data-dismiss="modal">예약하기</button>
+																						</div>
+																				</div>
+																		</div>
+																</div>
+																
+																
 														</div>
 												</div>
 												<!--end::Card-->
-										
+												</form>
 										
 										</div>
 										
@@ -634,6 +724,72 @@
 <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
 </body>
 <!----------------Body 종료----------------------->
+
+<%--<script>--%>
+<%--  function goRsrv() {--%>
+<%--    // TODO 처음부터 인풋 만들지 등..어휴.. 수정예정.. data-value로 인풋안에 때려볼까--%>
+
+<%--    let yy = $('#select-year').html();  // 선택된 연도--%>
+<%--    let mm = $('#select-month').html().padStart(2, '0'); // 선택된 월--%>
+<%--    let dd = $('#select-date').html().padStart(2, '0'); // 선택된 일자--%>
+
+<%--    let selectDate = yy + '/' + mm + '/' + dd; // 이용일자--%>
+<%--    let selectStartTime = $('#select-start-time').html();  // 이용시작시간--%>
+<%--    let selectEndTime = $('#select-end-time').html(); //이용종료시간--%>
+<%--    let selectRoom = $('#select-room').html();  // 선택된 룸--%>
+<%--    let totalAmount = $('#select-amount').html(); // 이용금액--%>
+<%--    let maxPeople = $('#select-max-people').html(); // 방인원--%>
+
+<%--    let $date = $('<input>', {--%>
+<%--      type : "hidden",--%>
+<%--      name : "use_date",--%>
+<%--      value: selectDate--%>
+<%--    })--%>
+
+<%--    let $startTime = $('<input>', {--%>
+<%--      type : "hidden",--%>
+<%--      name : "use_start_time",--%>
+<%--      value: selectStartTime--%>
+<%--    })--%>
+
+<%--    let $endTime = $('<input>', {--%>
+<%--      type : "hidden",--%>
+<%--      name : "use_end_time",--%>
+<%--      value: selectEndTime--%>
+<%--    })--%>
+
+<%--    let $roomIdx = $('<input>', {--%>
+<%--      type : "hidden",--%>
+<%--      name : "room_idx",--%>
+<%--      value: selectRoom--%>
+<%--    })--%>
+
+<%--    let $totalAmount = $('<input>', {--%>
+<%--      type : "hidden",--%>
+<%--      name : "total_amount",--%>
+<%--      value: totalAmount--%>
+<%--    })--%>
+
+<%--    let $maxPeople = $('<input>', {--%>
+<%--      type : "hidden",--%>
+<%--      name : "max_people",--%>
+<%--      value: maxPeople--%>
+<%--    })--%>
+
+<%--    $('#formObj').append($date, $startTime, $endTime, $roomIdx, $totalAmount,$maxPeople);--%>
+
+<%--    $('#formObj').submit();--%>
+
+
+
+
+
+
+
+<%--  }--%>
+<%--		--%>
+		
+</script>
 
 
 </html>

@@ -831,18 +831,22 @@
 																														</div>
 																														<!-- // .my-calendar -->
 																												</div>
-																												
+																												<form action="/cafe/reserve" method="post" id="formObj">
+																												<input type="hidden" name="nickName" value="nickName9300">
+																												            <input type="hidden" name="cafe_idx" value="${cafeInfo[0].cafe_idx}">
 																												<div id="select-rsrv-info">
-																														<span id="select-year"></span>
-																														<span id="select-month"></span>
-																														<span id="select-date"></span>
-																														<span id="select-room"></span>
-																														<span id="select-start-time"></span>
-																														<span id="select-end-time"></span>
-																														<span id="select-time"></span>
+																														<span id="select-year" class="date"></span>
+																														<span id="select-month" class="date"></span>
+																														<span id="select-date" class="date"></span>
+																														<span id="select-room" class="room"></span>
+																														<span id="select-start-time" class="time"></span>
+																														<span id="select-end-time" class="time"></span>
+																														<span id="select-time" class="time"></span>
+																														<span id="select-amount" class="amount"></span>
+																														<span id="select-max-people" class="info"></span>
 																												</div>
 																												
-																												
+																												</form>
 																												<label
 																														class="font-size-h3 font-weight-bolder text-dark mb-7"
 																														style="border-bottom: 3px solid #ebab31;">Room</label>
@@ -854,15 +858,15 @@
 																																		
 																																		<!-- radio [ s ] -->
 																																		<label class="radio radio-lg mb-7"> <input
-																																				type="radio" name="room" value="${room.room_idx}"
-																																				onclick="viewInfo('${room.room_idx}');"> <span></span>
+																																				type="radio" name="room" id="${room.room_idx}" value="${room.amount_hour}"
+																																				onclick="viewInfo('${room.room_idx}');" > <span></span>
 																																				<div
 																																						class="font-size-lg text-dark-75 font-weight-bold"
-																																						data-value="${room.max_people}">
+																																						id="mp-${room.room_idx}">
 																																								${room.max_people}인실
 																																				</div>
 																																				<div class="ml-auto text-muted font-weight-bold"
-																																				     data-value="${room.amount_hour}">
+																																				     >
 																																								${room.amount_hour} 원/시간
 																																				</div>
 																																		</label>
@@ -1027,13 +1031,20 @@
     // $('#info-' + $id)만 able
     // able -> css display : block
     // disable -> none
+    console.log("========================")
 
+    // 기존에 담긴 정보 지우기
+    $(`span[class='room']`).empty();
+    $(`span[class='time']`).empty();
+    $(`span[class='amount']`).empty();
+    $(`span[class='info']`).empty();
+    
     $id = roomIdx
-    console.log("$id :" + $id)
 
-    console.log($('#info-' + $id))
 
     $('#select-room').html(roomIdx);
+    $('#select-max-people').html($('#mp-' + $id).html());
+    
     $(`div[id^='info-']`).css('display', 'none');
     $('#info-' + $id).css('display', 'block');
     $('#picker-time-' + $id).css('display', 'none');
@@ -1054,7 +1065,12 @@
     // $('#info-' + $id)만 able
     // able -> css display : block
     // disable -> none
-
+		  
+		  // 기존에 담긴 정보 지우기
+    $(`span[class='time']`).empty();
+    $(`span[class='amount']`).empty();
+		  
+		  
     $id = roomIdx
     console.log("$id :" + $id)
     console.log($('#info-' + $id))
@@ -1214,6 +1230,8 @@
       // 총 이용시간 출력단
       let rt = isNaN(parseInt($('#select-end-time').html())) ? 0 : parseInt(
           $('#select-end-time').html());
+      
+      let amount = $('#select-amount').html();
 
       console.log("st: " + st);
       console.log("et: " + et);
@@ -1229,10 +1247,9 @@
         // 시간 모두 비활성화
         $("li[class='time time-active']").removeClass('time-active');
 
-        // 모든 시간 비워주고
-        $('#select-start-time').empty();
-        $('#select-end-time').empty();
-        $('#select-time').empty();
+        // 기존에 담긴 시간, 금액 선택 정보 지우기
+        $(`span[class='time']`).empty();
+        $(`span[class='amount']`).empty();
 
         // 선택한 시간 활성화
         $(this).addClass('time-active');
@@ -1249,19 +1266,19 @@
         if (selectTime === st) { // 시간 하나만 선택
           console.log("3: ");
           $('#select-end-time').html(selectTime);
-
+          result = true;
         } else if (selectTime > st) { // 다중 선택(정상)
 
           // 비활성화 된 셀을 같이 클릭하면
           if ($(this).prevUntil(".time.time-active").is('.time.cal-none')) {
+            
             alert("누르지말라구 ㅋㅋ3");
             // 시간 모두 비활성화
             $("li[class='time time-active']").removeClass('time-active');
 
-            // 모든 시간 비워주고
-            $('#select-start-time').empty();
-            $('#select-end-time').empty();
-            $('#select-time').empty();
+            // 기존에 담긴 시간, 금액 선택 정보 지우기
+            $(`span[class='time']`).empty();
+            $(`span[class='amount']`).empty();
 
           } else { // 정상 선택이라면 ㄱㄱ
 
@@ -1272,19 +1289,31 @@
 
             $(this).prevUntil(".time.time-active").addClass('time-active');
 
+            result=true;
           } // if-else
 
         } // if-else
 
-        // 종료 시간 확인해서
-        et = selectTime;
-        // 단일 선택이라면 1시간 아니라면 총 이용시간 계산해서
-        rt = et - st == 0 ? 1 : et - st + 1;
-        // 이용시간에 담아주자~
-        $('#select-time').html(rt);
+		      if(result){
+          
+          // 종료 시간 확인해서
+          et = selectTime;
+          // 단일 선택이라면 1시간 아니라면 총 이용시간 계산해서
+          rt = et - st == 0 ? 1 : et - st + 1;
+          // 이용시간에 담아주자~
+          $('#select-time').html(rt);
 
-        // console.log("ㅇㄱww::"+$(this).prevAll().css("background", "black"));
-        console.log("ㅇㄱss::" + $(this).prevAll().data('time'));
+          // 이용금액 (이용시간 x 룸가격)
+          let pay = $("#" + $('#select-room').html() ).val(); // 가격
+         
+          // 이용금액 항목에 넣어주기
+				      $('#select-amount').html(rt*pay);
+
+          // console.log("ㅇㄱww::"+$(this).prevAll().css("background", "black"));
+          console.log("ㅇㄱss::" + $(this).prevAll().data('time'));
+				      
+		      }
+        
 
       } // if
     });
@@ -1297,22 +1326,60 @@
   
   // 예약하기 버튼 클릭시 정보 담아서 예약하는 화면으로 가자~
   function goRsrv() {
+		  // TODO 처음부터 인풋 만들지 등..어휴.. 수정예정.. data-value로 인풋안에 때려볼까
+
+    let yy = $('#select-year').html();  // 선택된 연도
+    let mm = $('#select-month').html().padStart(2, '0'); // 선택된 월
+    let dd = $('#select-date').html().padStart(2, '0'); // 선택된 일자
     
-    // 일자
-    // let date = ;
-    // // 사용 시작 시간
-    // let st = ;
-    // // 사용 종료 시간
-    // let et = ;
-    // // 룸 번호
-    // let rn = ;
-    // // 사용자 닉네임
-		  // let nick = ;
+		  let selectDate = yy + '/' + mm + '/' + dd; // 이용일자
+    let selectStartTime = $('#select-start-time').html();  // 이용시작시간
+    let selectEndTime = $('#select-end-time').html(); //이용종료시간
+		  let selectRoom = $('#select-room').html();  // 선택된 룸
+		  let totalAmount = $('#select-amount').html(); // 이용금액
+    let maxPeople = $('#select-max-people').html(); // 방인원
+
+    let $date = $('<input>', {
+      type : "hidden",
+      name : "use_date",
+      value: selectDate
+    })
+
+    let $startTime = $('<input>', {
+      type : "hidden",
+      name : "use_start_time",
+      value: selectStartTime
+    })
+
+    let $endTime = $('<input>', {
+      type : "hidden",
+      name : "use_end_time",
+      value: selectEndTime
+    })
+
+    let $roomIdx = $('<input>', {
+      type : "hidden",
+      name : "room_idx",
+      value: selectRoom
+    })
+
+    let $totalAmount = $('<input>', {
+      type : "hidden",
+      name : "total_amount",
+      value: totalAmount
+    })
+
+    let $maxPeople = $('<input>', {
+      type : "hidden",
+      name : "max_people",
+      value: maxPeople
+    })
+
+    $('#formObj').append($date, $startTime, $endTime, $roomIdx, $totalAmount,$maxPeople);
     
-    
-    
-    
-		  
+    $('#formObj').submit();
+
+
   }
 </script>
 
@@ -1378,6 +1445,7 @@
      * @param {date} fullDate
      */
     function loadYYMM(fullDate) {
+      
       let yy = fullDate.getFullYear();
       let mm = fullDate.getMonth();
       let firstDay = init.getFirstDay(yy, mm);
@@ -1426,6 +1494,8 @@
      * @param {string} val
      */
     function createNewList(val) {
+      
+      
       let id = new Date().getTime() + '';
       let yy = init.activeDate.getFullYear();
       let mm = init.activeDate.getMonth() + 1;
@@ -1458,6 +1528,8 @@
       $(`div[id^='info-']`).css('display', 'none');
       $("input:radio[name='room']").prop('checked', false);
       $("input:radio[name='time']").prop('checked', false);
+      $("span[id^='select-']").empty();
+      
       if (e.target.classList.contains('day')) {
         if (init.activeDTag) {
           init.activeDTag.classList.remove('day-active');

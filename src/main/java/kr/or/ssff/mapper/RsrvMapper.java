@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Param;
  스터디카페 crud DAO
  작성자: 신지혜
  */
-public interface CafeMapper {
+public interface RsrvMapper {
 
    
   // 전체 목록조회(사용자) : 신지혜

@@ -4,6 +4,7 @@ import java.util.List;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
+import kr.or.ssff.cafe.domain.RoomRsrvInfoDTO;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.ReservationDTO;
 import kr.or.ssff.cafe.service.CafeService;
@@ -14,9 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Log4j2
@@ -54,39 +57,32 @@ public class CafeController {
   public void selectCafe(@RequestParam("cafe_idx") String cafeId, Model model) {
     log.info("selectCafe({}) is invoked", "cafeId = " + cafeId);
 
-    List<CafeInfoVO> cafeInfo = service.getCafe(cafeId);
-    log.info("cafeInfo{} : " ,cafeInfo);
+    List<CafeInfoVO> cafeInfo = service.getCafeJoinRoom(cafeId);
+    log.info("cafeInfo{} : ", cafeInfo);
 
     model.addAttribute("cafeInfo", cafeInfo);
   } // selectCafe
 
 
-
-
   /*
-   * 스터디 카페 예약 상세화면을 조회
-   * 매개변수: 예약정보(룸id, 사용자
+   * 스터디 카페 예약 화면을 조회
+   * 매개변수: 예약정보
    * 반환: 스터디 카페 단일 상세화면 뷰단
    * */
-  @GetMapping("/reserve")
-  public void goReserve() {
-    log.info("goReserve({}) is invoked", "cafeId = "  );
+  @PostMapping("/reserve")
+  public void goReserve(
+      @ModelAttribute("roomRsrvInfoDTO") RoomRsrvInfoDTO roomRsrvInfoDTO, Model model
+  ) {
 
-//    model.addAttribute("reserveInfo", reserveInfo);
+    log.info("goReserve({}) is invoked", roomRsrvInfoDTO);
 
-  } // insertReserve
+    // String cafe_idx = roomRsrvInfoDTO.getCafe_idx();
+    CafeVO cafeVO = service.getCafe(roomRsrvInfoDTO.getCafe_idx());
 
+    model.addAttribute("cafeVO", cafeVO);
+    model.addAttribute("roomRsrvInfoDTO", roomRsrvInfoDTO);
 
-
-  /*
-   * 스터디 카페 예약 상세화면을 조회
-   * 매개변수: 예약정보(룸
-   * 반환: 스터디 카페 단일 상세화면 뷰단
-   * */
-  @PostMapping("/reserve/insert")
-  public void insertReserve
-  (String cafeId, Model model) {
-    log.info("insertReserve({}) is invoked", "cafeId = " + cafeId);
+    log.info("model", model);
 
   } // insertReserve
 
@@ -96,12 +92,31 @@ public class CafeController {
    * 매개변수: ReservationDTO (예약정보를 담은 DTO)
    * 반환: 결제화면(결제정상 처리여부 확인후 update
    * */
-  @PostMapping("/reservation")
-  public String insertReservation(ReservationDTO reservationDTO) {
+  @PostMapping("/reserve/insert")
+  public String insertReservation(RedirectAttributes rttrs,
+      @ModelAttribute("reservationDTO") ReservationDTO reservationDTO,
+      Model model) {
+    log.info("insertReserve({}) is invoked", reservationDTO);
 
-    return "redirect:결제화면(시도)->정상: update결제id, 비정상: delete예약정보";
 
-  } // insertReservation
+    service.registerReserve(reservationDTO);
+
+
+    return "redirect:/cafe/list"; // TODO 예약단 나오면 변경예정!
+  } // insertReserve
+
+
+//  /*
+//   * 스터디 카페 예약 처리
+//   * 매개변수: ReservationDTO (예약정보를 담은 DTO)
+//   * 반환: 결제화면(결제정상 처리여부 확인후 update
+//   * */
+//  @PostMapping("/reservation")
+//  public String insertReservation(ReservationDTO reservationDTO) {
+//
+//    return "redirect:결제화면(시도)->정상: update결제id, 비정상: delete예약정보";
+//
+//  } // insertReservation
 
   /*
    * 스터디 카페 예약 내역 리스트를 조회 (회원==admin->all)

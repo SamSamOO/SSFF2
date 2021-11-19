@@ -23,6 +23,9 @@ CAFE_REMOVE_YN          	CHAR(1 BYTE)      	No	'n' 	12	삭제여부
 CAFE_IMAGE_FIRST        	NVARCHAR2(200 CHAR)	No		13	이미지1
 CAFE_IMAGE_SECOND	        NVARCHAR2(200 CHAR)	No		14	이미지2
 CAFE_IMAGE_THIRD	        NVARCHAR2(200 CHAR)	No		15	이미지3
+
+BOSS_NAME	                 NVARCHAR2(20 CHAR)	No		16
+BUSINESS_NUMBER           NUMBER	No		17
 */
 
 @Value
@@ -44,6 +47,8 @@ public class CafeVO {
   private String cafe_image_first;
   private String cafe_image_second;
   private String cafe_image_third;
+  private String boss_name;
+  private Integer business_number;
 
 } // end class
 

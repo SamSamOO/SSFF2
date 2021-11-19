@@ -3,7 +3,9 @@ package kr.or.ssff.cafe.service;
 import java.util.List;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
+import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
+import kr.or.ssff.cafe.model.ReservationDTO;
 import kr.or.ssff.mapper.CafeMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -46,20 +48,36 @@ public class CafeServiceImpl
 
 
     /*
-   단일 카페정보 조회
+   단일 카페정보 & room 조회
+   매개변수 : cafe_idx
+   반환 : 카페정보 & room
+   작성자: 신지혜
+   */
+    @Override
+    public List<CafeInfoVO> getCafeJoinRoom(String cafe_idx) {
+        log.debug("getCafeJoinRoom {} :  invoked", cafe_idx);
+
+        List<CafeInfoVO> cafeInfo = this.mapper.selectCafeJoinRoom(cafe_idx);
+        log.info("\t cafeInfo: " + cafeInfo);
+
+        return cafeInfo;
+    } // getCafeJoinRoom
+
+
+    /*
+   온전한 카페 하나의 정보 조회
    매개변수 : cafe_idx
    반환 : 단일 카페정보
    작성자: 신지혜
    */
     @Override
-    public List<CafeInfoVO> getCafe(String cafe_idx) {
-        log.debug("CafeInfoVO {} :  invoked", cafe_idx);
+    public CafeVO getCafe(String cafe_idx) {
+        log.debug("getCafe {} :  invoked", cafe_idx);
 
-        List<CafeInfoVO> cafeInfo = this.mapper.selectCafe(cafe_idx);
-        log.info("\t cafeInfo: " + cafeInfo);
-
-        return cafeInfo;
-    } //
+        CafeVO cafeVO = this.mapper.selectCafe(cafe_idx);
+        log.info("\t cafeVO: " + cafeVO);
+        return cafeVO;
+    } //getCafe
 
     /*
      * 특정일자, 특정 room 예약정보 조회
@@ -76,6 +94,19 @@ public class CafeServiceImpl
         return roomRsrvList;
     } // getRoomRsrvList
 
+
+    /*
+     * 예약 insert
+     * 매개변수: 예약 정보를 모두 담은 DTO
+     * 반환: 특정일자, 특정룸의 예약정보
+     * */
+    @Override
+    public boolean registerReserve(ReservationDTO reservationDTO) {
+        log.debug("registerReserve invoked : {}", reservationDTO);
+
+
+        return (this.mapper.insertReservation(reservationDTO)==1);
+    } // registerReserve
 
     //-----------------------------------------------//
     @Override
