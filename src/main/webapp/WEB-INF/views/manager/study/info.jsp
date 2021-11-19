@@ -87,7 +87,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Body 북마크-->
                             <div class="card-body">
                                 <!--begin: Datatable 내용-->
-                                <div class="study_info">
+                                <div class="mng_study_info w-75 flex-column align-items-center">
                                     <%------ 테이블 시작-------%>
                                     <table class=" table">
                                         <%--스터디 번호 / 유형--%>

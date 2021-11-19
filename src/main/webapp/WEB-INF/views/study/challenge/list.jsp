@@ -81,18 +81,18 @@
                             <div class="card-header border-0 pt-5 card-body mt-5">
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
 
-                                <div class="studylist-header-chal">
-                                    <!--스터디리스트 헤더 주황색 부분-->
+                                <div class="studylist-header bg-ssff1 d-inline-block w-100 p-8 pt-40 rounded-xl text-white text-center">
+                                    <!--스터디리스트 헤더 초록색 부분-->
                                     <h1>챌린지 팀원 찾기</h1>
                                     <h3>인생을 바꿀 습관을 만들어 보세요!삼삼오오가 도와드립니다</h3>
                                     <br><br>
-                                    <ul>
+                                    <ul class="list-style-none">
                                         <li><a href="/study/challenge/postGo"><img src="../../../../resources/assets/image/writingBtn.png" width="70px"></a></li>
                                         <li>글쓰러 가기!</li>
                                     </ul>
                                 </div>
 
-                                <div class="studylist-nav">
+                                <div class="studylist-nav d-inline-block w-100 mt-4 mb-4 pt-4 pb-4 rounded-xl shadow">
                                     <!--스터디리스트 중간 로고 박힌 네비 부분-->
 
                                     <div class="dropdown-to-sort">
@@ -149,7 +149,7 @@
                                     <!--스터디리스트 버튼 있는 부분-->
                                     <div id="listing-latest-order" class="left-items order-selected">최신순</div>
                                     <div d="listing-popularity-order" class="left-items" onclick="orderSelected('popularity')">인기순</div>
-                                    <div class="right-items">
+                                    <div class="right-items align-items-end">
                                         <input type="checkbox" id="closedException" name="closedException"
                                                style="zoom:1.3;">
                                         <label for="closedException">마감 제외</label>
@@ -158,23 +158,20 @@
 
                                 <div class="studylist-content-wrapper">
                                     <!--내용 wrapper-->
-
-
                                     <ul class="studylist-content-ul">
                                         <!--비동기로 내용 뿌려짐-->
                                         <!---------------------->
                                     </ul>
-
                                 </div>
-                                <div id="pagination">
-                                    <ul id="pagination-ul">
+
+                                    <div id="pagination mt-10 d-flex justify-content-between align-items-center flex-wrap">
+                                        <ul id="pagination-ul">
                                         <!--비동기로 내용 뿌려짐-->
                                         <!---------------------->
-                                    </ul>
+                                        </ul>
+                                  </div>
                                 </div>
-
                                 <!----------------------------------------------------------------------------------------------------------------------------->
-                            </div>
                             <!--카드 Body 종료-->
                         </div>
                         <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
@@ -231,7 +228,7 @@
     let html = "<ul id='pagination-ul'>";
 
     if (sc.currentBlock != 1) { //현재 첫번째 블록이 아니면 ≪를 붙인다
-      html += "<li><a onclick='previousBoardPage()'>≪</a></li>";
+      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='previousBoardPage()'>≪</a></li>";
     }
     let firstPageInBoard;
 
@@ -244,7 +241,7 @@
 
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구
         /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
@@ -252,7 +249,7 @@
 
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
-        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";
         /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
@@ -262,10 +259,10 @@
 
 
     if (sc.currentBlock != sc.totalBlock) {
-      html += "<li><a>...</a></li>";
-      html += "<li onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";
+      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a>...</a></li>";
       /*html += "<li><a href='/study/challenge/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";*/
-      html += "<li><a onclick='nextBoardPage()'>≫</a></li>";
+      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='nextBoardPage()'>≫</a></li>";
     }
 
     html += "</ul>";

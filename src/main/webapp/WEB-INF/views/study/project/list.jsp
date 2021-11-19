@@ -42,8 +42,7 @@
                 <div class="main d-flex flex-column flex-row-fluid">
                     <!--Subheader : 서브헤더 페이지 제목란 시작-->
                     <div class="subheader py-2 py-lg-6" id="kt_subheader">
-                        <div
-                                class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                             <!--begin::Info-->
                             <div class="d-flex align-items-center flex-wrap mr-1">
                                 <!--begin::Page Heading-->
@@ -80,21 +79,21 @@
                             <div class="card-header border-0 pt-5 card-body mt-5">
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
 
-                                <div class="studylist-header">
+                                <div class="studylist-header bg-ssff2 d-inline-block w-100 p-8 pt-40 rounded-xl text-white text-center">
                                     <!--스터디리스트 헤더 주황색 부분-->
                                     <h1>프로젝트 팀원 찾기</h1>
                                     <h3>프로젝트를 함께할 든든한 팀원을 삼삼오오에서 찾아보세요</h3>
-                                    <ul style="padding-top:40px">
-                                        <li><a href="/study/project/postGo"><img
-                                                src="../../../../resources/assets/image/writingBtn.png"
+                                    <ul class="list-style-none">
+                                        <li><a href="/study/project/postGo">
+                                            <img src="../../../../resources/assets/image/writingBtn.png"
                                                 width="70px"></a></li>
                                         <li>글쓰러 가기!</li>
                                     </ul>
                                 </div>
 
-                                <div class="studylist-nav">
+                                <div class="studylist-nav d-inline-block w-100 mt-4 mb-4 pt-4 rounded-xl shadow">
                                     <!--스터디리스트 중간 로고 박힌 네비 부분-->
-                                    <ul class="logo-to-sort">
+                                    <ul class="logo-to-sort d-flex flex-wrap justify-content-center ">
                                         <li><img
                                                 src="../../../../resources/assets/image/javascript.png"
                                                 width="50px"></li>
@@ -134,7 +133,7 @@
                                     <!--스터디리스트 버튼 있는 부분-->
                                     <div class="left-items">최신순</div>
                                     <div class="left-items">인기순</div>
-                                    <div class="right-items">
+                                    <div class="right-items align-items-end">
                                         <input type="checkbox" id="closedException"
                                                name="closedException"
                                                style="zoom:1.3;">
@@ -174,7 +173,7 @@
                                     </ul>
                                 </div>
 
-                                <div id="pagination">
+                                <div id="pagination mt-10 d-flex justify-content-between align-items-center flex-wrap">
                                     <ul id="pagination-ul">
                                         <!--비동기로 내용 뿌려짐-->
                                         <!---------------------->
@@ -244,7 +243,7 @@
     let html = "<ul id='pagination-ul'>";
 
     if (sc.currentBlock != 1) { //현재 첫번째 블록이 아니면 ≪를 붙인다
-      html += "<li><a onclick='previousBoardPage()'>≪</a></li>";
+      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='previousBoardPage()'>≪</a></li>";
     }
     let firstPageInBoard;
 
@@ -257,7 +256,7 @@
 
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구
 
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
@@ -265,7 +264,7 @@
 
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
-        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";
 
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
@@ -275,9 +274,10 @@
 
 
     if (sc.currentBlock != sc.totalBlock) {
-      html += "<li><a>...</a></li>";
-      html +=  "<li onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";
-      html += "<li><a onclick='nextBoardPage()'>≫</a></li>";
+
+      html +=  "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";
+      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a>...</a></li>";
+      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='nextBoardPage()'>≫</a></li>";
     }
 
     html += "</ul>";

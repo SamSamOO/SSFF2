@@ -1,5 +1,5 @@
 
-.study_list td{
+.mng_study_list td{
     vertical-align: center !important;
 }
 
@@ -10,24 +10,29 @@
 .checklist li:first-child{
     width: 5rem !important;
 }
-.study_info {
+
+.mng_study_info {
     width: 90%;
 }
 
-.study_info table {
+.mng_study_info table {
     border-collapse: separate;
 }
 
-.study_info table tr td:nth-child(even){
+.mng_study_info table tr td:nth-child(even){
     color: #6b984f;
     width: 3rem;
     font-weight: 600;
 }
 
-.study_info table tr td:nth-child(odd){
+.mng_study_info table tr td:nth-child(odd){
     font-weight: 300;
 }
 
 .list-inline-flex{
     display: inline-flex;
+}
+
+.list-style-none{
+    list-style: none;
 }
