@@ -130,38 +130,51 @@
 
 
 
+
+
+
+
 	<!-- 예약관리 -->
+
+
 
 
 	<!-- 신규 예약정보 등록 : 신지혜  -->
 	<insert id="insertReservation" parameterType="kr.or.ssff.cafe.domain.ReservationDTO">
 
-		<selectKey keyProperty="apply_idx" order="BEFORE" resultType="String">
-			SELECT 'aid_'||apply_member_sqe.NEXTVAL
-			FROM dual
-		</selectKey>
 
 		INSERT INTO
-		APPLY_MEMBER (
-		apply_idx,
-		r_idx,
-		member_name,
-		study_join_arciwf,
-		study_join_change_date,
-		study_boss_yn
+			RSRV (
+			rsrv_idx,
+			room_idx,
+			member_name,
+			use_date,
+			use_start_time,
+			use_end_time,
+			rsrv_status_ynz,
+			rsrv_name,
+			rsrv_phone_number,
+			rsrv_email,
+			rsrv_message,
+			rsrv_amount
 		)
 		VALUES(
-		#{apply_idx},
-		#{r_idx},
-		#{member_name},
-		<!-- 일반회원이라면 'a,n' 처리 -->
-		'a',
-		sysdate,
-		'n'
-		<!-- 개설자라면 'i,y' 처리 -->
-
+			'rid_'||apply_member_sqe.NEXTVAL,
+			#{room_idx},
+			#{member_name},
+			#{use_date},
+			#{use_start_time},
+			#{use_end_time},
+			'n',
+			#{rsrv_name},
+			#{rsrv_phone_number},
+			#{rsrv_email},
+			#{rsrv_message , jdbcType = VARCHAR },
+			#{rsrv_amount}
 		)
+
 	</insert>
+
 
 	<!-- 특정일자, 특정 room 예약정보만 조회 : 신지혜 -->
 	<select id="selectRoomRsrvList"

@@ -91,7 +91,7 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
    */
   @Transactional
 	@Override
-	public String registerApply(HashMap<String, String> aMember) {
+	public String registerApply(HashMap<String, Object> aMember) {
 		log.debug("registerApply({}) invoked", aMember);
 		String aMemberName = "";
     // 참여멤버에 insert

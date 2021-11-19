@@ -4,8 +4,8 @@ import java.util.List;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
+import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
-import kr.or.ssff.cafe.model.ReservationDTO;
 import org.apache.ibatis.annotations.Param;
 
 /*

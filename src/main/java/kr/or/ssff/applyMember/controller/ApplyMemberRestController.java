@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 @NoArgsConstructor
 
-@RequestMapping("/applyMemberRest")
+@RequestMapping("/applyMemberRest/*")
 @RestController
 public class ApplyMemberRestController {
 
@@ -93,9 +93,9 @@ public String applyAction(
      * 반환: 
      * 작성자: 신지혜
      * */
-    @PostMapping("/insert")
+    @RequestMapping(value= "/insert", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     public String insertApplyMember(
-        @RequestBody String filterJSON,
+        @RequestBody HashMap<String, Object> filterJSON,
         HttpServletResponse response,
         ModelMap model ) throws Exception {
         log.debug("insertApplyMember({},{},{}) is invoked",filterJSON, response, model );
@@ -106,9 +106,16 @@ public String applyAction(
             log.info("\t response: "+response);
             log.info("\t model: "+model);
 
-            ObjectMapper mapper = new ObjectMapper();
+            HashMap<String, Object> aMember = new HashMap<>();
 
-            HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
+
+            aMember.put("boss", filterJSON.get("boss"));
+            aMember.put("r_idx",filterJSON.get("r_idx"));
+            aMember.put("member_name", filterJSON.get("member_name"));
+
+//            ObjectMapper mapper = new ObjectMapper();
+//
+//            HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
             
             log.info("\t+ aMember.boss: {}",aMember.get("boss"));
             log.info("\t+ aMember.r_idx: {}",aMember.get("r_idx"));

@@ -4,8 +4,8 @@ import java.util.List;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
+import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
-import kr.or.ssff.cafe.model.ReservationDTO;
 import kr.or.ssff.mapper.CafeMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -78,6 +78,7 @@ public class CafeServiceImpl
         log.info("\t cafeVO: " + cafeVO);
         return cafeVO;
     } //getCafe
+
 
     /*
      * 특정일자, 특정 room 예약정보 조회

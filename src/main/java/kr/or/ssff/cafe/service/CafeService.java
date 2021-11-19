@@ -8,7 +8,7 @@ import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
-import kr.or.ssff.cafe.model.ReservationDTO;
+import kr.or.ssff.cafe.domain.ReservationDTO;
 
 /*
  스터디카페 crud, 예약 정보 관리

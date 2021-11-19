@@ -1,12 +1,13 @@
 package kr.or.ssff.cafe.controller;
 
 import java.util.List;
+import java.util.Objects;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
+import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvInfoDTO;
 import kr.or.ssff.cafe.model.CafeDTO;
-import kr.or.ssff.cafe.model.ReservationDTO;
 import kr.or.ssff.cafe.service.CafeService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -82,9 +83,32 @@ public class CafeController {
     model.addAttribute("cafeVO", cafeVO);
     model.addAttribute("roomRsrvInfoDTO", roomRsrvInfoDTO);
 
-    log.info("model", model);
+    log.info("model{}", model);
 
   } // insertReserve
+
+
+  /*
+   * 스터디 카페 예약 백단 작업
+   * 매개변수: 새로 저장할 예약정보
+   * 반환: 우선 카페리스트
+   * */
+  @PostMapping("/reserve/insert")
+  public String insertReservation(RedirectAttributes rttrs,
+      @ModelAttribute("reservationDTO") ReservationDTO reservationDTO,
+      Model model) {
+    log.info("insertReservation({}) is invoked", reservationDTO);
+
+//    Objects.requireNonNull(service);
+    if(service.registerReserve(reservationDTO)) {
+      rttrs.addFlashAttribute("result", "success");	// OK : Request Scope 이용
+      log.info("rttrs({}) is rttrs", rttrs);
+    } // if
+
+
+
+    return "redirect:/cafe/list"; // TODO 예약내역단 나오면 변경예정!
+  } // insertReservation
 
 
   /*
@@ -92,25 +116,6 @@ public class CafeController {
    * 매개변수: ReservationDTO (예약정보를 담은 DTO)
    * 반환: 결제화면(결제정상 처리여부 확인후 update
    * */
-  @PostMapping("/reserve/insert")
-  public String insertReservation(RedirectAttributes rttrs,
-      @ModelAttribute("reservationDTO") ReservationDTO reservationDTO,
-      Model model) {
-    log.info("insertReserve({}) is invoked", reservationDTO);
-
-
-    service.registerReserve(reservationDTO);
-
-
-    return "redirect:/cafe/list"; // TODO 예약단 나오면 변경예정!
-  } // insertReserve
-
-
-//  /*
-//   * 스터디 카페 예약 처리
-//   * 매개변수: ReservationDTO (예약정보를 담은 DTO)
-//   * 반환: 결제화면(결제정상 처리여부 확인후 update
-//   * */
 //  @PostMapping("/reservation")
 //  public String insertReservation(ReservationDTO reservationDTO) {
 //
