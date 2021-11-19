@@ -92,13 +92,13 @@ public class StudyRestController {
     @PostMapping("/challenge/list")
     public @ResponseBody List<RecruitBoardJoinReplyVO> getChallengeListByPageNum(@RequestBody Map<String, String> jsonData) {
         log.info("getChallengeListByPageNum({}) is invoked",jsonData);
-        String orderRule = jsonData.get("orderRule");
+        //String orderRule = jsonData.get("orderRule"); 안됨
         List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
-        if(orderRule.equals("최신순")){
+        //if(orderRule.equals("최신순")){
             list= this.service.getListWithJoinReply("C",Integer.parseInt(jsonData.get("pageNum")));
-        }else{
-            list= this.service.getListWithJoinReplyOrderByHit("C",Integer.parseInt(jsonData.get("pageNum")));
-        }
+        //}else{
+        //    list= this.service.getListWithJoinReplyOrderByHit("C",Integer.parseInt(jsonData.get("pageNum")));
+        //}
         //1. 해당 페이지에 속하는 데이터만 뿌리기
 
 
