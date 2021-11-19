@@ -1,6 +1,9 @@
 package kr.or.ssff.manager.service;
 
+import kr.or.ssff.manager.domain.ManagerVO;
 import kr.or.ssff.mapper.ManagerMapper;
+import kr.or.ssff.mapper.MemberMapper;
+import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.DisposableBean;
@@ -51,6 +54,13 @@ public class ManagerServiceImpl implements ManagerService, InitializingBean, Dis
         return null;
     } // getListPerPage
 
+    @Override
+    public List<ManagerVO> getMemberList() {
+        log.debug("getMemberList() invoked");
+
+        return null;
+    } // getMemberList
+
 //===============================================================================================
 
     @Override
@@ -64,28 +74,3 @@ public class ManagerServiceImpl implements ManagerService, InitializingBean, Dis
     } // afterPropertiesSet
 
 }// end class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

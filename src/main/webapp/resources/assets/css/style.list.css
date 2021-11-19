@@ -1,0 +1,33 @@
+
+.study_list td{
+    vertical-align: center !important;
+}
+
+.checklist li{
+    width: 8rem;
+}
+
+.checklist li:first-child{
+    width: 5rem !important;
+}
+.study_info {
+    width: 90%;
+}
+
+.study_info table {
+    border-collapse: separate;
+}
+
+.study_info table tr td:nth-child(even){
+    color: #6b984f;
+    width: 3rem;
+    font-weight: 600;
+}
+
+.study_info table tr td:nth-child(odd){
+    font-weight: 300;
+}
+
+.list-inline-flex{
+    display: inline-flex;
+}

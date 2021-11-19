@@ -27,28 +27,3 @@ public class MemberVO {
 	private String member_introduce;
 	private Character member_enabled;
 } // end class 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
