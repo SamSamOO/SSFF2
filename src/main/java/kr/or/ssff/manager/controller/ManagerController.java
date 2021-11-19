@@ -1,5 +1,6 @@
 package kr.or.ssff.manager.controller;
 
+import kr.or.ssff.manager.domain.ManagerVO;
 import kr.or.ssff.manager.service.ManagerService;
 import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.model.MemberDTO;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,26 +26,35 @@ import java.util.List;
 public class ManagerController {
 
     @Autowired
-    private ManagerService managerService;
+    private ManagerService service;
 
     /*모든 멤버리스트를 조회합니다.
      * 파라메터 : MemberVO 타입의 List --allMemberList
      * 반환 : 멤버리스트 조회페이지
      * */
 
-    /*@GetMapping("/member/list")
-    public String selectMemberList(List<MemberVO> allMemberList) {
-        log.info("selectMemberList({}) is invoked", "allMemberList = " + allMemberList);
-
-        return "manager/member/list";
-    } // selectMemberList*/
+//    @GetMapping("/member/list")
+//    public String selectMemberList(List<MemberVO> allMemberList) {
+//        log.info("selectMemberList({}) is invoked", "allMemberList = " + allMemberList);
+//
+//        return "manager/member/list";
+//    } // selectMemberList
 
     @GetMapping("/member/list")
-    public String MemberListGo() {
-        log.info("selectMemberList() is invoked");
-
+    public String allMemberList(Model model) {
+        log.info("allMemberList() is invoked");
+        List<ManagerVO> memberList = this.service.getMemberList();
+        model.addAttribute("memberList", memberList);
         return "manager/member/list";
-    } // MemberListGo
+    } // allMemberList
+
+
+//    @GetMapping("/member/list")
+//    public String MemberListGo() {
+//        log.info("selectMemberList() is invoked");
+//
+//        return "manager/member/list";
+//    } // MemberListGo
 
     //TODO 상세정보 페이지에는 어떤 파라메터를 던져줘야하는지??
     //TODO
@@ -150,28 +161,3 @@ public class ManagerController {
 
     /**/
 } // end class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
