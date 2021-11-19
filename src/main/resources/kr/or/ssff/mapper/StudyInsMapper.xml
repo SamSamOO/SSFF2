@@ -193,4 +193,9 @@
         where CATEGORY = '공지'
           and REMOVED_OK = 'n'
     </select>
+
+    <select id="getChatList" resultType="kr.or.ssff.studyIns.model.ChatMsgDTO">
+        select /*+INDEX_ASC(chat_msg pk_chat_msg) */ MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME
+        from CHAT_MSG where R_IDX=#{r_Idx}
+    </select>
 </mapper>

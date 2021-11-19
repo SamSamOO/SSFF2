@@ -18,7 +18,22 @@
     <script src="<c:url value="/resources/assets/js/sockjs-0.3.4.js"/>"></script>
     <script src="<c:url value="/resources/assets/js/stomp.js"/>"></script>
 
+    <style>
+        body {
+            background-color: #f5f5f5;
+        }
 
+        #main-content {
+            max-width: 940px;
+            padding: 2em 3em;
+            margin: 0 auto 20px;
+            background-color: #fff;
+            border: 1px solid #e5e5e5;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -57,46 +72,106 @@
 
                     <div class="card-body pt-2 pb-0 mt-n3">
                         <h2>Hi there</h2>
-                        <div class="chattingArea">
-                            <%--동적 생성 .. 해당 r_Idx에 맞는 채팅들을 시간순으로 들고와야합니다.--%>
+                        <h2>${r_Idx}</h2>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label for="connect">WebSocket connection:</label>
+                                        <button id="connect" class="btn btn-default" type="submit">Connect</button>
+                                        <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-6">
+                                <form class="form-inline">
+                                    <div class="form-group">
+                                        <label for="name">What is your name?</label>
+                                        <input type="text" id="name" class="form-control" placeholder="Your name here...">
+                                    </div>
+                                    <button id="send" class="btn btn-default" type="submit">Send</button>
+                                </form>
+                            </div>
                         </div>
-                        <%--채팅방 번호 넘겨받기--%>
-                        <label for="name">채팅방 번호 넘겨받기</label><input id="name"/>
-                        <%--메시지--%>
-                        <label for="msg_Cont"></label><textarea name="msg_Cont" id="msg_Cont"></textarea>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table id="conversation" class="table table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Greetings</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="greetings">
 
-                        <button onclick="connect()">Enter</button>
-                        <button onclick="send()">Send</button>
-                        <button onclick="disconnect()">Discount</button>
+                                    </tbody>
+<%--                                    <c:forEach var="list" items="${listOfChatMsg}">--%>
+<%--                                        <tr><td>${list.msg_Cont}</td></tr>--%>
+
+<%--                                    </c:forEach>--%>
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
                     <script>
+                        var stompClient = null;
+
+                        function setConnected(connected) {
+                            $("#connect").prop("disabled", connected);
+                            $("#disconnect").prop("disabled", !connected);
+                            if (connected) {
+                                $("#conversation").show();
+                            } else {
+                                $("#conversation").hide();
+                            }
+                            $("#greetings").html("");
+                        }
+
                         function connect() {
-                            let socket = new SockJS(`/users`);
+                            var socket = new SockJS('/websockethandler');
                             stompClient = Stomp.over(socket);
-                            stompClient.connect({}, function (frame) { // sock에 연결 및 서버로부터 리소스를 listening합니다.
+                            stompClient.connect({}, function (frame) {
+                                setConnected(true);
                                 console.log('Connected: ' + frame);
-                                stompClient.subscribe('/topic/users', function (response) {
-                                    console.log(response);
-                                    console.log(JSON.parse(response.body));
+                                stompClient.subscribe('/topic/chat', function (greeting) {
+                                    console.log(JSON.parse(greeting.body).content);
+                                    showGreeting(JSON.parse(greeting.body).content);
                                 });
                             });
-                            console.log("sending~~");
                         }
 
                         function disconnect() {
-                            stompClient.disconnect();
+                            if (stompClient !== null) {
+                                stompClient.disconnect();
+                            }
+                            setConnected(false);
                             console.log("Disconnected");
                         }
 
-                        function send() { // 해당 메서드는 데이터를 서버로 보냅니다.
-                            console.log(`sending~!`);
-
-                            console.log("name " + name);
-                            console.log("msg_Cont");
-
-                            stompClient.send("/app/user/", {}, JSON.stringify({}));
+                        function sendName() {
+                            stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
                         }
+
+                        function showGreeting(message) {
+                            $("#greetings").append("<tr><td>" + message + "</td></tr>");
+                        }
+
+                        $(function () {
+                            $("form").on('submit', function (e) {
+                                e.preventDefault();
+                            });
+                            $("#connect").click(function () {
+                                connect();
+                            });
+                            $("#disconnect").click(function () {
+                                disconnect();
+                            });
+                            $("#send").click(function () {
+                                sendName();
+                            });
+                        });
+
 
                     </script>
                 </div>

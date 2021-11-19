@@ -11,6 +11,7 @@ import java.util.UUID;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.ChatMsgDTO;
 import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.PageDTO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
@@ -477,9 +478,15 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 해당 스터디의 채팅방 뷰단
      * */
     @GetMapping("/chatRoom")
-    public String chatRoom(String chatRoomId) { // TODO 매개변수..
-        log.debug("chatRoom({}) is invoked", "chatRoomId = " + chatRoomId);
+    public String chatRoom(String r_Idx,Model model) { // TODO 매개변수..
+        log.info("chatRoom({}) is invoked", "r_Idx = " + r_Idx);
 
+        Objects.requireNonNull(service);
+
+        List<ChatMsgDTO> listOfChatMsg = this.service.getChatList(r_Idx);
+
+        model.addAttribute("r_Idx", r_Idx);
+        model.addAttribute("listOfChatMsg", listOfChatMsg);
         return "studyIns/chatRoom/chatRoom";
     } // chatRoom
 

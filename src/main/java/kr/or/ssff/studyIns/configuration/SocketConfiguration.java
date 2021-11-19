@@ -25,7 +25,7 @@ public class SocketConfiguration extends AbstractWebSocketMessageBrokerConfigure
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         //파라메터로 넘겨받는 StompEndpointRegistry 메소드인 addEndpoint() 메소드를 통해서 여러가지의 end point를 설정할 수 있습니다.
-        registry.addEndpoint("/websockethandler").withSockJS();
+        registry.addEndpoint("/websockethandler").setAllowedOrigins("*").withSockJS();
     }
 }
 

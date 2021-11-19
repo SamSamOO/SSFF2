@@ -3,6 +3,7 @@ package kr.or.ssff.mapper;
 import java.util.List;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.ChatMsgDTO;
 import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
@@ -59,6 +60,6 @@ public interface StudyInsMapper {
     //공지만 들고옵니다
     public List<StudyInsVO> showNotice();
 
-
-
+    //채팅 리스트 불러오기
+    public List<ChatMsgDTO> getChatList(String r_idx);
 }
