@@ -176,7 +176,8 @@
 
                                 <div id="pagination">
                                     <ul id="pagination-ul">
-
+                                        <!--비동기로 내용 뿌려짐-->
+                                        <!---------------------->
                                     </ul>
                                 </div>
 
@@ -212,8 +213,12 @@
   }
 
   $(function(){
-    closed_status();
+    //페이지단 만듦
     createBoardPage();
+    //1페이지에 해당하는 board 자료 가져오기
+    getBoardsByPageNum(1);
+
+
   });
 
   /*==========================function==========================*/
@@ -252,7 +257,7 @@
 
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        html += "<li><a href='/study/project/list?page=" + i + "'>" + i + "</a></li>";//[1]~[5]찍어주구
+        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구
 
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
@@ -260,7 +265,7 @@
 
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
-        html += "<li><a href='/study/project/list?page=" + i + "'>" + i + "</a></li>";
+        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";
 
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
@@ -271,7 +276,7 @@
 
     if (sc.currentBlock != sc.totalBlock) {
       html += "<li><a>...</a></li>";
-      html += "<li><a href='/study/project/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";
+      html +=  "<li onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";
       html += "<li><a onclick='nextBoardPage()'>≫</a></li>";
     }
 
@@ -297,5 +302,53 @@
       createBoardPage(sc);
     }
   }//nextBoardPage
+
+  function getBoardsByPageNum(pageNum){
+    let jsonData ={
+      pageNum:pageNum
+    }
+    $.ajax({
+      url:"/studyRest/project/list",
+      type:"POST",
+      dataType:"json",
+      contentType:"application/json",
+      data:JSON.stringify(jsonData),
+      success:function(response){
+        if(response){
+          createBoardTable(response);
+          closed_status();
+        }else{
+          alert("error occured")
+        }
+      },
+      error : function(request,status,error){
+        console.log(error);
+      }
+    })
+  }//getBoardsByPageNum
+
+  function createBoardTable(list){
+    let html = "";
+
+    for(let i=0;i<list.length;i++){
+      html +='<li class="studylist-content status-'+list[i].closed_ok+'">';
+      html +=   '<p class="studylist-content-title"><a href="/study/project/detail?r_idx='+list[i].r_idx+'">'+list[i].title+'</a></p>';
+      html +=   '<ul class="studylist-content-logo">';
+        for(let j=0;j<list[i].langs.length;j++){
+          html +=   '<li><img src="../../../../resources/assets/image/'+list[i].langs[j]+'.png" width="40px"></li>';
+        }
+      html +=   '</ul>';
+      html +=   '<ul class="studylist-hitAndRepl">';
+      html +=       '<li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>';
+      html +=       '<li>'+list[i].reply_count+'</li>';
+      html +=       '<li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>';
+      html +=       '<li>'+list[i].hit+'</li>';
+      html +=   '</ul>';
+      html +='</li>';
+
+    }
+    $('.studylist-content-ul').html(html);
+
+  }//createBoardTable
 </script>
 </html>
