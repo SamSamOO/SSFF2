@@ -2,12 +2,12 @@ package kr.or.ssff.studyIns.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.rmi.server.ServerCloneException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import javax.servlet.http.HttpSession;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
@@ -197,14 +197,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         log.info("service.getList(criteria) = {}", service.getList(criteria, category));
 
-
         model.addAttribute("list", service.getList(criteria, category));
 
         model.addAttribute("noticeList", service.showNotice());
 
         model.addAttribute("category", category);
 
-        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category)+1));
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category) + 1));
 
         log.info("criteria = {}", criteria);
 
@@ -478,12 +477,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 해당 스터디의 채팅방 뷰단
      * */
     @GetMapping("/chatRoom")
-    public String chatRoom(Integer r_Idx,Model model) { // TODO 매개변수..
+    public String chatRoom(Integer r_Idx, Model model, HttpSession session) { // TODO 매개변수..
         r_Idx = 9002;
         log.info("chatRoom({}) is invoked", "r_Idx = " + r_Idx);
 
         Objects.requireNonNull(service);
-//
+
+        session.setAttribute("member_Name", "nickname55");
         List<ChatMsgDTO> listOfChatMsg = this.service.getChatList(r_Idx);
 
         model.addAttribute("r_Idx", r_Idx);

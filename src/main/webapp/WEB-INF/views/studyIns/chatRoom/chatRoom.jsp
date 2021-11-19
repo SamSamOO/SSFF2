@@ -72,101 +72,105 @@
 
                     <div class="card-body pt-2 pb-0 mt-n3">
                         <h2>Hi there</h2>
-<%--                        <h2>${r_Idx}</h2>--%>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <label for="connect">WebSocket connection:</label>
-                                        <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                                        <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="col-md-6">
-                                <form class="form-inline">
-                                    <div class="form-group">
-                                        <label for="name">What is your name?</label>
-                                        <input type="text" id="name" class="form-control" placeholder="Your name here...">
-                                    </div>
-                                    <button id="send" class="btn btn-default" type="submit">Send</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table id="conversation" class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th>Greetings</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="greetings">
+                        <%--                        <h2>${r_Idx}</h2>--%>
+                        <h1>/WEB-INF/views/ws.jsp</h1>
 
-                                    </tbody>
-                                    <c:forEach var="list" items="${listOfChatMsg}">
-                                        <tr><td>${list.msg_Cont}</td><td>${list.member_Name}</td></tr>
+                        <hr>
 
-                                    </c:forEach>
-                                </table>
-                            </div>
-                        </div>
+                        <button type="button" id="connect">Connect</button>
+                        <button type="button" id="send">Send</button>
+                        <button type="button" id="disconnect">Disconnect</button>
+
+                        <p></p>
+
+                        Message: <input type="text" id="message">
+
+                        <hr>
+
+                        <ul id="unorderedList">
+
+                        </ul>
+
                     </div>
 
                     <script>
-                        var stompClient = null;
 
-                        function setConnected(connected) {
-                            $("#connect").prop("disabled", connected);
-                            $("#disconnect").prop("disabled", !connected);
-                            if (connected) {
-                                $("#conversation").show();
-                            }
-                            else {
-                                $("#conversation").hide();
-                            }
-                            $("#greetings").html("");
-                        }
-
-                        function connect() {
-                            var socket = new SockJS('/websockethandler');
-                            stompClient = Stomp.over(socket);
-                            stompClient.connect({}, function (frame) {
-
-                                setConnected(true);
-                                console.log('Connected: ' + frame);
-                                stompClient.subscribe('/topic/chat', function (greeting) {
-                                    showGreeting(JSON.parse(greeting.body).content);
-                                });
-                            });
-                        }
-
-                        function disconnect() {
-                            if (stompClient !== null) {
-                                stompClient.disconnect();
-                            }
-                            setConnected(false);
-                            console.log("Disconnected");
-                        }
-
-                        function sendName() {
-                            stompClient.send("/app/hello/", {}, JSON.stringify({'name': $("#name").val()}));
-                        }
-
-                        function showGreeting(message) {
-                            $("#greetings").append("<tr><td>" + message + "</td></tr>");
-                        }
 
                         $(function () {
-                            $("form").on('submit', function (e) {
-                                e.preventDefault();
-                            });
-                            $( "#connect" ).click(function() { connect(); });
-                            $( "#disconnect" ).click(function() { disconnect(); });
-                            $( "#send" ).click(function() { sendName(); });
-                        });
+                            console.clear();
+                            console.group("jquery started.");
 
+                            var ws = null;
+                            var messageCount = 0;
+
+                            var unorderedList = document.querySelector('#unorderedList');
+                            var message = document.querySelector('#message')
+
+                            $('#connect').click(function (e) {
+                                console.debug('connect button clicked.');
+
+                                ws = new WebSocket("ws://localhost:8070/echo");
+                                console.log('+ ws:', ws)
+
+                                //--------------------------------------------------//
+                                ws.onclose = e => {
+                                    console.log('ws.onclose(e) invoked.');
+                                    console.log('\t+ e:', e);
+
+                                    var newLI = document.createElement("li");
+                                    newLI.innerHTML = 'DISCONNECTED [ code: ' + e.code + ', returnValue: ' + e.returnValue + ']';
+
+                                    unorderedList.append(newLI);
+                                }; // onclose
+
+                                ws.onerror = e => {
+                                    console.log('ws.onerror(e) invoked.');
+                                    console.log('\t+ e:', e);
+
+                                }; // onerror
+
+                                ws.onmessage = e => {
+                                    console.log('ws.onmessage(e) invoked.');
+                                    console.log('\t+ e:', e);
+
+                                    var newLI = document.createElement("li");
+                                    newLI.innerHTML = e.data + ' #' + (messageCount++);
+
+                                    unorderedList.append(newLI);
+                                };  //onmessage
+
+                                ws.onopen = e => {
+                                    console.log('ws.onopen(e) invoked.');
+                                    console.log('\t+ e:', e);
+
+                                };  // onopen
+                                //--------------------------------------------------//
+
+                            }); // connect
+
+                            $('#disconnect').click(function (e) {
+                                console.debug('disconnect button clicked.');
+
+                                if (ws) {
+                                    ws.close();
+                                    ws = null;
+
+                                    console.log('\t+ WebSocket Closed.');
+                                } // if
+                            }); // disconnect
+
+                            $('#send').click(function (e) {
+                                console.debug('send button clicked.');
+
+                                if (ws && message.value) {
+                                    ws.send(message.value);
+
+                                    console.log(`${message.value} sent.`);
+                                } // if
+                            }); // send
+
+                            console.groupEnd()
+                        });  // jq
 
                     </script>
                 </div>
