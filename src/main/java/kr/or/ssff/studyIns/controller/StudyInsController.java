@@ -478,11 +478,12 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 해당 스터디의 채팅방 뷰단
      * */
     @GetMapping("/chatRoom")
-    public String chatRoom(String r_Idx,Model model) { // TODO 매개변수..
+    public String chatRoom(Integer r_Idx,Model model) { // TODO 매개변수..
+        r_Idx = 9002;
         log.info("chatRoom({}) is invoked", "r_Idx = " + r_Idx);
 
         Objects.requireNonNull(service);
-
+//
         List<ChatMsgDTO> listOfChatMsg = this.service.getChatList(r_Idx);
 
         model.addAttribute("r_Idx", r_Idx);

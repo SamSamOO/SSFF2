@@ -51,7 +51,7 @@ public interface StudyInsService {
     public abstract List<StudyInsVO> showNotice() throws Exception;
 
     //11. 채팅 리스트 불러오기
-    public abstract List<ChatMsgDTO> getChatList(String r_idx);
+    public abstract List<ChatMsgDTO> getChatList(Integer r_idx);
 
 } // end interface
 

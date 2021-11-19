@@ -17,7 +17,7 @@ import org.springframework.web.util.HtmlUtils;
 /*
 
  */
-@RestController
+@Controller
 @Log4j2
 public class MessageHandler {
 

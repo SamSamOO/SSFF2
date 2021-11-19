@@ -72,7 +72,7 @@
 
                     <div class="card-body pt-2 pb-0 mt-n3">
                         <h2>Hi there</h2>
-                        <h2>${r_Idx}</h2>
+<%--                        <h2>${r_Idx}</h2>--%>
                         <div class="row">
                             <div class="col-md-6">
                                 <form class="form-inline">
@@ -105,10 +105,10 @@
                                     <tbody id="greetings">
 
                                     </tbody>
-<%--                                    <c:forEach var="list" items="${listOfChatMsg}">--%>
-<%--                                        <tr><td>${list.msg_Cont}</td></tr>--%>
+                                    <c:forEach var="list" items="${listOfChatMsg}">
+                                        <tr><td>${list.msg_Cont}</td><td>${list.member_Name}</td></tr>
 
-<%--                                    </c:forEach>--%>
+                                    </c:forEach>
                                 </table>
                             </div>
                         </div>
@@ -122,7 +122,8 @@
                             $("#disconnect").prop("disabled", !connected);
                             if (connected) {
                                 $("#conversation").show();
-                            } else {
+                            }
+                            else {
                                 $("#conversation").hide();
                             }
                             $("#greetings").html("");
@@ -132,10 +133,10 @@
                             var socket = new SockJS('/websockethandler');
                             stompClient = Stomp.over(socket);
                             stompClient.connect({}, function (frame) {
+
                                 setConnected(true);
                                 console.log('Connected: ' + frame);
                                 stompClient.subscribe('/topic/chat', function (greeting) {
-                                    console.log(JSON.parse(greeting.body).content);
                                     showGreeting(JSON.parse(greeting.body).content);
                                 });
                             });
@@ -150,7 +151,7 @@
                         }
 
                         function sendName() {
-                            stompClient.send("/app/hello", {}, JSON.stringify({'name': $("#name").val()}));
+                            stompClient.send("/app/hello/", {}, JSON.stringify({'name': $("#name").val()}));
                         }
 
                         function showGreeting(message) {
@@ -161,15 +162,9 @@
                             $("form").on('submit', function (e) {
                                 e.preventDefault();
                             });
-                            $("#connect").click(function () {
-                                connect();
-                            });
-                            $("#disconnect").click(function () {
-                                disconnect();
-                            });
-                            $("#send").click(function () {
-                                sendName();
-                            });
+                            $( "#connect" ).click(function() { connect(); });
+                            $( "#disconnect" ).click(function() { disconnect(); });
+                            $( "#send" ).click(function() { sendName(); });
                         });
 
 

@@ -202,7 +202,7 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
     /*채팅 리스트 r_Idx 기준으로 불러오기 sendTime 순으로 오름차순으로 불러와야합니다 (100개 까지)*/
     @Override
-    public List<ChatMsgDTO> getChatList(String r_idx) {
+    public List<ChatMsgDTO> getChatList(Integer r_idx) {
         log.info("getChatList({}) is invoked", "r_idx = " + r_idx);
         Objects.requireNonNull(mapper);
         List<ChatMsgDTO> list = this.mapper.getChatList(r_idx);

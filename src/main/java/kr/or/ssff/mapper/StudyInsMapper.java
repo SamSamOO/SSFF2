@@ -61,5 +61,5 @@ public interface StudyInsMapper {
     public List<StudyInsVO> showNotice();
 
     //채팅 리스트 불러오기
-    public List<ChatMsgDTO> getChatList(String r_idx);
+    public List<ChatMsgDTO> getChatList(Integer r_idx);
 }
