@@ -108,6 +108,14 @@ public class StudyController {
         log.info("challengeDetailGo() is invoked");
 
         RecruitBoardVO board = this.service.get(r_idx);
+
+        Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
+
+        if(replyCount ==null){
+            model.addAttribute("replyCount",0);
+        }else{
+            model.addAttribute("replyCount",replyCount);
+        }
         model.addAttribute("board",board);
     } // selectChallengeDetailGo
 
@@ -283,6 +291,14 @@ public class StudyController {
 
         RecruitBoardVO board = this.service.get(r_idx);
         List<LangVO>langList = this.service.getLangTagByR_idx(r_idx);
+
+        Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
+
+        if(replyCount ==null){
+            model.addAttribute("replyCount",0);
+        }else{
+            model.addAttribute("replyCount",replyCount);
+        }
 
         model.addAttribute("board",board);
         model.addAttribute("langList",langList);

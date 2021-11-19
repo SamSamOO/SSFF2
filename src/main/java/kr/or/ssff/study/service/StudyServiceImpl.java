@@ -192,6 +192,12 @@ public class StudyServiceImpl implements StudyService {
         return replyCount;
     }
 
+    @Override
+    public Integer getReplyCountByR_idx(Integer r_idx) {
+        Integer reply = mapper.replyCountByR_idx(r_idx);
+        return reply;
+    }
+
 }//end class
 
 

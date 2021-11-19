@@ -70,6 +70,10 @@ public interface StudyService {
 
     //18. 댓글 개수 가져오기
     public abstract List<ReplyCountVO> getReplyCount();
+
+    //19. 게시물번호에 해당하는 댓글 수 가져오기
+    public abstract Integer getReplyCountByR_idx(Integer r_idx);
+
 }
 
 
