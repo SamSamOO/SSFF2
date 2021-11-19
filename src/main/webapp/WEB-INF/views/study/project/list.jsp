@@ -317,6 +317,7 @@
         if(response){
           createBoardTable(response);
           closed_status();
+          ifNoLogoInsertQuestion();
         }else{
           alert("error occured")
         }
@@ -350,5 +351,10 @@
     $('.studylist-content-ul').html(html);
 
   }//createBoardTable
+
+  function ifNoLogoInsertQuestion(){
+    $( '.studylist-content-logo:not(:has( li ))' )
+    .prepend('<li><img src="../../../../resources/assets/image/question.png" width="40px"></li>');
+  }
 </script>
 </html>
