@@ -86,7 +86,7 @@
                                     <ul class="list-style-none">
                                         <li><a href="/study/project/postGo">
                                             <img src="../../../../resources/assets/image/writingBtn.png"
-                                                width="70px"></a></li>
+                                                 width="70px"></a></li>
                                         <li>글쓰러 가기!</li>
                                     </ul>
                                 </div>
@@ -147,28 +147,28 @@
 
                                     <ul class="studylist-content-ul">
                                         <c:forEach var="list" items="${list}">
-                                        <li class="studylist-content status-${list.closed_ok}">
-                                            <p class="studylist-content-title"><a href="/study/project/detail?r_idx=${list.r_idx}">${list.title}</a></p>
+                                            <li class="studylist-content status-${list.closed_ok}">
+                                                <p class="studylist-content-title"><a href="/study/project/detail?r_idx=${list.r_idx}">${list.title}</a></p>
 
-                                            <ul class="studylist-content-logo">
-                                                <c:forEach var="langs" items="${list.langs}">
-                                                <li><img
-                                                        src="../../../../resources/assets/image/${langs}.png"
-                                                        width="40px"></li>
-                                                </c:forEach>
-                                            </ul>
+                                                <ul class="studylist-content-logo">
+                                                    <c:forEach var="langs" items="${list.langs}">
+                                                        <li><img
+                                                                src="../../../../resources/assets/image/${langs}.png"
+                                                                width="40px"></li>
+                                                    </c:forEach>
+                                                </ul>
 
-                                            <ul class="studylist-hitAndRepl">
-                                                <li><img
-                                                        src="../../../../resources/assets/image/repl.png"
-                                                        width="15px"></li>
-                                                <li>${list.reply_count}</li>
-                                                <li><img
-                                                        src="../../../../resources/assets/image/hit.png"
-                                                        width="15px"></li>
-                                                <li>${list.hit}</li>
-                                            </ul>
-                                        </li>
+                                                <ul class="studylist-hitAndRepl">
+                                                    <li><img
+                                                            src="../../../../resources/assets/image/repl.png"
+                                                            width="15px"></li>
+                                                    <li>${list.reply_count}</li>
+                                                    <li><img
+                                                            src="../../../../resources/assets/image/hit.png"
+                                                            width="15px"></li>
+                                                    <li>${list.hit}</li>
+                                                </ul>
+                                            </li>
                                         </c:forEach>
                                     </ul>
                                 </div>
@@ -210,18 +210,13 @@
     currentBlock: ${studyCriteria.currentBlock},
     totalBlock: ${studyCriteria.totalBlock}
   }
-
   $(function(){
     //페이지단 만듦
     createBoardPage();
     //1페이지에 해당하는 board 자료 가져오기
     getBoardsByPageNum(1);
-
-
   });
-
   /*==========================function==========================*/
-
   // 모집완료는 회색으로 보이게 하는 로직 ///////////////////
   function closed_status(){
     if(document.querySelector('.status-y') !=null){
@@ -231,60 +226,45 @@
       new_Tag.innerHTML = '모집완료';
       tagArea.appendChild(new_Tag);
     }
-
   }//closed_status
-
   function createBoardPage(){
-
     if (sc.totalPage === 0) {
       sc.totalPage = 1;
       //총페이지수 = 총게시물/페이지당글갯수 이며 page 0 일때에는 1로 친다
     }
     let html = "<ul id='pagination-ul'>";
-
     if (sc.currentBlock != 1) { //현재 첫번째 블록이 아니면 ≪를 붙인다
       html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='previousBoardPage()'>≪</a></li>";
     }
     let firstPageInBoard;
-
     if (sc.currentBlock === 1) {
       firstPageInBoard = 1; ////첫번째 블록에 있으면 그 블록의 첫페이지는1이다
     } else {
       firstPageInBoard = (sc.currentBlock - 1) * sc.pagePerBlock + 1;
       //첫번째 블록이 아니라면 그 블록의 첫페이지는 (현재페이지-1)*5+1 이다
     }
-
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
         html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구
-
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
         }
-
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
         html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";
-
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
         i = sc.totalPage + 1;
       }
     }
-
-
     if (sc.currentBlock != sc.totalBlock) {
-
       html +=  "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";
       html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a>...</a></li>";
       html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='nextBoardPage()'>≫</a></li>";
     }
-
     html += "</ul>";
     $('#pagination-ul').html(html);
-
   }//createBoardPage
-
   function previousBoardPage() {
     sc.currentBlock--;
     if (sc.currentBlock === 0) {
@@ -293,7 +273,6 @@
       createBoardPage(sc);
     }
   }//previousBoardPage
-
   function nextBoardPage() {
     sc.currentBlock++;
     if (sc.totalBlock < sc.currentBlock) {
@@ -302,7 +281,6 @@
       createBoardPage(sc);
     }
   }//nextBoardPage
-
   function getBoardsByPageNum(pageNum){
     let jsonData ={
       pageNum:pageNum
@@ -327,17 +305,15 @@
       }
     })
   }//getBoardsByPageNum
-
   function createBoardTable(list){
     let html = "";
-
     for(let i=0;i<list.length;i++){
       html +='<li class="studylist-content status-'+list[i].closed_ok+'">';
       html +=   '<p class="studylist-content-title"><a href="/study/project/detail?r_idx='+list[i].r_idx+'">'+list[i].title+'</a></p>';
       html +=   '<ul class="studylist-content-logo">';
-        for(let j=0;j<list[i].langs.length;j++){
-          html +=   '<li><img src="../../../../resources/assets/image/'+list[i].langs[j]+'.png" width="40px"></li>';
-        }
+      for(let j=0;j<list[i].langs.length;j++){
+        html +=   '<li><img src="../../../../resources/assets/image/'+list[i].langs[j]+'.png" width="40px"></li>';
+      }
       html +=   '</ul>';
       html +=   '<ul class="studylist-hitAndRepl">';
       html +=       '<li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>';
@@ -346,12 +322,9 @@
       html +=       '<li>'+list[i].hit+'</li>';
       html +=   '</ul>';
       html +='</li>';
-
     }
     $('.studylist-content-ul').html(html);
-
   }//createBoardTable
-
   function ifNoLogoInsertQuestion(){
     $( '.studylist-content-logo:not(:has( li ))' )
     .prepend('<li><img src="../../../../resources/assets/image/question.png" width="40px"></li>');
