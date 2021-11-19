@@ -31,10 +31,11 @@ public class SocketController {
             ChatMsgDTO chat = new ChatMsgDTO();
             chat.setMember_Name(name);
             chat.setR_Idx(9002);
-            chat.setMsg_Cont("안녕하세요 ㅅㅂ");
+            chat.setMsg_Cont(msg_Cont);
             users.add(chat);
             //클라이언트 부분을 써야합니다.
         }
+
         log.info("users = {}", users);
 
         return users;

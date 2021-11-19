@@ -91,17 +91,11 @@
 
                         function send() { // 해당 메서드는 데이터를 서버로 보냅니다.
                             console.log(`sending~!`);
-                            let name = document.getElementById("name").value;
-                            let msg_Cont = document.getElementById("msg_Cont").value;
-
-                            let chatMessage={
-                                sender:
-                            }
 
                             console.log("name " + name);
-                            console.log("msg_Cont" + msg_Cont);
+                            console.log("msg_Cont");
 
-                            stompClient.send("/app/user/" + name + msg_Cont, {}, {}, JSON.stringify({}));
+                            stompClient.send("/app/user/", {}, JSON.stringify({}));
                         }
 
                     </script>
