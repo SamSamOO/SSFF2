@@ -477,7 +477,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 해당 스터디의 채팅방 뷰단
      * */
     @GetMapping("/chatRoom")
-    public String chatRoom(String chatRoomId) { // TODO 매개변수 확인
+    public String chatRoom(String chatRoomId) { // TODO 매개변수..
         log.debug("chatRoom({}) is invoked", "chatRoomId = " + chatRoomId);
 
         return "studyIns/chatRoom/chatRoom";
