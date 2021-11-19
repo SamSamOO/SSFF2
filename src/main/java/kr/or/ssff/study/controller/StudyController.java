@@ -55,15 +55,12 @@ public class StudyController {
      * ToDo 매핑 O , DB O , paging X
      * */
     @GetMapping("/challenge/list") //첫화면 기준으로 세팅
-    public String selectChallengeListGo(Integer page, Model model) {
-        log.info("challengeListGo({},{}) is invoked.", page,model);
+    public String selectChallengeListGo(Model model) {
+        log.info("challengeListGo({},{}) is invoked.",model);
 
-        if(page ==null){
-            page = 1;
-        }
 
-        //1. 해당 페이지에 속하는 데이터만 뿌리기
-        List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("C",page);
+        //1. 해당 페이지에 속하는 데이터만 뿌리기(비동기 작업중으로 막아놓음)
+        //List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("C",page);
         
         //2. 페이징에 관한 설정
         //2-1. 게시물 갯수 세기
@@ -92,7 +89,8 @@ public class StudyController {
         }
 
         //모델에다 전달해주기
-        model.addAttribute("list", list);
+        //(비동기 작업중으로 막아놓음)
+        //model.addAttribute("list", list);
         model.addAttribute("studyCriteria", sc);
 
         return "study/challenge/list";
@@ -108,6 +106,14 @@ public class StudyController {
         log.info("challengeDetailGo() is invoked");
 
         RecruitBoardVO board = this.service.get(r_idx);
+
+        Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
+
+        if(replyCount ==null){
+            model.addAttribute("replyCount",0);
+        }else{
+            model.addAttribute("replyCount",replyCount);
+        }
         model.addAttribute("board",board);
     } // selectChallengeDetailGo
 
@@ -228,16 +234,14 @@ public class StudyController {
      * 반환 : 프로젝트형 스터디 리스트 페이지
      * */
     @GetMapping("/project/list")
-    public String selectProjectListGo(Integer page,Model model) {
+    public String selectProjectListGo(Model model) {
         log.info("selectProjectListGo() is invoked");
-        if(page ==null){
-            page = 1;
-        }
-        //List<RecruitBoardVO> list= this.service.getList("P",page);
-        List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("P",page);
-        List<LangVO> langList = this.service.getLangList();
 
-        List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);
+
+        //List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("P",page);
+        //List<LangVO> langList = this.service.getLangList();
+
+        //List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);
 
         //2. 페이징에 관한 설정
         //2-1. 게시물 갯수 세기
@@ -263,7 +267,7 @@ public class StudyController {
             }
         }
 
-        model.addAttribute("list", listMap);
+        //model.addAttribute("list", listMap);
         model.addAttribute("studyCriteria", sc);
 
 
@@ -283,6 +287,14 @@ public class StudyController {
 
         RecruitBoardVO board = this.service.get(r_idx);
         List<LangVO>langList = this.service.getLangTagByR_idx(r_idx);
+
+        Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
+
+        if(replyCount ==null){
+            model.addAttribute("replyCount",0);
+        }else{
+            model.addAttribute("replyCount",replyCount);
+        }
 
         model.addAttribute("board",board);
         model.addAttribute("langList",langList);

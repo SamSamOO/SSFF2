@@ -49,4 +49,6 @@ public interface StudyMapper {
     public abstract Integer getPostCount(@Param("type")String type);
     //댓글 수 구하기
     public abstract List<ReplyCountVO> replyCount();
+    //글번호에 해당하는 댓글 수 구하기
+    public abstract Integer replyCountByR_idx(@Param("r_idx")Integer r_idx);
 }

@@ -147,8 +147,8 @@
 
                                 <div class="studylist-sort">
                                     <!--스터디리스트 버튼 있는 부분-->
-                                    <div class="left-items">최신순</div>
-                                    <div class="left-items">인기순</div>
+                                    <div id="listing-latest-order" class="left-items order-selected">최신순</div>
+                                    <div d="listing-popularity-order" class="left-items" onclick="orderSelected('popularity')">인기순</div>
                                     <div class="right-items">
                                         <input type="checkbox" id="closedException" name="closedException"
                                                style="zoom:1.3;">
@@ -161,30 +161,15 @@
 
 
                                     <ul class="studylist-content-ul">
-                                        <c:forEach items="${list}" var="list">
-                                            <li class="studylist-content status-${list.closed_ok}">
-                                                <p class="studylist-content-title"><a href="/study/challenge/detail?r_idx=${list.r_idx}">${list.title}</a></p>
-
-                                                <ul class="studylist-content-info">
-                                                    <li><span class="span-sido">${list.sido} </span> 의,</li>
-                                                    <li style="margin-top:10px"><span class="span-cate color-${list.ch_pattern}" >${list.ch_pattern} </span></li>
-                                                </ul>
-
-                                                <ul class="studylist-hitAndRepl">
-                                                    <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
-                                                    <li class="replyCount">${list.reply_count}</li>
-                                                    <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
-                                                    <li>${list.hit}</li>
-                                                </ul>
-                                            </li>
-                                        </c:forEach>
-
+                                        <!--비동기로 내용 뿌려짐-->
+                                        <!---------------------->
                                     </ul>
 
                                 </div>
                                 <div id="pagination">
                                     <ul id="pagination-ul">
-
+                                        <!--비동기로 내용 뿌려짐-->
+                                        <!---------------------->
                                     </ul>
                                 </div>
 
@@ -218,10 +203,10 @@
   }
 
   $(function(){
-    cateColorChangeCSS();
-    closed_status();
+    //페이지단 만듦
     createBoardPage();
-    //replyCountIsNull();
+    //1페이지에 해당하는 board 자료 가져오기
+    getBoardsByPageNum(1);
   });
 
   /*==========================function==========================*/
@@ -239,7 +224,6 @@
   }//closed_status
 
   function createBoardPage(){
-
     if (sc.totalPage === 0) {
       sc.totalPage = 1;
       //총페이지수 = 총게시물/페이지당글갯수 이며 page 0 일때에는 1로 친다
@@ -260,16 +244,16 @@
 
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        /*html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구*/
-        html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";
+        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구
+        /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
         }
 
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
-        /*html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";*/
-        html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";
+        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";
+        /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
         i = sc.totalPage + 1;
@@ -279,8 +263,8 @@
 
     if (sc.currentBlock != sc.totalBlock) {
       html += "<li><a>...</a></li>";
-      /*html += "<li onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";*/
-      html += "<li><a href='/study/challenge/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";
+      html += "<li onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";
+      /*html += "<li><a href='/study/challenge/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";*/
       html += "<li><a onclick='nextBoardPage()'>≫</a></li>";
     }
 
@@ -320,6 +304,8 @@
       success:function(response){
         if(response){
           createBoardTable(response);
+          cateColorChangeCSS();
+          closed_status();
         }else{
           alert("error occured")
         }
@@ -330,23 +316,49 @@
     })
   }//getBoardsByPageNum
 
+  function createBoardTable(list){
+    let html = "";
 
+    for(let i=0;i<list.length;i++){
+      html +='<li class="studylist-content status-'+list[i].closed_ok+'">';
+      html +=   '<p class="studylist-content-title"><a href="/study/challenge/detail?r_idx='+list[i].r_idx+'">'+list[i].title+'</a></p>';
+      html +=   '<ul class="studylist-content-info">';
+      html +=       '<li><span class="span-sido">'+list[i].sido+' </span> 의,</li>';
+      html +=       '<li style="margin-top:10px"><span class="span-cate color-'+list[i].ch_pattern+'">'+list[i].ch_pattern+'</span></li>';
+      html +=   '</ul>';
+      html +=   '<ul class="studylist-hitAndRepl">';
+      html +=       '<li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>';
+      html +=       '<li class="replyCount">'+list[i].reply_count+'</li>';
+      html +=       '<li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>';
+      html +=       '<li>'+list[i].hit+'</li>';
+      html +=   '</ul>';
+      html +='</li>';
+    }
+    $('.studylist-content-ul').html(html);
 
+  }//createBoardTable
 
 
   function cateColorChangeCSS(){
     $(".color-생활습관.스터디").css("backgroundColor", "rgb(255,51,153)");
     $(".color-취업.스터디").css("backgroundColor", "rgb(204,204,0)");
-    $(".color-시험준비.스터디").css("backgroundColor", "rgb(0,153,153)");
+    $(".color-시험준비.스터디").css("backgroundColor", "rgb(24,114,0)");
     $(".color-어학.스터디").css("backgroundColor", "rgb(51,204,204)");
     $(".color-기타").css("backgroundColor", "rgb(153,102,255)");
 
   }//cateColorChangeCSS
 
-  function replyCountIsNull(){
-    if(document.querySelectorAll('#replyCount').innerHTML =""){
-        document.querySelector('#replyCount').innerHTML = "0";
+  function orderSelected(orderType){
+    if(orderType == 'latest'){
+      //latest의 클래스에 order-selected 추가
+      //latest onclick 이벤트 삭제
+      //popularity 에 onclick 이벤트 추가
+    }else if(orderType == 'popularity'){
+        //popularity의 클래스에 order-selected 추가
+
+        //popularity onclick 이벤트 삭제
+        //latest 에 onclick 이벤트 추가
     }
-  }//replyCountIsNull()
+  }//orderSelected
 </script>
 </html>
