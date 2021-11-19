@@ -117,18 +117,20 @@
                                                 </td>
 
                                             </tr>
-
+                                            <tr>
+                                                <td>&nbsp;</td>
+                                            </tr>
 
                                             <tr>
                                                 <td colspan="4" align="right">
-                                                    <button type="submit" id="submitBtn">등록하기</button>
-                                                    <button type="button" id="listBtn">목록으로</button>
+                                                    <button type="submit" id="submitBtn" class="btn btn-light-primary font-weight-bold mr-2" style="color:#8950FC ">등록하기</button>
+                                                    <button type="button" id="listBtn" class="btn btn-light-primary font-weight-bold mr-2" style="color:#8950FC ">목록으로</button>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td>
                                                     <div class="uploadDiv">
-                                                        <input type="file" name="uploadFile" id="uploadFile" multiple/>
+                                                        <input type="file" name="uploadFile" id="uploadFile" multiple class="btn btn-secondary"/>
                                                         <div id="fileList"></div>
 
                                                     </div>

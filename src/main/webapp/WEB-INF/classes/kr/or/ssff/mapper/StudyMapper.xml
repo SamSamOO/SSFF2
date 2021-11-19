@@ -21,7 +21,7 @@
         #{cont},0,sysdate,#{sido},#{ch_pattern},#{ch_start},#{ch_end})
   </insert>
 
-  <!--  게시판 목록 조회 -->
+  <!--  게시판 목록 조회-->
   <select id="getList" resultType="kr.or.ssff.study.domain.RecruitBoardVO">
     <![CDATA[
         SELECT
@@ -31,8 +31,31 @@
                ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok
         FROM recruit_board
         WHERE r_idx < 1000 and type_pc=#{type} and removed_ok='n'
+        OFFSET (#{page}-1)*15 ROW
+        FETCH NEXT 15 ROWS ONLY
     ]]>
   </select>
+
+  <!--  게시판 목록 조회- reply-->
+  <select id="getListWithJoinReply" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
+    <![CDATA[
+    SELECT
+      b.r_idx, member_name, type_pc, title,
+      teamname,cont,hit,writedate,sido,
+      ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok,nvl(counting,0) as reply_count
+    FROM recruit_board b left join (select r_idx, count(r_idx) as counting from reply group by r_idx) r
+    on b.r_idx = r.r_idx
+    WHERE b.r_idx < 1000 and type_pc=#{type} and removed_ok='n'
+    ORDER BY b.r_idx DESC
+    OFFSET (#{page}-1)*15 ROW
+      FETCH NEXT 15 ROWS ONLY
+    ]]>
+  </select>
+
+
+
+
+
 
   <!--가장 최근에 쓴 게시글 번호 가져오기-->
   <select id="getCurrentR_idx" resultType="int">
@@ -79,7 +102,7 @@
     )
   </insert>
 
-  <!--update문(현재 C만 되는 상태)-->
+  <!--update문-->
   <update id="update">
     UPDATE recruit_board
     SET
@@ -87,7 +110,8 @@
       teamname = #{teamname},
       cont = #{cont},
       sido = #{sido},
-      ch_pattern = #{ch_pattern}
+      ch_pattern = #{ch_pattern},
+      closed_ok= #{closed_ok}
     WHERE
       r_idx = #{r_idx}
   </update>
@@ -106,6 +130,77 @@
       r_idx = #{r_idx}
   </update>
 
+  <!--댓글 등록하기-->
+  <insert id="insertReply">
+    <selectKey keyProperty="no" order="BEFORE" resultType="int">
+      SELECT REPLY_SQE.NEXTVAL
+      FROM dual
+    </selectKey>
+    INSERT INTO REPLY (
+    no,r_idx,member_name,c_cont,c_date,removed_ok
+    )
+    VALUES(
+    #{no}, #{r_idx}, #{member_name}, #{c_cont},sysdate,'n'
+    )
+  </insert>
+  <!--댓글 가져오기-->
+  <select id="getReplyList" resultType="kr.or.ssff.study.domain.ReplyVO">
+    SELECT
+        /*+ index_asc(reply) */
+        no,r_idx,member_name,c_cont,c_date,removed_ok
+    FROM reply
+    WHERE r_idx=#{r_idx} and removed_ok='n'
+  </select>
+
+  <!--글삭제-->
+  <update id="delete">
+    UPDATE recruit_board
+    SET
+      removed_ok='y'
+    WHERE
+      r_idx = #{r_idx}
+  </update>
+
+  <!--댓글삭제-->
+  <update id="replyDelete">
+    UPDATE reply
+    SET
+      removed_ok='y'
+    WHERE
+      no = #{no}
+  </update>
+
+  <!--댓글수정-->
+  <update id="replyUpdate">
+    UPDATE reply
+    SET
+      c_cont=#{c_cont}
+    WHERE
+      no = #{no}
+  </update>
+
+<!--게시글 수 세기-->
+  <select id="getPostCount" resultType="int">
+    <![CDATA[
+    select count(r_idx)
+    from recruit_board
+    where removed_ok='n' and type_pc='C'
+    ]]>
+  </select>
+
+<!--글번호&댓글 수 구하기-->
+  <select id="replyCount" resultType="kr.or.ssff.study.domain.ReplyCountVO">
+<![CDATA[
+    select r_idx, count(no) as counting from reply group by r_idx
+    ]]>
+  </select>
+
+  <!--글번호에 해당하는 하나의 댓글 수 구하기-->
+  <select id="replyCountByR_idx" resultType="int">
+<![CDATA[
+    select count(r_idx) from reply WHERE r_idx = #{r_idx}
+    ]]>
+  </select>
 </mapper>
 
 

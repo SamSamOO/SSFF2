@@ -1,12 +1,20 @@
 package kr.or.ssff.study.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.study.domain.ReplyCountVO;
+import kr.or.ssff.study.domain.ReplyVO;
+import kr.or.ssff.study.domain.StudyCriteria;
 import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -34,6 +42,7 @@ public class StudyController {
 
     @Autowired
     private StudyService service;
+    private String jsonData;
 
     /*---------------------------------------------------------------*/
     /*-----------------------------챌린지형--------------------------*/
@@ -45,13 +54,44 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 리스트 페이지
      * ToDo 매핑 O , DB O , paging X
      * */
-    @GetMapping("/challenge/list")
+    @GetMapping("/challenge/list") //첫화면 기준으로 세팅
     public String selectChallengeListGo(Model model) {
-        log.info("challengeListGo() is invoked");
+        log.info("challengeListGo({},{}) is invoked.",model);
 
-        List<RecruitBoardVO> list= this.service.getList("C");
 
-        model.addAttribute("list", list);
+        //1. 해당 페이지에 속하는 데이터만 뿌리기(비동기 작업중으로 막아놓음)
+        //List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("C",page);
+        
+        //2. 페이징에 관한 설정
+        //2-1. 게시물 갯수 세기
+        Integer totalCount = this.service.getTotal("C");
+        
+        //Criteria 생성
+        StudyCriteria sc= new StudyCriteria();
+
+        //Criteria 채우기(x7)
+        sc.setTotalPost(totalCount);
+        //postPerPage=15
+        sc.setTotalPage((int) Math.ceil(sc.getTotalPost() / 15.0));
+        sc.setCurrentPage(1);
+        //pagePerBlock=3
+        sc.setCurrentBlock(1);
+        sc.setTotalBlock((int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
+
+        //sc.setCurrentBlock(1) 에 대한 추가 설정
+        if (sc.getCurrentPage() > sc.getPagePerBlock()){
+            for (int i = 1; i <= sc.getTotalBlock(); i++){
+                if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1 && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)){
+                    sc.setCurrentBlock(i + 1);
+                    i = sc.getTotalBlock() + 1;
+                }
+            }
+        }
+
+        //모델에다 전달해주기
+        //(비동기 작업중으로 막아놓음)
+        //model.addAttribute("list", list);
+        model.addAttribute("studyCriteria", sc);
 
         return "study/challenge/list";
     } //  selectChallengeListGo
@@ -66,6 +106,14 @@ public class StudyController {
         log.info("challengeDetailGo() is invoked");
 
         RecruitBoardVO board = this.service.get(r_idx);
+
+        Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
+
+        if(replyCount ==null){
+            model.addAttribute("replyCount",0);
+        }else{
+            model.addAttribute("replyCount",replyCount);
+        }
         model.addAttribute("board",board);
     } // selectChallengeDetailGo
 
@@ -163,10 +211,10 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 챌린지형 리스트 페이지
      * */
-    @PostMapping("/challenge/detail/remove")
-    public String deleteChallengeDetail() {
-
+    @GetMapping("/challenge/remove")
+    public String removeChallengeDetail(Integer r_idx, RedirectAttributes rttrs) {
         log.info("removeChallengeDetail() is invoked");
+        boolean result = this.service.remove(r_idx);
 
         return "redirect:/study/challenge/list";
     } // deleteChallengeDetail
@@ -181,23 +229,52 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 프로젝트형 스터디 리스트 페이지
      * */
+    /*프로젝트형 스터디 리스트 조회
+     * 파라메터 :
+     * 반환 : 프로젝트형 스터디 리스트 페이지
+     * */
     @GetMapping("/project/list")
     public String selectProjectListGo(Model model) {
         log.info("selectProjectListGo() is invoked");
 
-        List<RecruitBoardVO> list= this.service.getList("P");
 
-        List<LangVO> langList = this.service.getLangList();
+        //List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("P",page);
+        //List<LangVO> langList = this.service.getLangList();
 
-//        model.addAttribute("list", list);
- //       model.addAttribute("langList",langList);
+        //List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);
 
-        List<Map<String, Object>> liste = this.service.getRecruitBoardMap(list, langList);
-        model.addAttribute("list", liste);
+        //2. 페이징에 관한 설정
+        //2-1. 게시물 갯수 세기
+        Integer totalCount = this.service.getTotal("P");
+        //Criteria 생성
+        StudyCriteria sc= new StudyCriteria();
+        //Criteria 채우기(x7)
+        sc.setTotalPost(totalCount);
+        //postPerPage=15
+        sc.setTotalPage((int) Math.ceil(sc.getTotalPost() / 15.0));
+        sc.setCurrentPage(1);
+        //pagePerBlock=3
+        sc.setCurrentBlock(1);
+        sc.setTotalBlock((int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
+
+        //sc.setCurrentBlock(1) 에 대한 추가 설정
+        if (sc.getCurrentPage() > sc.getPagePerBlock()){
+            for (int i = 1; i <= sc.getTotalBlock(); i++){
+                if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1 && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)){
+                    sc.setCurrentBlock(i + 1);
+                    i = sc.getTotalBlock() + 1;
+                }
+            }
+        }
+
+        //model.addAttribute("list", listMap);
+        model.addAttribute("studyCriteria", sc);
+
 
         return "study/project/list";
 
     } // selectProjectListGo
+
 
 
     /*프로젝트형 스터디 게시물 상세 +
@@ -210,6 +287,14 @@ public class StudyController {
 
         RecruitBoardVO board = this.service.get(r_idx);
         List<LangVO>langList = this.service.getLangTagByR_idx(r_idx);
+
+        Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
+
+        if(replyCount ==null){
+            model.addAttribute("replyCount",0);
+        }else{
+            model.addAttribute("replyCount",replyCount);
+        }
 
         model.addAttribute("board",board);
         model.addAttribute("langList",langList);
@@ -248,7 +333,7 @@ public class StudyController {
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null, dto.getClosed_ok(),null
+                null,null,null
             );
         //새글 등록하기
         boolean result = this.service.register(vo);
@@ -257,8 +342,10 @@ public class StudyController {
         Integer currentR_idx = this.service.getCurrentR_idx();
 
         //그 글번호로 언어 태그 등록하기
-        for(int i=0;i< taglist.length;i++){
-            boolean tagResult = this.service.registerLangTag(currentR_idx,taglist[i]);
+        if(taglist !=null){
+            for(int i=0;i< taglist.length;i++){
+                boolean tagResult = this.service.registerLangTag(currentR_idx,taglist[i]);
+            }
         }
 
         return "redirect:/study/project/list";
@@ -299,7 +386,7 @@ public class StudyController {
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null, null,null
+                null, dto.getClosed_ok(),null
             );
 
         boolean result = this.service.modify(vo);
@@ -321,49 +408,14 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 챌린지형 리스트 페이지
      * */
-    @PostMapping("/project/detail/remove")
-    public String deleteProjectDetail() {
+    @GetMapping("/project/remove")
+    public String removeProjectDetail(Integer r_idx, RedirectAttributes rttrs) {
+        log.info("removeProjectDetail() is invoked");
+        boolean result = this.service.remove(r_idx);
 
-        log.info("deleteProjectDetail() is invoked");
+        return "redirect:/study/challenge/list";
+    } // removeProjectDetail
 
-        return "redirect:/study/project/list";
-    } // deleteProjectDetail
-
-    /*댓글 작성 기능 수행
-     * 파라메터 :
-     * 반환 : //TODO --예솔
-     * */
-    @PostMapping("/comment/post")
-    public @ResponseBody boolean insertComment(@RequestBody String jsonData, HttpServletResponse response, ModelMap model) {
-        log.info("studyModalTest({},{},{}) is invoked",jsonData, response, model);
-
-        return true;
-    }
-
-    /*댓글 수정 기능 수행
-     * 파라메터 :
-     * 반환 : //TODO --예솔
-     * */
-    @PostMapping("/comment/modify")
-    public String updateComment() {
-        log.info("updateComment() is invoked");
-
-        return "";
-    }
-
-    /*댓글삭제 기능 수행
-     *파라메터 :
-     * 반환 :
-     * //TODO --예솔
-     * */
-    @PostMapping("/comment/remove")
-    public String deleteComment() {
-
-        log.info("deleteComment() is invoked");
-
-        return "";
-
-    }
 
 
 } // end class

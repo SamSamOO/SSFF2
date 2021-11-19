@@ -87,14 +87,18 @@ h3 {
   height: 3%;
   display: flex;
 }
-.left-items {
+.left-items { /*최신순, 인기순 선택 안됐을때 default*/
   font-weight: bold;
   font-size: large;
   text-align: center;
   padding-right: 10px;
   padding-left: 10px;
+  color: grey;
+  cursor: pointer;
 }
-
+.order-selected{/*최신순, 인기순 선택 됐을때*/
+  color: black !important;
+}
 .right-items {
   font-weight: bold;
   font-size: large;
@@ -131,8 +135,8 @@ h3 {
   box-sizing: border-box;
   padding: 10px;
   margin: 5px;
-  display: flex;        /*flex 실험중*/
-  flex-direction:column;/*flex 실험중*/
+  display: flex;
+  flex-direction:column;
 }
 /****카드뉴스 상부****/
 .studylist-content-title {
@@ -141,9 +145,21 @@ h3 {
   padding-top: 25px;
   margin-bottom: 0px;
   flex: 1 1 35%;/*flex 실험중*/
+  height: 45px;
 }
 
 /****카드뉴스 중앙부****/
+.status-y{
+  background-color: #dcdcdc !important;
+  color: #ababab !important;
+}
+.closed-ok-indicator{
+  position: absolute;
+  background-color: black !important;
+  color: white !important;
+  border-radius: 5px;
+  padding: 3px 5px;
+}
 .studylist-content-logo {
   /*카드뉴스 안에 로고 있는 부분 UL*/
   list-style: none;
@@ -152,7 +168,7 @@ h3 {
   padding: 0;
   text-align: center;
   display: table;
-  flex: 1 1 auto;/*flex 실험중*/
+  flex: 1 1 auto;
 }
 
 .studylist-content-info{
@@ -162,7 +178,8 @@ h3 {
   margin-top: 30px;
   padding: 0;
   text-align: center;
-  flex: 1 1 auto;/*flex 실험중*/
+  display: table;
+  flex: 1 1 auto;
 }
 
 .studylist-content-info .span-sido{
@@ -191,13 +208,28 @@ h3 {
   margin-top: 40px;
   float: right;
   flex: 1 1 auto;/*flex 실험중*/
-  padding-left: 110px;
+  padding-left: 100px;
 }
 .studylist-hitAndRepl li {
   /*카드뉴스안에 댓글이랑 조회수*/
   margin-left: 4px;
   margin-right: 4px;
   float: left;
+}
+/*카드뉴스 페이징*/
+#pagination{
+  margin-top:10px;
+  margin-bottom:10px;
+}
+#pagination-ul{
+  list-style: none;
+}
+#pagination-ul li{
+  float: left;
+  padding:5px 5px;
+  margin-right:3px;
+  margin-left:3px;
+  background-color: red;
 }
 
 /*********************카드뉴스 설정********************************/
@@ -370,6 +402,17 @@ h3 {
 .apply-sec li p:hover{
   cursor: pointer;
 }
+
+/* p-> a태그로 변경해서 추가해놨어: 지혜*/
+#applyChallenge{
+  background-color: rgb(235, 171, 49);
+  padding: 7px 9px;
+  border-radius: 5px;
+  color:white;
+  font-weight: bold;
+}
+
+
 #reply-sec{
   margin-top:80px;
 

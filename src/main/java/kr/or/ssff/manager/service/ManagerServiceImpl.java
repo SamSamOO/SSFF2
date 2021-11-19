@@ -21,6 +21,8 @@ import java.util.List;
 
 @Service("managerService")
 public class ManagerServiceImpl implements ManagerService, InitializingBean, DisposableBean {
+
+
     @Autowired
     private ManagerMapper mapper;
 
