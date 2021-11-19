@@ -87,14 +87,18 @@ h3 {
   height: 3%;
   display: flex;
 }
-.left-items {
+.left-items { /*최신순, 인기순 선택 안됐을때 default*/
   font-weight: bold;
   font-size: large;
   text-align: center;
   padding-right: 10px;
   padding-left: 10px;
+  color: grey;
+  cursor: pointer;
 }
-
+.order-selected{/*최신순, 인기순 선택 됐을때*/
+  color: black !important;
+}
 .right-items {
   font-weight: bold;
   font-size: large;

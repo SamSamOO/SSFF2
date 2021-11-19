@@ -147,8 +147,8 @@
 
                                 <div class="studylist-sort">
                                     <!--스터디리스트 버튼 있는 부분-->
-                                    <div class="left-items">최신순</div>
-                                    <div class="left-items">인기순</div>
+                                    <div id="listing-latest-order" class="left-items order-selected">최신순</div>
+                                    <div d="listing-popularity-order" class="left-items" onclick="orderSelected('popularity')">인기순</div>
                                     <div class="right-items">
                                         <input type="checkbox" id="closedException" name="closedException"
                                                style="zoom:1.3;">
@@ -348,6 +348,17 @@
 
   }//cateColorChangeCSS
 
+  function orderSelected(orderType){
+    if(orderType == 'latest'){
+      //latest의 클래스에 order-selected 추가
+      //latest onclick 이벤트 삭제
+      //popularity 에 onclick 이벤트 추가
+    }else if(orderType == 'popularity'){
+        //popularity의 클래스에 order-selected 추가
 
+        //popularity onclick 이벤트 삭제
+        //latest 에 onclick 이벤트 추가
+    }
+  }//orderSelected
 </script>
 </html>
