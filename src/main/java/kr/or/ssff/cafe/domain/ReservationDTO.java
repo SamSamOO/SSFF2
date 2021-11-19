@@ -23,11 +23,11 @@ RSRV_AMOUNT	NUMBER	Yes		12	결제금액
 
 
 import java.util.Date;
-import lombok.Value;
+import lombok.Data;
 
 
-@Value
-public class ReservationVO {
+@Data
+public class ReservationDTO {
 
   private String rsrv_idx;
   private String room_idx;

@@ -187,22 +187,6 @@
 <!----------------Body 종료----------------------->
 <script>
 
-	// alert 문구 생성 
-  	  let warningAlert = `
-	 		  <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
-					<div class="alert-icon">
-						<i class="flaticon-warning"></i>
-					</div>
-					<div class="alert-text">표시할 항목이 없습니다.</div>
-					<div class="alert-close">
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">
-								<i class="ki ki-close"></i>
-							</span>
-						</button>
-					</div>
-				</div>
- 	  `
  	  
   // 페이지 처리를 위한 함수 / 카드 증가시 1씩 증가 
   let num = 0;
@@ -216,6 +200,23 @@
 
   // 카드 리스트를 ajax 페이지 처리하여 뿌립니다. 
   let start = {
+    myAlert: { // alert 문구
+      warningAlert :`
+          <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
+            <div class="alert-icon">
+              <i class="flaticon-warning"></i>
+            </div>
+            <div class="alert-text">표시할 항목이 없습니다.</div>
+            <div class="alert-close">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															<span aria-hidden="true">
+																<i class="ki ki-close"></i>
+															</span>
+              </button>
+            </div>
+          </div>
+ 	  `
+    },
     param: {
       curPage     : 1,
       pageListSize: 19,
@@ -253,7 +254,7 @@
     callAjax: function () {
       $.ajax({
                type       : 'POST',
-               url        : '/cafe/listData',
+               url        : '/cafeRest/listData',
                data       : JSON.stringify(start.param), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
                dataType   : 'json', // 받을 데이터는 json
                contentType: "application/json; charset=utf-8",
@@ -271,7 +272,7 @@
         // 불러온 데이터가 없다면
         if (data.cafeList.length == 0) {
           // $(".gridList").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
-        	$('#cafeListCardLow').append(warningAlert);
+        	$('#cafeListCardLow').append(start.myAlert.warningAlert);
         } // if
         
         // 데이터가 있다면 뿌리기
@@ -285,7 +286,7 @@
       // 실패
       function errorCallback() {
        
-    	 $('#cafeListCardLow').append(warningAlert);
+    	 $('#cafeListCardLow').append(start.myAlert.warningAlert);
       } // errorCallback
     }, // callAjax: function
 

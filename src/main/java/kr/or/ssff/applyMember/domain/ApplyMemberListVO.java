@@ -32,7 +32,7 @@ public class ApplyMemberListVO {
 
 	// recruit_board table
 	private String teamname;
-
+	private Character type_pc;
 	// member table
 	private String member_profile;
 

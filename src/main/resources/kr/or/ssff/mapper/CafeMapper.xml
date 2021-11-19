@@ -39,7 +39,7 @@
 
 
 <!-- 카페 디테일 VIEW를 위한 카페 리스트 & 상세 룸 조회 : 신지혜 -->
-  <select id="selectCafe" 
+  <select id="selectCafeJoinRoom"
 				  parameterType="String"
 				  resultType="kr.or.ssff.cafe.domain.CafeInfoVO" >
 
@@ -95,11 +95,110 @@
 		  d.cafe_remove_yn = 'n'
 		  AND d.cafe_idx = #{cafe_idx}
   </select>
-  
-  
-  
-  
-  
+
+
+
+	<!-- 온전히 카페 테이블 하나의 정보만 조회 : 신지혜 -->
+	<select id="selectCafe"
+		parameterType="String"
+		resultType="kr.or.ssff.cafe.domain.CafeVO" >
+
+		SELECT
+			cafe_idx,
+			cafe_name,
+			cafe_telephone_number,
+			cafe_location,
+			cafe_open_time,
+			cafe_close_time,
+			cafe_contact_phone_number,
+			cafe_contact_email,
+			cafe_main_title,
+			cafe_sub_title,
+			cafe_details,
+			cafe_remove_yn,
+			cafe_image_first,
+			cafe_image_second,
+			cafe_image_third,
+			boss_name,
+			business_number
+
+		FROM cafe
+
+		WHERE cafe_idx = #{cafe_idx}
+	</select>
+
+
+
+
+
+
+
+
+	<!-- 예약관리 -->
+
+
+
+
+	<!-- 신규 예약정보 등록 : 신지혜  -->
+	<insert id="insertReservation" parameterType="kr.or.ssff.cafe.domain.ReservationDTO">
+
+
+		INSERT INTO
+			RSRV (
+			rsrv_idx,
+			room_idx,
+			member_name,
+			use_date,
+			use_start_time,
+			use_end_time,
+			rsrv_status_ynz,
+			rsrv_name,
+			rsrv_phone_number,
+			rsrv_email,
+			rsrv_message,
+			rsrv_amount
+		)
+		VALUES(
+			'rid_'||apply_member_sqe.NEXTVAL,
+			#{room_idx},
+			#{member_name},
+			#{use_date},
+			#{use_start_time},
+			#{use_end_time},
+			'n',
+			#{rsrv_name},
+			#{rsrv_phone_number},
+			#{rsrv_email},
+			#{rsrv_message , jdbcType = VARCHAR },
+			#{rsrv_amount}
+		)
+
+	</insert>
+
+
+	<!-- 특정일자, 특정 room 예약정보만 조회 : 신지혜 -->
+	<select id="selectRoomRsrvList"
+
+		resultType="kr.or.ssff.cafe.domain.RoomRsrvVO">
+
+		SELECT
+			a.room_idx,
+			a.use_date,
+			a.use_start_time,
+			a.use_end_time,
+			b.total_room_number
+		FROM
+			rsrv a
+				JOIN room b ON a.room_idx = b.room_idx
+		WHERE
+			a.room_idx = #{room_idx}
+			AND a.use_date = #{use_date}
+			AND a.rsrv_status_ynz = 'y'
+
+	</select>
+
+
+
 </mapper>
 
 

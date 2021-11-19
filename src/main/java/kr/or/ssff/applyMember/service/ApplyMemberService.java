@@ -19,10 +19,10 @@ public interface ApplyMemberService {
     public abstract List<ApplyMemberListVO> getApplyMemberList(String r_idx);
 
     // 스터디 가입 상태 변경 : 신지혜
-    public abstract void applyAction(HashMap<String, String> aMember);
+    public abstract boolean applyAction(HashMap<String, String> aMember);
 
     // 스터디 가입 신청 : 신지혜
-    public abstract String registerApply(HashMap<String, String> aMember);
+    public abstract String registerApply(HashMap<String, Object> aMember);
 
     
 }// end interface
