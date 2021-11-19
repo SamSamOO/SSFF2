@@ -132,8 +132,8 @@
 
                                 <div class="studylist-sort">
                                     <!--스터디리스트 버튼 있는 부분-->
-                                    <div class="left-items">최신순</div>
-                                    <div class="left-items">인기순</div>
+                                    <div id="listing-latest-order" class="left-items order-selected">최신순</div>
+                                    <div id="listing-popularity-order" class="left-items" onclick="orderSelected('popularity')">인기순</div>
                                     <div class="right-items">
                                         <input type="checkbox" id="closedException"
                                                name="closedException"
@@ -355,6 +355,26 @@
   function ifNoLogoInsertQuestion(){
     $( '.studylist-content-logo:not(:has( li ))' )
     .prepend('<li><img src="../../../../resources/assets/image/question.png" width="40px"></li>');
-  }
+  }//ifNoLogoInsertQuestion
+
+  function orderSelected(orderType){
+    if(orderType == 'latest'){
+      //latest의 클래스에 order-selected 추가&popularity의 클래스에 order-selected 삭제
+      $('#listing-latest-order').addClass('order-selected');
+      $('#listing-popularity-order').removeClass('order-selected');
+      //latest onclick 이벤트 삭제
+      $('#listing-latest-order').removeAttr('onclick');
+      $('#listing-popularity-order').attr('onclick','orderSelected("popularity")');
+    }else if(orderType == 'popularity'){
+      //popularity의 클래스에 order-selected 추가&latest의 클래스에 order-selected 삭제
+      $('#listing-popularity-order').addClass('order-selected');
+      $('#listing-latest-order').removeClass('order-selected');
+      //popularity onclick 이벤트 삭제&latest 에 onclick 이벤트 추가
+      $('#listing-popularity-order').removeAttr('onclick');
+      $('#listing-latest-order').attr('onclick','orderSelected("latest")');
+
+    }
+  }//orderSelected
+
 </script>
 </html>

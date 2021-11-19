@@ -148,7 +148,7 @@
                                 <div class="studylist-sort">
                                     <!--스터디리스트 버튼 있는 부분-->
                                     <div id="listing-latest-order" class="left-items order-selected">최신순</div>
-                                    <div d="listing-popularity-order" class="left-items" onclick="orderSelected('popularity')">인기순</div>
+                                    <div id="listing-popularity-order" class="left-items" onclick="orderSelected('popularity')">인기순</div>
                                     <div class="right-items">
                                         <input type="checkbox" id="closedException" name="closedException"
                                                style="zoom:1.3;">
@@ -201,12 +201,12 @@
     currentBlock: ${studyCriteria.currentBlock},
     totalBlock: ${studyCriteria.totalBlock}
   }
-
+  let orderRule = document.querySelector('.order-selected').innerHTML;
   $(function(){
     //페이지단 만듦
     createBoardPage();
     //1페이지에 해당하는 board 자료 가져오기
-    getBoardsByPageNum(1);
+    getBoardsByPageNum(1,orderRule);
   });
 
   /*==========================function==========================*/
@@ -244,7 +244,7 @@
 
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구
+        html += "<li onclick='getBoardsByPageNum("+i+",orderRule)'>"+i+"</li>";//[1]~[5]찍어주구
         /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
@@ -252,7 +252,7 @@
 
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
-        html += "<li onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";
+        html += "<li onclick='getBoardsByPageNum("+i+",orderRule)'>"+i+"</li>";
         /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
@@ -263,7 +263,7 @@
 
     if (sc.currentBlock != sc.totalBlock) {
       html += "<li><a>...</a></li>";
-      html += "<li onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";
+      html += "<li onclick='getBoardsByPageNum("+sc.totalPage+",orderRule)'>"+ sc.totalPage + "</li>";
       /*html += "<li><a href='/study/challenge/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";*/
       html += "<li><a onclick='nextBoardPage()'>≫</a></li>";
     }
@@ -291,15 +291,16 @@
     }
   }//nextBoardPage
 
-  function getBoardsByPageNum(pageNum){
+  function getBoardsByPageNum(pageNum,orderRule){
     let jsonData ={
-      pageNum:pageNum
+      pageNum:pageNum+"",
+      orderRule:orderRule
     }
     $.ajax({
       url:"/studyRest/challenge/list",
       type:"POST",
       dataType:"json",
-      contentType:"application/json",
+      contentType:"application/json;charset=UTF-8",
       data:JSON.stringify(jsonData),
       success:function(response){
         if(response){
@@ -350,15 +351,25 @@
 
   function orderSelected(orderType){
     if(orderType == 'latest'){
-      //latest의 클래스에 order-selected 추가
+      //getBoardsByPageNum(1,orderRule);
+      //latest의 클래스에 order-selected 추가&popularity의 클래스에 order-selected 삭제
+      $('#listing-latest-order').addClass('order-selected');
+      $('#listing-popularity-order').removeClass('order-selected');
       //latest onclick 이벤트 삭제
-      //popularity 에 onclick 이벤트 추가
-    }else if(orderType == 'popularity'){
-        //popularity의 클래스에 order-selected 추가
+      $('#listing-latest-order').removeAttr('onclick');
+      $('#listing-popularity-order').attr('onclick','orderSelected("popularity")');
 
-        //popularity onclick 이벤트 삭제
-        //latest 에 onclick 이벤트 추가
+    }else if(orderType == 'popularity'){
+      //popularity의 클래스에 order-selected 추가&latest의 클래스에 order-selected 삭제
+      //getBoardsByPageNum(1,orderRule);
+      $('#listing-popularity-order').addClass('order-selected');
+      $('#listing-latest-order').removeClass('order-selected');
+      //popularity onclick 이벤트 삭제&latest 에 onclick 이벤트 추가
+      $('#listing-popularity-order').removeAttr('onclick');
+      $('#listing-latest-order').attr('onclick','orderSelected("latest")');
+
     }
   }//orderSelected
+
 </script>
 </html>

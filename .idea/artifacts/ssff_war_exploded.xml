@@ -13,7 +13,6 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="ssff" />
-          <element id="library" level="application" name="jquery" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.14.1" />
@@ -74,14 +73,6 @@
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/target/META-INF/MANIFEST.MF" />
-        <element id="directory" name="WEB-INF">
-          <element id="directory" name="classes">
-            <element id="library" level="application" name="bootstrap" />
-            <element id="library" level="application" name="jquery" />
-            <element id="library" level="application" name="sockjs-client" />
-            <element id="library" level="application" name="stomp.js" />
-          </element>
-        </element>
       </element>
       <element id="javaee-facet-resources" facet="ssff/web/웹" />
     </root>

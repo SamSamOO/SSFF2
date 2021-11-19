@@ -71,6 +71,12 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(String type, Integer page) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyOrderByHit(type,page);
+        return allBoard;
+    }
+
+    @Override
     public List<RecruitBoardVO> getListPerPage() {
         return null;
     }
