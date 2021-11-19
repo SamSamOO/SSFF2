@@ -12,8 +12,8 @@ CAFE_IDX	                NVARCHAR2(25 CHAR)	No		1	카페번호
 CAFE_NAME               	NVARCHAR2(50 CHAR)	No		2	카페명
 CAFE_TELEPHONE_NUMBER   	NVARCHAR2(15 CHAR)	Yes		3	대표번호
 CAFE_LOCATION	            NVARCHAR2(50 CHAR)	No		4	카페위치
-CAFE_OPEN_TIME	          NVARCHAR2(5 CHAR)	  No		5	영업시작시간
-CAFE_CLOSE_TIME           NVARCHAR2(5 CHAR)	  No		6	영업종료시간
+CAFE_OPEN_TIME	          NUMBER              No		5	영업시작시간
+CAFE_CLOSE_TIME           NUMBER              No		6	영업종료시간
 CAFE_CONTACT_PHONE_NUMBER	NVARCHAR2(15 CHAR)	No		7	담당자연락처
 CAFE_CONTACT_EMAIL	      NVARCHAR2(50 CHAR)	No		8	담당자이메일
 CAFE_MAIN_TITLE	          NVARCHAR2(50 CHAR)	No		9	홍보글제목
@@ -24,13 +24,12 @@ CAFE_IMAGE_FIRST        	NVARCHAR2(200 CHAR)	No		13	이미지1
 CAFE_IMAGE_SECOND	        NVARCHAR2(200 CHAR)	No		14	이미지2
 CAFE_IMAGE_THIRD	        NVARCHAR2(200 CHAR)	No		15	이미지3
 
-BOSS_NAME	                 NVARCHAR2(20 CHAR)	No		16
-BUSINESS_NUMBER           NUMBER	No		17
+BOSS_NAME	                NVARCHAR2(20 CHAR)	No		16  대표이름
+BUSINESS_NUMBER           NUMBER	            No		17  사업자번호
 */
 
 @Value
 public class CafeVO {
-
 
   private String cafe_idx;
   private String cafe_name;

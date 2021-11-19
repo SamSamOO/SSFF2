@@ -1,7 +1,7 @@
 <%--
-  스터디 카페 디테일 단
+  스터디 카페 예약 단
   User: 신지혜
-  Date: 2021-11-15
+  Date: 2021-11-18
   Time: 오후 3:23
   To change this template use File | Settings | File Templates.
 --%>

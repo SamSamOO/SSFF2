@@ -142,19 +142,20 @@ public class CafeController {
    * 매개변수:
    * 반환: 스터디 카페 등록 화면 뷰단
    * */
-  @GetMapping("/registerView")
-  public String insertCafeView() {
-    log.info("insertCafeView() is invoked");
+  @GetMapping("/register")
+  public void goCafeRegister(CafeVO cafeVO, Model model) {
+    log.info("goCafeRegister() is invoked");
 
-    return "cafe/registerView";
-  } // insertCafeView
+    model.addAttribute(cafeVO);
+
+  } // goCafeRegister
 
   /*
    * 스터디 카페 등록
    * 매개변수: 카페DTO (등록할 카페 정보를 담은 객체)
    * 반환: 스터디 카페 상세보기
    * */
-  @PostMapping("/register")
+  @PostMapping("/register/rr")
   public String insertCafe(CafeDTO cafeDTO) {
     log.info("insertCafe({}) is invoked", "cafeDTO = " + cafeDTO);
 
