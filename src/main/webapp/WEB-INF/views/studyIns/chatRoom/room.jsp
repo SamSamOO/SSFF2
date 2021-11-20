@@ -101,8 +101,9 @@
     function createRoom() {
         $("#createRoom").click(function () {
             var msg = {roomName: $('#roomName').val()};
-
+            console.log(msg);
             commonAjax('/createRoom', msg, 'post', function (result) {
+                console.log(msg);
                 createChatingRoom(result);
             });
 
@@ -115,18 +116,21 @@
     }
 
     function createChatingRoom(res) {
+        console.log(res);
+
         if (res != null) {
             var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'></th></tr>";
-            Array.from(res).forEach(function (d, idx) {
 
-                let rn = d.roomName.trim();
-                let roomNumber = d.roomNumber;
-                tag += "<tr>" +
-                    "<td class='num'>" + (idx + 1) + "</td>" +
-                    "<td class='room'>" + rn + "</td>" +
-                    "<td class='go'><button type='button' onclick='goRoom(\"" + roomNumber + "\", \"" + rn + "\")'>참여</button></td>" +
+            for (let idx = 0; idx < res.length; idx++){
+                const d = res[idx];
+                var rn = d.roomName.trim();
+                var roomNumber = d.roomNumber;
+                tag += "<tr>"+
+                    "<td class='num'>"+(idx+1)+"</td>"+
+                    "<td class='room'>"+ rn +"</td>"+
+                    "<td class='go'><button type='button' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\")'>참여</button></td>" +
                     "</tr>";
-            });
+            }
             $("#roomList").empty().append(tag);
         }
     }

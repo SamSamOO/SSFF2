@@ -22,7 +22,7 @@ public class SocketConfiguration implements WebSocketConfigurer {
     SocketHandler socketHandler;
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(socketHandler, "/chatting");
+        registry.addHandler(socketHandler, "/chatting/{roomNumber}");
     }
 }
 

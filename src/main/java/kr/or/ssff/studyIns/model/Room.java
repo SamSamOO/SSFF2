@@ -10,6 +10,7 @@ public class Room {
 
     Integer roomNumber;
     String roomName;
+
 }
 
 

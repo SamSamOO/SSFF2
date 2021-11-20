@@ -32,56 +32,50 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller("chattingController")
 public class ChattingController implements InitializingBean, DisposableBean {
 
-    List<Room> roomList = new ArrayList<>();
-    static int roomNumber = 0;
-
+//-------------------------------- 상준 채팅방--------------------------------//
 
     @Autowired
     private ChattingService service;
 
-
-//-------------------------------- 상준 채팅방--------------------------------//
-
-    /*
-     * 해당 스터디의 채팅방으로 이동
-     * 매개변수: 채팅방 ID
-     * 반환: 해당 스터디의 채팅방 뷰단
-     * */
-    @GetMapping("/chat")
-    public String chatRoom(Integer r_Idx, Model model, HttpSession session) { // TODO 매개변수..
-        log.info("chatRoom({}) is invoked", "r_Idx = " + r_Idx + ", model = " + model + ", session = " + session);
-
-        return "studyIns/chatRoom/chatRoom";
-    } // chatRoom
+    List<Room> roomList = new ArrayList<Room>();
+    static int roomNumber = 0;
 
 
-    /*
-     * 해당 스터디의 채팅방의 방을 구분합니다.
-     * 매개변수: --
-     * 반환: 해당 스터디의 채팅방 구분 목록의 뷰단
-     * */
-    @GetMapping("/room")
-    public String room() {
-        log.info("room() is invoked");
 
-        return "studyIns/chatRoom/room";
+    @RequestMapping("/chat")
+    public ModelAndView chat() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("studyIns/chatRoom/chatRoom");
+        return mv;
     }
 
+    /**
+     * 방 페이지
+     * @return
+     */
+    @RequestMapping("/room")
+    public ModelAndView room() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("studyIns/chatRoom/room");
+        return mv;
+    }
+
+    /**
+     * 방 생성하기
+     * @param params
+     * @return
+     */
     @RequestMapping("/createRoom")
-    public @ResponseBody
-    List<Room> createRoom(@RequestParam HashMap<Object, Object> params) {
-        log.info("createRoom({}) is invoked", "params = " + params);
+    public @ResponseBody List<Room> createRoom(@RequestParam HashMap<Object, Object> params){
 
         String roomName = (String) params.get("roomName");
-        Objects.requireNonNull(roomName);
 
-        if (roomName != null & !roomName.trim().equals("")) {
+        if(roomName != null && !roomName.trim().equals("")) {
             Room room = new Room();
             room.setRoomNumber(++roomNumber);
             room.setRoomName(roomName);
             roomList.add(room);
         }
-        log.info("roomList = {}", roomList);
         return roomList;
     }
 
@@ -108,9 +102,9 @@ public class ChattingController implements InitializingBean, DisposableBean {
         if(new_list != null && new_list.size() > 0) {
             mv.addObject("roomName", params.get("roomName"));
             mv.addObject("roomNumber", params.get("roomNumber"));
-            mv.setViewName("chat");
+            mv.setViewName("studyIns/chatRoom/chatRoom");
         }else {
-            mv.setViewName("room");
+            mv.setViewName("studyIns/chatRoom/room");
         }
         return mv;
     }
