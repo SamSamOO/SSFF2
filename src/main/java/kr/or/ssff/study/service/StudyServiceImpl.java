@@ -77,6 +77,20 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReplyExceptClosed(String type,
+        Integer page) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyExceptClosed(type,page);
+        return allBoard;
+    }
+
+    @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(String type,
+        Integer page) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyOrderByHitExceptClosed(type,page);
+        return allBoard;
+    }
+
+    @Override
     public List<RecruitBoardVO> getListPerPage() {
         return null;
     }

@@ -131,8 +131,8 @@
 
                                 <div class="studylist-sort">
                                     <!--스터디리스트 버튼 있는 부분-->
-                                    <div class="left-items">최신순</div>
-                                    <div class="left-items">인기순</div>
+                                    <div id="listing-latest-order" class="left-items order-selected" onclick="orderSelected('latest')">최신순</div>
+                                    <div id="listing-popularity-order" class="left-items" onclick="orderSelected('popularity')">인기순</div>
                                     <div class="right-items align-items-end">
                                         <input type="checkbox" id="closedException"
                                                name="closedException"
@@ -210,23 +210,14 @@
     currentBlock: ${studyCriteria.currentBlock},
     totalBlock: ${studyCriteria.totalBlock}
   }
+  let currentOrderType = 'latest';
   $(function(){
     //페이지단 만듦
     createBoardPage();
     //1페이지에 해당하는 board 자료 가져오기
-    getBoardsByPageNum(1);
+    getBoardsByPageNum(1, currentOrderType);
   });
   /*==========================function==========================*/
-  // 모집완료는 회색으로 보이게 하는 로직 ///////////////////
-  function closed_status(){
-    if(document.querySelector('.status-y') !=null){
-      let tagArea = document.querySelector('.status-y');
-      let new_Tag = document.createElement('div');
-      new_Tag.setAttribute('class', 'closed-ok-indicator');
-      new_Tag.innerHTML = '모집완료';
-      tagArea.appendChild(new_Tag);
-    }
-  }//closed_status
   function createBoardPage(){
     if (sc.totalPage === 0) {
       sc.totalPage = 1;
@@ -245,20 +236,20 @@
     }
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";//[1]~[5]찍어주구
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType)'>"+i+"</li>";//[1]~[5]찍어주구
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
         }
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
-        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+")'>"+i+"</li>";
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType)'>"+i+"</li>";
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
         i = sc.totalPage + 1;
       }
     }
     if (sc.currentBlock != sc.totalBlock) {
-      html +=  "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+")'>"+ sc.totalPage + "</li>";
+      html +=  "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+",currentOrderType)'>"+ sc.totalPage + "</li>";
       html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a>...</a></li>";
       html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='nextBoardPage()'>≫</a></li>";
     }
@@ -281,9 +272,10 @@
       createBoardPage(sc);
     }
   }//nextBoardPage
-  function getBoardsByPageNum(pageNum){
+  function getBoardsByPageNum(pageNum, orderRule){
     let jsonData ={
-      pageNum:pageNum
+      pageNum:pageNum+"",
+      orderRule :orderRule
     }
     $.ajax({
       url:"/studyRest/project/list",
@@ -294,7 +286,7 @@
       success:function(response){
         if(response){
           createBoardTable(response);
-          closed_status();
+
           ifNoLogoInsertQuestion();
         }else{
           alert("error occured")
@@ -309,6 +301,11 @@
     let html = "";
     for(let i=0;i<list.length;i++){
       html +='<li class="studylist-content status-'+list[i].closed_ok+'">';
+
+      if (list[i].closed_ok === 'y') {
+        html += '<div class=closed-ok-indicator>모집완료</div>'
+      }
+
       html +=   '<p class="studylist-content-title"><a href="/study/project/detail?r_idx='+list[i].r_idx+'">'+list[i].title+'</a></p>';
       html +=   '<ul class="studylist-content-logo">';
       for(let j=0;j<list[i].langs.length;j++){
@@ -328,6 +325,18 @@
   function ifNoLogoInsertQuestion(){
     $( '.studylist-content-logo:not(:has( li ))' )
     .prepend('<li><img src="../../../../resources/assets/image/question.png" width="40px"></li>');
+  }
+  function orderSelected(orderType) {
+    if (currentOrderType === orderType) return
+    if (orderType == 'latest') {
+      $('#listing-popularity-order').removeClass('order-selected');
+      $('#listing-latest-order').addClass('order-selected');
+    } else if (orderType == 'popularity') {
+      $('#listing-latest-order').removeClass('order-selected');
+      $('#listing-popularity-order').addClass('order-selected');
+    }//orderSelected
+    currentOrderType = orderType
+    getBoardsByPageNum(1, currentOrderType);
   }
 </script>
 </html>

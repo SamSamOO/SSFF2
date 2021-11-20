@@ -30,8 +30,14 @@ public interface StudyService {
     //5-1 댓글이랑 조인해서 가져오기
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(String type, Integer page);
     
-    //hit 순으로 정렬하기
+    //5-2 hit 순으로 정렬하기
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(String type, Integer page);
+
+    //5-3 댓글이랑 조인해서 가져오기 + exceptClosed
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyExceptClosed(String type, Integer page);
+
+    //5-4 hit 순으로 정렬하기 + exceptClosed
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(String type, Integer page);
 
     //5. 목록조회 with paging
     public abstract List<RecruitBoardVO> getListPerPage();

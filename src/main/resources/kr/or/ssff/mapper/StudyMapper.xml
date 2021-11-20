@@ -51,6 +51,25 @@
       FETCH NEXT 15 ROWS ONLY
     ]]>
   </select>
+
+  <select id="getListWithJoinReplyExceptClosed" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
+    <![CDATA[
+    SELECT
+      b.r_idx, member_name, type_pc, title,
+      teamname,cont,hit,writedate,sido,
+      ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok,nvl(counting,0) as reply_count
+    FROM recruit_board b left join (select r_idx, count(r_idx) as counting from reply group by r_idx) r
+                                   on b.r_idx = r.r_idx
+    WHERE b.r_idx < 1000 and type_pc=#{type} and removed_ok='n' and closed_ok='n'
+    ORDER BY b.r_idx DESC
+    OFFSET (#{page}-1)*15 ROW
+      FETCH NEXT 15 ROWS ONLY
+    ]]>
+  </select>
+
+
+
+
   <!--  게시판 목록 조회- reply-->
   <select id="getListWithJoinReplyOrderByHit" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
     <![CDATA[
@@ -61,13 +80,27 @@
     FROM recruit_board b left join (select r_idx, count(r_idx) as counting from reply group by r_idx) r
                                    on b.r_idx = r.r_idx
     WHERE b.r_idx < 1000 and type_pc=#{type} and removed_ok='n'
-    ORDER BY hit asc
+    ORDER BY hit desc
     OFFSET (#{page}-1)*15 ROW
       FETCH NEXT 15 ROWS ONLY
     ]]>
   </select>
 
-
+  <!--  게시판 목록 조회- reply-->
+  <select id="getListWithJoinReplyOrderByHitExceptClosed" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
+    <![CDATA[
+    SELECT
+      b.r_idx, member_name, type_pc, title,
+      teamname,cont,hit,writedate,sido,
+      ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok,nvl(counting,0) as reply_count
+    FROM recruit_board b left join (select r_idx, count(r_idx) as counting from reply group by r_idx) r
+                                   on b.r_idx = r.r_idx
+    WHERE b.r_idx < 1000 and type_pc=#{type} and removed_ok='n' and closed_ok='n'
+    ORDER BY hit desc
+    OFFSET (#{page}-1)*15 ROW
+      FETCH NEXT 15 ROWS ONLY
+    ]]>
+  </select>
 
 
 
