@@ -1,13 +1,14 @@
 package kr.or.ssff.cafe.controller;
 
+import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
+import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvInfoDTO;
-import kr.or.ssff.cafe.model.CafeDTO;
+import kr.or.ssff.cafe.model.RoomDTO;
 import kr.or.ssff.cafe.service.CafeService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -143,10 +145,8 @@ public class CafeController {
    * 반환: 스터디 카페 등록 화면 뷰단
    * */
   @GetMapping("/register")
-  public void goCafeRegister(CafeVO cafeVO, Model model) {
+  public void goCafeRegister() {
     log.info("goCafeRegister() is invoked");
-
-    model.addAttribute(cafeVO);
 
   } // goCafeRegister
 
@@ -155,11 +155,26 @@ public class CafeController {
    * 매개변수: 카페DTO (등록할 카페 정보를 담은 객체)
    * 반환: 스터디 카페 상세보기
    * */
-  @PostMapping("/register/rr")
-  public String insertCafe(CafeDTO cafeDTO) {
-    log.info("insertCafe({}) is invoked", "cafeDTO = " + cafeDTO);
+  @PostMapping("/register/inserttt")
+  public String insertCafe(CafeDTO cafeDTO,
+      RoomDTO roomDTO, MultipartFile[] roomFile, MultipartFile[] cafeFile,
+      Model model, RedirectAttributes rtts ) {
 
-    return "redirect:cafe/detail";
+    log.info("insertCafe({},{}) is invoked",
+        cafeDTO, roomDTO);
+
+    for(MultipartFile r : roomFile) {
+      log.info("--------------------------------------");
+      log.info("Upload File Name : " + r.getOriginalFilename());
+      log.info("Upload File Size : " + r.getSize());
+    }
+
+    for(MultipartFile c : cafeFile) {
+      log.info("--------------------------------------");
+      log.info("Upload File Name : " + c.getOriginalFilename());
+      log.info("Upload File Size : " + c.getSize());
+    }
+    return "redirect:/cafe/detail";
   } // insertCafe
 
   /*

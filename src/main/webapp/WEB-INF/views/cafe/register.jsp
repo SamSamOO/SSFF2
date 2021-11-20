@@ -65,7 +65,6 @@
                 <!--end::Separator-->
                 <!--begin::Search Form-->
                 <div class="d-flex align-items-center" id="kt_subheader_search">
-                  <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">카페이름</span>
                 </div>
                 <!--end::Search Form-->
               </div>
@@ -73,11 +72,12 @@
               <!--begin::Toolbar-->
               <div class="d-flex align-items-center">
                 <!--begin::Button-->
-                <a href="#" class="btn btn-default font-weight-bold">Back</a>
+                <a onclick="ttt();" class="btn btn-default font-weight-bold">Back</a>
                 <!--end::Button-->
                 <!--begin::Dropdown-->
                 <div class="btn-group ml-2">
-                  <button type="button" class="btn btn-primary font-weight-bold">Save Changes
+                  <button type="submit" class="btn btn-primary font-weight-bold"
+                          id="submitBtn">Save Changes
                   </button>
                 </div>
                 <!--end::Dropdown-->
@@ -96,7 +96,8 @@
             <div class="card card-custom card-sticky">
               <div class="card-body">
                 <!--begin::Form-->
-                <form class="form" id="cafe_form">
+                <form class="form" id="formObj" method="post"
+                      enctype="multipart/form-data" action="/cafe/register/inserttt">
                   <div class="row">
                     
                     <div class="col-xl-8">
@@ -108,6 +109,7 @@
                           <label class="col-3">카페이름</label>
                           <div class="col-9">
                             <input class="form-control" type="text" value="" name="cafe_name"
+                            
                                    required/>
                           </div>
                         </div>
@@ -117,7 +119,7 @@
                           <label class="col-3">사업자번호</label>
                           <div class="col-9">
                             <input class="form-control" type="number" value=""
-                                   name="business_number" required/>
+                                   name="business_number" placeholder="only number" required/>
                           </div>
                         </div>
                         
@@ -143,7 +145,7 @@
                               </div>
                               <input type="text" class="form-control" value=""
                                      name="cafe_telephone_number"
-                                     placeholder="Phone" required/>
+                                     placeholder="02-123-1234" required/>
                             </div>
                           </div>
                         </div>
@@ -152,7 +154,8 @@
                         <div class="form-group row">
                           <label class="col-3">오픈시간</label>
                           <div class="col-9">
-                            <input class="form-control" type="number" value="" name="cafe_open_time"
+                            <input class="form-control" type="number" value=""
+                                   placeholder="only number" name="cafe_open_time"
                                    required/>
                           </div>
                         </div>
@@ -162,7 +165,7 @@
                           <label class="col-3">마감시간</label>
                           <div class="col-9">
                             <input class="form-control" type="number" value=""
-                                   name="cafe_close_time" required/>
+                                   placeholder="only number" name="cafe_close_time" required/>
                           </div>
                         </div>
                         
@@ -170,7 +173,8 @@
                         <div class="form-group row">
                           <label class="col-3">카페주소</label>
                           <div class="col-9">
-                            <input class="form-control" type="text" value="" name="cafe_location"
+                            <input class="form-control" type="text" value=""
+                                   placeholder="서울시 강남구 강남대로1길 1, 101호" name="cafe_location"
                                    required/>
                           </div>
                         </div>
@@ -241,78 +245,64 @@
                         
                         
                         <div class="form-group row">
-                          <label class="col-3">사진 세개.. 더..</label>
+                          <label class="col-3">대표사진(*3)</label>
                           <div class="col-9">
-                            <input class="form-control" type="text" value="" name="cafe_image_first"
-                                   required/>
+                            <input class="form-control" type="file" value="" name="cafeFile"
+                                   multiple required/>
                           </div>
                         </div>
-  
-  
-                        <div class="form-group row">
-                          <label class="col-3">사진 세개.. 더..</label>
-                          <div class="col-9">
-                            <input class="form-control" type="text" value="" name="cafe_image_second"
-                                   required/>
-                          </div>
-                        </div>
-  
-                        <div class="form-group row">
-                          <label class="col-3">사진 세개.. 더..</label>
-                          <div class="col-9">
-                            <input class="form-control" type="text" value="" name="cafe_image_third"
-                                   required/>
-                          </div>
-                        </div>
-                        
-                        
+                      
+                      
                       </div>
                       
                       
                       <!-- 룸 시작 (기본 셋팅 하나만 하고 나머지 버튼 -> 동적생성) -->
                       <div class="separator separator-dashed my-10"></div>
-  
+                      
                       <div class="card-body">
                         <h3 class="text-dark font-weight-bold mb-10">세부 룸 정보</h3>
-  
+                        
                         <div class="form-group row">
                           
                           <label class="col-lg-2 col-form-label text-lg-right">인원수</label>
                           <div class="col-lg-3">
                             <input type="number" class="form-control" placeholder="Enter full name"
-                            name="max_people" value="" required/>
+                                   name="max_people" value="" required/>
                           </div>
                           
                           <label class="col-lg-2 col-form-label text-lg-right">보유개수</label>
                           <div class="col-lg-3">
                             <input type="number" class="form-control"
-                                   placeholder="Enter contact number" name="total_room_number" value="" required/>
+                                   placeholder="Enter contact number" name="total_room_number"
+                                   value="" required/>
                           </div>
-                          
+                        
                         </div>
-  
+                        
+                        
                         <div class="form-group row">
-    
+                          
                           <label class="col-lg-2 col-form-label text-lg-right">시간당 요금</label>
                           <div class="col-lg-3">
-                            <input type="number" class="form-control" placeholder="Enter full name" name="amount_hour" value="" required/>
+                            <input type="number" class="form-control" placeholder="Enter full name"
+                                   name="amount_hour" value="" required/>
                           </div>
-    
+                          
                           <label class="col-lg-2 col-form-label text-lg-right">첨부파일</label>
                           <div class="col-lg-3">
-                            <input type="text" class="form-control"
-                                   placeholder="Enter contact number" name="room_image" value="" required/>
+                            <input type="file" class="form-control"
+                                   placeholder="Enter contact number" name="roomFile" value=""
+                                   required/>
                           </div>
-  
+                        
                         </div>
-                        
-                        
-                        
-                        <div class="separator separator-dashed my-10"></div>
+                      
                       
                       </div>
+                      <div class="separator separator-dashed my-10"></div>
+                    
+                    
                     </div>
-                  
                   </div>
                 
                 
@@ -320,19 +310,20 @@
                 <!--end::Form-->
               </div>
             </div>
-            <!--end::card-->
-          
-          
           </div>
-          <!--end::Content-->
+          <!--end::card-->
+        
+        
         </div>
-        <!--end::Content Wrapper 내용물 end-->
+        <!--end::Content-->
       </div>
-      <!--컨테이너 종료-->
+      <!--end::Content Wrapper 내용물 end-->
     </div>
-    <!--end::Wrapper-->
+    <!--컨테이너 종료-->
   </div>
-  <!----------------페이지 종료----------------------->
+  <!--end::Wrapper-->
+</div>
+<!----------------페이지 종료----------------------->
 </div>
 <!----------------메인 종료----------------------->
 
@@ -344,13 +335,13 @@
 
 <script>
 
-  // function ttt() {
-  //
-  //     console.log("ttt");
-  //     $('#formObj').submit();
-  //     console.log("t33tt");
-  //
-  // }
+  function ttt() {
+
+    console.log("ttt");
+    $('#formObj').submit();
+    console.log("t33tt");
+
+  }
 
 </script>
 
