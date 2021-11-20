@@ -211,12 +211,21 @@
     totalBlock: ${studyCriteria.totalBlock}
   }
   let currentOrderType = 'latest';
+  let checkbox = document.querySelector('input[id="closedException"]');
+  let closedStatus = false;
   $(function(){
     //페이지단 만듦
     createBoardPage();
     //1페이지에 해당하는 board 자료 가져오기
     getBoardsByPageNum(1, currentOrderType);
   });
+  //마감 체크 관련
+  checkbox.addEventListener('change', function(e) {
+    //console.log('e : ', e.target.checked);
+    closedStatus = e.target.checked;
+    getBoardsByPageNum(1, currentOrderType);
+  });
+
   /*==========================function==========================*/
   function createBoardPage(){
     if (sc.totalPage === 0) {
@@ -275,7 +284,8 @@
   function getBoardsByPageNum(pageNum, orderRule){
     let jsonData ={
       pageNum:pageNum+"",
-      orderRule :orderRule
+      orderRule :orderRule,
+      closed :closedStatus
     }
     $.ajax({
       url:"/studyRest/project/list",

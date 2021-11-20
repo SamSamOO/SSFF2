@@ -88,8 +88,6 @@ public class StudyController {
         }
 
         //모델에다 전달해주기
-        //(비동기 작업중으로 막아놓음)
-        //model.addAttribute("list", list);
         model.addAttribute("studyCriteria", sc);
 
         return "study/challenge/list";

@@ -45,6 +45,9 @@ public interface StudyService {
     //6. 게시글 총개수 구하기
     public abstract Integer getTotal(String type);
 
+    //6-1. 게시글 총개수 구하기(마감 제외)
+    public abstract Integer getTotalExceptClosed(String type);
+
     //7. 태그 입력하기
     public abstract boolean registerLangTag(Integer r_idx,String tag);
 

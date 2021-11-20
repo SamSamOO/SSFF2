@@ -100,7 +100,11 @@ public class StudyServiceImpl implements StudyService {
         int totalCount = mapper.getPostCount(type);
         return totalCount;
     }
-
+    @Override
+    public Integer getTotalExceptClosed(String type) {
+        int totalCount = mapper.getPostCountExceptClosed(type);
+        return totalCount;
+    }
     @Override
     public boolean registerLangTag(Integer r_idx,String tag) {
         int affectedRows = mapper.insertTag(r_idx,tag);

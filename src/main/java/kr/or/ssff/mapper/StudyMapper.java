@@ -51,6 +51,8 @@ public interface StudyMapper {
     public abstract Integer replyUpdate(@Param("no")Integer no,@Param("c_cont")String c_cont);
     //글 총갯수 구하기(타입 받음)
     public abstract Integer getPostCount(@Param("type")String type);
+    //글 총갯수 구하기(타입 받음)+마감 제외
+    public abstract Integer getPostCountExceptClosed(@Param("type")String type);
     //댓글 수 구하기
     public abstract List<ReplyCountVO> replyCount();
     //글번호에 해당하는 댓글 수 구하기

@@ -231,7 +231,16 @@
     <![CDATA[
     select count(r_idx)
     from recruit_board
-    where removed_ok='n' and type_pc='C'
+    where removed_ok='n' and type_pc=#{type}
+    ]]>
+  </select>
+
+  <!--게시글 수 세기(마감 제외)-->
+  <select id="getPostCountExceptClosed" resultType="int">
+    <![CDATA[
+    select count(r_idx)
+    from recruit_board
+    where removed_ok='n' and type_pc=#{type} and closed_ok='n'
     ]]>
   </select>
 

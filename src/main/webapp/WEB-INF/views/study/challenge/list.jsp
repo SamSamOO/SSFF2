@@ -15,7 +15,7 @@
     <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-
+    <script src="../../../../resources/assets/js/location/location.js"></script>
     <!--head.html Include-->
     <jsp:include page="../../../commons/head.jsp"/>
 </head>
@@ -101,43 +101,27 @@
                                         <div class="dropdown-label">유형 :</div>
 
                                         <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                유형을 선택해 주세요
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">유형1</a>
-                                                <a class="dropdown-item" href="#">유형2</a>
-                                                <a class="dropdown-item" href="#">유형3</a>
-                                            </div>
+                                            <select id="challenge-type" name="ch_pattern" class="form-control"  onchange="sortType()">
+                                                <option value="">==스터디 유형을 선택해 주세요==</option>
+                                                <option value="생활습관 스터디">생활습관 스터디</option>
+                                                <option value="취업 스터디">취업 스터디</option>
+                                                <option value="시험준비 스터디">시험준비 스터디</option>
+                                                <option value="어학 스터디">어학 스터디</option>
+                                                <option value="기타">기타</option>
+                                            </select>
                                         </div>
 
-                                        <div class="dropdown-label">지역 :</div>
+                                        <div class="dropdown-label" style="margin-left:50px">지역 :</div>
 
                                         <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                시도
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">서울특별시</a>
-                                                <a class="dropdown-item" href="#">경기도</a>
-                                                <a class="dropdown-item" href="#">온라인</a>
-                                            </div>
+                                            <select id="location1" name="location1" class="form-control" onchange="sortLocation1()">
+                                                <option value="">==시도 선택==</option>
+                                            </select>
                                         </div>
                                         <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button"
-                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                    aria-expanded="false">
-                                                시군구
-                                            </button>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">시군구1</a>
-                                                <a class="dropdown-item" href="#">시군구2</a>
-                                                <a class="dropdown-item" href="#">시군구3</a>
-                                            </div>
+                                            <select id="location2" name="location2" class="form-control" onchange="sortLocation2()">
+                                                <option value="">==시군구 선택==</option>
+                                            </select>
                                         </div>
 
 
@@ -189,6 +173,8 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
+  /*==========================variable==========================*/
+  /*
   let sc = {
     totalPost: ${studyCriteria.totalPost},
     postPerPage: ${studyCriteria.postPerPage},
@@ -198,28 +184,65 @@
     currentBlock: ${studyCriteria.currentBlock},
     totalBlock: ${studyCriteria.totalBlock}
   }
+  */
+  let sc = {
+    totalPost: null,
+    postPerPage: null,
+    totalPage: null,
+    currentPage: null,
+    pagePerBlock: null,
+    currentBlock: null,
+    totalBlock: null
+  }
   let currentOrderType = 'latest'
   let checkbox = document.querySelector('input[id="closedException"]');
   let closedStatus = false;
+  let chType;
+  /*==========================onload or eventListener==========================*/
   $(function(){
     //페이지단 만듦
-    createBoardPage();
+    //createBoardPage();
     //1페이지에 해당하는 board 자료 가져오기
     getBoardsByPageNum(1, currentOrderType);
   });
 
   //마감 체크 관련
-
-
   checkbox.addEventListener('change', function(e) {
     //console.log('e : ', e.target.checked);
     closedStatus = e.target.checked;
     getBoardsByPageNum(1, currentOrderType);
-
-
   });
 
+
   /*==========================function==========================*/
+
+  //임시
+  function sortType(){
+    /*
+    let x = document.querySelector("#challenge-type").value; //선택한 유형이 나옴
+    getBoardsByPageNum();
+    let onlySelected=[];
+    for(let i=0;i<boardList.length;i++){
+      if(boardList[i].ch_pattern == x){
+        onlySelected.push(boardList[i]);
+      }
+    }
+    console.log(onlySelected);
+    setPageElementVar(onlySelected.length)
+    createBoardPage();
+    createBoardTable(onlySelected);
+ */
+  }//sortType
+
+  function sortLocation1(){
+    let x = document.querySelector("#location1").value;
+    console.log("지역1 선택은:" + x);
+  }
+  function sortLocation2(){
+    let x = document.querySelector("#location2").value;
+    console.log("지역2 선택은:" + x);
+  }
+
 
   function createBoardPage(){
     if (sc.totalPage === 0) {
@@ -239,14 +262,14 @@
     }
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType)'>"+i+"</li>";//[1]~[5]찍어주구
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType,"+i+")'>"+i+"</li>";//[1]~[5]찍어주구
         /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
         }
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
-        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType)'>"+i+"</li>";
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType,"+i+")'>"+i+"</li>";
         /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
@@ -254,8 +277,9 @@
       }
     }
     if (sc.currentBlock != sc.totalBlock) {
-      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+",currentOrderType)'>"+ sc.totalPage + "</li>";
       html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a>...</a></li>";
+      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+",currentOrderType,"+sc.totalPage+")'>"+ sc.totalPage + "</li>";
+
       /*html += "<li><a href='/study/challenge/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";*/
       html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='nextBoardPage()'>≫</a></li>";
     }
@@ -281,13 +305,14 @@
     }
   }//nextBoardPage
 
-  function getBoardsByPageNum(pageNum, orderRule){
+  function getBoardsByPageNum(pageNum, orderRule, currentPage){
     let jsonData ={
-      pageNum:pageNum,
-      orderRule :orderRule,
-      closed :closedStatus
+      pageNum: pageNum,
+      orderRule: orderRule,
+      closed: closedStatus,
+      chType: chType
     }
-    console.log('jsonData : ',JSON.stringify(jsonData))
+
     $.ajax({
       url:"/studyRest/challenge/list",
       type:"POST",
@@ -296,8 +321,10 @@
       data:JSON.stringify(jsonData),
       success:function(response){
         if(response){
-          createBoardTable(response);
-          cateColorChangeCSS();
+          createBoardTable(response.boardList)
+          cateColorChangeCSS()
+          setPageElementVar(response.boardTotal, currentPage)
+          createBoardPage();
         }else{
           alert("error occured")
         }
@@ -307,6 +334,21 @@
       }
     })
   }//getBoardsByPageNum
+  function setPageElementVar(boardTotalLength, currentPage) {
+    console.log(boardTotalLength, currentPage)
+    sc.totalPost = boardTotalLength
+    sc.totalPage = Math.ceil(sc.totalPost / 15)
+    sc.postPerPage = 15
+    sc.totalBlock = Math.ceil(sc.totalPage / 3)
+    sc.pagePerBlock = 3
+    if (!currentPage || currentPage == 1) sc.currentBlock = 1
+    else {
+      if (currentPage % sc.pagePerBlock == 0) sc.currentBlock = Math.floor(currentPage / sc.pagePerBlock)
+      else sc.currentBlock = Math.floor(currentPage / sc.pagePerBlock) + 1
+    }
+    if (!currentPage) sc.currentPage = 1
+    else sc.currentPage = currentPage
+  }
   function createBoardTable(list){
     let html = "";
     for(let i=0;i<list.length;i++){
