@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.Map;
 import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.mapper.StudyMapper;
+import kr.or.ssff.study.domain.ReplyCountVO;
+import kr.or.ssff.study.domain.ReplyVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -39,8 +42,9 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public boolean remove() {
-        return false;
+    public boolean remove(Integer r_idx) {
+        int affectedRows = mapper.delete(r_idx);
+        return affectedRows == 1;
     }
 
     @Override
@@ -53,11 +57,24 @@ public class StudyServiceImpl implements StudyService {
     }; //get
 
     @Override
-    public List<RecruitBoardVO> getList(String type) {
-        List<RecruitBoardVO> allBoard = this.mapper.getList(type);
+    public List<RecruitBoardVO> getList(String type,Integer page) {
+
+        List<RecruitBoardVO> allBoard = this.mapper.getList(type,page);
 
         return allBoard;
     }//getList(글 전체반환)
+
+    @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReply(String type, Integer page) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReply(type,page);
+        return allBoard;
+    }
+
+    @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(String type, Integer page) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyOrderByHit(type,page);
+        return allBoard;
+    }
 
     @Override
     public List<RecruitBoardVO> getListPerPage() {
@@ -65,8 +82,9 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public Integer getTotal() {
-        return null;
+    public Integer getTotal(String type) {
+        int totalCount = mapper.getPostCount(type);
+        return totalCount;
     }
 
     @Override
@@ -94,7 +112,7 @@ public class StudyServiceImpl implements StudyService {
     }//getLangList lang list 전체 가져오기
 
     @Override
-    public List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardVO> list, List<LangVO> langList) {
+    public List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardJoinReplyVO> list, List<LangVO> langList) {
         List<Map<String, Object>> rcBoardList = new ArrayList<Map<String, Object>>();
         /*
         list.forEach(rcBoard -> {
@@ -148,6 +166,43 @@ public class StudyServiceImpl implements StudyService {
         int affectedRows = mapper.deleteTag(r_idx);
         return affectedRows !=0;
     }//deleteTag
+
+    @Override
+    public boolean replyRegister(ReplyVO vo) {
+        int affectedRows = mapper.insertReply(vo);
+        return affectedRows == 1;
+    }//replyPost
+
+    @Override
+    public List<ReplyVO> getReplyList(Integer r_idx) {
+        List<ReplyVO> allBoard = this.mapper.getReplyList(r_idx);
+        return allBoard;
+    }
+
+    @Override
+    public boolean replyRemove(Integer no) {
+        int affectedRows = mapper.replyDelete(no);
+        return affectedRows == 1;
+    }
+
+    @Override
+    public boolean replyModify(Integer no, String c_cont) {
+        int affectedRows = mapper.replyUpdate(no,c_cont);
+        return affectedRows == 1;
+    }
+
+    @Override
+    public List<ReplyCountVO> getReplyCount() {
+
+        List<ReplyCountVO> replyCount = mapper.replyCount();
+        return replyCount;
+    }
+
+    @Override
+    public Integer getReplyCountByR_idx(Integer r_idx) {
+        Integer reply = mapper.replyCountByR_idx(r_idx);
+        return reply;
+    }
 
 }//end class
 

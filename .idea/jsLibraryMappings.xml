@@ -2,5 +2,6 @@
 <project version="4">
   <component name="JavaScriptLibraryMappings">
     <file url="file://$PROJECT_DIR$" libraries="{jquery}" />
+    <file url="PROJECT" libraries="{bootstrap, jquery, sockjs-client, stomp.js}" />
   </component>
 </project>

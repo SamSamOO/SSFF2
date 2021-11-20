@@ -1,71 +1,41 @@
 /*studylist 전반에 작용되는 css 입니다*/
 .studylist-header {
-  /*스터디리스트 헤더 주황색 부분*/
-  background-color: rgb(235, 171, 49);
-  display: inline-block;
-  width: 100%;
-  height: 35%;
-  border-radius: 30px;
-  padding-right:30px;
+  /*스터디리스트 헤더 색상 부분*/
 }
-.studylist-header-chal {
-  /*챌린지 스터디리스트 헤더 초록색 부분*/
-  background-color: rgb(107,152,79);
-  display: inline-block;
-  width: 100%;
-  height: 35%;
-  border-radius: 30px;
-  padding-right:30px;
+
+.studylist-header h3 {
+  padding: 1rem;
 }
-h1 {
-  color: white;
-  padding-top: 130px;
-  text-align: center;
-}
-h3 {
-  color: white;
-  padding-top: 25px;
-  text-align: center;
-}
-.studylist-header ul , .studylist-header-chal ul{
-  list-style: none;
-}
-.studylist-header li, .studylist-header-chal li{
-  color:white;
+.studylist-header ul li{
   float: right;
 }
 
-/*********************네비 설정********************************/
-.studylist-nav {
-  /*로고 나열된 네비 부분(프,챌 공통)*/
-  background-color: white;
-  display: inline-block;
-  width: 100%;
-  height: 100px;
-  border-radius: 30px;
-  box-shadow: 5px 5px 10px rgb(204, 204, 204);
-  margin-top: 20px;
-  margin-bottom: 20px;
+
+  /*********************네비 설정********************************/
+/*로고 나열된 네비 부분(프,챌 공통)*/
+.studylist-nav ul li{
+  /*box-shadow: 5px 5px 10px rgb(204, 204, 204);*/
 }
 
 .logo-to-sort {
   list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 20px;
-  justify-content: center;
+}
+.logo-to-sort li {
+  float: left;
+  margin: 0.75rem;
+  list-style: none;
 }
 
 .dropdown-to-sort{/*챌린지 게시판에서 드롭다운*/
   padding:30px;
   display: flex;
   justify-content: center;
-
 }
 
 .dropdown{
   margin-left: 20px;
 }
+
 .dropdown-label { /*챌린지 게시판에서 드롭다운 라벨*/
   padding-top:5px;
   margin-left: 20px;
@@ -73,28 +43,28 @@ h3 {
   font-size: large;
 }
 
-.logo-to-sort li {
-  float: left;
-  margin-left: 10px;
-  margin-right: 10px; /*반응형시, 로고가 꾸겨지면서 사라지는 현상 있음. 나중에 수정바람*/
-}
 
 /*********************최신 | 인기 | 마감제외********************************/
 .studylist-sort {
   /*최신 | 인기 | 마감제외 버튼 부분*/
-  display: inline-block;
   width: 100%;
-  height: 3%;
+  height: 4rem;
   display: flex;
+  align-items: flex-end;
 }
-.left-items {
+
+.left-items { /*최신순, 인기순 선택 안됐을때 default*/
   font-weight: bold;
   font-size: large;
   text-align: center;
   padding-right: 10px;
   padding-left: 10px;
+  color: grey;
+  cursor: pointer;
 }
-
+.order-selected{/*최신순, 인기순 선택 됐을때*/
+  color: black !important;
+}
 .right-items {
   font-weight: bold;
   font-size: large;
@@ -109,8 +79,6 @@ h3 {
   background-color: white;
   display: inline-block;
   width: 100%;
-  height: 500px;
-
   padding-top: 15px;
 }
 .studylist-content-ul {
@@ -131,8 +99,8 @@ h3 {
   box-sizing: border-box;
   padding: 10px;
   margin: 5px;
-  display: flex;        /*flex 실험중*/
-  flex-direction:column;/*flex 실험중*/
+  display: flex;
+  flex-direction:column;
 }
 /****카드뉴스 상부****/
 .studylist-content-title {
@@ -141,9 +109,21 @@ h3 {
   padding-top: 25px;
   margin-bottom: 0px;
   flex: 1 1 35%;/*flex 실험중*/
+  height: 45px;
 }
 
 /****카드뉴스 중앙부****/
+.status-y{
+  background-color: #dcdcdc !important;
+  color: #ababab !important;
+}
+.closed-ok-indicator{
+  position: absolute;
+  background-color: black !important;
+  color: white !important;
+  border-radius: 5px;
+  padding: 3px 5px;
+}
 .studylist-content-logo {
   /*카드뉴스 안에 로고 있는 부분 UL*/
   list-style: none;
@@ -152,7 +132,7 @@ h3 {
   padding: 0;
   text-align: center;
   display: table;
-  flex: 1 1 auto;/*flex 실험중*/
+  flex: 1 1 auto;
 }
 
 .studylist-content-info{
@@ -162,7 +142,8 @@ h3 {
   margin-top: 30px;
   padding: 0;
   text-align: center;
-  flex: 1 1 auto;/*flex 실험중*/
+  display: table;
+  flex: 1 1 auto;
 }
 
 .studylist-content-info .span-sido{
@@ -191,13 +172,25 @@ h3 {
   margin-top: 40px;
   float: right;
   flex: 1 1 auto;/*flex 실험중*/
-  padding-left: 110px;
+  padding-left: 100px;
 }
 .studylist-hitAndRepl li {
   /*카드뉴스안에 댓글이랑 조회수*/
   margin-left: 4px;
   margin-right: 4px;
   float: left;
+}
+/*카드뉴스 페이징*/
+#pagination{
+
+}
+
+#pagination-ul{
+  list-style: none;
+}
+#pagination-ul li{
+  float: left;
+
 }
 
 /*********************카드뉴스 설정********************************/
@@ -370,6 +363,17 @@ h3 {
 .apply-sec li p:hover{
   cursor: pointer;
 }
+
+/* p-> a태그로 변경해서 추가해놨어: 지혜*/
+#applyChallenge{
+  background-color: rgb(235, 171, 49);
+  padding: 7px 9px;
+  border-radius: 5px;
+  color:white;
+  font-weight: bold;
+}
+
+
 #reply-sec{
   margin-top:80px;
 

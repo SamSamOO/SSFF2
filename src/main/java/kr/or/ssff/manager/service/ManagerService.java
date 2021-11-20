@@ -1,5 +1,7 @@
 package kr.or.ssff.manager.service;
 
+import kr.or.ssff.manager.domain.ManagerVO;
+import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 
 import java.util.List;
@@ -23,31 +25,10 @@ public interface ManagerService {
     // 5. 전체 목록 조회
     public abstract List<String> getList();
 
-    //5. 목록조회 with paging
+    // 6. 목록조회 with paging
     public abstract List<String> getListPerPage();
+
+    // 7. 회원 전체 목록 조회
+    public abstract List<ManagerVO> getMemberList();
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

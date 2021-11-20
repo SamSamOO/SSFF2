@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ssff.mapper.ApplyMemberMapper">
+
+<mapper namespace="kr.or.ssff.mapper.MemberMapper">
+
+	<!-- 회원가입 로직 - 장순형 -->
+	<insert id="insertMember"
+		parameterType="kr.or.ssff.member.domain.MemberVO">
+
+		<selectKey keyProperty="member_no" order="BEFORE" resultType="int">
+			SELECT MEMBER_SQE.NEXTVAL
+			FROM dual
+		</selectKey>
+		<![CDATA[
+
+		insert into member(MEMBER_NO, MEMBER_ID,MEMBER_PWD,MEMBER_NAME,
+		                   MEMBER_PROFILE,MEMBER_INTRODUCE)
+		values (#{member_no},#{member_id},#{member_pwd},#{member_name},'defualt.jpg',#{member_introduce, jdbcType=VARCHAR})
+		]]>
+
+	</insert>
+
+	<!-- 로그인 -->
+	<select
+			id="Login"
+			resultType="kr.or.ssff.member.domain.MemberVO"
+			parameterType="String"
+	>
+
+        <![CDATA[
+		SELECT *
+		FROM member
+		WHERE member_id=#{member_id} and member_pwd=#{member_pwd}
+		]]>
+    </select>
+
+	<!-- 생성된 메일 인증키 업데이트 -->
+	<update id="createAuthkey">
+		update member set authkey = #{param2} where member_id = #{param1}
+	</update>
+
+
+	<!-- authstatus 컬럼을  0 에서 1로 업데이트-->
+	<update id="updateAuthstatus">
+		update member set authstatus = 1 where member_id = #{param1}
+	</update>
+
+	<!-- 이메일 중복 체크 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM member
+		WHERE member_id = #{member_id}
+	</select>
+
+	<!-- 닉네임 중복 체크 -->
+	<select id="nameChk" resultType="int">
+		SELECT COUNT(*) FROM member
+		WHERE member_name = #{member_name}
+	</select>
+
+
+
+	<!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->
+	<resultMap type="kr.or.ssff.member.domain.ApplyMemberDTO" id="applyMemberMap">
+		<id column="APPLY_IDX" property="apply_idx"/>
+		<result column="R_IDX" property="r_idx"/>
+		<result column="MEMBER_NAME" property="member_name"/>
+		<result column="STUDY_JOIN_ARCIWF" property="study_join_arciwf"/>
+		<result column="STUDY_JOIN_CHANGE_DATE" property="study_join_change_date"/>
+		<result column="STUDY_BOSS_YN" property="study_boss_yn"/>
+		<result column="ATTENDANCE_DAYS" property="attendance_days"/>
+
+
+		<association javaType="kr.or.ssff.study.domain.RecruitBoardDTO" property="recruitBoardDTO">
+			<id column="R_IDX" property="r_idx"/>
+			<result column="MEMBER_NAME" property="member_name"/>
+			<result column="TYPE_PC" property="type_pc"/>
+			<result column="TITLE" property="title"/>
+			<result column="TEAMNAME" property="teamname"/>
+			<result column="CONT" property="cont"/>
+			<result column="HIT" property="hit"/>
+			<result column="WRITEDATE" property="writedate"/>
+			<result column="SIDO" property="sido"/>
+			<result column="CH_PATTERN" property="ch_pattern"/>
+			<result column="CH_START" property="ch_start"/>
+			<result column="CH_END" property="ch_end"/>
+			<result column="REMOVED_OK" property="removed_ok"/>
+			<result column="CLOSED_OK" property="closed_ok"/>
+			<result column="DEAD_OK" property="dead_ok"/>
+		</association>
+	</resultMap>
+
+	<!--  스터디 멤버 + 프로필사진(tn_member) + 스터디팀명(tn_recruit_board) 조회 : 신지혜  -->
+	<select
+		id="getApplyMemberList"
+		parameterType="String"
+		resultType="kr.or.ssff.applyMember.domain.ApplyMemberListVO">
+
+		<![CDATA[
+			SELECT
+				/*+ member_name_asc(apply_member) */
+				*
+			FROM
+				(
+					SELECT
+						a.apply_idx,
+						a.r_idx,
+						a.member_name,
+						a.study_join_arciwf,
+						a.study_join_change_date,
+						a.study_boss_yn,
+						a.attendance_days,
+						r.teamname,
+					  r.type_pc,
+						m.member_profile
+					FROM
+						apply_member a
+						JOIN recruit_board r on r.r_idx = a.r_idx
+						JOIN member m on a.member_Name = m.member_Name
+				)
+			WHERE
+				r_idx > #{r_idx} and r_idx < 9020
+		]]>
+
+		<!-- //TODO WHERE절 Test를 위해 and 조건 / 추후 단항조건으로 변경예정-->
+	</select>
+
+
+	<!--  전체 회원 조회 : 신지혜  -->
+	<select
+		id="getMemberList"
+		resultType="kr.or.ssff.member.domain.MemberVO">
+
+		SELECT /*+ index_asc(member) */ *
+		FROM member
+
+	</select>
+
+
+	<!--  스터디 참여여부 조회 : 신지혜  -->
+	<select
+		id="selectApplyMember"
+		parameterType="hashMap"
+		resultType="String">
+
+		SELECT
+		  member_name
+		FROM
+		  apply_member
+		WHERE
+		  member_name = #{member_name}
+		  AND r_idx = #{r_idx}
+
+	</select>
+
+
+	<!-- 회원의 스터디 참여 상태 정보 변경 : 신지혜  -->
+	<update id="applyAction" parameterType="hashMap" >
+
+
+			<if test='action == "refusal"'> <!-- 가입신청->거절 -->
+				UPDATE apply_member
+				SET study_join_arciwf = 'r', study_join_change_date = sysdate
+				WHERE apply_idx =#{apply_idx}
+			</if>
+			<if test='action == "approval" and study_type == "c"'> <!-- 가입신청->승인 -->
+				UPDATE apply_member
+				SET study_join_arciwf = 'i', study_join_change_date = sysdate
+				WHERE apply_idx =#{apply_idx}
+			</if>
+			<if test='action == "approval" and study_type == "p"'> <!-- 챌린지가입신청->대기 -->
+				UPDATE apply_member
+				SET study_join_arciwf = 'g', study_join_change_date = sysdate
+				WHERE apply_idx =#{apply_idx}
+			</if>
+			<if test='action == "cancle"'> <!-- 가입신청->취소 -->
+				UPDATE apply_member
+				SET study_join_arciwf = 'c', study_join_change_date = sysdate
+				WHERE apply_idx =#{apply_idx}
+			</if>
+			<if test='action == "withdrawal"'> <!-- 스터디 탈퇴 -->
+				UPDATE apply_member
+				SET study_join_arciwf = 'w', study_join_change_date = sysdate
+				WHERE apply_idx =#{apply_idx}
+			</if>
+			<if test='action == "fail"'> <!-- 가입실패(결제x) -->
+				UPDATE apply_member
+				SET study_join_arciwf = 'f', study_join_change_date = sysdate
+				WHERE apply_idx =#{apply_idx}
+			</if>
+
+
+	</update>
+
+
+	<!-- 회원의 참여 신청 : 신지혜  -->
+  <insert id="insertApply" parameterType="hashMap">
+
+  <!--  <selectKey keyProperty="apply_idx" order="BEFORE" resultType="String">
+      SELECT 'aid_'||apply_member_sqe.NEXTVAL
+      FROM dual
+    </selectKey> -->
+
+		INSERT INTO
+			APPLY_MEMBER (
+				apply_idx,
+				r_idx,
+				member_name,
+				study_join_arciwf,
+				study_join_change_date,
+				study_boss_yn
+			)
+		VALUES(
+			'aid_'||apply_member_sqe.NEXTVAL,
+			#{r_idx},
+			#{member_name},
+			<!-- 일반회원이라면 'a,n' 처리 -->
+			'a',
+			sysdate,
+			'n'
+			<!-- 개설자라면 'i,y' 처리 -->
+		)
+	</insert>
+
+</mapper>
+

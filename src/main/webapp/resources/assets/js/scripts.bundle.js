@@ -6073,7 +6073,7 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
                         }
                     });
                 });
-
+                // -------- 체크박스 ---------
                 // init checkbox for header/footer
                 var initCheckbox = function(tr) {
                     // get column settings by field

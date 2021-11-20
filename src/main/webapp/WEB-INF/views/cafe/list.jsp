@@ -187,11 +187,10 @@
 <!----------------Body 종료----------------------->
 <script>
 
+ 	  
   // 페이지 처리를 위한 함수 / 카드 증가시 1씩 증가 
   let num = 0;
-              
-  console.log("g힘들어잉")
-
+            
   // 페이지 진입시 리스트 세팅 
   $(document).ready(function () {
     start.init();
@@ -200,7 +199,24 @@
   }); // ready
 
   // 카드 리스트를 ajax 페이지 처리하여 뿌립니다. 
-  var start = {
+  let start = {
+    myAlert: { // alert 문구
+      warningAlert :`
+          <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
+            <div class="alert-icon">
+              <i class="flaticon-warning"></i>
+            </div>
+            <div class="alert-text">표시할 항목이 없습니다.</div>
+            <div class="alert-close">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+															<span aria-hidden="true">
+																<i class="ki ki-close"></i>
+															</span>
+              </button>
+            </div>
+          </div>
+ 	  `
+    },
     param: {
       curPage     : 1,
       pageListSize: 19,
@@ -238,7 +254,7 @@
     callAjax: function () {
       $.ajax({
                type       : 'POST',
-               url        : '/cafe/listData',
+               url        : '/cafeRest/listData',
                data       : JSON.stringify(start.param), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
                dataType   : 'json', // 받을 데이터는 json
                contentType: "application/json; charset=utf-8",
@@ -256,7 +272,7 @@
         // 불러온 데이터가 없다면
         if (data.cafeList.length == 0) {
           // $(".gridList").append('<div class="noList"><span>표시할 항목이 없습니다.</span></div>');
-          alert("더이상 표시할 항목이 없습니다");
+        	$('#cafeListCardLow').append(start.myAlert.warningAlert);
         } // if
         
         // 데이터가 있다면 뿌리기
@@ -269,7 +285,8 @@
 
       // 실패
       function errorCallback() {
-        alert("데이터 로드 실패");
+       
+    	 $('#cafeListCardLow').append(start.myAlert.warningAlert);
       } // errorCallback
     }, // callAjax: function
 
@@ -282,25 +299,21 @@
               <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
                 <!--begin::Card-->
                 <div class="card card-custom gutter-b card-stretch">
-
                   <section class="awSlider">
                     <div  class="carousel slide" data-ride="carousel">
                       <!-- Indicators -->
                       <ol class="carousel-indicators">
-                      </ol>
-              
+                      </ol>              
                       <!-- Wrapper for slides -->
                       <div class="carousel-inner" role="listbox">
-                      </div>
-              
+                      </div>              
                       <!-- Controls $aPrev $aNext -->
                     </div>
                   </section>
-
                 </div>
-<!--end::Card-->
+								<!--end::Card-->
               </div>
-<!--end::Col-->`
+							<!--end::Col-->`
 
       // 테이블 동적생성을 위해 불러온 data를 각 변수에 담아 활용
       let mainTitle = '';
@@ -316,7 +329,6 @@
 
         // 기본 구조 셋팅!
         $('#cafeListCardLow').append(templet);
-
 
         // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 start
         for (let j = 0; j < data.cafeList[i].roomImgs.length; j++) {
@@ -361,7 +373,8 @@
             }))
 
         $('.carousel.slide').eq(num).append($aPrev, $aNext);
-
+				// TODO 여기 같이 움직이는거 , 눈금자 빼기 
+				
         // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 end
         
         
@@ -379,7 +392,8 @@
         let cardHtml;
         cardHtml = `
     <!--begin::Body-->
-         <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important;">
+         <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important; cursor:pointer;"
+               onclick="location.href='/cafe/detail?cafe_idx=`+cafeId+`'">
            <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">
                   ` + mainTitle + `</span>
            <!--begin::Info-->
@@ -401,9 +415,7 @@
                  class="fa fa-users" ></i> 최대
             ` + maxPeople + `인</span>
             </div>
-           </div><a href="/cafe/detail?cafe_idx=`+cafeId+`"
-                    class="btn btn-block btn-sm btn-light-success
-                           font-weight-bolder text-uppercase py-4">예약하기</a></div>`
+           `
 
         console.log($('.btn.btn-block.btn-sm.btn-light-success.font-weight-bolder.text-uppercase.py-4').attr("href"));
         $('.card.card-custom.gutter-b.card-stretch').eq(num).append(cardHtml);

@@ -13,6 +13,7 @@
 <link rel="canonical" href="https://keenthemes.com/metronic"/>
 <!--begin::Fonts-->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&family=Nanum+Gothic:400,700,800"/>
+<%--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.js.map"></script>--%>
 <script>
     (function (d) {
         var config = {
@@ -43,6 +44,7 @@
         };
         s.parentNode.insertBefore(tk, s)
     })(document);
+
 </script>
 <!--end::Fonts-->
 
@@ -56,14 +58,17 @@
 <link href="/resources/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
 <link href="/resources/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css"/>
 <link href="/resources/assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
+<link href="/resources/assets/css/style.ssff.css" rel="stylesheet" type="text/css"/>
+<link href="/resources/assets/css/style.list.css" rel="stylesheet" type="text/css"/>
 
 <!--예솔 작업에 필요한 css-->
 <%--<link href="../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">--%>
 
+
 <!--end::Global Theme Styles-->
 <!--begin::Layout Themes(used by all pages)-->
 <!--end::Layout Themes-->
-<link rel="icon" type="image/png" sizes="32x32" href="/resources/assets/media/logos/ssff-favicon32x132.png"/>
+
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/assets/media/logos/ssff-favicon32x32.png"/>
 <link rel="icon" type="image/png" sizes="196x196" href="/resources/assets/media/logos/ssff-favicon196x196.png"/>
 <link rel="shortcut icon" href="/resources/assets/media/logos/ssff-favicon.ico"/>
-
