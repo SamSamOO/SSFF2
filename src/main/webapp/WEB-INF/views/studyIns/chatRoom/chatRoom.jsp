@@ -53,6 +53,72 @@
             display: none;
         }
     </style>
+    <script type="text/javascript">
+        var ws;
+
+        function wsOpen(){
+            ws = new WebSocket("ws://" + location.host + "/chatting");
+            wsEvt();
+        }
+
+        function wsEvt() {
+            ws.onopen = function(data){
+                //소켓이 열리면 동작
+            }
+
+            ws.onmessage = function(data) {
+                //메시지를 받으면 동작
+                var msg = data.data;
+                if(msg != null && msg.trim() != ''){
+                    var d = JSON.parse(msg);
+                    if(d.type == "getId"){
+                        var si = d.sessionId != null ? d.sessionId : "";
+                        if(si != ''){
+                            $("#sessionId").val(si);
+                        }
+                    }else if(d.type == "message"){
+                        if(d.sessionId == $("#sessionId").val()){
+                            $("#chating").append("<p class='me'>나 :" + d.msg + "</p>");
+                        }else{
+                            $("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+                        }
+
+                    }else{
+                        console.warn("unknown type!")
+                    }
+                }
+            }
+
+            document.addEventListener("keypress", function(e){
+                if(e.keyCode == 13){ //enter press
+                    send();
+                }
+            });
+        }
+
+        function chatName(){
+            var userName = $("#userName").val();
+            if(userName == null || userName.trim() == ""){
+                alert("사용자 이름을 입력해주세요.");
+                $("#userName").focus();
+            }else{
+                wsOpen();
+                $("#yourName").hide();
+                $("#yourMsg").show();
+            }
+        }
+
+        function send() {
+            var option ={
+                type: "message",
+                sessionId : $("#sessionId").val(),
+                userName : $("#userName").val(),
+                msg : $("#chatting").val()
+            }
+            ws.send(JSON.stringify(option))
+            $('#chatting').val("");
+        }
+    </script>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -91,6 +157,8 @@
 
                     <div id="container" class="container">
                         <h1>채팅</h1>
+                        <input type="hidden" id="sessionId" value="">
+
                         <div id="chating" class="chating">
                         </div>
 
@@ -113,88 +181,6 @@
                             </table>
                         </div>
                     </div>
-
-                    <script>
-
-
-                        $(function () {
-                            console.clear();
-                            console.group("jquery started.");
-
-                            var ws = null;
-                            var messageCount = 0;
-
-                            var unorderedList = document.querySelector('#unorderedList');
-                            var message = document.querySelector('#message')
-
-                            $('#connect').click(function (e) {
-                                console.debug('connect button clicked.');
-
-                                ws = new WebSocket("ws://localhost:8070/echo");
-                                console.log('+ ws:', ws)
-
-                                //--------------------------------------------------//
-                                ws.onclose = e => {
-                                    console.log('ws.onclose(e) invoked.');
-                                    console.log('\t+ e:', e);
-
-                                    var newLI = document.createElement("li");
-                                    newLI.innerHTML = 'DISCONNECTED [ code: ' + e.code + ', returnValue: ' + e.returnValue + ']';
-
-                                    unorderedList.append(newLI);
-                                }; // onclose
-
-                                ws.onerror = e => {
-                                    console.log('ws.onerror(e) invoked.');
-                                    console.log('\t+ e:', e);
-
-                                }; // onerror
-
-                                ws.onmessage = e => {
-                                    console.log('ws.onmessage(e) invoked.');
-                                    console.log('\t+ e:', e);
-
-                                    var newLI = document.createElement("li");
-                                    newLI.innerHTML = e.data;
-
-                                    unorderedList.append(newLI);
-                                };  //onmessage
-
-                                ws.onopen = e => {
-                                    console.log('ws.onopen(e) invoked.');
-                                    console.log('\t+ e:', e);
-
-                                };  // onopen
-                                //--------------------------------------------------//
-
-                            }); // connect
-
-                            $('#disconnect').click(function (e) {
-                                console.debug('disconnect button clicked.');
-
-                                if (ws) {
-                                    ws.close();
-                                    ws = null;
-
-                                    console.log('\t+ WebSocket Closed.');
-                                } // if
-                            }); // disconnect
-
-                            $('#send').click(function (e) {
-                                console.debug('send button clicked.');
-
-                                if (ws && message.value) {
-                                    ws.send(message.value);
-
-                                    console.log(`${message.value} sent.`);
-                                } // if
-                            }); // send
-
-                            console.groupEnd()
-                        });  // jq
-
-                    </script>
-
                 </div>
                 <!--카드 Body 종료-->
             </div>
@@ -209,52 +195,7 @@
 
 </div>
 </body>
-<script>
-    var ws;
 
-    function wsOpen(){
-        ws = new WebSocket("ws://" + location.host + "/chating");
-        wsEvt();
-    }
-
-    function wsEvt() {
-        ws.onopen = function(data){
-            //소켓이 열리면 초기화 세팅하기
-        }
-
-        ws.onmessage = function(data) {
-            var msg = data.data;
-            if(msg != null && msg.trim() != ''){
-                $("#chating").append("<p>" + msg + "</p>");
-            }
-        }
-
-        document.addEventListener("keypress", function(e){
-            if(e.keyCode == 13){ //enter press
-                send();
-            }
-        });
-    }
-
-    function chatName(){
-        var userName = $("#userName").val();
-        if(userName == null || userName.trim() == ""){
-            alert("사용자 이름을 입력해주세요.");
-            $("#userName").focus();
-        }else{
-            wsOpen();
-            $("#yourName").hide();
-            $("#yourMsg").show();
-        }
-    }
-
-    function send() {
-        var uN = $("#userName").val();
-        var msg = $("#chatting").val();
-        ws.send(uN+" : "+msg);
-        $('#chatting').val("");
-    }
-</script>
 
 <!----------------Body 종료----------------------->
 

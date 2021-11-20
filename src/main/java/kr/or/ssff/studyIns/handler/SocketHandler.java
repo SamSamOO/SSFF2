@@ -3,8 +3,10 @@ package kr.or.ssff.studyIns.handler;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
@@ -22,8 +24,27 @@ public class SocketHandler extends TextWebSocketHandler implements DisposableBea
 
     HashMap<String, WebSocketSession> sessionHashMap = new HashMap<>(); // 웹소켓 세션을 담아둘 맵
 
+
+
     @Override
-    public void afterConnectionEstablished(WebSocketSession session,CloseStatus status) throws Exception {
+    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+        //메시지 발송
+        String msg = message.getPayload();
+        JSONObject obj = JsonToObjectParser(msg);
+
+        for (String key : sessionHashMap.keySet()) {
+            WebSocketSession wss = sessionHashMap.get(key);
+            try {
+                wss.sendMessage(new TextMessage(obj.toJSONString()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    } // handleTextMessage
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         log.debug("==================================================");
         log.debug("afterConnectionEstablished(session) invoked.");
         log.debug("==================================================");
@@ -33,25 +54,15 @@ public class SocketHandler extends TextWebSocketHandler implements DisposableBea
 
         Objects.requireNonNull(session);
 
-        sessionHashMap.remove(session.getId());
-        super.afterConnectionClosed(session,status);
+        //소켓 연결
+        super.afterConnectionEstablished(session);
+        sessionHashMap.put(session.getId(), session);
+        JSONObject obj = new JSONObject();
+        obj.put("type", "getId");
+        obj.put("sessionId", session.getId());
+        session.sendMessage(new TextMessage(obj.toJSONString()));
+
     } // afterConnectionEstablished
-
-
-    @Override
-    protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-        //메시지 발송
-        String msg = message.getPayload();
-        for (String key : sessionHashMap.keySet()) {
-            WebSocketSession wss = sessionHashMap.get(key);
-            try {
-                wss.sendMessage(new TextMessage(msg));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    } // handleTextMessage
-
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
@@ -62,10 +73,12 @@ public class SocketHandler extends TextWebSocketHandler implements DisposableBea
         log.info("\t\t+ session: " + session);
         log.info("\t\t+ status: " + status);
 
-        super.afterConnectionEstablished(session);
-
-        sessionHashMap.put(session.getId(), session);
+        sessionHashMap.remove(session.getId());
+        super.afterConnectionClosed(session, status);
     } // afterConnectionClosed
+
+
+
 
     //===================================================//
 
@@ -80,7 +93,20 @@ public class SocketHandler extends TextWebSocketHandler implements DisposableBea
         log.debug("afterPropertiesSet() invoked.");
 
     } // afterPropertiesSet
+
+
+    private static JSONObject JsonToObjectParser(String jsonStr) {
+        JSONParser parser = new JSONParser();
+        JSONObject obj = null;
+        try {
+            obj = (JSONObject) parser.parse(jsonStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
 } // end class
+
 
 
 
