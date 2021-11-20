@@ -40,18 +40,32 @@
   <select id="getListWithJoinReply" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
     <![CDATA[
     SELECT
-      /*+ index_desc(recruit_board) */
       b.r_idx, member_name, type_pc, title,
       teamname,cont,hit,writedate,sido,
       ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok,nvl(counting,0) as reply_count
     FROM recruit_board b left join (select r_idx, count(r_idx) as counting from reply group by r_idx) r
     on b.r_idx = r.r_idx
     WHERE b.r_idx < 1000 and type_pc=#{type} and removed_ok='n'
+    ORDER BY b.r_idx DESC
     OFFSET (#{page}-1)*15 ROW
       FETCH NEXT 15 ROWS ONLY
     ]]>
   </select>
-
+  <!--  게시판 목록 조회- reply-->
+  <select id="getListWithJoinReplyOrderByHit" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
+    <![CDATA[
+    SELECT
+      b.r_idx, member_name, type_pc, title,
+      teamname,cont,hit,writedate,sido,
+      ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok,nvl(counting,0) as reply_count
+    FROM recruit_board b left join (select r_idx, count(r_idx) as counting from reply group by r_idx) r
+                                   on b.r_idx = r.r_idx
+    WHERE b.r_idx < 1000 and type_pc=#{type} and removed_ok='n'
+    ORDER BY hit asc
+    OFFSET (#{page}-1)*15 ROW
+      FETCH NEXT 15 ROWS ONLY
+    ]]>
+  </select>
 
 
 
@@ -187,13 +201,20 @@
     where removed_ok='n' and type_pc='C'
     ]]>
   </select>
-<!--댓글 수 구하기-->
+
+<!--글번호&댓글 수 구하기-->
   <select id="replyCount" resultType="kr.or.ssff.study.domain.ReplyCountVO">
 <![CDATA[
     select r_idx, count(no) as counting from reply group by r_idx
     ]]>
   </select>
 
+  <!--글번호에 해당하는 하나의 댓글 수 구하기-->
+  <select id="replyCountByR_idx" resultType="int">
+<![CDATA[
+    select count(r_idx) from reply WHERE r_idx = #{r_idx}
+    ]]>
+  </select>
 </mapper>
 
 

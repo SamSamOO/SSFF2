@@ -127,7 +127,7 @@
                                     <div id="reply-sec"><!--댓글-->
 
                                         <div class="reply-write">
-                                            <div><p id="reply-count">n개의 댓글이 있습니다</p></div>
+                                            <div><p id="reply-count"><span id="reply-count-here">${replyCount}</span>개의 댓글이 있습니다</p></div>
                                             <input type="hidden" id="member_name" name ="member_name" value="nickname55"><!--나중에 세션 아이디로 바꿔야 될 부분-->
                                             <div><textarea id="reply-write-sec"></textarea></div>
                                             <div id="reply-submit"><p onclick="replySubmit()">댓글등록</p></div>
@@ -179,6 +179,7 @@
       contentType:'application/json;charset=UTF-8',
       data: JSON.stringify(jsonData),
       success:function(data){
+        document.querySelector("#reply-count-here").innerHTML = data.length;
         //안의 내용 비우고
         $('.reply').empty();
         if(data.length ==0){

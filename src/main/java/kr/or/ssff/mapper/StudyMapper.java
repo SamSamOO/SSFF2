@@ -18,7 +18,7 @@ public interface StudyMapper {
     public abstract List<RecruitBoardVO> getList(@Param("type")String type,@Param("page")Integer Page);
 
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(@Param("type")String type,@Param("page")Integer Page);
-
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(@Param("type")String type,@Param("page")Integer Page);
     //가장 최근의 글번호 가져오기
     public abstract Integer getCurrentR_idx();
     //글번호로 언어태그 등록하기
@@ -49,4 +49,6 @@ public interface StudyMapper {
     public abstract Integer getPostCount(@Param("type")String type);
     //댓글 수 구하기
     public abstract List<ReplyCountVO> replyCount();
+    //글번호에 해당하는 댓글 수 구하기
+    public abstract Integer replyCountByR_idx(@Param("r_idx")Integer r_idx);
 }

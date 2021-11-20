@@ -71,6 +71,12 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(String type, Integer page) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyOrderByHit(type,page);
+        return allBoard;
+    }
+
+    @Override
     public List<RecruitBoardVO> getListPerPage() {
         return null;
     }
@@ -190,6 +196,12 @@ public class StudyServiceImpl implements StudyService {
 
         List<ReplyCountVO> replyCount = mapper.replyCount();
         return replyCount;
+    }
+
+    @Override
+    public Integer getReplyCountByR_idx(Integer r_idx) {
+        Integer reply = mapper.replyCountByR_idx(r_idx);
+        return reply;
     }
 
 }//end class

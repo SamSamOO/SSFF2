@@ -27,7 +27,11 @@ public interface StudyService {
     // 5. 전체 목록 조회 - 정상동작중!
     public abstract List<RecruitBoardVO> getList(String type, Integer page);
 
+    //5-1 댓글이랑 조인해서 가져오기
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(String type, Integer page);
+    
+    //hit 순으로 정렬하기
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(String type, Integer page);
 
     //5. 목록조회 with paging
     public abstract List<RecruitBoardVO> getListPerPage();
@@ -70,6 +74,10 @@ public interface StudyService {
 
     //18. 댓글 개수 가져오기
     public abstract List<ReplyCountVO> getReplyCount();
+
+    //19. 게시물번호에 해당하는 댓글 수 가져오기
+    public abstract Integer getReplyCountByR_idx(Integer r_idx);
+
 }
 
 
