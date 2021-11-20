@@ -470,18 +470,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         return "redirect:/studyIns/board/detail";
     } // studyBoardPost
 
-    //-------------------------------- 상준 채팅방--------------------------------//
 
-    /*
-     * 해당 스터디의 채팅방으로 이동
-     * 매개변수: 채팅방 ID
-     * 반환: 해당 스터디의 채팅방 뷰단
-     * */
-    @GetMapping("/chatRoom")
-    public String chatRoom(Integer r_Idx, Model model, HttpSession session) { // TODO 매개변수..
-
-        return "studyIns/chatRoom/chatRoom";
-    } // chatRoom
 
     /* //TODO 노필요?
      * 채팅전송

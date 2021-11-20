@@ -141,8 +141,11 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
     @Override
     public boolean modify(StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile) {
+
         log.debug("modify({}) is invoked", "studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
+
         log.info("uploadFile = {}", Arrays.stream(uploadFile).toArray());
+
         Objects.requireNonNull(mapper);
 
         List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
@@ -152,6 +155,7 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         /*파일 삭제후 다시 넣어줘야할 거같습니다....*/
         int deleteFiles = mapper.deleteFiles(studyInsDTO);
         log.info("deleteFiles = {}", deleteFiles);
+
         int ar2 = mapper.insertFiles(listOfFiles);
         log.info("ar2 = {}", ar2);
 
