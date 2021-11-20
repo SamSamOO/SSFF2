@@ -1,10 +1,12 @@
 package kr.or.ssff.member.service;
 
+import java.util.HashMap;
 import kr.or.ssff.mapper.MemberMapper;
 
 import kr.or.ssff.member.Utils.MailHandler;
 import kr.or.ssff.member.Utils.TempKey;
 import kr.or.ssff.member.domain.ApplyMemberDTO;
+import kr.or.ssff.member.domain.ApplyMemberListVO;
 import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
@@ -38,7 +40,6 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 
 
 
-
     @Setter(onMethod_ = {@Autowired})
     private MemberMapper mapper;
     BCryptPasswordEncoder passwordEncoder;
@@ -47,6 +48,7 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
     private JavaMailSender mailSender;
 
 
+    // 회원가입 로직(장순형)
     @Override
     public boolean insertMember(MemberDTO memberDTO) throws Exception{
         log.debug("insertMember({}) is invoked", "memberDTO = " + memberDTO);
@@ -67,99 +69,123 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
         sendMail.send();
 
         return affectedRows > 0;
-    }
+    }//insertMember
 
+    // 로그인 로직
     @Override
     public boolean Login(String member_id, String member_pwd) {
         log.debug("memberLogin({}) is invoked",  member_id,member_pwd);
-        MemberVO memberVO = this.mapper.Login(member_id);
+        MemberVO memberVO = this.mapper.Login(member_id,member_pwd);
 
         return passwordEncoder.matches(member_pwd,memberVO.getMember_pwd());
+    }//Login
 
-
-    }
-
+    // 회원가입후 가입상태를 1로 바꿔주는 로직
     @Override
     public void updateAuthstatus(String member_id) throws Exception {
         mapper.updateAuthstatus(member_id);
     }
+    // 아이디 중북체크 로직
+    @Override
+    public int idChk(MemberDTO memberDTO) throws Exception {
+        int result = mapper.idChk(memberDTO);
+        return result;
+
+    }//iCHK
+
+    //닉네임 중복체크
+    @Override
+    public int nameChk(MemberDTO memberDTO) throws Exception {
+        int result = mapper.nameChk(memberDTO);
+        return result;
+    }//nameChk
 
 
     @Override
-    public boolean register() {
-        return false;
-    }
+  public boolean register() {
+    return false;
+  }
 
-    @Override
-    public boolean modify() {
-        return false;
-    }
+  @Override
+  public boolean modify() {
+    return false;
+  }
 
-    @Override
-    public boolean remove() {
-        return false;
-    }
+  @Override
+  public boolean remove() {
+    return false;
+  }
 
-    @Override
-    public String get() {
-        return null;
-    }
+  @Override
+  public String get() {
+    return null;
+  }
 
 
-    /* 전체 회원리스트를 조회 (member table)
-     * 매개변수:
-     * 반환	: 전체 회원리스트
-     * 작성자	: 신지혜
-     */
-    @Override
-    public List<MemberVO> getMemberList() {
-        log.debug("getList() invoked");
-        List<MemberVO> memberList = this.mapper.getMemberList();
+  /* 전체 회원리스트를 조회 (member table)
+   * 매개변수:
+   * 반환	: 전체 회원리스트
+   * 작성자	: 신지혜
+   */
+  @Override
+  public List<MemberVO> getMemberList() {
+    log.debug("getList() invoked");
+    List<MemberVO> memberList = this.mapper.getMemberList();
 
-        return memberList;
+        return memberList; 
     } // getList
 
-    @Override
-    public List<String> getListPerPage() {
-        return null;
-    }
-
-    @Override
-    public Integer getTotal() {
-        return null;
-    }
-
-    /* 특정 스터디의 가입 멤버를 조회 (apply_member table)
-     * 매개변수: 스터디 번호
-     * 반환	: 스터디 가입 멤버 리스트
-     * 작성자	: 신지혜
-     */
-    @Override
-    public List<ApplyMemberDTO> getApplyMemberList(Integer r_idx) {
-        //TODO 추후 클릭하는 스터디로 변경해야해~
-        r_idx= 9003;
-        log.debug("getApplyMemberList({}) invoked");
+  @Override
+  public List<String> getListPerPage() {
+    return null;
+  }
 
 
-        List<ApplyMemberDTO> allApplyMemberList = this.mapper.getApplyMemberList(r_idx);
-        log.info("\t + allApplyMemberList:{}", allApplyMemberList);
 
-        return allApplyMemberList;
-    } // getApplyMemberList
+  /* 특정 스터디의 가입 멤버를 조회 (apply_member table)
+   * 매개변수: 스터디 번호
+   * 반환	: 스터디 가입 멤버 리스트
+   * 작성자	: 신지혜
+   */
+  @Override
+  public List<ApplyMemberListVO> getApplyMemberList(String r_idx) {
+    //TODO 추후 클릭하는 스터디로 변경해야해~
+    r_idx= "9003";
+    log.debug("getApplyMemberList({}) invoked");
 
-    // ------------------------------------------------------------------------------- //
 
-    @Override
-    public void destroy() throws Exception {
-        // TODO Auto-generated method stub
+    List<ApplyMemberListVO> allApplyMemberList = this.mapper.getApplyMemberList(r_idx);
+    log.info("\t + allApplyMemberList:{}", allApplyMemberList);
 
-    } // destroy
+    return allApplyMemberList;
+  } // getApplyMemberList
 
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        // TODO Auto-generated method stub
 
-    }
+  /* 특정 스터디의 가입상태를 변경(거절, 승인, 탈퇴, 가입취소, 실패)
+   * 매개변수: 스터디 참여번호
+   * 반환	:
+   * 작성자	: 신지혜
+   */
+  @Override
+  public void applyAction(HashMap<String, String> aMember) {
+    log.debug("applyAction({}) invoked", aMember );
+    this.mapper.applyAction(aMember);
+
+  } // applyAction
+
+  // ------------------------------------------------------------------------------- //
+
+  @Override
+  public void destroy() throws Exception {
+    // TODO Auto-generated method stub
+
+  } // destroy
+
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    // TODO Auto-generated method stub
+
+  }
 
 
 } // end

@@ -7,6 +7,15 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
 
+	<script>
+		if ('${k_userInfo}') {
+
+			$("#k_email").text("이메일 : " + '${kemail}');
+			$("#k_nickname").text("이름 : " + '${kname}');
+
+			$("#k_image").children("img").attr("src", imageURL);
+		}
+	</script>
 </head>
 <body>
 <h1>
@@ -15,30 +24,33 @@
 <h3>${member_id}</h3>
 </div>
 <div class="form-group">
+	<h6>카카오톡 로그인 성공 화면</h6>
+	<hr />
+	<h3>${kemail}</h3>
+	<h3>${kname}</h3>
+	<h3>${member_id}</h3>
 
-	<c:set var="memberVO" value="${requestScope.memberVO}"/>
+
+	<div id="k_email" style="text-align:center"></div>
+	<div id="k_nickname" style="text-align:center"></div>
+
+
+
 	<form>
 		<label>아이디</label>
-		<input type="text" class="login_input input" name="member_id" id="member_id" value="${memberVO.member_id}" readonly>
+		<input type="text" class="login_input input" name="member_id" id="member_id" value="${member_id}" readonly>
 
 		<label>패스워드</label>
 		<input type="password" class="login_input input" id="password" name="password"
 			   value="${memberDto.password}">
 		<div class="tdpw"></div>
 
-		<label>이름</label>
+		<label>닉네임</label>
 		<input type="text" class="login_input input" id="name" name="name" value="${memberDto.name}">
 		<div class="tdname"></div>
 
-		<label>주소</label>
-		<input type="text" id="address" name="address" class="login_input input" value="${memberDto.address}">
-		<input type="button" class="button search-btn" onclick="sample6_execDaumPostcode()" value="검색">
 
 
-		<label>생년월일</label>
-		<input placeholder="&nbsp;8자리를 입력하세요 예)19990101" type="text" class="login_input input" id="birth"
-			   name="birth" value="${memberDto.birth}">
-		<div class="tdbirth"></div>
 
 		<div class="edit-btn">
 			<button type="submit" class="button" id="btn1" class="submit_btn">정보수정

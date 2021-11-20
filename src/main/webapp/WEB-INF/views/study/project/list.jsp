@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <!----------------Head 시작----------------------->
@@ -78,7 +80,9 @@
                                     <h1>프로젝트 팀원 찾기</h1>
                                     <h3>프로젝트를 함께할 든든한 팀원을 삼삼오오에서 찾아보세요</h3>
                                     <ul>
-                                        <li><a href="/study/project/postGo"><img src="../../../../resources/assets/image/writingBtn.png" width="70px"></a></li>
+                                        <li><a href="/study/project/postGo"><img
+                                                src="../../../../resources/assets/image/writingBtn.png"
+                                                width="70px"></a></li>
                                         <li>글쓰러 가기!</li>
                                     </ul>
                                 </div>
@@ -86,20 +90,38 @@
                                 <div class="studylist-nav">
                                     <!--스터디리스트 중간 로고 박힌 네비 부분-->
                                     <ul class="logo-to-sort">
-                                        <li><img src="../../../../resources/assets/image/javascript.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/typescript.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/react.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/vue.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/node_js.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/java.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/spring.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/kotlin.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/c++.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/go.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/python.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/django.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/flutter.png" width="50px"></li>
-                                        <li><img src="../../../../resources/assets/image/swift.png" width="50px"></li>
+                                        <li><img
+                                                src="../../../../resources/assets/image/javascript.png"
+                                                width="50px"></li>
+                                        <li><img
+                                                src="../../../../resources/assets/image/typescript.png"
+                                                width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/react.png"
+                                                 width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/vue.png"
+                                                 width="50px"></li>
+                                        <li><img
+                                                src="../../../../resources/assets/image/node_js.png"
+                                                width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/java.png"
+                                                 width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/spring.png"
+                                                 width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/kotlin.png"
+                                                 width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/c++.png"
+                                                 width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/go.png"
+                                                 width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/python.png"
+                                                 width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/django.png"
+                                                 width="50px"></li>
+                                        <li><img
+                                                src="../../../../resources/assets/image/flutter.png"
+                                                width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/swift.png"
+                                                 width="50px"></li>
                                     </ul>
                                 </div>
 
@@ -108,7 +130,8 @@
                                     <div class="left-items">최신순</div>
                                     <div class="left-items">인기순</div>
                                     <div class="right-items">
-                                        <input type="checkbox" id="closedException" name="closedException"
+                                        <input type="checkbox" id="closedException"
+                                               name="closedException"
                                                style="zoom:1.3;">
                                         <label for="closedException">마감 제외</label>
                                     </div>
@@ -119,57 +142,30 @@
 
 
                                     <ul class="studylist-content-ul">
+                                        <c:forEach var="list" items="${list}">
                                         <li class="studylist-content">
-                                            <p class="studylist-content-title">은행 웹사이트 토이프로젝트 (12월 open)</p>
-
+                                            <p class="studylist-content-title"><a href="/study/project/detail?r_idx=${list.r_idx}">${list.title}</a></p>
                                             <ul class="studylist-content-logo">
-                                                <li><img src="../../../../resources/assets/image/javascript.png" width="40px"></li>
-                                                <li><img src="../../../../resources/assets/image/spring.png" width="40px"></li>
-                                                <li><img src="../../../../resources/assets/image/vue.png" width="40px"></li>
+                                                <c:forEach var="langs" items="${list.langs}">
+                                                <li><img
+                                                        src="../../../../resources/assets/image/${langs}.png"
+                                                        width="40px"></li>
+                                                </c:forEach>
                                             </ul>
-
                                             <ul class="studylist-hitAndRepl">
-                                                <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
-                                                <li>2</li>
-                                                <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
-                                                <li>30</li>
+                                                <li><img
+                                                        src="../../../../resources/assets/image/repl.png"
+                                                        width="15px"></li>
+                                                <li>99</li>
+                                                <li><img
+                                                        src="../../../../resources/assets/image/hit.png"
+                                                        width="15px"></li>
+                                                <li>${list.hit}</li>
                                             </ul>
                                         </li>
-
-                                        <li class="studylist-content">
-                                            <p class="studylist-content-title">1개월 클론코딩</p>
-
-                                            <ul class="studylist-content-logo">
-                                                <li><img src="../../../../resources/assets/image/java.png" width="40px"></li>
-                                                <li><img src="../../../../resources/assets/image/react.png" width="40px"></li>
-                                            </ul>
-
-                                            <ul class="studylist-hitAndRepl">
-                                                <li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>
-                                                <li>2</li>
-                                                <li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>
-                                                <li>30</li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
-                                        <li class="studylist-content">test</li>
+                                        </c:forEach>
                                     </ul>
-
                                 </div>
-
-
-
-
-
-
-
 
 
                                 <!----------------------------------------------------------------------------------------------------------------------------->
@@ -177,7 +173,6 @@
                             <!--카드 Body 종료-->
                         </div>
                         <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
-
 
 
                         <!--대시보드 종료-->

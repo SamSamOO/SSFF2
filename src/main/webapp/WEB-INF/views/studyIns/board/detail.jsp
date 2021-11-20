@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -11,10 +14,57 @@
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
+    <style>
+        /*다크모드*/
+        /*body {*/
+        /*    --text-color: #222;*/
+        /*    --bkg-color: #fff;*/
+        /*}*/
+        /*body.dark-theme {*/
+        /*    --text-color: #eee;*/
+        /*    --bkg-color: #121212;*/
+        /*}*/
 
+        /*@media (prefers-color-scheme: dark) {*/
+        /*    !* defaults to dark theme *!*/
+        /*    body {*/
+        /*        --text-color: #eee;*/
+        /*        --bkg-color: #121212;*/
+        /*    }*/
+        /*    body.light-theme {*/
+        /*        --text-color: #222;*/
+        /*        --bkg-color: #fff;*/
+        /*    }*/
+        /*}*/
+
+        /** {*/
+        /*    font-family: Arial, Helvetica, sans-serif;*/
+        /*}*/
+
+        /*body {*/
+        /*    background: var(--bkg-color);*/
+        /*}*/
+
+        /*h1,*/
+        /*p {*/
+        /*    color: var(--text-color);*/
+        /*}*/
+
+    </style>
     <script>
+
         $(function () {
-            console.clear();
+            //다크모드
+            // const btn = document.querySelector(".btn-toggle");
+            // const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+            //
+            // btn.addEventListener("click", function () {
+            //     if (prefersDarkScheme.matches) {
+            //         document.body.classList.toggle("light-theme");
+            //     } else {
+            //         document.body.classList.toggle("dark-theme");
+            //     }
+            // });
             console.debug("제이쿼리 시작 ㅇㅇ");
 
             $(`#modifyBtn`).on('click', function () {
@@ -34,9 +84,42 @@
                 formObj.submit();
             }); // onclick
         }); // jq
+
+        function doImgPop(img) {
+            img1 = new Image();
+            img1.src = (img);
+            console.log(img1.src);
+
+            imgControll(img);
+        }
+
+        function imgControll(img) {
+            let intervalID;
+            let controller;
+
+            if ((img1.width != 0) && (img1.height != 0)) {
+                viewImage(img);
+            } else {
+                controller = "imgControll('" + img + "')";
+                intervalID = setTimeout(controller, 20);
+            }
+        }
+
+        function viewImage(img) {
+            console.log(img);
+            W = img1.width;
+            H = img1.height;
+            O = "width=" + W + ",height=" + H + ",scrollbars=yes";
+            imgWin = window.open("", "", O);
+            imgWin.document.write("<html lang='ko'><head><title>----------이미지 상세보기----------클릭시 창이 닫힙니다.</title></head>");
+            imgWin.document.write("<body topmargin=0 leftmargin=0>");
+            imgWin.document.write("<img src=" + img + " onclick = self.close() style= cursor:pointer; title = '클릭하시면 창이 닫힙니다.'>");
+            imgWin.document.close();
+        }
     </script>
 </head>
-
+<c:set var="fileListSize" value="${fn:length(fileList)}"/>
+<c:set var="slash" value="/"/>
 <!----------------Head 종료----------------------->
 <!----------------Body 시작----------------------->
 
@@ -96,69 +179,109 @@
 
                             <!--카드 Body 시작-->
                             <div class="card-header border-0 pt-5 card-body mt-5">
+                                <%--다크모드--%>
+                                <%--<button class="btn-toggle">Toggle Dark-Mode</button>--%>
+                                <form action="/studyIns/board/detail/modify" method="POST" style="width: 100%">
+                                    <input type="hidden" name="cont_No" value="<c:out value='${detail.cont_No}' />">
+                                    <table class="table table-bordered table-borderless" style="width: 100%;  border-radius: 10px; border-style: hidden ; !important;">
+                                        <tr>
+                                            <th align="left" height="50px"><a href="javascript:history.back()"><i class="fas fa-arrow-left fa-3x" id="backBtn" style=""></i></a></th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="10" style="text-align: center; font-weight: bold; font-size: 26px;height: 100px">${detail.title}</td>
 
-                                    <form action="/studyIns/board/detail/modify" method="POST" style="width: 100%">
-                                        <input type="hidden" name="cont_No" value="<c:out value='${detail.cont_No}' />">
-                                        <table style="width: 100%;  border-radius: 10px; border-style: hidden ; !important;">
-                                            <tr>
-                                                <th align="left" height="50px"><a href="javascript:history.back()">뒤로가기 들어갈곳</a></th>
-                                            </tr>
-                                            <tr>
-                                                <th style="text-align: center; font-weight: bold; font-size: 32px;height: 200px">제목 들어가는 곳${detail.title}</th>
-                                            </tr>
-                                            <tr style="height: 100px">
-                                                <td colspan="4">카테고리들어가는곳${detail.category}</td>
-                                                <td colspan="1">${detail.hit}조회수</td>
-                                                <%--세션아이디와 현재글 닉네임과 동일한 경우 수정 삭제버튼 보입니다. --%>
+                                        </tr>
+                                        <tr style="height: 100px">
+                                            <td colspan="6">카테고리 : ${detail.category}</td>
+                                            <%--TODO 세션아이디와 현재글 닉네임과 동일한 경우 수정 삭제버튼 보입니다. --%>
+                                            <td colspan="4" align="right">
+                                                <i class="far fa-eye">&nbsp;${detail.hit}</i> <%--TODO 조회수 관련 함수 짜야합니다.--%>
+                                                &nbsp;
+                                                <button type="button" id="modifyBtn" class="btn btn-light fa-1x">수정</button>
+                                                <button type="button" id="removeBtn" class="btn btn-light fa-1x">삭제</button>
+                                                ${detail.member_Name}
+                                            </td>
+                                        </tr>
+                                        <tr>
 
-                                                <td colspan="4">
-                                                    <button type="button" id="modifyBtn">수정</button>
-                                                    <button type="button" id="removeBtn">삭제</button>
-                                                </td>
+                                            <th colspan="4"></th>
 
-                                                <%----%>
-                                                <td colspan="1">${detail.member_Name}닉네임</td>
-                                            </tr>
-                                            <tr>
-                                                <th colspan="2">다운로드</th>
-                                                <td colspan="2"><a href="">파일이름</a></td>
-                                                <th colspan="1">작성일자</th>
-                                                <td colspan="2">${detail.write_Date}</td>
-
+                                            <th colspan="1" align="right">작성일자</th>
+                                            <td colspan="2"><fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
+                                            <c:if test="${ not empty detail.modify_Date }">
                                                 <th colspan="1">수정일자</th>
-                                                <td colspan="12">${detail.modify_Date}</td>
-                                            </tr>
-                                            <tr style="height: 600px">
-                                                <td colspan="10">컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용컨텐츠 내용
-                                            </tr>
-                                            <tr>
-                                                <td> 첨부 파일</td>
-                                                <td>
+                                                <td colspan="2"><fmt:formatDate value="${detail.modify_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
 
-                                                    파일네임
+                                            </c:if>
+                                        </tr>
+                                        <tr style="height: 600px; border-top: lightblue ;border-style: solid">
+                                            <td colspan="10" style=" padding: 50px">${detail.cont}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="form_section">
+                                                    <div class="form_section_title">
+                                                        <label>첨부파일 이미지 -- 사진 클릭시 확대창이 표시됩니다.</label>
+                                                    </div>
+                                                    <div class="form_section_content">
+                                                        <div id="uploadResult">
 
-                                                </td>
-                                            </tr>
+                                                            <c:forEach var="file" items="${fileList}">
+                                                                <div>
+                                                                    <c:if test="${fileListSize!=0}">
+                                                                        <a href="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>"></a>
+                                                                        <p>${file.file_Name}</p>
+                                                                    </c:if>
+                                                                    <c:if test="${fileListSize==0}">
+                                                                        이미지가 없습니다.
+                                                                    </c:if>
+                                                                </div>
+
+                                                            </c:forEach>
 
 
-                                        </table>
-                                    </form>
-                                </div>
-                                <!--카드 바디 종료-->
+                                                            <c:forEach var="file" items="${fileList}">
 
+                                                                <c:if test="${fileListSize !=0}">
+                                                                    <a href="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>"><img
+                                                                        src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="200" height="100" alt="사진"/></a>
+                                                                </c:if>
+
+                                                                <c:if test="${fileListSize==0}">
+                                                                    이미지가 없습니다.
+                                                                </c:if>
+
+                                                            </c:forEach>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+
+                                            </td>
+                                        </tr>
+
+
+                                    </table>
+                                </form>
                             </div>
-                            <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
+                            <!--카드 바디 종료-->
 
-
-                            <!--대시보드 종료-->
                         </div>
-                        <!--end::Content-->
+                        <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
+
+
+                        <!--대시보드 종료-->
                     </div>
-                    <!--end::Content Wrapper 내용물 종료-->
+                    <!--end::Content-->
                 </div>
-                <%--컨테이너 종료--%>
-                <!--footer.html Include-->
-                <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+                <!--end::Content Wrapper 내용물 종료-->
+            </div>
+            <%--컨테이너 종료--%>
+            <!--footer.html Include-->
+            <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+        </div>
 </body>
 <!----------------Body 종료----------------------->
 </html>

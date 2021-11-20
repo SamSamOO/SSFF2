@@ -67,7 +67,7 @@
                     </a>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <a href="/custom/apps/user/profile-2.html" class="navi-item">
+                    <a href="/cafe/list" class="navi-item">
                         <div class="navi-link">
 
                             <div class="navi-text">
@@ -172,7 +172,7 @@
                         </a>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <a href="custom/apps/user/profile-2.html" class="navi-item">
+                        <a href="/cafe/list" class="navi-item">
                             <div class="navi-link">
 
                                 <div class="navi-text">

@@ -1,11 +1,10 @@
 package kr.or.ssff.mapper;
 
 import java.util.List;
+import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 
 /*
@@ -37,4 +36,8 @@ public interface StudyInsMapper {
 
     //cont_No가 가장 높은 게시물 번호 들고옴
     public Integer findMaxContNo();
+
+    //이미지 정보 불러오기 !! !! ㅅㅂ --필요없을지도..?
+    public List<StudyInsFileVO> getFileList(Integer cont_No);
+
 }

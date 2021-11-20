@@ -1,6 +1,10 @@
 package kr.or.ssff.study.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.Map;
 import kr.or.ssff.mapper.StudyMapper;
+import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.mapper.StudyMapper;
 import lombok.AllArgsConstructor;
@@ -22,17 +26,16 @@ public class StudyServiceImpl implements StudyService {
 
     @Override
     public boolean register(RecruitBoardVO vo) {
-
         int affectedRows = mapper.insert(vo);
-
         log.info("\t + affectedRows:{}", affectedRows);
-
         return affectedRows == 1;
     }//register (글 등록)
 
     @Override
-    public boolean modify() {
-        return false;
+    public boolean modify(RecruitBoardVO vo) {
+        int affectedRows = mapper.update(vo);
+        log.info("\t + affectedRows:{}", affectedRows);
+        return affectedRows == 1;
     }
 
     @Override
@@ -41,16 +44,20 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
-    public String get() {
-        return null;
-    }
+    public RecruitBoardVO get(Integer r_idx) {
+        Integer hitup = this.mapper.hitUp(r_idx);
+        RecruitBoardVO vo = this.mapper.get(r_idx);
+
+      return vo;
+    
+    }; //get
 
     @Override
-    public List<RecruitBoardVO> getList() {
-        List<RecruitBoardVO> allBoard = this.mapper.getList();
+    public List<RecruitBoardVO> getList(String type) {
+        List<RecruitBoardVO> allBoard = this.mapper.getList(type);
 
-        return this.mapper.getList();
-    }//getList(글반환)
+        return allBoard;
+    }//getList(글 전체반환)
 
     @Override
     public List<RecruitBoardVO> getListPerPage() {
@@ -76,10 +83,71 @@ public class StudyServiceImpl implements StudyService {
         int currentR_idx = this.mapper.getCurrentR_idx();
 
         return currentR_idx;
-    }//가장 마지막에 쓴 게시글 번호 가져오기(프로젝트)
+    }//getCurrentR_idx가장 마지막에 쓴 게시글 번호 가져오기(프로젝트)
 
+    @Override
+    public List<LangVO> getLangList() {
 
+        List<LangVO> langlist = this.mapper.getLangList();
 
+        return langlist;
+    }//getLangList lang list 전체 가져오기
+
+    @Override
+    public List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardVO> list, List<LangVO> langList) {
+        List<Map<String, Object>> rcBoardList = new ArrayList<Map<String, Object>>();
+        /*
+        list.forEach(rcBoard -> {
+            List<String> langNameList = new ArrayList<String>();
+            langList.forEach(lvo -> {
+                if (rcBoard.getR_idx().equals(lvo.getR_idx())) {
+                    langNameList.add(lvo.getLang_name());
+                }
+            });
+            // ObjectMapper
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map rcBoardMap = objectMapper.convertValue(rcBoard, Map.class);
+            rcBoardMap.put("langs", langNameList);
+            rcBoardList.add(rcBoardMap);
+        });
+        */
+        for (int i=0; i<list.size(); i++) {
+            List<String> langNameList = new ArrayList<String>();
+            for (int j=0; j<langList.size(); j++) {
+                if (list.get(i).getR_idx().equals(langList.get(j).getR_idx()) ) {
+                    langNameList.add(langList.get(j).getLang_name());
+                }
+            }
+            // ObjectMapper
+            ObjectMapper objectMapper = new ObjectMapper();
+            Map rcBoardMap = objectMapper.convertValue(list.get(i), Map.class);
+            rcBoardMap.put("langs", langNameList);
+            rcBoardList.add(rcBoardMap);
+        }
+        return rcBoardList;
+    }//getRecruitBoardMap
+
+    @Override
+    public List<LangVO> getLangTagByR_idx(Integer r_idx) {
+        List<LangVO> langTagList = new ArrayList<LangVO>();
+        langTagList = this.mapper.getLangTags(r_idx);
+        return langTagList;
+    }//getLangTagByR_idx
+
+    @Override
+    public boolean registerApply(Integer r_idx, String member_name) {
+        int affectedRows = mapper.insertApply(r_idx,member_name);
+
+        log.info("\t + affectedRows:{}", affectedRows);
+
+        return affectedRows == 1;
+    }//registerApply
+
+    @Override
+    public boolean deleteTag(Integer r_idx) {
+        int affectedRows = mapper.deleteTag(r_idx);
+        return affectedRows !=0;
+    }//deleteTag
 
 }//end class
 

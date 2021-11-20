@@ -1,7 +1,10 @@
 package kr.or.ssff.study.controller;
 
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.service.StudyService;
@@ -10,9 +13,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
@@ -24,7 +31,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @NoArgsConstructor
 @Controller
 public class StudyController {
-
 
     @Autowired
     private StudyService service;
@@ -43,7 +49,7 @@ public class StudyController {
     public String selectChallengeListGo(Model model) {
         log.info("challengeListGo() is invoked");
 
-        List<RecruitBoardVO> list= this.service.getList();
+        List<RecruitBoardVO> list= this.service.getList("C");
 
         model.addAttribute("list", list);
 
@@ -56,11 +62,11 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 게시물 상세보기 페이지
      * */
     @GetMapping("/challenge/detail")
-    public String selectChallengeDetailGo() {
-
+    public void selectChallengeDetailGo(Integer r_idx ,Model model) {
         log.info("challengeDetailGo() is invoked");
 
-        return "study/challenge/detail";
+        RecruitBoardVO board = this.service.get(r_idx);
+        model.addAttribute("board",board);
     } // selectChallengeDetailGo
 
 
@@ -86,8 +92,6 @@ public class StudyController {
     @PostMapping("/challenge/post")
     public String insertChallengeDetail(RecruitBoardDTO dto, RedirectAttributes rttrs) {
         log.info("insertChallengeDetail() is invoked");
-        System.out.println("\t+ dto: " + dto);
-        log.info("\t+ dto: " + dto);
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
@@ -105,6 +109,10 @@ public class StudyController {
             );
 
         boolean result = this.service.register(vo);
+        //방금쓴 게시물 댓글번호 가져오기
+        //Integer currentR_idx = this.service.getCurrentR_idx();
+        //스터디번호와 닉네임을 넣어서 applymember 테이블 데이터 추가하기(지혜 로직 나오는대로)
+        //boolean result2 = this.service.registerApply(currentR_idx, "nickname55");
 
         return "redirect:/study/challenge/list";
     } // insertChallengeDetail
@@ -114,13 +122,12 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 챌린지형 게시글 수정 페이지.
      * */
-    @GetMapping("/challenge/detail/modifyGo")
-    public String updateChallengeDetailGo() {
-
-        log.info("modifyChallengeDetailGo() is invoked");
-
-        return "/study/challenge/list/detail/modify";
-    } // updateChallengeDetailGo
+    @GetMapping("/challenge/modifyGo")
+    public void updateChallengeDetailGo(Integer r_idx,Model model) {
+        log.info("updateChallengeDetailGo() is invoked");
+        RecruitBoardVO board = this.service.get(r_idx);
+        model.addAttribute("board",board);
+    }
 
 
     /*챌린지형 게시글 수정 기능을 수행합니다.
@@ -128,12 +135,27 @@ public class StudyController {
      * 반환 : 수정한 게시글 페이지로 이동합니다.
      * //TODO 파라미터??
      * */
-    @PostMapping("/challenge/detail/modify")
-    public String updateChallengeDetail() {
+    @PostMapping("/challenge/modify")
+    public String updateChallengeDetail(RecruitBoardDTO dto, RedirectAttributes rttrs) {
 
-        log.info("modifyChallengeDetail() is invoked");
+        RecruitBoardVO vo =
+            new RecruitBoardVO(
+                dto.getR_idx(), "nickname55",'C',
+                dto.getTitle(),
+                dto.getTeamname(),
+                dto.getCont(),
+                null,
+                null,
+                dto.getSido(),
+                dto.getCh_pattern(),
+                dto.getCh_start(),
+                dto.getCh_end(),
+                null,dto.getClosed_ok(),null
+            );
 
-        return "redirect:/study/challenge/list/detail";
+        boolean result = this.service.modify(vo);
+        rttrs.addAttribute("result", result);
+        return "redirect:/study/challenge/list";
     } // updateChallengeDetail
 
 
@@ -163,11 +185,18 @@ public class StudyController {
     public String selectProjectListGo(Model model) {
         log.info("selectProjectListGo() is invoked");
 
-        List<RecruitBoardVO> list= this.service.getList();
+        List<RecruitBoardVO> list= this.service.getList("P");
 
-        model.addAttribute("list", list);//list + lang tag. 한개의 게시물. -> 번호
+        List<LangVO> langList = this.service.getLangList();
+
+//        model.addAttribute("list", list);
+ //       model.addAttribute("langList",langList);
+
+        List<Map<String, Object>> liste = this.service.getRecruitBoardMap(list, langList);
+        model.addAttribute("list", liste);
 
         return "study/project/list";
+
     } // selectProjectListGo
 
 
@@ -176,11 +205,14 @@ public class StudyController {
      * 반환 : 프로젝트형 스터디 게시물 상세보기 페이지
      * */
     @GetMapping("/project/detail")
-    public String selectProjectDetailGo() {
-
+    public void selectProjectDetailGo(Integer r_idx ,Model model) {
         log.info("selectProjectDetailGo() is invoked");
 
-        return "study/project/detail";
+        RecruitBoardVO board = this.service.get(r_idx);
+        List<LangVO>langList = this.service.getLangTagByR_idx(r_idx);
+
+        model.addAttribute("board",board);
+        model.addAttribute("langList",langList);
     } // selectProjectDetailGo
 
 
@@ -216,7 +248,7 @@ public class StudyController {
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null, null,null
+                null, dto.getClosed_ok(),null
             );
         //새글 등록하기
         boolean result = this.service.register(vo);
@@ -237,12 +269,15 @@ public class StudyController {
      * 파라메터 :
      * 반환 : 프로젝트형 게시글 수정 페이지.
      * */
-    @GetMapping("/project/detail/modifyGo")
-    public String updateProjectDetailGo() {
+    @GetMapping("/project/modifyGo")
+    public void updateProjectDetailGo(Integer r_idx, Model model) {
 
-        log.info("updateProjectDetailGo() is invoked");
+        log.info("updateChallengeDetailGo() is invoked");
+        RecruitBoardVO board = this.service.get(r_idx);
+        List<LangVO>langList = this.service.getLangTagByR_idx(r_idx);
 
-        return "/study/project/list/detail/modify";
+        model.addAttribute("langList",langList);
+        model.addAttribute("board",board);
     } // updateProjectDetailGo
 
     /*프로젝트형 게시글 수정 기능을 수행합니다.
@@ -250,13 +285,37 @@ public class StudyController {
      * 반환 : 수정한 게시글 페이지로 이동합니다.
      * //TODO 파라미터??
      * */
-    @PostMapping("/project/detail/modify")
-    public String updateProjectDetail() {
-
+    @PostMapping("/project/modify")
+    public String updateProjectDetail(RecruitBoardDTO dto, RedirectAttributes rttrs,HttpServletRequest request) {
         log.info("updateProjectDetail() is invoked");
 
-        return "redirect:/study/project/list/detail";
+        String[] taglist = request.getParameterValues("tag");
+
+        RecruitBoardVO vo =
+            new RecruitBoardVO(
+                dto.getR_idx(), "nickname55",'P',
+                dto.getTitle(),
+                dto.getTeamname(),
+                dto.getCont(),
+                null, null, null,
+                null, null, null,
+                null, null,null
+            );
+
+        boolean result = this.service.modify(vo);
+        rttrs.addAttribute("result", result);
+        
+        //기존에 있는 태그들 삭제
+        boolean deleteTagResult = this.service.deleteTag(dto.getR_idx());
+
+        //새로 태그들 입력
+        for(int i=0;i< taglist.length;i++){
+            boolean tagResult = this.service.registerLangTag(dto.getR_idx(),taglist[i]);
+        }
+
+        return "redirect:/study/project/list";
     } // updateProjectDetail
+
 
     /*프로젝트형 게시글을 삭제합니다
      * 파라메터 :
@@ -275,10 +334,10 @@ public class StudyController {
      * 반환 : //TODO --예솔
      * */
     @PostMapping("/comment/post")
-    public String insertComment() {
-        log.info("insertComment() is invoked");
+    public @ResponseBody boolean insertComment(@RequestBody String jsonData, HttpServletResponse response, ModelMap model) {
+        log.info("studyModalTest({},{},{}) is invoked",jsonData, response, model);
 
-        return "";
+        return true;
     }
 
     /*댓글 수정 기능 수행

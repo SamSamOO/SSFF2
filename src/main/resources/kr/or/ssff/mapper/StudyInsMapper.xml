@@ -20,11 +20,6 @@
 
     </delete>
 
-    <insert id="insert">
-        insert into study_ins_file (file_No, cont_No, file_Name)
-        values (#{file_No}, #{cont_No}, #{file_Name})
-    </insert>
-
     <insert id="insertBoard">
         insert into SI_BOARD(cont_No, member_name, r_idx, cont, category, title, REMOVED_OK, WRITE_DATE)
         values (#{cont_No}, #{member_Name}, #{r_Idx}, #{cont}, #{category}, #{title}, 'n', sysdate)
@@ -32,19 +27,18 @@
 
     </insert>
     <insert id="insertFiles" parameterType="java.util.List">
-        insert into STUDY_INS_FILE(CONT_NO, FILE_NAME)
-        VALUES
-        <foreach collection="list" item="item" separator=",">
-            (#{item.cont_No}, #{item.file_Name})
-        </foreach>
+        insert into STUDY_INS_FILE(FILENO, CONT_NO,filename, uploadpath, uuid)  select STUDY_INS_FILE_SQE.nextval, A.*from(
+        <foreach collection="list" item="item" separator="UNION ALL ">
+            select #{item.cont_No} as CONT_NO, #{item.file_Name} as FILE_NAME , #{item.uploadPath} as UPLOADPATH, #{item.uuid} as UUID from dual
 
-
+        </foreach>) A
     </insert>
+
 
     <select id="getList" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
 
     <![CDATA[
-        select /*+ cont_no_desc(si_board) */ *
+        select /*+ cont_no_desc(si_board) */ CONT_NO, MEMBER_NAME, R_IDX, WRITE_DATE, MODIFY_DATE, REMOVED_OK, CONT, CATEGORY, TITLE, HIT
         from si_board
         where cont_no < 100
         ]]>
@@ -55,18 +49,12 @@
         from SI_BOARD
 
     </select>
-    <select id="findByBno" resultType="kr.or.ssff.studyIns.model.StudyInsFileDTO">
 
-        select *
-        from study_ins_file
-        where cont_No = #{cont_No}
-
-    </select>
 
     <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
 
 		<![CDATA[
-        select *
+        select CONT_NO, MEMBER_NAME, R_IDX, WRITE_DATE, MODIFY_DATE, REMOVED_OK, CONT, CATEGORY, TITLE, HIT
         from si_board
         where cont_No = #{cont_No}
         ]]>
@@ -81,4 +69,8 @@
             category=#{category}
         where cont_No = #{cont_No}
     </update>
+
+    <select id="getFileList" resultType="kr.or.ssff.studyIns.domain.StudyInsFileVO">
+        select CONT_NO, FILENO, FILENAME, UPLOADPATH, UUID from STUDY_INS_FILE where CONT_NO =#{cont_No}
+    </select>
 </mapper>

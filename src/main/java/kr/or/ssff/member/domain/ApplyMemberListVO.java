@@ -35,7 +35,7 @@ public class ApplyMemberListVO {
 
 	// member table
 	private String member_profile;
-	
+
 } // end class
 
 

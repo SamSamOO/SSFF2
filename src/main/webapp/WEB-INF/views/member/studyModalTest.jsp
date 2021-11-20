@@ -27,16 +27,16 @@ License: You must have a valid license purchased only from themeforest(the above
 <!----------------Head 시작----------------------->
 
 <head>
-  <meta charset="UTF-8">
-  <title>studyModalTest</title>
-  <link rel="stylesheet" type="text/css" href="../../../resources/assets/css/style.bundle.css">
-  <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
-  
-  <!--head.html Include-->
-  <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+    <meta charset="UTF-8">
+    <title>studyModalTest</title>
+    <link rel="stylesheet" type="text/css" href="../../../resources/assets/css/style.bundle.css">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
+
+    <!--head.html Include-->
+    <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -47,45 +47,46 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <!----------------메인 시작----------------------->
 <div class="d-flex flex-column flex-root">
-  <!----------------페이지 시작----------------------->
-  <div class="d-flex flex-row flex-column-fluid page">
-    <!--begin::Wrapper-->
-    <div class="d-flex flex-column flex-row-fluid wrapper"
-         id="kt_wrapper">
-      <!------------------header.html Include------------------>
-      <jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
-      <!------------------Header Wrapper : 메뉴 탭 시작------------------>
-      <!--menu.html Include-->
-      <jsp:include page="/WEB-INF/commons/menu_main.jsp"></jsp:include>
-      <!------------------Header Wrapper : 메뉴 탭 종료------------------>
-      <!--컨테이너 시작-->
-      <div class="d-flex flex-row flex-column-fluid container">
-        
-        <!---------------- 지혜: 신청자/멤버 명단 모달창 시작 -------------------->
-        <a href="#" class="btn btn-light-danger font-weight-bold"
-           data-toggle="modal" data-target="#memberListModal" onclick="x();pager();">멤버확인</a>
-        
-        <div id="memberListModal" class="modal fade" role="dialog"
-             aria-hidden="true">
-          
-        </div>
-        <!--end::Modal-->
-        <!---------------- 지혜:  신청자/멤버 명단 모달창 종료 -------------------->
-        <!--contents.html Include-->
-        <jsp:include page="/WEB-INF/commons/example.jsp"></jsp:include>
-      </div>
-      <!--컨테이너 종료-->
-      <!--footer.html Include-->
-      <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+    <!----------------페이지 시작----------------------->
+    <div class="d-flex flex-row flex-column-fluid page">
+        <!--begin::Wrapper-->
+        <div class="d-flex flex-column flex-row-fluid wrapper"
+             id="kt_wrapper">
+            <!------------------header.html Include------------------>
+            <jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
+            <!------------------Header Wrapper : 메뉴 탭 시작------------------>
+            <!--menu.html Include-->
+            <jsp:include page="/WEB-INF/commons/menu_main.jsp"></jsp:include>
+            <!------------------Header Wrapper : 메뉴 탭 종료------------------>
+            <!--컨테이너 시작-->
+            <div class="d-flex flex-row flex-column-fluid container">
+
+                <!---------------- 지혜: 신청자/멤버 명단 모달창 시작 -------------------->
+                <a href="#" class="btn btn-light-danger font-weight-bold"
+                   data-toggle="modal" data-target="#memberListModal" onclick="x();pager();">멤버확인</a>
+
+                <div id="memberListModal" class="modal fade" role="dialog"
+                     aria-hidden="true">
+
+
+                </div>
+                <!--end::Modal-->
+                <!---------------- 지혜:  신청자/멤버 명단 모달창 종료 -------------------->
+                <!--contents.html Include-->
+                <jsp:include page="/WEB-INF/commons/example.jsp"></jsp:include>
+            </div>
+            <!--컨테이너 종료-->
+            <!--footer.html Include-->
+            <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
 </body>
 
 <!----------------Body 종료----------------------->
 <script type="text/javascript">
-  
-  function x() { // TODO 멤버 확인버튼 누를때 스터디번호, 개설자여부 받아와야함! 민주, 예솔 작업시 버튼에 값 매칭하기
-    let putListModalHtml = '';
-    putListModalHtml +=
-        `<div class="modal-dialog modal-xl">
+    // TODO 승인되고난 후 해당 버튼 비활성화(처리 중이라는 것을 확인시키기위한 view 작업 필요함)
+    function x() { // TODO 멤버 확인버튼 누를때 스터디번호, 개설자여부 받아와야함! 민주, 예솔 작업시 버튼에 값 매칭하기
+        let putListModalHtml = '';
+        putListModalHtml +=
+            `<div class="modal-dialog modal-xl">
             <div class="modal-content" style="min-height: 590px;">
               <div class="modal-header py-5" id="studyMemberTab">
                 <div id="btnMemberList" class="btn btn-success btn-lg btn-block" onclick="studyMemberListOn();"><h5 class="modal-title">
@@ -109,11 +110,11 @@ License: You must have a valid license purchased only from themeforest(the above
               </div>
             </div>
           </div>`
-    $('#memberListModal').html(putListModalHtml);
-    
-    let putBodyHtml = '';
-    putBodyHtml +=
-      `<div class="mb-5">
+        $('#memberListModal').html(putListModalHtml);
+
+        let putBodyHtml = '';
+        putBodyHtml +=
+            `<div class="mb-5">
         <div class="row align-items-center">
           <div class="col-lg-9 col-xl-8">
             <div class="row align-items-center">
@@ -133,11 +134,11 @@ License: You must have a valid license purchased only from themeforest(the above
           </div>
         </div>
       </div>`
-    
-    // 일반 회원이라면
-      putBodyHtml +=
 
-          `<div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
+        // 일반 회원이라면
+        putBodyHtml +=
+
+            `<div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
         id="studyMemberList">
       <table class="datatable-table"
              style="display: block; min-height: 400px; max-height: 400px;">
@@ -229,12 +230,12 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
       </div>
     </div>`
-    
-    if(1==1){     // TODO 개설자라면
-      // 참여신청자 버튼이 보이도록
-      $("#btnApplyMemberList").attr('style', ('display:""'));
-      putBodyHtml +=
-      `<!--begin: Datatable-->
+
+        if (1 == 1) {     // TODO 개설자라면
+            // 참여신청자 버튼이 보이도록
+            $("#btnApplyMemberList").attr('style', ('display:""'));
+            putBodyHtml +=
+                `<!--begin: Datatable-->
         <div
             class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
             id="applyMemberList" style="display:none;">
@@ -354,182 +355,158 @@ License: You must have a valid license purchased only from themeforest(the above
           </div>
         </div>`
 
-
-    } // if-else
+        } // if-else
 
 //TODO 페이지 드롭다운 왜 안나올까낭~
-    
-    $('.modal-body').html(putBodyHtml);
-  }
 
-  // 멤버목록 버튼 클릭시에 리스트가 보였다 안보였다 toggle
+        $('.modal-body').html(putBodyHtml);
+    }
 
-  // TODO 페이징 공유되는 에러 잡기~~
-  // $("#btnMemberList").click(function () { // studyMemberList
-  //   console.log("1번 클릭했니");
-  //   $("#btnApplyMemberList").attr('style', ('background-color:white'));
-  //   $("#applyMemberList").attr('style', ('display:none'));
-  //   $("#a-dtbl-pager").attr('style', ('display:none'));
-  //   $("#btnMemberList").attr('style', ('background-color:red'));
-  //   $("#studyMemberList").attr('style', ('display:""'));
-  //   $("#s-dtbl-pager").attr('style', ('display:""'));
-  //
-  // })
-  //
-  // $("#btnApplyMemberList").click(function () {// ApplyMemberList
-  //   console.log("2번 클릭했니")
-  //   $("#btnMemberList").attr('style', ('background-color:white'));
-  //   $("#studyMemberList").attr('style', ('display:none'));
-  //   $("#s-dtbl-pager").attr('style', ('display:none'));
-  //   $("#btnApplyMemberList").attr('style', ('background-color:red'));
-  //   $("#applyMemberList").attr('style', ('display:""'));
-  //   $("#a-dtbl-pager").attr('style', ('display:""'));
-  // })
-  
-  
-  // TODO  함수 2가지 부트스트랩화 (addCalss)
-  /* 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
-   * 매개변수 : 없음. 해당 버튼에 인라인으로 onclick event 부여
-   * 작성자 : 신지혜
-   */
-  function studyMemberListOn(){ // 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
-    console.log("studyMemberListOn 클릭했니");
-    $("#applyMemberList").attr('style', ('display:none'));
-    $("#a-dtbl-pager").attr('style', ('display:none'));
-    $("#studyMemberList").attr('style', ('display:""'));
-    $("#s-dtbl-pager").attr('style', ('display:""'));
-  
-  } // studyMemberListOn
-  
-  /* 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
-   * 매개변수 : 없음. 해당 버튼에 인라인으로 onclick event 부여
-   * 작성자 : 신지혜
-   */
-  function applyMemberListOn(){ // 참여자 누르면 참여자목록 활성화 / 스터디목록 비활성화
-    console.log("applyMemberListOn 클릭했니");
-    $("#studyMemberList").attr('style', ('display:none'));
-    $("#s-dtbl-pager").attr('style', ('display:none'));
-    $("#applyMemberList").attr('style', ('display:""'));
-    $("#a-dtbl-pager").attr('style', ('display:""'));
+    // 멤버목록 버튼 클릭시에 리스트가 보였다 안보였다 toggle
 
-  } // applyMemberListOn
+    // TODO 페이징 공유되는 에러 잡기~~
 
+    // TODO  함수 2가지 부트스트랩화 (addCalss)
+    /* 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
+     * 매개변수 : 없음. 해당 버튼에 인라인으로 onclick event 부여
+     * 작성자 : 신지혜
+     */
+    function studyMemberListOn() { // 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
+        console.log("studyMemberListOn 클릭했니");
+        $("#applyMemberList").attr('style', ('display:none'));
+        $("#a-dtbl-pager").attr('style', ('display:none'));
+        $("#studyMemberList").attr('style', ('display:""'));
+        $("#s-dtbl-pager").attr('style', ('display:""'));
 
+    } // studyMemberListOn
 
-  /* 회원의 스터디 참여 상태 정보를 변경하는 함수
-     가입신청 [거절, 승인, 취소] , [탈퇴],
-  매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
-  작성자 : 신지혜
-  */
-  function applyAction(apply_idx, action){
-    actionName =
-    action =='refusal' ? '가입신청 거절' :
-        action == 'approval' ? '가입신청 승인':
-            action == 'cancle' ? '가입신청 취소' :
-                                    '해당 스터디에서 탈퇴';
-    if(!confirm( actionName + " 하시겠습니까?")){
-      return false;
+    /* 스터디버튼 누르면 스터디목록 활성화 / 참여자목록 비활성화
+     * 매개변수 : 없음. 해당 버튼에 인라인으로 onclick event 부여
+     * 작성자 : 신지혜
+     */
+    function applyMemberListOn() { // 참여자 누르면 참여자목록 활성화 / 스터디목록 비활성화
+        console.log("applyMemberListOn 클릭했니");
+        $("#studyMemberList").attr('style', ('display:none'));
+        $("#s-dtbl-pager").attr('style', ('display:none'));
+        $("#applyMemberList").attr('style', ('display:""'));
+        $("#a-dtbl-pager").attr('style', ('display:""'));
 
-    } // if
+    } // applyMemberListOn
 
-    var submitObj = new Object();
-    submitObj.apply_idx= apply_idx;
-    submitObj.action= action;
-   
-    console.log("JSON.stringify(submitObj): "+JSON.stringify(submitObj));
+    /* 회원의 스터디 참여 상태 정보를 변경하는 함수
+       가입신청 [거절, 승인, 취소] , [탈퇴],
+    매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
+    작성자 : 신지혜
+    */
+    function applyAction(apply_idx, action) {
+        actionName =
+            action == 'refusal' ? '가입신청 거절' :
+                action == 'approval' ? '가입신청 승인' :
+                    action == 'cancle' ? '가입신청 취소' :
+                        '해당 스터디에서 탈퇴';
+        if (!confirm(actionName + " 하시겠습니까?")) {
+            return false;
 
-    // 받은 action과 참여번호를 json 객체로 /apply_action 전송하여 db update!!
-    $.ajax({
-      url: "/member/apply_action",
-      type: "POST",
-      contentType: "application/json;charset=UTF-8",
-      data:JSON.stringify(submitObj),
-      dataType : "json",
-      error:function(request,status,error){
-        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-       
-      }
+        } // if
 
-      
-    })
-    .fail(function(e) { // TODO 왜 성공했는데 fail타지요?
-      alert(actionName+ " 실패하였습니다.");
-      x();pager(); // TODO 왜 다시 못 뿌려주지요??
-      console.log("x();pager();");
+        var submitObj = new Object();
+        submitObj.apply_idx = apply_idx;
+        submitObj.action = action;
 
-    })
-    .done(function() {
-      alert(actionName+ " 처리 되었습니다.");
-    })
-    .always(function() {
+        console.log("JSON.stringify(submitObj): " + JSON.stringify(submitObj));
 
-    });
+        // 받은 action과 참여번호를 json 객체로 /apply_action 전송하여 db update!!
+        $.ajax({
+            url: "/member/apply_action",
+            type: "POST",
+            contentType: "application/json;charset=UTF-8",
+            data: JSON.stringify(submitObj),
+            dataType: "json",
+            error: function (request, status, error) {
+                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 
-    //TODO 완료시에 화면 다시 뿌려주기 위해서 테이블 동적생성 구문 추가 예정(필수)
-  } // end fn_refusal
-  
-  /* 페이징 처리하는 함수
-  *  작성자: 신지혜
-  */
-  function pager() {
-    let totalData; //총 데이터 수
-    let dataPerPage; //한 페이지에 나타낼 글 수
-    let pageCount = 5; //페이징에 나타낼 페이지 수
-    let globalCurrentPage; //현재 페이지
-    let currentPage = 1;
+            }
 
-    dataPerPage = $(".selectpicker").val();
-    console.log(dataPerPage);
+        })
+        .fail(function (e) { // TODO 왜 성공했는데 fail타지요?
+            alert(actionName + " 실패하였습니다.");
+            x();
+            pager(); // TODO 왜 다시 못 뿌려주지요??
+            console.log("x();pager();");
 
-    //총 road된 게시글 수
-    totalData = $('.datatable-body').children().length;
-    console.log(totalData);
-    if (totalData === 0) {
-      alert("해당 조건에 조회되는 데이터가 존재하지 않습니다.");
-      $('.datatable-pager').hide(); // 숨김처리
-    } // if
+        })
+        .done(function () {
+            alert(actionName + " 처리 되었습니다.");
+        })
+        .always(function () {
 
-    displayData(1, dataPerPage); //1번째페이지, 한페이지에 나타낼 글 수=체크박스 val(기본-5)
-    paging(totalData, dataPerPage, pageCount, 1);
+        });
 
-    function paging(totalData, dataPerPage, pageCount, currentPage) {//총데이타, 체크박스 val, 페이징수(10), 현재페이지(1)
-      currentPage = Number(currentPage);
-      console.log("currentPage : " + currentPage);
+        //TODO 완료시에 화면 다시 뿌려주기 위해서 테이블 동적생성 구문 추가 예정(필수)
+    } // end fn_refusal
 
-      let curPageId = currentPage > 1 ? Math.round((currentPage / dataPerPage)) + 1 : currentPage; // 현재 페이지 A tag ID
+    /* 페이징 처리하는 함수
+    *  작성자: 신지혜
+    */
+    function pager() {
+        let totalData; //총 데이터 수
+        let dataPerPage; //한 페이지에 나타낼 글 수
+        let pageCount = 5; //페이징에 나타낼 페이지 수
+        let globalCurrentPage; //현재 페이지
+        let currentPage = 1;
 
-      totalPage = Math.floor((totalData / dataPerPage) + ((totalData % dataPerPage) > 0 ? 1 : 0)); //총 페이지 수
-      // totalPage = Math.ceil(totalData/dataPerPage); // 총 페이지 수
+        dataPerPage = $(".selectpicker").val();
+        console.log(dataPerPage);
 
-      if (totalPage < pageCount) {
-        pageCount = totalPage;
-      } // if
-      console.log("totalPage : " + totalPage);
-      let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
-      // let pageGroup = Math.ceil(curPageId/pageCount); // 페이지 그룹
-      console.log("pageGroup : " + pageGroup);
-      let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
-      console.log("last : " + last);
-      if (last > totalPage) {
-        last = totalPage;
-      } // if
+        //총 road된 게시글 수
+        totalData = $('.datatable-body').children().length;
+        console.log(totalData);
+        if (totalData === 0) {
+            alert("해당 조건에 조회되는 데이터가 존재하지 않습니다.");
+            $('.datatable-pager').hide(); // 숨김처리
+        } // if
 
-      var first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
-      if (first < 1) first = 1; // 첫페이지가 1보다 작을 경우 1로 세팅
+        displayData(1, dataPerPage); //1번째페이지, 한페이지에 나타낼 글 수=체크박스 val(기본-5)
+        paging(totalData, dataPerPage, pageCount, 1);
 
-      console.log("first : " + first);
-      let next = last + 1;
-      console.log("next : " + next);
-      let prev = first - 1;
-      console.log("prev : " + prev);
-      let pageHtml = "";
+        function paging(totalData, dataPerPage, pageCount, currentPage) {//총데이타, 체크박스 val, 페이징수(10), 현재페이지(1)
+            currentPage = Number(currentPage);
+            console.log("currentPage : " + currentPage);
 
-      // 이전, 처음으로 가기
-      if (prev > 0) { // 이전, 처음으로 갈 수 있다면 이전, 처음버튼 활성화
-        currentPage = Number(currentPage);
-        console.log("prev > 0 : ");
-        pageHtml +=
-            `<li><a title="First"
+            let curPageId = currentPage > 1 ? Math.round((currentPage / dataPerPage)) + 1 : currentPage; // 현재 페이지 A tag ID
+
+            totalPage = Math.floor((totalData / dataPerPage) + ((totalData % dataPerPage) > 0 ? 1 : 0)); //총 페이지 수
+            // totalPage = Math.ceil(totalData/dataPerPage); // 총 페이지 수
+
+            if (totalPage < pageCount) {
+                pageCount = totalPage;
+            } // if
+            console.log("totalPage : " + totalPage);
+            let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+            // let pageGroup = Math.ceil(curPageId/pageCount); // 페이지 그룹
+            console.log("pageGroup : " + pageGroup);
+            let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+            console.log("last : " + last);
+            if (last > totalPage) {
+                last = totalPage;
+            } // if
+
+            var first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+            if (first < 1) first = 1; // 첫페이지가 1보다 작을 경우 1로 세팅
+
+            console.log("first : " + first);
+            let next = last + 1;
+            console.log("next : " + next);
+            let prev = first - 1;
+            console.log("prev : " + prev);
+            let pageHtml = "";
+
+            // 이전, 처음으로 가기
+            if (prev > 0) { // 이전, 처음으로 갈 수 있다면 이전, 처음버튼 활성화
+                currentPage = Number(currentPage);
+                console.log("prev > 0 : ");
+                pageHtml +=
+                    `<li><a title="First"
                     class="datatable-pager-link datatable-pager-link-first"
                     data-page="1">
                       <i class="flaticon2-fast-back"></i></a></li>
@@ -537,9 +514,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     class="datatable-pager-link datatable-pager-link-prev"
                     data-page="` + (currentPage - 1) + `">
                       <i class="flaticon2-back"></i></a></li>`;
-      } else { // 현재 페이지가 첫번째 페이지라면 이전, 처음버튼 비활성화
-        pageHtml +=
-            `<li><a title="First"
+            } else { // 현재 페이지가 첫번째 페이지라면 이전, 처음버튼 비활성화
+                pageHtml +=
+                    `<li><a title="First"
                     class="datatable-pager-link datatable-pager-link-first datatable-pager-link-disabled"
                     data-page="1"
                     disabled="disabled">
@@ -549,105 +526,104 @@ License: You must have a valid license purchased only from themeforest(the above
                       data-page="1"
                       disabled="disabled">
                         <i class="flaticon2-back"></i></a></li>`;
-      } // if-else
+            } // if-else
 
-      //페이징 번호 표시
-      for (var i = first; i <= last; i++) {
+            //페이징 번호 표시
+            for (var i = first; i <= last; i++) {
 
-        if (currentPage == i) { // 내가 클릭한 페이지(현재페이지) 번호 버튼은 활성화!
-          pageHtml += `
+                if (currentPage == i) { // 내가 클릭한 페이지(현재페이지) 번호 버튼은 활성화!
+                    pageHtml += `
             <li><a class="datatable-pager-link datatable-pager-link-number
                           datatable-pager-link-active"
-                   data-page="`+ i +`"
-                   title="`+ i +`">`+ i +`</a></li>`
-        } else { // 아닌 페이지 번호는 하얗게
-          pageHtml +=
-              `<li><a class="datatable-pager-link datatable-pager-link-number"
-                      data-page="`+ i +`"
-                      title="`+ i +`">`+ i +`</a></li>`;
-        } // if-else
-      } // for
+                   data-page="` + i + `"
+                   title="` + i + `">` + i + `</a></li>`
+                } else { // 아닌 페이지 번호는 하얗게
+                    pageHtml +=
+                        `<li><a class="datatable-pager-link datatable-pager-link-number"
+                      data-page="` + i + `"
+                      title="` + i + `">` + i + `</a></li>`;
+                } // if-else
+            } // for
 
-      // 이후, 맨 뒤로 가기
-      if (next < totalPage) { // 이후로 갈 수 있다면(=내 페이지가 맨 끝이 아니라면) 이후 버튼 활성화
-        pageHtml +=
-            `<li><a title="Next"
+            // 이후, 맨 뒤로 가기
+            if (next < totalPage) { // 이후로 갈 수 있다면(=내 페이지가 맨 끝이 아니라면) 이후 버튼 활성화
+                pageHtml +=
+                    `<li><a title="Next"
                     class="datatable-pager-link datatable-pager-link-next"
-                    data-page="`+ (currentPage + 1) +`">
+                    data-page="` + (currentPage + 1) + `">
                       <i class="flaticon2-next"></i></a></li>`;
-      } else { // 내 페이지가 맨 끝이라면 이후 버튼 비활성화
-        pageHtml +=
-            `<li><a title="Next"
+            } else { // 내 페이지가 맨 끝이라면 이후 버튼 비활성화
+                pageHtml +=
+                    `<li><a title="Next"
                     class="datatable-pager-link datatable-pager-link-next datatable-pager-link-disabled"
-                    data-page="`+ (currentPage + 1) +`"
+                    data-page="` + (currentPage + 1) + `"
                     disabled="disabled">
                       <i class="flaticon2-next"></i></a></li>`
-      } // if-else
-      if (last < totalPage) { // 내 페이지가 맨 끝이 아니라면 마지막으로 가기 버튼 활성화
-        pageHtml +=
-            `<li><a title="Last"
+            } // if-else
+            if (last < totalPage) { // 내 페이지가 맨 끝이 아니라면 마지막으로 가기 버튼 활성화
+                pageHtml +=
+                    `<li><a title="Last"
                     class="datatable-pager-link datatable-pager-link-last"
-                    data-page="`+ totalPage +`">
+                    data-page="` + totalPage + `">
                       <i class="flaticon2-fast-next"></i></a></li>`;
-      } else { // 내 페이지가 마지막이라면 마지막으로 가기 버튼 비활성화
-        pageHtml +=
-            `<li><a title="Last"
+            } else { // 내 페이지가 마지막이라면 마지막으로 가기 버튼 비활성화
+                pageHtml +=
+                    `<li><a title="Last"
                     class="datatable-pager-link datatable-pager-link-last
                            datatable-pager-link-disabled"
-                    data-page="`+ totalPage +`"
+                    data-page="` + totalPage + `"
                     disabled="disabled">
                     <i class="flaticon2-fast-next"></i></a></li>`
-      } // ir-else
+            } // ir-else
 
-      console.log($(".datatable-pager.datatable-paging-loaded"));
+            console.log($(".datatable-pager.datatable-paging-loaded"));
 
-      // 페이징 번호 그리기
-      $(".datatable-pager-nav.my-2.mb-sm-0").html(pageHtml);
+            // 페이징 번호 그리기
+            $(".datatable-pager-nav.my-2.mb-sm-0").html(pageHtml);
 
-      //페이징 번호 클릭 이벤트
-      $(".datatable-pager.datatable-paging-loaded ul li a").click(function () {
-        //전역변수에 선택한 페이지 번호를 담아서
-        globalCurrentPage = $(this).attr("data-page");
-     
-        //페이징 표시 재호출
-        paging(totalData, dataPerPage, pageCount, globalCurrentPage);
-        
-        //글 목록 표시 재호출
-        displayData(globalCurrentPage, dataPerPage);
-      }); // click-fn
-    } // pager()
- 
+            //페이징 번호 클릭 이벤트
+            $(".datatable-pager.datatable-paging-loaded ul li a").click(function () {
+                //전역변수에 선택한 페이지 번호를 담아서
+                globalCurrentPage = $(this).attr("data-page");
 
-    // 페이지 사이즈 드롭다운 선택하면 화면단에서 적용하여 출력하는 함수
-    $('#pageSizePicker').change(function () {
-      let pageSizePickerValue = $("#pageSizePicker option:selected").val();
-      console.log("pageSizePickerValue: " + pageSizePickerValue);
-      
-      //전역 변수에 담긴 globalCurrent 값을 이용하여 페이지 이동없이 글 표시개수 변경
-      paging(totalData, pageSizePickerValue, pageCount, currentPage);
-      displayData(currentPage, pageSizePickerValue);
-    }); // change-fn
-  }
+                //페이징 표시 재호출
+                paging(totalData, dataPerPage, pageCount, globalCurrentPage);
 
-  //현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
-  function displayData(currentPage, dataPerPage) {
+                //글 목록 표시 재호출
+                displayData(globalCurrentPage, dataPerPage);
+            }); // click-fn
+        } // pager()
+
+        // 페이지 사이즈 드롭다운 선택하면 화면단에서 적용하여 출력하는 함수
+        $('#pageSizePicker').change(function () {
+            let pageSizePickerValue = $("#pageSizePicker option:selected").val();
+            console.log("pageSizePickerValue: " + pageSizePickerValue);
+
+            //전역 변수에 담긴 globalCurrent 값을 이용하여 페이지 이동없이 글 표시개수 변경
+            paging(totalData, pageSizePickerValue, pageCount, currentPage);
+            displayData(currentPage, pageSizePickerValue);
+        }); // change-fn
+    }
+
+    //현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
+    function displayData(currentPage, dataPerPage) {
 //기본 셋팅에서-> 숫자로 값 변동이 일어난다면 내용 숨기고 몇번째~몇번째 display만 변경하는 형식,
-    let chartHtml = "";
-    $('.datatable-body .datatable-row').attr('style', ('display:none'));
+        let chartHtml = "";
+        $('.datatable-body .datatable-row').attr('style', ('display:none'));
 
-    //Number로 변환하지 않으면 아래에서 +를 할 경우 연산 아닌 결합됨!
-    currentPage = Number(currentPage);
-    dataPerPage = Number(dataPerPage);
+        //Number로 변환하지 않으면 아래에서 +를 할 경우 연산 아닌 결합됨!
+        currentPage = Number(currentPage);
+        dataPerPage = Number(dataPerPage);
 
-    for (
-        var i = ((currentPage) - 1) * dataPerPage + 1;
-        i <= (currentPage - 1) * dataPerPage + dataPerPage;
-        i++
-    ) {
-      $('tr[data-row="' + i + '"]').attr('style', ('display:""'));
-    } // for
-  } // displayData()
-  
+        for (
+            var i = ((currentPage) - 1) * dataPerPage + 1;
+            i <= (currentPage - 1) * dataPerPage + dataPerPage;
+            i++
+        ) {
+            $('tr[data-row="' + i + '"]').attr('style', ('display:""'));
+        } // for
+    } // displayData()
+
 </script>
 </html>
 

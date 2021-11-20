@@ -5,13 +5,14 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/wizard/wizard-5.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/resources/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css" />
+    <link href="${pageContext.request.contextPath}/resources/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 
     <script type="text/javascript">
-
-
-
 
     </script>
     <style>
@@ -24,6 +25,7 @@
         #member_id{
             padding-right: 10px;
             margin-right: 10px;
+
         }
 
     </style>
@@ -113,12 +115,40 @@
                                                 <span class="wizard-number">1</span>
                                             </div>
                                             <div class="wizard-label">
-                                                <h3 class="wizard-title">Account Settings</h3>
-                                                <div class="wizard-desc">Setup Your Account Details</div>
+                                                <h3 class="wizard-title">회원가입</h3>
+                                                <div class="wizard-desc">이메일,비밀번호,닉네임을입력합니다.</div>
                                             </div>
                                         </div>
                                     </div>
-
+                                    <!--end::Wizard Step 1 Nav-->
+                                    <!--begin::Wizard Step 2 Nav-->
+                                    <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
+                                        <div class="wizard-wrapper">
+                                            <div class="wizard-icon">
+                                                <i class="wizard-check ki ki-check"></i>
+                                                <span class="wizard-number">2</span>
+                                            </div>
+                                            <div class="wizard-label">
+                                                <h3 class="wizard-title">이메일 인증</h3>
+                                                <div class="wizard-desc">회원가입버튼을 누르면 인증메일이 발송됩니다!</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end::Wizard Step 2 Nav-->
+                                    <!--begin::Wizard Step 3 Nav-->
+                                    <div class="wizard-step" data-wizard-type="step" data-wizard-state="pending">
+                                        <div class="wizard-wrapper">
+                                            <div class="wizard-icon">
+                                                <i class="wizard-check ki ki-check"></i>
+                                                <span class="wizard-number">3</span>
+                                            </div>
+                                            <div class="wizard-label">
+                                                <h3 class="wizard-title">가입완료!</h3>
+                                                <div class="wizard-desc">인증후 삼삼오오에 로그인해보세요</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--end::Wizard Step 3 Nav-->
                                 </div>
                                 <!--end::Wizard Steps-->
                             </div>
@@ -126,7 +156,8 @@
                         </div>
                         <!--end::Aside Top-->
                         <!--begin::Aside Bottom-->
-                        <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-y-bottom bgi-position-x-center bgi-size-contain pt-2 pt-lg-5 h-350px" ></div>
+                        <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-y-bottom bgi-position-x-center bgi-size-contain pt-2 pt-lg-5 h-350px"
+                             style="background-image: url(/resources/assets/image/SamSamOOLOGO.png)"></div>
                         <!--end::Aside Bottom-->
                     </div>
                     <!--begin::Aside-->
@@ -155,9 +186,10 @@
 
                                         <label class="font-size-h6 font-weight-bolder text-dark">E-Mail</label>
                                         <div class="email_box">
-                                        <input type="text" class="form-control h-auto p-4 border-0 rounded-lg font-size-h6" id="member_id" name="member_id" placeholder="E-Mail" value="">
-                                         <input type="button" value="인증" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3 " />
-                                        </div>
+                                        <input type="email" class="form-control h-auto p-6 border-0 rounded-lg font-size-h6" id="member_id" name="member_id" placeholder="E-Mail" value="">
+                                            <button type="button" class="btn btn-primary font-weight-bolder font-size-h5 pl-8 pr-7 py-4 my-5 " id="idChk" onclick="fn_idChk();">중복</button>
+
+                                      </div>
                                             <div class="fv-plugins-message-container"></div>
 
                                     </div>
@@ -207,9 +239,9 @@
 
                                 <div class="d-flex justify-content-between pt-3">
                                     <div>
-                                        <button type="submit" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3 text-align:center" >submit</button>
+                                        <button type="submit" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3 text-align:center" >회원가입</button>
 
-                                        <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3" >돌아가기</button>
+                                      <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3" >돌아가기</button>
                                     </div>
                                 </div>
                                 <!--end: Wizard Actions-->
@@ -237,6 +269,33 @@
 <!--end::Page Scripts-->
 
 </body>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+});
+function fn_idChk(){
+    $.ajax({
+        url : "/member/idChk",
+        type : "post",
+        dataType : "int",
+        result : {"member_id" : $("#member_id").val()},
+        success : function(result){
+            if(result == 1){
+                alert("중복된 이메일입니다.");
+            }else if(result == 0){
+                $("#idChk").attr("value", "Y");
+                alert("사용가능한 이메일입니다.");
+            }else {
+                alert("이메일을 입력해주세요.");
+            }
+        }
+    })
+}
+
+
+
+</script>
 <style>
     .int_mobile_area{
         position:relative;

@@ -21,6 +21,8 @@ public class StudyInsDTO {
     private String category;                //카테고리
     private String title;                        // 글 제목
 
+    private List<StudyInsFileDTO> fileDTO;
+
 }
 
 

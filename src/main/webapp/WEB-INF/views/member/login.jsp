@@ -20,6 +20,12 @@
     <link href="${pageContext.request.contextPath}/resources/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
+    <style>
+        .kakoLogin-btn{
+            margin-top: 40px;
+        }
+        
+    </style>
 </head>
 
 
@@ -62,7 +68,14 @@
                             <a href="/member/idPwFindGo" id="kt_login_forgot" class="text-muted text-hover-primary">비밀번호를 잊으셧나요?</a>
                         </div>
                         <button type="submit" id="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">로그인</button>
+
                     </form>
+
+                    <div class="kakoLogin-btn">
+                   <a href="${kakao_url}">
+                       <img src="${pageContext.request.contextPath}/resources/assets/image/kakao_login_medium_narrow.png">
+                    </a>
+                    </div>
                     <div class="mt-10">
                         <span class="opacity-70 mr-4">아직 계정이 없으신가요?</span>
                         <a href="/member/joinGo" id="kt_login_signup" class="text-muted text-hover-primary font-weight-bold">가입하러가기</a>

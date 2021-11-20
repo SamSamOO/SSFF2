@@ -2,8 +2,38 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.ssff.CafeMapper">
+<mapper namespace="kr.or.ssff.mapper.CafeMapper">
 
+  <select id="selectCafeList" resultType="kr.or.ssff.cafe.domain.CafeListVO">
+
+    SELECT
+      c.cafe_main_title,
+      c.cafe_sub_title,
+      c.cafe_image_first,
+      c.cafe_image_second,
+      c.cafe_image_third,
+      c.cafe_location,
+      c.cafe_idx,
+      r.max_people,
+      r.amount_hour,
+      r.romm_list
+    FROM
+      cafe c
+        JOIN (
+        SELECT
+          cafe_idx,
+          MAX(max_people) AS max_people,
+          MIN(amount_hour) AS amount_hour,
+          LISTAGG(room_image, ':') WITHIN GROUP (ORDER BY cafe_idx) AS romm_list
+        FROM
+          room
+        GROUP BY
+          cafe_idx
+      ) r ON c.cafe_idx = r.cafe_idx
+    WHERE
+      c.cafe_remove_yn = 'n'
+
+  </select>
 
 </mapper>
 
