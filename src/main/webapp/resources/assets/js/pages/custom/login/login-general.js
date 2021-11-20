@@ -25,14 +25,14 @@ var KTLogin = function() {
 			KTUtil.getById('kt_login_signin_form'),
 			{
 				fields: {
-					username: {
+					member_id: {
 						validators: {
 							notEmpty: {
-								message: 'Username is required'
+								message: '아이디를 입력해주세요'
 							}
 						}
 					},
-					password: {
+					member_pwd: {
 						validators: {
 							notEmpty: {
 								message: 'Password is required'
@@ -55,10 +55,10 @@ var KTLogin = function() {
             validation.validate().then(function(status) {
 		        if (status == 'Valid') {
                     swal.fire({
-		                text: "All is cool! Now you submit this form",
+		                text: "d",
 		                icon: "success",
 		                buttonsStyling: false,
-		                confirmButtonText: "Ok, got it!",
+		                confirmButtonText: "환영합니다.",
                         customClass: {
     						confirmButton: "btn font-weight-bold btn-light-primary"
     					}
@@ -161,10 +161,10 @@ var KTLogin = function() {
             validation.validate().then(function(status) {
 		        if (status == 'Valid') {
                     swal.fire({
-		                text: "All is cool! Now you submit this form",
+		                text: "All is cool! Now you submit asdasdasdthis form",
 		                icon: "success",
 		                buttonsStyling: false,
-		                confirmButtonText: "Ok, got it!",
+		                confirmButtonText: "Ok, got asd it!",
                         customClass: {
     						confirmButton: "btn font-weight-bold btn-light-primary"
     					}

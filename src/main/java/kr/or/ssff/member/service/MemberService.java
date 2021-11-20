@@ -10,8 +10,15 @@ import kr.or.ssff.member.domain.MemberVO;
 public interface MemberService {
     //-------------멤버 CRUD 순형 ---------------//
     //1.화원가입
-    public void insertMember(MemberVO memberVO);
-
+    public abstract boolean insertMember(MemberDTO memberDTO) throws Exception;
+    // 2. 로그인
+    public abstract boolean Login(String member_id, String member_pwd);
+    // authstatus 1로 변경
+    public void updateAuthstatus(String member_id) throws Exception;
+    // 이메일 중복체크
+    public int idChk( MemberDTO memberDTO) throws Exception;
+    // 닉네임 중복체크
+    public int nameChk( MemberDTO memberDTO) throws Exception;
 
 
     // 1. 새로운 게시물 등록
