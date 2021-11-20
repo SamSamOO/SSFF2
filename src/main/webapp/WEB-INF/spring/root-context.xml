@@ -102,5 +102,5 @@
 		<property name="asyncSendTimeout" value="10000"/>
 	</bean>
 	<!--핸들러 빈 등록-->
-	<bean id="echoHandler" class="kr.or.ssff.studyIns.handler.EchoHandler" />
+	<bean id="echoHandler" class="kr.or.ssff.studyIns.handler.SocketHandler" />
 </beans>

@@ -8,7 +8,8 @@
 <!----------------Head 시작----------------------->
 
 <head>
-    <title>스터디 내 게시판</title>
+    <title>Chating</title>
+
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"/>
 
@@ -17,21 +18,39 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
     <script src="<c:url value="/resources/assets/js/sockjs-0.3.4.js"/>"></script>
     <script src="<c:url value="/resources/assets/js/stomp.js"/>"></script>
-
     <style>
-        body {
-            background-color: #f5f5f5;
+        *{
+            margin:0;
+            padding:0;
         }
-
-        #main-content {
-            max-width: 940px;
-            padding: 2em 3em;
-            margin: 0 auto 20px;
-            background-color: #fff;
-            border: 1px solid #e5e5e5;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
+        .container{
+            width: 500px;
+            margin: 0 auto;
+            padding: 25px
+        }
+        .container h1{
+            text-align: left;
+            padding: 5px 5px 5px 15px;
+            color: #FFBB00;
+            border-left: 3px solid #FFBB00;
+            margin-bottom: 20px;
+        }
+        .chating{
+            background-color: #000;
+            width: 500px;
+            height: 500px;
+            overflow: auto;
+        }
+        .chating p{
+            color: #fff;
+            text-align: left;
+        }
+        input{
+            width: 330px;
+            height: 25px;
+        }
+        #yourMsg{
+            display: none;
         }
     </style>
 </head>
@@ -70,27 +89,29 @@
                     <!--카드 헤더 종료-->
                     <!--카드 Body 시작-->
 
-                    <div class="card-body pt-2 pb-0 mt-n3">
-                        <h2>Hi there</h2>
-                        <%--                        <h2>${r_Idx}</h2>--%>
-                        <h1>/WEB-INF/views/ws.jsp</h1>
+                    <div id="container" class="container">
+                        <h1>채팅</h1>
+                        <div id="chating" class="chating">
+                        </div>
 
-                        <hr>
-
-                        <button type="button" id="connect">Connect</button>
-                        <button type="button" id="send">Send</button>
-                        <button type="button" id="disconnect">Disconnect</button>
-
-                        <p></p>
-
-                        Message: <input type="text" id="message">
-
-                        <hr>
-
-                        <ul id="unorderedList">
-
-                        </ul>
-
+                        <div id="yourName">
+                            <table class="inputTable">
+                                <tr>
+                                    <th>사용자명</th>
+                                    <th><input type="text" name="userName" id="userName"></th>
+                                    <th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div id="yourMsg">
+                            <table class="inputTable">
+                                <tr>
+                                    <th>메시지</th>
+                                    <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
+                                    <th><button onclick="send()" id="sendBtn">보내기</button></th>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
 
                     <script>
@@ -134,7 +155,7 @@
                                     console.log('\t+ e:', e);
 
                                     var newLI = document.createElement("li");
-                                    newLI.innerHTML = e.data + ' #' + (messageCount++);
+                                    newLI.innerHTML = e.data;
 
                                     unorderedList.append(newLI);
                                 };  //onmessage
@@ -173,6 +194,7 @@
                         });  // jq
 
                     </script>
+
                 </div>
                 <!--카드 Body 종료-->
             </div>
@@ -187,7 +209,52 @@
 
 </div>
 </body>
+<script>
+    var ws;
 
+    function wsOpen(){
+        ws = new WebSocket("ws://" + location.host + "/chating");
+        wsEvt();
+    }
+
+    function wsEvt() {
+        ws.onopen = function(data){
+            //소켓이 열리면 초기화 세팅하기
+        }
+
+        ws.onmessage = function(data) {
+            var msg = data.data;
+            if(msg != null && msg.trim() != ''){
+                $("#chating").append("<p>" + msg + "</p>");
+            }
+        }
+
+        document.addEventListener("keypress", function(e){
+            if(e.keyCode == 13){ //enter press
+                send();
+            }
+        });
+    }
+
+    function chatName(){
+        var userName = $("#userName").val();
+        if(userName == null || userName.trim() == ""){
+            alert("사용자 이름을 입력해주세요.");
+            $("#userName").focus();
+        }else{
+            wsOpen();
+            $("#yourName").hide();
+            $("#yourMsg").show();
+        }
+    }
+
+    function send() {
+        var uN = $("#userName").val();
+        var msg = $("#chatting").val();
+        ws.send(uN+" : "+msg);
+        $('#chatting').val("");
+    }
+</script>
 
 <!----------------Body 종료----------------------->
 

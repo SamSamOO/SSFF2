@@ -30,6 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
@@ -478,16 +479,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * */
     @GetMapping("/chatRoom")
     public String chatRoom(Integer r_Idx, Model model, HttpSession session) { // TODO 매개변수..
-        r_Idx = 9002;
-        log.info("chatRoom({}) is invoked", "r_Idx = " + r_Idx);
 
-        Objects.requireNonNull(service);
-
-        session.setAttribute("member_Name", "nickname55");
-        List<ChatMsgDTO> listOfChatMsg = this.service.getChatList(r_Idx);
-
-        model.addAttribute("r_Idx", r_Idx);
-        model.addAttribute("listOfChatMsg", listOfChatMsg);
         return "studyIns/chatRoom/chatRoom";
     } // chatRoom
 
