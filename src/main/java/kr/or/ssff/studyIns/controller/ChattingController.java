@@ -36,7 +36,7 @@ public class ChattingController {
         log.info("chat() is invoked");
 
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("/studyIns/chatRoom/chatRoom");
+        mv.setViewName("/studyIns/chatRoom/room");
         return mv;
     }
 
@@ -50,7 +50,8 @@ public class ChattingController {
 
         ModelAndView mv = new ModelAndView();
 
-        mv.setViewName("/studyIns/chatRoom/room");
+        mv.setViewName("/studyIns/chatRoom/chatRoom");
+
         return mv;
     }
 
@@ -84,6 +85,7 @@ public class ChattingController {
     @RequestMapping("/getRoom")
     public @ResponseBody List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
         log.info("getRoom() is invoked");
+        log.info("룸아이디"+roomList);
 
         return roomList;
     }
@@ -103,13 +105,12 @@ public class ChattingController {
         log.info("roomNumber = {}", roomNumber);
 
         List<Room> new_list = roomList.stream().filter(o -> o.getRoomNumber() == roomNumber).collect(Collectors.toList());
-
         if (new_list != null && new_list.size() > 0) {
             mv.addObject("roomName", params.get("roomName"));
             mv.addObject("roomNumber", params.get("roomNumber"));
-            mv.setViewName("/studyIns/chatRoom/chatRoom");
-        } else {
             mv.setViewName("/studyIns/chatRoom/room");
+        } else {
+            mv.setViewName("/studyIns/chatRoom/chatRoom");
         }
         return mv;
     }
