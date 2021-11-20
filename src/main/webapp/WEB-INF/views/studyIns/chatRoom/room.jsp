@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,64 +7,54 @@
     <meta charset="UTF-8">
     <title>Room</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
+        *{
+            margin:0;
+            padding:0;
         }
-
-        .container {
+        .container{
             width: 500px;
             margin: 0 auto;
             padding: 25px
         }
-
-        .container h1 {
+        .container h1{
             text-align: left;
             padding: 5px 5px 5px 15px;
             color: #FFBB00;
             border-left: 3px solid #FFBB00;
             margin-bottom: 20px;
         }
-
-        .roomContainer {
+        .roomContainer{
             background-color: #F6F6F6;
             width: 500px;
             height: 500px;
             overflow: auto;
         }
-
-        .roomList {
+        .roomList{
             border: none;
         }
-
-        .roomList th {
+        .roomList th{
             border: 1px solid #FFBB00;
             background-color: #fff;
             color: #FFBB00;
         }
-
-        .roomList td {
+        .roomList td{
             border: 1px solid #FFBB00;
             background-color: #fff;
             text-align: left;
             color: #FFBB00;
         }
-
-        .roomList .num {
+        .roomList .num{
             width: 75px;
             text-align: center;
         }
-
-        .roomList .room {
+        .roomList .room{
             width: 350px;
         }
-
-        .roomList .go {
+        .roomList .go{
             width: 71px;
             text-align: center;
         }
-
-        button {
+        button{
             background-color: #FFBB00;
             font-size: 14px;
             color: #000;
@@ -73,12 +63,10 @@
             padding: 3px;
             margin: 3px;
         }
-
-        .inputTable th {
+        .inputTable th{
             padding: 5px;
         }
-
-        .inputTable input {
+        .inputTable input{
             width: 330px;
             height: 25px;
         }
@@ -87,23 +75,24 @@
 
 <script type="text/javascript">
     var ws;
-    window.onload = function () {
+    window.onload = function(){
         getRoom();
         createRoom();
     }
 
-    function getRoom() {
+    function getRoom(){
         commonAjax('/getRoom', "", 'post', function (result) {
+            console.log(result);
             createChatingRoom(result);
         });
     }
 
-    function createRoom() {
-        $("#createRoom").click(function () {
-            var msg = {roomName: $('#roomName').val()};
-            console.log(msg);
-            commonAjax('/createRoom', msg, 'post', function (result) {
-                console.log(msg);
+    function createRoom(){
+        $("#createRoom").click(function(){
+            var msg = {	roomName : $('#roomName').val()	};
+
+            commonAjax('/createRoom', msg, 'post', function(result){
+                console.log(result);
                 createChatingRoom(result);
             });
 
@@ -111,18 +100,20 @@
         });
     }
 
-    function goRoom(number, name) {
-        location.href = "/moveChating?roomName=" + name + "&" + "roomNumber=" + number;
+    function goRoom(number, name){
+        location.href="/moveChating?roomName="+name+"&"+"roomNumber="+number;
     }
 
     function createChatingRoom(res) {
         console.log(res);
 
         if (res != null) {
-            var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'></th></tr>";
+            console.log('res 가 널이 아닌경우');
 
-            for (let idx = 0; idx < res.length; idx++){
-                const d = res[idx];
+            var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'></th></tr>";
+            console.log(tag + "태그표시합니다");
+
+            res.forEach(function(d, idx){
                 var rn = d.roomName.trim();
                 var roomNumber = d.roomNumber;
                 tag += "<tr>"+
@@ -130,13 +121,13 @@
                     "<td class='room'>"+ rn +"</td>"+
                     "<td class='go'><button type='button' onclick='goRoom(\""+roomNumber+"\", \""+rn+"\")'>참여</button></td>" +
                     "</tr>";
-            }
+            });
+            console.log($(`#roomList`));
             $("#roomList").empty().append(tag);
         }
     }
 
-    function commonAjax(url, parameter, type, calbak, contentType) {
-
+    function commonAjax(url, parameter, type, calbak, contentType){
         $.ajax({
             url: url,
             data: parameter,
@@ -145,13 +136,11 @@
             success: function (res) {
                 calbak(res);
             },
-
-            error: function (err) {
+            error : function(err){
                 console.log('error');
                 calbak(err);
             }
         });
-
     }
 </script>
 <body>
@@ -165,9 +154,7 @@
             <tr>
                 <th>방 제목</th>
                 <th><input type="text" name="roomName" id="roomName"></th>
-                <th>
-                    <button id="createRoom">방 만들기</button>
-                </th>
+                <th><button id="createRoom">방 만들기</button></th>
             </tr>
         </table>
     </div>

@@ -5,7 +5,7 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <meta charset="UTF-8">
-    <title>Chatting</title>
+    <title>Chating</title>
     <style>
         *{
             margin:0;
@@ -51,8 +51,7 @@
     var ws;
 
     function wsOpen(){
-        //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-        ws = new WebSocket("ws://" + location.host + "/chatting/"+$("#roomNumber").val());
+        ws = new WebSocket("ws://" + location.host + "/chating");
         wsEvt();
     }
 
@@ -106,7 +105,6 @@
     function send() {
         var option ={
             type: "message",
-            roomNumber: $("#roomNumber").val(),
             sessionId : $("#sessionId").val(),
             userName : $("#userName").val(),
             msg : $("#chatting").val()
@@ -117,9 +115,8 @@
 </script>
 <body>
 <div id="container" class="container">
-    <h1>${roomName}의 채팅방</h1>
+    <h1>채팅</h1>
     <input type="hidden" id="sessionId" value="">
-    <input type="hidden" id="roomNumber" value="${roomNumber}">
 
     <div id="chating" class="chating">
     </div>

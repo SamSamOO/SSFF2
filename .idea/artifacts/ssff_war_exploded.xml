@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="ssff:war exploded">
-    <output-path>$PROJECT_DIR$/target</output-path>
+    <output-path>$PROJECT_DIR$/src/main/webapp</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
@@ -74,7 +74,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/META-INF/MANIFEST.MF" />
+        <element id="library" level="application" name="jquery" />
       </element>
       <element id="javaee-facet-resources" facet="ssff/web/웹" />
     </root>
