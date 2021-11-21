@@ -7,6 +7,7 @@ import javax.naming.event.ObjectChangeListener;
 import kr.or.ssff.mapper.StudyInsMapper;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.ChatMsgDTO;
 import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -114,7 +116,7 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      * 반환	:  해당 게시물
      * 작성자	: 박상준
      */
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean register(Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile) {
         log.info("register({}) is invoked", "cont_No = " + cont_No + ", studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
@@ -137,11 +139,14 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      * 반환	:  해당 게시판
      * 작성자	: 박상준
      */
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean modify(StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile) {
+
         log.debug("modify({}) is invoked", "studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
+
         log.info("uploadFile = {}", Arrays.stream(uploadFile).toArray());
+
         Objects.requireNonNull(mapper);
 
         List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
@@ -151,6 +156,7 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         /*파일 삭제후 다시 넣어줘야할 거같습니다....*/
         int deleteFiles = mapper.deleteFiles(studyInsDTO);
         log.info("deleteFiles = {}", deleteFiles);
+
         int ar2 = mapper.insertFiles(listOfFiles);
         log.info("ar2 = {}", ar2);
 
@@ -199,14 +205,30 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         return list;
     }
 
+    /*채팅 리스트 r_Idx 기준으로 불러오기 sendTime 순으로 오름차순으로 불러와야합니다 (100개 까지)*/
+    @Override
+    public List<ChatMsgDTO> getChatList(Integer r_idx) {
+
+        log.info("getChatList({}) is invoked", "r_idx = " + r_idx);
+        Objects.requireNonNull(mapper);
+        List<ChatMsgDTO> list = this.mapper.getChatList(r_idx);
+        log.info("list = {}", list);
+
+        return list;
+    }
+
     @Override
     public void destroy() throws Exception {
+
         log.info("destroy() is invoked");
+
     } // destroy
 
     @Override
     public void afterPropertiesSet() throws Exception {
+
         log.info("afterPropertiesSet() is invoked");
+
     } // afterPropertiesSet
 } // end class
 

@@ -4,27 +4,156 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 
-<html lang="ko">
+<html lang="en">
 <!----------------Head 시작----------------------->
 
 <head>
     <title>스터디 내 게시판</title>
     <!--head.html Include-->
-    <jsp:include page="/WEB-INF/commons/head.jsp"/>
+    <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.js" integrity="sha512-Vl3LfTwTl2UYaupOww2SD1ng4ZSOrLYc1Pnag6KCipvEy9Be4KSmeFH8KnX6FcURxeZufGUKxOO77EsfzT/4Zg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
+        .container {
+            width: 500px;
+            margin: 0 auto;
+            padding: 25px
+        }
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
-    <script src="<c:url value="/resources/assets/js/sockjs-0.3.4.js"/>"></script>
-    <script src="<c:url value="/resources/assets/js/stomp.js"/>"></script>
+        .container h1 {
+            text-align: left;
+            padding: 5px 5px 5px 15px;
+            color: #FFBB00;
+            border-left: 3px solid #FFBB00;
+            margin-bottom: 20px;
+        }
 
+        .roomContainer {
+            background-color: #F6F6F6;
+            width: 500px;
+            height: 500px;
+            overflow: auto;
+        }
 
+        .roomList {
+            border: none;
+        }
+
+        .roomList th {
+            border: 1px solid #FFBB00;
+            background-color: #fff;
+            color: #FFBB00;
+        }
+
+        .roomList td {
+            border: 1px solid #FFBB00;
+            background-color: #fff;
+            text-align: left;
+            color: #FFBB00;
+        }
+
+        .roomList .num {
+            width: 75px;
+            text-align: center;
+        }
+
+        .roomList .room {
+            width: 350px;
+        }
+
+        .roomList .go {
+            width: 71px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #FFBB00;
+            font-size: 14px;
+            color: #000;
+            border: 1px solid #000;
+            border-radius: 5px;
+            padding: 3px;
+            margin: 3px;
+        }
+
+        .inputTable th {
+            padding: 5px;
+        }
+
+        .inputTable input {
+            width: 330px;
+            height: 25px;
+        }
+    </style>
 </head>
 
-<!----------------Head 종료----------------------->
-<!----------------Body 시작----------------------->
+<script type="text/javascript">
+    var ws;
+    window.onload = function () {
+        getRoom();
+        createRoom();
+    }
 
+    function getRoom() {
+        commonAjax('/getRoom', "", 'post', function (result) {
+            createChatingRoom(result);
+        });
+    }
 
+    function createRoom() {
+        $("#createRoom").click(function () {
+            var msg = {roomName: $('#roomName').val()};
+
+            commonAjax('/createRoom', msg, 'post', function (result) {
+                createChatingRoom(result);
+            });
+
+            $("#roomName").val("");
+        });
+    }
+
+    function goRoom(number, name) {
+        location.href = "/moveChating?roomName=" + name + "&" + "roomNumber=" + number;
+    }
+
+    function createChatingRoom(res) {
+        if (res != null) {
+            var tag = "<tr><th class='num'>순서</th><th class='room'>방 이름</th><th class='go'></th></tr>";
+            Array.from(res).forEach(function (d, idx) {
+                var rn = d.roomName.trim();
+                var roomNumber = d.roomNumber;
+                tag += "<tr>" +
+                    "<td class='num'>" + (idx + 1) + "</td>" +
+                    "<td class='room'>" + rn + "</td>" +
+                    "<td class='go'><button type='button' onclick='goRoom(\"" + roomNumber + "\", \"" + rn + "\")'>참여</button></td>" +
+                    "</tr>";
+            });
+            $(`#roomList`).append(tag);
+            // $("#roomList").empty().append(tag);
+        }
+    }
+
+    function commonAjax(url, parameter, type, calbak, contentType) {
+        $.ajax({
+            url: url,
+            data: parameter,
+            type: type,
+            contentType: contentType != null ? contentType : 'application/x-www-form-urlencoded; charset=UTF-8',
+            success: function (res) {
+                calbak(res);
+            },
+            error: function (err) {
+                console.log('error');
+                calbak(err);
+            }
+        });
+    }
+</script>
 <body id="kt_body" class="header-fixed subheader-enabled page-loading">
 <!----------------메인 시작----------------------->
 <div class="d-flex flex-column flex-root">
@@ -52,69 +181,33 @@
 
                         </div>
                     </div>
-                    <!--카드 헤더 종료-->
-                    <!--카드 Body 시작-->
-
-                    <div class="card-body pt-2 pb-0 mt-n3">
-                        <h2>Hi there</h2>
-                        <div class="chattingArea">
-                            <%--동적 생성 .. 해당 r_Idx에 맞는 채팅들을 시간순으로 들고와야합니다.--%>
+                    <div class="container">
+                        <h1>채팅방</h1>
+                        <div id="roomContainer" class="roomContainer">
+                            <table id="roomList" class="roomList">
+                                <tr>
+                                    <td class="num">1</td>
+                                    <td class="room">ㅇㅇㅇㅇㅇㅇ</td>
+                                <td class="go"><a href="/moveChating?roomName=ddd&roomNumber=1"><i class="fa fa-arrow-left"></i> </a> </td>
+                                </tr>
+                            </table>
                         </div>
-                        <%--채팅방 번호 넘겨받기--%>
-                        <label for="name">채팅방 번호 넘겨받기</label><input id="name"/>
-                        <%--메시지--%>
-                        <label for="msg_Cont"></label><textarea name="msg_Cont" id="msg_Cont"></textarea>
-
-                        <button onclick="connect()">Enter</button>
-                        <button onclick="send()">Send</button>
-                        <button onclick="disconnect()">Discount</button>
+                        <div>
+                            <table class="inputTable">
+                                <tr>
+                                    <th>방 제목</th>
+                                    <th><input type="text" name="roomName" id="roomName"></th>
+                                    <th>
+                                        <button id="createRoom">방 만들기</button>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-
-                    <script>
-                        function connect() {
-                            let socket = new SockJS(`/users`);
-                            stompClient = Stomp.over(socket);
-                            stompClient.connect({}, function (frame) { // sock에 연결 및 서버로부터 리소스를 listening합니다.
-                                console.log('Connected: ' + frame);
-                                stompClient.subscribe('/topic/users', function (response) {
-                                    console.log(response);
-                                    console.log(JSON.parse(response.body));
-                                });
-                            });
-                            console.log("sending~~");
-                        }
-
-                        function disconnect() {
-                            stompClient.disconnect();
-                            console.log("Disconnected");
-                        }
-
-                        function send() { // 해당 메서드는 데이터를 서버로 보냅니다.
-                            console.log(`sending~!`);
-
-                            console.log("name " + name);
-                            console.log("msg_Cont");
-
-                            stompClient.send("/app/user/", {}, JSON.stringify({}));
-                        }
-
-                    </script>
                 </div>
-                <!--카드 Body 종료-->
             </div>
-            <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
-
-            <!--컨테이너 종료-->
-            <!--footer.html Include-->
-            <jsp:include page="/WEB-INF/commons/footer.jsp"/>
         </div>
     </div>
-
-
 </div>
 </body>
-
-
-<!----------------Body 종료----------------------->
-
 </html>

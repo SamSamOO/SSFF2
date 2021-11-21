@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
 import javax.swing.plaf.multi.MultiInternalFrameUI;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.ChatMsgDTO;
 import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 
@@ -48,6 +49,10 @@ public interface StudyInsService {
 
     //10.  공지글 보이기
     public abstract List<StudyInsVO> showNotice() throws Exception;
+
+    //11. 채팅 리스트 불러오기
+    public abstract List<ChatMsgDTO> getChatList(Integer r_idx);
+
 } // end interface
 
 

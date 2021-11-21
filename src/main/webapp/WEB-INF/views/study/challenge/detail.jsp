@@ -344,7 +344,7 @@
 
        $.ajax({
                 type       : 'POST',
-                url        : '/applyMember/insert',
+                url        : '/applyMemberRest/insert',
                 data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
                 dataType   : 'text', // 받을 데이터는 json
                 contentType: "application/json; charset=utf-8",
