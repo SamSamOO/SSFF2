@@ -1,126 +1,123 @@
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
-	xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:websocket="http://www.springframework.org/schema/websocket"
-	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+<beans xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
-	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- Root Context: defines shared resources visible to all other web components -->
+    <!-- Root Context: defines shared resources visible to all other web components -->
+    <!-- Root Context: defines shared resources visible to all other web components -->
 
-	<!-- HikariCP 라이브러리를 이용한, 데이터소스 설정 -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<description>이 빈의 설명을 넣어라!!!</description>
+    <!-- HikariCP 라이브러리를 이용한, 데이터소스 설정 -->
+    <aop:aspectj-autoproxy/>
 
-		<property
-			name="driverClassName"
-			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+    <!-- 메일 보내기 (SEND) -->
+    <!-- 메일 -->
+    <bean class="com.zaxxer.hikari.HikariConfig" id="hikariConfig">
+        <description>이 빈의 설명을 넣어라!!!</description>
 
-				<property name="jdbcUrl"
-						  value ="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_Admin=/Library/전자지갑/Wallet_DB202110221035" />
-<!--		<property name="jdbcUrl"-->
-<!--			value="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP" />-->
+        <property
+            name="driverClassName"
+            value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 
-
-
-		<property name="username" value="admin" />
-		<property name="password" value="Oracle12345!!!"/>
-
-		<!-- Connection Pool 에 대한 상세설정 -->
-		<property name="maximumPoolSize" value="10"/>
-		<property name="minimumIdle" value="2"/>
-		<property name="idleTimeout" value="10000"/>
-		<property name="connectionTimeout" value="1000"/>
-		<property name="connectionTestQuery" value="SELECT 1 FROM dual"/>
-		<property name="dataSourceJNDI" value="jdbc/HikariCP"/>
-		<property name="poolName" value="*** HikariDataSource ***"/>
-	</bean>
-
-	<!-- 메일 보내기 (SEND) -->
-	<!-- 메일 -->
-	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.naver.com" />
-		<property name="port" value="465" />
-		<property name="username" value="tnsgud2358@naver.com" />
-		<property name="password" value="wkdtns!#57" />
-		<property name="defaultEncoding" value="utf-8" />
-		<property name="javaMailProperties">
-			<props>
-				<prop key="mail.debug">true</prop>
-				<prop key="mail.smtp.starttls.enable">true</prop>
-				<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
-				<prop key="mail.smtp.auth">true</prop>
-				<prop key="mail.smtps.ssl.trust">*</prop>
-				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
-			</props>
-		</property>
-	</bean>
+        <!--				<property name="jdbcUrl"-->
+        <!--						  value ="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_Admin=/Library/전자지갑/Wallet_DB202110221035" />-->
+        <property name="jdbcUrl"
+            value="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP"/>
 
 
+        <property name="username" value="admin"/>
+        <property name="password" value="Oracle12345!!!"/>
+
+        <!-- Connection Pool 에 대한 상세설정 -->
+        <property name="maximumPoolSize" value="10"/>
+        <property name="minimumIdle" value="2"/>
+        <property name="idleTimeout" value="10000"/>
+        <property name="connectionTimeout" value="1000"/>
+        <property name="connectionTestQuery" value="SELECT 1 FROM dual"/>
+        <property name="dataSourceJNDI" value="jdbc/HikariCP"/>
+        <property name="poolName" value="*** HikariDataSource ***"/>
+    </bean>
 
 
-	<!-- 데이터소스 빈 클래스 설정 -->
-	<bean
-		id="hikariDataSource"
-		class="com.zaxxer.hikari.HikariDataSource">
+    <!-- 데이터소스 빈 클래스 설정 -->
+    <bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="mailSender">
+        <property name="host" value="smtp.naver.com"/>
+        <property name="port" value="465"/>
+        <property name="username" value="tnsgud2358@naver.com"/>
+        <property name="password" value="wkdtns!#57"/>
+        <property name="defaultEncoding" value="utf-8"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.debug">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtps.ssl.trust">*</prop>
+                <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+            </props>
+        </property>
+    </bean>
 
-		<constructor-arg ref="hikariConfig"/>
-	</bean>
 
+    <!-- MyBatis-Spring 연계라이브러리에서 제공되는 특수한 빈을 등록 -->
+    <bean
+        class="com.zaxxer.hikari.HikariDataSource"
+        id="hikariDataSource">
 
-	<!-- MyBatis-Spring 연계라이브러리에서 제공되는 특수한 빈을 등록 -->
-	<bean
-		id="sqlSessionFactory"
-		class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="hikariDataSource"/>
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
 
-		<property name="configLocation"
-			value="classpath:mybatis-config.xml"/>
-	</bean>
-
-	<!-- MyBatis-Spring 연계라이브러리에서 제공되는 특수한 태그를 등록:
+    <!-- MyBatis-Spring 연계라이브러리에서 제공되는 특수한 태그를 등록:
     MyBatis Mapper Interface를 Scanning해서, 자동으로 빈으로 등록해주는
     태그가 있다! -->
-	<mybatis-spring:scan base-package="kr.or.ssff.mapper"/>
-	
-		<!-- ================= AOP =============== -->
+    <bean
+        class="org.mybatis.spring.SqlSessionFactoryBean"
+        id="sqlSessionFactory">
+        <property name="dataSource" ref="hikariDataSource"/>
 
-	<context:annotation-config />
-	<aop:aspectj-autoproxy />
-	
-		<!-- ============= Transaction Manager ============= -->
+        <property name="configLocation"
+            value="classpath:mybatis-config.xml"/>
+    </bean>
 
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="hikariDataSource" />
-	</bean>
+    <!-- ================= AOP =============== -->
 
-	<tx:annotation-driven />
+    <bean class="org.springframework.jdbc.datasource.DataSourceTransactionManager" id="transactionManager">
+        <property name="dataSource" ref="hikariDataSource"/>
+    </bean>
+    <bean
+        class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean"
+        id="servletServerContainerFactory">
+        <property name="maxTextMessageBufferSize" value="16384"/>
+        <property name="maxBinaryMessageBufferSize" value="16384"/>
+        <property name="maxSessionIdleTimeout" value="30000"/>
+        <property name="asyncSendTimeout" value="10000"/>
+    </bean>
 
-	<!--웹소켓 관련-->
-	<websocket:handlers>
-		<websocket:mapping path="/echo" handler="echoHandler" />
+    <!-- ============= Transaction Manager ============= -->
 
-		<websocket:handshake-interceptors>
-			<bean
-				id="httpSessionHandshakeInterceptor"
-				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
-		</websocket:handshake-interceptors>
-	</websocket:handlers>
+    <bean class="kr.or.ssff.studyIns.handler.SocketHandler" id="echoHandler"/>
 
-	<!--웹소켓 메시지 처리-->
-	<bean
-		id="servletServerContainerFactory"
-		class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
-		<property name="maxTextMessageBufferSize" value="16384"/>
-		<property name="maxBinaryMessageBufferSize" value="16384"/>
-		<property name="maxSessionIdleTimeout" value="30000"/>
-		<property name="asyncSendTimeout" value="10000"/>
-	</bean>
-	<!--핸들러 빈 등록-->
-	<bean id="echoHandler" class="kr.or.ssff.studyIns.handler.SocketHandler" />
+    <context:annotation-config/>
+
+    <!--웹소켓 관련-->
+    <mybatis-spring:scan base-package="kr.or.ssff.mapper"/>
+
+    <!--웹소켓 메시지 처리-->
+    <tx:annotation-driven/>
+    <!--핸들러 빈 등록-->
+    <websocket:handlers>
+        <websocket:handshake-interceptors>
+            <bean
+                class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"
+                id="httpSessionHandshakeInterceptor"/>
+        </websocket:handshake-interceptors>
+
+        <websocket:mapping handler="echoHandler" path="/echo"/>
+    </websocket:handlers>
 </beans>

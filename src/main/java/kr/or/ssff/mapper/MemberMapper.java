@@ -2,7 +2,6 @@ package kr.or.ssff.mapper;
 
 import java.util.HashMap;
 import kr.or.ssff.member.domain.MemberDTO;
-import kr.or.ssff.member.domain.ApplyMemberListVO;
 import kr.or.ssff.member.domain.MemberVO;
 import org.apache.ibatis.annotations.Mapper;
 

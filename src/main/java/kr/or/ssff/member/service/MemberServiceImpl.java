@@ -11,8 +11,6 @@ import kr.or.ssff.mapper.MemberMapper;
 
 import kr.or.ssff.member.Utils.MailHandler;
 import kr.or.ssff.member.Utils.TempKey;
-import kr.or.ssff.member.domain.ApplyMemberDTO;
-import kr.or.ssff.member.domain.ApplyMemberListVO;
 import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
