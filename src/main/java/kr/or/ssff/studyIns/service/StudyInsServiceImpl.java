@@ -19,6 +19,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -115,7 +116,7 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      * 반환	:  해당 게시물
      * 작성자	: 박상준
      */
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean register(Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile) {
         log.info("register({}) is invoked", "cont_No = " + cont_No + ", studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
@@ -138,11 +139,14 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      * 반환	:  해당 게시판
      * 작성자	: 박상준
      */
-
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean modify(StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile) {
+
         log.debug("modify({}) is invoked", "studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
+
         log.info("uploadFile = {}", Arrays.stream(uploadFile).toArray());
+
         Objects.requireNonNull(mapper);
 
         List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
@@ -152,6 +156,7 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         /*파일 삭제후 다시 넣어줘야할 거같습니다....*/
         int deleteFiles = mapper.deleteFiles(studyInsDTO);
         log.info("deleteFiles = {}", deleteFiles);
+
         int ar2 = mapper.insertFiles(listOfFiles);
         log.info("ar2 = {}", ar2);
 

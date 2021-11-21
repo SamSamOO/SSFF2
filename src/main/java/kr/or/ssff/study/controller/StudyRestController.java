@@ -1,6 +1,7 @@
 package kr.or.ssff.study.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import kr.or.ssff.study.domain.LangVO;
@@ -90,26 +91,52 @@ public class StudyRestController {
     }//deleteComment
 
     @PostMapping("/challenge/list")
-    public @ResponseBody List<RecruitBoardJoinReplyVO> getChallengeListByPageNum(@RequestBody Map<String, String> jsonData) {
+    public @ResponseBody Map<String, Object> getChallengeListByPageNum(@RequestBody Map<String, String> jsonData) {
         log.info("getChallengeListByPageNum({}) is invoked",jsonData);
-        //String orderRule = jsonData.get("orderRule"); 안됨
+
+        String orderRule = jsonData.get("orderRule"); // latest or popularity
+        String closed = jsonData.get("closed"); //true(마감 제외) or false(전부)
         List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
-        //if(orderRule.equals("최신순")){
+        Integer boardTotal = 0;
+        if(orderRule.equals("latest") && closed.equals("false")){
             list= this.service.getListWithJoinReply("C",Integer.parseInt(jsonData.get("pageNum")));
-        //}else{
-        //    list= this.service.getListWithJoinReplyOrderByHit("C",Integer.parseInt(jsonData.get("pageNum")));
-        //}
-        //1. 해당 페이지에 속하는 데이터만 뿌리기
+            boardTotal = this.service.getTotal("C");
+        }else if(orderRule.equals("popularity") && closed.equals("false")){
+            list= this.service.getListWithJoinReplyOrderByHit("C",Integer.parseInt(jsonData.get("pageNum")));
+            boardTotal = this.service.getTotal("C");
+        }else if(orderRule.equals("latest") && closed.equals("true")){
+            list= this.service.getListWithJoinReplyExceptClosed("C",Integer.parseInt(jsonData.get("pageNum")));
+            boardTotal = this.service.getTotalExceptClosed("C");
+        }else if(orderRule.equals("popularity") && closed.equals("true")){
+            list= this.service.getListWithJoinReplyOrderByHitExceptClosed("C",Integer.parseInt(jsonData.get("pageNum")));
+            boardTotal = this.service.getTotalExceptClosed("C");
+        }
 
-
-        return list;
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("boardList", list);
+        data.put("boardTotal", boardTotal);
+        return data;
     }//getChallengeListByPageNum
 
 
     @PostMapping("/project/list")
-    public @ResponseBody List<Map<String, Object>> getProjectListByPageNum(@RequestBody Map<String, Integer> jsonData) {
-        //1. 해당 페이지에 속하는 데이터만 뿌리기
-        List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("P",jsonData.get("pageNum"));
+    public @ResponseBody List<Map<String, Object>> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
+        log.info("getProjectListByPageNum({}) is invoked",jsonData);
+
+        String orderRule = jsonData.get("orderRule");
+        String closed = jsonData.get("closed"); //true(마감 제외) or false(전부)
+        String chType = jsonData.get("chType");
+        List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
+
+        if(orderRule.equals("latest")&& closed.equals("false")){
+            list= this.service.getListWithJoinReply("P",Integer.parseInt(jsonData.get("pageNum")));
+        }else if(orderRule.equals("popularity") && closed.equals("false")){
+            list= this.service.getListWithJoinReplyOrderByHit("P",Integer.parseInt(jsonData.get("pageNum")));
+        }else if(orderRule.equals("latest") && closed.equals("true")){
+            list= this.service.getListWithJoinReplyExceptClosed("P",Integer.parseInt(jsonData.get("pageNum")));
+        }else if(orderRule.equals("popularity") && closed.equals("true")){
+            list= this.service.getListWithJoinReplyOrderByHitExceptClosed("P",Integer.parseInt(jsonData.get("pageNum")));
+        }
         List<LangVO> langList = this.service.getLangList();
 
         List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);

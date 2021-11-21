@@ -76,10 +76,13 @@
           <element id="library" level="project" name="Maven: net.sf.ezmorph:ezmorph:1.0.6" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
+          <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" />
+          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
+
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/target/META-INF/MANIFEST.MF" />
+        <element id="library" level="application" name="jquery" />
       </element>
       <element id="javaee-facet-resources" facet="ssff/web/웹" />
     </root>
