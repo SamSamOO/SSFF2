@@ -2,7 +2,7 @@ package kr.or.ssff.mapper;
 
 import java.util.HashMap;
 import kr.or.ssff.member.domain.MemberDTO;
-import kr.or.ssff.member.domain.ApplyMemberListVO;
+
 import kr.or.ssff.member.domain.MemberVO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -19,7 +19,7 @@ public interface MemberMapper {
 	//회원가입
 	public abstract Integer insertMember(MemberDTO memberDTO)  throws Exception;
 	//로그인
-	public abstract MemberVO Login(String member_id, String member_pwd);
+	public abstract MemberVO Login(MemberVO memberVO);
 	// 디비에 authkey저장
 	public int createAuthkey(String member_id, String authkey) throws Exception;
 	// 이메일 인증 후 authstatus 1로  변경
