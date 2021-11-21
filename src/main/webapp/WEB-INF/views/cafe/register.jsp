@@ -19,7 +19,9 @@
   <title>카페 등록하기</title>
   
   <style>
-  
+  .row {
+    justify-content: space-evenly;
+  }
   
   </style>
   <!--head.html Include-->
@@ -97,7 +99,7 @@
               <div class="card-body">
                 <!--begin::Form-->
                 <form class="form" id="formObj" method="post"
-                      enctype="multipart/form-data" action="/cafe/inser">
+                      enctype="multipart/form-data" action="/cafe/register/insert">
                   <div class="row">
                     
                     <div class="col-xl-8">

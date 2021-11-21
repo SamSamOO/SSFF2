@@ -1,25 +1,19 @@
 package kr.or.ssff.applyMember.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.HashMap;
-import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
-import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import kr.or.ssff.applyMember.service.ApplyMemberService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 /*
  * 최초 작성자: 신지혜
@@ -114,8 +108,8 @@ public String applyAction(
             aMember.put("member_name", filterJSON.get("member_name"));
 
 //            ObjectMapper mapper = new ObjectMapper();
-//
-//            HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
+
+//            HashMap<String, String> aMember = mapper.readValues(filterJSON, new HashMap<String, String>().getClass());
             
             log.info("\t+ aMember.boss: {}",aMember.get("boss"));
             log.info("\t+ aMember.r_idx: {}",aMember.get("r_idx"));
