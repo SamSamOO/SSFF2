@@ -24,6 +24,16 @@
         <beans:property name="prefix" value="/WEB-INF/views/"/>
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+	<!--상준 : 로컬에서 이미지 불러오기 (우회)-->
+<!--	<resources mapping="/image/**" location="file:///C:/Temp/upload/"/>-->
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
 
     <!--상준 : 로컬에서 이미지 불러오기 (우회)-->
     <beans:bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver" id="multipartResolver"/>
@@ -33,6 +43,34 @@
     <!-- 순형 작업 -->
     <context:component-scan base-package="kr.or.ssff.member.controller"/>
     <context:component-scan base-package="kr.or.ssff.member.service"/>
+	<!-- 순형 작업 -->
+	<context:component-scan base-package="kr.or.ssff.member.controller" />
+	<context:component-scan base-package="kr.or.ssff.member.service" />
+	<context:component-scan base-package="kr.or.ssff.member.Utils" />
+<!--	<context:component-scan base-package="kr.or.ssff.member.Interceptor" />-->
+
+<!--	&lt;!&ndash; interceptor 는 등록된 순서대로 순차적으로 실행 된다 &ndash;&gt;-->
+<!--	<interceptors>-->
+
+
+<!--		&lt;!&ndash; 로그인을 처리하는 인터셉터  &ndash;&gt;-->
+<!--		<interceptor>-->
+<!--			<mapping path="/user/login"/>-->
+<!--			<beans:ref bean="loginInterceptor"/>-->
+
+<!--		</interceptor>-->
+
+<!--		<interceptor>-->
+<!--			&lt;!&ndash; login 인증이 필요한 URI 들 &ndash;&gt;-->
+<!--			<mapping path="/member/main"/>-->
+<!--			<mapping path="/member/modify"/>-->
+<!--			<mapping path="/member/idPwFind"/>-->
+<!--			<beans:ref bean="authInterceptor"/>-->
+<!--		</interceptor>-->
+
+<!--	</interceptors>-->
+
+
 
 
     <!--지혜 작업-->

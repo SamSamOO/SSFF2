@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>src/main/webapp/WEB-INF/views/member/idPwFind.jsp</title>
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/header.jsp"></jsp:include>
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/footer.jsp"></jsp:include>
 </head>
 <body>
 
