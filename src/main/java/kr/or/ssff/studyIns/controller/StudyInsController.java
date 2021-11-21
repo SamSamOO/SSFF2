@@ -2,15 +2,16 @@ package kr.or.ssff.studyIns.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.rmi.server.ServerCloneException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import javax.servlet.http.HttpSession;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.ChatMsgDTO;
 import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.PageDTO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
@@ -196,14 +198,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         log.info("service.getList(criteria) = {}", service.getList(criteria, category));
 
-
         model.addAttribute("list", service.getList(criteria, category));
 
         model.addAttribute("noticeList", service.showNotice());
 
         model.addAttribute("category", category);
 
-        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category)+1));
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category) + 1));
 
         log.info("criteria = {}", criteria);
 
@@ -477,8 +478,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 해당 스터디의 채팅방 뷰단
      * */
     @GetMapping("/chatRoom")
-    public String chatRoom(String chatRoomId) { // TODO 매개변수..
-        log.debug("chatRoom({}) is invoked", "chatRoomId = " + chatRoomId);
+    public String chatRoom(Integer r_Idx, Model model, HttpSession session) { // TODO 매개변수..
 
         return "studyIns/chatRoom/chatRoom";
     } // chatRoom

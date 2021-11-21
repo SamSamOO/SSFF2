@@ -7,6 +7,7 @@ import javax.naming.event.ObjectChangeListener;
 import kr.or.ssff.mapper.StudyInsMapper;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.ChatMsgDTO;
 import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
@@ -199,14 +200,30 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
         return list;
     }
 
+    /*채팅 리스트 r_Idx 기준으로 불러오기 sendTime 순으로 오름차순으로 불러와야합니다 (100개 까지)*/
+    @Override
+    public List<ChatMsgDTO> getChatList(Integer r_idx) {
+
+        log.info("getChatList({}) is invoked", "r_idx = " + r_idx);
+        Objects.requireNonNull(mapper);
+        List<ChatMsgDTO> list = this.mapper.getChatList(r_idx);
+        log.info("list = {}", list);
+
+        return list;
+    }
+
     @Override
     public void destroy() throws Exception {
+
         log.info("destroy() is invoked");
+
     } // destroy
 
     @Override
     public void afterPropertiesSet() throws Exception {
+
         log.info("afterPropertiesSet() is invoked");
+
     } // afterPropertiesSet
 } // end class
 

@@ -3,12 +3,12 @@
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- Root Context: defines shared resources visible to all other web components -->
@@ -21,10 +21,10 @@
 			name="driverClassName"
 			value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 
-		<!--		<property name="jdbcUrl"-->
-		<!--				  value ="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_Admin=/Library/전자지갑/Wallet_DB202110221035" />-->
-		<property name="jdbcUrl"
-			value="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP" />
+				<property name="jdbcUrl"
+						  value ="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_Admin=/Library/전자지갑/Wallet_DB202110221035" />
+<!--		<property name="jdbcUrl"-->
+<!--			value="jdbc:log4jdbc:oracle:thin:@db202110221035_high?TNS_ADMIN=C:/opt/OracleCloudWallet/ATP" />-->
 
 
 
@@ -39,6 +39,26 @@
 		<property name="connectionTestQuery" value="SELECT 1 FROM dual"/>
 		<property name="dataSourceJNDI" value="jdbc/HikariCP"/>
 		<property name="poolName" value="*** HikariDataSource ***"/>
+	</bean>
+
+	<!-- 메일 보내기 (SEND) -->
+	<!-- 메일 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.naver.com" />
+		<property name="port" value="465" />
+		<property name="username" value="tnsgud2358@naver.com" />
+		<property name="password" value="wkdtns!#57" />
+		<property name="defaultEncoding" value="utf-8" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.debug">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtps.ssl.checkserveridentity">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtps.ssl.trust">*</prop>
+				<prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+			</props>
+		</property>
 	</bean>
 
 
@@ -80,6 +100,27 @@
 	</bean>
 
 	<tx:annotation-driven />
-	
-	
+
+	<!--웹소켓 관련-->
+	<websocket:handlers>
+		<websocket:mapping path="/echo" handler="echoHandler" />
+
+		<websocket:handshake-interceptors>
+			<bean
+				id="httpSessionHandshakeInterceptor"
+				class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor" />
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+
+	<!--웹소켓 메시지 처리-->
+	<bean
+		id="servletServerContainerFactory"
+		class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
+		<property name="maxTextMessageBufferSize" value="16384"/>
+		<property name="maxBinaryMessageBufferSize" value="16384"/>
+		<property name="maxSessionIdleTimeout" value="30000"/>
+		<property name="asyncSendTimeout" value="10000"/>
+	</bean>
+	<!--핸들러 빈 등록-->
+	<bean id="echoHandler" class="kr.or.ssff.studyIns.handler.SocketHandler" />
 </beans>
