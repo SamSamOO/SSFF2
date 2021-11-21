@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 
 
-import kr.or.ssff.member.domain.ApplyMemberListVO;
 import kr.or.ssff.member.service.KaKaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
