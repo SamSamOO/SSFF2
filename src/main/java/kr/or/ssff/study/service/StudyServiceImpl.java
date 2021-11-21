@@ -77,6 +77,20 @@ public class StudyServiceImpl implements StudyService {
     }
 
     @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReplyExceptClosed(String type,
+        Integer page) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyExceptClosed(type,page);
+        return allBoard;
+    }
+
+    @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(String type,
+        Integer page) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyOrderByHitExceptClosed(type,page);
+        return allBoard;
+    }
+
+    @Override
     public List<RecruitBoardVO> getListPerPage() {
         return null;
     }
@@ -86,7 +100,11 @@ public class StudyServiceImpl implements StudyService {
         int totalCount = mapper.getPostCount(type);
         return totalCount;
     }
-
+    @Override
+    public Integer getTotalExceptClosed(String type) {
+        int totalCount = mapper.getPostCountExceptClosed(type);
+        return totalCount;
+    }
     @Override
     public boolean registerLangTag(Integer r_idx,String tag) {
         int affectedRows = mapper.insertTag(r_idx,tag);

@@ -58,7 +58,6 @@ public class StudyController {
     public String selectChallengeListGo(Model model) {
         log.info("challengeListGo({},{}) is invoked.",model);
 
-
         //1. 해당 페이지에 속하는 데이터만 뿌리기(비동기 작업중으로 막아놓음)
         //List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("C",page);
         
@@ -89,8 +88,6 @@ public class StudyController {
         }
 
         //모델에다 전달해주기
-        //(비동기 작업중으로 막아놓음)
-        //model.addAttribute("list", list);
         model.addAttribute("studyCriteria", sc);
 
         return "study/challenge/list";
