@@ -79,24 +79,38 @@
         ws.onmessage = function(data) {
             //메시지를 받으면 동작
             var msg = data.data;
-            if(msg != null && msg.trim() != ''){
+            if(msg != null && msg.trim() != '') {
                 var d = JSON.parse(msg);
-                if(d.type == "getId"){
+                let now = new Date();
+                console.log(now);
+                d.time = now;
+                console.log(d);
+                if (d.type == "getId") {
+
                     var si = d.sessionId != null ? d.sessionId : "";
-                    if(si != ''){
+                    if (si != '') {
                         $("#sessionId").val(si);
                     }
-                }else if(d.type == "message"){
-                    if(d.sessionId == $("#sessionId").val()){
+                } else if (d.type == "message") {
+                    if (d.sessionId == $("#sessionId").val()) {
                         $("#chating").append("<p class='me'>나 :" + d.msg + "</p>");
-                    }else{
+                    } else {
                         $("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
                     }
 
-                }else{
-                    console.warn("unknown type!")
+                } else {
+                    console.warn("unknown type!");
                 }
             }
+            $.ajax({
+                type       : 'POST',
+                url        : '/chat',
+                data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+                dataType   : 'json', // 받을 데이터는 json
+                contentType: "application/json; charset=utf-8",
+                success    : successCallback,
+                error      : errorCallback
+            });
         }
 
         document.addEventListener("keypress", function(e){
