@@ -257,7 +257,7 @@
                url        : '/cafeRest/listData',
                data       : JSON.stringify(start.param), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
                dataType   : 'json', // 받을 데이터는 json
-               contentType: "application/json; charset=utf-8",
+               contentType: "multipart/json; charset=utf-8",
                success    : successCallback,
                error      : errorCallback
              });

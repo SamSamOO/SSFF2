@@ -243,7 +243,7 @@
                         <div class="form-group row">
                           <label class="col-3">사진 세개.. 더..</label>
                           <div class="col-9">
-                            <input class="form-control" type="text" value="" name="cafe_image_first"
+                            <input class="form-control" type="text" value="" name="cafe_image_1"
                                    required/>
                           </div>
                         </div>
@@ -252,7 +252,7 @@
                         <div class="form-group row">
                           <label class="col-3">사진 세개.. 더..</label>
                           <div class="col-9">
-                            <input class="form-control" type="text" value="" name="cafe_image_second"
+                            <input class="form-control" type="text" value="" name="cafe_image_2"
                                    required/>
                           </div>
                         </div>
@@ -260,7 +260,7 @@
                         <div class="form-group row">
                           <label class="col-3">사진 세개.. 더..</label>
                           <div class="col-9">
-                            <input class="form-control" type="text" value="" name="cafe_image_third"
+                            <input class="form-control" type="text" value="" name="cafe_image_3"
                                    required/>
                           </div>
                         </div>

@@ -1,18 +1,26 @@
 package kr.or.ssff.cafe.controller;
 
-import java.nio.charset.StandardCharsets;
+import java.io.Console;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.util.HashMap;
 import java.util.List;
-import kr.or.ssff.cafe.model.CafeDTO;
+import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvInfoDTO;
+import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
+import kr.or.ssff.cafe.model.Rooms;
 import kr.or.ssff.cafe.service.CafeService;
+import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +29,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -32,7 +42,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 public class CafeController {
 
-  @Setter(onMethod_ = {@Autowired})
+  @Autowired
   private CafeService service;
 
 
@@ -102,7 +112,7 @@ public class CafeController {
     log.info("insertReservation({}) is invoked", reservationDTO);
 
 //    Objects.requireNonNull(service);
-    if(service.registerReserve(reservationDTO)) {
+    if(service.registerReservation(reservationDTO)) {
       rttrs.addFlashAttribute("result", "success");	// OK : Request Scope 이용
       log.info("rttrs({}) is rttrs", rttrs);
     } // if
@@ -150,31 +160,203 @@ public class CafeController {
 
   } // goCafeRegister
 
+
+  @PostMapping("/inser")
+  public String test( @RequestParam String rooms,
+      HttpServletRequest request,
+      MultipartFile[] roomFile){
+    log.debug("insertCafe(>>>>>>@@{}, @@{}, @@{}<<<<<<) is invoked",
+        rooms, request,roomFile );
+
+//    log.info(rooms./());
+    log.info("###################" + rooms +"###################");
+    log.info(file.length);
+
+    return "/detail";
+  }
   /*
    * 스터디 카페 등록
    * 매개변수: 카페DTO (등록할 카페 정보를 담은 객체)
    * 반환: 스터디 카페 상세보기
    * */
   @PostMapping("/register/inserttt")
-  public String insertCafe(CafeDTO cafeDTO,
-      RoomDTO roomDTO, MultipartFile[] roomFile, MultipartFile[] cafeFile,
-      Model model, RedirectAttributes rtts ) {
+  public String insertCafe( CafeDTO cafeDTO,
+      List<RoomDTO> roomDTO, MultipartFile[] roomFile, MultipartFile[] cafeFile,
+      Model model, RedirectAttributes rtts) {
 
-    log.info("insertCafe({},{}) is invoked",
+    log.info("insertCafe({},{},{}, {},) is invoked",
+        cafeDTO, roomDTO, roomFile, cafeFile);
+
+
+//    log.info(">>>>>>>>>>>>>>>>>>>>roomDTO.({}, {}) is invoked",
+//        roomDTO.getRooms(), roomDTO.getMax_people());
+
+
+
+//    String[] max_peoples = request.getParameterValues("max_people");
+//    String[] total_room_numbers = request.getParameterValues("total_room_number");
+//    String[] amount_hours = request.getParameterValues("amount_hour");
+//    String[] roomFiles = request.getParameterValues("roomFile");
+//
+//
+//    List<RoomDTO> roomDTOList = new ArrayList<>();
+//
+//    for (int i = 0; i < request.getParameterValues("roomFile").length ; i++) {
+//      roomDTO.setMax_people(Integer.parseInt(max_peoples[i]));
+//      roomDTO.setTotal_room_number(Integer.parseInt(total_room_numbers[i]));
+//      roomDTO.setAmount_hour(Integer.parseInt(amount_hours[i]));
+//      roomDTO.setRoom_image((roomFiles[i]));
+//
+//      roomDTOList.add(roomDTO);
+//    }
+//
+//
+//
+//    log.info(">>>>>>>>>>>>>>>>>>>>roomDTOList.({}) is invoked",
+//        roomDTOList);
+
+
+
+//    for(RoomDTO dto : roomDTO.getRoomDTOList()){
+//
+//
+//    }
+
+    // uuid 문자를 담을 공간 (난수 생성을 위해)
+    String uuid ;
+
+    // file 저장을 위해 File 객체 호출
+    File saveFile;
+
+    // 이미지가 저장될 경로 설정
+    String cafeUploadFolder = "C:/temp/upload/cafe/" + cafeDTO.getBusiness_number(); // 카페
+    String roomUploadFolder = cafeUploadFolder + "/room"; // 룸
+
+    // 폴더 만들기
+    File cafeUploadPath = new File(cafeUploadFolder);   // 카페
+    File roomUploadPath = new File(roomUploadFolder);   // 룸
+
+    log.debug("upload path {},{}: " , cafeUploadPath, roomUploadPath);
+
+    // 폴더가 없다면 생성하기
+    if (!cafeUploadPath.exists()) { // 카페
+      cafeUploadPath.mkdirs();
+    } // if
+
+    if (!roomUploadPath.exists()) { // 룸
+      roomUploadPath.mkdirs();
+    } // if
+
+
+    // Room DTO add
+
+
+//      for(MultipartFile r : room_image) {
+//        log.info("--------------------------------------");
+//        log.info("Upload File Name : " + r.getOriginalFilename());
+//        log.info("Upload File Size : " + r.getSize());
+//
+//        // uuid 부여
+//        uuid = UUID.randomUUID().toString();
+//
+//        // file name에서 공백을 언더바로 치환
+//        String fileName = r.getOriginalFilename().replace(' ','_');
+//
+//        // IE 접속시 백슬래시를 1로
+//        fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
+//
+//        // 생성한 uuid와 file name을 결합하여 fileName 부여
+//        fileName = uuid + "_" + fileName;
+//
+//
+//        // 파일 저장
+//        saveFile = new File(cafeUploadPath, fileName);
+//
+//        try {
+//          r.transferTo(saveFile);
+//
+//          //check image type file
+//          if (UploadFileUtils.checkImageType(saveFile)) {
+//            FileOutputStream thumbnail = new FileOutputStream(new File(cafeUploadPath, "cafe_" + fileName));
+//            Thumbnailator.createThumbnail(r.getInputStream(), thumbnail, 100, 100);
+//
+//            thumbnail.close();
+//          } // if
+//        } catch (Exception e) {
+//          log.error(e.getMessage());
+//
+//        } // try catch
+//        roomDTO.setRoom_image(fileName);
+//
+//      } // for
+
+
+
+
+
+    // cafe DOT add
+    for (int i = 0; i < cafeFile.length; i++) {
+      log.info("--------------------------------------");
+      log.info("Upload File Name : " + cafeFile[i].getOriginalFilename());
+      log.info("Upload File Size : " + cafeFile[i].getSize());
+
+      // uuid 부여
+      uuid = UUID.randomUUID().toString();
+
+      // file name에서 공백을 언더바로 치환
+      String fileName = cafeFile[i].getOriginalFilename().replace(' ','_');
+
+      // IE 접속시 백슬래시를 1로
+      fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
+
+      // 생성한 uuid와 file name을 결합하여 fileName 부여
+      fileName = uuid + "_" + fileName;
+
+
+      // 파일 저장
+      saveFile = new File(cafeUploadPath, fileName);
+
+      try {
+        cafeFile[i].transferTo(saveFile);
+
+        //check image type file
+        if (UploadFileUtils.checkImageType(saveFile)) {
+          FileOutputStream thumbnail = new FileOutputStream(new File(cafeUploadPath, "cafe_" + fileName));
+          Thumbnailator.createThumbnail(cafeFile[i].getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
+
+          thumbnail.close();
+        } // if
+      } catch (Exception e) {
+        log.error(e.getMessage());
+
+      } // end catch
+
+      if(i==0){
+        cafeDTO.setCafe_image_1(fileName);
+
+      } else if(i==1){
+        cafeDTO.setCafe_image_2(fileName);
+
+      } else {
+        cafeDTO.setCafe_image_3(fileName);
+
+      } // if-else-if
+
+    } // end for (cafe)
+
+    log.info("insertCafe 아니 안되냐고 ({},{}) ",
         cafeDTO, roomDTO);
 
-    for(MultipartFile r : roomFile) {
-      log.info("--------------------------------------");
-      log.info("Upload File Name : " + r.getOriginalFilename());
-      log.info("Upload File Size : " + r.getSize());
-    }
+//    if (service.registerCafe(cafeDTO, roomDTO)) {
+//      log.info("컨트롤러 - 서비스 실행 잘 했습니다.");
+//      rtts.addFlashAttribute("result", "success");
+//    } // if
 
-    for(MultipartFile c : cafeFile) {
-      log.info("--------------------------------------");
-      log.info("Upload File Name : " + c.getOriginalFilename());
-      log.info("Upload File Size : " + c.getSize());
-    }
-    return "redirect:/cafe/detail";
+
+
+//    rtts.addAttribute("cafe_idx", cafe_idx);
+
+    return "redirect:/cafe/register";
   } // insertCafe
 
   /*
@@ -188,6 +370,7 @@ public class CafeController {
 
     return "cafe/modifyView";
   } // updateCafeView
+
 
   /*
    * 스터디 카페 수정

@@ -586,13 +586,13 @@
 																																				
 																																				<!-- 카페 이미지와 -->
 																																				<div class="swiper-slide">
-																																						<img src="${cafeInfo[0].cafe_image_first}"/>
+																																						<img src="${cafeInfo[0].cafe_image_1}"/>
 																																				</div>
 																																				<div class="swiper-slide">
-																																						<img src="${cafeInfo[0].cafe_image_second}"/>
+																																						<img src="${cafeInfo[0].cafe_image_2}"/>
 																																				</div>
 																																				<div class="swiper-slide">
-																																						<img src="${cafeInfo[0].cafe_image_third}"/>
+																																						<img src="${cafeInfo[0].cafe_image_3}"/>
 																																				</div>
 																																				<!-- 카페 룸 이미지 -->
 																																				<c:forEach items="${fn:split(cafeInfo[0].room_list,':')}"

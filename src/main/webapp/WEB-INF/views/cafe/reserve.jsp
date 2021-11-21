@@ -145,7 +145,7 @@
 																				<!--begin: Pic-->
 																				<div class="flex-shrink-0 w-xl-150px mr-7 mt-lg-0 mt-3">
 																						<div class="symbol symbol-50 symbol-lg-120">
-																								<img alt="${cafeVO.cafe_image_first}" src="${cafeVO.cafe_image_first}">
+																								<img alt="${cafeVO.cafe_image_1}" src="${cafeVO.cafe_image_1}">
 																						</div>
 																				</div>
 																				<!--end: Pic-->

@@ -4,16 +4,69 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ssff.mapper.CafeMapper">
 
+	<!-- 신규 카페정보 등록 : 신지혜  -->
+	<insert id="insertCafe" parameterType="kr.or.ssff.cafe.model.CafeDTO">
 
-<!-- 카페 리스트단 VIEW를 위한 카페 리스트 & 상세 룸 조회 : 신지혜 -->
+			<selectKey keyProperty="cafe_idx" order="BEFORE" resultType="String">
+        SELECT 'c'||cafe_sqe.NEXTVAL
+        FROM dual
+      </selectKey>
+
+		INSERT INTO
+			CAFE (
+		cafe_idx,
+		cafe_name,
+		cafe_telephone_number,
+		cafe_location,
+		cafe_open_time,
+		cafe_close_time,
+		cafe_contact_phone_number,
+		cafe_contact_email,
+		cafe_main_title,
+		cafe_sub_title,
+		cafe_details,
+		cafe_remove_yn,
+		cafe_image_1,
+		cafe_image_2,
+		cafe_image_3,
+		boss_name,
+		business_number
+		)
+		VALUES(
+						#{cafe_idx},
+						#{cafe_name},
+						#{cafe_telephone_number},
+						#{cafe_location},
+						#{cafe_open_time},
+						#{cafe_close_time},
+						#{cafe_contact_phone_number},
+						#{cafe_contact_email},
+						#{cafe_main_title},
+						#{cafe_sub_title},
+		#{cafe_details},
+		'n',
+		#{cafe_image_1},
+		#{cafe_image_2},
+		#{cafe_image_3},
+		#{boss_name},
+		#{business_number}
+
+					)
+
+	</insert>
+
+
+
+
+	<!-- 카페 리스트단 VIEW를 위한 카페 리스트 & 상세 룸 조회 : 신지혜 -->
   <select id="selectCafeList" resultType="kr.or.ssff.cafe.domain.CafeListVO">
 
     SELECT
       c.cafe_main_title,
       c.cafe_sub_title,
-      c.cafe_image_first,
-      c.cafe_image_second,
-      c.cafe_image_third,
+      c.cafe_image_1,
+      c.cafe_image_2,
+      c.cafe_image_3,
       c.cafe_location,
       c.cafe_idx,
       r.max_people,
@@ -56,9 +109,9 @@
 		  d.cafe_sub_title,
 		  d.cafe_details,
 		  d.cafe_remove_yn,
-		  d.cafe_image_first,
-		  d.cafe_image_second,
-		  d.cafe_image_third,
+		  d.cafe_image_1,
+		  d.cafe_image_2,
+		  d.cafe_image_3,
 		  c.room_idx,
 		  c.max_people,
 		  c.amount_hour,
@@ -116,9 +169,9 @@
 			cafe_sub_title,
 			cafe_details,
 			cafe_remove_yn,
-			cafe_image_first,
-			cafe_image_second,
-			cafe_image_third,
+			cafe_image_1,
+			cafe_image_2,
+			cafe_image_3,
 			boss_name,
 			business_number
 
@@ -159,7 +212,7 @@
 			rsrv_amount
 		)
 		VALUES(
-			'rid_'||apply_member_sqe.NEXTVAL,
+			'rid_'||rsrv_sqe.NEXTVAL,
 			#{room_idx},
 			#{member_name},
 			#{use_date},

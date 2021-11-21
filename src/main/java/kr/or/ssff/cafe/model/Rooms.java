@@ -1,6 +1,7 @@
 package kr.or.ssff.cafe.model;
 
-import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import lombok.Data;
 
@@ -13,16 +14,10 @@ TOTAL_ROOM_NUMBER	NUMBER            	No		5	보유개수
 ROOM_IMAGE      	NVARCHAR2(200 CHAR)	No		6	대표이미지
 */
 @Data
-public class RoomDTO {
+public class Rooms {
 
-  private String room_idx;
-  private String cafe_idx;
-  private Integer max_people;
-  private Integer amount_hour;
-  private Integer total_room_number;
-  private File room_image;
+private ArrayList<HashMap<String, String>> rooms;
 
-  private List<RoomDTO> rooms;
 } // end class
 
 

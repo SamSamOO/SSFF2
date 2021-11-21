@@ -6,6 +6,8 @@ import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
+import kr.or.ssff.cafe.model.CafeDTO;
+import kr.or.ssff.cafe.model.RoomDTO;
 import org.apache.ibatis.annotations.Param;
 
 /*
@@ -30,6 +32,12 @@ public interface CafeMapper {
   // 예약정보 insert
   public abstract Integer insertReservation(ReservationDTO reservationDTO);
 
+
+  // 카페 insert
+  public abstract Integer insertCafe(CafeDTO cafeDTO);
+
+  // 룸 insert
+  public abstract Integer insertRoom(RoomDTO roomDTO);
 
 
 } // end interface

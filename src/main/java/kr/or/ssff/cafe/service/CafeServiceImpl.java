@@ -6,6 +6,8 @@ import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
+import kr.or.ssff.cafe.model.CafeDTO;
+import kr.or.ssff.cafe.model.RoomDTO;
 import kr.or.ssff.mapper.CafeMapper;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
@@ -30,12 +32,37 @@ public class CafeServiceImpl
     @Setter(onMethod_ = {@Autowired})
     private CafeMapper mapper;
 
+
+
+
     /*
-   전체 스터디카페 목록 조회
-   매개변수 :
-   반환 : 스터디카페 목록
-   작성자: 신지혜
-   */
+     * 스터디카페 insert
+     * 매개변수: 예약 정보를 모두 담은 DTO
+     * 반환: 특정일자, 특정룸의 예약정보
+     * */
+
+    @Override
+    public boolean registerCafe(CafeDTO cafeDTO, RoomDTO roomDTO) {
+        log.debug("registerCafe invoked : {}, {}", cafeDTO, roomDTO);
+
+        int result = this.mapper.insertCafe(cafeDTO);
+
+        log.info("\t+ result: {}", result);
+        log.info("\t + cafeDTO.getCafe_idx: {}", cafeDTO.getCafe_idx());
+
+
+
+        return (result!=0);
+    } // registerCafe
+
+
+
+    /*
+       전체 스터디카페 목록 조회
+       매개변수 :
+       반환 : 스터디카페 목록
+       작성자: 신지혜
+       */
     @Override
     public List<CafeListVO> getCafeList() {
         log.debug("CafeServiceImpl : selectCafeList() invoked");
@@ -102,7 +129,7 @@ public class CafeServiceImpl
      * 반환: 특정일자, 특정룸의 예약정보
      * */
     @Override
-    public boolean registerReserve(ReservationDTO reservationDTO) {
+    public boolean registerReservation(ReservationDTO reservationDTO) {
         log.debug("registerReserve invoked : {}", reservationDTO);
 
 

@@ -100,6 +100,8 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
 		
 		if(1 == num) { // 잘 insert 했아면
 		aMemberName = this.mapper.selectApplyMember(aMember);
+
+    // TODO 이렇게 조회안하고 불린 또는 인티저 일치하면 js에서 세션아이디, 스터디번호 매치해서 비활 고
 		} // if 
 		log.info("\t + aMemberName({}) ", aMemberName);
 

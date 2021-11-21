@@ -1,11 +1,9 @@
 package kr.or.ssff.cafe.model;
 
-/*
- ROOM table 관리를 위한 class
- 작성자 : 신지혜
- */
-
+import java.io.File;
+import java.util.List;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 /*
 ROOM_IDX        	NVARCHAR2(25 CHAR)	No		1	룸번호
@@ -15,19 +13,21 @@ AMOUNT_HOUR	      NUMBER            	No		4	시간당이용금액
 TOTAL_ROOM_NUMBER	NUMBER            	No		5	보유개수
 ROOM_IMAGE      	NVARCHAR2(200 CHAR)	No		6	대표이미지
 */
-
 @Data
 public class RoomDTO {
 
   private String room_idx;
   private String cafe_idx;
-  private Integer max_people;
-  private Integer amount_hour;
-  private Integer total_room_number;
+  private String max_people;
+  private String total_room_number;
+
+  private String amount_hour;
+
+
   private String room_image;
 
-} // end class
 
+} // end class
 
 
 

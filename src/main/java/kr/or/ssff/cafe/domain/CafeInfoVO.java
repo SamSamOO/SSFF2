@@ -21,9 +21,9 @@ CAFE_MAIN_TITLE	          NVARCHAR2(50 CHAR)	No		9	홍보글제목
 CAFE_SUB_TITLE          	NVARCHAR2(50 CHAR)	No		10	홍보글부제목
 CAFE_DETAILS             	NVARCHAR2(1000 CHAR)	Yes		11	홍보글내용
 CAFE_REMOVE_YN          	CHAR(1 BYTE)      	No	'n' 	12	삭제여부
-CAFE_IMAGE_FIRST        	NVARCHAR2(200 CHAR)	No		13	이미지1
-CAFE_IMAGE_SECOND	        NVARCHAR2(200 CHAR)	No		14	이미지2
-CAFE_IMAGE_THIRD	        NVARCHAR2(200 CHAR)	No		15	이미지3
+CAFE_image_1        	NVARCHAR2(200 CHAR)	No		13	이미지1
+CAFE_image_2	        NVARCHAR2(200 CHAR)	No		14	이미지2
+CAFE_image_3	        NVARCHAR2(200 CHAR)	No		15	이미지3
 
 ROOM_IDX        	NVARCHAR2(25 CHAR)	No		1	룸번호
 CAFE_IDX        	NVARCHAR2(25 CHAR)	No		2	카페번호
@@ -49,9 +49,9 @@ public class CafeInfoVO {
   private String cafe_sub_title;
   private String cafe_details;
   private Character cafe_remove_yn;
-  private String cafe_image_first;
-  private String cafe_image_second;
-  private String cafe_image_third;
+  private String cafe_image_1;
+  private String cafe_image_2;
+  private String cafe_image_3;
   
   private String room_idx;
   private Integer max_people;
