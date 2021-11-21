@@ -1,17 +1,15 @@
 package kr.or.ssff.studyIns.service;
 
+import java.util.HashMap;
 import kr.or.ssff.mapper.ChattingMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import oracle.jdbc.logging.annotations.DisableTrace;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/*
 
- */
 @AllArgsConstructor
 @Log4j2
 
@@ -20,6 +18,11 @@ public class ChattingServiceImpl  implements ChattingService, InitializingBean, 
 
     @Autowired
     private ChattingMapper mapper;
+
+    @Override
+    public void insertMsg(HashMap<String, Object> params) {
+
+    }
 
     @Override
     public void destroy() throws Exception {

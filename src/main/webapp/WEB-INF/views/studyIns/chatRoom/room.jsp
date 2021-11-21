@@ -67,7 +67,7 @@
 
     function wsOpen(){
         //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-        ws = new WebSocket("ws://" + location.host + "/chating/"+$("#roomNumber").val());
+        ws = new WebSocket("ws://" + location.host + "/chating/"+$("#r_Idx").val());
         wsEvt();
     }
 
@@ -101,16 +101,11 @@
                 } else {
                     console.warn("unknown type!");
                 }
+
+                console.log(d);
+                console.log(JSON.stringify(d));
             }
-            $.ajax({
-                type       : 'POST',
-                url        : '/chat',
-                data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
-                dataType   : 'json', // 받을 데이터는 json
-                contentType: "application/json; charset=utf-8",
-                success    : successCallback,
-                error      : errorCallback
-            });
+
         }
 
         document.addEventListener("keypress", function(e){
@@ -132,16 +127,35 @@
         }
     }
 
+    function isOpen(ws) {
+        return ws.readyState === ws.OPEN
+    }
+
     function send() {
         var option ={
             type: "message",
-            roomNumber: $("#roomNumber").val(),
+            roomNumber: $("#r_Idx").val(),
             sessionId : $("#sessionId").val(),
             userName : $("#userName").val(),
             msg : $("#chatting").val()
         }
+        if (!isOpen(ws)) return;
         ws.send(JSON.stringify(option))
+        $.ajax({
+            type       : 'POST',
+            url        : '/chat/insert',
+            data       : JSON.stringify(option), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+            dataType   : 'json', // 받을 데이터는 json
+            contentType: "application/json; charset=utf-8",
+            success: function (d) {
+                alert(`성공!`);
+            },
+            error: function (d) {
+                alert(`실패!`);
+            }
+        });
         $('#chatting').val("");
+
     }
 </script>
 <!----------------Head 종료----------------------->
@@ -179,9 +193,10 @@
                     <!--카드 Body 시작-->
                     <!--카드 Body 시작-->
                     <div id="container" class="container">
-                        <h1>${roomName}의 채팅방</h1>
-                        <input type="hidden" id="sessionId" value="">
-                        <input type="hidden" id="roomNumber" value="2">
+                        <h1>${roomNumber}의 채팅방</h1>
+                        <input type="hidden" id="sessionId" value=""/>
+                        <input type="hidden" id="roomNumber" value="${roomNumber}"/>
+                        <input type="hidden" id="r_Idx" value="9003"/>
 
                         <div id="chating" class="chating">
                         </div>

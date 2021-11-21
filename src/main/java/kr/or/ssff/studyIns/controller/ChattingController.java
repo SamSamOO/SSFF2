@@ -3,15 +3,16 @@ package kr.or.ssff.studyIns.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import kr.or.ssff.studyIns.model.Room;
 import kr.or.ssff.studyIns.service.ChattingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,10 +27,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ChattingController {
 
+
+    @Autowired
+    ChattingService service;
 //-------------------------------- 상준 채팅방--------------------------------//
 
-    List<Room> roomList = new ArrayList<Room>();
     static int roomNumber = 0;
+    List<Room> roomList = new ArrayList<Room>();
 
     @RequestMapping("/chat")
     public ModelAndView chat() {
@@ -42,6 +46,7 @@ public class ChattingController {
 
     /**
      * 방 페이지
+     *
      * @return
      */
     @RequestMapping("/room")
@@ -57,17 +62,19 @@ public class ChattingController {
 
     /**
      * 방 생성하기
+     *
      * @param params
      * @return
      */
     @RequestMapping("/createRoom")
-    public @ResponseBody List<Room> createRoom(@RequestParam HashMap<Object, Object> params){
+    public @ResponseBody
+    List<Room> createRoom(@RequestParam HashMap<Object, Object> params) {
         log.info("createRoom() is invoked");
 
         String roomName = (String) params.get("roomName");
         log.info("roomName = {}", roomName);
 
-        if(roomName != null && !roomName.trim().equals("")) {
+        if (roomName != null && !roomName.trim().equals("")) {
             Room room = new Room();
             room.setRoomNumber(++roomNumber);
             room.setRoomName(roomName);
@@ -79,13 +86,15 @@ public class ChattingController {
 
     /**
      * 방 정보가져오기
+     *
      * @param params
      * @return
      */
     @RequestMapping("/getRoom")
-    public @ResponseBody List<Room> getRoom(@RequestParam HashMap<Object, Object> params){
+    public @ResponseBody
+    List<Room> getRoom(@RequestParam HashMap<Object, Object> params) {
         log.info("getRoom() is invoked");
-        log.info("룸아이디"+roomList);
+        log.info("룸아이디" + roomList);
 
         return roomList;
     }
@@ -108,14 +117,16 @@ public class ChattingController {
         if (new_list != null && new_list.size() > 0) {
             mv.addObject("roomName", params.get("roomName"));
             mv.addObject("roomNumber", params.get("roomNumber"));
-            mv.setViewName("/studyIns/chatRoom/room");
-        } else {
+            mv.addObject("r_Idx", 9002);
+
             mv.setViewName("/studyIns/chatRoom/chatRoom");
+
+        } else {
+            mv.setViewName("/studyIns/chatRoom/room");
+
         }
         return mv;
     }
-
-
 
 }
 
