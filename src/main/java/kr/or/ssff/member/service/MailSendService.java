@@ -3,9 +3,9 @@ package kr.or.ssff.member.service;
 import kr.or.ssff.member.Utils.MailHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.messaging.MessagingException;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
@@ -55,9 +55,7 @@ public class MailSendService {
             sendMail.setFrom("이메일 주소", "관리자");
             sendMail.setTo(member_id);
             sendMail.send();
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
