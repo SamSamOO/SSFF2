@@ -113,7 +113,10 @@
 
     <!--이미지 리소스 경로설정-->
     <resources location="/resources/" mapping="/resources/**"/>
-    <resources location="file:///C:/Temp/upload/" mapping="/image/**"/>
+<!--    <resources location="file:///C:/Temp/upload/" mapping="/image/**"/>-->
+
+<!--    테스트용 템프경로 바꿔줘야 오류안남 -->
+    <resources location="resources" mapping="/image/**"/>
 
 
 </beans:beans>

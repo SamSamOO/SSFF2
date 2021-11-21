@@ -32,7 +32,7 @@
         <![CDATA[
 		SELECT *
 		FROM member
-		WHERE member_id=#{member_id} and member_pwd=#{member_pwd}
+		WHERE member_id=#{member_id}
 		]]>
     </select>
 
@@ -62,7 +62,7 @@
 
 
 	<!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->
-	<resultMap type="kr.or.ssff.member.domain.ApplyMemberDTO" id="applyMemberMap">
+	<resultMap type="kr.or.ssff.applyMember.domain.ApplyMemberDTO" id="applyMemberMap">
 		<id column="APPLY_IDX" property="apply_idx"/>
 		<result column="R_IDX" property="r_idx"/>
 		<result column="MEMBER_NAME" property="member_name"/>
