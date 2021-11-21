@@ -347,7 +347,24 @@
 			<version>1.9.13</version>
 		</dependency>
 
-
+		<!-- com.googlecode.json-simple 추가: 지혜-->
+		<dependency>
+    <groupId>com.googlecode.json-simple</groupId>
+    <artifactId>json-simple</artifactId>
+    <version>1.1</version>
+  </dependency>
+    <dependency>
+      <groupId>com.github.lbovolini</groupId>
+      <artifactId>ObjectMapper</artifactId>
+      <version>0.2.3</version>
+      <scope>compile</scope>
+    </dependency>
+		<dependency>
+			<groupId>com.github.lbovolini</groupId>
+			<artifactId>object-mapper</artifactId>
+			<version>1.1.68</version>
+			<scope>compile</scope>
+		</dependency>
 		<!-- json object[e] -->
 
 	</dependencies>

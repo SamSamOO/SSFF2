@@ -16,6 +16,7 @@ import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /*
  스터디카페 crud
@@ -41,14 +42,20 @@ public class CafeServiceImpl
      * 반환: 특정일자, 특정룸의 예약정보
      * */
 
+    @Transactional
     @Override
-    public boolean registerCafe(CafeDTO cafeDTO, RoomDTO roomDTO) {
+    public boolean registerCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTO) {
         log.debug("registerCafe invoked : {}, {}", cafeDTO, roomDTO);
 
         int result = this.mapper.insertCafe(cafeDTO);
 
         log.info("\t+ result: {}", result);
-        log.info("\t + cafeDTO.getCafe_idx: {}", cafeDTO.getCafe_idx());
+
+        // 생성한 cafe의 pk 값을 받아옴
+        String c_idx = cafeDTO.getCafe_idx();
+
+        log.info("\t + c_idx: {}", c_idx);
+
 
 
 

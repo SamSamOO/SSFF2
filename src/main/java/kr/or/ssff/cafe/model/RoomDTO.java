@@ -18,10 +18,10 @@ public class RoomDTO {
 
   private String room_idx;
   private String cafe_idx;
-  private String max_people;
-  private String total_room_number;
+  private Integer max_people;
+  private Integer total_room_number;
 
-  private String amount_hour;
+  private Integer amount_hour;
 
 
   private String room_image;
