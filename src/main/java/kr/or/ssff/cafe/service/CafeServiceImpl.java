@@ -1,6 +1,9 @@
 package kr.or.ssff.cafe.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
@@ -41,7 +44,6 @@ public class CafeServiceImpl
      * 매개변수: 예약 정보를 모두 담은 DTO
      * 반환: 특정일자, 특정룸의 예약정보
      * */
-
     @Transactional
     @Override
     public boolean registerCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList) {
@@ -60,15 +62,15 @@ public class CafeServiceImpl
         for (int i = 0; i < roomDTOList.size(); i++) {
             roomDTOList.get(i).setCafe_idx(cafe_idx);
         }
-        log.info("\t + roomDTOList: {}", roomDTOList);
+        log.info("\t + roomDTOList: {}", roomDTOList); // 출력
 
         // ROOM insert
         int roomInsertRow = this.mapper.insertRoom(roomDTOList);
 
-
         log.info("\t + roomInsertRow: {}", roomInsertRow);
 
-        return (result!=0 /*&& roomInsertRow!=0*/);
+        // 둘다 정상실행이라면
+        return (result!=0 && roomInsertRow!=0);
     } // registerCafe
 
 
@@ -82,6 +84,7 @@ public class CafeServiceImpl
     @Override
     public List<CafeListVO> getCafeList() {
         log.debug("CafeServiceImpl : selectCafeList() invoked");
+
 
         List<CafeListVO> list = this.mapper.selectCafeList();
         log.info("\t list: " + list);
@@ -108,11 +111,11 @@ public class CafeServiceImpl
 
 
     /*
-   온전한 카페 하나의 정보 조회
-   매개변수 : cafe_idx
-   반환 : 단일 카페정보
-   작성자: 신지혜
-   */
+     * 온전한 카페 하나의 정보 조회
+     * 매개변수 : cafe_idx
+     * 반환 : 단일 카페정보
+     * 작성자: 신지혜
+     * */
     @Override
     public CafeVO getCafe(String cafe_idx) {
         log.debug("getCafe {} :  invoked", cafe_idx);

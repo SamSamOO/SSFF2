@@ -7,7 +7,10 @@
 	<!-- 신규 카페정보 등록 : 신지혜  -->
 	<insert id="insertCafe" parameterType="kr.or.ssff.cafe.model.CafeDTO">
 
-
+			<selectKey keyProperty="cafe_idx" order="BEFORE" resultType="String">
+        SELECT 'c'||cafe_sqe.NEXTVAL
+        FROM dual
+      </selectKey>
 
 		INSERT INTO
 			CAFE (
@@ -55,29 +58,26 @@
 	<!-- 신규 룸 등록 : 신지혜  -->
 	<insert id="insertRoom" parameterType="java.util.List">
 
-		<foreach item="item" collection="kr.or.ssff.cafe.model.RoomDTO"
-			separator="," open="INSERT ALL " close="SELECT * FROM DUAL">
-<!--				<foreach collection="item.RoomDTO" item="roomDTO" separator=",">-->
-<!--					-->
-<!--				</foreach>-->
+		<foreach item="item" collection="list"
+			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
 
 			INTO
-			room (
-			room_idx,
-			cafe_idx,
-			max_people,
-			total_room_number,
-			amount_hour,
-			room_image
-			)
+				room (
+					room_idx,
+					cafe_idx,
+					max_people,
+					total_room_number,
+					amount_hour,
+					room_image
+				)
 			VALUES(
-			/*#{item.cafe_idx}||*/'r'||get_room_seq,
-			#{item.cafe_idx},
-			#{item.max_people},
-			#{item.amount_hour},
-			#{item.total_room_number},
-			#{item.room_image}
-			)
+				#{item.cafe_idx} || 'r' || get_room_seq,
+				#{item.cafe_idx},
+				#{item.max_people},
+				#{item.amount_hour},
+				#{item.total_room_number},
+				#{item.room_image}
+		)
 
 		</foreach>
 

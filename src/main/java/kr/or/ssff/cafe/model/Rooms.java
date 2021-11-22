@@ -2,7 +2,6 @@ package kr.or.ssff.cafe.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import lombok.Data;
 
 /*
@@ -16,7 +15,7 @@ ROOM_IMAGE      	NVARCHAR2(200 CHAR)	No		6	대표이미지
 @Data
 public class Rooms {
 
-private ArrayList<HashMap<String, String>> rooms;
+  private ArrayList<HashMap<String, String>> rooms;
 
 } // end class
 
