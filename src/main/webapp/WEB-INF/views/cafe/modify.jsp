@@ -77,11 +77,15 @@
                 <a href="#" class="btn btn-default font-weight-bold">Back</a> <!-- //TODO 링크 걸어죠-->
                 <!--end::Button-->
                 <!--begin::Dropdown-->
-                <div class="btn-group ml-2">
-                  <button type="button" class="btn btn-primary font-weight-bold"
-                          onclick="goRegister();"> 수정하기
-                  </button>
-                </div>
+                
+                <button type="button" class="btn btn-primary font-weight-bold"
+                        onclick="goRegister();"> 수정하기
+                </button>
+                
+                
+                <a href="/cafe/remove?cafe_idx=${cafeVO.cafe_idx}"
+                   class="btn btn-warning font-weight-bold"> 삭제하기
+                </a>
                 <!--end::Dropdown-->
               </div>
               <!--end::Toolbar-->
@@ -105,14 +109,16 @@
                     <div class="col-xl-8">
                       <div class="my-5">
                         <h3 class="text-dark font-weight-bold mb-10">카페 정보</h3>
-                        <input class="form-control" type="hidden" value="${cafeVO.cafe_idx}" name="cafe_idx"
-                               required />
+                        <input class="form-control" type="hidden" value="${cafeVO.cafe_idx}"
+                               name="cafe_idx"
+                               required/>
                         
                         <div class="form-group row">
                           <label class="col-3">카페이름</label>
                           <div class="col-9">
-                            <input class="form-control" type="text" value="${cafeVO.cafe_name}" name="cafe_name"
-                                   required />
+                            <input class="form-control" type="text" value="${cafeVO.cafe_name}"
+                                   name="cafe_name"
+                                   required/>
                           </div>
                         </div>
                         
@@ -120,7 +126,8 @@
                         <div class="form-group row">
                           <label class="col-3">사업자번호</label>
                           <div class="col-9">
-                            <input class="form-control" type="number" value="${cafeVO.business_number}"
+                            <input class="form-control" type="number"
+                                   value="${cafeVO.business_number}"
                                    name="business_number" placeholder="only number" required/>
                           </div>
                         </div>
@@ -129,7 +136,8 @@
                         <div class="form-group row">
                           <label class="col-3">대표이름</label>
                           <div class="col-9">
-                            <input class="form-control" type="text" value="${cafeVO.boss_name}" name="boss_name"
+                            <input class="form-control" type="text" value="${cafeVO.boss_name}"
+                                   name="boss_name"
                                    required/>
                           </div>
                         </div>
@@ -145,7 +153,8 @@
                                  <i class="la la-phone"></i>
                                 </span>
                               </div>
-                              <input type="text" class="form-control" value="${cafeVO.cafe_telephone_number}"
+                              <input type="text" class="form-control"
+                                     value="${cafeVO.cafe_telephone_number}"
                                      name="cafe_telephone_number"
                                      placeholder="02-123-1234" required/>
                             </div>
@@ -156,7 +165,8 @@
                         <div class="form-group row">
                           <label class="col-3">오픈시간</label>
                           <div class="col-9">
-                            <input class="form-control" type="number" value="${cafeVO.cafe_open_time}"
+                            <input class="form-control" type="number"
+                                   value="${cafeVO.cafe_open_time}"
                                    placeholder="only number" name="cafe_open_time"
                                    required/>
                           </div>
@@ -166,7 +176,8 @@
                         <div class="form-group row">
                           <label class="col-3">마감시간</label>
                           <div class="col-9">
-                            <input class="form-control" type="number" value="${cafeVO.cafe_close_time}"
+                            <input class="form-control" type="number"
+                                   value="${cafeVO.cafe_close_time}"
                                    placeholder="only number" name="cafe_close_time" required/>
                           </div>
                         </div>
@@ -191,7 +202,8 @@
                                  <i class="la la-at"></i>
                                 </span>
                               </div>
-                              <input type="email" class="form-control" value="${cafeVO.cafe_contact_email}"
+                              <input type="email" class="form-control"
+                                     value="${cafeVO.cafe_contact_email}"
                                      name="cafe_contact_email"
                                      placeholder="Email" required/>
                             </div>
@@ -210,7 +222,8 @@
                                  <i class="la la-phone"></i>
                                 </span>
                               </div>
-                              <input type="text" class="form-control" value="${cafeVO.cafe_contact_phone_number}"
+                              <input type="text" class="form-control"
+                                     value="${cafeVO.cafe_contact_phone_number}"
                                      name="cafe_contact_phone_number"
                                      placeholder="Only number" required/>
                             </div>
@@ -221,7 +234,8 @@
                         <div class="form-group row">
                           <label class="col-3">메인타이틀</label>
                           <div class="col-9">
-                            <input class="form-control" type="text" value="${cafeVO.cafe_main_title}"
+                            <input class="form-control" type="text"
+                                   value="${cafeVO.cafe_main_title}"
                                    name="cafe_main_title"
                                    required/>
                           </div>
@@ -263,7 +277,7 @@
                       
                       
                       <!-- 룸 시작 (기본 셋팅 하나만 하고 나머지 버튼 -> 동적생성) -->
-  
+                      
                       ${roomVOList[0].room_idx}
                     </div>
                     
@@ -272,47 +286,48 @@
                     <div class="card-body room"> <!-- //TODO 여기 축소하면 좀.. 무리지어서 다녔으면..;  -->
                       
                       <h3 class="text-dark font-weight-bold mb-10">세부 룸 정보</h3>
-                     <c:forEach var="item" items="${roomVOList}" >
-                       
-                       <div class="room form-group row">
-    
-                         <label class="col-form-label text-lg-right">인원수</label>
-                         <div class>
-                           <input type="number" class="room form-control"
-                                  placeholder="사용가능한"
-                                  name="max_people" value="${item.max_people}" required/>
-                         </div>
-    
-                         <label class="col-form-label text-lg-right">보유개수</label>
-                         <div class>
-                           <input type="number" class="room form-control"
-                                  placeholder="Only number" name="total_room_number"
-                                  value="${item.total_room_number}" required/>
-                         </div>
-    
-                         <label class="col-form-label text-lg-right">시간당 요금</label>
-                         <div class>
-                           <input type="number" class="room form-control"
-                                  placeholder="Only number"
-                                  name="amount_hour" value="${item.amount_hour}" required/>
-                         </div>
-    
-                         <label class="col-form-label text-lg-right">첨부파일</label>
-                         <div class>
-                           <input type="file" class="room form-control"
-                                  placeholder="click" name="roomFile" value="${item.room_image}"
-                                  accept="image/*" required/>
-                         </div>
-                         <button class="add btn btn-light btn-hover-warning font-weight-bold" value="add">+
-                         </button>
-                         <button class="delete btn btn-light btn-hover-success font-weight-bold" value="delete">
-                           -
-                         </button>
-                       </div>
-                       
-                       
-                       
-                     </c:forEach>
+                      <c:forEach var="item" items="${roomVOList}">
+                        
+                        <div class="room form-group row">
+                          
+                          <label class="col-form-label text-lg-right">인원수</label>
+                          <div class>
+                            <input type="number" class="room form-control"
+                                   placeholder="사용가능한"
+                                   name="max_people" value="${item.max_people}" required/>
+                          </div>
+                          
+                          <label class="col-form-label text-lg-right">보유개수</label>
+                          <div class>
+                            <input type="number" class="room form-control"
+                                   placeholder="Only number" name="total_room_number"
+                                   value="${item.total_room_number}" required/>
+                          </div>
+                          
+                          <label class="col-form-label text-lg-right">시간당 요금</label>
+                          <div class>
+                            <input type="number" class="room form-control"
+                                   placeholder="Only number"
+                                   name="amount_hour" value="${item.amount_hour}" required/>
+                          </div>
+                          
+                          <label class="col-form-label text-lg-right">첨부파일</label>
+                          <div class>
+                            <input type="file" class="room form-control"
+                                   placeholder="click" name="roomFile" value="${item.room_image}"
+                                   accept="image/*" required/>
+                          </div>
+                          <button class="add btn btn-light btn-hover-warning font-weight-bold"
+                                  value="add">+
+                          </button>
+                          <button class="delete btn btn-light btn-hover-success font-weight-bold"
+                                  value="delete">
+                            -
+                          </button>
+                        </div>
+                      
+                      
+                      </c:forEach>
                     
                     </div>
                   
@@ -349,7 +364,7 @@
 <script>
 
   htmlSet();
- 
+
   function htmlSet() {
     const html = `
     <div class="room form-group row">
@@ -388,19 +403,18 @@
       </button>
     </div>
 `
-    
 
     // 버튼 클릭을 통해 세부 룸정보 add, delete
     $(document).on('click', "button[class^='delete']", function () {
 
       console.log("delete cc: " + $(`.card-body.room`).children().length);
       // 첫번째를 삭제하려고 하면
-      if ($(`.card-body.room`).children().length <=2) {
+      if ($(`.card-body.room`).children().length <= 2) {
         alert("한개 이상의 룸은 필수로 존재해야합니다.")
-        
+
         // 클릭한 row의 value 내용 비워줌
         $(this).parent().contents().find("input[class^='room']").val('');
-        
+
         return; // 삭제 event 실행 x
       } // if
 
@@ -410,7 +424,7 @@
     })
 
     $(document).on('click', "button[class^='add']", function () {
-      
+
       console.log("add cc");
       $('.card-body.room').append(html);
 
@@ -544,6 +558,7 @@
     $('#formObj').submit();
 
   } // goRegiset
+
 
 </script>
 

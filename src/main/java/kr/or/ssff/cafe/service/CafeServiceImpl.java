@@ -78,29 +78,33 @@ public class CafeServiceImpl
      * */
     @Override
     public boolean modifyCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList) {
-
+        log.debug("modifyCafe invoked : {}, {}", cafeDTO, roomDTOList);
         // 받아온 pk값을 room의 cafe_idx(FK)로 입력
         String cafe_idx = cafeDTO.getCafe_idx();
 
         for (int i = 0; i < roomDTOList.size(); i++) {
             roomDTOList.get(i).setCafe_idx(cafe_idx);
         }
+        log.info("\t + roomDTOList: {}", roomDTOList);
 
         // 카페 정보는 update 하고
         int updateCafeRow = this.mapper.updateCafe(cafeDTO);
+        log.info("\t + updateCafeRow: {}", updateCafeRow);
 
 
         // 룸 정보는 삭제(->신규등록)하고
         int deleteRoomRow = this.mapper.deleteRoom(cafe_idx);
+        log.info("\t + deleteRoomRow: {}", deleteRoomRow);
 
 
         // 룸 정보 신규등록한다.
         int insertRoomRow = this.mapper.insertRoom(roomDTOList);
+        log.info("\t + insertRoomRow: {}", insertRoomRow);
 
 
 
         return false;
-    }
+    } // modifyCafe
 
 
     /*
@@ -155,7 +159,7 @@ public class CafeServiceImpl
 
 
     /*
-     * 온전한 카페 하나의 정보 조회
+     * 카페 하나의 모든 룸 정보 조회
      * 매개변수 : cafe_idx
      * 반환 : 단일 카페정보
      * 작성자: 신지혜
@@ -168,6 +172,22 @@ public class CafeServiceImpl
         log.info("\t roomVoList: " + roomVoList);
         return roomVoList;
     } //getCafe
+
+
+    /*
+     * 카페 정보 삭제(삭제여부 n->n update)
+     * 매개변수 : cafe_idx
+     * 작성자: 신지혜
+     * */
+    @Override
+    public boolean removeCafe(String cafe_idx) {
+
+        return (this.mapper.deleteCafe(cafe_idx)==1);
+    }
+
+
+    //-----------------------------------------------//
+
 
     /*
      * 특정일자, 특정 room 예약정보 조회

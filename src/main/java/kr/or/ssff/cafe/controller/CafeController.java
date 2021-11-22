@@ -335,12 +335,14 @@ public class CafeController {
 
     // 신규 등록이라면 registerCafe로
     if (cafeDTO.getCafe_idx()==null) {
+      log.info("컨트롤러 - 신규등록하러 갑니다.");
       if (service.registerCafe(cafeDTO, roomDTOList)) {
         log.info("컨트롤러 - 신규등록 잘 했습니다.");
         rtts.addFlashAttribute("result", "success");
       } // if
       // 기존에 있던 정보라면 update문으로
     } else {
+      log.info("컨트롤러 - 업데이트하러 갑니다.");
       if (service.modifyCafe(cafeDTO, roomDTOList)) {
         log.info("컨트롤러 - 업데이트 잘 했습니다.");
         rtts.addFlashAttribute("result", "success");
@@ -374,29 +376,17 @@ public class CafeController {
 
   } // goCafeModify
 
-
-//  /*
-//   * 스터디 카페 수정
-//   * 매개변수:카페DTO (수정할 카페 정보를 담은 객체)
-//   * 반환: 스터디 카페 상세보기
-//   * */
-//  @PostMapping("/modify/update")
-//  public String updateCafe(CafeDTO cafeDTO) {
-//    log.info("updateCafe({}) is invoked", "cafeDTO = " + cafeDTO);
-//
-//    return "redirect:cafe/detail";
-//  } // updateCafe
-
   /*
    * 스터디 게시물 삭제
    * 매개변수: 카페ID
    * 반환: 카페 리스트 페이지로 이동
    * */
-  @PostMapping("/remove")
-  public String deleteCafe(String cafeId) {
-    log.info("deleteCafe({}) is invoked", "cafeId = " + cafeId);
+  @GetMapping("/remove")
+  public String removeCafe(String cafe_idx) {
+    log.info("deleteCafe({}) is invoked", cafe_idx);
 
-    return "redirect:cafe/list";
+    service.removeCafe(cafe_idx);
+    return "redirect:/cafe/list";
   } // deleteCafe
 
 

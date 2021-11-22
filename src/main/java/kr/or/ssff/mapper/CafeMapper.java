@@ -45,6 +45,7 @@ public interface CafeMapper {
   public abstract CafeVO selectCafe(String cafe_idx);
 
 
+  public abstract int deleteCafe(String cafe_idx);
 
 
 
@@ -57,7 +58,6 @@ public interface CafeMapper {
 
   // 특정일자, 특정 room 예약정보만 : 신지혜
   public abstract List<RoomRsrvVO> selectRoomRsrvList(@Param("room_idx") String room_idx, @Param("use_date") String use_date);
-
 
 
 } // end interface

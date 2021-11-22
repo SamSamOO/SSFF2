@@ -29,16 +29,17 @@ public interface CafeService {
   // 전체 스터디카페 목록조회(사용자) : 신지혜
   public abstract List<CafeListVO> getCafeList();
 
-  // 단일 카페정보 조회(사용자) : 신지혜
+  // 단일 카페정보 & room & room img List 조회(사용자) : 신지혜
   public abstract List<CafeInfoVO> getCafeJoinRoom(String cafe_idx);
 
-  // 단일 카페정보 조회(사용자) : 신지혜
+  // 단일 카페정보 조회 : 신지혜
   public abstract CafeVO getCafe(String cafe_idx);
 
-
+  // 단일 카페의 모든 룸 정보 조회: 신지혜
   public abstract List<RoomVO> getRoom(String cafe_idx);
 
-
+  // 카페 정보 삭제(Update - delete)
+  public abstract boolean removeCafe(String cafe_idx);
 
   //----------------- RSRV(예약) CRUD -----------------//
 
@@ -48,6 +49,7 @@ public interface CafeService {
 
   // 예약 정보 insert
   public abstract boolean registerReservation(ReservationDTO reservationDTO);
+
 
 
 } // end interface

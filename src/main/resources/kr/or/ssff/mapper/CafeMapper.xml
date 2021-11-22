@@ -260,6 +260,14 @@
 
 
 
+	<delete id="deleteCafe" parameterType="String">
+
+		UPDATE cafe
+		SET
+			cafe_remove_yn = 'y'
+		WHERE
+			cafe_idx = #{cafe_idx}
+	</delete>
 
 
 
