@@ -225,7 +225,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         //조회수 증가 쿼리
         service.updateHit(cont_No);
 
-        //파일 들고오기 //TODO -- 트랜젝션 처리 피료???
+        //파일 들고오기 //TODO -- 트랜젝션 처리 필요???
         List<StudyInsFileVO> listOfFile = service.getFile(cont_No);
 
         log.debug("안녕하세요");
@@ -424,12 +424,12 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
             dto.setFile_Name(uploadFileName);//3 : fileName
             dto.setUploadPath(uploadPath.toString());//4 : uploadPath
-            System.out.println("업로드파일+"+uploadFileName);
+            System.out.println("업로드파일+" + uploadFileName);
 
             //IE has file path
             uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 
-            System.out.println("업로드파일+"+uploadFileName);
+            System.out.println("업로드파일+" + uploadFileName);
 
             log.debug("only file name : " + uploadFileName);
 

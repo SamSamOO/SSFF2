@@ -25,9 +25,10 @@
         from STUDY_INS_FILE
         where CONT_NO = #{cont_No}
     </delete>
+
     <insert id="insertBoard">
         insert into SI_BOARD(cont_No, member_name, r_idx, cont, category, title, REMOVED_OK, WRITE_DATE)
-        values (#{cont_No}, #{member_Name}, #{r_Idx}, #{cont}, #{category}, #{title}, 'n', sysdate)
+        values (#{cont_No}, #{member_Name}, #{r_Idx}, #{cont}, #{category}, #{title}, 'n', current_timestamp)
 
 
     </insert>
