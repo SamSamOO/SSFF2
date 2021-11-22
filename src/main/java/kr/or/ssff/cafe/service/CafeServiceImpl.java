@@ -37,29 +37,38 @@ public class CafeServiceImpl
 
 
     /*
-     * 스터디카페 insert
+     * 스터디카페 & room insert
      * 매개변수: 예약 정보를 모두 담은 DTO
      * 반환: 특정일자, 특정룸의 예약정보
      * */
 
     @Transactional
     @Override
-    public boolean registerCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTO) {
-        log.debug("registerCafe invoked : {}, {}", cafeDTO, roomDTO);
+    public boolean registerCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList) {
+        log.debug("registerCafe invoked : {}, {}", cafeDTO, roomDTOList);
 
+        // CAFE insert
         int result = this.mapper.insertCafe(cafeDTO);
 
         log.info("\t+ result: {}", result);
 
         // 생성한 cafe의 pk 값을 받아옴
-        String c_idx = cafeDTO.getCafe_idx();
+        String cafe_idx = cafeDTO.getCafe_idx();
+        log.info("\t + cafe_idx: {}", cafe_idx);
 
-        log.info("\t + c_idx: {}", c_idx);
+        // 받아온 pk값을 room의 cafe_idx(FK)로 입력
+        for (int i = 0; i < roomDTOList.size(); i++) {
+            roomDTOList.get(i).setCafe_idx(cafe_idx);
+        }
+        log.info("\t + roomDTOList: {}", roomDTOList);
+
+        // ROOM insert
+        int roomInsertRow = this.mapper.insertRoom(roomDTOList);
 
 
+        log.info("\t + roomInsertRow: {}", roomInsertRow);
 
-
-        return (result!=0);
+        return (result!=0 /*&& roomInsertRow!=0*/);
     } // registerCafe
 
 

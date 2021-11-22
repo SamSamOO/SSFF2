@@ -7,55 +7,81 @@
 	<!-- 신규 카페정보 등록 : 신지혜  -->
 	<insert id="insertCafe" parameterType="kr.or.ssff.cafe.model.CafeDTO">
 
-			<selectKey keyProperty="cafe_idx" order="BEFORE" resultType="String">
-        SELECT 'c'||cafe_sqe.NEXTVAL
-        FROM dual
-      </selectKey>
+
 
 		INSERT INTO
 			CAFE (
-		cafe_idx,
-		cafe_name,
-		cafe_telephone_number,
-		cafe_location,
-		cafe_open_time,
-		cafe_close_time,
-		cafe_contact_phone_number,
-		cafe_contact_email,
-		cafe_main_title,
-		cafe_sub_title,
-		cafe_details,
-		cafe_remove_yn,
-		cafe_image_1,
-		cafe_image_2,
-		cafe_image_3,
-		boss_name,
-		business_number
-		)
+				cafe_idx,
+				cafe_name,
+				cafe_telephone_number,
+				cafe_location,
+				cafe_open_time,
+				cafe_close_time,
+				cafe_contact_phone_number,
+				cafe_contact_email,
+				cafe_main_title,
+				cafe_sub_title,
+				cafe_details,
+				cafe_remove_yn,
+				cafe_image_1,
+				cafe_image_2,
+				cafe_image_3,
+				boss_name,
+				business_number
+			)
 		VALUES(
-						#{cafe_idx},
-						#{cafe_name},
-						#{cafe_telephone_number},
-						#{cafe_location},
-						#{cafe_open_time},
-						#{cafe_close_time},
-						#{cafe_contact_phone_number},
-						#{cafe_contact_email},
-						#{cafe_main_title},
-						#{cafe_sub_title},
-		#{cafe_details},
-		'n',
-		#{cafe_image_1},
-		#{cafe_image_2},
-		#{cafe_image_3},
-		#{boss_name},
-		#{business_number}
-
-					)
+			#{cafe_idx},
+			#{cafe_name},
+			#{cafe_telephone_number},
+			#{cafe_location},
+			#{cafe_open_time},
+			#{cafe_close_time},
+			#{cafe_contact_phone_number},
+			#{cafe_contact_email},
+			#{cafe_main_title},
+			#{cafe_sub_title},
+			#{cafe_details},
+			'n',
+			#{cafe_image_1},
+			#{cafe_image_2},
+			#{cafe_image_3},
+			#{boss_name},
+			#{business_number}
+		)
 
 	</insert>
 
 
+	<!-- 신규 룸 등록 : 신지혜  -->
+	<insert id="insertRoom" parameterType="java.util.List">
+
+		<foreach item="item" collection="kr.or.ssff.cafe.model.RoomDTO"
+			separator="," open="INSERT ALL " close="SELECT * FROM DUAL">
+<!--				<foreach collection="item.RoomDTO" item="roomDTO" separator=",">-->
+<!--					-->
+<!--				</foreach>-->
+
+			INTO
+			room (
+			room_idx,
+			cafe_idx,
+			max_people,
+			total_room_number,
+			amount_hour,
+			room_image
+			)
+			VALUES(
+			/*#{item.cafe_idx}||*/'r'||get_room_seq,
+			#{item.cafe_idx},
+			#{item.max_people},
+			#{item.amount_hour},
+			#{item.total_room_number},
+			#{item.room_image}
+			)
+
+		</foreach>
+
+	</insert>
 
 
 	<!-- 카페 리스트단 VIEW를 위한 카페 리스트 & 상세 룸 조회 : 신지혜 -->
@@ -118,30 +144,29 @@
 		  c.total_room_number,
 		  c.room_image,
 		  c.room_list
-		FROM
-		  (
-		    SELECT
-		      a.cafe_idx,
-		      a.room_idx,
-		      a.max_people,
-		      a.amount_hour,
-		      a.total_room_number,
-		      a.room_image,
-		      b.room_list
-		    FROM
-		      room a
-		      JOIN (
-		        SELECT
-		          cafe_idx,
-		          LISTAGG(room_image, ':') WITHIN GROUP (
-		            ORDER BY
-		              cafe_idx
-		          ) AS room_list
-		        FROM
-		          room
-		        GROUP BY
-		          cafe_idx
-		      ) b ON a.cafe_idx = b.cafe_idx
+		FROM (
+			SELECT
+				a.cafe_idx,
+				a.room_idx,
+				a.max_people,
+				a.amount_hour,
+				a.total_room_number,
+				a.room_image,
+				b.room_list
+			FROM
+				room a
+				JOIN (
+					SELECT
+						cafe_idx,
+						LISTAGG(room_image, ':') WITHIN GROUP (
+							ORDER BY
+								cafe_idx
+						) AS room_list
+					FROM
+						room
+					GROUP BY
+						cafe_idx
+				) b ON a.cafe_idx = b.cafe_idx
 		  ) c
 		  JOIN cafe d ON c.cafe_idx = d.cafe_idx
 		WHERE
@@ -151,7 +176,7 @@
 
 
 
-	<!-- 온전히 카페 테이블 하나의 정보만 조회 : 신지혜 -->
+	<!-- 온전히 카페 테이블 하나의 모든 정보 조회 : 신지혜 -->
 	<select id="selectCafe"
 		parameterType="String"
 		resultType="kr.or.ssff.cafe.domain.CafeVO" >
