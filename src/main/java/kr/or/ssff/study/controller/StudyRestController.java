@@ -96,22 +96,34 @@ public class StudyRestController {
 
         String orderRule = jsonData.get("orderRule"); // latest or popularity
         String closed = jsonData.get("closed"); //true(마감 제외) or false(전부)
+        String searchText = jsonData.get("searchText");//검색(null or "")
+        String searchTextqueryForm = "%" + searchText+"%";
+
         List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
         Integer boardTotal = 0;
-        if(orderRule.equals("latest") && closed.equals("false")){
-            list= this.service.getListWithJoinReply("C",Integer.parseInt(jsonData.get("pageNum")));
-            boardTotal = this.service.getTotal("C");
-        }else if(orderRule.equals("popularity") && closed.equals("false")){
-            list= this.service.getListWithJoinReplyOrderByHit("C",Integer.parseInt(jsonData.get("pageNum")));
-            boardTotal = this.service.getTotal("C");
-        }else if(orderRule.equals("latest") && closed.equals("true")){
-            list= this.service.getListWithJoinReplyExceptClosed("C",Integer.parseInt(jsonData.get("pageNum")));
-            boardTotal = this.service.getTotalExceptClosed("C");
-        }else if(orderRule.equals("popularity") && closed.equals("true")){
-            list= this.service.getListWithJoinReplyOrderByHitExceptClosed("C",Integer.parseInt(jsonData.get("pageNum")));
-            boardTotal = this.service.getTotalExceptClosed("C");
-        }
 
+        if(searchText !=null && !searchText.equals("")){
+
+            list = this.service.getListWithJoinReplyAddSearch("C", Integer.parseInt(jsonData.get("pageNum")),searchTextqueryForm);
+            boardTotal = this.service.getTotalAddSearch("C",searchTextqueryForm);
+
+        }else {
+
+            if (orderRule.equals("latest") && closed.equals("false")) {
+                list = this.service.getListWithJoinReply("C", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotal("C");
+            } else if (orderRule.equals("popularity") && closed.equals("false")) {
+                list = this.service.getListWithJoinReplyOrderByHit("C", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotal("C");
+            } else if (orderRule.equals("latest") && closed.equals("true")) {
+                list = this.service.getListWithJoinReplyExceptClosed("C", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotalExceptClosed("C");
+            } else if (orderRule.equals("popularity") && closed.equals("true")) {
+                list = this.service.getListWithJoinReplyOrderByHitExceptClosed("C", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotalExceptClosed("C");
+            }
+
+        }
         Map<String, Object> data = new HashMap<String, Object>();
         data.put("boardList", list);
         data.put("boardTotal", boardTotal);

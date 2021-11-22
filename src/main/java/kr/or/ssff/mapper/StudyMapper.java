@@ -14,18 +14,24 @@ public interface StudyMapper {
     public abstract Integer insert(RecruitBoardVO vo);
     //글수정하기
     public abstract Integer update(RecruitBoardVO vo);
-    //글리스트 반환
+    //글리스트 전체 반환(쓰지 않음)
     public abstract List<RecruitBoardVO> getList(@Param("type")String type,@Param("page")Integer Page);
 
+    //5-1 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(@Param("type")String type,@Param("page")Integer Page);
+    //5-1-1 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 검색기능
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddSearch(@Param("type")String type,@Param("page")Integer Page,@Param("text")String text);
+    //5-2 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외없음
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(@Param("type")String type,@Param("page")Integer Page);
 
+    //5-3 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyExceptClosed(@Param("type")String type,@Param("page")Integer Page);
+    //5-4 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(@Param("type")String type,@Param("page")Integer Page);
 
-    //가장 최근의 글번호 가져오기
+    //가장 최근의 글번호 가져오기(P스터디 언어 등록용)
     public abstract Integer getCurrentR_idx();
-    //글번호로 언어태그 등록하기`
+    //글번호로 언어태그 등록하기
     public abstract Integer insertTag(@Param("r_idx")Integer r_idx, @Param("tag") String tag);
     //lang list 전체 가져오기
     public abstract List<LangVO> getLangList();
@@ -53,6 +59,8 @@ public interface StudyMapper {
     public abstract Integer getPostCount(@Param("type")String type);
     //글 총갯수 구하기(타입 받음)+마감 제외
     public abstract Integer getPostCountExceptClosed(@Param("type")String type);
+    //글 총갯수 구하기(타입 받음)+검색어
+    public abstract Integer getPostCountAddSearch(@Param("type")String type,@Param("text")String searchText);
     //댓글 수 구하기
     public abstract List<ReplyCountVO> replyCount();
     //글번호에 해당하는 댓글 수 구하기

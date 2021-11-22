@@ -15,7 +15,7 @@
     <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-    <script src="../../../../resources/assets/js/location/location.js"></script>
+    <!--<script src="../../../../resources/assets/js/location/location.js"></script>-->
     <!--head.html Include-->
     <jsp:include page="../../../commons/head.jsp"/>
 </head>
@@ -100,8 +100,8 @@
 
                                         <div class="dropdown-label" >검색 :</div>
 
-                                        <input type="text" class="form-control" placeholder="지역, 유형, 내용을 검색" style="width: 300px ;margin-right:15px">
-                                        <img src="../../../../resources/assets/image/search.png" width="40px">
+                                        <input type="text" name="search" id="search" class="form-control" placeholder="지역, 유형, 내용을 검색" style="width: 300px ;margin-right:15px">
+                                        <img src="../../../../resources/assets/image/search.png" width="40px" onclick="goSearch()">
 
                                     </div>
 
@@ -165,7 +165,8 @@
   let currentOrderType = 'latest'
   let checkbox = document.querySelector('input[id="closedException"]');
   let closedStatus = false;
-  let chType;
+
+  let searchText;
   /*==========================onload or eventListener==========================*/
   $(function(){
     getBoardsByPageNum(1, currentOrderType);
@@ -177,9 +178,15 @@
     getBoardsByPageNum(1, currentOrderType);
   });
 
-
   /*==========================function==========================*/
-
+  //검색 임시
+  function goSearch(){
+    let x = document.querySelector("#search").value;
+    let y = x.replace(/ /g,""); //띄어쓰기 제거
+    searchText = y;
+    console.log(searchText);
+    getBoardsByPageNum(1, currentOrderType);
+  }
   //임시
   function sortType(){
     /*
@@ -274,7 +281,7 @@
       pageNum: pageNum,
       orderRule: orderRule,
       closed: closedStatus,
-      chType: chType
+      searchText: searchText
     }
     $.ajax({
       url:"/studyRest/challenge/list",
@@ -284,9 +291,9 @@
       data:JSON.stringify(jsonData),
       success:function(response){
         if(response){
+          setPageElementVar(response.boardTotal, currentPage)
           createBoardTable(response.boardList)
           cateColorChangeCSS()
-          setPageElementVar(response.boardTotal, currentPage)
           createBoardPage();
         }else{
           alert("error occured")
@@ -312,13 +319,13 @@
     }
     if (!currentPage) sc.currentPage = 1
     else sc.currentPage = currentPage
-    // console.log("totalPost:"+sc.totalPost)
-    // console.log("postPerPage:"+sc.postPerPage)
-    // console.log("totalPage:"+sc.totalPage)
-    // console.log("currentPage:"+sc.currentPage)
-    // console.log("pagePerBlock:"+sc.pagePerBlock)
-    // console.log("currentBlock:"+sc.currentBlock)
-    // console.log("totalBlock:"+sc.totalBlock)
+     console.log("totalPost:"+sc.totalPost)
+     console.log("postPerPage:"+sc.postPerPage)
+     console.log("totalPage:"+sc.totalPage)
+     console.log("currentPage:"+sc.currentPage)
+     console.log("pagePerBlock:"+sc.pagePerBlock)
+     console.log("currentBlock:"+sc.currentBlock)
+     console.log("totalBlock:"+sc.totalBlock)
   }//setPageElementVar
 
   function createBoardTable(list){
