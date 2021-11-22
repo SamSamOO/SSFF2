@@ -278,18 +278,22 @@ public class CafeController {
       trn = Integer.valueOf(String.valueOf(arrRoom.get(i).get("total_room_number")));
       ah = Integer.valueOf(String.valueOf(arrRoom.get(i).get("amount_hour")));
 
-      roomDTO.setMax_people(mp);
-      roomDTO.setTotal_room_number(trn);
-      roomDTO.setAmount_hour(ah);
-      roomDTO.setRoom_image(fileName);
-      log.info("\t 이미지 roomDTO 중인 roomDTO: {}", roomDTO );
-      roomDTOList.add(roomDTO); //TODO 이거 왜..? 중복,, add... 어케..?
+      RoomDTO rDT = new RoomDTO();
+
+      rDT.setMax_people(mp);
+      rDT.setTotal_room_number(trn);
+      rDT.setAmount_hour(ah);
+      rDT.setRoom_image(fileName);
+      log.info("\t 이미지 roomDTO 중인 roomDTO: {}", rDT );
+      roomDTOList.add(rDT); //
 
       log.info("\t 이미지 삽입 중인 roomDTOList: {}", roomDTOList );
 
     } // for
 
     log.info("\t 이미지 삽입 끝난 roomDTOList: {}", roomDTOList );
+
+    log.info("\t 이것좀 1 roomDTOList: {}", roomDTOList.get(0).getMax_people());
 
 
 

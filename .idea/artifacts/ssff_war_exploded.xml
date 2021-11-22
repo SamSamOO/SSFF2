@@ -1,14 +1,18 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="ssff:war exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/ssff_war_exploded</output-path>
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>ssff</module>
+        <packaging>war</packaging>
+        <unpackNestedArchives>false</unpackNestedArchives>
+      </options>
+    </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="ssff" />
-          <element id="library" level="application" name="jquery-3.4.1" />
-          <element id="library" level="application" name="bootstrap" />
-          <element id="library" level="application" name="font-awesome" />
-          <element id="library" level="application" name="air-datepicker" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.14.1" />
@@ -66,7 +70,12 @@
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
           <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1" />
+          <element id="library" level="project" name="Maven: com.github.lbovolini:ObjectMapper:0.2.3" />
+          <element id="library" level="project" name="Maven: com.github.lbovolini:object-mapper:1.1.68" />
         </element>
+      </element>
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/target/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="ssff/web/웹" />
     </root>
