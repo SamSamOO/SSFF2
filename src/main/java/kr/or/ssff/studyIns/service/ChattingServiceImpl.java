@@ -1,8 +1,10 @@
 package kr.or.ssff.studyIns.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 import kr.or.ssff.mapper.ChattingMapper;
+import kr.or.ssff.studyIns.model.ChatMsgDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.DisposableBean;
@@ -29,6 +31,15 @@ public class ChattingServiceImpl  implements ChattingService, InitializingBean, 
 
 
         return this.mapper.insertMsg(params);
+    }
+
+    @Override
+    public List<ChatMsgDTO> selectBySendTime() {
+        log.info("selectBySendTime() is invoked");
+
+        Objects.requireNonNull(mapper);
+
+        return this.mapper.selectBySendTime();
     }
 
     @Override

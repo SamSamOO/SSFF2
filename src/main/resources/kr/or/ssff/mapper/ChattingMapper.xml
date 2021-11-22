@@ -6,7 +6,15 @@
 <mapper namespace="kr.or.ssff.mapper.ChattingMapper">
     <insert id="insertMsg" parameterType="hashMap">
         insert into CHAT_MSG(MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME)
-        values (CHAT_MSG_SQE.nextval,#{member_Name},#{r_Idx},#{msg_Cont},sysdate)
+        values (CHAT_MSG_SQE.nextval, #{member_Name}, #{r_Idx}, #{msg_Cont}, current_timestamp)
 
     </insert>
+    <select id="selectBySendTime">
+        <![CDATA[
+        select /*+ INDEX_ASC(CHAT_MSG idx_chat_sendtime)*/MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME
+        from CHAT_MSG
+        where R_IDX = #{r_Idx}
+          and ROWNUM <= 30
+        ]]>
+    </select>
 </mapper>

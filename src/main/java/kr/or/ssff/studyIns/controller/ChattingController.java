@@ -3,7 +3,6 @@ package kr.or.ssff.studyIns.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 import kr.or.ssff.studyIns.model.Room;
 import kr.or.ssff.studyIns.service.ChattingService;
@@ -11,8 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,11 +26,10 @@ import org.springframework.web.servlet.ModelAndView;
 public class ChattingController {
 
 
+    static int roomNumber = 0;
+    //-------------------------------- 상준 채팅방--------------------------------//
     @Autowired
     ChattingService service;
-//-------------------------------- 상준 채팅방--------------------------------//
-
-    static int roomNumber = 0;
     List<Room> roomList = new ArrayList<Room>();
 
     @RequestMapping("/chat")
@@ -105,27 +102,27 @@ public class ChattingController {
      * @return
      */
     @RequestMapping("/moveChating")
-    public ModelAndView chating(@RequestParam HashMap<Object, Object> params) {
-        log.info("chating() is invoked");
-
-        ModelAndView mv = new ModelAndView();
+    public String chating(@RequestParam HashMap<Object, Object> params, Model model) {
+        log.info("chating({}) is invoked", "params = " + params);
+        String url = "";
 
         int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
+
         log.info("roomNumber = {}", roomNumber);
 
         List<Room> new_list = roomList.stream().filter(o -> o.getRoomNumber() == roomNumber).collect(Collectors.toList());
-        if (new_list != null && new_list.size() > 0) {
-            mv.addObject("roomName", params.get("roomName"));
-            mv.addObject("roomNumber", params.get("roomNumber"));
-            mv.addObject("r_Idx", 9002);
 
-            mv.setViewName("/studyIns/chatRoom/chatRoom");
+        if (new_list != null && new_list.size() > 0) {
+            model.addAttribute("r_Idx", params.get("r_Idx"));
+
+            url = "studyIns/chatRoom/chatRoom";
 
         } else {
-            mv.setViewName("/studyIns/chatRoom/room");
-
+            model.addAttribute("r_Idx", params.get("r_Idx"));
+            url = "studyIns/chatRoom/room";
         }
-        return mv;
+
+        return url;
     }
 
 }

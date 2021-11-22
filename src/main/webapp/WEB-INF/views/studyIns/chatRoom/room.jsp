@@ -88,14 +88,24 @@
                 if (d.type == "getId") {
 
                     var si = d.sessionId != null ? d.sessionId : "";
+
                     if (si != '') {
+
                         $("#sessionId").val(si);
+
                     }
                 } else if (d.type == "message") {
+
+                    console.log("메시지 타입 넘어옴 ㅋㅋ");
+
                     if (d.sessionId == $("#sessionId").val()) {
+
                         $("#chating").append("<p class='me'>나 :" + d.msg + "</p>");
+
                     } else {
-                        $("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+
+                        $("#chating").append("<p class='others'>" + d.username + " :" + d.msg + "</p>");
+
                     }
 
                 } else {
@@ -132,20 +142,25 @@
     }
 
     function send() {
-        var option ={
+
+        var option = {
+
             type: "message",
             r_Idx: $("#r_Idx").val(),
-            sessionId : $("#sessionId").val(),
-            member_Name : $("#userName").val(),
-            msg_Cont : $("#chatting").val()
-        }
-        if (!isOpen(ws)) return;
+            sessionId: $("#sessionId").val(),
+            member_Name: $("#userName").val(),
+            msg_Cont: $("#chatting").val()
+
+        };
+
         ws.send(JSON.stringify(option))
+        if (!isOpen(ws)) return;
+
         $.ajax({
-            type       : 'POST',
-            url        : '/chat/insert',
-            data       : JSON.stringify(option), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
-            dataType   : 'json', // 받을 데이터는 json
+            type: 'POST',
+            url: '/chat/insert',
+            data: JSON.stringify(option), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+            dataType: 'json', // 받을 데이터는 json
             contentType: "application/json; charset=utf-8",
             success: function (d) {
                 alert(`성공!`);
@@ -193,10 +208,10 @@
                     <!--카드 Body 시작-->
                     <!--카드 Body 시작-->
                     <div id="container" class="container">
-                        <h1>${roomNumber}의 채팅방</h1>
+                        <h1>${r_Idx}의 채팅방</h1>
                         <input type="hidden" id="sessionId" value=""/>
                         <input type="hidden" id="roomNumber" value="${roomNumber}"/>
-                        <input type="hidden" id="r_Idx" value="9003"/>
+                        <input type="hidden" id="r_Idx" value="${r_Idx}"/>
 
                         <div id="chating" class="chating">
                         </div>
