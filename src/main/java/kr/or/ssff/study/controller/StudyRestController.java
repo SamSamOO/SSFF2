@@ -120,27 +120,35 @@ public class StudyRestController {
 
 
     @PostMapping("/project/list")
-    public @ResponseBody List<Map<String, Object>> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
+    public @ResponseBody Map<String, Object> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
         log.info("getProjectListByPageNum({}) is invoked",jsonData);
 
         String orderRule = jsonData.get("orderRule");
         String closed = jsonData.get("closed"); //true(마감 제외) or false(전부)
-        String chType = jsonData.get("chType");
-        List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
 
+        List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
+        Integer boardTotal = 0;
         if(orderRule.equals("latest")&& closed.equals("false")){
             list= this.service.getListWithJoinReply("P",Integer.parseInt(jsonData.get("pageNum")));
+            boardTotal = this.service.getTotal("P");
         }else if(orderRule.equals("popularity") && closed.equals("false")){
             list= this.service.getListWithJoinReplyOrderByHit("P",Integer.parseInt(jsonData.get("pageNum")));
+            boardTotal = this.service.getTotal("P");
         }else if(orderRule.equals("latest") && closed.equals("true")){
             list= this.service.getListWithJoinReplyExceptClosed("P",Integer.parseInt(jsonData.get("pageNum")));
+            boardTotal = this.service.getTotalExceptClosed("P");
         }else if(orderRule.equals("popularity") && closed.equals("true")){
             list= this.service.getListWithJoinReplyOrderByHitExceptClosed("P",Integer.parseInt(jsonData.get("pageNum")));
+            boardTotal = this.service.getTotalExceptClosed("P");
         }
         List<LangVO> langList = this.service.getLangList();
 
         List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);
-        return listMap;
+
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("boardList", listMap);
+        data.put("boardTotal", boardTotal);
+        return data;
     }//getChallengeListByPageNum
 
 

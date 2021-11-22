@@ -1,8 +1,9 @@
 package kr.or.ssff.member.service;
 
 import java.util.List;
-import kr.or.ssff.member.domain.MemberDTO;
 
+import kr.or.ssff.member.domain.MemberDTO;
+import kr.or.ssff.member.domain.MemberVO;
 
 /*
 
@@ -12,7 +13,7 @@ public interface MemberService {
     //1.화원가입
     public abstract boolean insertMember(MemberDTO memberDTO) throws Exception;
     // 2. 로그인
-    public abstract boolean Login(String member_id, String member_pwd);
+    public abstract boolean Login(MemberVO memberVO);
     // authstatus 1로 변경
     public void updateAuthstatus(String member_id) throws Exception;
     // 이메일 중복체크

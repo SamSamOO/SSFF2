@@ -288,6 +288,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         String uploadFolder = "C:/temp/upload";
 
+
         /*폴더 만들기*/
         File uploadPath = new File(uploadFolder);
 

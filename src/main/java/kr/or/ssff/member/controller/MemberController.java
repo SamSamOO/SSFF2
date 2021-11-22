@@ -205,16 +205,18 @@ public class MemberController {
 
 
         return mav;
+
     }
 
     @PostMapping("/login")
     public String memberLogin(
+            MemberVO memberVO,
             @RequestParam("member_id") String member_id,
             @RequestParam("member_pwd") String member_pwd) {
         log.debug("login() is invoked" + member_id, member_pwd);
 
 
-        boolean user = this.service.Login(member_id, member_pwd);
+        boolean user = this.service.Login(memberVO);
         log.info("\t+ user: {}", user);
 
 

@@ -201,21 +201,24 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
+  /*==========================variable==========================*/
+
   let sc = {
-    totalPost: ${studyCriteria.totalPost},
-    postPerPage: ${studyCriteria.postPerPage},
-    totalPage: ${studyCriteria.totalPage},
-    currentPage: ${studyCriteria.currentPage},
-    pagePerBlock: ${studyCriteria.pagePerBlock},
-    currentBlock: ${studyCriteria.currentBlock},
-    totalBlock: ${studyCriteria.totalBlock}
+    totalPost: null,
+    postPerPage: null,
+    totalPage: null,
+    currentPage: null,
+    pagePerBlock: null,
+    currentBlock: null,
+    totalBlock: null
   }
   let currentOrderType = 'latest';
   let checkbox = document.querySelector('input[id="closedException"]');
   let closedStatus = false;
+  /*==========================onload or eventListener==========================*/
   $(function(){
     //페이지단 만듦
-    createBoardPage();
+    //createBoardPage();
     //1페이지에 해당하는 board 자료 가져오기
     getBoardsByPageNum(1, currentOrderType);
   });
@@ -245,26 +248,31 @@
     }
     for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
       if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType)'>"+i+"</li>";//[1]~[5]찍어주구
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType,"+i+")'>"+i+"</li>";//[1]~[5]찍어주구
+        /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
           i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
         }
       } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
         //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
-        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType)'>"+i+"</li>";
+        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType,"+i+")'>"+i+"</li>";
+        /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
         //[6]~[10] 찍어주고 끝내겠다
       } else {//이도 저도 아니면 i 수 올려서 끝내겠다
         i = sc.totalPage + 1;
       }
     }
     if (sc.currentBlock != sc.totalBlock) {
-      html +=  "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+",currentOrderType)'>"+ sc.totalPage + "</li>";
       html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a>...</a></li>";
+      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+",currentOrderType,"+sc.totalPage+")'>"+ sc.totalPage + "</li>";
+
+      /*html += "<li><a href='/study/challenge/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";*/
       html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='nextBoardPage()'>≫</a></li>";
     }
     html += "</ul>";
     $('#pagination-ul').html(html);
   }//createBoardPage
+
   function previousBoardPage() {
     sc.currentBlock--;
     if (sc.currentBlock === 0) {
@@ -281,9 +289,9 @@
       createBoardPage(sc);
     }
   }//nextBoardPage
-  function getBoardsByPageNum(pageNum, orderRule){
+  function getBoardsByPageNum(pageNum, orderRule, currentPage){
     let jsonData ={
-      pageNum:pageNum+"",
+      pageNum:pageNum,
       orderRule :orderRule,
       closed :closedStatus
     }
@@ -295,9 +303,10 @@
       data:JSON.stringify(jsonData),
       success:function(response){
         if(response){
-          createBoardTable(response);
-
+          createBoardTable(response.boardList);
+          setPageElementVar(response.boardTotal, currentPage)
           ifNoLogoInsertQuestion();
+          createBoardPage();
         }else{
           alert("error occured")
         }
@@ -307,6 +316,23 @@
       }
     })
   }//getBoardsByPageNum
+
+  function setPageElementVar(boardTotalLength, currentPage) {
+    console.log(boardTotalLength, currentPage)
+    sc.totalPost = boardTotalLength
+    sc.totalPage = Math.ceil(sc.totalPost / 15)
+    sc.postPerPage = 15
+    sc.totalBlock = Math.ceil(sc.totalPage / 3)
+    sc.pagePerBlock = 3
+    if (!currentPage || currentPage == 1) sc.currentBlock = 1
+    else {
+      if (currentPage % sc.pagePerBlock == 0) sc.currentBlock = Math.floor(currentPage / sc.pagePerBlock)
+      else sc.currentBlock = Math.floor(currentPage / sc.pagePerBlock) + 1
+    }
+    if (!currentPage) sc.currentPage = 1
+    else sc.currentPage = currentPage
+  }//setPageElementVar
+
   function createBoardTable(list){
     let html = "";
     for(let i=0;i<list.length;i++){
@@ -332,10 +358,12 @@
     }
     $('.studylist-content-ul').html(html);
   }//createBoardTable
+
   function ifNoLogoInsertQuestion(){
     $( '.studylist-content-logo:not(:has( li ))' )
     .prepend('<li><img src="../../../../resources/assets/image/question.png" width="40px"></li>');
-  }
+  }//ifNoLogoInsertQuestion
+
   function orderSelected(orderType) {
     if (currentOrderType === orderType) return
     if (orderType == 'latest') {
@@ -347,6 +375,6 @@
     }//orderSelected
     currentOrderType = orderType
     getBoardsByPageNum(1, currentOrderType);
-  }
+  }//orderSelected
 </script>
 </html>
