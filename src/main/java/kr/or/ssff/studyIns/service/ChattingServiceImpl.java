@@ -34,12 +34,15 @@ public class ChattingServiceImpl  implements ChattingService, InitializingBean, 
     }
 
     @Override
-    public List<ChatMsgDTO> selectBySendTime(String r_Idx) {
+    public List<ChatMsgDTO> selectBySendTime(Integer r_Idx) {
         log.info("selectBySendTime() is invoked");
 
         Objects.requireNonNull(mapper);
+        log.info("r_Idx = {}", r_Idx);
+        List<ChatMsgDTO> list = this.mapper.selectBySendTime(r_Idx);
 
-        return this.mapper.selectBySendTime(r_Idx);
+        log.info("list = {}", list);
+        return list;
     }
 
 

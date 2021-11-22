@@ -9,6 +9,6 @@ public interface ChattingService {
 
     public Integer insertMsg(HashMap<String, Object> params);
 
-    public List<ChatMsgDTO> selectBySendTime(String r_Idx);
+    public List<ChatMsgDTO> selectBySendTime(Integer r_Idx);
 
 }

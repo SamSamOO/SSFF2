@@ -11,6 +11,7 @@ import kr.or.ssff.studyIns.service.ChattingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.apache.ibatis.annotations.Param;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,9 +47,8 @@ public class ChattingRestController {
         return new JSONObject(params);
     }
 
-    @RequestMapping(value = "/chat/getAllChat")
-    public HashMap<String,Object> getAllChat(String r_Idx) {
-        HashMap<String, Object> map = new HashMap<>();
+    @RequestMapping(value = "/chat/getAllChat",method = RequestMethod.POST,produces = "application/json; charset=utf-8")
+    public JSONObject getAllChat(@RequestParam Integer r_Idx) {
 
         log.info("getAllChat({}) is invoked", "r_Idx = " + r_Idx);
 
@@ -57,9 +57,15 @@ public class ChattingRestController {
         List<ChatMsgDTO> chatMsgDTOS = service.selectBySendTime(r_Idx);
         log.info("chatMsgDTOS = {}", chatMsgDTOS);
 
+        JSONObject jsonObject = new JSONObject();
 
-        return map;
-    }
+        jsonObject.put("list", chatMsgDTOS);
+
+        log.info("jsonObject = {}", jsonObject);
+
+        return jsonObject;
+    } // getAllChat
+
 }
 
 

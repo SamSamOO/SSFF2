@@ -11,12 +11,12 @@
 
     </insert>
 
-    <select id="selectBySendTime">
+    <select id="selectBySendTime" resultType="kr.or.ssff.studyIns.model.ChatMsgDTO">
         <![CDATA[
         select /*+ INDEX_ASC(CHAT_MSG idx_chat_sendtime)*/ MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME
         from CHAT_MSG
         where R_IDX = #{r_Idx}
-          and ROWNUM <= 30
+          and ROWNUM <= 100 order by SEND_TIME
         ]]>
     </select>
 

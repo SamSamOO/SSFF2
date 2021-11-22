@@ -97,30 +97,22 @@ public class ChattingController {
     }
 
     /**
-     * 채팅방
+     * 채팅방 이동
      *
-     * @return
+     * @return url
      */
     @RequestMapping("/moveChating")
-    public String chating(@RequestParam HashMap<Object, Object> params, Model model) {
-        log.info("chating({}) is invoked", "params = " + params);
+    public String chating(@RequestParam String r_Idx, Model model) {
+        log.info("chating({}) is invoked", "r_Idx = " + r_Idx + ", model = " + model);
         String url = "";
-
-        int roomNumber = Integer.parseInt((String) params.get("roomNumber"));
 
         log.info("roomNumber = {}", roomNumber);
 
         List<Room> new_list = roomList.stream().filter(o -> o.getRoomNumber() == roomNumber).collect(Collectors.toList());
 
-        if (new_list != null && new_list.size() > 0) {
-            model.addAttribute("r_Idx", params.get(0));
+        model.addAttribute("r_Idx", r_Idx);
 
-            url = "studyIns/chatRoom/chatRoom";
-
-        } else {
-            model.addAttribute("r_Idx", params.get(0));
-            url = "studyIns/chatRoom/room";
-        }
+        url = "studyIns/chatRoom/room";
 
         return url;
     }

@@ -9,7 +9,7 @@ public interface ChattingMapper {
     public abstract Integer insertMsg(HashMap<String, Object> params);
 
 
-    public abstract List<ChatMsgDTO> selectBySendTime(String r_Idx);
+    public abstract List<ChatMsgDTO> selectBySendTime(Integer r_Idx);
 
 
 }

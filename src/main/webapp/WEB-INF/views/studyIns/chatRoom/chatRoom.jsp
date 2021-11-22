@@ -205,7 +205,7 @@
                                 <tr>
                                     <td class="num">3</td>
                                     <td class="room">ㅇㅇㅇㅇㅇㅇ</td>
-                                    <td class="go"><a href="/moveChating?r_Idx=9002"><i class="fa fa-arrow-left"></i> </a></td>
+                                    <td class="go"><a href="#none" onclick="window.open('/moveChating?r_Idx=9002','new','scrollbars=yes,resizable=no width=600 height=400, left=0,top=0');return false" ><i class="fa fa-arrow-left"></i> </a></td>
                                 </tr>
                             </table>
                         </div>
