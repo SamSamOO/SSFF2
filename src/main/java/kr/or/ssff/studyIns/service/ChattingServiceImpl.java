@@ -1,6 +1,7 @@
 package kr.or.ssff.studyIns.service;
 
 import java.util.HashMap;
+import java.util.Objects;
 import kr.or.ssff.mapper.ChattingMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -20,8 +21,14 @@ public class ChattingServiceImpl  implements ChattingService, InitializingBean, 
     private ChattingMapper mapper;
 
     @Override
-    public void insertMsg(HashMap<String, Object> params) {
+    public Integer insertMsg(HashMap<String, Object> params) {
+        log.info("insertMsg({}) is invoked", "params = " + params);
 
+        Objects.requireNonNull(mapper);
+
+
+
+        return this.mapper.insertMsg(params);
     }
 
     @Override

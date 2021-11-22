@@ -5,5 +5,5 @@ import java.util.HashMap;
 
 public interface ChattingService {
 
-    public void insertMsg(HashMap<String,Object> params);
+    public Integer insertMsg(HashMap<String,Object> params);
 }

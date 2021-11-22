@@ -134,10 +134,10 @@
     function send() {
         var option ={
             type: "message",
-            roomNumber: $("#r_Idx").val(),
+            r_Idx: $("#r_Idx").val(),
             sessionId : $("#sessionId").val(),
-            userName : $("#userName").val(),
-            msg : $("#chatting").val()
+            member_Name : $("#userName").val(),
+            msg_Cont : $("#chatting").val()
         }
         if (!isOpen(ws)) return;
         ws.send(JSON.stringify(option))
