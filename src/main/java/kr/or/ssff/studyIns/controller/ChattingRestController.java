@@ -3,7 +3,9 @@ package kr.or.ssff.studyIns.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import kr.or.ssff.studyIns.model.ChatMsgDTO;
 import kr.or.ssff.studyIns.model.Room;
 import kr.or.ssff.studyIns.service.ChattingService;
 import lombok.AllArgsConstructor;
@@ -45,13 +47,18 @@ public class ChattingRestController {
     }
 
     @RequestMapping(value = "/chat/getAllChat")
-    public String getAllChat(@RequestParam(value = "r_Idx") String r_Idx) {
+    public HashMap<String,Object> getAllChat(String r_Idx) {
+        HashMap<String, Object> map = new HashMap<>();
+
         log.info("getAllChat({}) is invoked", "r_Idx = " + r_Idx);
 
         Objects.requireNonNull(service);
 
+        List<ChatMsgDTO> chatMsgDTOS = service.selectBySendTime(r_Idx);
+        log.info("chatMsgDTOS = {}", chatMsgDTOS);
 
 
+        return map;
     }
 }
 

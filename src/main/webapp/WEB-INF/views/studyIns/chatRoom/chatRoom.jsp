@@ -195,17 +195,17 @@
                                 <tr>
                                     <td class="num">1</td>
                                     <td class="room">ㅇㅇㅇㅇㅇㅇ</td>
-                                    <td class="go"><a href="/moveChating?r_Idx=9002&roomNumber=1"><i class="fa fa-arrow-left"></i> </a></td>
+                                    <td class="go"><a href="/moveChating?r_Idx=9002"><i class="fa fa-arrow-left"></i> </a></td>
                                 </tr>
                                 <tr>
                                     <td class="num">2</td>
                                     <td class="room">ㅇㅇㅇㅇㅇㅇ</td>
-                                    <td class="go"><a href="/moveChating?r_Idx=9002&roomNumber=2"><i class="fa fa-arrow-left"></i> </a></td>
+                                    <td class="go"><a href="/moveChating?r_Idx=9002"><i class="fa fa-arrow-left"></i> </a></td>
                                 </tr>
                                 <tr>
                                     <td class="num">3</td>
                                     <td class="room">ㅇㅇㅇㅇㅇㅇ</td>
-                                    <td class="go"><a href="/moveChating?r_Idx=9002&roomNumber=3"><i class="fa fa-arrow-left"></i> </a></td>
+                                    <td class="go"><a href="/moveChating?r_Idx=9002"><i class="fa fa-arrow-left"></i> </a></td>
                                 </tr>
                             </table>
                         </div>

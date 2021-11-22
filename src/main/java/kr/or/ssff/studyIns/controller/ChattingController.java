@@ -113,12 +113,12 @@ public class ChattingController {
         List<Room> new_list = roomList.stream().filter(o -> o.getRoomNumber() == roomNumber).collect(Collectors.toList());
 
         if (new_list != null && new_list.size() > 0) {
-            model.addAttribute("r_Idx", params.get("r_Idx"));
+            model.addAttribute("r_Idx", params.get(0));
 
             url = "studyIns/chatRoom/chatRoom";
 
         } else {
-            model.addAttribute("r_Idx", params.get("r_Idx"));
+            model.addAttribute("r_Idx", params.get(0));
             url = "studyIns/chatRoom/room";
         }
 

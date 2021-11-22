@@ -70,10 +70,10 @@
                 type: 'GET',
                 url: 'chat/getAllChat?r_Idx'+$(`#r_Idx`).val(),
                 data: {
-                    member_Name: "${member_Name}",
-                    r_Idx: "${r_Idx}",
-                    msg_Cont: "${msg_Cont}",
-                    sendTime: "${send_Time}"
+                    member_Name: "",
+                    r_Idx: "",
+                    msg_Cont: "",
+                    sendTime: ""
                 },
                 error: function (error) {
                     Swal.fire({
@@ -87,7 +87,7 @@
                 }
 
             });
-        }, 500);
+        }, 5000);
 
     });
     function wsOpen(){
