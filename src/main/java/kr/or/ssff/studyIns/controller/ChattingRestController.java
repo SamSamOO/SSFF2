@@ -8,6 +8,7 @@ import kr.or.ssff.studyIns.model.Room;
 import kr.or.ssff.studyIns.service.ChattingService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.ibatis.annotations.Param;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,8 +33,8 @@ public class ChattingRestController {
     @Autowired
     ChattingService service;
 
-    @RequestMapping(value= "/chat/insert", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public JSONObject insertChatting(@RequestBody(required = false) HashMap<String,Object> params) {
+    @RequestMapping(value = "/chat/insert", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public JSONObject insertChatting(@RequestBody(required = false) HashMap<String, Object> params) {
         log.info("insertChatting({}) is invoked", "params = " + params);
 
         Objects.requireNonNull(service);
@@ -43,7 +44,15 @@ public class ChattingRestController {
         return new JSONObject(params);
     }
 
+    @RequestMapping(value = "/chat/getAllChat")
+    public String getAllChat(@RequestParam(value = "r_Idx") String r_Idx) {
+        log.info("getAllChat({}) is invoked", "r_Idx = " + r_Idx);
 
+        Objects.requireNonNull(service);
+
+
+
+    }
 }
 
 

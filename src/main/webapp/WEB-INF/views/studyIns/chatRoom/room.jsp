@@ -64,7 +64,32 @@
 </head>
 <script type="text/javascript">
     var ws;
+    $(function () {
+        timer = setInterval(function () {
+            $.ajax({
+                type: 'GET',
+                url: 'chat/getAllChat?r_Idx'+$(`#r_Idx`).val(),
+                data: {
+                    member_Name: "${member_Name}",
+                    r_Idx: "${r_Idx}",
+                    msg_Cont: "${msg_Cont}",
+                    sendTime: "${send_Time}"
+                },
+                error: function (error) {
+                    Swal.fire({
+                        icon: 'warning',                         // Alert 타입
+                        title: 'Alert가 실행되었습니다.',         // Alert 제목
+                        text: '에러로 데이터를 불러오지 못했습니다.',  // Alert 내용
+                    });
+                },
+                success: function (error) {
+                    console.log(`데이터 불러오기 성공`);
+                }
 
+            });
+        }, 500);
+
+    });
     function wsOpen(){
         //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
         ws = new WebSocket("ws://" + location.host + "/chating/"+$("#r_Idx").val());
@@ -85,18 +110,18 @@
                 console.log(now);
                 d.time = now;
                 console.log(d);
+                console.log(d.type);
                 if (d.type == "getId") {
 
                     var si = d.sessionId != null ? d.sessionId : "";
 
                     if (si != '') {
-
-                        $("#sessionId").val(si);
+                        console.log(si);
 
                     }
                 } else if (d.type == "message") {
+                    console.log(d.type)
 
-                    console.log("메시지 타입 넘어옴 ㅋㅋ");
 
                     if (d.sessionId == $("#sessionId").val()) {
 
@@ -152,9 +177,16 @@
             msg_Cont: $("#chatting").val()
 
         };
+        console.log(option);
+        if (!isOpen(ws)) {
+            Swal.fire({
+                icon: 'warning',                         // Alert 타입
+                title: 'Alert가 실행되었습니다.',         // Alert 제목
+                text:'서버와의 연결이 끊겼습니다.',  // Alert 내용
+            });
 
-        ws.send(JSON.stringify(option))
-        if (!isOpen(ws)) return;
+            return;
+        }
 
         $.ajax({
             type: 'POST',
@@ -163,12 +195,25 @@
             dataType: 'json', // 받을 데이터는 json
             contentType: "application/json; charset=utf-8",
             success: function (d) {
-                alert(`성공!`);
+                console.log(d);
+
+                Swal.fire({
+                    icon: 'success',                         // Alert 타입
+                    title: 'Alert가 실행되었습니다.',         // Alert 제목
+                    text: '성공',  // Alert 내용
+                });
             },
             error: function (d) {
-                alert(`실패!`);
+                console.log(d);
+                Swal.fire({
+                    icon: 'warning',                         // Alert 타입
+                    title: 'Alert가 실행되었습니다.',         // Alert 제목
+                    text: '실패',  // Alert 내용
+                });
             }
         });
+        ws.send(JSON.stringify(option))
+
         $('#chatting').val("");
 
     }
