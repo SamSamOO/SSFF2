@@ -237,14 +237,14 @@
                         </div>
                         
                         
-                          <div class="form-group row">
-                            <label class="col-3" for="cafe_details">홍보글 내용</label>
-                            <div class="col-9">
+                        <div class="form-group row">
+                          <label class="col-3" for="cafe_details">홍보글 내용</label>
+                          <div class="col-9">
                               <textarea class="form-control form-control-lg form-control-solid"
                                         id="cafe_details" rows="6" name="cafe_details"
                                         placeholder="요청사항을 입력해주세요."> </textarea>
-                            </div>
                           </div>
+                        </div>
                         
                         <%--                        --%>
                         <div class="form-group row">
@@ -260,9 +260,7 @@
                       
                       
                       <!-- 룸 시작 (기본 셋팅 하나만 하고 나머지 버튼 -> 동적생성) -->
-                      
-                      
-                   
+                    
                     
                     </div>
                     
@@ -272,51 +270,49 @@
                       
                       <h3 class="text-dark font-weight-bold mb-10">세부 룸 정보</h3>
                       
-<%--                      <div class="room form-group row">--%>
-<%--                        --%>
-<%--                        <label class="col-form-label text-lg-right">인원수</label>--%>
-<%--                        <div class>--%>
-<%--                          <input type="number" class="room form-control"--%>
-<%--                                 placeholder="Enter full name"--%>
-<%--                                 name="max_people" value="2" required/>--%>
-<%--                        </div>--%>
-<%--                        --%>
-<%--                        <label class="col-form-label text-lg-right">보유개수</label>--%>
-<%--                        <div class>--%>
-<%--                          <input type="number" class="room form-control"--%>
-<%--                                 placeholder="Enter contact number" name="total_room_number"--%>
-<%--                                 value="23" required/>--%>
-<%--                        </div>--%>
-<%--                        --%>
-<%--                        <label class="col-form-label text-lg-right">시간당 요금</label>--%>
-<%--                        <div class>--%>
-<%--                          <input type="number" class="room form-control"--%>
-<%--                                 placeholder="Enter full name"--%>
-<%--                                 name="amount_hour" value="234" required/>--%>
-<%--                        </div>--%>
-<%--                        --%>
-<%--                        <label class="col-form-label text-lg-right">첨부파일</label>--%>
-<%--                        <div class>--%>
-<%--                          <input type="file" class="room form-control"--%>
-<%--                                 placeholder="Enter contact number" name="roomFile" value=""--%>
-<%--                                 required/>--%>
-<%--                        </div>--%>
-<%--                        --%>
-<%--                        <button class="add btn btn-light btn-hover-warning font-weight-bold">--%>
-<%--                          +--%>
-<%--                        </button>--%>
-<%--                        <button class="delete btn btn-light btn-hover-success font-weight-bold">--%>
-<%--                          ---%>
-<%--                        </button>--%>
-<%--                      --%>
-<%--                      </div>--%>
+                      <%--                      <div class="room form-group row">--%>
+                      <%--                        --%>
+                      <%--                        <label class="col-form-label text-lg-right">인원수</label>--%>
+                      <%--                        <div class>--%>
+                      <%--                          <input type="number" class="room form-control"--%>
+                      <%--                                 placeholder="Enter full name"--%>
+                      <%--                                 name="max_people" value="2" required/>--%>
+                      <%--                        </div>--%>
+                      <%--                        --%>
+                      <%--                        <label class="col-form-label text-lg-right">보유개수</label>--%>
+                      <%--                        <div class>--%>
+                      <%--                          <input type="number" class="room form-control"--%>
+                      <%--                                 placeholder="Enter contact number" name="total_room_number"--%>
+                      <%--                                 value="23" required/>--%>
+                      <%--                        </div>--%>
+                      <%--                        --%>
+                      <%--                        <label class="col-form-label text-lg-right">시간당 요금</label>--%>
+                      <%--                        <div class>--%>
+                      <%--                          <input type="number" class="room form-control"--%>
+                      <%--                                 placeholder="Enter full name"--%>
+                      <%--                                 name="amount_hour" value="234" required/>--%>
+                      <%--                        </div>--%>
+                      <%--                        --%>
+                      <%--                        <label class="col-form-label text-lg-right">첨부파일</label>--%>
+                      <%--                        <div class>--%>
+                      <%--                          <input type="file" class="room form-control"--%>
+                      <%--                                 placeholder="Enter contact number" name="roomFile" value=""--%>
+                      <%--                                 required/>--%>
+                      <%--                        </div>--%>
+                      <%--                        --%>
+                      <%--                        <button class="add btn btn-light btn-hover-warning font-weight-bold">--%>
+                      <%--                          +--%>
+                      <%--                        </button>--%>
+                      <%--                        <button class="delete btn btn-light btn-hover-success font-weight-bold">--%>
+                      <%--                          ---%>
+                      <%--                        </button>--%>
+                      <%--                      --%>
+                      <%--                      </div>--%>
                     
                     
                     </div>
                   
                   </div>
-                  
-                  
                 
                 
                 </form>
@@ -349,10 +345,9 @@
 <script>
 
   htmlSet();
- 
 
-function htmlSet(){
-  const  html = `
+  function htmlSet() {
+    const html = `
     <div class="room form-group row">
       
       <label class="col-form-label text-lg-right">인원수</label>
@@ -390,10 +385,9 @@ function htmlSet(){
     </div>
     
 `
-  $('.card-body.room').append(html);
+    $('.card-body.room').append(html);
 
-  // 버튼 클릭을 통해 세부 룸정보 add, delete
-
+    // 버튼 클릭을 통해 세부 룸정보 add, delete
 
     // let $div = $('<div>');
     // let $divRoom = $('<div>', {class: "room form-group row"});
@@ -404,148 +398,115 @@ function htmlSet(){
     //   required
     // });
 
-  // const $btnRoom = document.querySelector('.btn-room');
-  // const $btnRoom = document.querySelector('.btn-room');
+    // const $btnRoom = document.querySelector('.btn-room');
+    // const $btnRoom = document.querySelector('.btn-room');
     // 첫번째 룸정보는 삭제 불가하게 delete button 숨김처리
-    $(`button[class^='delete']`).eq(0).css("display", "none");
-
-    // $btnRoom.addEventListener('click', (e)=> {
-    //
-    //
-    //
-    // })
-  // $(document).on("cliㄴ "^=.delete", console.log("delete  가눙?c"));
-    
-    // delete 버튼 눌러서 세부 룸정보 동적으로 삭제하기!
-  //   $(`button[class^='delete']`).on("click", function (e) {
-  //
-  //     e.preventDefault();
-  //     console.log("delete cc");
-  //     // 첫번째를 삭제하려고 하면
-  //     if (!$(`div[class^='room form-group']`).eq(1).is()) {
-  //       alert("삭제 못하는데ㅠㅠ?? 어케 눌렀지??")
-  //       return; // 삭제 event 실행 x
-  //     } // if
-  //
-  //     // 클릭한 룸정보 로우 삭제
-  //     this.unwrap();
-  //
-  //   })
-  //
-  //   // add 버튼눌러러 입력란 생성!
-  //   $(`button[class^='add']`).on("click", function (e) {
-  //     e.preventDefault();
-  //     console.log("add cc");
-  //     $('.card-body.room').append(html);
-  //
-  //
-  //
-  // })
-  
-  $(document).on('click', "button[class^='delete']", function (){
-
-    // e.preventDefault()
-    console.log("delete cc");
-    // 첫번째를 삭제하려고 하면
-    if ($(`div[class^='room form-group']`).eq(1).is()) {
-      alert("삭제 못하는데ㅠㅠ?? 어케 눌렀지??")
-      return; // 삭제 event 실행 x
-    } // if
-
-    // 클릭한 룸정보 로우 삭제
-    $(this).parent().remove();
-    
-  })
-
-
-  $(document).on('click', "button[class^='add']", function (){
-
-    // e.preventDefault(ㄴ
-    console.log("add cc");
-    $('.card-body.room').append(html);
-
-  })
-
-  function chk_file_type(obj) {
-
-    var file_kind = obj.value.lastIndexOf('.');
-
-    var file_name = obj.value.substring(file_kind+1,obj.length);
-
-    var file_type = file_name.toLowerCase();
-
-    var check_file_type=new Array();
-
-    check_file_type=['jpg','gif','png','jpeg','bmp','tif'];
 
 
 
-    if(check_file_type.indexOf(file_type)==-1) {
+    $(document).on('click', "button[class^='delete']", function () {
 
-      alert('Only image file can be uploaded.');
+      // e.preventDefault()
+      console.log("delete cc");
+      
+      // 첫번째를 삭제하려고 하면
+      if ($(`.card-body.room`).children().length <=2) {
+        alert("한개 이상의 룸은 필수로 존재해야합니다.")
 
-      var parent_Obj=obj.parentNode;
+        // 클릭한 row의 value 내용 비워줌
+        $(this).parent().contents().find("input[class^='room']").val('');
 
-      var node=parent_Obj.replaceChild(obj.cloneNode(true),obj);
+        return; // 삭제 event 실행 x
+      } // if
 
+      // 클릭한 룸정보 로우 삭제
+      $(this).parent().remove();
 
+    })
 
-      document.getElementById("wfb-field-219958876").value = "";    //초기화를 위한 추가 코드
+    $(document).on('click', "button[class^='add']", function () {
 
-      document.getElementById("wfb-field-219958876").select();        //초기화를 위한 추가 코드
+      // e.preventDefault(ㄴ
+      console.log("add cc");
+      $('.card-body.room').append(html);
 
-      document.selection.clear();                                                //일부 브라우저 미지원
+    })
 
-      return false;
+    function chk_file_type(obj) {
+
+      var file_kind = obj.value.lastIndexOf('.');
+
+      var file_name = obj.value.substring(file_kind + 1, obj.length);
+
+      var file_type = file_name.toLowerCase();
+
+      var check_file_type = new Array();
+
+      check_file_type = ['jpg', 'gif', 'png', 'jpeg', 'bmp', 'tif'];
+
+      if (check_file_type.indexOf(file_type) == -1) {
+
+        alert('Only image file can be uploaded.');
+
+        var parent_Obj = obj.parentNode;
+
+        var node = parent_Obj.replaceChild(obj.cloneNode(true), obj);
+
+        document.getElementById("wfb-field-219958876").value = "";    //초기화를 위한 추가 코드
+
+        document.getElementById("wfb-field-219958876").select();        //초기화를 위한 추가 코드
+
+        document.selection.clear();                                                //일부 브라우저 미지원
+
+        return false;
+
+      }
 
     }
 
+    // TODO 이미지 확장자 확인
+    $(document).on('change', "input[type='file']", function () {
+
+      let files = $(this)[0].files;
+      console.log("files: " + files);
+
+      var check_file_type = new Array();
+
+      check_file_type = ['jpg', 'gif', 'png', 'jpeg', 'bmp', 'tif'];
+
+      let checker = new Array();
+      for (let i = 0; i < files.length; i++) {
+
+        console.log(files[i].val() + "d왜 꼽줘??")
+        // let fileType = files[i].value.substring(lastIndexOf('.')+1,files[i].value.length).toLowerCase();
+        //
+        // if(check_file_type.indexOf(fileType) == -1){
+        //ㄴ
+        //   Swal.fire({
+        //               icon : 'warning', // Alert 타입
+        //               title: '입력오류', // Alert 제목
+        //               text : '이미지 파일만 첨부 가능합니다.', // Alert 내용
+        //             });
+        //
+        //   files.value = "";
+        //   files.select();
+        //
+        //   return;
+        //
+        // }
+
+      }
+
+    })
   }
-  
-  // TODO 이미지 확장자 확인
-  $(document).on('change', "input[type='file']", function (){
-
-    let files = $(this)[0].files;
-    console.log("files: " +files );
-
-    var check_file_type=new Array();
-
-    check_file_type=['jpg','gif','png','jpeg','bmp','tif'];
-    
-    let checker = new Array();
-    for (let i = 0; i < files.length ; i++) {
-
-      console.log(files[i].val() + "d왜 꼽줘??")
-      // let fileType = files[i].value.substring(lastIndexOf('.')+1,files[i].value.length).toLowerCase();
-      //
-      // if(check_file_type.indexOf(fileType) == -1){
-      //ㄴ
-      //   Swal.fire({
-      //               icon : 'warning', // Alert 타입
-      //               title: '입력오류', // Alert 제목
-      //               text : '이미지 파일만 첨부 가능합니다.', // Alert 내용
-      //             });
-      //
-      //   files.value = "";
-      //   files.select();
-      //
-      //   return;
-      //
-      // }
-    
-    }
-
-  })
-}
-  
 
   // 버튼 누르면 ROOM 정보 추가해서 submit
   function goRegister() {
-   
-    // 카페 사진 유효 확인
-    let files=$('input[name="cafeFile"]')[0].files;
 
-    if(files.length <3) {
+    // 카페 사진 유효 확인
+    let files = $('input[name="cafeFile"]')[0].files;
+
+    if (files.length < 3) {
 
       Swal.fire({
                   icon : 'warning', // Alert 타입
@@ -555,12 +516,11 @@ function htmlSet(){
       return;
     } // if
 
-   
     let rooms = [];
     let data = {};
 
     let inputs = $(`input[class^='room']`);
-    
+
     // room의 이미지 사진을 배열에 담음
     for (let i = 0; i < inputs.length; i++) {
 
@@ -596,11 +556,11 @@ function htmlSet(){
 
     // form에 추가해서 보냄 고고
     $('#formObj').append($rooms);
-    
+
     $('#formObj').submit();
 
   } // goRegiset
-  
+
 </script>
 
 

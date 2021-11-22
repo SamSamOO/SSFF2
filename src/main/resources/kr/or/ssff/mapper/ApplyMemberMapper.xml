@@ -106,14 +106,9 @@
 
 	</update>
 	
-	
+
 	<!-- 회원의 참여 신청 : 신지혜  -->
   <insert id="insertApply" parameterType="hashMap">
-
-  <!--  <selectKey keyProperty="apply_idx" order="BEFORE" resultType="String">
-      SELECT 'aid_'||apply_member_sqe.NEXTVAL
-      FROM dual
-    </selectKey> -->
 
 		INSERT INTO
 			APPLY_MEMBER (

@@ -20,10 +20,12 @@ CAFE_CONTACT_EMAIL	      NVARCHAR2(50 CHAR)	No		8	담당자이메일
 CAFE_MAIN_TITLE	          NVARCHAR2(50 CHAR)	No		9	홍보글제목
 CAFE_SUB_TITLE          	NVARCHAR2(50 CHAR)	No		10	홍보글부제목
 CAFE_DETAILS             	NVARCHAR2(1000 CHAR)	Yes		11	홍보글내용
-CAFE_REMOVE_YN          	CHAR(1 BYTE)      	No	'n' 	12	삭제여부
-CAFE_image_1        	NVARCHAR2(200 CHAR)	No		13	이미지1
-CAFE_image_2	        NVARCHAR2(200 CHAR)	No		14	이미지2
-CAFE_image_3	        NVARCHAR2(200 CHAR)	No		15	이미지3
+CAFE_REMOVE_YN          	CHAR(1 BYTE)      	No	'n' 12	삭제여부
+CAFE_image_1        	    NVARCHAR2(200 CHAR)	No		13	이미지1
+CAFE_image_2	            NVARCHAR2(200 CHAR)	No		14	이미지2
+CAFE_image_3	            NVARCHAR2(200 CHAR)	No		15	이미지3
+BOSS_NAME	                NVARCHAR2(20 CHAR)	No		16  대표이름
+BUSINESS_NUMBER           NUMBER	            No		17  사업자번호
 
 ROOM_IDX        	NVARCHAR2(25 CHAR)	No		1	룸번호
 CAFE_IDX        	NVARCHAR2(25 CHAR)	No		2	카페번호

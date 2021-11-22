@@ -7,6 +7,7 @@ import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
+import kr.or.ssff.cafe.domain.RoomVO;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
 
@@ -22,6 +23,9 @@ public interface CafeService {
   // 신규 카페 insert
   public abstract boolean registerCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTO);
 
+  // 기존 카페 update
+  public abstract boolean modifyCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList);
+
   // 전체 스터디카페 목록조회(사용자) : 신지혜
   public abstract List<CafeListVO> getCafeList();
 
@@ -30,6 +34,9 @@ public interface CafeService {
 
   // 단일 카페정보 조회(사용자) : 신지혜
   public abstract CafeVO getCafe(String cafe_idx);
+
+
+  public abstract List<RoomVO> getRoom(String cafe_idx);
 
 
 
@@ -41,7 +48,6 @@ public interface CafeService {
 
   // 예약 정보 insert
   public abstract boolean registerReservation(ReservationDTO reservationDTO);
-
 
 
 } // end interface

@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvInfoDTO;
+import kr.or.ssff.cafe.domain.RoomVO;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
 import kr.or.ssff.cafe.service.CafeService;
@@ -159,28 +159,13 @@ public class CafeController {
   } // goCafeRegister
 
 
-  @PostMapping("/inser")
-  public String test(@RequestParam String rooms,
-      HttpServletRequest request,
-      MultipartFile[] roomFile) {
-    log.debug("insertCafe(>>>>>>@@{}, @@{}, @@{}<<<<<<) is invoked",
-        rooms, request, roomFile);
-
-//    log.info(rooms./());
-    log.info("###################" + rooms + "###################");
-    log.info(roomFile.length);
-
-    return "/detail";
-  }
-
-
   /*
    * 스터디 카페 등록
    * 매개변수: 카페DTO (등록할 카페 정보를 담은 객체)
    * 반환: 스터디 카페 상세보기
    * */
   @PostMapping("/register/insert")
-  public String insertCafe(
+  public String cafeRegister(
       @RequestParam String rooms,
       CafeDTO cafeDTO,
       RoomDTO roomDTO,
@@ -292,10 +277,7 @@ public class CafeController {
     } // for
 
     log.info("\t 이미지 삽입 끝난 roomDTOList: {}", roomDTOList );
-
     log.info("\t 이것좀 1 roomDTOList: {}", roomDTOList.get(0).getMax_people());
-
-
 
     // cafe DOT add
     for (int i = 0; i < cafeFile.length; i++) {
@@ -351,41 +333,59 @@ public class CafeController {
     log.info("insertCafe 정보 확인 좀 하겠습니다~! ({},{},{}) ",
         cafeDTO, roomDTO, roomDTOList);
 
-    if (service.registerCafe(cafeDTO, roomDTOList)) {
-      log.info("컨트롤러 - 서비스 실행 잘 했습니다.");
-      rtts.addFlashAttribute("result", "success");
-    } // if
+    // 신규 등록이라면 registerCafe로
+    if (cafeDTO.getCafe_idx()==null) {
+      if (service.registerCafe(cafeDTO, roomDTOList)) {
+        log.info("컨트롤러 - 신규등록 잘 했습니다.");
+        rtts.addFlashAttribute("result", "success");
+      } // if
+      // 기존에 있던 정보라면 update문으로
+    } else {
+      if (service.modifyCafe(cafeDTO, roomDTOList)) {
+        log.info("컨트롤러 - 업데이트 잘 했습니다.");
+        rtts.addFlashAttribute("result", "success");
+      } // if
+    }
 
-//    rtts.addAttribute("cafe_idx", cafe_idx);
 
-    return "redirect:/cafe/register";
+ //   rtts.addAttribute("cafe_idx", cafe_idx);
+
+    return "redirect:/cafe/register"; //TODO 관리자 리스트나 수정정 페이지로
   } // insertCafe
 
 
   /*
    * 스터디 카페 수정 화면
+
    * 매개변수: 카페VO (수정할 카페 정보를 뿌려줄 객체)
    * 반환: 스터디 카페 수정 화면 뷰단
    * */
-  @GetMapping("/modifyView")
-  public String updateCafeView(CafeVO cafeVO) {
-    log.info("updateCafeView({}) is invoked", "cafeVO = " + cafeVO);
+  @GetMapping("/modify")
+  public void goCafeModify(String cafe_idx, Model model) {
+    log.info("goCafeModify({}) is invoked", cafe_idx);
 
-    return "cafe/modifyView";
-  } // updateCafeView
+    CafeVO cafeVO = service.getCafe(cafe_idx);
+    List<RoomVO> roomVOList = service.getRoom(cafe_idx);
+
+    log.info("cafeVO{}, roomVOList{}: ", cafeVO, roomVOList);
+
+    model.addAttribute("cafeVO", cafeVO);
+    model.addAttribute("roomVOList", roomVOList);
+
+  } // goCafeModify
 
 
-  /*
-   * 스터디 카페 수정
-   * 매개변수:카페DTO (수정할 카페 정보를 담은 객체)
-   * 반환: 스터디 카페 상세보기
-   * */
-  @PostMapping("/modify")
-  public String updateCafe(CafeDTO cafeDTO) {
-    log.info("updateCafe({}) is invoked", "cafeDTO = " + cafeDTO);
-
-    return "redirect:cafe/detail";
-  } // updateCafe
+//  /*
+//   * 스터디 카페 수정
+//   * 매개변수:카페DTO (수정할 카페 정보를 담은 객체)
+//   * 반환: 스터디 카페 상세보기
+//   * */
+//  @PostMapping("/modify/update")
+//  public String updateCafe(CafeDTO cafeDTO) {
+//    log.info("updateCafe({}) is invoked", "cafeDTO = " + cafeDTO);
+//
+//    return "redirect:cafe/detail";
+//  } // updateCafe
 
   /*
    * 스터디 게시물 삭제

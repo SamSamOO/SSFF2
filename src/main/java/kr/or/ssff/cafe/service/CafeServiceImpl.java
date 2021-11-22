@@ -1,14 +1,12 @@
 package kr.or.ssff.cafe.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
+import kr.or.ssff.cafe.domain.RoomVO;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
 import kr.or.ssff.mapper.CafeMapper;
@@ -38,11 +36,10 @@ public class CafeServiceImpl
 
 
 
-
     /*
      * 스터디카페 & room insert
-     * 매개변수: 예약 정보를 모두 담은 DTO
-     * 반환: 특정일자, 특정룸의 예약정보
+     * 매개변수: 카페와 룸 상세 정보를 모두 담은 DTO
+     * 반환:
      * */
     @Transactional
     @Override
@@ -50,9 +47,9 @@ public class CafeServiceImpl
         log.debug("registerCafe invoked : {}, {}", cafeDTO, roomDTOList);
 
         // CAFE insert
-        int result = this.mapper.insertCafe(cafeDTO);
+        int insertCafeRow = this.mapper.insertCafe(cafeDTO);
 
-        log.info("\t+ result: {}", result);
+        log.info("\t+ insertCafeRow: {}", insertCafeRow);
 
         // 생성한 cafe의 pk 값을 받아옴
         String cafe_idx = cafeDTO.getCafe_idx();
@@ -65,14 +62,45 @@ public class CafeServiceImpl
         log.info("\t + roomDTOList: {}", roomDTOList); // 출력
 
         // ROOM insert
-        int roomInsertRow = this.mapper.insertRoom(roomDTOList);
+        int insertRoomRow = this.mapper.insertRoom(roomDTOList);
 
-        log.info("\t + roomInsertRow: {}", roomInsertRow);
+        log.info("\t + insertRoomRow: {}", insertRoomRow);
 
         // 둘다 정상실행이라면
-        return (result!=0 && roomInsertRow!=0);
+        return (insertCafeRow!=0 && insertRoomRow!=0);
     } // registerCafe
 
+
+    /*
+     * 스터디카페 & room update
+     * 매개변수: 예약 정보를 모두 담은 DTO
+     * 반환: 특정일자, 특정룸의 예약정보
+     * */
+    @Override
+    public boolean modifyCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList) {
+
+        // 받아온 pk값을 room의 cafe_idx(FK)로 입력
+        String cafe_idx = cafeDTO.getCafe_idx();
+
+        for (int i = 0; i < roomDTOList.size(); i++) {
+            roomDTOList.get(i).setCafe_idx(cafe_idx);
+        }
+
+        // 카페 정보는 update 하고
+        int updateCafeRow = this.mapper.updateCafe(cafeDTO);
+
+
+        // 룸 정보는 삭제(->신규등록)하고
+        int deleteRoomRow = this.mapper.deleteRoom(cafe_idx);
+
+
+        // 룸 정보 신규등록한다.
+        int insertRoomRow = this.mapper.insertRoom(roomDTOList);
+
+
+
+        return false;
+    }
 
 
     /*
@@ -94,7 +122,7 @@ public class CafeServiceImpl
 
 
     /*
-   단일 카페정보 & room 조회
+   단일 카페정보 & room(+room image List) 조회
    매개변수 : cafe_idx
    반환 : 카페정보 & room
    작성자: 신지혜
@@ -125,6 +153,21 @@ public class CafeServiceImpl
         return cafeVO;
     } //getCafe
 
+
+    /*
+     * 온전한 카페 하나의 정보 조회
+     * 매개변수 : cafe_idx
+     * 반환 : 단일 카페정보
+     * 작성자: 신지혜
+     * */
+    @Override
+    public List<RoomVO> getRoom(String cafe_idx) {
+        log.debug("getCafe {} :  invoked", cafe_idx);
+
+        List<RoomVO> roomVoList = this.mapper.selectRoom(cafe_idx);
+        log.info("\t roomVoList: " + roomVoList);
+        return roomVoList;
+    } //getCafe
 
     /*
      * 특정일자, 특정 room 예약정보 조회
