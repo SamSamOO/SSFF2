@@ -104,22 +104,13 @@
 			cafe_image_3 = #{cafe_image_3},
 			boss_name = #{boss_name},
 			business_number = #{business_number}
-		WHERE 
+		WHERE
 			cafe_idx = #{cafe_idx}
 
 	</update>
 
-	<!-- 룸 정보 삭제 : 신지혜  -->
-	<delete id="deleteRoom">
 
-		DELETE
-		FROM room
-		WHERE cafe_idx = #{cafe_idx}
 
-	</delete>
-	
-	
-	
 	<!-- 카페 리스트단 VIEW를 위한 카페 리스트 & 상세 룸 조회 : 신지혜 -->
   <select id="selectCafeList" resultType="kr.or.ssff.cafe.domain.CafeListVO">
 
@@ -144,6 +135,8 @@
           LISTAGG(room_image, ':') WITHIN GROUP (ORDER BY cafe_idx) AS room_list
         FROM
           room
+				WHERE
+					room_remove_yn = 'n'
         GROUP BY
           cafe_idx
       ) r ON c.cafe_idx = r.cafe_idx
@@ -159,55 +152,60 @@
 				  resultType="kr.or.ssff.cafe.domain.CafeInfoVO" >
 
 		SELECT
-		  d.cafe_idx,
-		  d.cafe_name,
-		  d.cafe_telephone_number,
-		  d.cafe_location,
-		  d.cafe_open_time,
-		  d.cafe_close_time,
-		  d.cafe_contact_phone_number,
-		  d.cafe_contact_email,
-		  d.cafe_main_title,
-		  d.cafe_sub_title,
-		  d.cafe_details,
-		  d.cafe_remove_yn,
-		  d.cafe_image_1,
-		  d.cafe_image_2,
-		  d.cafe_image_3,
-		  c.room_idx,
-		  c.max_people,
-		  c.amount_hour,
-		  c.total_room_number,
-		  c.room_image,
-		  c.room_list
-		FROM (
-			SELECT
-				a.cafe_idx,
-				a.room_idx,
-				a.max_people,
-				a.amount_hour,
-				a.total_room_number,
-				a.room_image,
-				b.room_list
-			FROM
-				room a
-				JOIN (
-					SELECT
-						cafe_idx,
-						LISTAGG(room_image, ':') WITHIN GROUP (
-							ORDER BY
-								cafe_idx
-						) AS room_list
-					FROM
-						room
-					GROUP BY
-						cafe_idx
-				) b ON a.cafe_idx = b.cafe_idx
-		  ) c
-		  JOIN cafe d ON c.cafe_idx = d.cafe_idx
+			d.cafe_idx,
+			d.cafe_name,
+			d.cafe_telephone_number,
+			d.cafe_location,
+			d.cafe_open_time,
+			d.cafe_close_time,
+			d.cafe_contact_phone_number,
+			d.cafe_contact_email,
+			d.cafe_main_title,
+			d.cafe_sub_title,
+			d.cafe_details,
+			d.cafe_remove_yn,
+			d.cafe_image_1,
+			d.cafe_image_2,
+			d.cafe_image_3,
+			c.room_idx,
+			c.max_people,
+			c.amount_hour,
+			c.total_room_number,
+			c.room_image,
+			c.room_list
+		FROM
+			(
+				SELECT
+					a.cafe_idx,
+					a.room_idx,
+					a.max_people,
+					a.amount_hour,
+					a.total_room_number,
+					a.room_image,
+					b.room_list
+				FROM
+					room a
+						JOIN (
+						SELECT
+							cafe_idx,
+							LISTAGG(room_image, ':') WITHIN GROUP (
+            ORDER BY
+              cafe_idx
+          ) AS room_list
+						FROM
+							room
+						WHERE
+							room_remove_yn = 'n'
+						GROUP BY
+							cafe_idx
+					) b ON a.cafe_idx = b.cafe_idx
+				WHERE
+					a.room_remove_yn = 'n'
+			) c
+				JOIN cafe d ON c.cafe_idx = d.cafe_idx
 		WHERE
-		  d.cafe_remove_yn = 'n'
-		  AND d.cafe_idx = #{cafe_idx}
+			d.cafe_remove_yn = 'n'
+			AND d.cafe_idx = #{cafe_idx}
   </select>
 
 
@@ -256,29 +254,37 @@
 			room_image
 		FROM room
 		WHERE cafe_idx = #{cafe_idx}
+			AND room_remove_yn = 'n'
 	</select>
 
 
-
-	<delete id="deleteCafe" parameterType="String">
+	<!-- 카페 삭제(숨김) : 신지혜 -->
+	<update id="deleteCafe" parameterType="String">
 
 		UPDATE cafe
 		SET
 			cafe_remove_yn = 'y'
 		WHERE
 			cafe_idx = #{cafe_idx}
-	</delete>
+	</update>
 
+	<!-- 룸 삭제(숨김) : 신지혜 -->
+	<update id="deleteRoom" parameterType="String">
 
+		UPDATE room
+		SET
+			room_remove_yn = 'y'
+		WHERE
+			room_idx = #{cafe_idx}
+	</update>
 
 
 	<!-- 예약관리 -->
 
 
-
-
 	<!-- 신규 예약정보 등록 : 신지혜  -->
-	<insert id="insertReservation" parameterType="kr.or.ssff.cafe.domain.ReservationDTO">
+	<insert id="insertReservation"
+		parameterType="kr.or.ssff.cafe.domain.ReservationDTO">
 
 
 		INSERT INTO

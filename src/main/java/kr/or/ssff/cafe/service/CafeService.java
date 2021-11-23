@@ -21,10 +21,10 @@ public interface CafeService {
   //----------------- CAFE CRUD -----------------//
 
   // 신규 카페 insert
-  public abstract boolean registerCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTO);
+  public abstract String registerCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTO);
 
   // 기존 카페 update
-  public abstract boolean modifyCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList);
+  public abstract String modifyCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList);
 
   // 전체 스터디카페 목록조회(사용자) : 신지혜
   public abstract List<CafeListVO> getCafeList();

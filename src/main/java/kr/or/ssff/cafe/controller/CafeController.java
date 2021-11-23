@@ -332,27 +332,28 @@ public class CafeController {
 
     log.info("insertCafe 정보 확인 좀 하겠습니다~! ({},{},{}) ",
         cafeDTO, roomDTO, roomDTOList);
-
+    String cafe_idx = "";
     // 신규 등록이라면 registerCafe로
-    if (cafeDTO.getCafe_idx()==null) {
+    if (cafeDTO.getCafe_idx() == null) {
       log.info("컨트롤러 - 신규등록하러 갑니다.");
-      if (service.registerCafe(cafeDTO, roomDTOList)) {
-        log.info("컨트롤러 - 신규등록 잘 했습니다.");
-        rtts.addFlashAttribute("result", "success");
-      } // if
+      cafe_idx = service.registerCafe(cafeDTO, roomDTOList);
+      log.info("컨트롤러 - 신규등록 잘 했습니다.");
+      rtts.addFlashAttribute("result", "success");
+
       // 기존에 있던 정보라면 update문으로
     } else {
       log.info("컨트롤러 - 업데이트하러 갑니다.");
-      if (service.modifyCafe(cafeDTO, roomDTOList)) {
-        log.info("컨트롤러 - 업데이트 잘 했습니다.");
-        rtts.addFlashAttribute("result", "success");
-      } // if
-    }
+
+      cafe_idx= service.modifyCafe(cafeDTO, roomDTOList);
+      log.info("컨트롤러 - 업데이트 잘 했습니다.");
+      rtts.addFlashAttribute("result", "success");
+    }// if-else
 
 
- //   rtts.addAttribute("cafe_idx", cafe_idx);
 
-    return "redirect:/cafe/register"; //TODO 관리자 리스트나 수정정 페이지로
+    rtts.addAttribute("cafe_idx", cafe_idx);
+
+    return "redirect:/cafe/modify?"; //TODO 관리자 리스트나 수정정 페이지로
   } // insertCafe
 
 

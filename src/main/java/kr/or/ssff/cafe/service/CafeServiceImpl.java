@@ -43,7 +43,7 @@ public class CafeServiceImpl
      * */
     @Transactional
     @Override
-    public boolean registerCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList) {
+    public String registerCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList) {
         log.debug("registerCafe invoked : {}, {}", cafeDTO, roomDTOList);
 
         // CAFE insert
@@ -66,20 +66,21 @@ public class CafeServiceImpl
 
         log.info("\t + insertRoomRow: {}", insertRoomRow);
 
-        // 둘다 정상실행이라면
-        return (insertCafeRow!=0 && insertRoomRow!=0);
+
+        return cafe_idx;
     } // registerCafe
 
 
     /*
      * 스터디카페 & room update
      * 매개변수: 예약 정보를 모두 담은 DTO
-     * 반환: 특정일자, 특정룸의 예약정보
+     * 반환:
      * */
     @Override
-    public boolean modifyCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList) {
+    public String modifyCafe(CafeDTO cafeDTO, List<RoomDTO> roomDTOList) {
+
         log.debug("modifyCafe invoked : {}, {}", cafeDTO, roomDTOList);
-        // 받아온 pk값을 room의 cafe_idx(FK)로 입력
+        // room의 cafe_idx 입력
         String cafe_idx = cafeDTO.getCafe_idx();
 
         for (int i = 0; i < roomDTOList.size(); i++) {
@@ -92,7 +93,7 @@ public class CafeServiceImpl
         log.info("\t + updateCafeRow: {}", updateCafeRow);
 
 
-        // 룸 정보는 삭제(->신규등록)하고
+        // 룸 정보는 삭제(==update n->y)하고
         int deleteRoomRow = this.mapper.deleteRoom(cafe_idx);
         log.info("\t + deleteRoomRow: {}", deleteRoomRow);
 
@@ -102,8 +103,8 @@ public class CafeServiceImpl
         log.info("\t + insertRoomRow: {}", insertRoomRow);
 
 
-
-        return false;
+        // return (updateCafeRow!=0 && deleteRoomRow!=0 && insertRoomRow!=0);
+        return cafe_idx;
     } // modifyCafe
 
 

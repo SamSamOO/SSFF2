@@ -28,8 +28,12 @@ public interface CafeMapper {
   // 카페 수정 update : 신지혜
   public abstract Integer updateCafe(CafeDTO cafeDTO);
 
+  // 카페 단일 항목 삭제 : 신지혜
+  public abstract Integer deleteCafe(String cafe_idx);
+
   // 룸 삭제 delete : 신지혜
   public abstract Integer deleteRoom(String cafe_idx);
+
 
 
   // 전체 목록조회(사용자) : 신지혜
@@ -44,8 +48,6 @@ public interface CafeMapper {
   // 카페 단일 항목 조회 : 신지혜
   public abstract CafeVO selectCafe(String cafe_idx);
 
-
-  public abstract int deleteCafe(String cafe_idx);
 
 
 
