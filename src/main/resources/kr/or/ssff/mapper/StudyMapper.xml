@@ -288,6 +288,25 @@
     where removed_ok='n' and type_pc=#{type}  and( nonblank_sido like #{text} or nonblank_pattern like #{text} )
     ]]>
   </select>
+  <!--글 총갯수 구하기(타입 받음)+로고선택-->
+  <select id="getPostCountAddLogo" resultType="int">
+    SELECT
+    count(b.r_idx)
+    FROM recruit_board b
+    left join (
+    select r_idx, count(r_idx) as counting from reply group by r_idx
+    ) r
+    on b.r_idx = r.r_idx
+    WHERE type_pc='P' and removed_ok='n'
+    and b.r_idx in(select r_idx
+    from lang
+    where lang_name in
+    <foreach collection="arr" index="index" item="arr" open="(" close=")" separator=",">
+      #{arr}
+    </foreach>
+    group by r_idx)
+    ORDER BY b.r_idx DESC
+  </select>
 
 <!--글번호&댓글 수 구하기-->
   <select id="replyCount" resultType="kr.or.ssff.study.domain.ReplyCountVO">
@@ -303,7 +322,7 @@
     ]]>
   </select>
 
-  <!--logoset을 쓰는 게시글 번호들을 받아오기-->
+  <!--logoset을 쓰는 게시글 번호들을 받아오기 - 작동안함-->
   <select id="getR_idxListUsingLogoset" resultType="int" parameterType="java.util.List">
     select r_idx
     from lang
@@ -312,6 +331,31 @@
         #{arr}
       </foreach>
     group by r_idx
+  </select>
+
+  <!--글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 로고조회기능-->
+  <select id="getListWithJoinReplyAddLogo" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
+    SELECT
+        b.r_idx, member_name, type_pc, title,
+        teamname,cont,hit,writedate,sido,
+        ch_pattern,ch_start,ch_end,removed_ok,closed_ok,dead_ok,
+        nvl(counting,0) as reply_count
+    FROM recruit_board b
+    left join (
+        select r_idx, count(r_idx) as counting from reply group by r_idx
+        ) r
+        on b.r_idx = r.r_idx
+    WHERE type_pc='P' and removed_ok='n'
+    and b.r_idx in(select r_idx
+        from lang
+        where lang_name in
+        <foreach collection="arr" index="index" item="arr" open="(" close=")" separator=",">
+            #{arr}
+        </foreach>
+        group by r_idx)
+    ORDER BY b.r_idx DESC
+    OFFSET (#{page}-1)*15 ROW
+    FETCH NEXT 15 ROWS ONLY
   </select>
 
 

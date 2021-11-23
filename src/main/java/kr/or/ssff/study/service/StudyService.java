@@ -31,8 +31,11 @@ public interface StudyService {
     //5-1 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(String type, Integer page);
 
-    //5-1-1 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 검색기능
+    //5-1-1(챌린지) 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 검색기능
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddSearch(String type, Integer page,String text);
+
+    //5-1-2.(프로젝트) 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 로고조회기능
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddLogo(String type, Integer page,String text);
 
     //5-2 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외없음
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(String type, Integer page);
@@ -54,6 +57,9 @@ public interface StudyService {
 
     //6-1. 게시글 총개수 구하기(검색어필터)
     public abstract Integer getTotalAddSearch(String type,String searchText);
+
+    //6-2. 게시글 총개수 구하기(로고선택필터)
+    public abstract Integer getTotalAddLogo(String type,String selectedLogoSet);
 
     //7. 태그 입력하기
     public abstract boolean registerLangTag(Integer r_idx,String tag);
@@ -94,8 +100,12 @@ public interface StudyService {
     //19. 게시물번호에 해당하는 댓글 수 가져오기
     public abstract Integer getReplyCountByR_idx(Integer r_idx);
 
-    //20. logoset을 쓰는 게시글 번호들을 받아오기
-    public abstract ArrayList<Integer> getR_idxListUsingLogoset(String selectedLogoSet);
+    //20. logoset을 쓰는 게시글 번호들을 받아오기(안됨 작업중)
+    //public abstract ArrayList<Integer> getR_idxListUsingLogoset(String selectedLogoSet);
+
+
+
+
 }
 
 
