@@ -137,6 +137,8 @@ public class StudyRestController {
     @PostMapping("/project/list")
     public @ResponseBody
     Map<String, Object> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
+
+
         log.info("getProjectListByPageNum({}) is invoked", jsonData);
 
         String orderRule = jsonData.get("orderRule");
