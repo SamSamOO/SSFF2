@@ -9,6 +9,7 @@ import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 import lombok.AllArgsConstructor;
@@ -27,16 +28,6 @@ import java.util.List;
 public class StudyServiceImpl implements StudyService {
 
     private StudyMapper mapper;
-
-    @Override
-    public boolean updateAttendance(HashMap<String, Object> map) {
-        log.info("updateAttendance({}) is invoked", "map = " + map);
-
-        Objects.requireNonNull(mapper);
-        int affectedRows = this.mapper.updateAttendance(map);
-        log.info("affectedRows = {}", affectedRows);
-        return affectedRows==1;
-    } // updateAttendance
 
     @Override
     public boolean register(RecruitBoardVO vo) {
@@ -63,8 +54,8 @@ public class StudyServiceImpl implements StudyService {
         Integer hitup = this.mapper.hitUp(r_idx);
         RecruitBoardVO vo = this.mapper.get(r_idx);
 
-      return vo;
-    
+        return vo;
+
     }; //get
 
     @Override
@@ -87,7 +78,7 @@ public class StudyServiceImpl implements StudyService {
         return allBoard;
     }//getListWithJoinReplyAddSearch
 
-    @Override 
+    @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddLogo(String type, Integer page,
         String text) {
         String[] arr = text.split(",");
@@ -125,7 +116,7 @@ public class StudyServiceImpl implements StudyService {
         int totalCount = mapper.getPostCount(type);
         return totalCount;
     }//getTotal
-    
+
     @Override
     public Integer getTotalExceptClosed(String type) {
         int totalCount = mapper.getPostCountExceptClosed(type);
@@ -270,7 +261,28 @@ public class StudyServiceImpl implements StudyService {
         return r_idxList;
     }*/
 
+    @Override
+    public boolean updateAttendance(HashMap<String, Object> map) {
+        log.info("updateAttendance({}) is invoked", "map = " + map);
+
+        Objects.requireNonNull(mapper);
+        int affectedRows = this.mapper.updateAttendance(map);
+        log.info("affectedRows = {}", affectedRows);
+        return affectedRows==1;
+    } // updateAttendance
+
+
+
+
+
+
 }//end class
+
+
+
+
+
+
 
 
 
