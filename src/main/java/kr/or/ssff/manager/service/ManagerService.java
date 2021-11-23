@@ -1,10 +1,10 @@
 package kr.or.ssff.manager.service;
 
-import kr.or.ssff.manager.domain.ManagerVO;
-import kr.or.ssff.member.domain.MemberVO;
-import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.manager.domain.ManagerMemberVO;
 
 import java.util.List;
+import kr.or.ssff.studyIns.model.Criteria;
+import org.apache.ibatis.annotations.Param;
 
 /*
 
@@ -29,6 +29,6 @@ public interface ManagerService {
     public abstract List<String> getListPerPage();
 
     // 7. 회원 전체 목록 조회
-    public abstract List<ManagerVO> getMemberList();
+    public abstract List<ManagerMemberVO> getMemberListPerPaging(Criteria criteria);
 
 }

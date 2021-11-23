@@ -4,23 +4,13 @@ package kr.or.ssff.manager.domain;
 
  */
 
+import java.sql.Date;
 import lombok.Value;
 
-import java.sql.Date;
-
 @Value
-public class ManagerVO {
+public class ManagerStudyVO {
 
-//    회원 --------------------
-    private Integer member_no;
-    private String member_name;
-    private String member_id;
-    private String member_pwd;
-    private String member_profile;
-    private String member_introduce;
-    private Character member_enabled;
-
-//    스터디 --------------------
+    //    스터디 --------------------
     private Integer r_idx;
     private Character type_pc;
     private String title;

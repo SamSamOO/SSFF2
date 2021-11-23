@@ -1,8 +1,8 @@
 <%-- Created by IntelliJ IDEA. User: bitcamp Date: 2021-11-09 Time: 오후 3:45 To change this template use File | Settings
     | File Templates. --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@taglib	uri="http://java.sun.com/jsp/jstl/core"	prefix="c" %>
-<%@taglib	uri="http://java.sun.com/jsp/jstl/fmt"	prefix="fmt" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <!--
 Template Name: Metronic - Bootstrap 4 HTML, React, Angular 10 & VueJS Admin Dashboard Theme
@@ -23,7 +23,12 @@ License: You must have a valid license purchased only from themeforest(the above
     <title>관리자::회원</title>
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="/resources/assets/css/style.list.css" rel="stylesheet" type="text/css"/>
+    <script>
+
+    </script>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -103,88 +108,87 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="card-body">
                                 <!--begin: Datatable-->
                                 <div class=" datatable-default datatable-primary "
-                                     id="kt_datatable">
+                                     id="">
                                     <%------ 테이블 시작-------%>
                                     <%------ 테이블 헤드-------%>
                                     <table class="user_list table table-hover">
                                         <thead class="text-center">
                                         <tr>
-                                            <th data-field="UserNum"
-                                                class="user_num ">
-                                               <i class=""/>
+                                            <th scope="col">
+                                                유저 번호
                                             </th>
-                                            <th data-field="Nickname"
-                                                class="user_nick">
-                                                유저 닉네임
+                                            <th scope="col">
+                                                유저 프로필
                                             </th>
-                                            <th data-field="ID" class="user_id">
-                                                아이디
+                                            <th scope="col">
+                                                유저 아이디
                                             </th>
-                                            <th class="list_action">
-                                                액션
+                                            <th scope="col">
+                                                유저 이름
                                             </th>
+                                        <tr>
                                         </thead>
 
                                         <%------ 테이블 바디-------%>
                                         <tbody>
                                         <c:forEach items="${memberList}" var="list">
 
-                                        <tr data-row="0"
-                                            aria-label="1">
+                                            <tr data-row="0"
+                                                aria-label="1">
 
-                                            <%--회원번호--%>
-                                            <td class="user_num"
-                                                aria-label="회원 번호"
-                                                data-field="UserNum" >
-                                                <div class="text-center">
-                                                        ${list.member_no}
-                                                </div>
-                                            </td>
-
-
-                                            <%--닉네임--%>
-                                            <td data-field="Nickname"
-                                                aria-label="유저 닉네임"
-                                                class="user_nick">
-                                                <div class="ml-10 d-flex align-items-center">
-                                                    <%--  프로필 이미지--%>
-                                                            <div class="symbol symbol-40 symbol-sm flex-shrink-0 ">
-                                                        <img src="${list.member_profile}" alt="photo">
-                                                            </div>
-                                                            <div class="ml-10 text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
-                                                                <a href=""/>
-                                                                    ${list.member_name}
-                                                                닉네임
-                                                                </a>
-                                                            </div>
-
-                                                </div>
-                                            </td>
+                                                    <%--회원번호--%>
+                                                <td class="user_num"
+                                                    aria-label="회원 번호"
+                                                    data-field="UserNum">
+                                                    <div class="text-center">
+                                                            ${list.member_no}
+                                                    </div>
+                                                </td>
 
 
-                                            <%--아이디--%>
-                                            <td data-field="ID"
-                                                aria-label="아이디"
-                                                class="user_id ">
-                                                <div class="d-flex align-items-center justify-content-center">
+                                                    <%--닉네임--%>
+                                                <td data-field="Nickname"
+                                                    aria-label="유저 닉네임"
+                                                    class="user_nick">
+                                                    <div class="ml-10 d-flex align-items-center">
+                                                            <%--  프로필 이미지--%>
+                                                        <div class="symbol symbol-40 symbol-sm flex-shrink-0 ">
+                                                            <img src="${list.member_profile}" alt="photo">
+                                                        </div>
+                                                        <div class="ml-10 text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
+                                                            <a href=""/>
+                                                                ${list.member_name}
+                                                            닉네임
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
+                                                </td>
+
+
+                                                    <%--아이디--%>
+                                                <td data-field="ID"
+                                                    aria-label="아이디"
+                                                    class="user_id ">
+                                                    <div class="d-flex align-items-center justify-content-center">
                                                     <span class="mb-0">
                                                             ${list.member_id}
                                                         아이디(이메일)
                                                     </span>
 
-                                                </div>
-                                            </td>
+                                                    </div>
+                                                </td>
 
-                                            <%--액션--%>
-                                            <td data-field="Actions"
-                                                aria-label="액션 버튼"
-                                                class="list_action text-center">
-                                                <a href="/manager/member/info?cont_No=<c:out value="${list.member_name}"/>"
-                                                   class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2">
-                                                    <i class="far fa-user-circle"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                                    <%--액션--%>
+                                                <td data-field="Actions"
+                                                    aria-label="액션 버튼"
+                                                    class="list_action text-center">
+                                                    <a href="/manager/member/info?cont_No=<c:out value="${list.member_name}"/>"
+                                                       class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2">
+                                                        <i class="far fa-user-circle"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
                                         </c:forEach>
                                         </tbody>
                                     </table>
@@ -195,9 +199,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <%--------------페이지 리스트 버튼 시작-----------%>
                                         <div class="d-flex flex-wrap py-2 mr-3">
                                             <a href="#" class="btn btn-icon btn-light-primary mr-2 my-1"><i
-                                                    class="ki ki-bold-double-arrow-back icon-xs"></i></a>
+                                                class="ki ki-bold-double-arrow-back icon-xs"></i></a>
                                             <a href="#" class="btn btn-icon btn-light-primary mr-2 my-1"><i
-                                                    class="ki ki-bold-arrow-back icon-xs"></i></a>
+                                                class="ki ki-bold-arrow-back icon-xs"></i></a>
 
                                             <a href="#"
                                                class="btn btn-icon border-0 btn-hover-primary active mr-2 my-1">1</a>
@@ -211,9 +215,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                class="btn btn-icon border-0 btn-hover-primary mr-2 my-1">...</a>
 
                                             <a href="#" class="btn btn-icon btn-light-primary mr-2 my-1"><i
-                                                    class="ki ki-bold-arrow-next icon-xs"></i></a>
+                                                class="ki ki-bold-arrow-next icon-xs"></i></a>
                                             <a href="#" class="btn btn-icon btn-light-primary mr-2 my-1"><i
-                                                    class="ki ki-bold-double-arrow-next icon-xs"></i></a>
+                                                class="ki ki-bold-double-arrow-next icon-xs"></i></a>
                                         </div>
                                         <%--------------페이지 리스트 버튼 종료-----------%>
                                         <%--------------페이지 뷰수 설정 시작-----------%>
@@ -242,9 +246,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!--end::Content Wrapper 내용물 종료-->
                 </div>
             </div>
-                <!--컨테이너 종료-->
-                <!--footer.html Include-->
-                <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+            <!--컨테이너 종료-->
+            <!--footer.html Include-->
+            <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
 </body>
 <!----------------Body 종료----------------------->
 

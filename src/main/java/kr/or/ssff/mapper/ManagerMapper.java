@@ -1,8 +1,9 @@
 package kr.or.ssff.mapper;
 
-import kr.or.ssff.member.domain.MemberVO;
+import kr.or.ssff.manager.domain.ManagerMemberVO;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 /*
 
@@ -10,7 +11,7 @@ import java.util.List;
 public interface ManagerMapper {
 
     // 전체 회원 목록 조회
-    public abstract List<MemberVO> getMemberList();
+    public abstract List<ManagerMemberVO> getMemberListPerPaging(@Param("pageNum") Integer pageNum,@Param("amount")Integer amount);
 
 
 }// end interface

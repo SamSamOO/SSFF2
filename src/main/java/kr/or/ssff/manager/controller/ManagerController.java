@@ -1,9 +1,10 @@
 package kr.or.ssff.manager.controller;
 
-import kr.or.ssff.manager.domain.ManagerVO;
+import kr.or.ssff.manager.domain.ManagerMemberVO;
 import kr.or.ssff.manager.service.ManagerService;
 import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.model.MemberDTO;
+import kr.or.ssff.studyIns.model.Criteria;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +42,14 @@ public class ManagerController {
 //    } // selectMemberList
 
     @GetMapping("/member/list")
-    public String allMemberList(Model model) {
-        log.info("allMemberList() is invoked");
-        List<ManagerVO> memberList = this.service.getMemberList();
+    public String allMemberList(Criteria criteria,Model model) {
+        log.info("allMemberList({}) is invoked", "criteria = " + criteria + ", model = " + model);
+
+
+        List<ManagerMemberVO> memberList = this.service.getMemberListPerPaging(criteria);
         model.addAttribute("memberList", memberList);
+        log.info("memberList = {}", memberList);
+
         return "manager/member/list";
     } // allMemberList
 

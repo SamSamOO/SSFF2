@@ -1,9 +1,9 @@
 package kr.or.ssff.manager.service;
 
-import kr.or.ssff.manager.domain.ManagerVO;
+import java.util.Objects;
+import kr.or.ssff.manager.domain.ManagerMemberVO;
 import kr.or.ssff.mapper.ManagerMapper;
-import kr.or.ssff.mapper.MemberMapper;
-import kr.or.ssff.member.domain.MemberVO;
+import kr.or.ssff.studyIns.model.Criteria;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.DisposableBean;
@@ -57,11 +57,16 @@ public class ManagerServiceImpl implements ManagerService, InitializingBean, Dis
     } // getListPerPage
 
     @Override
-    public List<ManagerVO> getMemberList() {
-        log.debug("getMemberList() invoked");
+    public List<ManagerMemberVO> getMemberListPerPaging(Criteria criteria) {
+        log.debug("getMemberListPerPaging() invoked");
 
-        return null;
-    } // getMemberList
+        Objects.requireNonNull(mapper);
+        log.info("mapper = {}", this.mapper.getMemberListPerPaging(criteria.getPageNum(), criteria.getAmount()));
+
+        List<ManagerMemberVO> list = this.mapper.getMemberListPerPaging(criteria.getPageNum(), criteria.getAmount());
+
+        return list;
+    } // getMemberListPerPaging
 
 //===============================================================================================
 
