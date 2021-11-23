@@ -40,37 +40,42 @@
 <%--        }--%>
 
         .chating {
-            background-color: #000;
+            background-color: lightblue;
+            border-radius: 10px;
+
             width: 500px;
             height: 500px;
             overflow: auto;
         }
 
         .chating .me {
-            color: #F6F6F6;
+            color: black;
+            padding-right:10px ;
             text-align: right;
         }
 
         .chating .others {
-            color: #FFE400;
+            color: red;
+            padding-left:10px ;
+
             text-align: left;
         }
 
-<%--        input {--%>
-<%--            width: 330px;--%>
-<%--            height: 25px;--%>
-<%--        }--%>
-
-        #yourMsg {
-            display: none;
+        input {
+            width: 330px;!important;
+            height: 25px;!important;
         }
+
+
     </style>
 
 
 </head>
 <script type="text/javascript">
     var ws;
-
+    $(function () {
+        wsOpen();
+    });
     function wsOpen() {
         //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
         ws = new WebSocket("ws://" + location.host + "/chating/" + $("#r_Idx").val());
@@ -182,7 +187,7 @@
                     <!--카드 Body 시작-->
                     <!--카드 Body 시작-->
                     <div class="card-body pt-2 pb-0 mt-n3">
-                        <div id="container" class="container">
+                        <div id="container" class="container" align="center">
                             <h1>${r_Idx}의 채팅방</h1>
                             <input type="hidden" id="sessionId" value="">
                             <input type="hidden" id="roomNumber" value="2">
@@ -191,26 +196,26 @@
                             <div id="chating" class="chating">
                             </div>
 
-                            <div id="yourName">
-                                <table class="inputTable">
-                                    <tr>
-                                        <th>사용자명</th>
-                                        <th>
-                                            <input type="text" name="userName" id="userName" value="nickname55">
-                                        </th>
-                                        <th>
-                                            <button onclick="chatName()" id="startBtn">이름 등록</button>
-                                        </th>
-                                    </tr>
-                                </table>
-                            </div>
+<%--                            <div id="yourName">--%>
+<%--                                <table class="inputTable">--%>
+<%--                                    <tr>--%>
+<%--                                        <th>사용자명</th>--%>
+<%--                                        <th>--%>
+<%--                                            <input type="text" name="userName" id="userName" value="nickname55">--%>
+<%--                                        </th>--%>
+<%--                                        <th>--%>
+<%--                                            <button onclick="chatName()" id="startBtn">이름 등록</button>--%>
+<%--                                        </th>--%>
+<%--                                    </tr>--%>
+<%--                                </table>--%>
+<%--                            </div>--%>
                             <div id="yourMsg">
                                 <table class="inputTable">
                                     <tr>
                                         <th>메시지</th>
-                                        <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
+                                        <th><input type="text" class="form-control"  aria-label="Default"  aria-describedby="inputGroup-sizing-default" id="chatting" placeholder="보내실 메시지를 입력하세요...................................."></th>
                                         <th>
-                                            <button onclick="send()" id="sendBtn">보내기</button>
+                                            <button onclick="send()" id="sendBtn" class="btn btn-light-success font-weight-bold mr-2">보내기</button>
                                         </th>
                                     </tr>
                                 </table>

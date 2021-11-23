@@ -47,6 +47,29 @@ public class StudyController {
     /*---------------------------------------------------------------*/
     /*-----------------------------챌린지형--------------------------*/
     /*---------------------------------------------------------------*/
+    /*챌린지형 메인으로 이동
+     * 파라메터 :
+     * 반환 : 챌린지형 스터디 메인 페이지
+     * */
+    @GetMapping("/challenge/main")
+    public String challengeMainGo(Model model) {
+        log.info("mainGo({}) is invoked", "model = " + model);
+
+
+
+        return "/study/challenge/main";
+    }
+
+    /*프로젝트형 메인으로 이동
+     * 파라메터 :
+     * 반환 : 프로젝트형 스터디 메인 페이지
+     * */
+    @GetMapping("/project/main")
+    public String projectMainGo(Model model) {
+        log.info("mainGo({}) is invoked", "model = " + model);
+
+        return "/study/project/main";
+    }
 
 
     /*챌린지형 스터디 리스트 조회

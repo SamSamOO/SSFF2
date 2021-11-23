@@ -149,4 +149,22 @@ public class StudyRestController {
     }//getChallengeListByPageNum
 
 
+    /* 스터디 메인에서 출석버튼 클릭시 >> swal 확인 >> 출석됩니다 >> 출석하지 않는 경우 뭐 본인이 불이익이기에.. 별도로 처리하지 않는 걸로 하는 것이 옳다고 생각합니다
+    >> 출석일자의 +1 만 해주면 됩니다. /studyRest/updateAttendance
+ * 매개변수: 스터디 번호 R_IDX, Member_Name,  study_Join_arciwf가  i 여야 합니다.
+ * 반환: INTEGER  .
+ * 작성자: 박상준
+ * */
+    @RequestMapping(value = "/updateAttendance", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public Integer updateAttendance(@RequestBody HashMap<String, Object> filterJSON) {
+        log.info("updateAttendance({}) is invoked", "filterJSON = " + filterJSON);
+
+
+
+//        int affectedRow = this.service.updateAttendance()
+
+
+        return null;
+    }
+
 }//end- class
