@@ -206,6 +206,8 @@
 		WHERE
 			d.cafe_remove_yn = 'n'
 			AND d.cafe_idx = #{cafe_idx}
+		ORDER BY
+			c.max_people , c.amount_hour
   </select>
 
 
