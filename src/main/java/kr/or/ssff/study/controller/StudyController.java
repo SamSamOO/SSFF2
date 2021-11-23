@@ -88,7 +88,7 @@ public class StudyController {
         }
 
         //모델에다 전달해주기
-        model.addAttribute("studyCriteria", sc);
+        model.addAttribute("studyCriteria", sc);//비동기 처리로 쓸모없음
 
         return "study/challenge/list";
     } //  selectChallengeListGo
@@ -265,7 +265,7 @@ public class StudyController {
         }
 
         //model.addAttribute("list", listMap);
-        model.addAttribute("studyCriteria", sc);
+        model.addAttribute("studyCriteria", sc);//비동기 처리로 쓸모없음
 
 
         return "study/project/list";

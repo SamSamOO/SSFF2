@@ -42,7 +42,9 @@
   margin-right: 20px;
   font-size: large;
 }
-
+.logo-selected{
+  transform:scale(1.3);
+}
 
 /*********************최신 | 인기 | 마감제외********************************/
 .studylist-sort {

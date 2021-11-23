@@ -15,7 +15,7 @@
     <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
-    <script src="../../../../resources/assets/js/location/location.js"></script>
+    <!--<script src="../../../../resources/assets/js/location/location.js"></script>-->
     <!--head.html Include-->
     <jsp:include page="../../../commons/head.jsp"/>
 </head>
@@ -98,32 +98,10 @@
                                     <div class="dropdown-to-sort">
 
 
-                                        <div class="dropdown-label">유형 :</div>
+                                        <div class="dropdown-label" >검색 :</div>
 
-                                        <div class="dropdown">
-                                            <select id="challenge-type" name="ch_pattern" class="form-control"  onchange="sortType()">
-                                                <option value="">==스터디 유형을 선택해 주세요==</option>
-                                                <option value="생활습관 스터디">생활습관 스터디</option>
-                                                <option value="취업 스터디">취업 스터디</option>
-                                                <option value="시험준비 스터디">시험준비 스터디</option>
-                                                <option value="어학 스터디">어학 스터디</option>
-                                                <option value="기타">기타</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="dropdown-label" style="margin-left:50px">지역 :</div>
-
-                                        <div class="dropdown">
-                                            <select id="location1" name="location1" class="form-control" onchange="sortLocation1()">
-                                                <option value="">==시도 선택==</option>
-                                            </select>
-                                        </div>
-                                        <div class="dropdown">
-                                            <select id="location2" name="location2" class="form-control" onchange="sortLocation2()">
-                                                <option value="">==시군구 선택==</option>
-                                            </select>
-                                        </div>
-
+                                        <input type="text" name="search" id="search" class="form-control" placeholder="지역, 유형, 내용을 검색" style="width: 300px ;margin-right:15px">
+                                        <img src="../../../../resources/assets/image/search.png" width="40px" onclick="goSearch()">
 
                                     </div>
 
@@ -174,17 +152,7 @@
 <!----------------Body 종료----------------------->
 <script>
   /*==========================variable==========================*/
-  /*
-  let sc = {
-    totalPost: ${studyCriteria.totalPost},
-    postPerPage: ${studyCriteria.postPerPage},
-    totalPage: ${studyCriteria.totalPage},
-    currentPage: ${studyCriteria.currentPage},
-    pagePerBlock: ${studyCriteria.pagePerBlock},
-    currentBlock: ${studyCriteria.currentBlock},
-    totalBlock: ${studyCriteria.totalBlock}
-  }
-  */
+
   let sc = {
     totalPost: null,
     postPerPage: null,
@@ -194,56 +162,32 @@
     currentBlock: null,
     totalBlock: null
   }
-  let currentOrderType = 'latest'
-  let checkbox = document.querySelector('input[id="closedException"]');
-  let closedStatus = false;
-  let chType;
+  let currentOrderType = 'latest' //최신순 인기순
+  let checkbox = document.querySelector('input[id="closedException"]'); //마감제외
+  let closedStatus = false; //마감제외 상태
+  let searchText; //검색창
   /*==========================onload or eventListener==========================*/
   $(function(){
-    //페이지단 만듦
-    //createBoardPage();
-    //1페이지에 해당하는 board 자료 가져오기
     getBoardsByPageNum(1, currentOrderType);
   });
 
   //마감 체크 관련
   checkbox.addEventListener('change', function(e) {
-    //console.log('e : ', e.target.checked);
     closedStatus = e.target.checked;
     getBoardsByPageNum(1, currentOrderType);
   });
 
-
   /*==========================function==========================*/
-
-  //임시
-  function sortType(){
-    /*
-    let x = document.querySelector("#challenge-type").value; //선택한 유형이 나옴
-    getBoardsByPageNum();
-    let onlySelected=[];
-    for(let i=0;i<boardList.length;i++){
-      if(boardList[i].ch_pattern == x){
-        onlySelected.push(boardList[i]);
-      }
-    }
-    console.log(onlySelected);
-    setPageElementVar(onlySelected.length)
-    createBoardPage();
-    createBoardTable(onlySelected);
- */
-  }//sortType
-
-  function sortLocation1(){
-    let x = document.querySelector("#location1").value;
-    console.log("지역1 선택은:" + x);
-  }
-  function sortLocation2(){
-    let x = document.querySelector("#location2").value;
-    console.log("지역2 선택은:" + x);
+  //검색
+  function goSearch(){
+    let x = document.querySelector("#search").value;
+    let y = x.replace(/ /g,""); //띄어쓰기 제거
+    searchText = y;
+    console.log(searchText);
+    getBoardsByPageNum(1, currentOrderType);
   }
 
-
+  //페이징 출력
   function createBoardPage(){
     if (sc.totalPage === 0) {
       sc.totalPage = 1;
@@ -305,14 +249,14 @@
     }
   }//nextBoardPage
 
+  //비동기로 게시글 정보 가져오기
   function getBoardsByPageNum(pageNum, orderRule, currentPage){
     let jsonData ={
       pageNum: pageNum,
       orderRule: orderRule,
       closed: closedStatus,
-      chType: chType
+      searchText: searchText
     }
-
     $.ajax({
       url:"/studyRest/challenge/list",
       type:"POST",
@@ -321,9 +265,9 @@
       data:JSON.stringify(jsonData),
       success:function(response){
         if(response){
+          setPageElementVar(response.boardTotal, currentPage)
           createBoardTable(response.boardList)
           cateColorChangeCSS()
-          setPageElementVar(response.boardTotal, currentPage)
           createBoardPage();
         }else{
           alert("error occured")
@@ -334,6 +278,8 @@
       }
     })
   }//getBoardsByPageNum
+
+  //criteria 설정
   function setPageElementVar(boardTotalLength, currentPage) {
     console.log(boardTotalLength, currentPage)
     sc.totalPost = boardTotalLength
@@ -348,7 +294,16 @@
     }
     if (!currentPage) sc.currentPage = 1
     else sc.currentPage = currentPage
-  }
+     //console.log("totalPost:"+sc.totalPost)
+     //console.log("postPerPage:"+sc.postPerPage)
+     //console.log("totalPage:"+sc.totalPage)
+     //console.log("currentPage:"+sc.currentPage)
+     //console.log("pagePerBlock:"+sc.pagePerBlock)
+     //console.log("currentBlock:"+sc.currentBlock)
+     //console.log("totalBlock:"+sc.totalBlock)
+  }//setPageElementVar
+
+  //게시글 내용 반복 채우기
   function createBoardTable(list){
     let html = "";
     for(let i=0;i<list.length;i++){
@@ -373,6 +328,7 @@
     }
     $('.studylist-content-ul').html(html);
   }//createBoardTable
+
   function cateColorChangeCSS(){
     $(".color-생활습관.스터디").css("backgroundColor", "rgb(255,51,153)");
     $(".color-취업.스터디").css("backgroundColor", "rgb(204,204,0)");
@@ -392,6 +348,6 @@
     }//orderSelected
     currentOrderType = orderType
     getBoardsByPageNum(1, currentOrderType);
-  }
+  }//orderSelected
 </script>
 </html>
