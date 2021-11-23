@@ -288,8 +288,18 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
+//atatable-row mainTable
+ //  datatable-row-subtable-expanded
+ //    <!-- datatable-row-subtable-expanded ==active // fa fa-caret-lefe -> fa fa-caret-down  -->
 
-  // 페이지 진입시 리스트 세팅 
+// 버튼 클릭을 통해 세부 룸정보 add, delete
+  $(document).on('click', "a[title='Load sub table']", function () {
+    $(this).closest("tr").toggleClass("datatable-row-subtable-expanded").next().fadeToggle();
+    
+ 
+  })
+
+ // 페이지 진입시 리스트 세팅
   $(document).ready(function () {
     start.init();
     console.log("start.init();")
@@ -298,23 +308,6 @@
 
   // 카드 리스트를 ajax 페이지 처리하여 뿌립니다. 
   let start = {
-    myAlert: { //TODO alert( 문구
-      warningAlert: `
-          <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
-            <div class="alert-icon">
-              <i class="flaticon-warning"></i>
-            </div>
-            <div class="alert-text">표시할 항목이 없습니다.</div>
-            <div class="alert-close">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-															<span aria-hidden="true">
-																<i class="ki ki-close"></i>
-															</span>
-              </button>
-            </div>
-          </div>
- 	  `
-    },
     param  : {
       member_name : "admin", //TODO 세션 아이디로 (관리자, 멤버 구분해서 조회)
       pageListSize: "웅", //TODO 추후  검색 정보 담아서 출발
@@ -417,7 +410,6 @@
       //TODO set, 거래, 예약, maintitle td 등 배열화 해서 하기 html문 정리
       console.log(dataFieldSet[0]); // RecordID
 
-//    <!-- datatable-row-subtable-expanded ==active // fa fa-caret-lefe -> fa fa-caret-down  -->
 
       // 기본 템플릿 셋팅
       $rsrvHtml = '';
@@ -470,7 +462,7 @@
         <tr data-row="` + checkNum + `" class="datatable-row mainTable">
 
           <td class="datatable-cell-center datatable-cell" data-field="RecordID" aria-label="1">
-            <a class="datatable-toggle-subtable" href="#" data-value="1" title="Load sub table" style="width: 30px;">
+            <a class="datatable-toggle-subtable" data-value="1" title="Load sub table" style="width: 30px;">
               &nbsp;<i style="width: 30px;" class="fa fa-caret-right"></i></a> <!--TODO 아이콘 토글 -->
           </td>
 
@@ -626,7 +618,7 @@
       console.log("왜 안된느지요?")
       $('.datatable-body.putData').append($rsrvHtml);
 
-      //--------------pager
+      //-------------- pager --------------//
       let totalData = checkNum; //총 데이터 수
       let dataPerPage; //한 페이지에 나타낼 글 수
       let pageCount = 5; //페이징에 나타낼 페이지 수
