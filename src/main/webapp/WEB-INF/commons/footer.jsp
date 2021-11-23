@@ -136,11 +136,11 @@
 <!--begin::Global Theme Bundle(used by all pages)-->
 <script src="/resources/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/resources/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
-<script src="/resources/assets/js/scripts.bundle.js"></script>
+<!--<script src="/resources/assets/js/scripts.bundle.js"></script> 예솔이 막아놓음-->
 <!--end::Global Theme Bundle-->
 <!--begin::Page Vendors(used by this page)-->
-<script src="/resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>
+<!--<script src="/resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>예솔이 막아놓음-->
 <!--end::Page Vendors-->
 <!--begin::Page Scripts(used by this page)-->
-<script src="/resources/assets/js/pages/widgets.js"></script>
+<!--<script src="/resources/assets/js/pages/widgets.js"></script>예솔이 막아놓음-->
 <!--end::Page Scripts-->

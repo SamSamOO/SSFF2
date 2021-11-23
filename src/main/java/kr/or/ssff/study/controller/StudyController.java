@@ -86,7 +86,6 @@ public class StudyController {
                 }
             }
         }
-
         //모델에다 전달해주기
         model.addAttribute("studyCriteria", sc);//비동기 처리로 쓸모없음
 
@@ -234,12 +233,6 @@ public class StudyController {
     public String selectProjectListGo(Model model) {
         log.info("selectProjectListGo() is invoked");
 
-
-        //List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("P",page);
-        //List<LangVO> langList = this.service.getLangList();
-
-        //List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);
-
         //2. 페이징에 관한 설정
         //2-1. 게시물 갯수 세기
         Integer totalCount = this.service.getTotal("P");
@@ -367,7 +360,6 @@ public class StudyController {
     /*프로젝트형 게시글 수정 기능을 수행합니다.
      * 파라메터 :
      * 반환 : 수정한 게시글 페이지로 이동합니다.
-     * //TODO 파라미터??
      * */
     @PostMapping("/project/modify")
     public String updateProjectDetail(RecruitBoardDTO dto, RedirectAttributes rttrs,HttpServletRequest request) {
@@ -413,6 +405,16 @@ public class StudyController {
         return "redirect:/study/challenge/list";
     } // removeProjectDetail
 
+    /*프로젝트형 게시글 수정 페이지로 이동합니다.
+     * 파라메터 :
+     * 반환 : 프로젝트형 게시글 수정 페이지.
+     * */
+    @GetMapping("/project/main") //아이디와 게시글
+    public void projectMainGo(Integer r_idx, Model model) {
+        log.info("projectMainGo() is invoked");
+
+
+    } // updateProjectDetailGo
 
 
 } // end class
