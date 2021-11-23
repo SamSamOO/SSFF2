@@ -85,7 +85,7 @@
                                     <h3>프로젝트를 함께할 든든한 팀원을 삼삼오오에서 찾아보세요</h3>
                                     <ul class="list-style-none">
                                         <li><a href="/study/project/postGo">
-                                            <img src="../../../../resources/assets/image/writingBtn.png"
+                                            <img src="/resources/assets/images/button/writingBtn.png"
                                                  width="70px"></a></li>
                                         <li>글쓰러 가기!</li>
                                     </ul>
@@ -94,33 +94,33 @@
                                 <div class="studylist-nav d-inline-block w-100 mt-4 mb-4 pt-4 rounded-xl shadow">
                                     <!--스터디리스트 중간 로고 박힌 네비 부분-->
                                     <ul class="logo-to-sort d-flex flex-wrap justify-content-center ">
-                                        <li><img src="../../../../resources/assets/image/javascript.png"
+                                        <li><img src="/resources/assets/images/logos/language/javascript.png"
                                                  width="50px" onclick="logoClicked('javascript')" id="logo_javascript"></li>
-                                        <li><img src="../../../../resources/assets/image/typescript.png"
+                                        <li><img src="/resources/assets/images/logos/language/typescript.png"
                                                  width="50px" onclick="logoClicked('typescript')" id="logo_typescript"></li>
-                                        <li><img src="../../../../resources/assets/image/react.png"
+                                        <li><img src="/resources/assets/images/logos/language/react.png"
                                                  width="50px" onclick="logoClicked('react')" id="logo_react"></li>
-                                        <li><img src="../../../../resources/assets/image/vue.png"
+                                        <li><img src="/resources/assets/images/logos/language/vue.png"
                                                  width="50px" onclick="logoClicked('vue')" id="logo_vue"></li>
-                                        <li><img src="../../../../resources/assets/image/node_js.png"
+                                        <li><img src="/resources/assets/images/logos/language/node_js.png"
                                                  width="50px" onclick="logoClicked('node_js')" id="logo_node_js"></li>
-                                        <li><img src="../../../../resources/assets/image/java.png"
+                                        <li><img src="/resources/assets/images/logos/language/java.png"
                                                  width="50px" onclick="logoClicked('java')" id="logo_java"></li>
-                                        <li><img src="../../../../resources/assets/image/spring.png"
+                                        <li><img src="/resources/assets/images/logos/language/spring.png"
                                                  width="50px" onclick="logoClicked('spring')" id="logo_spring"></li>
-                                        <li><img src="../../../../resources/assets/image/kotlin.png"
+                                        <li><img src="/resources/assets/images/logos/language/kotlin.png"
                                                  width="50px" onclick="logoClicked('kotlin')" id="logo_kotlin"></li>
-                                        <li><img src="../../../../resources/assets/image/c++.png"
+                                        <li><img src="/resources/assets/images/logos/language/c++.png"
                                                  width="50px" onclick="logoClicked('c++')" id="logo_c++"></li>
-                                        <li><img src="../../../../resources/assets/image/go.png"
+                                        <li><img src="/resources/assets/images/logos/language/go.png"
                                                  width="50px" onclick="logoClicked('go')" id="logo_go"></li>
-                                        <li><img src="../../../../resources/assets/image/python.png"
+                                        <li><img src="/resources/assets/images/logos/language/python.png"
                                                  width="50px" onclick="logoClicked('python')" id="logo_python"></li>
-                                        <li><img src="../../../../resources/assets/image/django.png"
+                                        <li><img src="/resources/assets/images/logos/language/django.png"
                                                  width="50px" onclick="logoClicked('django')" id="logo_django"></li>
-                                        <li><img src="../../../../resources/assets/image/flutter.png"
+                                        <li><img src="/resources/assets/images/logos/language/flutter.png"
                                                  width="50px" onclick="logoClicked('flutter')" id="logo_flutter"></li>
-                                        <li><img src="../../../../resources/assets/image/swift.png"
+                                        <li><img src="/resources/assets/images/logos/language/swift.png"
                                                  width="50px" onclick="logoClicked('swift')" id="logo_swift"></li>
                                     </ul>
                                 </div>
@@ -149,18 +149,18 @@
                                                 <ul class="studylist-content-logo">
                                                     <c:forEach var="langs" items="${list.langs}">
                                                         <li><img
-                                                                src="../../../../resources/assets/image/${langs}.png"
+                                                                src="/resources/assets/images/logos/language/${langs}.png"
                                                                 width="40px"></li>
                                                     </c:forEach>
                                                 </ul>
 
                                                 <ul class="studylist-hitAndRepl">
-                                                    <li><img
-                                                            src="../../../../resources/assets/image/repl.png"
+                                                     <img
+                                                            src="/resources/assets/images/icon/repl.png"
                                                             width="15px"></li>
                                                     <li>${list.reply_count}</li>
                                                     <li><img
-                                                            src="../../../../resources/assets/image/hit.png"
+                                                            src="/resources/assets/images/icon/hit.png"
                                                             width="15px"></li>
                                                     <li>${list.hit}</li>
                                                 </ul>
@@ -374,13 +374,13 @@
       html +=   '<p class="studylist-content-title"><a href="/study/project/detail?r_idx='+list[i].r_idx+'">'+list[i].title+'</a></p>';
       html +=   '<ul class="studylist-content-logo">';
       for(let j=0;j<list[i].langs.length;j++){
-        html +=   '<li><img src="../../../../resources/assets/image/'+list[i].langs[j]+'.png" width="40px"></li>';
+        html +=   '<li><img src="/resources/assets/images/logos/language/'+list[i].langs[j]+'.png" width="40px"></li>';
       }
       html +=   '</ul>';
       html +=   '<ul class="studylist-hitAndRepl">';
-      html +=       '<li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>';
+      html +=       '<li><img src="/resources/assets/images/icon/repl.png" width="15px"></li>';
       html +=       '<li>'+list[i].reply_count+'</li>';
-      html +=       '<li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>';
+      html +=       '<li><img src="/resources/assets/images/icon/hit.png" width="15px"></li>';
       html +=       '<li>'+list[i].hit+'</li>';
       html +=   '</ul>';
       html +='</li>';
@@ -390,7 +390,7 @@
 
   function ifNoLogoInsertQuestion(){
     $( '.studylist-content-logo:not(:has( li ))' )
-    .prepend('<li><img src="../../../../resources/assets/image/question.png" width="40px"></li>');
+    .prepend('<li><img src="/resources/assets/images/logos/language/question.png" width="40px"></li>');
   }//ifNoLogoInsertQuestion
 
   function orderSelected(orderType) {

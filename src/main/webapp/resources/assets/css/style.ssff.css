@@ -72,6 +72,22 @@ body{
     word-break: keep-all;
 }
 
+/*-----마우스 오버시 테두리-----*/
+.hover-border_ssff1:hover{
+    border: 1px solid #6b984f;
+}
+
+.hover-border_ssff2:hover{
+    border: 1px solid #ebab31;
+}
+
+.hover-shadow_ssff1:hover{
+    box-shadow: 0px 0px 1px #6b984f;
+}
+
+.hover-border_ssff2:hover{
+    box-shadow: 0px 0px 1px #ebab31;
+}
 
 /*-----포인트 색상-----*/
 .bg-ssff1{
