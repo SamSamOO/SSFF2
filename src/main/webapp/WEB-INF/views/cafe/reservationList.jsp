@@ -235,34 +235,7 @@
                     
                     <!--begin: pager-->
                     <div class="datatable-pager datatable-paging-loaded">
-                      <ul class="datatable-pager-nav my-2 mb-sm-0">
-                        <li><a title="First"
-                               class="datatable-pager-link datatable-pager-link-first datatable-pager-link-disabled"
-                               data-page="1" disabled="disabled"><i class="flaticon2-fast-back"></i></a>
-                        </li>
-                        <li><a title="Previous"
-                               class="datatable-pager-link datatable-pager-link-prev datatable-pager-link-disabled"
-                               data-page="1" disabled="disabled"><i class="flaticon2-back"></i></a>
-                        </li>
-                        <li style="display: none;"><input type="text"
-                                                          class="datatable-pager-input form-control"
-                                                          title="Page number"></li>
-                        <li><a
-                          class="datatable-pager-link datatable-pager-link-number datatable-pager-link-active"
-                          data-page="1" title="1">1</a></li>
-                        <li><a class="datatable-pager-link datatable-pager-link-number"
-                               data-page="2" title="2">2</a></li>
-                        <li><a class="datatable-pager-link datatable-pager-link-number"
-                               data-page="3" title="3">3</a></li>
-                        <li><a class="datatable-pager-link datatable-pager-link-number"
-                               data-page="4" title="4">4</a></li>
-                        <li><a class="datatable-pager-link datatable-pager-link-number"
-                               data-page="5" title="5">5</a></li>
-                        <li><a title="Next" class="datatable-pager-link datatable-pager-link-next"
-                               data-page="2"><i class="flaticon2-next"></i></a></li>
-                        <li><a title="Last" class="datatable-pager-link datatable-pager-link-last"
-                               data-page="35"><i class="flaticon2-fast-next"></i></a></li>
-                      </ul>
+                      
                       
                       <div class="datatable-pager-info my-2 mb-sm-0">
                         <div class="dropdown bootstrap-select datatable-pager-size dropup"
@@ -270,7 +243,7 @@
                           <select class="selectpicker datatable-pager-size"
                                   title="Select page size" data-width="60px"
                                   data-container="body" data-selected="10"
-                                  tabindex="null">
+                                  tabindex="null" id="select-pager">
                             <option class="bs-title-option" value=""></option>
                             <option value="5">5</option>
                             <option value="10">10</option>
@@ -450,6 +423,7 @@
       $rsrvHtml = '';
       let subHtml = '';
 
+      let checkNum = 0;
       for (let i = 0; i < data.reservationList.length; i++) {
         console.log(data.reservationList[i].transaction_categories + '결제');
 
@@ -484,30 +458,30 @@
         client_name = data.reservationList[i].client_name;
 
         useInfo = use_date + ' ' + use_start_time + '시부터 ' + use_end_time + '시까지 (' + (use_end_time
-                                                                                       - use_start_time+1)
+                  - use_start_time + 1)
                   + '시간)';
 
-        if(data.reservationList[i].transaction_categories == "결제"){
+        if (data.reservationList[i].transaction_categories == "결제") {
 
+          checkNum += 1; // 총데이터 몇건인지 확인하려궁~
 
-      
-        $rsrvHtml += `
+          $rsrvHtml += `
         <!-- 일반 예약정보 s -->
-        <tr data-row="` + i + `" class="datatable-row">
+        <tr data-row="` + checkNum + `" class="datatable-row mainTable">
 
           <td class="datatable-cell-center datatable-cell" data-field="RecordID" aria-label="1">
             <a class="datatable-toggle-subtable" href="#" data-value="1" title="Load sub table" style="width: 30px;">
-              &nbsp;<i style="width: 30px;" class="fa fa-caret-lefe"></i></a> <!--TODO 아이콘 토글 -->
+              &nbsp;<i style="width: 30px;" class="fa fa-caret-right"></i></a> <!--TODO 아이콘 토글 -->
           </td>
 
           <td data-field="ReservationID" aria-label="` + rsrv_idx
-                     + `" class="datatable-cell"><span style="width: 110px;">` + rsrv_idx + `</span></td>
+                       + `" class="datatable-cell"><span style="width: 110px;">` + rsrv_idx + `</span></td>
           <td data-field="CafeInfo" aria-label="` + cafeInfo
-                     + `" class="datatable-cell"><span style="width: 110px;">` + cafeInfo + `</span></td>
+                       + `" class="datatable-cell"><span style="width: 110px;">` + cafeInfo + `</span></td>
           <td data-field="ReservationAmount" aria-label="` + amount
-                     + `원" class="datatable-cell"><span style="width: 110px;">` + amount + `원</span></td>
+                       + `원" class="datatable-cell"><span style="width: 110px;">` + amount + `원</span></td>
           <td data-field="UseDateInfo" aria-label="` + useInfo
-                     + `" class="datatable-cell"><span style="width: 110px;">` + useInfo + `</span></td>
+                       + `" class="datatable-cell"><span style="width: 110px;">` + useInfo + `</span></td>
           <td data-field="Status" data-autohide-disabled="false" aria-label="` + rsrv_status_ynz + `"
               class="datatable-cell"><span style="width: 110px;"><span
               class="label label-warning label-dot"></span>&nbsp;<span
@@ -516,15 +490,15 @@
           <td data-field="Cancle" aria-label="4" class="datatable-cell"><span
               style="width: 110px;">`;
 
-        if (rsrv_status_ynz == 'n') {
-          $rsrvHtml += `<span class="label  label-success label-inline label-pill">cansle</span>`;
-        }
+          if (rsrv_status_ynz == 'n') {
+            $rsrvHtml += `<span class="label label-success label-inline label-pill">cansle</span>`;
+          }
 
-        $rsrvHtml +=
-            `</span><td data-field="NickName" aria-label="` + member_name + `"
+          $rsrvHtml +=
+              `</span><td data-field="NickName" aria-label="` + member_name + `"
                 class="datatable-cell"><span style="width: 110px;">` + member_name + `</span></td> </td>
         </tr>
-           <tr class="datatable-row-subtable"> <!-- display none-block  -->
+           <tr class="datatable-row-subtable" style="display: none;"> <!-- display none-block  -->
           <td class="datatable-subtable"style="width: 50% !important;    height: 400px!important;" >
             <div id="child_data_local_` + member_name + `" class="datatable datatable-default datatable-primary datatable-loaded">
               <table class="datatable-table" style="display: block; max-height: 400px;">
@@ -540,7 +514,7 @@
 
                 <tbody class="datatable-body ps" style="min-height: 400px;">
                 
-<!--여기도 좀 정리해야해 -->
+              <!--여기도 좀 정리해야해 -->
                   <tr data-row="0" class="datatable-row">
                     <td class="col-4" data-field="rsrv_idx" aria-label="` + member_name + `">
                       <span><span>예약번호</span></span></td>
@@ -557,7 +531,7 @@
                   </tr>
                   <tr data-row="0" class="datatable-row">
                     <td class="col-4" data-field="rsrv_phone_number" aria-label="`
-            + rsrv_phone_number + `">
+              + rsrv_phone_number + `">
                       <span><span>연락처</span></span></td>
                     <td data-field="` + rsrv_phone_number + `" aria-label="ID" class="datatable-cell">
                       <span>` + rsrv_phone_number + `</span></td>
@@ -606,7 +580,7 @@
                   </tr>
                   <tr data-row="0" class="datatable-row">
                     <td class="col-4" data-field="transaction_amount" aria-label="`
-            + transaction_amount + `">
+              + transaction_amount + `">
                       <span><span>결제금액</span></span></td>
                     <td data-field="` + transaction_amount + `" aria-label="transaction_amount" class="datatable-cell">
                       <span>` + transaction_amount + `</span></td>
@@ -625,14 +599,14 @@
                   </tr>
                   <tr data-row="0" class="datatable-row">
                     <td class="col-4" data-field="client_bank_code" aria-label="` + client_bank_code
-            + `">
+              + `">
                       <span><span>은행코드</span></span></td>
                     <td data-field="` + client_bank_code + `" aria-label="client_bank_code" class="datatable-cell">
                       <span>` + client_bank_code + `</span></td>
                   </tr>
                   <tr data-row="0" class="datatable-row">
                     <td class="col-4" data-field="client_account_number" aria-label="`
-            + client_account_number + `">
+              + client_account_number + `">
                       <span><span>결제계좌</span></span></td>
                     <td data-field="` + client_account_number + `" aria-label="client_account_number" class="datatable-cell">
                       <span>` + client_account_number + `</span></td>
@@ -651,6 +625,188 @@
 
       console.log("왜 안된느지요?")
       $('.datatable-body.putData').append($rsrvHtml);
+
+      //--------------pager
+      let totalData = checkNum; //총 데이터 수
+      let dataPerPage; //한 페이지에 나타낼 글 수
+      let pageCount = 5; //페이징에 나타낼 페이지 수
+      let globalCurrentPage; //현재 페이지
+      let currentPage = 1;
+
+      // 드롭다운 value pix
+      
+      $("#select-pager").val(10); // 그래서 강제로 줬엉..
+      dataPerPage = $("#select-pager option:selected").val(); //TODO 안댐
+      console.log(dataPerPage);
+
+      //총 road된 게시글 수
+      // totalData = $('.datatable-body').children().length;
+      console.log(totalData);
+      if (totalData === 0) {
+        alert("해당 조건에 조회되는 데이터가 존재하지 않습니다.");
+        $('.datatable-pager').hide(); // 숨김처리
+      } // if
+
+      displayData(1, dataPerPage); //1번째페이지, 한페이지에 나타낼 글 수=체크박스 val(기본-5)
+      paging(totalData, dataPerPage, pageCount, 1);
+
+      function paging(totalData, dataPerPage, pageCount, currentPage) {//총데이타, 체크박스 val, 페이징수(10), 현재페이지(1)
+        currentPage = Number(currentPage);
+        console.log("currentPage : " + currentPage);
+
+        let curPageId = currentPage > 1 ? Math.round((currentPage / dataPerPage)) + 1 : currentPage; // 현재 페이지 A tag ID
+
+        totalPage = Math.floor((totalData / dataPerPage) + ((totalData % dataPerPage) > 0 ? 1 : 0)); //총 페이지 수
+        // totalPage = Math.ceil(totalData/dataPerPage); // 총 페이지 수
+
+        if (totalPage < pageCount) {
+          pageCount = totalPage;
+        } // if
+        console.log("totalPage : " + totalPage);
+        let pageGroup = Math.ceil(currentPage / pageCount); // 페이지 그룹
+        // let pageGroup = Math.ceil(curPageId/pageCount); // 페이지 그룹
+        console.log("pageGroup : " + pageGroup);
+        let last = pageGroup * pageCount; //화면에 보여질 마지막 페이지 번호
+        console.log("last : " + last);
+        if (last > totalPage) {
+          last = totalPage;
+        } // if
+
+        var first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
+        if (first < 1) first = 1; // 첫페이지가 1보다 작을 경우 1로 세팅
+
+        console.log("first : " + first);
+        let next = last + 1;
+        console.log("next : " + next);
+        let prev = first - 1;
+        console.log("prev : " + prev);
+        $pageHtml = "";
+
+        // 이전, 처음으로 가기
+        if (prev > 0) { // 이전, 처음으로 갈 수 있다면 이전, 처음버튼 활성화
+          currentPage = Number(currentPage);
+          console.log("prev > 0 : ");
+          $pageHtml +=
+              `<li><a title="First"
+                    class="datatable-pager-link datatable-pager-link-first"
+                    data-page="1">
+                      <i class="flaticon2-fast-back"></i></a></li>
+             <li><a title="Previous"
+                    class="datatable-pager-link datatable-pager-link-prev"
+                    data-page="` + (currentPage - 1) + `">
+                      <i class="flaticon2-back"></i></a></li>`;
+        } else { // 현재 페이지가 첫번째 페이지라면 이전, 처음버튼 비활성화
+          $pageHtml +=
+              `<li><a title="First"
+                    class="datatable-pager-link datatable-pager-link-first datatable-pager-link-disabled"
+                    data-page="1"
+                    disabled="disabled">
+                       <i class="flaticon2-fast-back"></i></a></li>
+              <li><a title="Previous"
+                      class="datatable-pager-link datatable-pager-link-prev datatable-pager-link-disabled"
+                      data-page="1"
+                      disabled="disabled">
+                        <i class="flaticon2-back"></i></a></li>`;
+        } // if-else
+
+        //페이징 번호 표시
+        for (var i = first; i <= last; i++) {
+
+          if (currentPage == i) { // 내가 클릭한 페이지(현재페이지) 번호 버튼은 활성화!
+            $pageHtml += `
+            <li><a class="datatable-pager-link datatable-pager-link-number
+                          datatable-pager-link-active"
+                   data-page="` + i + `"
+                   title="` + i + `">` + i + `</a></li>`
+          } else { // 아닌 페이지 번호는 하얗게
+            $pageHtml +=
+                `<li><a class="datatable-pager-link datatable-pager-link-number"
+                      data-page="` + i + `"
+                      title="` + i + `">` + i + `</a></li>`;
+          } // if-else
+        } // for
+
+        // 이후, 맨 뒤로 가기
+        if (next < totalPage) { // 이후로 갈 수 있다면(=내 페이지가 맨 끝이 아니라면) 이후 버튼 활성화
+          $pageHtml +=
+              `<li><a title="Next"
+                    class="datatable-pager-link datatable-pager-link-next"
+                    data-page="` + (currentPage + 1) + `">
+                      <i class="flaticon2-next"></i></a></li>`;
+        } else { // 내 페이지가 맨 끝이라면 이후 버튼 비활성화
+          $pageHtml +=
+              `<li><a title="Next"
+                    class="datatable-pager-link datatable-pager-link-next datatable-pager-link-disabled"
+                    data-page="` + (currentPage + 1) + `"
+                    disabled="disabled">
+                      <i class="flaticon2-next"></i></a></li>`
+        } // if-else
+        if (last < totalPage) { // 내 페이지가 맨 끝이 아니라면 마지막으로 가기 버튼 활성화
+          $pageHtml +=
+              `<li><a title="Last"
+                    class="datatable-pager-link datatable-pager-link-last"
+                    data-page="` + totalPage + `">
+                      <i class="flaticon2-fast-next"></i></a></li>`;
+        } else { // 내 페이지가 마지막이라면 마지막으로 가기 버튼 비활성화
+          $pageHtml +=
+              `<li><a title="Last"
+                    class="datatable-pager-link datatable-pager-link-last
+                           datatable-pager-link-disabled"
+                    data-page="` + totalPage + `"
+                    disabled="disabled">
+                    <i class="flaticon2-fast-next"></i></a></li>`
+        } // ir-else
+
+        console.log($(".datatable-pager.datatable-paging-loaded"));
+
+        // 페이징 번호 그리기
+       // $(".datatable-pager-nav.my-2.mb-sm-0").html(pageHtml);
+        $(".datatable-pager.datatable-paging-loaded").html($("<ul>" + $pageHtml + "</ul>"));
+        
+        //페이징 번호 클릭 이벤트
+        $(".datatable-pager.datatable-paging-loaded ul li a").click(function () {
+          console.log("s놀아>???: ");
+
+          //전역변수에 선택한 페이지 번호를 담아서
+          globalCurrentPage = $(this).attr("data-page");
+
+          //페이징 표시 재호출
+          paging(totalData, dataPerPage, pageCount, globalCurrentPage);
+
+          //글 목록 표시 재호출
+          displayData(globalCurrentPage, dataPerPage);
+        }); // click-fn
+      } // pager()
+
+      // 페이지 사이즈 드롭다운 선택하면 화면단에서 적용하여 출력하는 함수
+      $('#select-pager').change(function () {
+        let pageSizePickerValue = $("#select-pager option:selected").val();
+        console.log("pageSizePickerValue: " + pageSizePickerValue);
+
+        //전역 변수에 담긴 globalCurrent 값을 이용하여 페이지 이동없이 글 표시개수 변경
+        paging(totalData, pageSizePickerValue, pageCount, currentPage);
+        displayData(currentPage, pageSizePickerValue);
+      }); // change-fn
+
+      //현재 페이지(currentPage)와 페이지당 글 개수(dataPerPage) 반영
+      function displayData(currentPage, dataPerPage) {
+//기본 셋팅에서-> 숫자로 값 변동이 일어난다면 내용 숨기고 몇번째~몇번째 display만 변경하는 형식,
+        let chartHtml = "";
+        $('.datatable-row.mainTable').attr('style', ('display:none'));
+
+        //Number로 변환하지 않으면 아래에서 +를 할 경우 연산 아닌 결합됨!
+        currentPage = Number(currentPage);
+        dataPerPage = Number(dataPerPage);
+
+        for (
+            var i = ((currentPage) - 1) * dataPerPage + 1;
+            i <= (currentPage - 1) * dataPerPage + dataPerPage;
+            i++
+        ) {
+          $('tr[data-row="' + i + '"]').attr('style', ('display:""'));
+        } // for
+
+      }
 
     }
   }
