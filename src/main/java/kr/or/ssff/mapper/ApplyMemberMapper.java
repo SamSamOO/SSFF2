@@ -32,5 +32,7 @@ public interface ApplyMemberMapper {
 	
 	// 스터디 참여여부확인 : 신지혜
 	public abstract String selectApplyMember(HashMap<String, Object> aMember);
+
+
 	
 } // end interface

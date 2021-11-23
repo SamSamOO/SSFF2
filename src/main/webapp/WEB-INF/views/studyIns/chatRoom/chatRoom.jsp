@@ -21,26 +21,26 @@
             padding: 0;
         }
 
-        .container {
-            width: 500px;
-            margin: 0 auto;
-            padding: 25px
-        }
+        /*.container {*/
+        /*    width: 500px;*/
+        /*    margin: 0 auto;*/
+        /*    padding: 25px*/
+        /*}*/
 
-        .container h1 {
-            text-align: left;
-            padding: 5px 5px 5px 15px;
-            color: #FFBB00;
-            border-left: 3px solid #FFBB00;
-            margin-bottom: 20px;
-        }
+        /*.container h1 {*/
+        /*    text-align: left;*/
+        /*    padding: 5px 5px 5px 15px;*/
+        /*    color: #FFBB00;*/
+        /*    border-left: 3px solid #FFBB00;*/
+        /*    margin-bottom: 20px;*/
+        /*}*/
 
-        .roomContainer {
-            background-color: #F6F6F6;
-            width: 500px;
-            height: 500px;
-            overflow: auto;
-        }
+        /*.roomContainer {*/
+        /*    background-color: #F6F6F6;*/
+        /*    width: 500px;*/
+        /*    height: 500px;*/
+        /*    overflow: auto;*/
+        /*}*/
 
         .roomList {
             border: none;
@@ -195,17 +195,20 @@
                                 <tr>
                                     <td class="num">1</td>
                                     <td class="room">ㅇㅇㅇㅇㅇㅇ</td>
-                                    <td class="go"><a href="/moveChating?r_Idx=9002"><i class="fa fa-arrow-left"></i> </a></td>
+                                    <%--밑 부분 채팅방에 가져다 붙이면 됩니다.--%>
+                                    <td class="go"><a href="#none" onclick="window.open('/moveChating?r_Idx=9002','new','scrollbars=yes,resizable=no width=600 height=400, left=0,top=0');return false" ><i class="fa fa-arrow-left"></i> </a></td>
                                 </tr>
                                 <tr>
                                     <td class="num">2</td>
                                     <td class="room">ㅇㅇㅇㅇㅇㅇ</td>
-                                    <td class="go"><a href="/moveChating?r_Idx=9002"><i class="fa fa-arrow-left"></i> </a></td>
+                                    <%--밑 부분 채팅방에 가져다 붙이면 됩니다.--%>
+                                    <td class="go"><a href="#none" onclick="window.open('/moveChating?r_Idx=9003','new','scrollbars=yes,resizable=no width=600 height=400, left=0,top=0');return false" ><i class="fa fa-arrow-left"></i> </a></td>
                                 </tr>
                                 <tr>
                                     <td class="num">3</td>
                                     <td class="room">ㅇㅇㅇㅇㅇㅇ</td>
-                                    <td class="go"><a href="#none" onclick="window.open('/moveChating?r_Idx=9002','new','scrollbars=yes,resizable=no width=600 height=400, left=0,top=0');return false" ><i class="fa fa-arrow-left"></i> </a></td>
+                                    <%--밑 부분 채팅방에 가져다 붙이면 됩니다.--%>
+                                    <td class="go"><a href="#none" onclick="window.open('/moveChating?r_Idx=9004','new','scrollbars=yes,resizable=no width=600 height=400, left=0,top=0');return false" ><i class="fa fa-arrow-left"></i> </a></td>
                                 </tr>
                             </table>
                         </div>

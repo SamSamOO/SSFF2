@@ -1,5 +1,6 @@
 package kr.or.ssff.study.service;
 
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,25 +26,19 @@ public interface StudyService {
     // 4. 특정 게시글 상세조회 + 조회수 1업
     public abstract RecruitBoardVO get(Integer r_idx);
 
-    // 5. 전체 목록 조회 (쓰지 않음)
+    // 5. 전체 목록 조회 - 정상동작중!
     public abstract List<RecruitBoardVO> getList(String type, Integer page);
 
-    //5-1 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음
+    //5-1 댓글이랑 조인해서 가져오기
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(String type, Integer page);
-
-    //5-1-1(챌린지) 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 검색기능
-    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddSearch(String type, Integer page,String text);
-
-    //5-1-2.(프로젝트) 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 로고조회기능
-    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddLogo(String type, Integer page,String text);
-
-    //5-2 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외없음
+    
+    //5-2 hit 순으로 정렬하기
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(String type, Integer page);
 
-    //5-3 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외
+    //5-3 댓글이랑 조인해서 가져오기 + exceptClosed
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyExceptClosed(String type, Integer page);
 
-    //5-4 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외
+    //5-4 hit 순으로 정렬하기 + exceptClosed
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(String type, Integer page);
 
     //5. 목록조회 with paging
@@ -105,7 +100,8 @@ public interface StudyService {
 
 
 
-
+    //21. 출석 +1 함수입니다.--상준
+    public abstract boolean updateAttendance(HashMap<String, Object> map);
 }
 
 

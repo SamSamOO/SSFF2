@@ -36,7 +36,7 @@
     ]]>
   </select>
 
-  <!--5-1 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음-->
+  <!--  게시판 목록 조회- reply-->
   <select id="getListWithJoinReply" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
     <![CDATA[
     SELECT
@@ -99,7 +99,10 @@
     ]]>
   </select>
 
-  <!--//5-2 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외없음-->
+
+
+
+  <!--  게시판 목록 조회- reply-->
   <select id="getListWithJoinReplyOrderByHit" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
     <![CDATA[
     SELECT
@@ -115,7 +118,7 @@
     ]]>
   </select>
 
-  <!--5-4 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외-->
+  <!--  게시판 목록 조회- reply-->
   <select id="getListWithJoinReplyOrderByHitExceptClosed" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
     <![CDATA[
     SELECT
@@ -358,6 +361,15 @@
     FETCH NEXT 15 ROWS ONLY
   </select>
 
+
+
+
+  <!--상준 : 출석 내역 +1 해주기 TODO 수정해야할수도-->
+  <update id="updateAttendance" parameterType="java.util.HashMap">
+    <![CDATA[
+    update APPLY_MEMBER set ATTENDANCE_DAYS = nvl(ATTENDANCE_DAYS,0)+1 where MEMBER_NAME=#{member_Name} and STUDY_JOIN_ARCIWF = 'i' and R_IDX=#{r_Idx}
+    ]]>
+  </update>
 
 
 </mapper>

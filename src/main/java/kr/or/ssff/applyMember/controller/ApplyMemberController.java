@@ -149,6 +149,7 @@ public class ApplyMemberController {
         return "/member/reservationList";
     } // reservationList
 
+
     
     
     /* 결제 내역 페이지로 이동합니다.

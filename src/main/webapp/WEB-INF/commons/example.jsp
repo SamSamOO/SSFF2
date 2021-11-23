@@ -55,6 +55,11 @@
       <div class="card-body pt-2 pb-0 mt-n3">
         <p><a href="/study/challenge/list">(예솔)여기 누르면 챌린지 리스트로</a> </p>
         <p><a href="/study/project/list">(예솔)여기 누르면 프로젝트 리스트로</a></p>
+        <p><a href="/study/challenge/main">(상준) 여기 누르면 챌린지 메인으로</a> </p>
+
+        <p>예솔 커밋테스트</p>
+
+
         <p><a href="/manager/member/list">관리자 페이지</a></p>
       </div>
       <!--카드 Body 종료-->
