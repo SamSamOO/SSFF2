@@ -28,7 +28,7 @@ public class StudyRestController {
     @Autowired
     public StudyService service;
     public String jsonData;
-    Map<String, Object> data = new HashMap<String, Object>();
+
 
     @RequestMapping(value = "/comment/get", method = RequestMethod.POST)
     public @ResponseBody
@@ -39,6 +39,7 @@ public class StudyRestController {
 
         return list;
     } // getComment
+
 
     /*댓글 작성 기능 수행
      * 파라메터 :
@@ -91,22 +92,65 @@ public class StudyRestController {
         return true;
     }//deleteComment
 
-    @PostMapping("/project/list")
-    public @ResponseBody Map<String, Object> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
-        log.info("getProjectListByPageNum({}) is invoked",jsonData);
+    @PostMapping("/challenge/list")
+    public @ResponseBody
+    Map<String, Object> getChallengeListByPageNum(@RequestBody Map<String, String> jsonData) {
+        log.info("getChallengeListByPageNum({}) is invoked", jsonData);
 
-        String orderRule =  jsonData.get("orderRule");
-        String closed =  jsonData.get("closed"); //true(마감 제외) or false(전부)
+        String orderRule = jsonData.get("orderRule"); // latest or popularity
+        String closed = jsonData.get("closed"); //true(마감 제외) or false(전부)
+        String searchText = jsonData.get("searchText");//검색(null or "")
+        String searchTextqueryForm = "%" + searchText + "%";
+
+        List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
+        Integer boardTotal = 0;
+
+        if (searchText != null && !searchText.equals("")) {
+
+            list = this.service.getListWithJoinReplyAddSearch("C", Integer.parseInt(jsonData.get("pageNum")), searchTextqueryForm);
+            boardTotal = this.service.getTotalAddSearch("C", searchTextqueryForm);
+
+        } else {
+
+            if (orderRule.equals("latest") && closed.equals("false")) {
+                list = this.service.getListWithJoinReply("C", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotal("C");
+            } else if (orderRule.equals("popularity") && closed.equals("false")) {
+                list = this.service.getListWithJoinReplyOrderByHit("C", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotal("C");
+            } else if (orderRule.equals("latest") && closed.equals("true")) {
+                list = this.service.getListWithJoinReplyExceptClosed("C", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotalExceptClosed("C");
+            } else if (orderRule.equals("popularity") && closed.equals("true")) {
+                list = this.service.getListWithJoinReplyOrderByHitExceptClosed("C", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotalExceptClosed("C");
+            }
+
+        }
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("boardList", list);
+        data.put("boardTotal", boardTotal);
+        return data;
+    }//getChallengeListByPageNum
+
+
+    @PostMapping("/project/list")
+    public @ResponseBody
+    Map<String, Object> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
+        log.info("getProjectListByPageNum({}) is invoked", jsonData);
+
+        String orderRule = jsonData.get("orderRule");
+        String closed = jsonData.get("closed"); //true(마감 제외) or false(전부)
         String selectedLogoSet = jsonData.get("selectedLogoSet"); //typescript,java
 
         List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
         Integer boardTotal = 0;
 
-        if(!selectedLogoSet.equals("")){
-            list = this.service.getListWithJoinReplyAddLogo("P", Integer.parseInt(jsonData.get("pageNum")),selectedLogoSet);
-            boardTotal = this.service.getTotalAddLogo("P",selectedLogoSet);
+        if (!selectedLogoSet.equals("")) {
+            list = this.service.getListWithJoinReplyAddLogo("P", Integer.parseInt(jsonData.get("pageNum")), selectedLogoSet);
+            boardTotal = this.service.getTotalAddLogo("P", selectedLogoSet);
 
-        }else {
+        } else {
 
             if (orderRule.equals("latest") && closed.equals("false")) {
                 list = this.service.getListWithJoinReply("P", Integer.parseInt(jsonData.get("pageNum")));
@@ -133,8 +177,6 @@ public class StudyRestController {
     }//getChallengeListByPageNum
 
 
-
-
     /* 스터디 메인에서 출석버튼 클릭시 >> swal 확인 >> 출석됩니다 >> 출석하지 않는 경우 뭐 본인이 불이익이기에.. 별도로 처리하지 않는 걸로 하는 것이 옳다고 생각합니다
     >> 출석일자의 +1 만 해주면 됩니다. /studyRest/updateAttendance
  * 매개변수: 스터디 번호 R_IDX, Member_Name,  study_Join_arciwf가  i 여야 합니다.
@@ -153,16 +195,10 @@ public class StudyRestController {
 
         boolean row = this.service.updateAttendance(map);
 
-
 //        int affectedRow = this.service.updateAttendance()
-
 
         return row;
     }
-
-
-
-
 
 
 }//end- class

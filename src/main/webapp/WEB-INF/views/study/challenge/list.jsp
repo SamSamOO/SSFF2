@@ -101,7 +101,7 @@
                                         <div class="dropdown-label" >검색 :</div>
 
                                         <input type="text" name="search" id="search" class="form-control" placeholder="지역, 유형, 내용을 검색" style="width: 300px ;margin-right:15px">
-                                        <img src="../../../../resources/assets/image/search.png" width="40px" onclick="goSearch()">
+                                        <img src="../../../../resources/assets/images/logos/language/search.png" width="40px" onclick="goSearch()">
 
                                     </div>
 
