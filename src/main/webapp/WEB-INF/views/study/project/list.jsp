@@ -225,13 +225,14 @@
   /*==========================function==========================*/
   //로고선택
   function logoClicked(logo){
-    if(selectedLogoSet.length ==0){
+    if(selectedLogoSet.length ==0){ //초기에 logo가 아무것도 없을 경우
       selectedLogoSet.push(logo);
       $('#logo_'+logo).addClass('logo-selected');
     }else{
       for(let i=0;i<selectedLogoSet.length;i++){
         if(selectedLogoSet[i]==logo){
           deleteLogo(i);
+          getBoardsByPageNum(1, currentOrderType);
           return;
         }
       }
@@ -314,6 +315,7 @@
 
   //비동기로 게시글 정보 가져오기
   function getBoardsByPageNum(pageNum, orderRule, currentPage){
+    console.log(selectedLogoSet);
     let jsonData ={
       pageNum:pageNum,
       orderRule :orderRule,
