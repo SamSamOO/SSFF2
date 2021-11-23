@@ -53,7 +53,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Details-->
                             <div class="d-flex align-items-center flex-wrap mr-2">
                                 <!--begin::Title-->
-                                <i class="far fa-list-alt"></i>&nbsp;&nbsp;
+                                <i class="far fa-list-alt"></i>
                                 <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">스터디 상세정보</h5>
                                 <!--end::Title-->
                                 <!--Breadcrumb : 로드맵 시작-->
@@ -77,17 +77,25 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Header-->
                             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                                 <div class="card-title">
-                                    <h3 class="card-label">
-                                        어쩌구의 상세정보
-
-                                    </h3>
+                                    <a href="/manager/study/list">
+                                        <i class="fas fa-arrow-left icon-xl"></i>
+                                    </a>
+                                <h3 class="ml-8 card-label">
+                                    어쩌구의 상세정보
+                                </h3>
+                                </div>
+                                <div class="card-toolbar">
+                                    <span>현재 상태 : </span>
+                                      <span class="label label-inline mb-0">
+                                          모집중
+                                      </span>
                                 </div>
                             </div>
                             <!--end::Header-->
                             <!--begin::Body 북마크-->
                             <div class="card-body">
                                 <!--begin: Datatable 내용-->
-                                <div class="mng_study_info w-75 flex-column align-items-center">
+                                <div class="mng_info w-75 flex-column align-items-center">
                                     <%------ 테이블 시작-------%>
                                     <table class=" table">
                                         <%--스터디 번호 / 유형--%>
@@ -99,7 +107,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                             <td> 유형 </td>
                                             <td>
-                                                챌린지
+                                                <span class="label label-inline mb-0">
+                                                    챌린지
+                                                </span>
                                             </td>
                                         </tr>
 
@@ -107,7 +117,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <tr>
                                             <td> 제목 </td>
                                             <td colspan="3">
-                                                십자수 어쩌구
+                                                <a href="">
+                                                    십자수 어쩌구
+                                                </a>
+
                                             </td>
                                         </tr>
 
@@ -115,7 +128,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <tr>
                                             <td> 개설자 </td>
                                             <td>
-                                                닉네임 어쩌구
+                                                <a href="">
+                                                    닉네임 어쩌구
+                                                </a>
+
                                             </td>
 
                                             <td> 개설일 </td>
@@ -141,7 +157,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <tr>
                                             <td> 챌린지 유형 </td>
                                             <td>
+                                                  <span class="label label-inline mb-0">
                                                 꾸준히 어쩌구
+                                                  </span>
                                             </td>
 
                                             <td> 챌린지 지역 </td>
@@ -152,7 +170,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </table>
                                     <%------ 테이블 종료-------%>
                                         <%------ 모집글 -------%>
-                                        <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle"
+                                        <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle mb-8"
                                              id="accordionExample7">
 
                                             <div class="card">
@@ -182,7 +200,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </path>
                                                             </g> </svg>
                                                         </span>
-                                                        <div class="card-label pl-4">모집글 제목</div>
+                                                        <div class="card-label pl-4 font-weight-bolder text-hover-primary">모집글 제목</div>
                                                     </div>
                                                 </div>
                                                     <%------ 모집글 내용 -------%>

@@ -1,6 +1,7 @@
 package kr.or.ssff.study.service;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import kr.or.ssff.study.domain.LangVO;
@@ -49,6 +50,12 @@ public interface StudyService {
     //6-1. 게시글 총개수 구하기(마감 제외)
     public abstract Integer getTotalExceptClosed(String type);
 
+    //6-1. 게시글 총개수 구하기(검색어필터)
+    public abstract Integer getTotalAddSearch(String type,String searchText);
+
+    //6-2. 게시글 총개수 구하기(로고선택필터)
+    public abstract Integer getTotalAddLogo(String type,String selectedLogoSet);
+
     //7. 태그 입력하기
     public abstract boolean registerLangTag(Integer r_idx,String tag);
 
@@ -88,6 +95,12 @@ public interface StudyService {
     //19. 게시물번호에 해당하는 댓글 수 가져오기
     public abstract Integer getReplyCountByR_idx(Integer r_idx);
 
+    //20. logoset을 쓰는 게시글 번호들을 받아오기(안됨 작업중)
+    //public abstract ArrayList<Integer> getR_idxListUsingLogoset(String selectedLogoSet);
+
+
+
+    //21. 출석 +1 함수입니다.--상준
     public abstract boolean updateAttendance(HashMap<String, Object> map);
 }
 

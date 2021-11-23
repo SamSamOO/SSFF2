@@ -20,19 +20,24 @@ public interface StudyMapper {
     //글리스트 반환
     public abstract List<RecruitBoardVO> getList(@Param("type") String type, @Param("page") Integer Page);
 
-    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(@Param("type") String type, @Param("page") Integer Page);
+    //5-1 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReply(@Param("type")String type,@Param("page")Integer Page);
+    //5-1-1 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 검색기능
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddSearch(@Param("type")String type,@Param("page")Integer Page,@Param("text")String text);
+    //5-1-2.(프로젝트) 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 로고조회기능
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddLogo(@Param("type")String type,@Param("page")Integer Page,@Param("arr")String []arr);
+    //5-2 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외없음
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(@Param("type")String type,@Param("page")Integer Page);
 
-    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(@Param("type") String type, @Param("page") Integer Page);
-
-    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyExceptClosed(@Param("type") String type, @Param("page") Integer Page);
-
-    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(@Param("type") String type, @Param("page") Integer Page);
+    //5-3 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyExceptClosed(@Param("type")String type,@Param("page")Integer Page);
+    //5-4 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외
+    public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(@Param("type")String type,@Param("page")Integer Page);
 
     //가장 최근의 글번호 가져오기
     public abstract Integer getCurrentR_idx();
-
-    //글번호로 언어태그 등록하기`
-    public abstract Integer insertTag(@Param("r_idx") Integer r_idx, @Param("tag") String tag);
+    //글번호로 언어태그 등록하기
+    public abstract Integer insertTag(@Param("r_idx")Integer r_idx, @Param("tag") String tag);
 
     //lang list 전체 가져오기
     public abstract List<LangVO> getLangList();
@@ -71,13 +76,20 @@ public interface StudyMapper {
     public abstract Integer getPostCount(@Param("type") String type);
 
     //글 총갯수 구하기(타입 받음)+마감 제외
-    public abstract Integer getPostCountExceptClosed(@Param("type") String type);
+    public abstract Integer getPostCountExceptClosed(@Param("type")String type);
+    //글 총갯수 구하기(타입 받음)+검색어
+    public abstract Integer getPostCountAddSearch(@Param("type")String type,@Param("text")String searchText);
+    //글 총갯수 구하기(타입 받음)+로고선택
+    public abstract Integer getPostCountAddLogo(@Param("type")String type,@Param("arr")String []arr);
 
     //댓글 수 구하기
     public abstract List<ReplyCountVO> replyCount();
 
+
     //글번호에 해당하는 댓글 수 구하기
-    public abstract Integer replyCountByR_idx(@Param("r_idx") Integer r_idx);
+    public abstract Integer replyCountByR_idx(@Param("r_idx")Integer r_idx);
+    //logoset을 쓰는 게시글 번호들을 받아오기
+    //public abstract ArrayList<Integer> getR_idxListUsingLogoset(@Param("arr")String[] arr);
 
     //출석 +1 기능입니다 : 박상준
     public abstract Integer updateAttendance(HashMap<String, Object> map);
