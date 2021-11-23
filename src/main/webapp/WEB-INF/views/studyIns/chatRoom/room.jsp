@@ -72,45 +72,47 @@
     var ws;
 
     $(function () {
+        setInterval(AjaxCall, 1000);
+        // setInterval($(`#chating`).load(window.location.href + `#chating`));
 
-        $(`#chating`).empty();
-        $.ajax({
-            type: 'POST',
-            url: '/chat/getAllChat',
-            data: {
-                "r_Idx": $(`#r_Idx`).val()
-            },
-            error: function (data) {
-                console.log(data);
-                Swal.fire({
-                    icon: 'warning',                         // Alert 타입
-                    title: 'Alert가 실행되었습니다.',         // Alert 제목
-                    text: '에러로 데이터를 불러오지 못했습니다.',  // Alert 내용
-                });
-            },
-            success: function (data) {
-                console.log(`데이터 불러오기 성공`);
-                console.log(data);
 
-                console.log(data.list);
-                for (let i = 0; i < data.list.length; i++) {
-                    if (data.list[i].member_Name == 'nickname55') {
+        function AjaxCall() {
+            $.ajax({
+                type: 'POST',
+                url: '/chat/getAllChat',
+                data: {
+                    "r_Idx": $(`#r_Idx`).val()
+                },
+                error: function (data) {
+                    console.log(data);
+                    Swal.fire({
+                        icon: 'warning',                         // Alert 타입
+                        title: 'Alert가 실행되었습니다.',         // Alert 제목
+                        text: '에러로 데이터를 불러오지 못했습니다.',  // Alert 내용
+                    });
+                },
+                success: function (data) {
+                    console.log(`데이터 불러오기 성공`);
+                    console.log(data);
 
-                        console.log("채팅");
-                        $("#chating").append("<p class='me'>나 :" + data.list[i].msg_Cont + "</p><p class='me'>" + data.list[i].send_Time + "</p>");
+                    console.log(data.list);
+                    for (let i = 0; i < data.list.length; i++) {
+                        if (data.list[i].member_Name == 'nickname55') {
 
-                    } else {
+                            console.log("채팅");
+                            $("#chating").append("<p class='me'>나 :" + data.list[i].msg_Cont + "</p><p class='me'>" + data.list[i].send_Time + "</p>");
 
-                        $("#chating").append("<p class='others'>" + data.list[i].member_Name + " :" + data.list[i].msg_Cont + "</p><p class='others'>" + data.list[i].send_Time + "</p>");
+                        } else {
 
+                            $("#chating").append("<p class='others'>" + data.list[i].member_Name + " :" + data.list[i].msg_Cont + "</p><p class='others'>" + data.list[i].send_Time + "</p>");
+
+                        }
                     }
+                    $('#chating').scrollTop($(`#chating`)[0].scrollHeight);
 
                 }
-                $('#chating').scrollTop($(`#chating`)[0].scrollHeight);
-
-            }
-        })
-
+            })
+        }
     });
 
     function wsOpen() {
@@ -122,7 +124,7 @@
     function wsEvt() {
         ws.onopen = function (data) {
             //소켓이 열리면 동작
-        }
+        };
 
         ws.onmessage = function (data) {
 
@@ -223,12 +225,6 @@
             contentType: "application/json; charset=utf-8",
             success: function (d) {
                 console.log(d);
-
-                Swal.fire({
-                    icon: 'success',                         // Alert 타입
-                    title: 'Alert가 실행되었습니다.',         // Alert 제목
-                    text: '성공',  // Alert 내용
-                });
             },
             error: function (d) {
                 console.log(d);
@@ -241,50 +237,6 @@
         });
         ws.send(JSON.stringify(option))
 
-
-        $.ajax({
-            type: 'POST',
-            url: '/chat/getAllChat',
-            data: {
-                "r_Idx": $(`#r_Idx`).val()
-            },
-
-            error: function (data) {
-
-                console.log(data);
-
-                Swal.fire({
-                    icon: 'warning',                         // Alert 타입
-                    title: 'Alert가 실행되었습니다.',         // Alert 제목
-                    text: '에러로 데이터를 불러오지 못했습니다.',  // Alert 내용
-                });
-
-            },
-
-            success: function (data) {
-
-                console.log(`데이터 불러오기 성공`);
-
-                console.log(data);
-
-                console.log(data.list);
-                for (let i = 0; i < data.list.length; i++) {
-                    if (data.list[i].member_Name == 'nickname55') {
-
-                        console.log("채팅");
-                        $("#chating").append("<p class='me'>나 :" + data.list[i].msg_Cont + "</p><p class='me'>" + data.list[i].send_Time + "</p>");
-
-                    } else {
-
-                        $("#chating").append("<p class='others'>" + data.list[i].member_Name + " :" + data.list[i].msg_Cont + "</p><p class='others'>" + data.list[i].send_Time + "</p>");
-                    }
-                }
-
-                $('#chating').scrollTop($(`#chating`)[0].scrollHeight);
-
-            }
-
-        });
         $('#chatting').val("");
 
     }
