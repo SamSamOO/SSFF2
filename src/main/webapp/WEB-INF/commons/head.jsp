@@ -5,7 +5,7 @@
   Time: 오후 3:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <base href="">
 <meta charset="utf-8"/>
 <meta name="description" content="Updates and statistics"/>
@@ -44,7 +44,6 @@
     //     };
     //     s.parentNode.insertBefore(tk, s)
     // })(document);
-
 </script>
 <!--end::Fonts-->
 
@@ -69,6 +68,6 @@
 <!--begin::Layout Themes(used by all pages)-->
 <!--end::Layout Themes-->
 
-<link rel="icon" type="image/png" sizes="32x32" href="/resources/assets/media/logos/ssff-favicon32x32.png"/>
-<link rel="icon" type="image/png" sizes="196x196" href="/resources/assets/media/logos/ssff-favicon196x196.png"/>
-<link rel="shortcut icon" href="/resources/assets/media/logos/ssff-favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/assets/images/logos/ssff/ssff-favicon32x32.png"/>
+<link rel="icon" type="image/png" sizes="196x196" href="/resources/assets/images/logos/ssff/ssff-favicon196x196.png"/>
+<link rel="shortcut icon" href="/resources/assets/images/logos/ssff/ssff-favicon.ico"/>

@@ -81,7 +81,7 @@
   background-color: white;
   display: inline-block;
   width: 100%;
-  padding-top: 15px;
+  margin: 1rem 0 4rem 0;
 }
 .studylist-content-ul {
   /*카드뉴스 틀 UL*/
@@ -189,7 +189,9 @@
 
 #pagination-ul{
   list-style: none;
+  padding-left: 0;
 }
+
 #pagination-ul li{
   float: left;
 

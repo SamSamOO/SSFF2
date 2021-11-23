@@ -85,7 +85,7 @@
                                     <h3>프로젝트를 함께할 든든한 팀원을 삼삼오오에서 찾아보세요</h3>
                                     <ul class="list-style-none">
                                         <li><a href="/study/project/postGo">
-                                            <img src="../../../../resources/assets/image/writingBtn.png"
+                                            <img src="../../../../resources/assets/images/button/writingBtn.png"
                                                  width="70px"></a></li>
                                         <li>글쓰러 가기!</li>
                                     </ul>
@@ -94,33 +94,33 @@
                                 <div class="studylist-nav d-inline-block w-100 mt-4 mb-4 pt-4 rounded-xl shadow">
                                     <!--스터디리스트 중간 로고 박힌 네비 부분-->
                                     <ul class="logo-to-sort d-flex flex-wrap justify-content-center ">
-                                        <li><img src="../../../../resources/assets/image/javascript.png"
-                                                width="50px" onclick="logoClicked('javascript')" id="logo_javascript"></li>
-                                        <li><img src="../../../../resources/assets/image/typescript.png"
-                                                width="50px" onclick="logoClicked('typescript')" id="logo_typescript"></li>
-                                        <li><img src="../../../../resources/assets/image/react.png"
+                                        <li><img src="../../../../resources/assets/images/logos/language/javascript.png"
+                                                 width="50px" onclick="logoClicked('javascript')" id="logo_javascript"></li>
+                                        <li><img src="../../../../resources/assets/images/logos/language/typescript.png"
+                                                 width="50px" onclick="logoClicked('typescript')" id="logo_typescript"></li>
+                                        <li><img src="../../../../resources/assets/images/logos/language/react.png"
                                                  width="50px" onclick="logoClicked('react')" id="logo_react"></li>
-                                        <li><img src="../../../../resources/assets/image/vue.png"
-                                                 width="50px" onclick="logoClicked('vue')" id="logo_vue"></li>
-                                        <li><img src="../../../../resources/assets/image/node_js.png"
-                                                width="50px" onclick="logoClicked('node_js')" id="logo_node_js"></li>
-                                        <li><img src="../../../../resources/assets/image/java.png"
+                                        <li><img  src="../../../../resources/assets/images/logos/language/vue.png"
+                                                  width="50px" onclick="logoClicked('vue')" id="logo_vue"></li>
+                                        <li><img src="../../../../resources/assets/images/logos/language/node_js.png"
+                                                 width="50px" onclick="logoClicked('node_js')" id="logo_node_js"></li>
+                                        <li><img src="../../../../resources/assets/images/logos/language/java.png"
                                                  width="50px" onclick="logoClicked('java')" id="logo_java"></li>
-                                        <li><img src="../../../../resources/assets/image/spring.png"
+                                        <li><img src="../../../../resources/assets/images/logos/language/spring.png"
                                                  width="50px" onclick="logoClicked('spring')" id="logo_spring"></li>
-                                        <li><img src="../../../../resources/assets/image/kotlin.png"
+                                        <li><img src="../../../../resources/assets/images/logos/language/kotlin.png"
                                                  width="50px" onclick="logoClicked('kotlin')" id="logo_kotlin"></li>
-                                        <li><img src="../../../../resources/assets/image/c++.png"
+                                        <li><img src="../../../../resources/assets/images/logos/language/c++.png"
                                                  width="50px" onclick="logoClicked('c++')" id="logo_c++"></li>
-                                        <li><img src="../../../../resources/assets/image/go.png"
+                                        <li><img src="../../../../resources/assets/images/logos/language/go.png"
                                                  width="50px" onclick="logoClicked('go')" id="logo_go"></li>
-                                        <li><img src="../../../../resources/assets/image/python.png"
+                                        <li><img src="../../../../resources/assets/images/logos/language/python.png"
                                                  width="50px" onclick="logoClicked('python')" id="logo_python"></li>
-                                        <li><img src="../../../../resources/assets/image/django.png"
+                                        <li><img src="../../../../resources/assets/images/logos/language/django.png"
                                                  width="50px" onclick="logoClicked('django')" id="logo_django"></li>
-                                        <li><img src="../../../../resources/assets/image/flutter.png"
-                                                width="50px" onclick="logoClicked('flutter')" id="logo_flutter"></li>
-                                        <li><img src="../../../../resources/assets/image/swift.png"
+                                        <li><img src="../../../../resources/assets/images/logos/language/flutter.png"
+                                                 width="50px" onclick="logoClicked('flutter')" id="logo_flutter"></li>
+                                        <li><img src="../../../../resources/assets/images/logos/language/swift.png"
                                                  width="50px" onclick="logoClicked('swift')" id="logo_swift"></li>
                                     </ul>
                                 </div>
@@ -149,18 +149,18 @@
                                                 <ul class="studylist-content-logo">
                                                     <c:forEach var="langs" items="${list.langs}">
                                                         <li><img
-                                                                src="../../../../resources/assets/image/${langs}.png"
+                                                                src="../../../../resources/assets/images/logos/language/${langs}.png"
                                                                 width="40px"></li>
                                                     </c:forEach>
                                                 </ul>
 
                                                 <ul class="studylist-hitAndRepl">
                                                     <li><img
-                                                            src="../../../../resources/assets/image/repl.png"
+                                                            src="../../../../resources/assets/images/icon/repl.png"
                                                             width="15px"></li>
                                                     <li>${list.reply_count}</li>
                                                     <li><img
-                                                            src="../../../../resources/assets/image/hit.png"
+                                                            src="../../../../resources/assets/images/icon/hit.png"
                                                             width="15px"></li>
                                                     <li>${list.hit}</li>
                                                 </ul>
@@ -197,213 +197,213 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-  /*==========================variable==========================*/
+    /*==========================variable==========================*/
 
-  let sc = {
-    totalPost: null,
-    postPerPage: null,
-    totalPage: null,
-    currentPage: null,
-    pagePerBlock: null,
-    currentBlock: null,
-    totalBlock: null
-  }
-  let currentOrderType = 'latest'; //최신순 인기순
-  let checkbox = document.querySelector('input[id="closedException"]'); //마감제외
-  let closedStatus = false; ///검색창
-  let selectedLogoSet =[];//선택된 로고들
-  /*==========================onload or eventListener==========================*/
-  $(function(){
-    getBoardsByPageNum(1, currentOrderType);
-  });
-  //마감 체크 관련
-  checkbox.addEventListener('change', function(e) {
-    closedStatus = e.target.checked;
-    getBoardsByPageNum(1, currentOrderType);
-  });
+    let sc = {
+        totalPost: null,
+        postPerPage: null,
+        totalPage: null,
+        currentPage: null,
+        pagePerBlock: null,
+        currentBlock: null,
+        totalBlock: null
+    }
+    let currentOrderType = 'latest'; //최신순 인기순
+    let checkbox = document.querySelector('input[id="closedException"]'); //마감제외
+    let closedStatus = false; ///검색창
+    let selectedLogoSet =[];//선택된 로고들
+    /*==========================onload or eventListener==========================*/
+    $(function(){
+        getBoardsByPageNum(1, currentOrderType);
+    });
+    //마감 체크 관련
+    checkbox.addEventListener('change', function(e) {
+        closedStatus = e.target.checked;
+        getBoardsByPageNum(1, currentOrderType);
+    });
 
-  /*==========================function==========================*/
-  //로고선택
-  function logoClicked(logo){
-    if(selectedLogoSet.length ==0){ //초기에 logo가 아무것도 없을 경우
-      selectedLogoSet.push(logo);
-      $('#logo_'+logo).addClass('logo-selected');
-    }else{
-      for(let i=0;i<selectedLogoSet.length;i++){
-        if(selectedLogoSet[i]==logo){
-          deleteLogo(i);
-          getBoardsByPageNum(1, currentOrderType);
-          return;
-        }
-      }
-      insertLogo(logo);
-    }
-    function deleteLogo(i){
-      selectedLogoSet.splice(i, 1);
-      $('#logo_'+logo).removeClass('logo-selected');
-    }
-    function insertLogo(logo){
-      selectedLogoSet.push(logo);
-      $('#logo_'+logo).addClass('logo-selected');
-    }
-    console.log("선택현황 : "+selectedLogoSet);
-    getBoardsByPageNum(1, currentOrderType);
-  }//logoClicked
-
-
-  //페이징 출력
-  function createBoardPage(){
-    if (sc.totalPage === 0) {
-      sc.totalPage = 1;
-      //총페이지수 = 총게시물/페이지당글갯수 이며 page 0 일때에는 1로 친다
-    }
-    let html = "<ul id='pagination-ul'>";
-    if (sc.currentBlock != 1) { //현재 첫번째 블록이 아니면 ≪를 붙인다
-      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='previousBoardPage()'>≪</a></li>";
-    }
-    let firstPageInBoard;
-    if (sc.currentBlock === 1) {
-      firstPageInBoard = 1; ////첫번째 블록에 있으면 그 블록의 첫페이지는1이다
-    } else {
-      firstPageInBoard = (sc.currentBlock - 1) * sc.pagePerBlock + 1;
-      //첫번째 블록이 아니라면 그 블록의 첫페이지는 (현재페이지-1)*5+1 이다
-    }
-    for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
-      if (sc.currentBlock === 1) {//case1 : 1페이지일경우
-        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType,"+i+")'>"+i+"</li>";//[1]~[5]찍어주구
-        /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
-        if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
-          i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
-        }
-      } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
-        //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
-        html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType,"+i+")'>"+i+"</li>";
-        /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
-        //[6]~[10] 찍어주고 끝내겠다
-      } else {//이도 저도 아니면 i 수 올려서 끝내겠다
-        i = sc.totalPage + 1;
-      }
-    }
-    if (sc.currentBlock != sc.totalBlock) {
-      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a>...</a></li>";
-      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+",currentOrderType,"+sc.totalPage+")'>"+ sc.totalPage + "</li>";
-
-      /*html += "<li><a href='/study/challenge/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";*/
-      html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='nextBoardPage()'>≫</a></li>";
-    }
-    html += "</ul>";
-    $('#pagination-ul').html(html);
-  }//createBoardPage
-
-  function previousBoardPage() {
-    sc.currentBlock--;
-    if (sc.currentBlock === 0) {
-      alert('처음 페이지입니다.');
-    } else {
-      createBoardPage(sc);
-    }
-  }//previousBoardPage
-
-  function nextBoardPage() {
-    sc.currentBlock++;
-    if (sc.totalBlock < sc.currentBlock) {
-      alert('마지막 페이지입니다.');
-    } else {
-      createBoardPage(sc);
-    }
-  }//nextBoardPage
-
-  //비동기로 게시글 정보 가져오기
-  function getBoardsByPageNum(pageNum, orderRule, currentPage){
-    console.log(selectedLogoSet);
-    let jsonData ={
-      pageNum:pageNum,
-      orderRule :orderRule,
-      closed :closedStatus,
-      selectedLogoSet:selectedLogoSet+""
-    }
-    $.ajax({
-      url:"/studyRest/project/list",
-      type:"POST",
-      dataType:"json",
-      contentType:"application/json",
-      data:JSON.stringify(jsonData),
-      success:function(response){
-        if(response){
-          createBoardTable(response.boardList);
-          setPageElementVar(response.boardTotal, currentPage)
-          ifNoLogoInsertQuestion();
-          createBoardPage();
+    /*==========================function==========================*/
+    //로고선택
+    function logoClicked(logo){
+        if(selectedLogoSet.length ==0){ //초기에 logo가 아무것도 없을 경우
+            selectedLogoSet.push(logo);
+            $('#logo_'+logo).addClass('logo-selected');
         }else{
-          alert("error occured")
+            for(let i=0;i<selectedLogoSet.length;i++){
+                if(selectedLogoSet[i]==logo){
+                    deleteLogo(i);
+                    getBoardsByPageNum(1, currentOrderType);
+                    return;
+                }
+            }
+            insertLogo(logo);
         }
-      },
-      error : function(request,status,error){
-        console.log(error);
-      }
-    })
-  }//getBoardsByPageNum
+        function deleteLogo(i){
+            selectedLogoSet.splice(i, 1);
+            $('#logo_'+logo).removeClass('logo-selected');
+        }
+        function insertLogo(logo){
+            selectedLogoSet.push(logo);
+            $('#logo_'+logo).addClass('logo-selected');
+        }
+        console.log("선택현황 : "+selectedLogoSet);
+        getBoardsByPageNum(1, currentOrderType);
+    }//logoClicked
 
-  //criteria 설정
-  function setPageElementVar(boardTotalLength, currentPage) {
-    console.log(boardTotalLength, currentPage)
-    sc.totalPost = boardTotalLength
-    sc.totalPage = Math.ceil(sc.totalPost / 15)
-    sc.postPerPage = 15
-    sc.totalBlock = Math.ceil(sc.totalPage / 3)
-    sc.pagePerBlock = 3
-    if (!currentPage || currentPage == 1) sc.currentBlock = 1
-    else {
-      if (currentPage % sc.pagePerBlock == 0) sc.currentBlock = Math.floor(currentPage / sc.pagePerBlock)
-      else sc.currentBlock = Math.floor(currentPage / sc.pagePerBlock) + 1
-    }
-    if (!currentPage) sc.currentPage = 1
-    else sc.currentPage = currentPage
-  }//setPageElementVar
 
-  //게시글 내용 반복 채우기
-  function createBoardTable(list){
-    let html = "";
-    for(let i=0;i<list.length;i++){
-      html +='<li class="studylist-content status-'+list[i].closed_ok+'">';
+    //페이징 출력
+    function createBoardPage(){
+        if (sc.totalPage === 0) {
+            sc.totalPage = 1;
+            //총페이지수 = 총게시물/페이지당글갯수 이며 page 0 일때에는 1로 친다
+        }
+        let html = "<ul id='pagination-ul'>";
+        if (sc.currentBlock != 1) { //현재 첫번째 블록이 아니면 ≪를 붙인다
+            html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='previousBoardPage()'>≪</a></li>";
+        }
+        let firstPageInBoard;
+        if (sc.currentBlock === 1) {
+            firstPageInBoard = 1; ////첫번째 블록에 있으면 그 블록의 첫페이지는1이다
+        } else {
+            firstPageInBoard = (sc.currentBlock - 1) * sc.pagePerBlock + 1;
+            //첫번째 블록이 아니라면 그 블록의 첫페이지는 (현재페이지-1)*5+1 이다
+        }
+        for (let i = firstPageInBoard; i < sc.totalPage + 1; i++) {//시작페이지부터 총페이지수까지
+            if (sc.currentBlock === 1) {//case1 : 1페이지일경우
+                html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType,"+i+")'>"+i+"</li>";//[1]~[5]찍어주구
+                /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
+                if (i === sc.pagePerBlock) {//i가 한페이지당 보여줄 블록수와 같아지면
+                    i = sc.totalPage + 1;//i 그만돌리고 끝내겠다
+                }
+            } else if ((sc.currentBlock - 1) * sc.pagePerBlock < i && sc.currentBlock * sc.pagePerBlock >= i) {
+                //case2 : [6]~[10] ,[11]~[15]등 i가 한블록내의 첫숫자와 끝숫자 내에 위치한 경우
+                html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+i+",currentOrderType,"+i+")'>"+i+"</li>";
+                /*html += "<li><a href='/study/challenge/list?page=" + i + "'>" + i + "</a></li>";*/
+                //[6]~[10] 찍어주고 끝내겠다
+            } else {//이도 저도 아니면 i 수 올려서 끝내겠다
+                i = sc.totalPage + 1;
+            }
+        }
+        if (sc.currentBlock != sc.totalBlock) {
+            html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a>...</a></li>";
+            html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\" onclick='getBoardsByPageNum("+sc.totalPage+",currentOrderType,"+sc.totalPage+")'>"+ sc.totalPage + "</li>";
 
-      if (list[i].closed_ok === 'y') {
-        html += '<div class=closed-ok-indicator>모집완료</div>'
-      }
+            /*html += "<li><a href='/study/challenge/list?page=" + sc.totalPage + "'>" + sc.totalPage + "</a></li>";*/
+            html += "<li class=\"btn btn-icon btn-light-primary mr-2 my-1\"><a onclick='nextBoardPage()'>≫</a></li>";
+        }
+        html += "</ul>";
+        $('#pagination-ul').html(html);
+    }//createBoardPage
 
-      html +=   '<p class="studylist-content-title"><a href="/study/project/detail?r_idx='+list[i].r_idx+'">'+list[i].title+'</a></p>';
-      html +=   '<ul class="studylist-content-logo">';
-      for(let j=0;j<list[i].langs.length;j++){
-        html +=   '<li><img src="../../../../resources/assets/image/'+list[i].langs[j]+'.png" width="40px"></li>';
-      }
-      html +=   '</ul>';
-      html +=   '<ul class="studylist-hitAndRepl">';
-      html +=       '<li><img src="../../../../resources/assets/image/repl.png" width="15px"></li>';
-      html +=       '<li>'+list[i].reply_count+'</li>';
-      html +=       '<li><img src="../../../../resources/assets/image/hit.png" width="15px"></li>';
-      html +=       '<li>'+list[i].hit+'</li>';
-      html +=   '</ul>';
-      html +='</li>';
-    }
-    $('.studylist-content-ul').html(html);
-  }//createBoardTable
+    function previousBoardPage() {
+        sc.currentBlock--;
+        if (sc.currentBlock === 0) {
+            alert('처음 페이지입니다.');
+        } else {
+            createBoardPage(sc);
+        }
+    }//previousBoardPage
 
-  function ifNoLogoInsertQuestion(){
-    $( '.studylist-content-logo:not(:has( li ))' )
-    .prepend('<li><img src="../../../../resources/assets/image/question.png" width="40px"></li>');
-  }//ifNoLogoInsertQuestion
+    function nextBoardPage() {
+        sc.currentBlock++;
+        if (sc.totalBlock < sc.currentBlock) {
+            alert('마지막 페이지입니다.');
+        } else {
+            createBoardPage(sc);
+        }
+    }//nextBoardPage
 
-  function orderSelected(orderType) {
-    if (currentOrderType === orderType) return
-    if (orderType == 'latest') {
-      $('#listing-popularity-order').removeClass('order-selected');
-      $('#listing-latest-order').addClass('order-selected');
-    } else if (orderType == 'popularity') {
-      $('#listing-latest-order').removeClass('order-selected');
-      $('#listing-popularity-order').addClass('order-selected');
+    //비동기로 게시글 정보 가져오기
+    function getBoardsByPageNum(pageNum, orderRule, currentPage){
+        console.log(selectedLogoSet);
+        let jsonData ={
+            pageNum:pageNum,
+            orderRule :orderRule,
+            closed :closedStatus,
+            selectedLogoSet:selectedLogoSet+""
+        }
+        $.ajax({
+            url:"/studyRest/project/list",
+            type:"POST",
+            dataType:"json",
+            contentType:"application/json",
+            data:JSON.stringify(jsonData),
+            success:function(response){
+                if(response){
+                    createBoardTable(response.boardList);
+                    setPageElementVar(response.boardTotal, currentPage)
+                    ifNoLogoInsertQuestion();
+                    createBoardPage();
+                }else{
+                    alert("error occured")
+                }
+            },
+            error : function(request,status,error){
+                console.log(error);
+            }
+        })
+    }//getBoardsByPageNum
+
+    //criteria 설정
+    function setPageElementVar(boardTotalLength, currentPage) {
+        console.log(boardTotalLength, currentPage)
+        sc.totalPost = boardTotalLength
+        sc.totalPage = Math.ceil(sc.totalPost / 15)
+        sc.postPerPage = 15
+        sc.totalBlock = Math.ceil(sc.totalPage / 3)
+        sc.pagePerBlock = 3
+        if (!currentPage || currentPage == 1) sc.currentBlock = 1
+        else {
+            if (currentPage % sc.pagePerBlock == 0) sc.currentBlock = Math.floor(currentPage / sc.pagePerBlock)
+            else sc.currentBlock = Math.floor(currentPage / sc.pagePerBlock) + 1
+        }
+        if (!currentPage) sc.currentPage = 1
+        else sc.currentPage = currentPage
+    }//setPageElementVar
+
+    //게시글 내용 반복 채우기
+    function createBoardTable(list){
+        let html = "";
+        for(let i=0;i<list.length;i++){
+            html +='<li class="studylist-content status-'+list[i].closed_ok+'">';
+
+            if (list[i].closed_ok === 'y') {
+                html += '<div class=closed-ok-indicator>모집완료</div>'
+            }
+
+            html +=   '<p class="studylist-content-title"><a href="/study/project/detail?r_idx='+list[i].r_idx+'">'+list[i].title+'</a></p>';
+            html +=   '<ul class="studylist-content-logo">';
+            for(let j=0;j<list[i].langs.length;j++){
+                html +=   '<li><img src="../../../../resources/assets/images/logos/language/'+list[i].langs[j]+'.png" width="40px"></li>';
+            }
+            html +=   '</ul>';
+            html +=   '<ul class="studylist-hitAndRepl">';
+            html +=       '<li><img src="../../../../resources/assets/images/icon/repl.png" width="15px"></li>';
+            html +=       '<li>'+list[i].reply_count+'</li>';
+            html +=       '<li><img src="../../../../resources/assets/images/icon/hit.png" width="15px"></li>';
+            html +=       '<li>'+list[i].hit+'</li>';
+            html +=   '</ul>';
+            html +='</li>';
+        }
+        $('.studylist-content-ul').html(html);
+    }//createBoardTable
+
+    function ifNoLogoInsertQuestion(){
+        $( '.studylist-content-logo:not(:has( li ))' )
+                .prepend('<li><img src="../../../../resources/assets/images/logos/language/question.png" width="40px"></li>');
+    }//ifNoLogoInsertQuestion
+
+    function orderSelected(orderType) {
+        if (currentOrderType === orderType) return
+        if (orderType == 'latest') {
+            $('#listing-popularity-order').removeClass('order-selected');
+            $('#listing-latest-order').addClass('order-selected');
+        } else if (orderType == 'popularity') {
+            $('#listing-latest-order').removeClass('order-selected');
+            $('#listing-popularity-order').addClass('order-selected');
+        }//orderSelected
+        currentOrderType = orderType
+        getBoardsByPageNum(1, currentOrderType);
     }//orderSelected
-    currentOrderType = orderType
-    getBoardsByPageNum(1, currentOrderType);
-  }//orderSelected
 </script>
 </html>

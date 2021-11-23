@@ -13,7 +13,7 @@
     <!--begin::Copyright-->
     <div class="text-dark order-2 order-md-1">
       <span class="text-muted font-weight-bold mr-2">2020©</span>
-      <a href="http://keenthemes.com/metronic" target="_blank" class="text-white text-hover-primary">Keenthemes</a>
+      <a href="http://keenthemes.com/metronic" target="_blank" class="text-light-warning text-hover-ssff-orange">Keenthemes</a>
     </div>
     <!--end::Copyright-->
     <!--begin::Nav-->
@@ -85,7 +85,7 @@
       "theme": {
         "base": {
           "white": "#ffffff",
-          "primary": "#8950FC",
+          "primary": "#6b984f",
           "secondary": "#E5EAEE",
           "success": "#1BC5BD",
           "info": "#6993FF",
