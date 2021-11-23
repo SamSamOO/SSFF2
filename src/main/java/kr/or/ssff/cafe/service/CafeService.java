@@ -1,5 +1,6 @@
 package kr.or.ssff.cafe.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import kr.or.ssff.cafe.domain.CafeInfoVO;
@@ -8,6 +9,7 @@ import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomVO;
+import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
 
@@ -51,7 +53,7 @@ public interface CafeService {
   public abstract boolean registerReservation(ReservationDTO reservationDTO);
 
 
-
+  public abstract List<RsrvJoinTrnscVO> getRsrvJoinTrnscList(HashMap<String, String> searchKey);
 } // end interface
 
 

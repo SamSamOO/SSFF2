@@ -1,5 +1,6 @@
 package kr.or.ssff.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
@@ -7,6 +8,7 @@ import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
 import kr.or.ssff.cafe.domain.RoomVO;
+import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
 import org.apache.ibatis.annotations.Param;
@@ -62,4 +64,5 @@ public interface CafeMapper {
   public abstract List<RoomRsrvVO> selectRoomRsrvList(@Param("room_idx") String room_idx, @Param("use_date") String use_date);
 
 
+  public abstract List<RsrvJoinTrnscVO> selectRsrvJoinTrnscList(HashMap<String, String> searchKey);
 } // end interface
