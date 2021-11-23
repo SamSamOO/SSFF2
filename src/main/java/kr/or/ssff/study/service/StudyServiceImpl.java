@@ -235,6 +235,16 @@ public class StudyServiceImpl implements StudyService {
         return reply;
     }
 
+    @Override
+    public ArrayList<Integer> getR_idxListUsingLogoset(String selectedLogoSet) {
+        String str = selectedLogoSet;
+        String[] arr = str.split(",");
+
+        ArrayList<Integer> r_idxList = mapper.getR_idxListUsingLogoset(arr);
+
+        return r_idxList;
+    }
+
 }//end class
 
 

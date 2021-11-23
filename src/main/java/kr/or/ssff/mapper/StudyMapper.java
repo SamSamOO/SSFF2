@@ -1,5 +1,6 @@
 package kr.or.ssff.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
@@ -65,5 +66,7 @@ public interface StudyMapper {
     public abstract List<ReplyCountVO> replyCount();
     //글번호에 해당하는 댓글 수 구하기
     public abstract Integer replyCountByR_idx(@Param("r_idx")Integer r_idx);
+    //logoset을 쓰는 게시글 번호들을 받아오기
+    public abstract ArrayList<Integer> getR_idxListUsingLogoset(@Param("arr")String[] arr);
 
 }

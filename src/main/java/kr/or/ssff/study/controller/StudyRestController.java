@@ -135,23 +135,36 @@ public class StudyRestController {
     public @ResponseBody Map<String, Object> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
         log.info("getProjectListByPageNum({}) is invoked",jsonData);
 
-        String orderRule = jsonData.get("orderRule");
-        String closed = jsonData.get("closed"); //true(마감 제외) or false(전부)
+        String orderRule =  jsonData.get("orderRule");
+        String closed =  jsonData.get("closed"); //true(마감 제외) or false(전부)
+        String selectedLogoSet = jsonData.get("selectedLogoSet");
 
         List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
         Integer boardTotal = 0;
-        if(orderRule.equals("latest")&& closed.equals("false")){
-            list= this.service.getListWithJoinReply("P",Integer.parseInt(jsonData.get("pageNum")));
+
+        if(!selectedLogoSet.equals("")){
+            //step 1. logoset을 쓰는 게시글 번호들을 받아오기
+            ArrayList<Integer> r_idxlist = this.service.getR_idxListUsingLogoset(selectedLogoSet);
+
+            //step final
+            list = this.service.getListWithJoinReply("P", Integer.parseInt(jsonData.get("pageNum")));
             boardTotal = this.service.getTotal("P");
-        }else if(orderRule.equals("popularity") && closed.equals("false")){
-            list= this.service.getListWithJoinReplyOrderByHit("P",Integer.parseInt(jsonData.get("pageNum")));
-            boardTotal = this.service.getTotal("P");
-        }else if(orderRule.equals("latest") && closed.equals("true")){
-            list= this.service.getListWithJoinReplyExceptClosed("P",Integer.parseInt(jsonData.get("pageNum")));
-            boardTotal = this.service.getTotalExceptClosed("P");
-        }else if(orderRule.equals("popularity") && closed.equals("true")){
-            list= this.service.getListWithJoinReplyOrderByHitExceptClosed("P",Integer.parseInt(jsonData.get("pageNum")));
-            boardTotal = this.service.getTotalExceptClosed("P");
+
+        }else {
+
+            if (orderRule.equals("latest") && closed.equals("false")) {
+                list = this.service.getListWithJoinReply("P", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotal("P");
+            } else if (orderRule.equals("popularity") && closed.equals("false")) {
+                list = this.service.getListWithJoinReplyOrderByHit("P", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotal("P");
+            } else if (orderRule.equals("latest") && closed.equals("true")) {
+                list = this.service.getListWithJoinReplyExceptClosed("P", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotalExceptClosed("P");
+            } else if (orderRule.equals("popularity") && closed.equals("true")) {
+                list = this.service.getListWithJoinReplyOrderByHitExceptClosed("P", Integer.parseInt(jsonData.get("pageNum")));
+                boardTotal = this.service.getTotalExceptClosed("P");
+            }
         }
         List<LangVO> langList = this.service.getLangList();
 

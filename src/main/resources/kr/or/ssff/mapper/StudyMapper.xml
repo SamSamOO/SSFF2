@@ -302,6 +302,20 @@
     select count(r_idx) from reply WHERE r_idx = #{r_idx}
     ]]>
   </select>
+
+  <!--logoset을 쓰는 게시글 번호들을 받아오기-->
+  <select id="getR_idxListUsingLogoset" resultType="int" parameterType="java.util.List">
+    select r_idx
+    from lang
+    where lang_name IN
+      <foreach collection="array" item="arr" open="(" close=")" separator=",">
+        #{arr}
+      </foreach>
+    group by r_idx
+  </select>
+
+
+
 </mapper>
 
 

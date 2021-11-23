@@ -162,11 +162,10 @@
     currentBlock: null,
     totalBlock: null
   }
-  let currentOrderType = 'latest'
-  let checkbox = document.querySelector('input[id="closedException"]');
-  let closedStatus = false;
-
-  let searchText;
+  let currentOrderType = 'latest' //최신순 인기순
+  let checkbox = document.querySelector('input[id="closedException"]'); //마감제외
+  let closedStatus = false; //마감제외 상태
+  let searchText; //검색창
   /*==========================onload or eventListener==========================*/
   $(function(){
     getBoardsByPageNum(1, currentOrderType);
@@ -179,7 +178,7 @@
   });
 
   /*==========================function==========================*/
-  //검색 임시
+  //검색
   function goSearch(){
     let x = document.querySelector("#search").value;
     let y = x.replace(/ /g,""); //띄어쓰기 제거
@@ -187,34 +186,8 @@
     console.log(searchText);
     getBoardsByPageNum(1, currentOrderType);
   }
-  //임시
-  function sortType(){
-    /*
-    let x = document.querySelector("#challenge-type").value; //선택한 유형이 나옴
-    getBoardsByPageNum();
-    let onlySelected=[];
-    for(let i=0;i<boardList.length;i++){
-      if(boardList[i].ch_pattern == x){
-        onlySelected.push(boardList[i]);
-      }
-    }
-    console.log(onlySelected);
-    setPageElementVar(onlySelected.length);
-    createBoardPage();
-    createBoardTable(onlySelected);
- */
-  }//sortType
 
-  function sortLocation1(){
-    let x = document.querySelector("#location1").value;
-    console.log("지역1 선택은:" + x);
-  }
-  function sortLocation2(){
-    let x = document.querySelector("#location2").value;
-    console.log("지역2 선택은:" + x);
-  }
-
-
+  //페이징 출력
   function createBoardPage(){
     if (sc.totalPage === 0) {
       sc.totalPage = 1;
@@ -276,6 +249,7 @@
     }
   }//nextBoardPage
 
+  //비동기로 게시글 정보 가져오기
   function getBoardsByPageNum(pageNum, orderRule, currentPage){
     let jsonData ={
       pageNum: pageNum,
@@ -305,6 +279,7 @@
     })
   }//getBoardsByPageNum
 
+  //criteria 설정
   function setPageElementVar(boardTotalLength, currentPage) {
     console.log(boardTotalLength, currentPage)
     sc.totalPost = boardTotalLength
@@ -319,15 +294,16 @@
     }
     if (!currentPage) sc.currentPage = 1
     else sc.currentPage = currentPage
-     console.log("totalPost:"+sc.totalPost)
-     console.log("postPerPage:"+sc.postPerPage)
-     console.log("totalPage:"+sc.totalPage)
-     console.log("currentPage:"+sc.currentPage)
-     console.log("pagePerBlock:"+sc.pagePerBlock)
-     console.log("currentBlock:"+sc.currentBlock)
-     console.log("totalBlock:"+sc.totalBlock)
+     //console.log("totalPost:"+sc.totalPost)
+     //console.log("postPerPage:"+sc.postPerPage)
+     //console.log("totalPage:"+sc.totalPage)
+     //console.log("currentPage:"+sc.currentPage)
+     //console.log("pagePerBlock:"+sc.pagePerBlock)
+     //console.log("currentBlock:"+sc.currentBlock)
+     //console.log("totalBlock:"+sc.totalBlock)
   }//setPageElementVar
 
+  //게시글 내용 반복 채우기
   function createBoardTable(list){
     let html = "";
     for(let i=0;i<list.length;i++){

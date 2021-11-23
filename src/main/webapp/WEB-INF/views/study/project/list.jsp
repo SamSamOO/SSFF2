@@ -94,38 +94,34 @@
                                 <div class="studylist-nav d-inline-block w-100 mt-4 mb-4 pt-4 rounded-xl shadow">
                                     <!--스터디리스트 중간 로고 박힌 네비 부분-->
                                     <ul class="logo-to-sort d-flex flex-wrap justify-content-center ">
-                                        <li><img
-                                                src="../../../../resources/assets/image/javascript.png"
-                                                width="50px"></li>
-                                        <li><img
-                                                src="../../../../resources/assets/image/typescript.png"
-                                                width="50px"></li>
+                                        <li><img src="../../../../resources/assets/image/javascript.png"
+                                                width="50px" onclick="logoClicked('javascript')" id="logo_javascript"></li>
+                                        <li><img src="../../../../resources/assets/image/typescript.png"
+                                                width="50px" onclick="logoClicked('typescript')" id="logo_typescript"></li>
                                         <li><img src="../../../../resources/assets/image/react.png"
-                                                 width="50px"></li>
+                                                 width="50px" onclick="logoClicked('react')" id="logo_react"></li>
                                         <li><img src="../../../../resources/assets/image/vue.png"
-                                                 width="50px"></li>
-                                        <li><img
-                                                src="../../../../resources/assets/image/node_js.png"
-                                                width="50px"></li>
+                                                 width="50px" onclick="logoClicked('vue')" id="logo_vue"></li>
+                                        <li><img src="../../../../resources/assets/image/node_js.png"
+                                                width="50px" onclick="logoClicked('node_js')" id="logo_node_js"></li>
                                         <li><img src="../../../../resources/assets/image/java.png"
-                                                 width="50px"></li>
+                                                 width="50px" onclick="logoClicked('java')" id="logo_java"></li>
                                         <li><img src="../../../../resources/assets/image/spring.png"
-                                                 width="50px"></li>
+                                                 width="50px" onclick="logoClicked('spring')" id="logo_spring"></li>
                                         <li><img src="../../../../resources/assets/image/kotlin.png"
-                                                 width="50px"></li>
+                                                 width="50px" onclick="logoClicked('kotlin')" id="logo_kotlin"></li>
                                         <li><img src="../../../../resources/assets/image/c++.png"
-                                                 width="50px"></li>
+                                                 width="50px" onclick="logoClicked('c++')" id="logo_c++"></li>
                                         <li><img src="../../../../resources/assets/image/go.png"
-                                                 width="50px"></li>
+                                                 width="50px" onclick="logoClicked('go')" id="logo_go"></li>
                                         <li><img src="../../../../resources/assets/image/python.png"
-                                                 width="50px"></li>
+                                                 width="50px" onclick="logoClicked('python')" id="logo_python"></li>
                                         <li><img src="../../../../resources/assets/image/django.png"
-                                                 width="50px"></li>
-                                        <li><img
-                                                src="../../../../resources/assets/image/flutter.png"
-                                                width="50px"></li>
+                                                 width="50px" onclick="logoClicked('django')" id="logo_django"></li>
+                                        <li><img src="../../../../resources/assets/image/flutter.png"
+                                                width="50px" onclick="logoClicked('flutter')" id="logo_flutter"></li>
                                         <li><img src="../../../../resources/assets/image/swift.png"
-                                                 width="50px"></li>
+                                                 width="50px" onclick="logoClicked('swift')" id="logo_swift"></li>
                                     </ul>
                                 </div>
 
@@ -212,24 +208,49 @@
     currentBlock: null,
     totalBlock: null
   }
-  let currentOrderType = 'latest';
-  let checkbox = document.querySelector('input[id="closedException"]');
-  let closedStatus = false;
+  let currentOrderType = 'latest'; //최신순 인기순
+  let checkbox = document.querySelector('input[id="closedException"]'); //마감제외
+  let closedStatus = false; ///검색창
+  let selectedLogoSet =[];//선택된 로고들
   /*==========================onload or eventListener==========================*/
   $(function(){
-    //페이지단 만듦
-    //createBoardPage();
-    //1페이지에 해당하는 board 자료 가져오기
     getBoardsByPageNum(1, currentOrderType);
   });
   //마감 체크 관련
   checkbox.addEventListener('change', function(e) {
-    //console.log('e : ', e.target.checked);
     closedStatus = e.target.checked;
     getBoardsByPageNum(1, currentOrderType);
   });
 
   /*==========================function==========================*/
+  //로고선택
+  function logoClicked(logo){
+    if(selectedLogoSet.length ==0){
+      selectedLogoSet.push(logo);
+      $('#logo_'+logo).addClass('logo-selected');
+    }else{
+      for(let i=0;i<selectedLogoSet.length;i++){
+        if(selectedLogoSet[i]==logo){
+          deleteLogo(i);
+          return;
+        }
+      }
+      insertLogo(logo);
+    }
+    function deleteLogo(i){
+      selectedLogoSet.splice(i, 1);
+      $('#logo_'+logo).removeClass('logo-selected');
+    }
+    function insertLogo(logo){
+      selectedLogoSet.push(logo);
+      $('#logo_'+logo).addClass('logo-selected');
+    }
+    console.log("선택현황 : "+selectedLogoSet);
+    getBoardsByPageNum(1, currentOrderType);
+  }//logoClicked
+
+
+  //페이징 출력
   function createBoardPage(){
     if (sc.totalPage === 0) {
       sc.totalPage = 1;
@@ -281,6 +302,7 @@
       createBoardPage(sc);
     }
   }//previousBoardPage
+
   function nextBoardPage() {
     sc.currentBlock++;
     if (sc.totalBlock < sc.currentBlock) {
@@ -289,11 +311,14 @@
       createBoardPage(sc);
     }
   }//nextBoardPage
+
+  //비동기로 게시글 정보 가져오기
   function getBoardsByPageNum(pageNum, orderRule, currentPage){
     let jsonData ={
       pageNum:pageNum,
       orderRule :orderRule,
-      closed :closedStatus
+      closed :closedStatus,
+      selectedLogoSet:selectedLogoSet+""
     }
     $.ajax({
       url:"/studyRest/project/list",
@@ -317,6 +342,7 @@
     })
   }//getBoardsByPageNum
 
+  //criteria 설정
   function setPageElementVar(boardTotalLength, currentPage) {
     console.log(boardTotalLength, currentPage)
     sc.totalPost = boardTotalLength
@@ -333,6 +359,7 @@
     else sc.currentPage = currentPage
   }//setPageElementVar
 
+  //게시글 내용 반복 채우기
   function createBoardTable(list){
     let html = "";
     for(let i=0;i<list.length;i++){
