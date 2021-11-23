@@ -32,20 +32,20 @@ public class StudyServiceImpl implements StudyService {
         int affectedRows = mapper.insert(vo);
         log.info("\t + affectedRows:{}", affectedRows);
         return affectedRows == 1;
-    }//register (글 등록)
+    }//register
 
     @Override
     public boolean modify(RecruitBoardVO vo) {
         int affectedRows = mapper.update(vo);
         log.info("\t + affectedRows:{}", affectedRows);
         return affectedRows == 1;
-    }
+    }//modify
 
     @Override
     public boolean remove(Integer r_idx) {
         int affectedRows = mapper.delete(r_idx);
         return affectedRows == 1;
-    }
+    }//remove
 
     @Override
     public RecruitBoardVO get(Integer r_idx) {
@@ -68,27 +68,41 @@ public class StudyServiceImpl implements StudyService {
     public List<RecruitBoardJoinReplyVO> getListWithJoinReply(String type, Integer page) {
         List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReply(type,page);
         return allBoard;
-    }
+    }//getListWithJoinReply
+
+    @Override
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddSearch(String type, Integer page,String text) {
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyAddSearch(type,page,text);
+        return allBoard;
+    }//getListWithJoinReplyAddSearch
+
+    @Override 
+    public List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddLogo(String type, Integer page,
+        String text) {
+        String[] arr = text.split(",");
+        List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyAddLogo(type,page,arr);
+        return allBoard;
+    }//getListWithJoinReplyAddLogo
 
     @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(String type, Integer page) {
         List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyOrderByHit(type,page);
         return allBoard;
-    }
+    }//getListWithJoinReplyOrderByHit
 
     @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReplyExceptClosed(String type,
         Integer page) {
         List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyExceptClosed(type,page);
         return allBoard;
-    }
+    }//getListWithJoinReplyExceptClosed
 
     @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(String type,
         Integer page) {
         List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyOrderByHitExceptClosed(type,page);
         return allBoard;
-    }
+    }//getListWithJoinReplyOrderByHitExceptClosed
 
     @Override
     public List<RecruitBoardVO> getListPerPage() {
@@ -99,12 +113,26 @@ public class StudyServiceImpl implements StudyService {
     public Integer getTotal(String type) {
         int totalCount = mapper.getPostCount(type);
         return totalCount;
-    }
+    }//getTotal
+    
     @Override
     public Integer getTotalExceptClosed(String type) {
         int totalCount = mapper.getPostCountExceptClosed(type);
         return totalCount;
-    }
+    }//getTotalExceptClosed
+
+    @Override
+    public Integer getTotalAddSearch(String type, String searchText) {
+        int totalCount = mapper.getPostCountAddSearch(type,searchText);
+        return totalCount;
+    }//getTotalAddSearch
+
+    @Override //작업중
+    public Integer getTotalAddLogo(String type, String selectedLogoSet) {
+        String[] arr = selectedLogoSet.split(",");
+        int totalCount = mapper.getPostCountAddLogo(type,arr);
+        return totalCount;
+    }//getTotalAddLogo
     @Override
     public boolean registerLangTag(Integer r_idx,String tag) {
         int affectedRows = mapper.insertTag(r_idx,tag);
@@ -119,7 +147,7 @@ public class StudyServiceImpl implements StudyService {
         int currentR_idx = this.mapper.getCurrentR_idx();
 
         return currentR_idx;
-    }//getCurrentR_idx가장 마지막에 쓴 게시글 번호 가져오기(프로젝트)
+    }//getCurrentR_idx(가장 마지막에 쓴 게시글 번호 가져오기(프로젝트))
 
     @Override
     public List<LangVO> getLangList() {
@@ -195,32 +223,41 @@ public class StudyServiceImpl implements StudyService {
     public List<ReplyVO> getReplyList(Integer r_idx) {
         List<ReplyVO> allBoard = this.mapper.getReplyList(r_idx);
         return allBoard;
-    }
+    }//getReplyList
 
     @Override
     public boolean replyRemove(Integer no) {
         int affectedRows = mapper.replyDelete(no);
         return affectedRows == 1;
-    }
+    }//replyRemove
 
     @Override
     public boolean replyModify(Integer no, String c_cont) {
         int affectedRows = mapper.replyUpdate(no,c_cont);
         return affectedRows == 1;
-    }
+    }//replyModify
 
     @Override
     public List<ReplyCountVO> getReplyCount() {
-
         List<ReplyCountVO> replyCount = mapper.replyCount();
         return replyCount;
-    }
+    }//getReplyCount
 
     @Override
     public Integer getReplyCountByR_idx(Integer r_idx) {
         Integer reply = mapper.replyCountByR_idx(r_idx);
         return reply;
-    }
+    }//getReplyCountByR_idx
+
+    /*@Override(안되는 코드 일단 냅둘것)
+    public ArrayList<Integer> getR_idxListUsingLogoset(String selectedLogoSet) {
+        String str = selectedLogoSet;
+        String[] arr = str.split(",");
+
+        ArrayList<Integer> r_idxList = mapper.getR_idxListUsingLogoset(arr);
+
+        return r_idxList;
+    }*/
 
 }//end class
 
