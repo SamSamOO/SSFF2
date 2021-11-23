@@ -1,7 +1,125 @@
+/*--------글꼴-------*/
+
+/*
+나눔스퀘어라운드
+https://hangeul.naver.com/2021/fonts/nanum
+*/
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*
+코트라 고딕
+https://www.kotra.or.kr/kh/about/KHKIPI071M.html
+*/
+@font-face {
+    font-family: 'KOTRA_GOTHIC';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/KOTRA_GOTHIC.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*
+이사만루체
+https://www.gonggames.com
+*/
+@font-face {
+    font-family: 'Esamanru';
+    src: url('/resources/assets/fonts/esamanruMedium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'EsamanruLight';
+    src: url('/resources/assets/fonts/esamanruLight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'EsamanruBold';
+    src: url('/resources/assets/fonts/esamanruBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/*
+넥슨Lv2 고딕체
+http://levelup.nexon.com/font/index.aspx
+*/
+@font-face {
+    font-family: 'NEXON Lv2 Gothic OTF';
+    src: url('/resources/assets/fonts/NEXONLv2Gothic.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'NEXON Lv2 Gothic OTF Light';
+    src: url('/resources/assets/fonts/NEXONLv2GothicLight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'NEXON Lv2 Gothic OTF Bold';
+    src: url('/resources/assets/fonts/NEXONLv2GothicBold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+body{
+    word-break: keep-all;
+}
+
+
+/*-----포인트 색상-----*/
 .bg-ssff1{
     background-color: #6b984f;
 }
 
 .bg-ssff2{
     background-color: #ebab31;
+}
+
+.text-ssff1{
+    color: #6b984f;
+}
+
+.text-ssff2{
+    color: #ebab31;
+}
+
+a.text-hover-ssff-green,
+.text-hover-ssff-green {
+    -webkit-transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease;
+}
+
+a.text-hover-ssff-green:hover,
+.text-hover-ssff-green:hover {
+    -webkit-transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease;
+    color: #6b984f !important;
+}
+
+a.text-hover-ssff-orange,
+.text-hover-ssff-orange {
+    -webkit-transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease;
+}
+
+a.text-hover-ssff-orange:hover,
+.text-hover-ssff-orange:hover {
+    -webkit-transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, -webkit-box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease, -webkit-box-shadow 0.15s ease;
+    color: #ebab31 !important;
 }

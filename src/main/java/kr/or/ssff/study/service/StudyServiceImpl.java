@@ -2,12 +2,13 @@ package kr.or.ssff.study.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
-import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,16 @@ import java.util.List;
 public class StudyServiceImpl implements StudyService {
 
     private StudyMapper mapper;
+
+    @Override
+    public boolean updateAttendance(HashMap<String, Object> map) {
+        log.info("updateAttendance({}) is invoked", "map = " + map);
+
+        Objects.requireNonNull(mapper);
+        int affectedRows = this.mapper.updateAttendance(map);
+        log.info("affectedRows = {}", affectedRows);
+        return affectedRows==1;
+    } // updateAttendance
 
     @Override
     public boolean register(RecruitBoardVO vo) {

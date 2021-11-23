@@ -257,6 +257,15 @@
     select count(r_idx) from reply WHERE r_idx = #{r_idx}
     ]]>
   </select>
+
+  <!--상준 : 출석 내역 +1 해주기 TODO 수정해야할수도-->
+  <update id="updateAttendance" parameterType="java.util.HashMap">
+    <![CDATA[
+    update APPLY_MEMBER set ATTENDANCE_DAYS = nvl(ATTENDANCE_DAYS,0)+1 where MEMBER_NAME=#{member_Name} and STUDY_JOIN_ARCIWF = 'i' and R_IDX=#{r_Idx}
+    ]]>
+  </update>
+
+
 </mapper>
 
 

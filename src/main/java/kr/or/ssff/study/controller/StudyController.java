@@ -47,6 +47,18 @@ public class StudyController {
     /*---------------------------------------------------------------*/
     /*-----------------------------챌린지형--------------------------*/
     /*---------------------------------------------------------------*/
+    /*챌린지형 메인으로 이동
+     * 파라메터 :
+     * 반환 : 챌린지형 스터디 메인 페이지
+     * */
+    @GetMapping("/challenge/main")
+    public String challengeMainGo(Model model) {
+        log.info("mainGo({}) is invoked", "model = " + model);
+
+        return "/study/challenge/main";
+    }
+
+
 
 
     /*챌린지형 스터디 리스트 조회
@@ -56,17 +68,17 @@ public class StudyController {
      * */
     @GetMapping("/challenge/list") //첫화면 기준으로 세팅
     public String selectChallengeListGo(Model model) {
-        log.info("challengeListGo({},{}) is invoked.",model);
+        log.info("challengeListGo({}) is invoked.", model);
 
         //1. 해당 페이지에 속하는 데이터만 뿌리기(비동기 작업중으로 막아놓음)
         //List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("C",page);
-        
+
         //2. 페이징에 관한 설정
         //2-1. 게시물 갯수 세기
         Integer totalCount = this.service.getTotal("C");
-        
+
         //Criteria 생성
-        StudyCriteria sc= new StudyCriteria();
+        StudyCriteria sc = new StudyCriteria();
 
         //Criteria 채우기(x7)
         sc.setTotalPost(totalCount);
@@ -78,14 +90,15 @@ public class StudyController {
         sc.setTotalBlock((int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
 
         //sc.setCurrentBlock(1) 에 대한 추가 설정
-        if (sc.getCurrentPage() > sc.getPagePerBlock()){
-            for (int i = 1; i <= sc.getTotalBlock(); i++){
-                if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1 && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)){
+        if (sc.getCurrentPage() > sc.getPagePerBlock()) {
+            for (int i = 1; i <= sc.getTotalBlock(); i++) {
+                if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1 && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)) {
                     sc.setCurrentBlock(i + 1);
                     i = sc.getTotalBlock() + 1;
                 }
             }
         }
+
         //모델에다 전달해주기
         model.addAttribute("studyCriteria", sc);//비동기 처리로 쓸모없음
 
@@ -98,19 +111,19 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 게시물 상세보기 페이지
      * */
     @GetMapping("/challenge/detail")
-    public void selectChallengeDetailGo(Integer r_idx ,Model model) {
+    public void selectChallengeDetailGo(Integer r_idx, Model model) {
         log.info("challengeDetailGo() is invoked");
 
         RecruitBoardVO board = this.service.get(r_idx);
 
         Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
 
-        if(replyCount ==null){
-            model.addAttribute("replyCount",0);
-        }else{
-            model.addAttribute("replyCount",replyCount);
+        if (replyCount == null) {
+            model.addAttribute("replyCount", 0);
+        } else {
+            model.addAttribute("replyCount", replyCount);
         }
-        model.addAttribute("board",board);
+        model.addAttribute("board", board);
     } // selectChallengeDetailGo
 
 
@@ -139,7 +152,7 @@ public class StudyController {
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                null, "nickname55",'C',
+                null, "nickname55", 'C',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),
@@ -149,7 +162,7 @@ public class StudyController {
                 dto.getCh_pattern(),
                 dto.getCh_start(),
                 dto.getCh_end(),
-                null,null,null
+                null, null, null
             );
 
         boolean result = this.service.register(vo);
@@ -167,10 +180,10 @@ public class StudyController {
      * 반환 : 챌린지형 게시글 수정 페이지.
      * */
     @GetMapping("/challenge/modifyGo")
-    public void updateChallengeDetailGo(Integer r_idx,Model model) {
+    public void updateChallengeDetailGo(Integer r_idx, Model model) {
         log.info("updateChallengeDetailGo() is invoked");
         RecruitBoardVO board = this.service.get(r_idx);
-        model.addAttribute("board",board);
+        model.addAttribute("board", board);
     }
 
 
@@ -184,7 +197,7 @@ public class StudyController {
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                dto.getR_idx(), "nickname55",'C',
+                dto.getR_idx(), "nickname55", 'C',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),
@@ -194,7 +207,7 @@ public class StudyController {
                 dto.getCh_pattern(),
                 dto.getCh_start(),
                 dto.getCh_end(),
-                null,dto.getClosed_ok(),null
+                null, dto.getClosed_ok(), null
             );
 
         boolean result = this.service.modify(vo);
@@ -237,7 +250,7 @@ public class StudyController {
         //2-1. 게시물 갯수 세기
         Integer totalCount = this.service.getTotal("P");
         //Criteria 생성
-        StudyCriteria sc= new StudyCriteria();
+        StudyCriteria sc = new StudyCriteria();
         //Criteria 채우기(x7)
         sc.setTotalPost(totalCount);
         //postPerPage=15
@@ -248,9 +261,9 @@ public class StudyController {
         sc.setTotalBlock((int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
 
         //sc.setCurrentBlock(1) 에 대한 추가 설정
-        if (sc.getCurrentPage() > sc.getPagePerBlock()){
-            for (int i = 1; i <= sc.getTotalBlock(); i++){
-                if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1 && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)){
+        if (sc.getCurrentPage() > sc.getPagePerBlock()) {
+            for (int i = 1; i <= sc.getTotalBlock(); i++) {
+                if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1 && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)) {
                     sc.setCurrentBlock(i + 1);
                     i = sc.getTotalBlock() + 1;
                 }
@@ -260,11 +273,9 @@ public class StudyController {
         //model.addAttribute("list", listMap);
         model.addAttribute("studyCriteria", sc);//비동기 처리로 쓸모없음
 
-
         return "study/project/list";
 
     } // selectProjectListGo
-
 
 
     /*프로젝트형 스터디 게시물 상세 +
@@ -272,22 +283,22 @@ public class StudyController {
      * 반환 : 프로젝트형 스터디 게시물 상세보기 페이지
      * */
     @GetMapping("/project/detail")
-    public void selectProjectDetailGo(Integer r_idx ,Model model) {
+    public void selectProjectDetailGo(Integer r_idx, Model model) {
         log.info("selectProjectDetailGo() is invoked");
 
         RecruitBoardVO board = this.service.get(r_idx);
-        List<LangVO>langList = this.service.getLangTagByR_idx(r_idx);
+        List<LangVO> langList = this.service.getLangTagByR_idx(r_idx);
 
         Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
 
-        if(replyCount ==null){
-            model.addAttribute("replyCount",0);
-        }else{
-            model.addAttribute("replyCount",replyCount);
+        if (replyCount == null) {
+            model.addAttribute("replyCount", 0);
+        } else {
+            model.addAttribute("replyCount", replyCount);
         }
 
-        model.addAttribute("board",board);
-        model.addAttribute("langList",langList);
+        model.addAttribute("board", board);
+        model.addAttribute("langList", langList);
     } // selectProjectDetailGo
 
 
@@ -317,13 +328,13 @@ public class StudyController {
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                null, "nickname55",'P',
+                null, "nickname55", 'P',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null,null,null
+                null, null, null
             );
         //새글 등록하기
         boolean result = this.service.register(vo);
@@ -332,9 +343,9 @@ public class StudyController {
         Integer currentR_idx = this.service.getCurrentR_idx();
 
         //그 글번호로 언어 태그 등록하기
-        if(taglist !=null){
-            for(int i=0;i< taglist.length;i++){
-                boolean tagResult = this.service.registerLangTag(currentR_idx,taglist[i]);
+        if (taglist != null) {
+            for (int i = 0; i < taglist.length; i++) {
+                boolean tagResult = this.service.registerLangTag(currentR_idx, taglist[i]);
             }
         }
 
@@ -351,42 +362,43 @@ public class StudyController {
 
         log.info("updateChallengeDetailGo() is invoked");
         RecruitBoardVO board = this.service.get(r_idx);
-        List<LangVO>langList = this.service.getLangTagByR_idx(r_idx);
+        List<LangVO> langList = this.service.getLangTagByR_idx(r_idx);
 
-        model.addAttribute("langList",langList);
-        model.addAttribute("board",board);
+        model.addAttribute("langList", langList);
+        model.addAttribute("board", board);
     } // updateProjectDetailGo
 
     /*프로젝트형 게시글 수정 기능을 수행합니다.
      * 파라메터 :
      * 반환 : 수정한 게시글 페이지로 이동합니다.
+     * //TODO 파라미터??
      * */
     @PostMapping("/project/modify")
-    public String updateProjectDetail(RecruitBoardDTO dto, RedirectAttributes rttrs,HttpServletRequest request) {
+    public String updateProjectDetail(RecruitBoardDTO dto, RedirectAttributes rttrs, HttpServletRequest request) {
         log.info("updateProjectDetail() is invoked");
 
         String[] taglist = request.getParameterValues("tag");
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                dto.getR_idx(), "nickname55",'P',
+                dto.getR_idx(), "nickname55", 'P',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),
                 null, null, null,
                 null, null, null,
-                null, dto.getClosed_ok(),null
+                null, dto.getClosed_ok(), null
             );
 
         boolean result = this.service.modify(vo);
         rttrs.addAttribute("result", result);
-        
+
         //기존에 있는 태그들 삭제
         boolean deleteTagResult = this.service.deleteTag(dto.getR_idx());
 
         //새로 태그들 입력
-        for(int i=0;i< taglist.length;i++){
-            boolean tagResult = this.service.registerLangTag(dto.getR_idx(),taglist[i]);
+        for (int i = 0; i < taglist.length; i++) {
+            boolean tagResult = this.service.registerLangTag(dto.getR_idx(), taglist[i]);
         }
 
         return "redirect:/study/project/list";

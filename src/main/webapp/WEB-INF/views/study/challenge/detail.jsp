@@ -87,7 +87,7 @@
                                 <div id="post-body" style="width: 55%">
                                     <div id="article"><!--본문-->
                                         <div class="back-button">
-                                            <img src="../../../../resources/assets/image/arrow.png"
+                                            <img src="../../../../resources/assets/images/icon/arrow.png"
                                                  style="width:20px;" onclick="location.href='/study/challenge/list'">
                                         </div>
                                         <div class="title-sec">
@@ -127,7 +127,7 @@
 
 
                                                 <li style="padding-right:10px">
-                                                    <img src="../../../../resources/assets/image/hit.png"
+                                                    <img src="../../../../resources/assets/images/icon/hit.png"
                                                          width="15px">
                                                     <span>${board.hit}</span>
                                                 </li>
