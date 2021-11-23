@@ -196,117 +196,39 @@
                   
                   <!--begin: Datatable-->
                   <div
-                    class="datatable datatable-bordered datatable-head-custom datatable-default 
+                    class="datatable datatable-bordered datatable-head-custom datatable-default
                     datatable-primary datatable-subtable datatable-loaded"
                     id="rsrvTable">
                     
-                    <table class="datatable-table" style="display: block;" >
+                    <table class="datatable-table" style="display: block;">
                       <!-- 테이블 공통 헤드 s -->
                       <thead class="datatable-head">
-                        <tr class="datatable-row">
-                          <th data-field="RecordID" class="datatable-cell-center datatable-cell "><span style="width: 30px;"></span></th>
-                          <th data-field="ReservationID" class="datatable-cell "><span style="width: 110px;">ReservationID</span></th>
-                          <th data-field="CafeInfo" class="datatable-cell "><span style="width: 110px;">CafeInfo</span></th>
-                          <th data-field="ReservationAmount" class="datatable-cell "><span style="width: 110px;">ReservationAmount</span></th>
-                          <th data-field="UseDateInfo" class="datatable-cell "><span style="width: 110px;">UseDateInfo</span></th>
-                          <th data-field="Status" data-autohide-disabled="false" class="datatable-cell "><span style="width: 110px;">Status</span></th>
-                          <!--TODO 세션 값에 따라 none처리 할 수 있게 admin-> 닉네임만on -->
-                          <th data-field="Cancle" class="datatable-cell "><span style="width: 110px;">Cancle</span></th>
-                          <th data-field="NickName" class="datatable-cell "><span style="width: 110px;">NickName</span></th>
-      
-                        </tr>
+                      <tr class="datatable-row">
+                        <th data-field="RecordID" class="datatable-cell-center datatable-cell ">
+                          <span style="width: 30px;"></span></th>
+                        <th data-field="ReservationID" class="datatable-cell "><span
+                          style="width: 110px;">ReservationID</span></th>
+                        <th data-field="CafeInfo" class="datatable-cell "><span
+                          style="width: 110px;">CafeInfo</span></th>
+                        <th data-field="ReservationAmount" class="datatable-cell "><span
+                          style="width: 110px;">ReservationAmount</span></th>
+                        <th data-field="UseDateInfo" class="datatable-cell "><span
+                          style="width: 110px;">UseDateInfo</span></th>
+                        <th data-field="Status" data-autohide-disabled="false"
+                            class="datatable-cell "><span style="width: 110px;">Status</span></th>
+                        <!--TODO 세션 값에 따라 none처리 할 수 있게 admin-> 닉네임만on -->
+                        <th data-field="Cancle" class="datatable-cell "><span style="width: 110px;">Cancle</span>
+                        </th>
+                        <th data-field="NickName" class="datatable-cell "><span
+                          style="width: 110px;">NickName</span></th>
+                      
+                      </tr>
                       </thead>
                       <!-- 테이블 공통 헤드 e -->
                       
-                      <tbody class="datatable-body">
+                      <tbody class="datatable-body putData">
                       
-                      <!-- 일반 예약정보 s -->
-                      <tr data-row="0" class="datatable-row datatable-row-subtable-expanded"> <!-- datatable-row-subtable-expanded ==active -->
-  
-                        <td class="datatable-cell-center datatable-cell" data-field="RecordID" aria-label="1">
-                          <a class="datatable-toggle-subtable" href="#" data-value="1" title="Load sub table" style="width: 30px;">
-                            <i style="width: 30px;" class="fa fa-caret-down"></i></a> <!--TODO 아이콘 토글 -->
-                        </td>
-  
-                        <td data-field="ReservationID" aria-label="Tommie" class="datatable-cell"><span style="width: 110px;">Tommie</span></td>
-                        <td data-field="CafeInfo" aria-label="Pee" class="datatable-cell"><span style="width: 110px;">Pee</span></td>
-                        <td data-field="ReservationAmount" aria-label="Tommie" class="datatable-cell"><span style="width: 110px;">Tommie</span></td>
-                        <td data-field="UseDateInfo" aria-label="Pee" class="datatable-cell"><span style="width: 110px;">Pee</span></td>
-                        <td data-field="Status" data-autohide-disabled="false" aria-label="1"
-                            class="datatable-cell"><span style="width: 110px;"><span
-                          class="label label-warning label-dot"></span>&nbsp;<span
-                          class="font-weight-bold text-danger">Online</span></span></td>
-  
-                        <td data-field="Cancle" aria-label="4" class="datatable-cell"><span
-                          style="width: 110px;"><span
-                          class="label  label-success label-inline label-pill">Success</span></span>
-                        <td data-field="NickName" aria-label="tpee0@slashdot.org" class="datatable-cell"><span style="width: 110px;">tdorg</span></td>
-  
-                        </td>
-                      </tr>
-                      <!-- 일반 예약정보 e -->
-
-
-                      <!-- 서브 정보 s -->
-                      <tr class="datatable-row-subtable datatable-row-subtable-even"> <!-- display none-block  -->
-                        <td class="datatable-subtable" colspan="8">
-                          <div id="child_data_local_0" class="datatable datatable-default datatable-primary datatable-loaded">
-                            <table class="datatable-table" style="display: block; max-height: 400px;">
-        
-                              <thead class="datatable-head">
-        
-                                <tr class="datatable-row">
-                                  <th data-field="OrderID" class="datatable-cell  ed" data-sort="desc"><span>예약정보 ID</span>
-                                  </th>
-                                </tr>
-        
-                              </thead>
-        
-                              <tbody class="datatable-body ps" style="max-height: 359px;">
-        
-                                <tr data-row="0" class="datatable-row">
-                                  <td class="col-4" data-field="OrderID" aria-label="68084-814">
-                                    <span><span>68084-814 - ID</span></span></td>
-                                  <td data-field="ShipCountry" aria-label="ID" class="datatable-cell">
-                                    <span>ID</span></td>
-          
-          
-                                </tr>
-        
-        
-                              </tbody>
-                            </table>
-                          </div>
-                        </td>
-                        <td class="datatable-subtable" colspan="8">
-                          
-                          <div id="child_data_local_1" class="datatable datatable-default datatable-primary datatable-loaded">
-                            <table class="datatable-table" style="display: block; max-height: 400px;">
-        
-                              <thead class="datatable-head">
-        
-                                <tr class="datatable-row">
-                                  <th data-field="OrderID" class="datatable-cell  ed" data-sort="desc"><span>거래정보 ID</span>
-                                  </th>
-                                </tr>
-        
-                              </thead>
-        
-                              <tbody class="datatable-body ps" style="max-height: 359px;">
-        
-                                <tr data-row="0" class="datatable-row">
-                                  <td class="col-4" data-field="OrderID" aria-label="68084-814">
-                                    <span><span>68084-814 - ID</span></span></td>
-                                  <td data-field="ShipCountry" aria-label="ID" class="datatable-cell">
-                                    <span>ID</span></td>
-                                </tr>
-                
-                              </tbody>
-                            </table>
-                          </div>
-                        </td></tr>
-                      <!-- 서브정보 e -->
-                      
+                     
                       
                       
                       </tbody>
@@ -351,14 +273,14 @@
                                   title="Select page size" data-width="60px"
                                   data-container="body" data-selected="10"
                                   tabindex="null">
-                          <option class="bs-title-option" value=""></option>
-                          <option value="5">5</option>
-                          <option value="10">10</option>
-                          <option value="20">20</option>
-                          <option value="30">30</option>
-                          <option value="50">50</option>
-                          <option value="100">100</option>
-                        </select>
+                            <option class="bs-title-option" value=""></option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                          </select>
                         
                         </div>
                         <span class="datatable-pager-detail">Showing 1 - 10 of 350</span></div>
@@ -395,7 +317,7 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-  
+
   // 페이지 진입시 리스트 세팅 
   $(document).ready(function () {
     start.init();
@@ -406,7 +328,7 @@
   // 카드 리스트를 ajax 페이지 처리하여 뿌립니다. 
   let start = {
     myAlert: { //TODO alert( 문구
-      warningAlert :`
+      warningAlert: `
           <div class="alert alert-custom alert-light-warning fade show mb-5" role="alert">
             <div class="alert-icon">
               <i class="flaticon-warning"></i>
@@ -422,22 +344,22 @@
           </div>
  	  `
     },
-    param: {
+    param  : {
       member_name : "admin", //TODO 세션 아이디로 (관리자, 멤버 구분해서 조회)
       pageListSize: "웅", //TODO 추후  검색 정보 담아서 출발
     },
 
     // 진입시 데이터 셋팅, 스크롤 감지 시작 
-    init     : function () {
+    init: function () {
       this.data();
-     // this.scrollEvent();
+      // this.scrollEvent();
     },
 
     // 데이터 셋팅을 위해 ajax 요청 보냄 
-    data : function () {
+    data: function () {
       start.callAjax();
     },
-    
+
     // 백단으로 db 달라 요청
     callAjax: function () {
       $.ajax({
@@ -457,7 +379,7 @@
         console.log("data[0]: " + data.length); // undefined
         console.log("data[0]: " + data.reservationList.length); // 82
         console.log("data[0]: " + data.reservationList[0].use_date); //2023-11-15 00:00:00
-        
+
         // 불러온 데이터가 없다면
         if (data.length == 0) {
           Swal.fire({
@@ -473,7 +395,7 @@
           start.setListItems(data);  //테스트 데이터 리스트 입니다.
           // testLoading.hide(); //로딩 off
         } // if
-        
+
       } // successCallback
 
       // 실패
@@ -488,15 +410,10 @@
 
     // 데이터 setting
     setListItems: function (data) {
-      
+
       console.log("셋팅창 떴어유~");
-      
 
-      const dataFieldSet = ["RecordID", "ReservationID", "CafeInfo", "ReservationAmount",
-                            "UseDateInfo", "Status", "Cancle", "NickName"];
-      //TODO 나중에 배열 수대로 돌면서 html
-
-      let amount_to_be_paid = '';
+      let amount = '';
       let cafe_name = '';
       let client_account_number = '';
       let client_bank_code = '';
@@ -520,67 +437,222 @@
       let use_date = '';
       let use_end_time = '';
       let use_start_time = '';
-      
-      
-      
+      let cafeInfo = '';
+      let useInfo = '';
+      let trnsc_cate = '';
+      const dataFieldSet = ["RecordID", "ReservationID", "CafeInfo", "ReservationAmount",
+                            "UseDateInfo", "Status", "Cancle", "NickName"];
+      //TODO set, 거래, 예약, maintitle td 등 배열화 해서 하기 html문 정리
+      console.log(dataFieldSet[0]); // RecordID
+
+//    <!-- datatable-row-subtable-expanded ==active // fa fa-caret-lefe -> fa fa-caret-down  -->
+
       // 기본 템플릿 셋팅
-      let rsrvHtml =
-      
-                   data.reservationList.length
+      $rsrvHtml = '';
+      let subHtml = '';
 
       for (let i = 0; i < data.reservationList.length; i++) {
+        console.log(data.reservationList[i].transaction_categories + '결제');
         
-      }
+        
+        cafe_name = data.reservationList[i].cafe_name;
+        max_people = data.reservationList[i].max_people;
+        room_idx = data.reservationList[i].room_idx;
+        use_date = String(data.reservationList[i].use_date).split(' ', 0);
+        use_end_time = data.reservationList[i].use_end_time;
+        use_start_time = data.reservationList[i].use_start_time;
+        transaction_categorie = data.reservationList[i].transaction_categorie;
+        transaction_categories = data.reservationList[i].transaction_categories;
+
+        member_name = data.reservationList[i].member_name;
+
+        amount = data.reservationList[i].amount_to_be_paid;
+        cafeInfo = cafe_name + '::' + max_people + '인실 (' + room_idx + ')';
+
+        rsrv_email = data.reservationList[i].rsrv_email;
+        rsrv_idx = data.reservationList[i].rsrv_idx;
+        rsrv_message = data.reservationList[i].rsrv_message;
+        rsrv_name = data.reservationList[i].rsrv_name;
+        rsrv_phone_number = data.reservationList[i].rsrv_phone_number;
+
+        rsrv_status_ynz = data.reservationList[i].rsrv_status_ynz;
+
+        transaction_amount = data.reservationList[i].transaction_amount;
+        trnsc_cate = transaction_categorie + '|' + transaction_categories
+        transaction_date = String(data.reservationList[i].transaction_date).split(' ', 0);
+        trnsc_idx = data.reservationList[i].trnsc_idx;
+        client_account_number = data.reservationList[i].client_account_number;
+        client_bank_code = data.reservationList[i].client_bank_code;
+        client_name = data.reservationList[i].client_name;
+
+        useInfo = use_date + ' ' + use_start_time + '시부터 ' + use_end_time + '시까지 (' + (use_end_time
+                                                                                       - use_start_time)
+                  + 1 + '시간';
+
+
+        $rsrvHtml += `
         <!-- 일반 예약정보 s -->
-        <tr data-row="i" class="datatable-row"> <!-- datatable-row-subtable-expanded ==active // fa fa-caret-lefe -> fa fa-caret-down  -->
-  
+        <tr data-row="` + i + `" class="datatable-row">
+
           <td class="datatable-cell-center datatable-cell" data-field="RecordID" aria-label="1">
             <a class="datatable-toggle-subtable" href="#" data-value="1" title="Load sub table" style="width: 30px;">
               &nbsp;<i style="width: 30px;" class="fa fa-caret-lefe"></i></a> <!--TODO 아이콘 토글 -->
           </td>
-  
-          <td data-field="ReservationID" aria-label="Tommie" class="datatable-cell"><span style="width: 110px;">Tommie</span></td>
-          <td data-field="CafeInfo" aria-label="Pee" class="datatable-cell"><span style="width: 110px;">Pee</span></td>
-          <td data-field="ReservationAmount" aria-label="Tommie" class="datatable-cell"><span style="width: 110px;">Tommie</span></td>
-          <td data-field="UseDateInfo" aria-label="Pee" class="datatable-cell"><span style="width: 110px;">Pee</span></td>
-          <td data-field="Status" data-autohide-disabled="false" aria-label="1"
+
+          <td data-field="ReservationID" aria-label="` + rsrv_idx
+                      + `" class="datatable-cell"><span style="width: 110px;">` + rsrv_idx + `</span></td>
+          <td data-field="CafeInfo" aria-label="` + cafeInfo
+                      + `" class="datatable-cell"><span style="width: 110px;">` + cafeInfo + `</span></td>
+          <td data-field="ReservationAmount" aria-label="` + amount
+                      + `원" class="datatable-cell"><span style="width: 110px;">` + amount + `원</span></td>
+          <td data-field="UseDateInfo" aria-label="` + useInfo
+                      + `" class="datatable-cell"><span style="width: 110px;">` + useInfo + `</span></td>
+          <td data-field="Status" data-autohide-disabled="false" aria-label="` + rsrv_status_ynz + `"
               class="datatable-cell"><span style="width: 110px;"><span
-            class="label label-warning label-dot"></span>&nbsp;<span
-            class="font-weight-bold text-danger">Online</span></span></td>
-  
+              class="label label-warning label-dot"></span>&nbsp;<span
+              class="font-weight-bold text-danger">` + rsrv_status_ynz + `</span></span></td>
+
           <td data-field="Cancle" aria-label="4" class="datatable-cell"><span
-            style="width: 110px;"><span
-            class="label  label-success label-inline label-pill">Success</span></span>
-          <td data-field="NickName" aria-label="tpee0@slashdot.org" class="datatable-cell"><span style="width: 110px;">tdorg</span></td>
-  
+              style="width: 110px;">` ;
+          if (rsrv_status_ynz == 'n') {
+            $rsrvHtml += `<span class="label  label-success label-inline label-pill">cansle</span>`;
+          }
+
+        $rsrvHtml +=
+              `</span><td data-field="NickName" aria-label="` + member_name+ `"
+class="datatable-cell"><span style="width: 110px;">` + member_name + `</span></td> </td>
+        </tr>  <!-- 일반 예약정보 e -->`;
+
+
+
+        $rsrvHtml += `
+           <tr class="datatable-row-subtable"> <!-- display none-block  -->
+          <td class="datatable-subtable" colspan="8">
+            <div id="child_data_local_` + member_name + `" class="datatable datatable-default datatable-primary datatable-loaded">
+              <table class="datatable-table" style="display: block; max-height: 400px;">
+
+                <thead class="datatable-head">
+
+                  <tr class="datatable-row">
+                    <th data-field="reservationID" class="datatable-cell  ed"><span>예약정보</span>
+                    </th>
+                  </tr>
+
+                </thead>
+
+                <tbody class="datatable-body ps" style="max-height: 359px;">
+                
+<!--여기도 좀 정리해야해 -->
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="rsrv_idx" aria-label="` + member_name + `">
+                      <span><span>예약번호</span></span></td>
+                    <td data-field="ShipCountry" aria-label="ID" class="datatable-cell">
+                      <span>` + member_name + `</span></td>
+
+                  </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="member_name" aria-label="` + rsrv_name + `">
+                      <span><span>예약자명</span></span></td>
+                    <td data-field="` + rsrv_name + `" aria-label="ID" class="datatable-cell">
+                      <span>` + rsrv_name + `</span></td>
+
+                  </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="rsrv_phone_number" aria-label="`
+                     + rsrv_phone_number + `">
+                      <span><span>연락처</span></span></td>
+                    <td data-field="` + rsrv_phone_number + `" aria-label="ID" class="datatable-cell">
+                      <span>` + rsrv_phone_number + `</span></td>
+
+                  </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="rsrv_email" aria-label="` + rsrv_email + `">
+                      <span><span>이메일</span></span></td>
+                    <td data-field="` + rsrv_email + `" aria-label="ID" class="datatable-cell">
+                      <span>` + rsrv_email + `</span></td>
+
+                  </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="rsrv_message" aria-label="">
+                      <span><span>요청사항</span></span></td>
+                    <td data-field="` + rsrv_message + `" aria-label="ID" class="datatable-cell">
+                      <span>` + rsrv_message + `</span></td>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
           </td>
-        </tr>
-        <!-- 일반 예약정보 e -->
+          <td class="datatable-subtable" colspan="8">
+            
+            <div id="child_data_local_1" class="datatable datatable-default datatable-primary datatable-loaded">
+              <table class="datatable-table" style="display: block; max-height: 400px;">
+
+                <thead class="datatable-head">
+
+                  <tr class="datatable-row">
+                    <th data-field="OrderID" class="datatable-cell  ed"><span>거래정보 ID</span>
+                    </th>
+                  </tr>
+
+                </thead>
+
+                <tbody class="datatable-body ps" style="max-height: 359px;">
+
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="trnsc_idx" aria-label="` + trnsc_idx + `">
+                      <span><span>결제번호</span></span></td>
+                    <td data-field="` + trnsc_idx + `" aria-label="trnsc_idx" class="datatable-cell">
+                      <span>ID</span></td>
+                  </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="transaction_amount" aria-label="`
+                     + transaction_amount + `">
+                      <span><span>결제금액</span></span></td>
+                    <td data-field="` + transaction_amount + `" aria-label="transaction_amount" class="datatable-cell">
+                      <span>ID</span></td>
+                  </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="trnsc_cate" aria-label="` + trnsc_cate + `">
+                      <span><span>결제분류</span></span></td>
+                    <td data-field="` + trnsc_cate + `" aria-label="trnsc_cate" class="datatable-cell">
+                      <span>ID</span></td>
+                  </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="client_name" aria-label="` + client_name + `">
+                      <span><span>예금주명</span></span></td>
+                    <td data-field="` + client_name + `" aria-label="client_name" class="datatable-cell">
+                      <span>ID</span></td>
+                  </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="client_bank_code" aria-label="` + client_bank_code
+                     + `">
+                      <span><span>은행코드</span></span></td>
+                    <td data-field="` + client_bank_code + `" aria-label="client_bank_code" class="datatable-cell">
+                      <span>ID</span></td>
+                  </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="client_account_number" aria-label="`
+                     + client_account_number + `">
+                      <span><span>결제계좌</span></span></td>
+                    <td data-field="` + client_account_number + `" aria-label="client_account_number" class="datatable-cell">
+                      <span>ID</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </td></tr>
+        <!-- 서브정보 e -->
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        `;
         
+       // if
 
+      } // for
+
+      console.log("왜 안된느지요?")
+      $('.datatable-body.putData').append($rsrvHtml);
       // 테이블 동적생성을 위해 불러온 data를 각 변수에 담아 활용
       let mainTitle = '';
       let subTitle = '';
@@ -591,60 +663,60 @@
       let cafeId = '';
 
       // 불러온 데이터 수만큼 돌며 카드 생성
-    //   for (let i = 0; i < data.length; i++) {
-    //
-    //     // 기본 구조 셋팅!
-    //     $('#cafeListCardLow').append(templet);
-    //
-    //
-    //
-    //     // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 end
-    //
-    //
-    //     // 불러온 db를 순서대로 초기화
-    //     mainTitle = String(data.cafeList[i].cafe_main_title);
-    //     subTitle = String(data.cafeList[i].cafe_sub_title);
-    //     amountHour = String(data.cafeList[i].amount_hour);
-    //     maxPeople = String(data.cafeList[i].max_people);
-    //     splitLocation = (data.cafeList[i].cafe_location).split(' ', 2);
-    //     location = splitLocation[1];
-    //     cafeId = String(data.cafeList[i].cafe_idx);
-    //
-    //     console.log(splitLocation + location + cafeId)
-    //
-    //     let cardHtml;
-    //     cardHtml = `
-    // <!--begin::Body-->
-    //      <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important; cursor:pointer;"
-    //            onclick="location.href='/cafe/detail?cafe_idx=`+cafeId+`'">
-    //        <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">
-    //               ` + mainTitle + `</span>
-    //        <!--begin::Info-->
-    //        <div class="justify-content-between align-items-center my-1">
-    //          <span class="text-dark-75">
-    //            <span class="text-dark-75 mr-2">
-    //               ` + subTitle + `</span>
-    //             <span class="text-dark-75" style="float: right;"><i
-    //              class="fa fa-map-marker" ></i> `+ location +`</span>
-    //          </div>
-    //          <div class="d-flex justify-content-between align-items-center my-1">
-    //
-    //            <span class="text-dark-75 font-weight-bolder"
-    //                    style="color: #bf7e00; font-size: 18px !important;">
-    //                ` + amountHour + `
-    //              <em class="text-dark-75"  style="font-size: 10px !important;">원/시간</em>
-    //            </span>
-    //            <span class="text-dark-75" style="float: right; margin-top: 5px"><i
-    //              class="fa fa-users" ></i> 최대
-    //         ` + maxPeople + `인</span>
-    //         </div>
-    //        `
-    //
-    //     console.log($('.btn.btn-block.btn-sm.btn-light-success.font-weight-bolder.text-uppercase.py-4').attr("href"));
-    //     $('.card.card-custom.gutter-b.card-stretch').eq(num).append(cardHtml);
-    //
-    //     num += 1;
-    //   }
+      //   for (let i = 0; i < data.length; i++) {
+      //
+      //     // 기본 구조 셋팅!
+      //     $('#cafeListCardLow').append(templet);
+      //
+      //
+      //
+      //     // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 end
+      //
+      //
+      //     // 불러온 db를 순서대로 초기화
+      //     mainTitle = String(data.cafeList[i].cafe_main_title);
+      //     subTitle = String(data.cafeList[i].cafe_sub_title);
+      //     amountHour = String(data.cafeList[i].amount_hour);
+      //     maxPeople = String(data.cafeList[i].max_people);
+      //     splitLocation = (data.cafeList[i].cafe_location).split(' ', 2);
+      //     location = splitLocation[1];
+      //     cafeId = String(data.cafeList[i].cafe_idx);
+      //
+      //     console.log(splitLocation + location + cafeId)
+      //
+      //     let cardHtml;
+      //     cardHtml = `
+      // <!--begin::Body-->
+      //      <div class="card-body pt-4" style="flex: 1 1 auto; padding: 1px 2rem 2rem 2rem!important; cursor:pointer;"
+      //            onclick="location.href='/cafe/detail?cafe_idx=`+cafeId+`'">
+      //        <span class="text-dark-75 font-weight-bolder" style="font-size: 20px !important;">
+      //               ` + mainTitle + `</span>
+      //        <!--begin::Info-->
+      //        <div class="justify-content-between align-items-center my-1">
+      //          <span class="text-dark-75">
+      //            <span class="text-dark-75 mr-2">
+      //               ` + subTitle + `</span>
+      //             <span class="text-dark-75" style="float: right;"><i
+      //              class="fa fa-map-marker" ></i> `+ location +`</span>
+      //          </div>
+      //          <div class="d-flex justify-content-between align-items-center my-1">
+      //
+      //            <span class="text-dark-75 font-weight-bolder"
+      //                    style="color: #bf7e00; font-size: 18px !important;">
+      //                ` + amountHour + `
+      //              <em class="text-dark-75"  style="font-size: 10px !important;">원/시간</em>
+      //            </span>
+      //            <span class="text-dark-75" style="float: right; margin-top: 5px"><i
+      //              class="fa fa-users" ></i> 최대
+      //         ` + maxPeople + `인</span>
+      //         </div>
+      //        `
+      //
+      //     console.log($('.btn.btn-block.btn-sm.btn-light-success.font-weight-bolder.text-uppercase.py-4').attr("href"));
+      //     $('.card.card-custom.gutter-b.card-stretch').eq(num).append(cardHtml);
+      //
+      //     num += 1;
+      //   }
 
     }
   }
