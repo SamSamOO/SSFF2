@@ -11,28 +11,35 @@
     width: 5rem !important;
 }
 
-.mng_study_info {
-    width: 90%;
+.mng_info {
+    margin: 0 auto;
 }
 
-.mng_study_info table {
+.mng_info table {
     border-collapse: separate;
+    text-align: center;
 }
 
-.mng_study_info table tr td:nth-child(even){
-    color: #6b984f;
-    width: 3rem;
+.mng_info table tr td:nth-child(odd){
+    width: 7rem;
+    color: #ebab31;
     font-weight: 600;
 }
 
-.mng_study_info table tr td:nth-child(odd){
+
+.mng_info table tr td:nth-child(even){
     font-weight: 300;
 }
 
-.list-inline-flex{
+.inline-flex{
     display: inline-flex;
 }
 
 .list-style-none{
     list-style: none;
+}
+
+.filter-shadow{
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05);
+    box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05);
 }

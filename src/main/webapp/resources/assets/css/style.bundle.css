@@ -7,16 +7,9 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-@font-face {
-    font-family: 'NanumSquareRound';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
 :root {
-    --ssff1: #6b984f
-    --ssff2: #ebab31
+    --ssff-orange: #ebab31;
+    --ssff-green: #6b984f;
     --blue: #007bff;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -57,7 +50,7 @@
 }
 
 html {
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     line-height: 1.15;
     -webkit-text-size-adjust: 100%;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -78,7 +71,7 @@ section {
 
 body {
     margin: 0;
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -696,6 +689,7 @@ pre code {
 .container-xl,
 .container-xxl {
     width: 100%;
+    min-width: 550px;
     padding-right: 12.5px;
     padding-left: 12.5px;
     margin-right: auto;
@@ -7563,7 +7557,7 @@ a.close.disabled {
     z-index: 1070;
     display: block;
     margin: 0;
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -7688,7 +7682,7 @@ a.close.disabled {
     z-index: 1060;
     display: block;
     max-width: 276px;
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -80761,7 +80755,7 @@ code {
     box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
     border-radius: 0.42rem;
     border: 0;
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     z-index: 98;
 }
 
@@ -84086,7 +84080,7 @@ code {
     padding: 0.5rem 0;
     min-width: 150px;
     font-size: 1rem;
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     background: #ffffff;
     -webkit-box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
     box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
@@ -84868,7 +84862,7 @@ code {
 }
 
 .ql-toolbar {
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
 }
 
 .ql-toolbar.ql-snow {
@@ -86355,7 +86349,7 @@ body.swal2-height-auto {
 }
 
 .uppy .uppy-Root {
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
 }
 
 .uppy .uppy-Root.uppy-DragDrop--is-dragdrop-supported {
@@ -87111,7 +87105,7 @@ body.swal2-height-auto {
 }
 
 .leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content {
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     font-size: 1rem;
 }
 
@@ -87134,7 +87128,7 @@ body {
     padding: 0px;
     font-size: 13px !important;
     font-weight: 400;
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -107874,7 +107868,7 @@ code {
     box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
     border-radius: 0.42rem;
     border: 0;
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     z-index: 98;
 }
 .modal-open .daterangepicker {
@@ -110694,7 +110688,7 @@ code {
     padding: 0.5rem 0;
     min-width: 150px;
     font-size: 1rem;
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     background: #ffffff;
     -webkit-box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
     box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
@@ -111333,7 +111327,7 @@ code {
     background: #E4E6EF;
 }
 .ql-toolbar {
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
 }
 .ql-toolbar.ql-snow {
     border: 1px solid #EBEDF3;
@@ -112566,7 +112560,7 @@ body.swal2-height-auto {
     background: #F3F6F9;
 }
 .uppy .uppy-Root {
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
 }
 .uppy .uppy-Root.uppy-DragDrop--is-dragdrop-supported {
     border: 2px dashed #EBEDF3;
@@ -113196,7 +113190,7 @@ body.swal2-height-auto {
     box-shadow: 0 0.5rem 1.5rem 0.5rem rgba(0, 0, 0, 0.075) !important;
 }
 .leaflet-container .leaflet-popup-content-wrapper .leaflet-popup-content {
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     font-size: 1rem;
 }
 
@@ -113216,7 +113210,7 @@ body {
     padding: 0px;
     font-size: 13px !important;
     font-weight: 400;
-    font-family: sandoll-gothicneo3, sans-serif;
+    font-family: sandoll-gothicneo3, NEXON Lv2 Gothic OTF, sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -113296,11 +113290,42 @@ canvas {
 }
 body {
     background-color: #FFFFFF;
-    background-image: url("../media/bg/bg-0.png");
-    background-size: cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+    background-image: url("/resources/assets/images/bg/bg-5.png");
+    background-position:center top;
 }
+
+
+@media (min-width: 576px) {
+body {
+    background-image: url("/resources/assets/images/bg/bg-4.png");
+    }
+}
+
+@media (min-width: 768px) {
+    body{
+    background-image: url("/resources/assets/images/bg/bg-3.png");
+    }
+}
+
+@media (min-width: 992px) {
+   body{
+    background-image: url("/resources/assets/images/bg/bg-3.png");
+    }
+}
+
+@media (min-width: 1200px) {
+   body{
+    background-image: url("/resources/assets/images/bg/bg-2.png");
+    }
+}
+
+@media (min-width: 1400px) {
+   body{
+    background-image: url("/resources/assets/images/bg/bg-1.png");
+    }
+}
+
+
 .main {
     background-color: #ECEEF7;
     border-radius: 0.42rem;
