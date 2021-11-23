@@ -1,8 +1,8 @@
 package kr.or.ssff.cafe.domain;
 
 /*
-예약정보&거래내역 관리를 위한 클래스
-예약정보 리스트 출력을 위해
+예약정보&거래내역&카페 클래스
+예약정보 리스트 출력을 위한 정보만을
 작성자 : 신지혜
  */
 
@@ -29,10 +29,13 @@ import lombok.Value;
 @Value
 public class RsrvJoinTrnscVO {
 
+  private String cafe_name;
+  private Integer max_people;
+
   private String rsrv_idx;
   private String room_idx;
   private String member_name;
-  private Date use_date;
+  private String use_date;
   private Integer use_start_time;
   private Integer  use_end_time;
   private Character  rsrv_status_ynz;
@@ -53,6 +56,8 @@ public class RsrvJoinTrnscVO {
   private String client_name;
   private Integer amount_to_be_paid;
   private Character payment_completed_yn;
+
+
 
 } // end class
 

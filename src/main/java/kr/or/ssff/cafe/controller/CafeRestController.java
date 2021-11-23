@@ -183,70 +183,8 @@ public class CafeRestController {
     JSONObject jsonObject = new JSONObject();
     //cafeInfo JSON정보를 담을 Array 선언
     JSONArray arr = new JSONArray();
-    //cafe 하나의 정보가 들어갈 JSONObject 선언
-    JSONObject cafeInfo = new JSONObject();
-    //img를 모을 JSONObject 선언
-    JSONObject roomImgs = new JSONObject();
-
-
 
     jsonObject.put("reservationList", list);
-//    try {
-//
-//      // filterJSON을 확인하기 위해 ObjectMapper 불러옴
-//      ObjectMapper mapper = new ObjectMapper();
-//
-//      // page에 json에 담겨온 리스트 정보를
-////      HashMap<String, Integer> page = mapper.readValue(filterJSON,
-//      //        new HashMap<String, Integer>().getClass());
-//
-//      // 나눠서 담아주고
-//      int cp = filterJSON.get("curPage"); // 요청온 페이지 1
-//      int ps = filterJSON.get("pageListSize"); // 18개씩 보여주자
-//
-//      log.info("\t+ cp: {}", cp); // 시작
-//      log.info("\t+ ps: {}", ps); // 18개 잘 왔니?
-//
-//      log.info("\t list: " + list);
-//
-//      // 총 list수만큼 조회해서 json 배열에 차곡차곡 남아주기
-//      for (int i = 0; i < list.size(); i++) {
-//
-//        cafeInfo.put("cafe_idx", list.get(i).getCafe_idx());
-//        cafeInfo.put("cafe_location", list.get(i).getCafe_location());
-//        cafeInfo.put("amount_hour", list.get(i).getAmount_hour());
-//        cafeInfo.put("cafe_main_title", list.get(i).getCafe_main_title());
-//        cafeInfo.put("cafe_sub_title", list.get(i).getCafe_sub_title());
-//        cafeInfo.put("max_people", list.get(i).getMax_people());
-//
-//        // 사진은 배열로 담기
-//        List<String> imgList = new ArrayList<>();
-//        imgList.add(list.get(i).getCafe_image_1());
-//        imgList.add(list.get(i).getCafe_image_2());
-//        imgList.add(list.get(i).getCafe_image_3());
-//
-//        // 세부 룸 이미지는 한 컬럼에 모았기때문에 : 기준으로 잘 찢어서
-//        String[] rImgs = list.get(i).getRoom_list().split(":");
-//
-//        // 찢은 길이만큼(=존재하는 row수만큼) 반복하며 차곡차곡 담아준다.
-//        for (int j = 0; j < rImgs.length; j++) {
-//          imgList.add(rImgs[j]);
-//        }
-//
-//        // 카페이미지와 세부 룸 이미지를 모아 JSON에 배열로 추가
-//        cafeInfo.put("roomImgs", imgList);
-//
-//        // 카페 하나의 정보와 이미지를 배열에 담습니다.
-//        arr.add(cafeInfo);
-//
-//      }
-//
-//      // 요청온 카드 수 만큼만 잘라서 제이슨 객체에 담아 가져가세요
-//      jsonObject.put("cafeList", arr.subList(((cp-1)*ps),((cp*ps)-1)));
-//      log.info("(cp-1)*ps ="+ ((cp-1)*ps));
-//      log.info(" end ="+ ((cp*ps)-1));
-//
-//    } catch (Exception e) { ;; }
 
     log.info("jsonObject {} =", jsonObject);
 

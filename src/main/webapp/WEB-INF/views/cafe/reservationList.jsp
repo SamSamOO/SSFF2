@@ -200,7 +200,7 @@
                     datatable-primary datatable-subtable datatable-loaded"
                     id="rsrvTable">
                     
-                    <table class="datatable-table" style="display: block;">
+                    <table class="datatable-table" style="display: block;" >
                       <!-- 테이블 공통 헤드 s -->
                       <thead class="datatable-head">
                         <tr class="datatable-row">
@@ -452,8 +452,12 @@
 
       // 성공시 데이터 처리
       function successCallback(data) {
-        console.log("data: " + data);
-
+        console.log("data.reservationList: " + data.reservationList); // obj arr 와르르
+        console.log("data[0]: " + JSON.stringify(data)); // 와르르
+        console.log("data[0]: " + data.length); // undefined
+        console.log("data[0]: " + data.reservationList.length); // 82
+        console.log("data[0]: " + data.reservationList[0].use_date); //2023-11-15 00:00:00
+        
         // 불러온 데이터가 없다면
         if (data.length == 0) {
           Swal.fire({
@@ -485,33 +489,97 @@
     // 데이터 setting
     setListItems: function (data) {
       
-      alert("셋팅창 떴어유~")
+      console.log("셋팅창 떴어유~");
+      
 
-      const dataFieldSet = [RecordID, ReservationID, CafeInfo, ReservationAmount,
-                            UseDateInfo, Status, Cancle, NickName];
+      const dataFieldSet = ["RecordID", "ReservationID", "CafeInfo", "ReservationAmount",
+                            "UseDateInfo", "Status", "Cancle", "NickName"];
+      //TODO 나중에 배열 수대로 돌면서 html
+
+      let amount_to_be_paid = '';
+      let cafe_name = '';
+      let client_account_number = '';
+      let client_bank_code = '';
+      let client_name = '';
+      let max_people = '';
+      let member_name = '';
+      let payment_completed_yn = '';
+      let room_idx = '';
+      let rsrv_amount = '';
+      let rsrv_email = '';
+      let rsrv_idx = '';
+      let rsrv_message = '';
+      let rsrv_name = '';
+      let rsrv_phone_number = '';
+      let rsrv_status_ynz = '';
+      let transaction_amount = '';
+      let transaction_categorie = '';
+      let transaction_categories = '';
+      let transaction_date = '';
+      let trnsc_idx = '';
+      let use_date = '';
+      let use_end_time = '';
+      let use_start_time = '';
+      
       
       
       // 기본 템플릿 셋팅
-      let templet =
-              `<!--begin::Col-->
-              <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                <!--begin::Card-->
-                <div class="card card-custom gutter-b card-stretch">
-                  <section class="awSlider">
-                    <div  class="carousel slide" data-ride="carousel">
-                      <!-- Indicators -->
-                      <ol class="carousel-indicators">
-                      </ol>              
-                      <!-- Wrapper for slides -->
-                      <div class="carousel-inner" role="listbox">
-                      </div>              
-                      <!-- Controls $aPrev $aNext -->
-                    </div>
-                  </section>
-                </div>
-								<!--end::Card-->
-              </div>
-							<!--end::Col-->`
+      let rsrvHtml =
+      
+                   data.reservationList.length
+
+      for (let i = 0; i < data.reservationList.length; i++) {
+        
+      }
+        <!-- 일반 예약정보 s -->
+        <tr data-row="i" class="datatable-row"> <!-- datatable-row-subtable-expanded ==active // fa fa-caret-lefe -> fa fa-caret-down  -->
+  
+          <td class="datatable-cell-center datatable-cell" data-field="RecordID" aria-label="1">
+            <a class="datatable-toggle-subtable" href="#" data-value="1" title="Load sub table" style="width: 30px;">
+              &nbsp;<i style="width: 30px;" class="fa fa-caret-lefe"></i></a> <!--TODO 아이콘 토글 -->
+          </td>
+  
+          <td data-field="ReservationID" aria-label="Tommie" class="datatable-cell"><span style="width: 110px;">Tommie</span></td>
+          <td data-field="CafeInfo" aria-label="Pee" class="datatable-cell"><span style="width: 110px;">Pee</span></td>
+          <td data-field="ReservationAmount" aria-label="Tommie" class="datatable-cell"><span style="width: 110px;">Tommie</span></td>
+          <td data-field="UseDateInfo" aria-label="Pee" class="datatable-cell"><span style="width: 110px;">Pee</span></td>
+          <td data-field="Status" data-autohide-disabled="false" aria-label="1"
+              class="datatable-cell"><span style="width: 110px;"><span
+            class="label label-warning label-dot"></span>&nbsp;<span
+            class="font-weight-bold text-danger">Online</span></span></td>
+  
+          <td data-field="Cancle" aria-label="4" class="datatable-cell"><span
+            style="width: 110px;"><span
+            class="label  label-success label-inline label-pill">Success</span></span>
+          <td data-field="NickName" aria-label="tpee0@slashdot.org" class="datatable-cell"><span style="width: 110px;">tdorg</span></td>
+  
+          </td>
+        </tr>
+        <!-- 일반 예약정보 e -->
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
 
       // 테이블 동적생성을 위해 불러온 data를 각 변수에 담아 활용
       let mainTitle = '';

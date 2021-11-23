@@ -321,34 +321,42 @@
     resultType="kr.or.ssff.cafe.domain.RsrvJoinTrnscVO">
 
     SELECT
-			a.rsrv_idx,
-			a.room_idx,
-			a.member_name,
-			a.use_date,
-			a.use_start_time,
-			a.use_end_time,
-			a.rsrv_status_ynz,
-			a.rsrv_name,
-			a.rsrv_phone_number,
-			a.rsrv_email,
-			a.rsrv_message,
-			a.rsrv_amount,
-
-			b.trnsc_idx,
-			b.transaction_date,
-			b.transaction_categories,
-			b.transaction_categorie,
-			b.transaction_amount,
-			b.client_account_number,
-			b.client_bank_code,
-			b.client_name,
-			b.amount_to_be_paid,
-			b.payment_completed_yn
-
-    FROM
-			rsrv a
+      d.cafe_name,
+      d.max_people,
+      a.rsrv_idx,
+      a.room_idx,
+      a.member_name,
+      a.use_date,
+      a.use_start_time,
+      a.use_end_time,
+      a.rsrv_status_ynz,
+      a.rsrv_name,
+      a.rsrv_phone_number,
+      a.rsrv_email,
+      a.rsrv_message,
+      a.rsrv_amount,
+      b.trnsc_idx,
+      b.transaction_date,
+      b.transaction_categories,
+      b.transaction_categorie,
+      b.transaction_amount,
+      b.client_account_number,
+      b.client_bank_code,
+      b.client_name,
+      b.amount_to_be_paid,
+      b.payment_completed_yn
+    FROM (
+      SELECT
+        c.cafe_name,
+        c.cafe_idx,
+        r.room_idx,
+        r.max_people
+      FROM
+          cafe c
+      JOIN room r ON c.cafe_idx = r.cafe_idx
+      ) d
+    JOIN rsrv a ON d.room_idx = a.room_idx
     JOIN trnsc b ON a.rsrv_idx = b.rsrv_idx
-
     <if test='member_name != "admin"'>
       WHERE
       a.member_name = #{member_name, jdbcType=VARCHAR}

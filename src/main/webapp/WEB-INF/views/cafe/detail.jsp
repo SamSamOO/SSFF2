@@ -867,7 +867,9 @@
 																																				</div>
 																																				<div class="ml-auto text-muted font-weight-bold"
 																																				     >
-																																								${room.amount_hour} 원/시간
+																																				     
+																																								<fmt:formatNumber value="${room.amount_hour}"
+																														                  pattern="#,###"/> 원/시간
 																																				</div>
 																																		</label>
 																																		<!-- radio [ e ] -->
