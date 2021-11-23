@@ -1,5 +1,6 @@
 package kr.or.ssff.study.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import kr.or.ssff.study.domain.LangVO;
@@ -87,6 +88,7 @@ public interface StudyService {
     //19. 게시물번호에 해당하는 댓글 수 가져오기
     public abstract Integer getReplyCountByR_idx(Integer r_idx);
 
+    public abstract boolean updateAttendance(HashMap<String, Object> map);
 }
 
 

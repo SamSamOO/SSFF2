@@ -1,5 +1,6 @@
 package kr.or.ssff.study.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import kr.or.ssff.study.domain.ReplyVO;
 import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -156,15 +158,25 @@ public class StudyRestController {
  * 작성자: 박상준
  * */
     @RequestMapping(value = "/updateAttendance", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    public Integer updateAttendance(@RequestBody HashMap<String, Object> filterJSON) {
+    public Boolean updateAttendance(@RequestBody HashMap<String, Object> filterJSON) {
         log.info("updateAttendance({}) is invoked", "filterJSON = " + filterJSON);
 
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("r_Idx", filterJSON.get("r_Idx"));
+        map.put("member_Name", filterJSON.get("member_Name"));
+
+        log.info("map = {}", map);
+
+        boolean row = this.service.updateAttendance(map);
 
 
 //        int affectedRow = this.service.updateAttendance()
 
 
-        return null;
+        return row;
     }
+
+
+
 
 }//end- class

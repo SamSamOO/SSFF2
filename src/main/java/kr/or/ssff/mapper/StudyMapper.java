@@ -80,6 +80,6 @@ public interface StudyMapper {
     public abstract Integer replyCountByR_idx(@Param("r_idx") Integer r_idx);
 
     //출석 +1 기능입니다 : 박상준
-    public abstract Integer updateAttendance(HashMap<String, Object> filterJSON);
+    public abstract Integer updateAttendance(HashMap<String, Object> map);
 
 }
