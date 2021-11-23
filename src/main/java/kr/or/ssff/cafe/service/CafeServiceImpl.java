@@ -1,5 +1,6 @@
 package kr.or.ssff.cafe.service;
 
+import java.util.HashMap;
 import java.util.List;
 import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
@@ -7,6 +8,7 @@ import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
 import kr.or.ssff.cafe.domain.RoomVO;
+import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
 import kr.or.ssff.mapper.CafeMapper;
@@ -218,6 +220,27 @@ public class CafeServiceImpl
 
         return (this.mapper.insertReservation(reservationDTO)==1);
     } // registerReserve
+
+
+
+
+    /*
+     * 예약정보&거래내역 조회 (예약내역리스트 View에서 이용)
+     * 매개변수: 세션id, 검색키워드 등을 담은 map
+     * 반환:
+     * */
+    @Override
+    public List<RsrvJoinTrnscVO> getRsrvJoinTrnscList(HashMap<String, String> searchKey) {
+        log.debug("getRsrvJoinTrnscList invoked : {}", searchKey);
+
+        List<RsrvJoinTrnscVO> List = this.mapper.selectRsrvJoinTrnscList(searchKey);
+        log.info("List : {}", List);
+
+        return List;
+    } // getRsrvJoinTrnscList
+
+
+
 
     //-----------------------------------------------//
     @Override
