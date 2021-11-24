@@ -642,23 +642,13 @@
 																																<table class="table">
 																																		<thead class="font-weight-boldest">
 																																		<tr>
-																																				<th
-																																						class="pl-0 mb-20 font-weight-bold h2 text-uppercase">
-																																						결제하시겠습니까?
-																																				</th>
-																																		
-																																		</tr>
+																																				<th class="pl-0 mb-20 font-weight-bold h2 text-uppercase">
+																																						결제하시겠습니까? </th> 	</tr>
 																																		</thead>
-																																		
-																																		
-																																		<tbody>
-																																		
-																																		<tr class="">
+																																	<tbody> <tr class="">
 																																				<td class="pl-0 pt-7 d-flex align-items-center text-muted">
 																																						<p><strong>예약공간</strong></p>
-																																				</td>
-																																				
-																																				<td
+																																				</td> 	<td
 																																						class="text-primary pr-0 pt-7 text-right align-middle">${cafeVO.cafe_name}(${roomRsrvInfoDTO.room_idx})
 																																				</td>
 																																		</tr>
