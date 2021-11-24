@@ -246,11 +246,11 @@ public class CafeServiceImpl
      * 반환:
      * */
     @Override
-    public boolean cancleReservation(HashMap<String, String> searchKey) {
-        log.debug("cancleReservation invoked : {}", searchKey);
+    public boolean cancelReservation(HashMap<String, String> searchKey) {
+        log.debug("cancelReservation invoked : {}", searchKey);
 
-        return (this.mapper.cancleReservation(searchKey));
-    } // cancleReservation
+        return (this.mapper.cancelReservation(searchKey));
+    } // cancelReservation
 
 
     //-----------------------------------------------//

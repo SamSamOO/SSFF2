@@ -199,10 +199,10 @@ public class CafeRestController {
    * 매개변수: ajax로 전송받은 JSON객체(예약ID)
    * 반환:
    * */
-  @RequestMapping(value= "/reservation/cancle", method = RequestMethod.POST,
+  @RequestMapping(value= "/reservation/cancel", method = RequestMethod.POST,
       produces = "application/json; charset=UTF-8")
   //없으면 AJAX 통신 안됨
-  public  JSONObject cancleReservation(
+  public  JSONObject cancelReservation(
       @RequestBody HashMap<String, String> searchKey
   ) throws Exception {
     log.debug("removeReservation({}) is invoked", searchKey);
@@ -211,7 +211,7 @@ public class CafeRestController {
     //최종 완성될 JSONObject 선언
     JSONObject jsonObject = new JSONObject();
 
-    boolean result = this.service.cancleReservation(searchKey);
+    boolean result = this.service.cancelReservation(searchKey);
 
     if(result){
       jsonObject.put("result", result);

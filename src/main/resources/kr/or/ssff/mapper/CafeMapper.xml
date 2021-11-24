@@ -366,7 +366,7 @@
 
 
   <!-- 예약취소 : 신지혜 -->
-  <update id="cancleReservation" parameterType="hashMap">
+  <update id="cancelReservation" parameterType="hashMap">
 
     UPDATE rsrv
     SET rsrv_status_ynz = 'z'

@@ -62,7 +62,7 @@
     th[data-field="Status"], tr[data-field="Status"], td[data-field="Status"] {
       width: 10% !important;
     }
-    th[data-field="Cancle"], tr[data-field="Cancle"], td[data-field="Cancle"] {
+    th[data-field="cancel"], tr[data-field="cancel"], td[data-field="cancel"] {
       width: 10% !important;
     }
     th[data-field="NickName"], tr[data-field="NickName"], td[data-field="NickName"] {
@@ -264,7 +264,7 @@
                         <th data-field="Status" data-autohide-disabled="false"
                             class="datatable-cell "><span style="">Status</span></th>
                         <!--TODO 세션 값에 따라 none처리 할 수 있게 admin-> 닉네임만on -->
-                        <th data-field="Cancle" class="datatable-cell "><span style="">Cancle</span>
+                        <th data-field="cancel" class="datatable-cell "><span style="">cancel</span>
                         </th>
                         <th data-field="NickName" class="datatable-cell "><span
                           style="">Nick Name</span></th>
@@ -340,7 +340,7 @@
 // 동적 생성한 modal 오픈 이벤트 수동 부여
 $(document).on('click',"button[class^='btn']", function (e) {
 
-  const mID =  $(this).data('target');// #rsrvCancleModal-15
+  const mID =  $(this).data('target');// #rsrvcancelModal-15
   console.log($('#'+mID));
   $('#'+mID).modal('show');
 });
@@ -463,7 +463,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
       let useInfo = '';
       let trnsc_cate = '';
       const dataFieldSet = ["RecordID", "ReservationID", "CafeInfo", "ReservationAmount",
-                            "UseDateInfo", "Status", "Cancle", "NickName"];
+                            "UseDateInfo", "Status", "cancel", "NickName"];
       //TODO set, 거래, 예약, maintitle td 등 배열화 해서 하기 html문 정리
       console.log(dataFieldSet[0]); // RecordID
 
@@ -541,7 +541,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
                        + `원" class="datatable-cell
 ><span style="">` + amount + `원</span></td>
           <td data-field="UseDateInfo" aria-label="` + useInfo
-                       + `" class="datatable><span style="">` + useInfo + `</span></td>
+                       + `" class="datatable-cell"><span style="">` + useInfo + `</span></td>
      
 
 <td data-field="Status" data-autohide-disabled="false" aria-label="` + rsrv_status_ynz + `"
@@ -550,14 +550,14 @@ $(document).on('click',"button[class^='btn']", function (e) {
           <span class="font-weight-bold text-`+rsrv_status_color+`">` + rsrv_status_text + `</span>
           </span></td>
           
-          <td data-field="Cancle" aria-label="4" class="datatable-cell"><span
+          <td data-field="cancel" aria-label="4" class="datatable-cell"><span
               style="">`;
 
           if (rsrv_status_ynz == 'n') {
             $rsrvHtml += `<button  type="button" class="btn btn-default"
-                data-toggle="modal" data-target="rsrvCancleModal-`+checkNum+`" >cansle</button>
+                data-toggle="modal" data-target="rsrvcancelModal-`+checkNum+`" >cansle</button>
 
-                <div class="modal modal-center fade" id="rsrvCancleModal-`+checkNum+`" tabindex="-1"
+                <div class="modal modal-center fade" id="rsrvcancelModal-`+checkNum+`" tabindex="-1"
 																		     role="dialog" aria-labelledby="my80sizeCenterModalLabel">
 																				<div class="modal-dialog modal-80size modal-center" role="document">
 																						<div class="modal-content modal-80size">
@@ -615,7 +615,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
 																								</div>
 																	
 																								<div class="modal-footer">
-																										<button type="button" class="btn btn-default btn-lg " onclick="cancleRsrv(`+rsrv_idx+`)" style="">취소하기</button>
+																										<button type="button" class="btn btn-default btn-lg " value="`+rsrv_idx+`" onclick="cancelRsrv(this)" style="">취소하기</button>
 																						
 																								</div>
 																						</div>
@@ -949,23 +949,25 @@ function access(){
 
 
 // 지원신청 누르면 작업 고고
-function cancleRsrv(rsrv_idx){ //TODO 이거 왜 안되는지 모르겠고
-  console.log("rsrv_idx: "+rsrv_idx);
-  Swal.fire({
+function cancelRsrv(obj){ 
+    
+
+    Swal.fire({
               icon : 'warning', // Alert 타입
               title: '예약취소', // Alert 제목
               text : '예약을 취소하고 환불함을 동의합니다.', // Alert 내용
             });
 
   var submitObj = new Object();
-  submitObj.sss = rsrv_idx;
+  let searchRsrvID = $(obj).attr('value');
+  submitObj.rsrv_idx = searchRsrvID;
 
-  console.log("submitObj.rsrv_idx: "+submitObj.sss);
+  console.log("submitObj.rsrv_idx: "+submitObj.rsrv_idx);
  
 
   $.ajax({
            type       : 'POST',
-           url        : '/cafeRest/reservation/cancle',
+           url        : '/cafeRest/reservation/cancel',
            data       : JSON.stringify(submitObj), // 예약번호 들고 출발
            dataType   : 'text', // 받을 데이터는 json
            contentType: "application/json; charset=utf-8",
@@ -978,6 +980,8 @@ function cancleRsrv(rsrv_idx){ //TODO 이거 왜 안되는지 모르겠고
     console.log("data: " + data);
     //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고
 
+    // start.init();
+    
     // 참여신청 버튼 비활성화처리 //TODO 전역함수로도 설정해서 재신청 불가능하게~
     $('#applyChallenge').css("background-color","gray"); //색 변경
     // $('#applyChallenge').unbind('mouseenter mouseleave'); // 호버 제거 안되죠?

@@ -67,5 +67,5 @@ public interface CafeMapper {
   public abstract List<RsrvJoinTrnscVO> selectRsrvJoinTrnscList(HashMap<String, String> searchKey);
 
   // 예약취소
-  boolean cancleReservation(HashMap<String, String> searchKey);
+  boolean cancelReservation(HashMap<String, String> searchKey);
 } // end interface

@@ -56,7 +56,7 @@ public interface CafeService {
   public abstract List<RsrvJoinTrnscVO> getRsrvJoinTrnscList(HashMap<String, String> searchKey);
 
   // 예약취소
-  public abstract boolean cancleReservation(HashMap<String, String> searchKey);
+  public abstract boolean cancelReservation(HashMap<String, String> searchKey);
 } // end interface
 
 
