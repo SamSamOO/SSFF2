@@ -1,10 +1,19 @@
 package kr.or.ssff.study.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.study.domain.ReplyCountVO;
+import kr.or.ssff.study.domain.ReplyVO;
 import kr.or.ssff.study.domain.StudyCriteria;
 import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
@@ -12,9 +21,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
@@ -233,11 +246,6 @@ public class StudyController {
     public String selectProjectListGo(Model model) {
         log.info("selectProjectListGo() is invoked");
 
-        //List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("P",page);
-        //List<LangVO> langList = this.service.getLangList();
-
-        //List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);
-
         //2. 페이징에 관한 설정
         //2-1. 게시물 갯수 세기
         Integer totalCount = this.service.getTotal("P");
@@ -408,6 +416,17 @@ public class StudyController {
 
         return "redirect:/study/challenge/list";
     } // removeProjectDetail
+
+    /*프로젝트형 게시글 수정 페이지로 이동합니다.
+     * 파라메터 :
+     * 반환 : 프로젝트형 게시글 수정 페이지.
+     * */
+    @GetMapping("/project/main") //아이디와 게시글
+    public void projectMainGo(Integer r_idx, Model model) {
+        log.info("projectMainGo() is invoked");
+
+
+    } // updateProjectDetailGo
 
 
 } // end class

@@ -7,6 +7,7 @@ import java.util.Map;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.ReplyVO;
+import kr.or.ssff.study.domain.StudyCriteria;
 import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -24,16 +25,16 @@ import org.springframework.web.bind.annotation.RestController;
 @NoArgsConstructor
 @RestController
 public class StudyRestController {
-
     @Autowired
     public StudyService service;
     public String jsonData;
 
 
-    @RequestMapping(value = "/comment/get", method = RequestMethod.POST)
+    @RequestMapping(value="/comment/get",method = RequestMethod.POST)
     public @ResponseBody
     List<ReplyVO> getComment(@RequestBody Map<String, Integer> jsonData) {
         log.debug("getComment({}) invoked.", jsonData);
+
 
         List<ReplyVO> list = this.service.getReplyList(jsonData.get("r_idx"));
 
@@ -46,16 +47,15 @@ public class StudyRestController {
      * 반환 : //TODO --예솔
      * */
     @PostMapping("/comment/post")
-    public @ResponseBody
-    boolean insertComment(@RequestBody Map<String, String> jsonData) {
-        log.info("insertComment({}) is invoked", jsonData);
+    public @ResponseBody boolean insertComment(@RequestBody Map<String, String> jsonData) {
+        log.info("insertComment({}) is invoked",jsonData);
 
         ReplyVO vo = new ReplyVO(
             null,
             Integer.parseInt(jsonData.get("r_idx")),
             jsonData.get("member_name"),
             jsonData.get("c_cont"),
-            null, null
+            null,null
         );
 
         boolean result = this.service.replyRegister(vo);
@@ -68,11 +68,10 @@ public class StudyRestController {
      * 반환 : //TODO --예솔
      * */
     @PostMapping("/comment/modify")
-    public @ResponseBody
-    boolean updateComment(@RequestBody Map<String, String> jsonData) {
-        log.info("updateComment({}) is invoked", jsonData);
+    public @ResponseBody boolean updateComment(@RequestBody Map<String, String> jsonData) {
+        log.info("updateComment({}) is invoked",jsonData);
 
-        boolean result = this.service.replyModify(Integer.parseInt(jsonData.get("no")), jsonData.get("c_cont"));
+        boolean result = this.service.replyModify(Integer.parseInt(jsonData.get("no")),jsonData.get("c_cont"));
         return true;
 
     }//updateComment
@@ -83,9 +82,8 @@ public class StudyRestController {
      * //TODO --예솔
      * */
     @PostMapping("/comment/remove")
-    public @ResponseBody
-    boolean deleteComment(@RequestBody Map<String, Integer> jsonData) {
-        log.info("deleteComment({}) is invoked", jsonData);
+    public @ResponseBody boolean deleteComment(@RequestBody Map<String, Integer> jsonData) {
+        log.info("deleteComment({}) is invoked",jsonData);
 
         boolean result = this.service.replyRemove(jsonData.get("no"));
 
@@ -93,24 +91,23 @@ public class StudyRestController {
     }//deleteComment
 
     @PostMapping("/challenge/list")
-    public @ResponseBody
-    Map<String, Object> getChallengeListByPageNum(@RequestBody Map<String, String> jsonData) {
-        log.info("getChallengeListByPageNum({}) is invoked", jsonData);
+    public @ResponseBody Map<String, Object> getChallengeListByPageNum(@RequestBody Map<String, String> jsonData) {
+        log.info("getChallengeListByPageNum({}) is invoked",jsonData);
 
         String orderRule = jsonData.get("orderRule"); // latest or popularity
         String closed = jsonData.get("closed"); //true(마감 제외) or false(전부)
         String searchText = jsonData.get("searchText");//검색(null or "")
-        String searchTextqueryForm = "%" + searchText + "%";
+        String searchTextqueryForm = "%" + searchText+"%";
 
         List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
         Integer boardTotal = 0;
 
-        if (searchText != null && !searchText.equals("")) {
+        if(searchText !=null && !searchText.equals("")){
 
-            list = this.service.getListWithJoinReplyAddSearch("C", Integer.parseInt(jsonData.get("pageNum")), searchTextqueryForm);
-            boardTotal = this.service.getTotalAddSearch("C", searchTextqueryForm);
+            list = this.service.getListWithJoinReplyAddSearch("C", Integer.parseInt(jsonData.get("pageNum")),searchTextqueryForm);
+            boardTotal = this.service.getTotalAddSearch("C",searchTextqueryForm);
 
-        } else {
+        }else {
 
             if (orderRule.equals("latest") && closed.equals("false")) {
                 list = this.service.getListWithJoinReply("C", Integer.parseInt(jsonData.get("pageNum")));
@@ -135,24 +132,21 @@ public class StudyRestController {
 
 
     @PostMapping("/project/list")
-    public @ResponseBody
-    Map<String, Object> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
+    public @ResponseBody Map<String, Object> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
+        log.info("getProjectListByPageNum({}) is invoked",jsonData);
 
-
-        log.info("getProjectListByPageNum({}) is invoked", jsonData);
-
-        String orderRule = jsonData.get("orderRule");
-        String closed = jsonData.get("closed"); //true(마감 제외) or false(전부)
+        String orderRule =  jsonData.get("orderRule");
+        String closed =  jsonData.get("closed"); //true(마감 제외) or false(전부)
         String selectedLogoSet = jsonData.get("selectedLogoSet"); //typescript,java
 
         List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
         Integer boardTotal = 0;
 
-        if (!selectedLogoSet.equals("")) {
-            list = this.service.getListWithJoinReplyAddLogo("P", Integer.parseInt(jsonData.get("pageNum")), selectedLogoSet);
-            boardTotal = this.service.getTotalAddLogo("P", selectedLogoSet);
+        if(!selectedLogoSet.equals("")){
+            list = this.service.getListWithJoinReplyAddLogo("P", Integer.parseInt(jsonData.get("pageNum")),selectedLogoSet);
+            boardTotal = this.service.getTotalAddLogo("P",selectedLogoSet);
 
-        } else {
+        }else {
 
             if (orderRule.equals("latest") && closed.equals("false")) {
                 list = this.service.getListWithJoinReply("P", Integer.parseInt(jsonData.get("pageNum")));
@@ -179,6 +173,7 @@ public class StudyRestController {
     }//getChallengeListByPageNum
 
 
+
     /* 스터디 메인에서 출석버튼 클릭시 >> swal 확인 >> 출석됩니다 >> 출석하지 않는 경우 뭐 본인이 불이익이기에.. 별도로 처리하지 않는 걸로 하는 것이 옳다고 생각합니다
     >> 출석일자의 +1 만 해주면 됩니다. /studyRest/updateAttendance
  * 매개변수: 스터디 번호 R_IDX, Member_Name,  study_Join_arciwf가  i 여야 합니다.
@@ -197,10 +192,16 @@ public class StudyRestController {
 
         boolean row = this.service.updateAttendance(map);
 
+
 //        int affectedRow = this.service.updateAttendance()
+
 
         return row;
     }
+
+
+
+
 
 
 }//end- class

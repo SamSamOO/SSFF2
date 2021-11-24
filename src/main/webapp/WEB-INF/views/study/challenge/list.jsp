@@ -87,7 +87,7 @@
                                     <h3>인생을 바꿀 습관을 만들어 보세요!삼삼오오가 도와드립니다</h3>
                                     <br><br>
                                     <ul class="list-style-none">
-                                        <li><a href="/study/challenge/postGo"><img src="../../../../resources/assets/images/button/writingBtn.png" width="70px"></a></li>
+                                        <li><a href="/study/challenge/postGo"><img src="/resources/assets/images/button/writingBtn.png" width="70px"></a></li>
                                         <li>글쓰러 가기!</li>
                                     </ul>
                                 </div>
@@ -100,8 +100,10 @@
 
                                         <div class="dropdown-label" >검색 :</div>
 
-                                        <input type="text" name="search" id="search" class="form-control" placeholder="지역, 유형, 내용을 검색" style="width: 300px ;margin-right:15px">
-                                        <img src="../../../../resources/assets/images/logos/language/search.png" width="40px" onclick="goSearch()">
+                                        <input type="text" name="search" id="search" class="form-control w-300px mr-4" placeholder="지역, 유형, 내용을 검색">
+                                        <img src="/resources/assets/images/icon/search.png" class="w-40px hover-border_ssff2" onclick="goSearch()">
+
+
 
                                     </div>
 
@@ -319,9 +321,9 @@
       html +=       '<li style="margin-top:10px"><span class="span-cate color-'+list[i].ch_pattern+'">'+list[i].ch_pattern+'</span></li>';
       html +=   '</ul>';
       html +=   '<ul class="studylist-hitAndRepl">';
-      html +=       '<li><img src="../../../../resources/assets/images/icon/repl.png" width="15px"></li>';
+      html +=       '<li><img src="/resources/assets/images/icon/repl.png" width="15px"></li>';
       html +=       '<li class="replyCount">'+list[i].reply_count+'</li>';
-      html +=       '<li><img src="../../../../resources/assets/images/icon/hit.png" width="15px"></li>';
+      html +=       '<li><img src="/resources/assets/images/icon/hit.png" width="15px"></li>';
       html +=       '<li>'+list[i].hit+'</li>';
       html +=   '</ul>';
       html +='</li>';
