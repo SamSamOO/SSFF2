@@ -363,6 +363,16 @@
     </if>
 
   </select>
+
+
+  <!-- 예약취소 : 신지혜 -->
+  <update id="cancleReservation" parameterType="hashMap">
+
+    UPDATE rsrv
+    SET rsrv_status_ynz = 'z'
+    WHERE rsrv_idx = #{rsrv_idx}
+  </update>
+
 </mapper>
 
 

@@ -240,6 +240,17 @@ public class CafeServiceImpl
     } // getRsrvJoinTrnscList
 
 
+    /*
+     * 예약 취소(예약내역리스트 View에서 이용)
+     * 매개변수: 예약정보 등을 담은 map
+     * 반환:
+     * */
+    @Override
+    public boolean cancleReservation(HashMap<String, String> searchKey) {
+        log.debug("cancleReservation invoked : {}", searchKey);
+
+        return (this.mapper.cancleReservation(searchKey));
+    } // cancleReservation
 
 
     //-----------------------------------------------//

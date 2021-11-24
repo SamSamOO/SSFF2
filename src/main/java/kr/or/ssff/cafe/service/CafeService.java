@@ -52,8 +52,11 @@ public interface CafeService {
   // 예약 정보 insert
   public abstract boolean registerReservation(ReservationDTO reservationDTO);
 
-
+  // 예약정보&거래내역 조회 (예약내역리스트 View에서 이용)
   public abstract List<RsrvJoinTrnscVO> getRsrvJoinTrnscList(HashMap<String, String> searchKey);
+
+  // 예약취소
+  public abstract boolean cancleReservation(HashMap<String, String> searchKey);
 } // end interface
 
 

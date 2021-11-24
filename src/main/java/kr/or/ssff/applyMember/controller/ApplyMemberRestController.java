@@ -90,15 +90,14 @@ public String applyAction(
     @RequestMapping(value= "/insert", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     public String insertApplyMember(
         @RequestBody HashMap<String, Object> filterJSON,
-        HttpServletResponse response,
-        ModelMap model ) throws Exception {
-        log.debug("insertApplyMember({},{},{}) is invoked",filterJSON, response, model );
+        HttpServletResponse response
+    ) throws Exception {
+        log.debug("insertApplyMember({},{}) is invoked",filterJSON, response );
         String aMemberName = "";
         try{
             log.info("\t refusal_action_try");
             log.info("\t filterJSON: "+filterJSON);
             log.info("\t response: "+response);
-            log.info("\t model: "+model);
 
             HashMap<String, Object> aMember = new HashMap<>();
 
