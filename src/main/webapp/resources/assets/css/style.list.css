@@ -1,7 +1,10 @@
 
-.mng_study_list td{
-    vertical-align: center !important;
+.pagination .active a,
+.pagination a:hover{
+    color: #FFFFFF !important;
 }
+
+
 
 .checklist li{
     width: 8rem;
@@ -10,6 +13,12 @@
 .checklist li:first-child{
     width: 5rem !important;
 }
+
+.mng_study_list td{
+    vertical-align: center !important;
+}
+
+
 
 .mng_info {
     margin: 0 auto;
@@ -26,10 +35,26 @@
     font-weight: 600;
 }
 
-
 .mng_info table tr td:nth-child(even){
     font-weight: 300;
 }
+
+.board_list .notice{
+    background-color: oldlace;
+}
+
+.board_list .notice:hover{
+    background-color: palegoldenrod;
+}
+
+.board_list td{
+    text-align: center;
+}
+.board_list tbody td:first-child,
+.board_list tbody td:last-child{
+    font-size: 1rem;
+}
+
 
 .inline-flex{
     display: inline-flex;
