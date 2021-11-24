@@ -6,6 +6,9 @@
 	<title>메인화면입니다.</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
+	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/footer.jsp"></jsp:include>
+	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
+	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/header.jsp"></jsp:include>
 
 	<script>
 		if ('${k_userInfo}') {
@@ -21,7 +24,6 @@
 <h1>
 	Hello world!  asdasasd
 </h1>
-<h3>${member_id}</h3>
 </div>
 <div class="form-group">
 	<h6>카카오톡 로그인 성공 화면</h6>
@@ -33,32 +35,16 @@
 
 	<div id="k_email" style="text-align:center"></div>
 	<div id="k_nickname" style="text-align:center"></div>
+</div>
 
 
-
-	<form>
-		<label>아이디</label>
-		<input type="text" class="login_input input" name="member_id" id="member_id" value="${member_id}" readonly>
-
-		<label>패스워드</label>
-		<input type="password" class="login_input input" id="password" name="password"
-			   value="${memberDto.password}">
-		<div class="tdpw"></div>
-
-		<label>닉네임</label>
-		<input type="text" class="login_input input" id="name" name="name" value="${memberDto.name}">
-		<div class="tdname"></div>
+<!-- 로그인한 상태 -->
+<c:if test="${ member != null }">
+	<div class="login_success_area">
+		<span>회원 : ${member.member_id}</span>
+	</div>
+</c:if>
 
 
-
-
-		<div class="edit-btn">
-			<button type="submit" class="button" id="btn1" class="submit_btn">정보수정
-			</button>
-			<button type="button" class="button" id="cancel" style="border: none;"
-					onclick="location.href='Unregister.member?id=${memberDto.id}'">회원탈퇴
-			</button>
-		</div>
-	</form>
 </body>
 </html>

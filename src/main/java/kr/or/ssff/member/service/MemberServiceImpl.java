@@ -37,7 +37,6 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 
     @Setter(onMethod_ = {@Autowired})
     private MemberMapper mapper;
-    BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -48,10 +47,9 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 
     // 회원가입 로직(장순형)
     @Override
-    public boolean insertMember(MemberDTO memberDTO) throws Exception{
+    public void insertMember(MemberDTO memberDTO) throws Exception{
         log.debug("insertMember({}) is invoked", "memberDTO = " + memberDTO);
-        memberDTO.setMember_pwd(passwordEncoder.encode(memberDTO.getMember_pwd()));
-        int affectedRows = this.mapper.insertMember(memberDTO);
+        mapper.insertMember(memberDTO);
         // 인증키 생성
         String key = new TempKey().getKey(10, false);
         mapper.createAuthkey(memberDTO.getMember_id(),key );
@@ -66,21 +64,14 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
         sendMail.setTo(memberDTO.getMember_id());
         sendMail.send();
 
-        return affectedRows > 0;
     }//insertMember
 
     // 로그인 로직
     @Override
-    public  boolean Login(MemberVO memberVO) {
-        log.debug("memberLogin({}) is invoked", memberVO );
-        String member_id = memberVO.getMember_id();
-        String member_pwd = memberVO.getMember_pwd();
-        log.info("member_Status {} invoke ",member_id,member_pwd);
+    public MemberDTO Login(MemberDTO memberDTO) {
+        log.debug("memberLogin({}) is invoked", memberDTO );
 
-        memberVO = this.mapper.Login(memberVO);
-
-
-        return passwordEncoder.matches(member_pwd,memberVO.getMember_pwd());
+        return mapper.Login(memberDTO);
     }//Login
 
     // 회원가입후 가입상태를 1로 바꿔주는 로직

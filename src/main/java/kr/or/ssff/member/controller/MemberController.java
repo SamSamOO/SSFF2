@@ -1,27 +1,25 @@
 package kr.or.ssff.member.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.HashMap;
-
-import java.util.List;
 
 
 import kr.or.ssff.member.service.KaKaoService;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ssff.member.domain.MemberDTO;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.ui.ModelMap;
+
 import org.springframework.web.bind.annotation.*;
 
 import kr.or.ssff.member.domain.MemberVO;
@@ -32,7 +30,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -55,8 +53,8 @@ public class MemberController {
     private MemberService service;
 
     // 장순형  시큐리티 암호화
-//    @Setter(onMethod_= {@Autowired} )
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Setter(onMethod_ = {@Autowired})
+    private BCryptPasswordEncoder passwordEncoder;
 
 
     /* 회원가입 페이지 이동 --순형
@@ -75,8 +73,12 @@ public class MemberController {
      * 메인페이지로 이동합니다.
      * */
     @PostMapping("/join")
-    public String memberJoin(MemberDTO memberDTO, RedirectAttributes rttr, Model model) throws Exception {
+    public String memberJoin(MemberDTO memberDTO, Model model) throws Exception {
         log.debug("join({}) is invoked", "memberDTO = " + memberDTO);
+
+        String rawPw = "";            // 인코딩 전 비밀번호
+        String encodePw = "";        // 인코딩 후 비밀번호
+
         // 이메일 중복여부 확인 (사용가능하면 0)
         int result = service.idChk(memberDTO);
 
@@ -93,7 +95,12 @@ public class MemberController {
                 // 닉네임과 이메일이 중복이 아닐 때
             } else if (result == 0 && result2 == 0) {
 
+                rawPw = memberDTO.getMember_pwd();            // 비밀번호 데이터 얻음
+                encodePw = passwordEncoder.encode(rawPw);        // 비밀번호 인코딩
+                memberDTO.setMember_pwd(encodePw);
+                // 인코딩된 비밀번호 member객체에 다시 저장
                 this.service.insertMember(memberDTO);
+
                 model.addAttribute("result", "ok");
                 model.addAttribute("refreshUrl", "2;url=../member/loginGo");
             }// try-resources
@@ -103,7 +110,7 @@ public class MemberController {
         }//catch
 
 
-        return "redirect:/member/registerWait";
+        return "redirect:/registerWait";
     } // memberJoin
 
 
@@ -208,74 +215,110 @@ public class MemberController {
 
     }
 
-    @PostMapping("/login")
+    @RequestMapping(value= "/login", method = {RequestMethod.GET, RequestMethod.POST})
     public String memberLogin(
-            MemberVO memberVO,
-            @RequestParam("member_id") String member_id,
-            @RequestParam("member_pwd") String member_pwd) {
-        log.debug("login() is invoked" + member_id, member_pwd);
+            MemberDTO memberDTO,
+            HttpServletRequest request,
+            RedirectAttributes rttr) {
+        log.debug("login() is invoked" + memberDTO, request, rttr);
+
+        HttpSession session = request.getSession();
+        String rawPw = "";
+        String encodePw = "";
+
+        MemberDTO mVO = this.service.Login(memberDTO);
 
 
-        boolean user = this.service.Login(memberVO);
-        log.info("\t+ user: {}", user);
+        if (mVO != null) {                                // 일치하는 아이디 존재시
+
+            rawPw = memberDTO.getMember_pwd(); // 사용자가 제출한 비밀번호
+            encodePw = mVO.getMember_pwd(); // 데이터베이스에 저장한 인코딩된 비밀번호
+
+            if (passwordEncoder.matches(rawPw, encodePw)) {        // 비밀번호 일치여부 판단
+
+                mVO.setMember_pwd("");  // 인코딩된 비밀번호 정보 지움
+                session.setAttribute("member", mVO);     // session에 사용자의 정보 저장
+
+                return "redirect:/member/main";        // 메인페이지 이동
 
 
+            } else {                    // 일치하는 아이디가 존재하지 않을 시 (로그인 실패)
+
+                rttr.addFlashAttribute("result", 0);
+                return "redirect:/member/login";
+
+            } // memberLogin
+        }
         return "redirect:/member/main";
-    } // memberLogin
-
-    //로그아웃.
-    @PostMapping("/logout")
-    public String memberLogout(HttpSession session) {
-        log.debug("loginGo() is invoked");
-        session.invalidate();
-
-        return "/main";
     }
 
-    /* 마이 페이지 이동
-     * 파라메터 : nickname
-     * 마이 페이지로 이동합니다.
-     * */
-    @GetMapping("/myPage")
-    public String myPageGo(String nickname) {
-        log.debug("myPageGo({}) is invoked", "nickname = " + nickname);
-
-        return "/member/myPage";
-    } // myPageGo
-
-    /* 가입한 스터디 목록 페이지로 이동
-     * 파라메터 : nickname
-     * 스터디 목록 페이지
-     * */
-    @GetMapping("/studyList")
-    public String selectStudyList(String nickname) {
-        log.debug("selectStudyList({}) is invoked", "nickname = " + nickname);
-
-        return "/member/studyList";
-    } // studyListGo
 
 
-    /* 회원탈퇴기능을 수행합니다
-     * 파라메터 : String nickname
-     *탈퇴기능 수행 후 메인페이지
-     * */
-    @PostMapping("/withdrawal")
-    public String withdrawal(String nickname) {
-        log.debug("withdrawal({}) is invoked", "nickname = " + nickname);
+    @GetMapping("/registerWait")
+    public String registerWaitGo() {
+        log.debug("registerWaitGo() is invoked");
 
-        return "redirect:/main";
-    } // withdrawal
+        return "/registerWait";
+    } // memberMainGo
 
-    /* 아이디/ 비밀번호 찾기 페이지 이동
-     * 파라메터 : String nickname
-     * 아이디 / 비밀번호 찾기 페이지
-     * */
-    @GetMapping("/idPwFindGo")
-    public String idPwFindGo(String nickname) {
-        log.debug("idPwFindGo({}) is invoked", "nickname = " + nickname);
 
-        return "/member/idPwFind";
-    }
+
+
+
+
+        //로그아웃.
+        @RequestMapping(value= "/logout", method = {RequestMethod.GET, RequestMethod.POST})
+        public String memberLogout (HttpSession session){
+            log.debug("loginGo() is invoked");
+            session.invalidate();
+
+            return "/member/main";
+        }
+
+        /* 마이 페이지 이동
+         * 파라메터 : nickname
+         * 마이 페이지로 이동합니다.
+         * */
+        @GetMapping("/myPage")
+        public String myPageGo (String nickname){
+            log.debug("myPageGo({}) is invoked", "nickname = " + nickname);
+
+            return "/member/myPage";
+        } // myPageGo
+
+        /* 가입한 스터디 목록 페이지로 이동
+         * 파라메터 : nickname
+         * 스터디 목록 페이지
+         * */
+        @GetMapping("/studyList")
+        public String selectStudyList (String nickname){
+            log.debug("selectStudyList({}) is invoked", "nickname = " + nickname);
+
+            return "/member/studyList";
+        } // studyListGo
+
+
+        /* 회원탈퇴기능을 수행합니다
+         * 파라메터 : String nickname
+         *탈퇴기능 수행 후 메인페이지
+         * */
+        @PostMapping("/withdrawal")
+        public String withdrawal (String nickname){
+            log.debug("withdrawal({}) is invoked", "nickname = " + nickname);
+
+            return "redirect:/main";
+        } // withdrawal
+
+        /* 아이디/ 비밀번호 찾기 페이지 이동
+         * 파라메터 : String nickname
+         * 아이디 / 비밀번호 찾기 페이지
+         * */
+        @GetMapping("/idPwFindGo")
+        public String idPwFindGo (String nickname){
+            log.debug("idPwFindGo({}) is invoked", "nickname = " + nickname);
+
+            return "/member/idPwFind";
+        }
 
 
 } // end class

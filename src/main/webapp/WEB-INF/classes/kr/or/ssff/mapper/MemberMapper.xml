@@ -7,7 +7,7 @@
 
 	<!-- 회원가입 로직 - 장순형 -->
 	<insert id="insertMember"
-		parameterType="kr.or.ssff.member.domain.MemberVO">
+		parameterType="kr.or.ssff.member.domain.MemberDTO">
 
 		<selectKey keyProperty="member_no" order="BEFORE" resultType="int">
 			SELECT MEMBER_SQE.NEXTVAL
@@ -25,15 +25,11 @@
 	<!-- 로그인 -->
 	<select
 			id="Login"
-			resultType="kr.or.ssff.member.domain.MemberVO"
-			parameterType="String"
+			resultType="kr.or.ssff.member.domain.MemberDTO"
 	>
-
-        <![CDATA[
 		SELECT *
 		FROM member
 		WHERE member_id=#{member_id}
-		]]>
     </select>
 
 	<!-- 생성된 메일 인증키 업데이트 -->
