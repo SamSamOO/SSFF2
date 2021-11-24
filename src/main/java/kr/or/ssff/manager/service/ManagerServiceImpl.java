@@ -26,6 +26,16 @@ public class ManagerServiceImpl implements ManagerService, InitializingBean, Dis
     @Autowired
     private ManagerMapper mapper;
 
+
+    @Override
+    public Integer countMemberCount() {
+        log.info("countMemberCount() is invoked");
+
+        Integer count = this.mapper.countMemberCount();
+
+        return count;
+    }
+
     @Override
     public boolean register() {
         return false;

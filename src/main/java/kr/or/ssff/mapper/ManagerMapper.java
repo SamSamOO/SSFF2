@@ -13,5 +13,6 @@ public interface ManagerMapper {
     // 전체 회원 목록 조회
     public abstract List<ManagerMemberVO> getMemberListPerPaging(@Param("pageNum") Integer pageNum,@Param("amount")Integer amount);
 
-
+    // 멤버 갯수
+    public abstract Integer countMemberCount();
 }// end interface

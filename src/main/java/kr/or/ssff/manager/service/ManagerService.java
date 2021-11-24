@@ -31,4 +31,6 @@ public interface ManagerService {
     // 7. 회원 전체 목록 조회
     public abstract List<ManagerMemberVO> getMemberListPerPaging(Criteria criteria);
 
+    // 8. 회원 명수 카운트
+    public abstract Integer countMemberCount();
 }

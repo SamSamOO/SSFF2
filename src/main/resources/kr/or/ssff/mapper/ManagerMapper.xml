@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="kr.or.ssff.manager.mapper.ManagerMapper">
+<mapper namespace="kr.or.ssff.mapper.ManagerMapper">
 
     <select id="getMemberListPerPaging" resultType="kr.or.ssff.manager.domain.ManagerMemberVO">
         <![CDATA[
@@ -30,6 +30,9 @@
               where ROWNUM <= #{pageNum} * #{amount})
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
+    </select>
+    <select id="countMemberCount" resultType="Integer">
+        select count(*) from MEMBER
     </select>
 </mapper>
 

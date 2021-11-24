@@ -1,10 +1,12 @@
 package kr.or.ssff.manager.controller;
 
+import java.util.List;
 import kr.or.ssff.manager.domain.ManagerMemberVO;
 import kr.or.ssff.manager.service.ManagerService;
 import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.model.MemberDTO;
 import kr.or.ssff.studyIns.model.Criteria;
+import kr.or.ssff.studyIns.model.PageDTO;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 /*
 
@@ -42,17 +42,23 @@ public class ManagerController {
 //    } // selectMemberList
 
     @GetMapping("/member/list")
-    public String allMemberList(Criteria criteria,Model model) {
+    public String allMemberList(Criteria criteria, Model model) {
         log.info("allMemberList({}) is invoked", "criteria = " + criteria + ", model = " + model);
 
-
         List<ManagerMemberVO> memberList = this.service.getMemberListPerPaging(criteria);
+
         model.addAttribute("memberList", memberList);
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countMemberCount()));
+
         log.info("memberList = {}", memberList);
 
         return "manager/member/list";
     } // allMemberList
 
+    @GetMapping('/member/search')
+    public String searchMemberList(Criteria criteria, Model model) {
+
+    }
 
 //    @GetMapping("/member/list")
 //    public String MemberListGo() {
@@ -69,6 +75,7 @@ public class ManagerController {
      * */
     @GetMapping("/member/info")
     public String selectMemberDetail(MemberVO member) {
+
         log.info("selectMemberDetail({}) is invoked", "member = " + member);
 
         return "manager/member/info/list";
@@ -80,6 +87,7 @@ public class ManagerController {
      * */
     @GetMapping("/member/info/modifyGo")
     public String updateMemberGo(MemberDTO member) {
+
         log.info("updateMemberGo({}) is invoked", "member = " + member);
 
         return "manager/member/info/modify";
