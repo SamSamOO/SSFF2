@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /*
 
@@ -179,8 +180,8 @@ public class ManagerController {
      *반환 :
      * */
     @GetMapping("/study/list")
-    public String selectStudyList(Criteria criteria,Model model) {
-        log.info("selectStudyList({}) is invoked", "criteria = " + criteria + ", model = " + model);
+    public String selectStudyList(Criteria criteria,@RequestParam List<String> chk,@RequestParam List<String> chk2,Model model) {
+        log.info("selectStudyList({}) is invoked", "criteria = " + criteria + ", chk = " + chk + ", chk2 = " + chk2 + ", model = " + model);
 
         Objects.requireNonNull(service);
 
