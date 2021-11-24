@@ -26,7 +26,38 @@ public class ManagerServiceImpl implements ManagerService, InitializingBean, Dis
     @Autowired
     private ManagerMapper mapper;
 
+    @Override
+    public Integer countMemberCountBy(String keyword) {
+        log.info("countMemberCountBy({}) is invoked", "keyword = " + keyword);
 
+        Integer count = this.mapper.countMemberCountBy(keyword);
+
+        return count;
+    }
+
+    @Override
+    public List<ManagerMemberVO> getSearchMemberPerPaging(Criteria criteria,String keyword) {
+        log.info("getSearchMemberPerPaging({}) is invoked", "criteria = " + criteria);
+
+        Objects.requireNonNull(mapper);
+        log.info("mapper = {}", this.mapper.getSearchMemberPerPaging(criteria.getPageNum(), criteria.getAmount(),keyword));
+
+        List<ManagerMemberVO> list = this.mapper.getSearchMemberPerPaging(criteria.getPageNum(), criteria.getAmount(),keyword);
+
+
+        return list;
+    }
+    @Override
+    public List<ManagerMemberVO> getMemberListPerPaging(Criteria criteria) {
+        log.debug("getMemberListPerPaging() invoked");
+
+        Objects.requireNonNull(mapper);
+        log.info("mapper = {}", this.mapper.getMemberListPerPaging(criteria.getPageNum(), criteria.getAmount()));
+
+        List<ManagerMemberVO> list = this.mapper.getMemberListPerPaging(criteria.getPageNum(), criteria.getAmount());
+
+        return list;
+    } // getMemberListPerPaging
     @Override
     public Integer countMemberCount() {
         log.info("countMemberCount() is invoked");
@@ -66,17 +97,7 @@ public class ManagerServiceImpl implements ManagerService, InitializingBean, Dis
         return null;
     } // getListPerPage
 
-    @Override
-    public List<ManagerMemberVO> getMemberListPerPaging(Criteria criteria) {
-        log.debug("getMemberListPerPaging() invoked");
 
-        Objects.requireNonNull(mapper);
-        log.info("mapper = {}", this.mapper.getMemberListPerPaging(criteria.getPageNum(), criteria.getAmount()));
-
-        List<ManagerMemberVO> list = this.mapper.getMemberListPerPaging(criteria.getPageNum(), criteria.getAmount());
-
-        return list;
-    } // getMemberListPerPaging
 
 //===============================================================================================
 

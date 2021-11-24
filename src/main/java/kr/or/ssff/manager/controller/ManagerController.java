@@ -55,9 +55,18 @@ public class ManagerController {
         return "manager/member/list";
     } // allMemberList
 
-    @GetMapping('/member/search')
-    public String searchMemberList(Criteria criteria, Model model) {
+    @GetMapping("/member/search")
+    public String searchMemberList(Criteria criteria,String keyword, Model model) {
+        log.info("searchMemberList({}) is invoked", "criteria = " + criteria + ", model = " + model);
 
+        List<ManagerMemberVO> memberList = this.service.getSearchMemberPerPaging(criteria,keyword);
+
+        model.addAttribute("memberList", memberList);
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countMemberCountBy(keyword)));
+
+        log.info("memberList = {}", memberList);
+
+        return "manager/member/list";
     }
 
 //    @GetMapping("/member/list")

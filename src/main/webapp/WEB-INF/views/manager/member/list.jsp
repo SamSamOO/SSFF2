@@ -26,7 +26,28 @@ License: You must have a valid license purchased only from themeforest(the above
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="/resources/assets/css/style.list.css" rel="stylesheet" type="text/css"/>
-    <script>
+    <script type="text/javascript">
+        $(function () {
+            $(`#searchBtn`).on('click', function (e) {
+
+                e.preventDefault(); //기본 동작 제한
+                actionForm.attr('action', '/manager/member/search');
+                actionForm.submit();
+
+            });
+            $("input[name='keyword']").on("keyup", function (key) {
+                if (key.keyCode == 13) {
+                    key.preventDefault(); //기본 동작 제한
+                    actionForm.attr('action', '/manager/member/search');
+                    actionForm.submit();
+                }
+            });
+
+
+        });
+        function submitConfirm() {
+            $('#actionForm').submit();
+        }
 
     </script>
 </head>
@@ -46,7 +67,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <!--begin::Wrapper-->
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
                 <!--header.html Include-->
-                <jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
+                <jsp:include page="/WEB-INF/commons/header.jsp"/>
                 <!------------------Header Wrapper : 메뉴 탭 시작------------------>
                 <!--menu.html Include-->
                 <jsp:include page="/WEB-INF/commons/menu_admin.jsp"></jsp:include>
@@ -90,12 +111,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                     <!--begin::Search Form 검색-->
                                     <div class="d-flex align-items-center" id="kt_subheader_search" style="">
-                                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total" style="width: 40%;">${pageMaker.total-1} 전체</span>&nbsp
+                                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total" style="width: 40%;">${pageMaker.total} 전체</span>&nbsp
+                                        <span style="width: 30%"><a href="#" onclick="submitConfirm()"><i class="fas fa-sync-alt"></i></a></span>
                                         <form class="ml-5">
                                             <div class="input-group input-group-sm input-group-solid">
                                                 <input type="text" class="form-control"
-                                                       id="kt_subheader_search_form" placeholder="Search..."/>
-                                                <div class="input-group-append">
+                                                       id="kt_subheader_search_form" name="keyword" placeholder="Search..."/>
+                                                <div id="searchBtn" class="input-group-append">
                                                             <span class="input-group-text">
                                                                 <i class="flaticon2-search-1 icon-sm"></i>
                                                             </span>
@@ -250,7 +272,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 </div>
                 <!--컨테이너 종료-->
                 <!--footer.html Include-->
-                <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+                <jsp:include page="/WEB-INF/commons/footer.jsp"/>
     </form>
 </div>
 

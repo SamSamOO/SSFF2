@@ -34,6 +34,40 @@
     <select id="countMemberCount" resultType="Integer">
         select count(*) from MEMBER
     </select>
+
+    <select id="getSearchMemberPerPaging" resultType="kr.or.ssff.manager.domain.ManagerMemberVO">
+       <![CDATA[
+        select MEMBER_NO,
+               MEMBER_NAME,
+               MEMBER_ID,
+               MEMBER_PWD,
+               MEMBER_PROFILE,
+               MEMBER_INTRODUCE,
+               MEMBER_ENABLED,
+               AUTHKEY,
+               AUTHSTATUS
+        from (select /*+ INDEX_DESC(member pk_member) */
+                  ROWNUM rn,
+                  MEMBER_NO,
+                  MEMBER_NAME,
+                  MEMBER_ID,
+                  MEMBER_PWD,
+                  MEMBER_PROFILE,
+                  MEMBER_INTRODUCE,
+                  MEMBER_ENABLED,
+                  AUTHKEY,
+                  AUTHSTATUS
+              from MEMBER
+              where ROWNUM <= #{pageNum} * #{amount} and (MEMBER_NAME like'%'||#{keyword}||'%' or MEMBER_ID like '%'||#{keyword}||'%'))
+        where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+
+    <select id="countMemberCountBy" resultType="Integer">
+        select count(*)
+        from MEMBER
+        where (MEMBER_NAME like '%' || #{keyword} || '%' or MEMBER_ID like '%' || #{keyword} || '%')
+    </select>
 </mapper>
 
 

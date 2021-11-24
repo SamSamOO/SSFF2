@@ -33,4 +33,11 @@ public interface ManagerService {
 
     // 8. 회원 명수 카운트
     public abstract Integer countMemberCount();
+
+    // 9 . 회원 검색
+    public abstract List<ManagerMemberVO> getSearchMemberPerPaging(Criteria criteria,String keyword);
+
+    // 9-1 . 회원 명수 카운트(검색 기준)
+    public abstract Integer countMemberCountBy(String keyword);
+
 }
