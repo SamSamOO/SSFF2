@@ -71,31 +71,74 @@
         where (MEMBER_NAME like '%' || #{keyword} || '%' or MEMBER_ID like '%' || #{keyword} || '%')
     </select>
 
-    <select id="getStudyListPerPaging" resultType="kr.or.ssff.manager.domain.ManagerStudyListByBossYVO">
-        <![CDATA[
+    <select id="getStudyListPerPaging" parameterType="hashMap" resultType="kr.or.ssff.manager.domain.ManagerStudyListByBossYVO">
+
         select R_IDX, MEMBER_NAME, TYPE_PC, TEAMNAME, WRITEDATE, DEAD_OK
-        from (select /*+ INDEX_DESC(recruit_board  PK_RECRUIT_BOARD) */
-                  ROWNUM rn,
-                  RB.R_IDX,
-                  AM.MEMBER_NAME,
-                  RB.TYPE_PC,
-                  RB.TEAMNAME,
-                  RB.WRITEDATE,
-                  RB.DEAD_OK
-              from RECRUIT_BOARD RB
-                       join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
-                       join MEMBER M on M.MEMBER_NAME = AM.MEMBER_NAME
-              where ROWNUM <= #{pageNum} * #{amount}
-                and am.STUDY_BOSS_YN = 'y')
-        where rn > (#{pageNum} - 1) * #{amount}
-        ]]>
+        from (select /*+ INDEX_DESC(recruit_board PK_RECRUIT_BOARD) */
+        ROWNUM rn,
+        RB.R_IDX,
+        AM.MEMBER_NAME,
+        RB.TYPE_PC,
+        RB.TEAMNAME,
+        RB.WRITEDATE,
+        RB.DEAD_OK
+        from RECRUIT_BOARD RB
+        join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
+        join MEMBER M on M.MEMBER_NAME = AM.MEMBER_NAME
+        where ROWNUM <![CDATA[<= #{map.pageNum} * #{map.amount}
+                and am.STUDY_BOSS_YN = 'y'
+                                               ]]>
+
+
+        <if test="map!=null">
+            <if test='map.action1!="OK"'>
+                <if test='map.chk!=null'>
+                    and RB.TYPE_PC in
+                    <foreach close=")" collection="map.chk" item="item" open="(" separator=",">
+                        #{item,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test='map.action2!="OK"'>
+                <if test='map.chk2!=null or map.chk2 !="전체"'>
+                    and AM.STUDY_JOIN_ARCIWF in
+                    <foreach close=")" collection="map.chk2" item="item" open="(" separator=",">
+                        #{item,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+            </if>
+        </if>
+        )
+
+        where rn > (#{map.pageNum} - 1) * #{map.amount}
+
     </select>
-    <select id="countStudyCount" resultType="Integer">
+    <select id="countStudyCount" parameterType="hashMap" resultType="Integer">
         select count(RB.R_IDX)
         from RECRUIT_BOARD RB
-                 join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
-                 join MEMBER M on M.MEMBER_NAME = AM.MEMBER_NAME
+        join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
+        join MEMBER M on M.MEMBER_NAME = AM.MEMBER_NAME
         where am.STUDY_BOSS_YN = 'y'
+        <if test="map!=null">
+            <if test='map.action1!="OK"'>
+                <if test='map.chk!=null'>
+                    and RB.TYPE_PC in
+                    <foreach close=")" collection="map.chk" item="item" open="(" separator=",">
+                        #{item,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+            </if>
+
+            <if test='map.action2!="OK"'>
+                <if test='map.chk2!=null'>
+                    and AM.STUDY_JOIN_ARCIWF in
+                    <foreach close=")" collection="map.chk2" item="item" open="(" separator=",">
+                        #{item,jdbcType=VARCHAR}
+                    </foreach>
+                </if>
+            </if>
+        </if>
     </select>
 </mapper>
 

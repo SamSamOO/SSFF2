@@ -1,11 +1,10 @@
 package kr.or.ssff.manager.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
 import kr.or.ssff.manager.domain.ManagerMemberVO;
 import kr.or.ssff.manager.domain.ManagerStudyListByBossYVO;
-import kr.or.ssff.manager.domain.ManagerStudyVO;
 import kr.or.ssff.manager.service.ManagerService;
 import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.model.MemberDTO;
@@ -60,11 +59,12 @@ public class ManagerController {
         return "manager/member/list";
     } // allMemberList
 
+
     @GetMapping("/member/search")
-    public String searchMemberList(Criteria criteria,String keyword, Model model) {
+    public String searchMemberList(Criteria criteria, String keyword, Model model) {
         log.info("searchMemberList({}) is invoked", "criteria = " + criteria + ", model = " + model);
 
-        List<ManagerMemberVO> memberList = this.service.getSearchMemberPerPaging(criteria,keyword);
+        List<ManagerMemberVO> memberList = this.service.getSearchMemberPerPaging(criteria, keyword);
 
         model.addAttribute("memberList", memberList);
         model.addAttribute("pageMaker", new PageDTO(criteria, service.countMemberCountBy(keyword)));
@@ -180,17 +180,41 @@ public class ManagerController {
      *반환 :
      * */
     @GetMapping("/study/list")
-    public String selectStudyList(Criteria criteria,@RequestParam List<String> chk,@RequestParam List<String> chk2,Model model) {
+    public String selectStudyList(Criteria criteria,@RequestParam(required = false,defaultValue = "전체") List<String> chk, @RequestParam(required = false,defaultValue = "전체") List<String> chk2, Model model) {
         log.info("selectStudyList({}) is invoked", "criteria = " + criteria + ", chk = " + chk + ", chk2 = " + chk2 + ", model = " + model);
+
+        String action1 = "";
+        String action2 = "";
+
+        if (chk.get(0) .equals("전체") ) {
+            action1 = "OK";
+        }
+
+        if (chk2.get(0).equals("전체")) {
+            action2 = "OK";
+        }
+        log.info("action1 = {}", action1);
+        log.info("action2 = {}", action2);
+
+        HashMap<String, Object> map = new HashMap<>();
+
+        map.put("pageNum", criteria.getPageNum());
+        map.put("amount", criteria.getAmount());
+        map.put("chk", chk);
+        map.put("chk2", chk2);
+        map.put("action1", action1);
+        map.put("action2", action2);
+
+        log.info("map = {}", map);
 
         Objects.requireNonNull(service);
 
-        List<ManagerStudyListByBossYVO> list = this.service.getStudyListPerPaging(criteria);
+        List<ManagerStudyListByBossYVO> list = this.service.getStudyListPerPaging(criteria, map);
 
         log.info("list = {}", list);
 
         model.addAttribute("list", list);
-        model.addAttribute("pageMaker", new PageDTO(criteria, service.countStudyCount()));
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countStudyCount(map)));
 
         return "manager/study/list";
     }

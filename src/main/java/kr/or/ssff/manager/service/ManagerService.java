@@ -1,13 +1,11 @@
 package kr.or.ssff.manager.service;
 
-import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
+import java.util.HashMap;
 import kr.or.ssff.manager.domain.ManagerMemberVO;
 
 import java.util.List;
 import kr.or.ssff.manager.domain.ManagerStudyListByBossYVO;
-import kr.or.ssff.manager.domain.ManagerStudyVO;
 import kr.or.ssff.studyIns.model.Criteria;
-import org.apache.ibatis.annotations.Param;
 
 /*
 
@@ -44,8 +42,8 @@ public interface ManagerService {
     public abstract Integer countMemberCountBy(String keyword);
 
     // 10 . 스터디 개수 카운트(전체경우)
-    public abstract Integer countStudyCount();
+    public abstract Integer countStudyCount(HashMap<String,Object> map);
 
     // 10-1 . 스터디 페이징 리스트 검색 (전체)
-    public  abstract List<ManagerStudyListByBossYVO> getStudyListPerPaging(Criteria criteria);
+    public  abstract List<ManagerStudyListByBossYVO> getStudyListPerPaging(Criteria criteria, HashMap<String,Object> map);
 }

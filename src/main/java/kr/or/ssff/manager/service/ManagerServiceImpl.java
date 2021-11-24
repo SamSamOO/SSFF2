@@ -1,11 +1,9 @@
 package kr.or.ssff.manager.service;
 
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
+import java.util.HashMap;
 import java.util.Objects;
-import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
 import kr.or.ssff.manager.domain.ManagerMemberVO;
 import kr.or.ssff.manager.domain.ManagerStudyListByBossYVO;
-import kr.or.ssff.manager.domain.ManagerStudyVO;
 import kr.or.ssff.mapper.ManagerMapper;
 import kr.or.ssff.studyIns.model.Criteria;
 import lombok.AllArgsConstructor;
@@ -30,24 +28,25 @@ public class ManagerServiceImpl implements ManagerService, InitializingBean, Dis
     @Autowired
     private ManagerMapper mapper;
 
+
     @Override
-    public Integer countStudyCount() {
-        log.info("countStudyCount() is invoked");
+    public Integer countStudyCount(HashMap<String, Object> map) {
+        log.info("countStudyCount({}) is invoked", "map = " + map);
 
         Objects.requireNonNull(mapper);
-
-        Integer count = this.mapper.countStudyCount();
+        Integer count = this.mapper.countStudyCount(map);
         log.info("count = {}", count);
         return count;
     }
 
     @Override
-    public List<ManagerStudyListByBossYVO> getStudyListPerPaging(Criteria criteria) {
-        log.info("getStudyListPerPaging({}) is invoked", "criteria = " + criteria);
+    public List<ManagerStudyListByBossYVO> getStudyListPerPaging(Criteria criteria, HashMap<String,Object> map) {
+        log.info("getStudyListPerPaging({}) is invoked", "criteria = " + criteria + ", map = " + map);
 
         Objects.requireNonNull(mapper);
 
-        List<ManagerStudyListByBossYVO> list = this.mapper.getStudyListPerPaging(criteria.getPageNum(), criteria.getAmount());
+        List<ManagerStudyListByBossYVO> list = this.mapper.getStudyListPerPaging(map );
+
         log.info("list = {}", list);
         return list;
     }
