@@ -1,24 +1,14 @@
-
-.pagination .active a,
-.pagination a:hover{
-    color: #FFFFFF !important;
-}
-
-
-
-.checklist li{
-    width: 8rem;
-}
-
-.checklist li:first-child{
-    width: 5rem !important;
-}
-
-.mng_study_list td{
+.mng_study_list td {
     vertical-align: center !important;
 }
 
+.checklist li {
+    width: 8rem;
+}
 
+.checklist li:first-child {
+    width: 5rem !important;
+}
 
 .mng_info {
     margin: 0 auto;
@@ -29,42 +19,25 @@
     text-align: center;
 }
 
-.mng_info table tr td:nth-child(odd){
+.mng_info table tr td:nth-child(odd) {
     width: 7rem;
     color: #ebab31;
     font-weight: 600;
 }
 
-.mng_info table tr td:nth-child(even){
+.mng_info table tr td:nth-child(even) {
     font-weight: 300;
 }
 
-.board_list .notice{
-    background-color: oldlace;
-}
-
-.board_list .notice:hover{
-    background-color: palegoldenrod;
-}
-
-.board_list td{
-    text-align: center;
-}
-.board_list tbody td:first-child,
-.board_list tbody td:last-child{
-    font-size: 1rem;
-}
-
-
-.inline-flex{
+.inline-flex {
     display: inline-flex;
 }
 
-.list-style-none{
+.list-style-none {
     list-style: none;
 }
 
-.filter-shadow{
+.filter-shadow {
     -webkit-box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05);
     box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05);
 }
