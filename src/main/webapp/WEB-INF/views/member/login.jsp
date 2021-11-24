@@ -20,6 +20,9 @@
     <link href="${pageContext.request.contextPath}/resources/assets/css/style.bundle.css" rel="stylesheet" type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
+
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/footer.jsp"></jsp:include>
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
     <style>
         .kakoLogin-btn{
             margin-top: 40px;
@@ -52,9 +55,9 @@
                         <h3>SamSamOO</h3>
                         <div class="text-muted font-weight-bold">함꼐할 프로젝트원을 모집해보세요:p</div>
                     </div>
-                    <form action="/member/login" method="post" class="form" id="kt_login_signin_form">
+                    <form action="/member/login" method="POST" class="form" id="kt_login_signin_form">
                         <div class="form-group mb-5">
-                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email"  id="member_id" name="member_id" autocomplete="off" />
+                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" id="member_id" name="member_id" autocomplete="off" />
                         </div>
                         <div class="form-group mb-5">
                             <input class="form-control h-auto form-control-solid py-4 px-8" type="password" placeholder="Password" id="member_pwd" name="member_pwd" />

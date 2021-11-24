@@ -186,7 +186,7 @@
 
                                         <label class="font-size-h6 font-weight-bolder text-dark">E-Mail</label>
                                         <div class="email_box">
-                                        <input type="email" class="form-control h-auto p-6 border-0 rounded-lg font-size-h6" id="member_id" name="member_id" placeholder="E-Mail" value="">
+                                        <input type="email" class="form-control h-auto p-6 border-0 rounded-lg font-size-h6" id="member_id" name = "member_id" placeholder="E-Mail" >
                                             <button type="button" class="btn btn-primary font-weight-bolder font-size-h5 pl-8 pr-7 py-4 my-5 " id="idChk" onclick="fn_idChk();">중복</button>
 
                                       </div>
@@ -211,7 +211,7 @@
                                     <!--begin::Form Group-->
                                     <div class="form-group fv-plugins-icon-container">
                                         <label class="font-size-h6 font-weight-bolder text-dark">PassWordCheck</label>
-                                        <input type="password" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_pwd1" name="member_pwd" placeholder="PassWordCheck" value="">
+                                        <input type="password" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_pwd1" name="member_pwd1" placeholder="PassWordCheck" value="">
                                         <div class="fv-plugins-message-container"></div></div>
                                     <!--begin::Form Group-->
                                     <!--end::Row-->
@@ -278,15 +278,15 @@ function fn_idChk(){
     $.ajax({
         url : "/member/idChk",
         type : "post",
-        dataType : "int",
-        result : {"member_id" : $("#member_id").val()},
-        success : function(result){
-            if(result == 1){
+        dataType : "json",
+        data : {"member_id" : $("#member_id").val()},
+        success : function(data){
+            if(data == 1 ){
                 alert("중복된 이메일입니다.");
-            }else if(result == 0){
+            }else if(data == 0){
                 $("#idChk").attr("value", "Y");
                 alert("사용가능한 이메일입니다.");
-            }else {
+            }else if(data == '') {
                 alert("이메일을 입력해주세요.");
             }
         }

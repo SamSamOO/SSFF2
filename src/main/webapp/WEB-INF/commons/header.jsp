@@ -5,6 +5,7 @@
   Time: 오후 3:21
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!------------------모바일 헤더 시작------------------>
 <div id="kt_header_mobile" class="header-mobile">
@@ -132,8 +133,16 @@
                             <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg"/>
                         </div>
                         <!--유저 닉네임(비로그인시 숨김)-->
-                        <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5">유저 닉네임 </div>
-                        <i class="text-dark fas fa-angle-down"></i>
+
+                        <c:if test = "${member == null }">
+                            <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5"></div>
+                            <i class="text-dark fas fa-angle-down"></i>
+                        </c:if>
+
+                        <c:if test="${ member != null }">
+                            <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5"> ${member.member_name}</div>
+                            <i class="text-dark fas fa-angle-down"></i>
+                        </c:if>
                     </div>
 
                 </div>
@@ -147,7 +156,13 @@
                             <div class="navi-link">
 
                                 <div class="navi-text login">
-                                    <div class="font-weight-bold">로그인</div>
+                                    <c:if test = "${member == null }">
+                                        <div class="font-weight-bold">로그인</div>
+                                    </c:if>
+
+                                    <c:if test="${ member != null }">
+                                        <div class="font-weight-bold"></div>
+                                    </c:if>
                                 </div>
                             </div>
                         </a>
@@ -192,7 +207,7 @@
                         </a>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <a href="custom/apps/user/profile-1/personal-information.html" class="navi-item">
+                        <a href="/member/logout" class="navi-item">
                             <div class="navi-link">
 
                                 <div class="navi-text logout">

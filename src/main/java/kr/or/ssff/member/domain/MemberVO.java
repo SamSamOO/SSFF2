@@ -31,6 +31,9 @@ public class MemberVO {
 	private Integer AuthStatus;
 
 
+
+
+
 } // end class
 
 
