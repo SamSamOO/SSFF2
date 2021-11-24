@@ -2,7 +2,7 @@
 FullCalendar Core Package v4.4.2
 Docs & License: https://fullcalendar.io/
 (c) 2019 Adam Shaw
-*/
+
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :

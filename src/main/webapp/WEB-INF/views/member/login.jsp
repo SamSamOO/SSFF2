@@ -45,7 +45,7 @@
 
                     <a href="#">    <!-- 로고누르면 메인으로 가는기능 만들기 까먹지말고 -->
 
-                        <img src="${pageContext.request.contextPath}/resources/assets/image/SamSamOOLOGO.png" class="max-h-75px" alt="" />
+                        <img src="${pageContext.request.contextPath}/resources/assets/images/logos/ssff/logo-c2.png" class="max-h-75px" alt="" />
                     </a>
                 </div>
                 <!--end::Login Header-->
@@ -53,7 +53,7 @@
                 <div class="login-signin">
                     <div class="mb-20">
                         <h3>SamSamOO</h3>
-                        <div class="text-muted font-weight-bold">함꼐할 프로젝트원을 모집해보세요:p</div>
+                        <div class="text-muted font-weight-bold">함께할 프로젝트원을 모집해보세요:p</div>
                     </div>
                     <form action="/member/login" method="POST" class="form" id="kt_login_signin_form">
                         <div class="form-group mb-5">
@@ -76,7 +76,7 @@
 
                     <div class="kakoLogin-btn">
                    <a href="${kakao_url}">
-                       <img src="${pageContext.request.contextPath}/resources/assets/image/kakao_login_medium_narrow.png">
+                       <img src="${pageContext.request.contextPath}/resources/assets/images/button/kakao_login_medium_narrow.png">
                     </a>
                     </div>
                     <div class="mt-10">

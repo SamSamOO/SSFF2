@@ -13,7 +13,6 @@
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 
 
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
@@ -21,111 +20,120 @@
 
 
     <style>
-        *{
-            margin:0;
-            padding:0;
-        }
-        .container{
-            width: 500px;
-            margin: 0 auto;
-            padding: 25px
-        }
-        .container h1{
-            text-align: left;
-            padding: 5px 5px 5px 15px;
-            color: #FFBB00;
-            border-left: 3px solid #FFBB00;
-            margin-bottom: 20px;
-        }
-        .chating{
-            background-color: #000;
+<%--        * {--%>
+<%--            margin: 0;--%>
+<%--            padding: 0;--%>
+<%--        }--%>
+
+<%--        .container {--%>
+<%--            width: 500px;--%>
+<%--            margin: 0 auto;--%>
+<%--            padding: 25px--%>
+<%--        }--%>
+
+<%--        .container h1 {--%>
+<%--            text-align: left;--%>
+<%--            padding: 5px 5px 5px 15px;--%>
+<%--            color: #FFBB00;--%>
+<%--            border-left: 3px solid #FFBB00;--%>
+<%--            margin-bottom: 20px;--%>
+<%--        }--%>
+
+        .chating {
+            background-color: lightblue;
+            border-radius: 10px;
+
             width: 500px;
             height: 500px;
             overflow: auto;
         }
-        .chating .me{
-            color: #F6F6F6;
+
+        .chating .me {
+            color: black;
+            padding-right:10px ;
             text-align: right;
         }
-        .chating .others{
-            color: #FFE400;
+
+        .chating .others {
+            color: red;
+            padding-left:10px ;
+
             text-align: left;
         }
-        input{
-            width: 330px;
-            height: 25px;
+
+        input {
+            width: 330px;!important;
+            height: 25px;!important;
         }
-        #yourMsg{
-            display: none;
-        }
+
+
     </style>
 
 
 </head>
 <script type="text/javascript">
     var ws;
-
-    function wsOpen(){
+    $(function () {
+        wsOpen();
+    });
+    function wsOpen() {
         //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
-        ws = new WebSocket("ws://" + location.host + "/chating/"+$("#roomNumber").val());
+        ws = new WebSocket("ws://" + location.host + "/chating/" + $("#r_Idx").val());
         wsEvt();
     }
 
     function wsEvt() {
-        ws.onopen = function(data){
+        ws.onopen = function (data) {
             //소켓이 열리면 동작
         }
 
-        ws.onmessage = function(data) {
+        ws.onmessage = function (data) {
             //메시지를 받으면 동작
             var msg = data.data;
-            if(msg != null && msg.trim() != '') {
+            if (msg != null && msg.trim() != '') {
                 var d = JSON.parse(msg);
-                let now = new Date();
-                console.log(now);
-                d.time = now;
-                console.log(d);
                 if (d.type == "getId") {
-
                     var si = d.sessionId != null ? d.sessionId : "";
                     if (si != '') {
                         $("#sessionId").val(si);
                     }
                 } else if (d.type == "message") {
-                    if (d.sessionId == $("#sessionId").val()) {
+                    if (d.msg == '' || d.msg == null) {
+                        Swal.fire({
+                            title: '공백은 안됩니다',
+                            type: 'warning',
+                            buttonsStyling: false,
+                            confirmButtonText: '확인',
+                            confirmButtonClass: 'btn btn-primary font-weight-bold'
+                        });
+                    } else if (d.sessionId == $("#sessionId").val()) {
                         $("#chating").append("<p class='me'>나 :" + d.msg + "</p>");
                     } else {
                         $("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
                     }
 
                 } else {
-                    console.warn("unknown type!");
+                    console.warn("unknown type!")
                 }
             }
-            $.ajax({
-                type       : 'POST',
-                url        : '/chat',
-                data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
-                dataType   : 'json', // 받을 데이터는 json
-                contentType: "application/json; charset=utf-8",
-                success    : successCallback,
-                error      : errorCallback
-            });
+        }
+        ws.onclose = e => {
+            setTimeout(wsOpen, 1000);
         }
 
-        document.addEventListener("keypress", function(e){
-            if(e.keyCode == 13){ //enter press
+        document.addEventListener("keypress", function (e) {
+            if (e.keyCode == 13) { //enter press
                 send();
             }
         });
     }
 
-    function chatName(){
+    function chatName() {
         var userName = $("#userName").val();
-        if(userName == null || userName.trim() == ""){
+        if (userName == null || userName.trim() == "") {
             alert("사용자 이름을 입력해주세요.");
             $("#userName").focus();
-        }else{
+        } else {
             wsOpen();
             $("#yourName").hide();
             $("#yourMsg").show();
@@ -133,12 +141,12 @@
     }
 
     function send() {
-        var option ={
+        var option = {
             type: "message",
-            roomNumber: $("#roomNumber").val(),
-            sessionId : $("#sessionId").val(),
-            userName : $("#userName").val(),
-            msg : $("#chatting").val()
+            r_Idx: $("#r_Idx").val(),
+            sessionId: $("#sessionId").val(),
+            userName: $("#userName").val(),
+            msg: $("#chatting").val()
         }
         ws.send(JSON.stringify(option))
         $('#chatting').val("");
@@ -178,50 +186,53 @@
                     <!--카드 헤더 종료-->
                     <!--카드 Body 시작-->
                     <!--카드 Body 시작-->
-                    <div id="container" class="container">
-                        <h1>${roomName}의 채팅방</h1>
-                        <input type="hidden" id="sessionId" value="">
-                        <input type="hidden" id="roomNumber" value="2">
+                    <div class="card-body pt-2 pb-0 mt-n3">
+                        <div id="container" class="container" align="center">
+                            <h1>${r_Idx}의 채팅방</h1>
+                            <input type="hidden" id="sessionId" value="">
+                            <input type="hidden" id="roomNumber" value="2">
+                            <input type="hidden" id="r_Idx" value="${r_Idx}">
 
-                        <div id="chating" class="chating">
-                        </div>
+                            <div id="chating" class="chating">
+                            </div>
 
-                        <div id="yourName">
-                            <table class="inputTable">
-                                <tr>
-                                    <th>사용자명</th>
-                                    <th>
-                                        <input type="text" name="userName" id="userName" value="nickname55">
-                                    </th>
-                                    <th>
-                                        <button onclick="chatName()" id="startBtn">이름 등록</button>
-                                    </th>
-                                </tr>
-                            </table>
-                        </div>
-                        <div id="yourMsg">
-                            <table class="inputTable">
-                                <tr>
-                                    <th>메시지</th>
-                                    <th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-                                    <th>
-                                        <button onclick="send()" id="sendBtn">보내기</button>
-                                    </th>
-                                </tr>
-                            </table>
+<%--                            <div id="yourName">--%>
+<%--                                <table class="inputTable">--%>
+<%--                                    <tr>--%>
+<%--                                        <th>사용자명</th>--%>
+<%--                                        <th>--%>
+<%--                                            <input type="text" name="userName" id="userName" value="nickname55">--%>
+<%--                                        </th>--%>
+<%--                                        <th>--%>
+<%--                                            <button onclick="chatName()" id="startBtn">이름 등록</button>--%>
+<%--                                        </th>--%>
+<%--                                    </tr>--%>
+<%--                                </table>--%>
+<%--                            </div>--%>
+                            <div id="yourMsg">
+                                <table class="inputTable">
+                                    <tr>
+                                        <th>메시지</th>
+                                        <th><input type="text" class="form-control"  aria-label="Default"  aria-describedby="inputGroup-sizing-default" id="chatting" placeholder="보내실 메시지를 입력하세요...................................."></th>
+                                        <th>
+                                            <button onclick="send()" id="sendBtn" class="btn btn-light-success font-weight-bold mr-2">보내기</button>
+                                        </th>
+                                    </tr>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <!--카드 Body 종료-->
                 </div>
-                <!--카드 Body 종료-->
-            </div>
-            <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
+                <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
 
-            <!--컨테이너 종료-->
-            <!--footer.html Include-->
-            <jsp:include page="/WEB-INF/commons/footer.jsp"/>
+                <!--컨테이너 종료-->
+                <!--footer.html Include-->
+            </div>
         </div>
     </div>
 </div>
+<jsp:include page="/WEB-INF/commons/footer.jsp"/>
 </body>
 
 <!----------------Body 종료----------------------->

@@ -78,7 +78,7 @@
                                 <div id="post-body" style="width: 55%">
                                     <div id="article"><!--본문-->
                                         <div class="back-button">
-                                            <img src="../../../../resources/assets/image/arrow.png"
+                                            <img src="../../../../resources/assets/images/icon/arrow.png"
                                                  style="width:20px;" onclick="location.href='/study/project/list'">
                                         </div>
                                         <div class="title-sec">
@@ -116,7 +116,7 @@
                                                 <li><p>지원하기</p></li>
                                                 <li style="padding-right:10px"><a href="/study/project/modifyGo?r_idx=${board.r_idx}">수정</a> | <a href="/study/project/remove?r_idx=${board.r_idx}">삭제</a></li>
                                                 <li style="padding-right:10px">
-                                                    <img src="../../../../resources/assets/image/hit.png"
+                                                    <img src="../../../../resources/assets/images/icon/hit.png"
                                                          width="15px">
                                                     <span>${board.hit}</span>
                                                 </li>

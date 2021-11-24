@@ -154,6 +154,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             <div class="ml-10 text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
                                                                 <a href=""/>
                                                                     ${list.member_name}
+                                                                닉네임
                                                                 </a>
                                                             </div>
 
@@ -168,6 +169,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <div class="d-flex align-items-center justify-content-center">
                                                     <span class="mb-0">
                                                             ${list.member_id}
+                                                        아이디(이메일)
                                                     </span>
 
                                                 </div>
