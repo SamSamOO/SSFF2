@@ -11,19 +11,19 @@ import lombok.Value;
 public class ManagerStudyVO {
 
     //    스터디 --------------------
-    private Integer r_idx;
-    private Character type_pc;
+    private Integer r_Idx;
+    private Character type_Pc;
     private String title;
-    private String teamname;
+    private String teamName;
     private String cont;
     private Integer hit;
-    private Date writedate;
+    private Date writeDate;
     private String sido;
-    private String ch_pattern;
-    private Date ch_start;
-    private Date ch_end;
-    private Character removed_ok;
-    private Character closed_ok;
-    private Character dead_ok;
+    private String ch_Pattern;
+    private Date ch_Start;
+    private Date ch_End;
+    private Character removed_Ok;
+    private Character closed_Ok;
+    private Character dead_Ok;
 
 }

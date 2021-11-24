@@ -1,7 +1,11 @@
 package kr.or.ssff.mapper;
 
 import java.util.List;
+import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
 import kr.or.ssff.manager.domain.ManagerMemberVO;
+import kr.or.ssff.manager.domain.ManagerStudyListByBossYVO;
+import kr.or.ssff.manager.domain.ManagerStudyVO;
+import kr.or.ssff.studyIns.model.Criteria;
 import org.apache.ibatis.annotations.Param;
 
 /*
@@ -20,5 +24,11 @@ public interface ManagerMapper {
 
     //멤버 서치 갯수
     public abstract Integer countMemberCountBy(@Param("keyword") String keyword);
+
+    //스터디 개수
+    public abstract Integer countStudyCount();
+
+    //스터디 페이징 .. 리스트 불러오기
+    public abstract List<ManagerStudyListByBossYVO> getStudyListPerPaging(@Param("pageNum") Integer pageNum, @Param("amount") Integer amount);
 
 }// end interface

@@ -32,7 +32,8 @@
         ]]>
     </select>
     <select id="countMemberCount" resultType="Integer">
-        select count(*) from MEMBER
+        select count(*)
+        from MEMBER
     </select>
 
     <select id="getSearchMemberPerPaging" resultType="kr.or.ssff.manager.domain.ManagerMemberVO">
@@ -58,7 +59,8 @@
                   AUTHKEY,
                   AUTHSTATUS
               from MEMBER
-              where ROWNUM <= #{pageNum} * #{amount} and (MEMBER_NAME like'%'||#{keyword}||'%' or MEMBER_ID like '%'||#{keyword}||'%'))
+              where ROWNUM <= #{pageNum} * #{amount}
+                and (MEMBER_NAME like '%' || #{keyword} || '%' or MEMBER_ID like '%' || #{keyword} || '%'))
         where rn > (#{pageNum} - 1) * #{amount}
         ]]>
     </select>
@@ -67,6 +69,33 @@
         select count(*)
         from MEMBER
         where (MEMBER_NAME like '%' || #{keyword} || '%' or MEMBER_ID like '%' || #{keyword} || '%')
+    </select>
+
+    <select id="getStudyListPerPaging" resultType="kr.or.ssff.manager.domain.ManagerStudyListByBossYVO">
+        <![CDATA[
+        select R_IDX, MEMBER_NAME, TYPE_PC, TEAMNAME, WRITEDATE, DEAD_OK
+        from (select /*+ INDEX_DESC(recruit_board  PK_RECRUIT_BOARD) */
+                  ROWNUM rn,
+                  RB.R_IDX,
+                  AM.MEMBER_NAME,
+                  RB.TYPE_PC,
+                  RB.TEAMNAME,
+                  RB.WRITEDATE,
+                  RB.DEAD_OK
+              from RECRUIT_BOARD RB
+                       join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
+                       join MEMBER M on M.MEMBER_NAME = AM.MEMBER_NAME
+              where ROWNUM <= #{pageNum} * #{amount}
+                and am.STUDY_BOSS_YN = 'y')
+        where rn > (#{pageNum} - 1) * #{amount}
+        ]]>
+    </select>
+    <select id="countStudyCount" resultType="Integer">
+        select count(RB.R_IDX)
+        from RECRUIT_BOARD RB
+                 join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
+                 join MEMBER M on M.MEMBER_NAME = AM.MEMBER_NAME
+        where am.STUDY_BOSS_YN = 'y'
     </select>
 </mapper>
 

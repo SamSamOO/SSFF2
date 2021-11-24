@@ -1,7 +1,11 @@
 package kr.or.ssff.manager.controller;
 
 import java.util.List;
+import java.util.Objects;
+import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
 import kr.or.ssff.manager.domain.ManagerMemberVO;
+import kr.or.ssff.manager.domain.ManagerStudyListByBossYVO;
+import kr.or.ssff.manager.domain.ManagerStudyVO;
 import kr.or.ssff.manager.service.ManagerService;
 import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.model.MemberDTO;
@@ -175,8 +179,17 @@ public class ManagerController {
      *반환 :
      * */
     @GetMapping("/study/list")
-    public String selectStudyList() {
-        log.info("selectStudyList() is invoked");
+    public String selectStudyList(Criteria criteria,Model model) {
+        log.info("selectStudyList({}) is invoked", "criteria = " + criteria + ", model = " + model);
+
+        Objects.requireNonNull(service);
+
+        List<ManagerStudyListByBossYVO> list = this.service.getStudyListPerPaging(criteria);
+
+        log.info("list = {}", list);
+
+        model.addAttribute("list", list);
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countStudyCount()));
 
         return "manager/study/list";
     }
