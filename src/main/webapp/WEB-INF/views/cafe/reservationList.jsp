@@ -23,6 +23,26 @@
       justify-content: space-evenly;
     }
   
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-direction: row;
+      box-sizing: border-box;
+      text-align: left;
+      font-weight: 400;
+      font-size: 12px !important;
+      color: #3F4254;
+      word-wrap: break-word;
+      -webkit-box-direction: normal;
+    }
+
+    li{
+      padding: 1em;
+    }
   </style>
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
@@ -449,7 +469,7 @@
         client_bank_code = data.reservationList[i].client_bank_code;
         client_name = data.reservationList[i].client_name;
 
-        useInfo = use_date + ' ' + use_start_time + '시부터 ' + use_end_time + '시까지 (' + (use_end_time
+        useInfo = use_date + ' ' + use_start_time + ':00 ~ ' + use_end_time + ':00 (' + (use_end_time
                   - use_start_time + 1)
                   + '시간)';
 
@@ -476,14 +496,16 @@
                        + `" class="datatable-cell"><span style="width: 110px;">` + useInfo + `</span></td>
           <td data-field="Status" data-autohide-disabled="false" aria-label="` + rsrv_status_ynz + `"
               class="datatable-cell"><span style="width: 110px;"><span
-              class="label label-warning label-dot"></span>&nbsp;<span
-              class="font-weight-bold text-danger">` + rsrv_status_ynz + `</span></span></td>
+              class="label label-warning label-dot"></span>&nbsp;
+          <span class="font-weight-bold text-danger">` + rsrv_status_ynz + `</span>
+          </span></td>
 
           <td data-field="Cancle" aria-label="4" class="datatable-cell"><span
               style="width: 110px;">`;
 
           if (rsrv_status_ynz == 'n') {
-            $rsrvHtml += `<span class="label label-success label-inline label-pill">cansle</span>`;
+            $rsrvHtml += `<button  type="button" class="btn btn-default"
+                data-toggle="modal" data-target="#rsrvCancleModal" >cansle</button>`;
           }
 
           $rsrvHtml +=
@@ -798,11 +820,70 @@
           $('tr[data-row="' + i + '"]').attr('style', ('display:""'));
         } // for
 
-      }
+      } // displayData
 
-    }
-  }
+    } // setListItem
+  } // start
 
 
+// 접속자의 권한을 확인하는 함수
+function access(){
+
+
+}
+
+
+<%--// 지원신청 누르면 작업 고고--%>
+<%--function cancleRsrv(action){--%>
+
+<%--  // 유형별로 다른 문구--%>
+<%--  let actionName =--%>
+<%--          action == 'challenge' ? '스터디장이 승인하더라도\n스터디 시작일에 [ 10,000원 ]이 결제하지 않으면 \n 참여되지 않습니다.\n\n' : '';--%>
+
+
+<%--  if (!confirm("\n\n해당 스터디에서 지원신청 하시겠습니까?\n" +--%>
+<%--               "스터디장의 승인 이후 가입됩니다.\n" + actionName)) {--%>
+<%--    return false;--%>
+<%--  } // if--%>
+
+<%--  var submitObj = new Object();--%>
+<%--  submitObj.boss = 'n',--%>
+<%--      submitObj.r_idx = ${board.r_idx},--%>
+<%--      submitObj.member_name = 'nickname104';--%>
+
+<%--  console.log("submitObj.boss: "+submitObj.boss);--%>
+<%--  console.log("submitObj.r_idx: "+submitObj.r_idx);--%>
+<%--  console.log("submitObj.member_name: "+ submitObj.member_name);--%>
+
+<%--  $.ajax({--%>
+<%--           type       : 'POST',--%>
+<%--           url        : '/applyMemberRest/insert',--%>
+<%--           data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발--%>
+<%--           dataType   : 'text', // 받을 데이터는 json--%>
+<%--           contentType: "application/json; charset=utf-8",--%>
+<%--           success    : successCallback,--%>
+<%--           error      : errorCallback--%>
+<%--         });--%>
+
+<%--  // 성공시 데이터 처리--%>
+<%--  function successCallback(data) {--%>
+<%--    console.log("data: " + data);--%>
+<%--    //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고--%>
+
+<%--    // 참여신청 버튼 비활성화처리 //TODO 전역함수로도 설정해서 재신청 불가능하게~--%>
+<%--    $('#applyChallenge').css("background-color","gray"); //색 변경--%>
+<%--    // $('#applyChallenge').unbind('mouseenter mouseleave'); // 호버 제거 안되죠?--%>
+<%--    $("#applyChallenge").attr('onclick', '').unbind('click');--%>
+
+
+<%--    $('#applyChallenge').text('지원완료'); // 글자 변경--%>
+<%--  } // successCallback--%>
+
+<%--  // 실패--%>
+<%--  function errorCallback() {--%>
+
+<%--    alert("요청에 실패하였습니다. 다시 시도해주세요!");--%>
+<%--  } // errorCallback--%>
+<%--}--%>
 </script>
 </html>

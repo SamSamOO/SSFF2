@@ -34,7 +34,30 @@ License: You must have a valid license purchased only from themeforest(the above
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
-  
+  <style>
+
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-direction: row;
+      box-sizing: border-box;
+      text-align: left;
+      font-weight: 400;
+      font-size: 12px !important;
+      color: #3F4254;
+      word-wrap: break-word;
+      -webkit-box-direction: normal;
+    }
+
+    li{
+      padding: 1em;
+    }
+  </style>
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 </head>
