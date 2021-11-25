@@ -182,6 +182,7 @@ public class ManagerController {
      * */
     @GetMapping("/study/list")
     public String selectStudyList(Criteria criteria,@RequestParam(required = false,defaultValue = "전체") List<String> chk, @RequestParam(required = false,defaultValue = "전체") List<String> chk2, @RequestParam(required = false) String keyword,Model model) {
+
         log.info("selectStudyList({}) is invoked", "criteria = " + criteria + ", chk = " + chk + ", chk2 = " + chk2 + ", keyword = " + keyword + ", model = " + model);
 
         String action1 = "";
@@ -195,6 +196,7 @@ public class ManagerController {
             action2 = "OK";
         }
 
+
         log.info("action1 = {}", action1);
         log.info("action2 = {}", action2);
 
@@ -202,10 +204,13 @@ public class ManagerController {
 
         map.put("pageNum", criteria.getPageNum());
         map.put("amount", criteria.getAmount());
+
         map.put("chk", chk);
         map.put("chk2", chk2);
+
         map.put("action1", action1);
         map.put("action2", action2);
+
         map.put("keyword", Objects.requireNonNullElse(keyword, ""));
 
         log.info("map = {}", map);
