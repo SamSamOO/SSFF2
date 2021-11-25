@@ -31,13 +31,19 @@
           headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'addEventButton,dayGridMonth,timeGridWeek,timeGridDay'
+            right: 'registAttendance,addEventButton'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
           },
           selectable: true,
           editable: true,
           customButtons: {
             addEventButton: {
-              text: 'add event',
+              text: '일정 추가',
+              click: () => {
+                openModal()
+              }
+            },
+            registAttendance: {
+              text: '출석 체크',
               click: () => {
                 openModal()
               }
@@ -118,38 +124,69 @@
                         <div class="card card-custom gutter-b card-stretch">
 
                             <!--카드 Body 시작-->
-                            <div class="card-header border-0 pt-5 card-body mt-5" id="post-body-wrapper">
+                            <div class="card-header border-0 pt-5 card-body mt-5" ><!--id="post-body-wrapper" 이거 넣으면 가운데정렬-->
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
                                 <input type="hidden" id="nickname" value="nickname55"><!--이 페이지로 접근한 아이디-->
-                                <input type="hidden" id="r_idx" value=129><!--이 페이지로 접근한 아이디-->
+                                <input type="hidden" id="r_idx" value=129><!--이 페이지의 스터디번호-->
                                 <!--캘린더 섹션 start------->
-                                <div id="calendar-sec">
+                                <div id="calendar-sec" style="width: 750px">
 
                                     <!--calendar api-->
                                     <div id='calendar'></div>
 
                                     <!--modal-->
-                                    <div class="modal hidden">
-                                        <div class="modal-overlay"></div>
-                                        <div class="modal-content">
-                                            <h1>I'm a modal</h1>
-                                            <label>제목 :</label>
-                                            <input type="text" id="calendar-title">
-                                            <label>일시 start :</label>
-                                            <input type="text" id="calendar-start-date">
-                                            <label>일시 end :</label>
-                                            <input type="text" id="calendar-end-date">
-                                            <label>내용 :</label>
-                                            <input type="textarea" id="calendar-content">
-                                            <label>태그 :</label>
-                                            <input type="textarea" id="calendar-tag">
-                                            <button id="modal-regist" onclick="eventRegist()">등록한다 조심해라</button>
-                                            <button id="modal-modify" class="hidden">수정</button>
-                                            <button id="modal-delete" class="hidden" onclick="deleteEvent()">삭제</button>
-                                            <button id="close">❎</button>
+                                    <div class="calmodal hidden">
+                                        <div class="calmodal-overlay"></div>
+                                        <div class="calmodal-content">
+                                            <img src="../../../../resources/assets/images/icon/close.png" style="width:20px;" id="close"><!--❎이거 어케한거지..-->
+                                            <h1 id="cal-title-sec">
+                                                <span>[코벤져스]</span> <!--팀명 자동으로 들어옴-->
+                                                <input type="text" id="calendar-title" placeholder="일정 제목을 입력하세요">
+                                            </h1>
+                                            <div id="cal-time-sec">
+                                                <div class="cal-index" style="display:inline-block">일시</div> <label>종일</label><input type="checkbox" id="allday" name="allday" checked >
+                                                <br>
+                                                <input type="date" id="calendar-start-date" name="cal_start" class="form-control inputBoxSetting1" >
+                                                <span>&nbsp;&nbsp;~</span>
+                                                <input type="date" id="calendar-end-date" name="cal_end" class="form-control inputBoxSetting1">
+                                                <br>
+                                                <br>
+                                                <div class="timeHidden hidden">
+                                                    <label for="calendar-start-time">시작</label><input type="time" id="calendar-start-time"  step="900" required class="form-control inputBoxSetting2" >
+                                                    <label for="calendar-end-time">종료</label><input type="time" id="calendar-end-time"   step="900" required class="form-control inputBoxSetting2" >
+                                                </div>
+                                            </div>
+                                            <div id="cal-cont-sec">
+                                                <p class="cal-index">내용</p>
+                                                <textarea id="calendar-content"></textarea>
+                                            </div>
+                                            <div id="cal-tag-sec">
+                                                <p class="cal-index">태그</p>
+
+                                                <div class="dropdown" style="margin-left:0px">
+                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        팀원 선택
+                                                    </button>
+                                                    <div id="dropdown-menu-id" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <a id ="dropdown-javascript" class="dropdown-item" onclick="">조원1</a>
+                                                        <a id ="dropdown-typescript" class="dropdown-item" onclick="">조원2</a>
+                                                    </div>
+                                                </div>
+
+                                                <!--<input type="textarea" id="calendar-tag">-->
+                                            </div>
+                                            <div id="cal-button-sec">
+                                                <button id="modal-regist"  class ="cal-button" onclick="eventRegist()">등록</button>
+                                                <button id="modal-modify" class="hidden cal-button">수정</button>
+                                                <button id="modal-delete" class="hidden cal-button" onclick="deleteEvent()">삭제</button>
+
+                                            </div>
                                         </div>
                                     </div>
+
+
                                 </div>
+
                                 <!--캘린더 섹션 end------->
 
 
@@ -170,16 +207,21 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-  const modal = document.querySelector('.modal')
+  const modal = document.querySelector('.calmodal')
   const modalRegist = document.querySelector('#modal-regist')
   const modalModify = document.querySelector('#modal-modify')
   const modalDelete = document.querySelector('#modal-delete')
 
-  const overlay = document.querySelector('.modal-overlay')
+  const timeHidden = document.querySelector('.timeHidden')
+
+  const overlay = document.querySelector('.calmodal-overlay')
   //모달창이 활성화되면 흐린 배경을 표현하는 요소
 
   const closeBtn = document.getElementById('close')
   //offModal button
+
+  const checkbox = document.querySelector("input[name=allday]");
+  //종일체크
 
   const closeModal = () => {
     modal.classList.add('hidden')
@@ -189,7 +231,7 @@
   //모달창 내부의 닫기 버튼
 
   overlay.addEventListener('click', (e) => {
-    if (e.target.className === 'modal-overlay') {
+    if (e.target.className === 'calmodal-overlay') {
       closeModal()
     }
   })
@@ -260,5 +302,14 @@
       case 5: return confirm('일정을 삭제하겠다고? 와이? 정신차려이각박한세상속에!!!!!!!!'); break;
     }
   }
+
+  checkbox.addEventListener('change', function() {
+    if (this.checked) {
+      timeHidden.classList.add('hidden')
+    } else {
+      timeHidden.classList.remove('hidden')
+    }
+  });
+
 </script>
 </html>
