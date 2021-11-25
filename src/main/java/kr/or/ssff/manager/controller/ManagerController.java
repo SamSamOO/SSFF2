@@ -233,6 +233,4 @@ public class ManagerController {
 
         return "manager/study/info";
     }
-
-    /**/
 } // end class
