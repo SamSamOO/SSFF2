@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ssff.mapper.CalendarMapper">
+  <!--insert문-->
+  <insert id="insert">
+    INSERT INTO CALENDAR_S (
+    cal_id,cal_type,cal_events,update_time
+    )
+    VALUES(
+    #{cal_id}, #{type}, #{cal_events}, sysdate)
+  </insert>
+
+</mapper>
+
+

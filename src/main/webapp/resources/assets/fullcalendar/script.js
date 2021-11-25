@@ -1,5 +1,4 @@
-function callApiService (url, data, method) {
-  return
+function callApiService (url, jsonData, method) {
   if (method === 'GET') {
     $.ajax({
       url,
@@ -9,10 +8,10 @@ function callApiService (url, data, method) {
       data: JSON.stringify(jsonData),
       success: function(response){
         if (response) {
-          alert('goongdoong smell is good!')
-          return true
+          alert('if invoked')
+          return response
         } else {
-          alert('wooo weck!')
+          alert('else invoked')
           return false
         }
       },
@@ -22,17 +21,17 @@ function callApiService (url, data, method) {
     })
   } else if (method === 'POST') {
     $.ajax({
-      url,
+      url : url,
       type: 'POST',
       dataType: 'json',
       contentType: 'application/json',
       data: JSON.stringify(jsonData),
       success: function(response){
         if (response) {
-          alert('goongdoong smell is dirty!')
+          alert('if invoked')
           return true 
         } else {
-          alert('wooo weck!')
+          alert('else invoked')
           return false
         }
       },
@@ -44,14 +43,20 @@ function callApiService (url, data, method) {
 }
 
 function getFullCalendarData () {
-  return callApiService('/yeshow/goong~doong/smell', null, 'GET')
+  return callApiService('/yesol', null, 'GET')
 }
 
-function setFullCalendarData (data) {
-  return callApiService('/yeshow/goong~doong/dirty', data, 'POST')
+function setFullCalendarData (studyNum, updateData) {
+  setData = {
+    studyNum: studyNum,
+    callendarData: JSON.stringify(updateData),
+  }
+
+  return callApiService('/calendar/add', setData, 'POST')
 }
 
 function exmapleData () {
+  return []
   return [
     {
       title: "All Day Event",
@@ -114,7 +119,8 @@ function exmapleData () {
     {
       title: "yesoltest",
       start: "2021-11-14",
-      end:"2021-11-15"
+      end:"2021-11-15",
+      wow:"wow?"
     },
   ];
 }

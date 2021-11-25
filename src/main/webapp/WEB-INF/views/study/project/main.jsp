@@ -126,7 +126,7 @@
                             <!--카드 Body 시작-->
                             <div class="card-header border-0 pt-5 card-body mt-5" ><!--id="post-body-wrapper" 이거 넣으면 가운데정렬-->
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
-                                <input type="hidden" id="nickname" value="nickname55"><!--이 페이지로 접근한 아이디-->
+                                <input type="hidden" id="member_name" value="nickname55"><!--이 페이지로 접근한 아이디-->
                                 <input type="hidden" id="r_idx" value=129><!--이 페이지의 스터디번호-->
                                 <!--캘린더 섹션 start------->
                                 <div id="calendar-sec" style="width: 750px">
@@ -176,7 +176,7 @@
                                                 <!--<input type="textarea" id="calendar-tag">-->
                                             </div>
                                             <div id="cal-button-sec">
-                                                <button id="modal-regist"  class ="cal-button" onclick="eventRegist()">등록</button>
+                                                <button id="modal-regist"  class ="cal-button" onclick="eventRegist()">일정 등록하기</button>
                                                 <button id="modal-modify" class="hidden cal-button">수정</button>
                                                 <button id="modal-delete" class="hidden cal-button" onclick="deleteEvent()">삭제</button>
 
@@ -221,6 +221,7 @@
   //offModal button
 
   const checkbox = document.querySelector("input[name=allday]");
+  let checkboxStatus='y' //종일이면 y, 아니면 n
   //종일체크
 
   const closeModal = () => {
@@ -261,22 +262,38 @@
   }
 
   function eventRegist() {
+    let time_start="";
+    let time_end="";
+    if(document.getElementById('calendar-start-time').value!="" && document.getElementById('calendar-end-time').value!=""){
+      time_start = "T"+document.getElementById('calendar-start-time').value +":00";
+      time_end = "T"+document.getElementById('calendar-end-time').value +":00";
+    }else{
+      time_start = "T00:00:00";
+      time_end = "T23:59:59";
+    }
     let addEvent = {
-      title: document.getElementById('calendar-title').value,
-      start: document.getElementById('calendar-start-date').value,
-      end: document.getElementById('calendar-end-date').value
+      member_name:document.querySelector('#member_name').value,
+      allday_ok:checkboxStatus,
+      title: document.getElementById('calendar-title').value , //cal_title
+      start: new Date(document.getElementById('calendar-start-date').value + time_start), //cal_start
+      end: new Date(document.getElementById('calendar-end-date').value + time_end), //cal_end
+      cal_cont:document.querySelector('#calendar-content').value
     }
     let flag = true
     if (!addEvent.title) {
       flag = showAlarm(0)
-    } else if (!(new Date(addEvent.start + 'T00:00:00')).valueOf()) {
+    } else if (!(addEvent.start).valueOf()) {
       flag = showAlarm(1)
-    } else if (!(new Date(addEvent.end + 'T00:00:00')).valueOf()) {
+    } else if (!(addEvent.end).valueOf()) {
       flag = showAlarm(1)
     }
     if (!flag) return
+    //console.log(addEvent)
+    console.log('addEvent : ', addEvent)
     calendar.addEvent(addEvent) // front calendar update
-    setFullCalendarData(calendar.getEvents()) // db update
+    console.log(calendar.getEvents())
+    setFullCalendarData(document.querySelector('#r_idx').value, calendar.getEvents()) // db update 일단 뭔지 몰라서 엎어놓음
+    // setFullCalendarData(addEvent)
     showAlarm(2)
     closeModal()
   }
@@ -306,10 +323,12 @@
   checkbox.addEventListener('change', function() {
     if (this.checked) {
       timeHidden.classList.add('hidden')
+      checkboxStatus='y'
     } else {
       timeHidden.classList.remove('hidden')
+      checkboxStatus='n'
     }
-  });
+  });//종일 체크가 되어있으면 시간체크를 보여주지 않는다
 
 </script>
 </html>
