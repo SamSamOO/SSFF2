@@ -408,6 +408,17 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         //make yyyy/MM/dd folder
 
+    /*
+     * 해당 스터디의 채팅방으로 이동
+     * 매개변수: 채팅방 ID
+     * 반환: 해당 스터디의 채팅방 뷰단
+     * */
+    @GetMapping("/chatRoom")
+    public String chatRoom(String chatRoomId) { // TODO 매개변수 확인
+        log.debug("chatRoom({}) is invoked", "chatRoomId = " + chatRoomId);
+
+        return "studyIns/chatRoom/chatRoom";
+    } // chatRoom
 
         /*이미지의 정보를 담는 객체*/
         List<StudyInsFileDTO> list = new ArrayList<>();
@@ -495,5 +506,6 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 //    return "";
 //  } // studyBoardPost
 
+    //-------------------------------- 상준 채팅방--------------------------------//
 
 }
