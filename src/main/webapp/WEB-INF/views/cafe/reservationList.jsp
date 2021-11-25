@@ -532,14 +532,11 @@ $(document).on('click',"button[class^='btn']", function (e) {
           </td>
 
           <td data-field="ReservationID" aria-label="` + rsrv_idx
-                       + `" class="datatable-cell
-><span style="">` + rsrv_idx + `</span></td>
+                       + `" class="datatable-cell><span style="">` + rsrv_idx + `</span></td>
           <td data-field="CafeInfo" aria-label="` + cafeInfo
-                       + `" class="datatable-cell
-><span style="">` + cafeInfo + `</span></td>
+                       + `" class="datatable-cell><span style="">` + cafeInfo + `</span></td>
           <td data-field="ReservationAmount" aria-label="` + amount
-                       + `원" class="datatable-cell
-><span style="">` + amount + `원</span></td>
+                       + `원" class="datatable-cell><span style="">` + amount + `원</span></td>
           <td data-field="UseDateInfo" aria-label="` + useInfo
                        + `" class="datatable-cell"><span style="">` + useInfo + `</span></td>
      
@@ -628,7 +625,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
               `</span><td data-field="NickName" aria-label="` + member_name + `"
                 class="datatable-cell"><span style="">` + member_name + `</span></td> </td> <!--TODO 마이페이지 링크, 프로필사진 박아야해 -->
         </tr>
-           <tr class="datatable-row-subtable" style="display: none;"> <!-- display none-block  -->
+         <tr class="datatable-row-subtable" style="display: none;"> <!-- display none-block  -->
           <td class="datatable-subtable"style="width: 50% !important; height: 400px!important;" >
             <div id="child_data_local_` + member_name + `" class="datatable datatable-default datatable-primary datatable-loaded">
               <table class="datatable-table" style="display: block; max-height: 400px;">
@@ -799,7 +796,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
         console.log("last : " + last);
         if (last > totalPage) {
           last = totalPage;
-        } // if
+        } // if6
 
         var first = last - (pageCount - 1); //화면에 보여질 첫번째 페이지 번호
         if (first < 1) first = 1; // 첫페이지가 1보다 작을 경우 1로 세팅

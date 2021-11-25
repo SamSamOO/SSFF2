@@ -88,7 +88,10 @@ License: You must have a valid license purchased only from themeforest(the above
         <a href="#" class="btn btn-light-danger font-weight-bold"
            data-toggle="modal" data-target="#memberListModal"
            onclick="x();pager('${applyMemberList}');">멤버확인</a>
-        
+  
+    
+  
+  
         <div id="memberListModal" class="modal fade" role="dialog"
              aria-hidden="true">
         
@@ -651,5 +654,7 @@ License: You must have a valid license purchased only from themeforest(the above
   } // displayData()
 
 </script>
+
+
 </html>
 

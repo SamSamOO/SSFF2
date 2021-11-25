@@ -4,13 +4,18 @@ package kr.or.ssff.payment.controller;
 
  */
 
+import javax.servlet.http.HttpServletRequest;
 import kr.or.ssff.payment.model.PaymentDTO;
+import kr.or.ssff.payment.service.PaymentService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Log4j2
@@ -19,6 +24,63 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/payment")
 @Controller
 public class PaymentController {
+
+
+  @Autowired
+  private PaymentService service;
+
+
+
+
+
+  /*
+   * 결제 인증 Test
+   * 매개변수: 회원 닉네임
+   * 반환:
+   * */
+  @GetMapping("/auth")
+//  public St selectCafeList(String nickName){
+  public void testAuth(){
+
+//    return "payment/test";
+  } // challengeRefund
+
+  /*
+   * 결제 인증 TestResult
+   * 매개변수: 회원 닉네임
+   * 반환:
+   * */
+
+
+  @RequestMapping(
+      value  = "/authIn",
+      method = {RequestMethod.POST,RequestMethod.GET},
+      produces="application/json;charset=utf-8")
+  @ResponseBody
+//  public St selectCafeList(String nickName){
+  public void testAuthResult(HttpServletRequest request){
+
+//    return "payment/test";
+  } // challengeRefund
+
+
+
+  /*
+   * 결제 인증 TestResult
+   * 매개변수: 회원 닉네임
+   * 반환:
+   * */
+//  @PostMapping("/authtoken")
+////  public St selectCafeList(String nickName){
+//  public void testAuthTokenResult(){
+//
+////    return "payment/test";
+//  } // challengeRefund
+
+
+
+
+
 
   /*
    * 거래내역 리스트를 조회
