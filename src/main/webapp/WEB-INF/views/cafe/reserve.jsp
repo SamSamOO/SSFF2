@@ -346,7 +346,7 @@
 																																		<i class="la la-phone"></i>
 																																	</span>
 																														</div>
-																														<input type="number" name="rsrv_phone_number"
+																														<input type="text" name="rsrv_phone_number"
 																														       class="form-control form-control-lg form-control-solid"
 																														       value="" placeholder="Phone" required/>
 																												</div>

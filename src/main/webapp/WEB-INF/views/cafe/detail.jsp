@@ -1409,7 +1409,7 @@
 	  
     $('#formObj').append($date, $startTime, $endTime, $roomIdx, $totalAmount,$maxPeople);
     
-    //$('#formObj').submit();
+    $('#formObj').submit();
 
 
   }
