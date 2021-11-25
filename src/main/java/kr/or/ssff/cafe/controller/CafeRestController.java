@@ -79,7 +79,7 @@ public class CafeRestController {
 
       log.info("\t list: " + list);
 
-      // 총 list수만큼 조회해서 json 배열에 차곡차곡 남아주기
+      // 총 list수만큼 조회해서 json 배열에 차곡차곡 담아주기
       for (int i = 0; i < list.size(); i++) {
 
         cafeInfo.put("cafe_idx", list.get(i).getCafe_idx());

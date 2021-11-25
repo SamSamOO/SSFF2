@@ -115,16 +115,27 @@ public class ManagerController {
         return "manager/member/archive/study";
     } // selectMemberStudyList
 
-    /*회원별 카페 예약 내역
-     * 파라메터 : List <MemberVO >
+    /* 카페 예약 내역
+     * 파라메터 : List <MemberVO>
      *반환 : 회원별 카페 예약 내역페이지
      * */
-    @GetMapping("/member/archive/reservation")
-    public String selectReservationList(List<MemberVO> memberList) {
-        log.info("selectReservationList({}) is invoked", "memberList = " + memberList);
+//    @GetMapping("/member/archive/reservation")
+//    public String selectReservationList(List<MemberVO> memberList) {
+//        log.info("selectReservationList({}) is invoked", "memberList = " + memberList);
+//
+//        return "manager/member/archive/reservation";
+//    } // selectReservationList
 
-        return "manager/member/archive/reservation";
-    } // selectReservationList
+    /* 카페 리스트
+     * 파라메터 : List <StudyInsVO>
+     *반환 : 회원별 카페 예약 내역페이지
+     * */
+    @GetMapping("/manager/studyIns/list")
+    public String allStudyInsList() {
+        log.info("allStudyInsList() is invoked");
+
+        return "manager/studyIns/list";
+    } // allStudyInsList
 
     /*회원별 결제 내역
      * 파라메터 : List<MemberVo >

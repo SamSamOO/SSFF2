@@ -2,7 +2,6 @@ package kr.or.ssff.studyIns.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.rmi.server.ServerCloneException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -196,14 +195,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         log.info("service.getList(criteria) = {}", service.getList(criteria, category));
 
-
         model.addAttribute("list", service.getList(criteria, category));
 
         model.addAttribute("noticeList", service.showNotice());
 
         model.addAttribute("category", category);
 
-        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category)+1));
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category) + 1));
 
         log.info("criteria = {}", criteria);
 
@@ -227,7 +225,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         //조회수 증가 쿼리
         service.updateHit(cont_No);
 
-        //파일 들고오기 //TODO -- 트랜젝션 처리 피료???
+        //파일 들고오기 //TODO -- 트랜젝션 처리 필요???
         List<StudyInsFileVO> listOfFile = service.getFile(cont_No);
 
         log.debug("안녕하세요");
@@ -289,6 +287,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         log.debug("studyBoardDetailModify({}) is invoked", "studyIns = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile) + ", rttrs = " + rttrs);
 
         String uploadFolder = "C:/temp/upload";
+
 
         /*폴더 만들기*/
         File uploadPath = new File(uploadFolder);
@@ -356,7 +355,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         Objects.requireNonNull(service);
         if (service.modify(studyInsDTO, uploadFile)) {
             rttrs.addFlashAttribute("result", "success");
-        } // if
+        }
         rttrs.addAttribute("cont_No", studyInsDTO.getCont_No());
         return "redirect:/studyIns/board/detail";
     } // studyBoardDetailModify
@@ -425,9 +424,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
             dto.setFile_Name(uploadFileName);//3 : fileName
             dto.setUploadPath(uploadPath.toString());//4 : uploadPath
+            System.out.println("업로드파일+" + uploadFileName);
 
             //IE has file path
             uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+
+            System.out.println("업로드파일+" + uploadFileName);
+
             log.debug("only file name : " + uploadFileName);
 
             String uuid = UUID.randomUUID().toString();
@@ -469,19 +472,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         return "redirect:/studyIns/board/detail";
     } // studyBoardPost
 
-    //-------------------------------- 상준 채팅방--------------------------------//
 
-    /*
-     * 해당 스터디의 채팅방으로 이동
-     * 매개변수: 채팅방 ID
-     * 반환: 해당 스터디의 채팅방 뷰단
-     * */
-    @GetMapping("/chatRoom")
-    public String chatRoom(String chatRoomId) { // TODO 매개변수 확인
-        log.debug("chatRoom({}) is invoked", "chatRoomId = " + chatRoomId);
-
-        return "studyIns/chatRoom/chatRoom";
-    } // chatRoom
 
     /* //TODO 노필요?
      * 채팅전송

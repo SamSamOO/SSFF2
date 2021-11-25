@@ -5,7 +5,7 @@
   Time: 오후 3:19
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <base href="">
 <meta charset="utf-8"/>
 <meta name="description" content="Updates and statistics"/>
@@ -15,36 +15,35 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700&family=Nanum+Gothic:400,700,800"/>
 <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.js.map"></script>--%>
 <script>
-    (function (d) {
-        var config = {
-                kitId: 'jca6mod',
-                scriptTimeout: 3000,
-                async: true
-            },
-            h = d.documentElement,
-            t = setTimeout(function () {
-                h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
-            }, config.scriptTimeout),
-            tk = d.createElement("script"),
-            f = false,
-            s = d.getElementsByTagName("script")[0],
-            a;
-        h.className += " wf-loading";
-        tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
-        tk.async = true;
-        tk.onload = tk.onreadystatechange = function () {
-            a = this.readyState;
-            if (f || a && a != "complete" && a != "loaded") return;
-            f = true;
-            clearTimeout(t);
-            try {
-                Typekit.load(config)
-            } catch (e) {
-            }
-        };
-        s.parentNode.insertBefore(tk, s)
-    })(document);
-
+    // (function (d) {
+    //     var config = {
+    //             kitId: 'jca6mod',
+    //             scriptTimeout: 3000,
+    //             async: true
+    //         },
+    //         h = d.documentElement,
+    //         t = setTimeout(function () {
+    //             h.className = h.className.replace(/\bwf-loading\b/g, "") + " wf-inactive";
+    //         }, config.scriptTimeout),
+    //         tk = d.createElement("script"),
+    //         f = false,
+    //         s = d.getElementsByTagName("script")[0],
+    //         a;
+    //     h.className += " wf-loading";
+    //     tk.src = 'https://use.typekit.net/' + config.kitId + '.js';
+    //     tk.async = true;
+    //     tk.onload = tk.onreadystatechange = function () {
+    //         a = this.readyState;
+    //         if (f || a && a != "complete" && a != "loaded") return;
+    //         f = true;
+    //         clearTimeout(t);
+    //         try {
+    //             Typekit.load(config)
+    //         } catch (e) {
+    //         }
+    //     };
+    //     s.parentNode.insertBefore(tk, s)
+    // })(document);
 </script>
 <!--end::Fonts-->
 
@@ -69,6 +68,6 @@
 <!--begin::Layout Themes(used by all pages)-->
 <!--end::Layout Themes-->
 
-<link rel="icon" type="image/png" sizes="32x32" href="/resources/assets/media/logos/ssff-favicon32x32.png"/>
-<link rel="icon" type="image/png" sizes="196x196" href="/resources/assets/media/logos/ssff-favicon196x196.png"/>
-<link rel="shortcut icon" href="/resources/assets/media/logos/ssff-favicon.ico"/>
+<link rel="icon" type="image/png" sizes="32x32" href="/resources/assets/images/logos/ssff/ssff-favicon32x32.png"/>
+<link rel="icon" type="image/png" sizes="196x196" href="/resources/assets/images/logos/ssff/ssff-favicon196x196.png"/>
+<link rel="shortcut icon" href="/resources/assets/images/logos/ssff/ssff-favicon.ico"/>

@@ -151,7 +151,9 @@ public class ApplyMemberController {
 
 
 
-    
+
+
+
     /* 결제 내역 페이지로 이동합니다.
      * 파라메터 :String nickname
      * 결제 내역 페이지
