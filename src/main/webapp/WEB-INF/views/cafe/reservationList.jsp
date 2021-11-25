@@ -347,9 +347,12 @@ $(document).on('click',"button[class^='btn']", function (e) {
 
 
 
+
+
 // 버튼 클릭을 통해 세부 룸정보 add, delete
   $(document).on('click', "a[title='Load sub table']", function () {
     $(this).closest("tr").toggleClass("datatable-row-subtable-expanded").next().fadeToggle();
+    
  
   })
 

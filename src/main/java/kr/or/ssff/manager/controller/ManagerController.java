@@ -1,9 +1,16 @@
 package kr.or.ssff.manager.controller;
 
-import kr.or.ssff.manager.domain.ManagerVO;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+import kr.or.ssff.manager.domain.ManagerMemberVO;
+import kr.or.ssff.manager.domain.ManagerStudyListByBossYVO;
 import kr.or.ssff.manager.service.ManagerService;
 import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.model.MemberDTO;
+import kr.or.ssff.studyIns.model.Criteria;
+import kr.or.ssff.studyIns.model.PageDTO;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /*
 
@@ -41,13 +47,33 @@ public class ManagerController {
 //    } // selectMemberList
 
     @GetMapping("/member/list")
-    public String allMemberList(Model model) {
-        log.info("allMemberList() is invoked");
-        List<ManagerVO> memberList = this.service.getMemberList();
+    public String allMemberList(Criteria criteria, Model model) {
+        log.info("allMemberList({}) is invoked", "criteria = " + criteria + ", model = " + model);
+
+        List<ManagerMemberVO> memberList = this.service.getMemberListPerPaging(criteria);
+
         model.addAttribute("memberList", memberList);
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countMemberCount()));
+
+        log.info("memberList = {}", memberList);
+
         return "manager/member/list";
     } // allMemberList
 
+
+    @GetMapping("/member/search")
+    public String searchMemberList(Criteria criteria, String keyword, Model model) {
+        log.info("searchMemberList({}) is invoked", "criteria = " + criteria + ", model = " + model);
+
+        List<ManagerMemberVO> memberList = this.service.getSearchMemberPerPaging(criteria, keyword);
+
+        model.addAttribute("memberList", memberList);
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countMemberCountBy(keyword)));
+
+        log.info("memberList = {}", memberList);
+
+        return "manager/member/list";
+    }
 
 //    @GetMapping("/member/list")
 //    public String MemberListGo() {
@@ -64,6 +90,7 @@ public class ManagerController {
      * */
     @GetMapping("/member/info")
     public String selectMemberDetail(MemberVO member) {
+
         log.info("selectMemberDetail({}) is invoked", "member = " + member);
 
         return "manager/member/info/list";
@@ -75,6 +102,7 @@ public class ManagerController {
      * */
     @GetMapping("/member/info/modifyGo")
     public String updateMemberGo(MemberDTO member) {
+
         log.info("updateMemberGo({}) is invoked", "member = " + member);
 
         return "manager/member/info/modify";
@@ -153,8 +181,49 @@ public class ManagerController {
      *반환 :
      * */
     @GetMapping("/study/list")
-    public String selectStudyList() {
-        log.info("selectStudyList() is invoked");
+    public String selectStudyList(Criteria criteria,@RequestParam(required = false,defaultValue = "전체") List<String> chk, @RequestParam(required = false,defaultValue = "전체") List<String> chk2, @RequestParam(required = false) String keyword,Model model) {
+
+        log.info("selectStudyList({}) is invoked", "criteria = " + criteria + ", chk = " + chk + ", chk2 = " + chk2 + ", keyword = " + keyword + ", model = " + model);
+
+        String action1 = "";
+        String action2 = "";
+
+        if (chk.get(0) .equals("전체") ) {
+            action1 = "OK";
+        }
+
+        if (chk2.get(0).equals("전체")) {
+            action2 = "OK";
+        }
+
+
+        log.info("action1 = {}", action1);
+        log.info("action2 = {}", action2);
+
+        HashMap<String, Object> map = new HashMap<>();
+
+        map.put("pageNum", criteria.getPageNum());
+        map.put("amount", criteria.getAmount());
+
+        map.put("chk", chk);
+        map.put("chk2", chk2);
+
+        map.put("action1", action1);
+        map.put("action2", action2);
+
+        map.put("keyword", Objects.requireNonNullElse(keyword, ""));
+
+        log.info("map = {}", map);
+
+        Objects.requireNonNull(service);
+
+        List<ManagerStudyListByBossYVO> list = this.service.getStudyListPerPaging(criteria, map);
+
+        log.info("list = {}", list);
+
+        model.addAttribute("map", map);
+        model.addAttribute("list", list);
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countStudyCount(map)));
 
         return "manager/study/list";
     }
@@ -169,6 +238,4 @@ public class ManagerController {
 
         return "manager/study/info";
     }
-
-    /**/
 } // end class
