@@ -1,19 +1,17 @@
 package kr.or.ssff.applyMember.controller;
 
 import java.util.HashMap;
-
 import javax.servlet.http.HttpServletResponse;
+import kr.or.ssff.applyMember.service.ApplyMemberService;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import kr.or.ssff.applyMember.service.ApplyMemberService;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.extern.log4j.Log4j2;
 
 /*
  * 최초 작성자: 신지혜
@@ -28,51 +26,50 @@ import lombok.extern.log4j.Log4j2;
 @RestController
 public class ApplyMemberRestController {
 
-    @Setter(onMethod_= { @Autowired })
+    @Setter(onMethod_ = {@Autowired})
     private ApplyMemberService service;
 
 
-   
     /* 스터디 가입상태 변경처리 (승인, 거절, 탈퇴, 취소)
-     * 매개변수: 참여번호와 액션 정보 
-     * 반환: 
+     * 매개변수: 참여번호와 액션 정보
+     * 반환:
      * 작성자: 신지혜
      * */
-    @RequestMapping(value= "/apply_action", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-public String applyAction(
+    @RequestMapping(value = "/apply_action", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public String applyAction(
         @RequestBody HashMap<String, String> filterJSON,
         HttpServletResponse response,
-        ModelMap model ) throws Exception {
-        log.debug("studyModalTest({},{},{}) is invoked",filterJSON, response, model );
+        ModelMap model) throws Exception {
+        log.debug("studyModalTest({},{},{}) is invoked", filterJSON, response, model);
 
         String result = "";
-        try{
+        try {
             log.info("\t refusal_action_try");
-            log.info("\t filterJSON: "+filterJSON);
-            log.info("\t response: "+response);
-            log.info("\t model: "+model);
+            log.info("\t filterJSON: " + filterJSON);
+            log.info("\t response: " + response);
+            log.info("\t model: " + model);
 
-         //   ObjectMapper mapper = new ObjectMapper();
+            //   ObjectMapper mapper = new ObjectMapper();
 
-           // HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
+            // HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
 
             HashMap<String, String> aMember = new HashMap<>();
 
-            log.info("\t+ aMember.study_type: {}",filterJSON.get("study_type"));
-            log.info("\t+ aMember.apply_idx: {}",filterJSON.get("apply_idx"));
-            log.info("\t+ aMember.action: {}",filterJSON.get("action"));
+            log.info("\t+ aMember.study_type: {}", filterJSON.get("study_type"));
+            log.info("\t+ aMember.apply_idx: {}", filterJSON.get("apply_idx"));
+            log.info("\t+ aMember.action: {}", filterJSON.get("action"));
 
-            aMember.put("study_type",filterJSON.get("study_type"));
-            aMember.put("apply_idx",filterJSON.get("apply_idx"));
-            aMember.put("action",filterJSON.get("action"));
+            aMember.put("study_type", filterJSON.get("study_type"));
+            aMember.put("apply_idx", filterJSON.get("apply_idx"));
+            aMember.put("action", filterJSON.get("action"));
 
             boolean row = this.service.applyAction(aMember);
 
-            if(row){
-                result="done";
+            if (row) {
+                result = "done";
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
 
         }
         response.setContentType("text/html; charset=UTF-8");
@@ -81,49 +78,49 @@ public String applyAction(
         return result;
     } // applyAction
 
-    
-    /* 스터디 가입신청처리 
-     * 매개변수: 참여번호와 닉네임  
-     * 반환: 
+
+    /* 스터디 가입신청처리
+     * 매개변수: 참여번호와 닉네임
+     * 반환:
      * 작성자: 신지혜
      * */
-    @RequestMapping(value= "/insert", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    @RequestMapping(value = "/insert", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
     public String insertApplyMember(
         @RequestBody HashMap<String, Object> filterJSON,
-        HttpServletResponse response
-    ) throws Exception {
-        log.debug("insertApplyMember({},{}) is invoked",filterJSON, response );
+        HttpServletResponse response,
+        ModelMap model) throws Exception {
+        log.debug("insertApplyMember({},{},{}) is invoked", filterJSON, response, model);
         String aMemberName = "";
-        try{
+        try {
             log.info("\t refusal_action_try");
-            log.info("\t filterJSON: "+filterJSON);
-            log.info("\t response: "+response);
+            log.info("\t filterJSON: " + filterJSON);
+            log.info("\t response: " + response);
+            log.info("\t model: " + model);
 
             HashMap<String, Object> aMember = new HashMap<>();
 
-
             aMember.put("boss", filterJSON.get("boss"));
-            aMember.put("r_idx",filterJSON.get("r_idx"));
+            aMember.put("r_idx", filterJSON.get("r_idx"));
             aMember.put("member_name", filterJSON.get("member_name"));
 
 //            ObjectMapper mapper = new ObjectMapper();
+//
+//            HashMap<String, String> aMember = mapper.readValue(filterJSON, new HashMap<String, String>().getClass());
 
-//            HashMap<String, String> aMember = mapper.readValues(filterJSON, new HashMap<String, String>().getClass());
-            
-            log.info("\t+ aMember.boss: {}",aMember.get("boss"));
-            log.info("\t+ aMember.r_idx: {}",aMember.get("r_idx"));
-            log.info("\t+ aMember.member_name: {}",aMember.get("member_name"));
+            log.info("\t+ aMember.boss: {}", aMember.get("boss"));
+            log.info("\t+ aMember.r_idx: {}", aMember.get("r_idx"));
+            log.info("\t+ aMember.member_name: {}", aMember.get("member_name"));
 
             aMemberName = this.service.registerApply(aMember);
-            log.info("\t aMemberName: "+aMemberName);
-        }catch(Exception e){
+            log.info("\t aMemberName: " + aMemberName);
+        } catch (Exception e) {
 
         }
         response.setContentType("text/html; charset=UTF-8");
 
         return aMemberName;
     } // applyAction
-    
+
 
 
 
