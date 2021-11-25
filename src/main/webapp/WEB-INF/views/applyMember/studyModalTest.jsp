@@ -34,7 +34,30 @@ License: You must have a valid license purchased only from themeforest(the above
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
-  
+  <style>
+
+
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      flex-direction: row;
+      box-sizing: border-box;
+      text-align: left;
+      font-weight: 400;
+      font-size: 12px !important;
+      color: #3F4254;
+      word-wrap: break-word;
+      -webkit-box-direction: normal;
+    }
+
+    li{
+      padding: 1em;
+    }
+  </style>
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 </head>
@@ -63,8 +86,12 @@ License: You must have a valid license purchased only from themeforest(the above
         
         <!---------------- 지혜: 신청자/멤버 명단 모달창 시작 -------------------->
         <a href="#" class="btn btn-light-danger font-weight-bold"
-           data-toggle="modal" data-target="#memberListModal" onclick="x();pager();">멤버확인</a>
-        
+           data-toggle="modal" data-target="#memberListModal"
+           onclick="x();pager('${applyMemberList}');">멤버확인</a>
+  
+    
+  
+  
         <div id="memberListModal" class="modal fade" role="dialog"
              aria-hidden="true">
         
@@ -307,10 +334,10 @@ License: You must have a valid license purchased only from themeforest(the above
                       aria-label="action"
                       style="width: 20%; text-align: center;">
                     <a href="javascript:void(0);" data-value="re"
-                         onclick="applyAction('${applyMemberList.apply_idx}','${applyMemberList.study_join_arciwf}','approval');"
+                         onclick="applyAction('${applyMemberList.apply_idx}','${applyMemberList.type_pc}','approval');"
                          class="btn btn-light-success font-weight-bold mr-2">승인</a><!--//TODO 밸류값에 스터디 타입 엮어서 챌린지면 'approval->challenge'  -->
                     <a href="javascript:void(0);" data-value="re"
-                       onclick="applyAction('${applyMemberList.apply_idx}','${applyMemberList.study_join_arciwf}','refusal');"
+                       onclick="applyAction('${applyMemberList.apply_idx}','${applyMemberList.type_pc}','refusal');"
                        class="btn btn-light-warning font-weight-bold mr-2">거부</a>
                   </td>
                 </tr>
@@ -418,7 +445,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
     // 받은 action과 참여번호를 json 객체로 /apply_action 전송하여 db update!!
     $.ajax({
-             url        : "/applyMember/apply_action",
+             url        : "/applyMemberRest/apply_action",
              type       : "POST",
              contentType: "application/json;charset=UTF-8",
              data       : JSON.stringify(submitObj),
@@ -440,7 +467,7 @@ License: You must have a valid license purchased only from themeforest(the above
        console.log("data: "+ data);
      })
 
-    //TODO 완료시에 화면 다시 뿌려주기 위해서 테이블 동적생성 구문 추가 예정(필수)
+    //TODO 완료시에 화면 다시 뿌려주기(필수)
   } // end fn_refusal
 
 
@@ -627,5 +654,7 @@ License: You must have a valid license purchased only from themeforest(the above
   } // displayData()
 
 </script>
+
+
 </html>
 

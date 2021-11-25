@@ -8,7 +8,14 @@
 </head>
 <body>
 
-<h1>/WEB-INF/views/cafe/modifyView.jsp = <%= request.getRequestURI() %></h1>
+<h1>/WEB-INF/views/payment/authIn.jsp = <%= request.getRequestURI() %></h1>
+
 
 </body>
+
+<script>
+
+</script>
+
+
 </html>

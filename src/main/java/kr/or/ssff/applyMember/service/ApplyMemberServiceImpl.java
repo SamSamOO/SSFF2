@@ -58,7 +58,7 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
   public List<ApplyMemberListVO> getApplyMemberList(String r_idx) {
     //TODO 추후 클릭하는 스터디로 변경해야해~
     r_idx= "9003";
-    log.debug("getApplyMemberList({}) invoked");
+    log.debug("getApplyMemberList({}) invoked", r_idx);
 
 
     List<ApplyMemberListVO> allApplyMemberList = this.mapper.getApplyMemberList(r_idx);
@@ -74,10 +74,13 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
    * 작성자	: 신지혜
    */
   @Override
-  public void applyAction(HashMap<String, String> aMember) {
+  public boolean applyAction(HashMap<String, String> aMember) {
     log.debug("applyAction({}) invoked", aMember );
-    this.mapper.applyAction(aMember);
+    int result = this.mapper.applyAction(aMember);
 
+    log.info("+\t result:{} ", result
+    );
+    return result==1;
   } // applyAction
 
   
@@ -88,7 +91,7 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
    */
   @Transactional
 	@Override
-	public String registerApply(HashMap<String, String> aMember) {
+	public String registerApply(HashMap<String, Object> aMember) {
 		log.debug("registerApply({}) invoked", aMember);
 		String aMemberName = "";
     // 참여멤버에 insert
@@ -97,6 +100,8 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
 		
 		if(1 == num) { // 잘 insert 했아면
 		aMemberName = this.mapper.selectApplyMember(aMember);
+
+    // TODO 이렇게 조회안하고 불린 또는 인티저 일치하면 js에서 세션아이디, 스터디번호 매치해서 비활 고
 		} // if 
 		log.info("\t + aMemberName({}) ", aMemberName);
 

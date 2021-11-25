@@ -15,6 +15,8 @@
 }
 
 :root {
+    --ssff1: #6b984f
+    --ssff2: #ebab31
     --blue: #007bff;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -52747,8 +52749,8 @@ button {
 .btn.btn-primary:focus:not(.btn-text),
 .btn.btn-primary.focus:not(.btn-text) {
     color: #FFFFFF;
-    background-color: #7337EE;
-    border-color: #7337EE;
+    background-color: #6b984f;
+    border-color: #6b984f;
 }
 
 .btn.btn-primary:hover:not(.btn-text):not(:disabled):not(.disabled) i,
@@ -116139,7 +116141,6 @@ body {
 .header-mobile .topbar-item img {
     border-radius: 50%;
     max-width: 40px;
-    margin-right: 5px;
 }
 .topbar .topbar-item .btn.btn-icon .text-dark-50 {
     color: #ffffff !important;

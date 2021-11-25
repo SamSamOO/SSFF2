@@ -138,7 +138,7 @@
                                     <div id="reply-sec"><!--댓글-->
 
                                         <div class="reply-write">
-                                            <div><p id="reply-count">n개의 댓글이 있습니다</p></div>
+                                            <div><p id="reply-count"><span id="reply-count-here">${replyCount}</span>개의 댓글이 있습니다</p></div>
                                             <input type="hidden" id="member_name" name ="member_name" value="nickname55"><!--나중에 세션 아이디로 바꿔야 될 부분-->
                                             <div><textarea id="reply-write-sec"></textarea></div>
                                             <div id="reply-submit"><p onclick="replySubmit()">댓글등록</p></div>
@@ -196,7 +196,7 @@
         data: JSON.stringify(jsonData),
         success:function(data){
           console.debug('---------- success -----------')
-
+          document.querySelector("#reply-count-here").innerHTML = data.length;
           //안의 내용 비우고
           $('.reply').empty();
           if(data.length ==0){
@@ -344,7 +344,7 @@
 
        $.ajax({
                 type       : 'POST',
-                url        : '/applyMember/insert',
+                url        : '/applyMemberRest/insert',
                 data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
                 dataType   : 'text', // 받을 데이터는 json
                 contentType: "application/json; charset=utf-8",

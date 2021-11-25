@@ -1,8 +1,12 @@
 package kr.or.ssff.study.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.ReplyVO;
+import kr.or.ssff.study.domain.StudyCriteria;
 import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -83,7 +87,34 @@ public class StudyRestController {
         boolean result = this.service.replyRemove(jsonData.get("no"));
 
         return true;
-    }
+    }//deleteComment
+
+    @PostMapping("/challenge/list")
+    public @ResponseBody List<RecruitBoardJoinReplyVO> getChallengeListByPageNum(@RequestBody Map<String, String> jsonData) {
+        log.info("getChallengeListByPageNum({}) is invoked",jsonData);
+        //String orderRule = jsonData.get("orderRule"); 안됨
+        List<RecruitBoardJoinReplyVO> list = new ArrayList<RecruitBoardJoinReplyVO>();
+        //if(orderRule.equals("최신순")){
+            list= this.service.getListWithJoinReply("C",Integer.parseInt(jsonData.get("pageNum")));
+        //}else{
+        //    list= this.service.getListWithJoinReplyOrderByHit("C",Integer.parseInt(jsonData.get("pageNum")));
+        //}
+        //1. 해당 페이지에 속하는 데이터만 뿌리기
+
+
+        return list;
+    }//getChallengeListByPageNum
+
+
+    @PostMapping("/project/list")
+    public @ResponseBody List<Map<String, Object>> getProjectListByPageNum(@RequestBody Map<String, Integer> jsonData) {
+        //1. 해당 페이지에 속하는 데이터만 뿌리기
+        List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("P",jsonData.get("pageNum"));
+        List<LangVO> langList = this.service.getLangList();
+
+        List<Map<String, Object>> listMap = this.service.getRecruitBoardMap(list, langList);
+        return listMap;
+    }//getChallengeListByPageNum
 
 
 

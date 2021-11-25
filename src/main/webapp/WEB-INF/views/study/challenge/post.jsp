@@ -171,7 +171,7 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
-
+  let today = new Date();
   $(document).ready(function() {
     $('#summernote').summernote({
       height: 300,                  // 에디터 높이
@@ -184,7 +184,43 @@
   }); //summernote 관련 설정
 
 
+
   function onSubmit() {
+
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = ('0' +(today.getMonth()+1)).slice(-2);
+    let day=('0' + today.getDate()).slice(-2);
+
+    let dateString = year+'-'+month+'-'+day;
+
+    //console.log("날짜 : " + dateString);
+    //console.log(dateString == document.querySelector('#study-start').value);
+
+    if(document.querySelector('#title').value=="" ||document.querySelector('#teamname').value==""){
+      alert("제목과 팀명은 비울 수 없습니다.");
+      return;
+    }else if(document.querySelector('#title').value.length >25){
+      alert("제목 길이는 띄어쓰기 포함 25자보다 길 수 없습니다.");
+      return;
+    }else if(document.querySelector('#challenge-type').value ==""){
+      alert("스터디 유형은 필수 선택입니다");
+      return;
+    }else if(document.querySelector('#location1').value ==""){
+      alert("지역은 필수 선택입니다");
+      return;
+    }else if(document.querySelector('#study-start').value == "" ||
+        document.querySelector('#study-start').value == dateString){
+      alert("시작일은 적어도 내일 이후의 날짜를 설정할 수 있습니다");
+      return;
+    }else if(document.querySelector('#study-end').value=="" ||
+        document.querySelector('#study-end').value < document.querySelector('#study-start').value) {
+      alert("종료일은 시작일로부터 하루 후 부터 설정할 수 있습니다");
+      return;
+    }else if(document.querySelector('#summernote').value==""){
+      alert("본문을 입력해 주세요");
+      return;
+    }
     let str1 = document.querySelector('#location1').value;
     let str2 = document.querySelector('#location2').value;
 

@@ -1,30 +1,37 @@
 package kr.or.ssff.cafe.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
+import kr.or.ssff.cafe.domain.ReservationDTO;
+import kr.or.ssff.cafe.domain.RoomRsrvInfoDTO;
+import kr.or.ssff.cafe.domain.RoomVO;
 import kr.or.ssff.cafe.model.CafeDTO;
-import kr.or.ssff.cafe.model.ReservationDTO;
+import kr.or.ssff.cafe.model.RoomDTO;
 import kr.or.ssff.cafe.service.CafeService;
+import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import net.coobird.thumbnailator.Thumbnailator;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Log4j2
@@ -34,139 +41,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class CafeController {
 
-    @Setter(onMethod_ = {@Autowired})
-    private CafeService service;
+  @Autowired
+  private CafeService service;
 
 
-    /*
-     * 스터디 카페 리스트를 조회
-     * 매개변수:
-     * 반환: 스터디 카페 리스트 뷰단
-     * */
-    @GetMapping("/list")
-    public void selectCafeList(Model model) {
-        log.info("selectCafeList() is invoked");
+  /*
+   * 스터디 카페 리스트를 조회
+   * 매개변수:
+   * 반환: 스터디 카페 리스트 뷰단
+   * */
+  @GetMapping("/list")
+  public void selectCafeList(Model model) {
+    log.info("selectCafeList() is invoked");
 
-        List<CafeListVO> cafeList = this.service.getCafeList();
+    List<CafeListVO> cafeList = this.service.getCafeList();
 
-        model.addAttribute("cafeList", cafeList);
-    } // selectCafeList
-
-
-    /*
-     * 스터디 카페 리스트를 비동기 조회
-     * 매개변수: ajax로 전송받은 JSON객체
-     * 반환: 스터디 카페 리스트 정보를 담은 JSON객체
-     * */
-    @RequestMapping(value = "/listData", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
-    @ResponseBody   //없으면 AJAX 통신 안됨
-    public JSONObject getCafeList(
-        @RequestBody String filterJSON
-    ) throws Exception {
-        log.debug("getCafeList({}) is invoked", filterJSON);
-        log.info("ajax 요청 도착!");
-
-        // join상태의 모든 정보 담아내기 (중복정보 있는 상태)
-        List<CafeListVO> list = this.service.getCafeList();
-
-        //최종 완성될 JSONObject 선언(전체)
-        JSONObject jsonObject = new JSONObject();
-
-        //cafeInfo JSON정보를 담을 Array 선언
-        JSONArray arr = new JSONArray();
-
-        //cafe 하나의 정보가 들어갈 JSONObject 선언
-        JSONObject cafeInfo = new JSONObject();
-
-        //img를 모을 JSONObject 선언
-        JSONObject roomImgs = new JSONObject();
-
-        try {
-
-            // filterJSON을 확인하기 위해 ObjectMapper 불러옴
-            ObjectMapper mapper = new ObjectMapper();
-
-            // page에 json에 담겨온 리스트 정보를
-            HashMap<String, Integer> page = mapper.readValue(filterJSON,
-                new HashMap<String, Integer>().getClass());
-
-            // 나눠서 담아주고
-            int cp = page.get("curPage"); // 요청온 페이지 1
-            int ps = page.get("pageListSize"); // 18개씩 보여주자
-
-            log.info("\t+ cp: {}", cp); // 시작
-            log.info("\t+ ps: {}", ps); // 18개 잘 왔니?
-
-            log.info("\t list: " + list);
-
-            // 총 list수만큼 조회해서 json 배열에 차곡차곡 남아주기
-            for (int i = 0; i < list.size(); i++) {
-
-                cafeInfo.put("cafe_idx", list.get(i).getCafe_idx());
-                cafeInfo.put("cafe_location", list.get(i).getCafe_location());
-                cafeInfo.put("amount_hour", list.get(i).getAmount_hour());
-                cafeInfo.put("cafe_main_title", list.get(i).getCafe_main_title());
-                cafeInfo.put("cafe_sub_title", list.get(i).getCafe_sub_title());
-                cafeInfo.put("max_people", list.get(i).getMax_people());
-
-                // 사진은 배열로 담기
-                List<String> imgList = new ArrayList<>();
-                imgList.add(list.get(i).getCafe_image_first());
-                imgList.add(list.get(i).getCafe_image_second());
-                imgList.add(list.get(i).getCafe_image_third());
-
-                // 세부 룸 이미지는 한 컬럼에 모았기때문에 : 기준으로 잘 찢어서
-                String[] rImgs = list.get(i).getRoom_list().split(":");
-
-                // 찢은 길이만큼(=존재하는 row수만큼) 반복하며 차곡차곡 담아준다.
-                for (int j = 0; j < rImgs.length; j++) {
-                    imgList.add(rImgs[j]);
-                }
-
-                // 카페이미지와 세부 룸 이미지를 모아 JSON에 배열로 추가
-                cafeInfo.put("roomImgs", imgList);
-
-                // 카페 하나의 정보와 이미지를 배열에 담습니다.
-                arr.add(cafeInfo);
-
-                log.info("1. arr {}: " + arr);
-            }
-            log.info("2. arrsubList {}: " + arr.subList(((cp - 1) * ps), ((cp * ps) - 1)));
-
-            // 요청온 카드 수 만큼만 잘라서 제이슨 객체에 담아 가져가세요
-            jsonObject.put("cafeList", arr.subList(((cp - 1) * ps), ((cp * ps) - 1)));
-            log.info("(cp-1)*ps =" + ((cp - 1) * ps));
-            log.info(" end =" + ((cp * ps) - 1));
-
-        } catch (Exception e) {
-            ;
-            ;
-        }
-
-
-        // 카페이미지와 세부 룸 이미지를 모아 JSON에 배열로 추가
-        cafeInfo.put("roomImgs", imgList);
-
-        // 카페 하나의 정보와 이미지를 배열에 담습니다.
-        arr.add(cafeInfo);
-
-        log.info("1. arr {}: "+ arr);
-      }
-      log.info("2. arrsubList {}: "+ arr.subList(((cp-1)*ps),((cp*ps)-1)));
-
-      // 요청온 카드 수 만큼만 잘라서 제이슨 객체에 담아 가져가세요
-      jsonObject.put("cafeList", arr.subList(((cp-1)*ps),((cp*ps)-1)));
-      log.info("(cp-1)*ps ="+ ((cp-1)*ps));
-      log.info(" end ="+ ((cp*ps)-1));
-
-    } catch (Exception e) { ;; }
-
-    log.info("jsonObject {} =", jsonObject);
-
-    // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)
-    return jsonObject;
-  } // getCafeList
-
+    model.addAttribute("cafeList", cafeList);
+  } // selectCafeList
 
 
   /*
@@ -178,11 +69,55 @@ public class CafeController {
   public void selectCafe(@RequestParam("cafe_idx") String cafeId, Model model) {
     log.info("selectCafe({}) is invoked", "cafeId = " + cafeId);
 
-    List<CafeInfoVO> cafeInfo = service.getCafe(cafeId);
-    log.info("cafeInfo{} : " ,cafeInfo);
-    
-    model.addAttribute("cafeInfo", cafeInfo);   
+    List<CafeInfoVO> cafeInfo = service.getCafeJoinRoom(cafeId);
+    log.info("cafeInfo{} : ", cafeInfo);
+
+    model.addAttribute("cafeInfo", cafeInfo);
   } // selectCafe
+
+
+  /*
+   * 스터디 카페 예약 화면을 조회
+   * 매개변수: 예약정보
+   * 반환: 스터디 카페 단일 상세화면 뷰단
+   * */
+  @PostMapping("/reserve")
+  public void goReserve(
+      @ModelAttribute("roomRsrvInfoDTO") RoomRsrvInfoDTO roomRsrvInfoDTO, Model model
+  ) {
+
+    log.info("goReserve({}) is invoked", roomRsrvInfoDTO);
+
+    // String cafe_idx = roomRsrvInfoDTO.getCafe_idx();
+    CafeVO cafeVO = service.getCafe(roomRsrvInfoDTO.getCafe_idx());
+
+    model.addAttribute("cafeVO", cafeVO);
+    model.addAttribute("roomRsrvInfoDTO", roomRsrvInfoDTO);
+
+    log.info("model{}", model);
+
+  } // insertReserve
+
+
+  /*
+   * 스터디 카페 예약 백단 작업
+   * 매개변수: 새로 저장할 예약정보
+   * 반환: 우선 카페리스트
+   * */
+  @PostMapping("/reserve/insert")
+  public String insertReservation(RedirectAttributes rttrs,
+      @ModelAttribute("reservationDTO") ReservationDTO reservationDTO,
+      Model model) {
+    log.info("insertReservation({}) is invoked", reservationDTO);
+
+//    Objects.requireNonNull(service);
+    if (service.registerReservation(reservationDTO)) {
+      rttrs.addFlashAttribute("result", "success");  // OK : Request Scope 이용
+      log.info("rttrs({}) is rttrs", rttrs);
+    } // if
+
+    return "redirect:/cafe/list"; // TODO 예약내역단 나오면 변경예정!
+  } // insertReservation
 
 
   /*
@@ -190,12 +125,12 @@ public class CafeController {
    * 매개변수: ReservationDTO (예약정보를 담은 DTO)
    * 반환: 결제화면(결제정상 처리여부 확인후 update
    * */
-  @PostMapping("/reservation")
-  public String insertReservation(ReservationDTO reservationDTO) {
-
-    return "redirect:결제화면(시도)->정상: update결제id, 비정상: delete예약정보";
-
-  } // insertReservation
+//  @PostMapping("/reservation")
+//  public String insertReservation(ReservationDTO reservationDTO) {
+//
+//    return "redirect:결제화면(시도)->정상: update결제id, 비정상: delete예약정보";
+//
+//  } // insertReservation
 
   /*
    * 스터디 카페 예약 내역 리스트를 조회 (회원==admin->all)
@@ -211,92 +146,249 @@ public class CafeController {
 
   //-------------------------------- 지혜 카페 CRUD--------------------------------//
 
+
   /*
    * 스터디 카페 등록 화면
    * 매개변수:
    * 반환: 스터디 카페 등록 화면 뷰단
    * */
-  @GetMapping("/registerView")
-  public String insertCafeView() {
-    log.info("insertCafeView() is invoked");
+  @GetMapping("/register")
+  public void goCafeRegister() {
+    log.info("goCafeRegister() is invoked");
 
-    return "cafe/registerView";
-  } // insertCafeView
+  } // goCafeRegister
+
 
   /*
    * 스터디 카페 등록
    * 매개변수: 카페DTO (등록할 카페 정보를 담은 객체)
    * 반환: 스터디 카페 상세보기
    * */
-  @PostMapping("/register")
-  public String insertCafe(CafeDTO cafeDTO) {
-    log.info("insertCafe({}) is invoked", "cafeDTO = " + cafeDTO);
+  @PostMapping("/register/insert")
+  public String cafeRegister(
+      @RequestParam String rooms,
+      CafeDTO cafeDTO,
+      RoomDTO roomDTO,
+      MultipartFile[] roomFile,
+      MultipartFile[] cafeFile,
+      Model model,
+      RedirectAttributes rtts) throws ParseException, JsonProcessingException {
 
-    return "redirect:cafe/detail";
+    log.info("insertCafe({},{},{}, {},) is invoked",
+        cafeDTO, roomDTO, roomFile, cafeFile);
+
+    // uuid 문자를 담을 공간 (난수 생성을 위해)
+    String uuid;
+
+    // file 저장을 위해 File 객체 호출
+    File saveFile;
+
+    // 이미지가 저장될 경로 설정
+    String cafeUploadFolder = "C:/temp/upload/cafe/" + cafeDTO.getBusiness_number(); // 카페
+    String roomUploadFolder = cafeUploadFolder + "/room"; // 룸
+
+    // 폴더 만들기
+    File cafeUploadPath = new File(cafeUploadFolder);   // 카페
+    File roomUploadPath = new File(roomUploadFolder);   // 룸
+
+    log.debug("upload path {},{}: ", cafeUploadPath, roomUploadPath);
+
+    // 폴더가 없다면 생성하기
+    if (!cafeUploadPath.exists()) { // 카페
+      cafeUploadPath.mkdirs();
+    } // if
+
+    if (!roomUploadPath.exists()) { // 룸
+      roomUploadPath.mkdirs();
+    } // if
+
+
+    // String rooms을 배열화 시키기위해
+    ObjectMapper mapper = new ObjectMapper();
+
+    // rooms 배열화
+    ArrayList<HashMap<String, Object>> arrRoom = mapper.readValue(rooms,
+        new ArrayList<HashMap<String, Object>>().getClass());
+
+    log.info("arrRoom: {} ", arrRoom.toString());
+
+    // input된 room 정보를 담기 위해 선언되는 변수들
+    List<RoomDTO> roomDTOList = new ArrayList<>();
+
+    // 받아올 때 obj 형태이기때문에 integer 형변환 해줘야해요
+    Integer mp = 0;
+    Integer trn = 0;
+    Integer ah = 0;
+
+
+    // Room DTO add
+    for (int i = 0; i < arrRoom.size(); i++) {
+      log.info("--------------------------------------");
+      log.info("Upload File Name : " + roomFile[i].getOriginalFilename());
+      log.info("Upload File Size : " + roomFile[i].getSize());
+
+      // uuid 부여
+      uuid = UUID.randomUUID().toString();
+
+      // file name에서 공백을 언더바로 치환
+      String fileName = roomFile[i].getOriginalFilename().replace(' ', '_');
+
+      // IE 접속시 백슬래시를 1로
+      fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
+
+      // 생성한 uuid와 file name을 결합하여 fileName 부여
+      fileName = uuid + "_" + fileName;
+
+      // 파일 저장
+      saveFile = new File(cafeUploadPath, fileName);
+
+      try {
+        roomFile[i].transferTo(saveFile);
+
+        //check image type file
+        if (UploadFileUtils.checkImageType(saveFile)) {
+          FileOutputStream thumbnail = new FileOutputStream(
+              new File(cafeUploadPath, "cafe_" + fileName));
+          Thumbnailator.createThumbnail(roomFile[i].getInputStream(), thumbnail, 100, 100);
+
+          thumbnail.close();
+        } // if
+      } catch (Exception e) {
+        log.error(e.getMessage());
+
+      } // try catch
+
+      // 형변환해서 List에 담아주세요
+      mp = Integer.valueOf(String.valueOf(arrRoom.get(i).get("max_people")));
+      trn = Integer.valueOf(String.valueOf(arrRoom.get(i).get("total_room_number")));
+      ah = Integer.valueOf(String.valueOf(arrRoom.get(i).get("amount_hour")));
+
+      RoomDTO rDT = new RoomDTO();
+
+      rDT.setMax_people(mp);
+      rDT.setTotal_room_number(trn);
+      rDT.setAmount_hour(ah);
+      rDT.setRoom_image(fileName);
+      log.info("\t 이미지 roomDTO 중인 roomDTO: {}", rDT );
+      roomDTOList.add(rDT); //
+
+      log.info("\t 이미지 삽입 중인 roomDTOList: {}", roomDTOList );
+
+    } // for
+
+    log.info("\t 이미지 삽입 끝난 roomDTOList: {}", roomDTOList );
+    log.info("\t 이것좀 1 roomDTOList: {}", roomDTOList.get(0).getMax_people());
+
+    // cafe DOT add
+    for (int i = 0; i < cafeFile.length; i++) {
+      log.info("--------------------------------------");
+      log.info("Upload File Name : " + cafeFile[i].getOriginalFilename());
+      log.info("Upload File Size : " + cafeFile[i].getSize());
+
+      // uuid 부여
+      uuid = UUID.randomUUID().toString();
+
+      // file name에서 공백을 언더바로 치환
+      String fileName = cafeFile[i].getOriginalFilename().replace(' ', '_');
+
+      // IE 접속시 백슬래시를 1로
+      fileName = fileName.substring(fileName.lastIndexOf("\\") + 1);
+
+      // 생성한 uuid와 file name을 결합하여 fileName 부여
+      fileName = uuid + "_" + fileName;
+
+      // 파일 저장
+      saveFile = new File(cafeUploadPath, fileName);
+
+      try {
+        cafeFile[i].transferTo(saveFile);
+
+        //check image type file
+        if (UploadFileUtils.checkImageType(saveFile)) {
+          FileOutputStream thumbnail = new FileOutputStream(
+              new File(cafeUploadPath, "cafe_" + fileName));
+          Thumbnailator.createThumbnail(cafeFile[i].getInputStream(), thumbnail, 100,
+              100); // 오류나서 잠시 막았어용 : 지혜
+
+          thumbnail.close();
+        } // if
+      } catch (Exception e) {
+        log.error(e.getMessage());
+
+      } // end catch
+
+      if (i == 0) {
+        cafeDTO.setCafe_image_1(fileName);
+
+      } else if (i == 1) {
+        cafeDTO.setCafe_image_2(fileName);
+
+      } else {
+        cafeDTO.setCafe_image_3(fileName);
+
+      } // if-else-if
+
+    } // end for (cafe)
+
+    log.info("insertCafe 정보 확인 좀 하겠습니다~! ({},{},{}) ",
+        cafeDTO, roomDTO, roomDTOList);
+    String cafe_idx = "";
+    // 신규 등록이라면 registerCafe로
+    if (cafeDTO.getCafe_idx() == null) {
+      log.info("컨트롤러 - 신규등록하러 갑니다.");
+      cafe_idx = service.registerCafe(cafeDTO, roomDTOList);
+      log.info("컨트롤러 - 신규등록 잘 했습니다.");
+      rtts.addFlashAttribute("result", "success");
+
+      // 기존에 있던 정보라면 update문으로
+    } else {
+      log.info("컨트롤러 - 업데이트하러 갑니다.");
+
+      cafe_idx= service.modifyCafe(cafeDTO, roomDTOList);
+      log.info("컨트롤러 - 업데이트 잘 했습니다.");
+      rtts.addFlashAttribute("result", "success");
+    }// if-else
+
+
+
+    rtts.addAttribute("cafe_idx", cafe_idx);
+
+    return "redirect:/cafe/modify?"; //TODO 관리자 리스트나 수정정 페이지로
   } // insertCafe
+
 
   /*
    * 스터디 카페 수정 화면
+
    * 매개변수: 카페VO (수정할 카페 정보를 뿌려줄 객체)
    * 반환: 스터디 카페 수정 화면 뷰단
    * */
-  @GetMapping("/modifyView")
-  public String updateCafeView(CafeVO cafeVO) {
-    log.info("updateCafeView({}) is invoked", "cafeVO = " + cafeVO);
+  @GetMapping("/modify")
+  public void goCafeModify(String cafe_idx, Model model) {
+    log.info("goCafeModify({}) is invoked", cafe_idx);
 
-    return "cafe/modifyView";
-  } // updateCafeView
+    CafeVO cafeVO = service.getCafe(cafe_idx);
+    List<RoomVO> roomVOList = service.getRoom(cafe_idx);
 
-  /*
-   * 스터디 카페 수정
-   * 매개변수:카페DTO (수정할 카페 정보를 담은 객체)
-   * 반환: 스터디 카페 상세보기
-   * */
-  @PostMapping("/modify")
-  public String updateCafe(CafeDTO cafeDTO) {
-    log.info("updateCafe({}) is invoked", "cafeDTO = " + cafeDTO);
+    log.info("cafeVO{}, roomVOList{}: ", cafeVO, roomVOList);
 
-    return "redirect:cafe/detail";
-  } // updateCafe
+    model.addAttribute("cafeVO", cafeVO);
+    model.addAttribute("roomVOList", roomVOList);
+
+  } // goCafeModify
 
   /*
    * 스터디 게시물 삭제
    * 매개변수: 카페ID
    * 반환: 카페 리스트 페이지로 이동
    * */
-  @PostMapping("/remove")
-  public String deleteCafe(String cafeId) {
-    log.info("deleteCafe({}) is invoked", "cafeId = " + cafeId);
+  @GetMapping("/remove")
+  public String removeCafe(String cafe_idx) {
+    log.info("deleteCafe({}) is invoked", cafe_idx);
 
-    return "redirect:cafe/list";
+    service.removeCafe(cafe_idx);
+    return "redirect:/cafe/list";
   } // deleteCafe
-
-      
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
