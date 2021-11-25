@@ -15,8 +15,6 @@
           <element id="module-output" name="ssff" />
         </element>
         <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: javax.mail:mail:1.4.7" />
-          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.14.1" />
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.14.1" />
           <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
@@ -59,11 +57,6 @@
           <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0" />
           <element id="library" level="project" name="Maven: org.codehaus.woodstox:stax2-api:4.2.1" />
           <element id="library" level="project" name="Maven: com.fasterxml.woodstox:woodstox-core:6.2.6" />
-          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpcore:4.4.14" />
-          <element id="library" level="project" name="Maven: org.apache.httpcomponents:httpclient:4.5.13" />
-          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.2" />
-          <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.11" />
-          <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1.1" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.11.0" />
           <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.4" />
           <element id="library" level="project" name="Maven: org.imgscalr:imgscalr-lib:4.2" />
@@ -72,11 +65,13 @@
           <element id="library" level="project" name="Maven: commons-beanutils:commons-beanutils:1.8.0" />
           <element id="library" level="project" name="Maven: commons-collections:commons-collections:3.2.1" />
           <element id="library" level="project" name="Maven: commons-lang:commons-lang:2.5" />
+          <element id="library" level="project" name="Maven: commons-logging:commons-logging:1.1.1" />
           <element id="library" level="project" name="Maven: net.sf.ezmorph:ezmorph:1.0.6" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" />
           <element id="library" level="project" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" />
-          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.5" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-context-support:3.1.1.RELEASE" />
+          <element id="library" level="project" name="Maven: com.googlecode.json-simple:json-simple:1.1" />
+          <element id="library" level="project" name="Maven: com.github.lbovolini:ObjectMapper:0.2.3" />
+          <element id="library" level="project" name="Maven: com.github.lbovolini:object-mapper:1.1.68" />
         </element>
       </element>
       <element id="directory" name="META-INF">

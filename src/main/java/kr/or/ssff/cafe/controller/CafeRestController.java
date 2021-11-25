@@ -5,7 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import kr.or.ssff.cafe.domain.CafeListVO;
+import kr.or.ssff.cafe.domain.ReservationVO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
+import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
+import kr.or.ssff.cafe.model.RoomDTO;
 import kr.or.ssff.cafe.service.CafeService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Log4j2
@@ -87,9 +91,9 @@ public class CafeRestController {
 
         // 사진은 배열로 담기
         List<String> imgList = new ArrayList<>();
-        imgList.add(list.get(i).getCafe_image_first());
-        imgList.add(list.get(i).getCafe_image_second());
-        imgList.add(list.get(i).getCafe_image_third());
+        imgList.add(list.get(i).getCafe_image_1());
+        imgList.add(list.get(i).getCafe_image_2());
+        imgList.add(list.get(i).getCafe_image_3());
 
         // 세부 룸 이미지는 한 컬럼에 모았기때문에 : 기준으로 잘 찢어서
         String[] rImgs = list.get(i).getRoom_list().split(":");
@@ -105,9 +109,7 @@ public class CafeRestController {
         // 카페 하나의 정보와 이미지를 배열에 담습니다.
         arr.add(cafeInfo);
 
-        log.info("1. arr {}: "+ arr);
       }
-      log.info("2. arrsubList {}: "+ arr.subList(((cp-1)*ps),((cp*ps)-1)));
 
       // 요청온 카드 수 만큼만 잘라서 제이슨 객체에 담아 가져가세요
       jsonObject.put("cafeList", arr.subList(((cp-1)*ps),((cp*ps)-1)));
@@ -153,5 +155,85 @@ public class CafeRestController {
 
     return jsonObject;
   } // getCafeList
+
+
+
+//---------------------------예약-----------
+
+  /*
+   * 스터디 카페 리스트를 비동기 조회
+   * 매개변수: ajax로 전송받은 JSON객체
+   * 반환: 스터디 카페 리스트 정보를 담은 JSON객체
+   * */
+  @RequestMapping(value= "/reservationList", method = RequestMethod.POST,
+                  produces = "application/json; charset=UTF-8")
+  //없으면 AJAX 통신 안됨
+  public  JSONObject getReservationList(
+      @RequestBody HashMap<String, String> searchKey
+  ) throws Exception {
+    log.debug("getReservationList({}) is invoked", searchKey);
+    log.info("ajax 요청 도착!");
+
+//    searchKey = new HashMap<>();
+    String member_name = "";
+    // jReservationVO 모든 정보 담아내기 (중복정보 있는 상태)
+    List<RsrvJoinTrnscVO> list = this.service.getRsrvJoinTrnscList(searchKey);
+
+    //최종 완성될 JSONObject 선언(전체)
+    JSONObject jsonObject = new JSONObject();
+    //cafeInfo JSON정보를 담을 Array 선언
+    JSONArray arr = new JSONArray();
+
+    jsonObject.put("reservationList", list);
+
+    log.info("jsonObject {} =", jsonObject);
+
+    // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)
+    return jsonObject;
+  } // getReservationList
+
+
+
+  /*
+   * 스터디 카페  예약을 취소
+   * 매개변수: ajax로 전송받은 JSON객체(예약ID)
+   * 반환:
+   * */
+  @RequestMapping(value= "/reservation/cancel", method = RequestMethod.POST,
+      produces = "application/json; charset=UTF-8")
+  //없으면 AJAX 통신 안됨
+  public  JSONObject cancelReservation(
+      @RequestBody HashMap<String, String> searchKey
+  ) throws Exception {
+    log.debug("removeReservation({}) is invoked", searchKey);
+    log.info("ajax 요청 도착!");
+
+    //최종 완성될 JSONObject 선언
+    JSONObject jsonObject = new JSONObject();
+
+    boolean result = this.service.cancelReservation(searchKey);
+
+    if(result){
+      jsonObject.put("result", result);
+    }else {
+      jsonObject = null;
+    }
+
+    log.info("jsonObject {} =", jsonObject);
+
+    // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)
+    return jsonObject;
+  } // removeReservation
+
+
+
+
+
+
+
+
+
+
+
 
 }

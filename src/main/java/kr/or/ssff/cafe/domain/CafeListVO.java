@@ -14,9 +14,9 @@ public class CafeListVO {
 
   private String cafe_main_title;
   private String cafe_sub_title;
-  private String cafe_image_first;
-  private String cafe_image_second;
-  private String cafe_image_third;
+  private String cafe_image_1;
+  private String cafe_image_2;
+  private String cafe_image_3;
   private String cafe_location;
   private String cafe_idx;
   private Integer max_people;
