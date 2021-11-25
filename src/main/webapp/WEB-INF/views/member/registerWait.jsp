@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-
+    <h3>가입대기 화면입니다 메일 인증후 다시 로그인해주세요 ^^:p</h3>
 </body>
 </html>
