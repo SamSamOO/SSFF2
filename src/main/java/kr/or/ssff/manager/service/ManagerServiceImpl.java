@@ -35,12 +35,15 @@ public class ManagerServiceImpl implements ManagerService, InitializingBean, Dis
 
         Objects.requireNonNull(mapper);
         Integer count = this.mapper.countStudyCount(map);
+
         log.info("count = {}", count);
+
         return count;
     }
 
     @Override
     public List<ManagerStudyListByBossYVO> getStudyListPerPaging(Criteria criteria, HashMap<String,Object> map) {
+
         log.info("getStudyListPerPaging({}) is invoked", "criteria = " + criteria + ", map = " + map);
 
         Objects.requireNonNull(mapper);

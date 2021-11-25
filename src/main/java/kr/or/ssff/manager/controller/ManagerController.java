@@ -3,6 +3,7 @@ package kr.or.ssff.manager.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import kr.or.ssff.manager.domain.ManagerMemberVO;
 import kr.or.ssff.manager.domain.ManagerStudyListByBossYVO;
 import kr.or.ssff.manager.service.ManagerService;
@@ -180,8 +181,8 @@ public class ManagerController {
      *반환 :
      * */
     @GetMapping("/study/list")
-    public String selectStudyList(Criteria criteria,@RequestParam(required = false,defaultValue = "전체") List<String> chk, @RequestParam(required = false,defaultValue = "전체") List<String> chk2, Model model) {
-        log.info("selectStudyList({}) is invoked", "criteria = " + criteria + ", chk = " + chk + ", chk2 = " + chk2 + ", model = " + model);
+    public String selectStudyList(Criteria criteria,@RequestParam(required = false,defaultValue = "전체") List<String> chk, @RequestParam(required = false,defaultValue = "전체") List<String> chk2, @RequestParam(required = false) String keyword,Model model) {
+        log.info("selectStudyList({}) is invoked", "criteria = " + criteria + ", chk = " + chk + ", chk2 = " + chk2 + ", keyword = " + keyword + ", model = " + model);
 
         String action1 = "";
         String action2 = "";
@@ -193,6 +194,7 @@ public class ManagerController {
         if (chk2.get(0).equals("전체")) {
             action2 = "OK";
         }
+
         log.info("action1 = {}", action1);
         log.info("action2 = {}", action2);
 
@@ -204,6 +206,7 @@ public class ManagerController {
         map.put("chk2", chk2);
         map.put("action1", action1);
         map.put("action2", action2);
+        map.put("keyword", Objects.requireNonNullElse(keyword, ""));
 
         log.info("map = {}", map);
 
@@ -213,6 +216,7 @@ public class ManagerController {
 
         log.info("list = {}", list);
 
+        model.addAttribute("map", map);
         model.addAttribute("list", list);
         model.addAttribute("pageMaker", new PageDTO(criteria, service.countStudyCount(map)));
 
