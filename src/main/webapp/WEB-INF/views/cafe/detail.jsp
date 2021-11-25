@@ -1387,25 +1387,24 @@
       value: maxPeople
     })
 
-			if($('input[type="hidden"]').length != 8) {
-				// 기존에 담긴 정보 지우기 //TODO 여기..
-				$(`span[class='room']`).empty();
-				$(`span[class='time']`).empty();
-				$(`span[class='amount']`).empty();
-				$(`span[class='info']`).empty();
-				$("li[class='time time-active']").removeClass('time-active');
-
-				Swal.fire({
-					          icon : 'danger', // Alert 타입
-					          title: '선택오류', // Alert 제목
-					          text : '모든 사항은 필수 선택입니다! ', // Alert 내용
-				          })
-	 
-				
-				return;
-	 
-	 
-	  }
+	  //TODO 제약조건 확인
+			// if($('input[type="hidden"]').length != 8) {
+			// 	// 기존에 담긴 정보 지우기 //TODO 여기..
+			// 	$(`span[class='room']`).empty();
+			// 	$(`span[class='time']`).empty();
+			// 	$(`span[class='amount']`).empty();
+			// 	$(`span[class='info']`).empty();
+			// 	$("li[class='time time-active']").removeClass('time-active');
+	  //
+			// 	Swal.fire({
+			// 		          icon : 'danger', // Alert 타입
+			// 		          title: '선택오류', // Alert 제목
+			// 		          text : '모든 사항은 필수 선택입니다! ', // Alert 내용
+			// 	          })
+			//
+			// 	return;
+	 	//
+	  // }
 
 	  
     $('#formObj').append($date, $startTime, $endTime, $roomIdx, $totalAmount,$maxPeople);
