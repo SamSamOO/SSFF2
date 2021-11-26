@@ -169,21 +169,7 @@
                                                 <p class="cal-index">내용</p>
                                                 <textarea id="calendar-content"></textarea>
                                             </div>
-                                            <div id="cal-tag-sec">
-                                                <p class="cal-index">태그</p>
 
-                                                <div class="dropdown" style="margin-left:0px">
-                                                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                        팀원 선택
-                                                    </button>
-                                                    <div id="dropdown-menu-id" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <a id ="dropdown-javascript" class="dropdown-item" onclick="">조원1</a>
-                                                        <a id ="dropdown-typescript" class="dropdown-item" onclick="">조원2</a>
-                                                    </div>
-                                                </div>
-
-                                                <!--<input type="textarea" id="calendar-tag">-->
-                                            </div>
                                             <div id="cal-button-sec">
                                                 <button id="modal-regist"  class ="cal-button" onclick="eventRegist()">일정 등록하기</button>
                                                 <button id="modal-modify" class="hidden cal-button">수정</button>
@@ -254,8 +240,24 @@
       console.log(calendar.getEvents())
       console.log(arg.event.id)
       document.getElementById('calendar-title').value = arg.event.title
-      document.getElementById('calendar-start-date').value = arg.event.startStr
-      document.getElementById('calendar-end-date').value = arg.event.endStr
+
+      let startDay= arg.event._instance.range.start;
+      let endDay =arg.event._instance.range.end;
+      let allday_ok = arg.event.extendedProps.allday_ok;
+
+      console.log(allday_ok);
+      if(allday_ok=='n') {
+        $('#allday').removeAttr('checked');
+        timeHidden.classList.remove('hidden')
+      }else{
+        $("#allday").attr("checked", true);
+        timeHidden.classList.add('hidden')
+      }
+      document.getElementById('calendar-start-date').value =new Date(startDay + 3240 * 10000).toISOString().split("T")[0];
+      document.getElementById('calendar-end-date').value = new Date(endDay + 3240 * 10000).toISOString().split("T")[0];
+      document.getElementById('calendar-start-time').value =startDay.toTimeString().split(" ")[0].substr(0,5);
+      document.getElementById('calendar-end-time').value = endDay.toTimeString().split(" ")[0].substr(0,5);
+      document.getElementById('calendar-content').value = arg.event.extendedProps.cal_cont
       modalRegist.classList.add('hidden')
       modalModify.classList.remove('hidden')
       modalDelete.classList.remove('hidden')

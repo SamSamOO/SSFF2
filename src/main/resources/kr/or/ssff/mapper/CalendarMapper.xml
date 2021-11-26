@@ -22,7 +22,7 @@
   <update id="update">
     UPDATE calendar_s
     SET
-      cal_events = #{cal_events},
+      cal_events = #{cal_events}
     WHERE
       cal_id = #{cal_id}
   </update>
