@@ -67,7 +67,7 @@
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label font-weight-bolder text-dark font-size-h2-lg">메인페이지 임시 공사중..</span>
                             <p>&nbsp;</p>
-                            <a href="/studyIns/movingChang?r_Idx=9002">채팅방 입장</a>
+                            <a href="/moveChating?r_Idx=9002">채팅방 입장</a>
                         </h3>
                         <div class="card-toolbar">
 
