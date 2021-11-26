@@ -96,8 +96,8 @@
                                                                 <span class="wizard-number">3</span>
                                                             </div>
                                                             <div class="wizard-label">
-                                                                <h3 class="wizard-title">가입 완료!</h3>
-                                                                <div class="wizard-desc">인증후 삼삼오오에 로그인해보세요</div>
+                                                                <span class="font-size-h3 wizard-title">가입 완료!</span>
+                                                                <div class="wizard-desc">인증 후 삼삼오오에 로그인해보세요</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -117,10 +117,10 @@
                                     <!--begin::Content-->
                                     <div class="wizard-content bg-gray-100 d-flex flex-column flex-row-fluid py-15 px-5 px-lg-10">
                                         <!--begin::Title-->
-                                        <div class="text-right mb-lg-30 mb-15 mr-xxl-10">
+                                        <%--<div class="text-right mb-lg-30 mb-15 mr-xxl-10">
                                             <span class="font-weight-bold text-muted font-size-h5">문제가 있나요?</span>
                                             <a href="#" class="font-weight-bolder font-size-h4" id="kt_login_signup">처음으로</a>
-                                        </div>
+                                        </div>--%>
                                         <!--end::Title-->
                                         <!--begin::Form-->
                                         <div class="d-flex justify-content-center flex-row-fluid">
@@ -135,13 +135,14 @@
                                                     </div>
                                                     <!--begin::Title-->
                                                     <!--begin::Form Group-->
-                                                    <div class="form-group fv-plugins-icon-container">
+                                                    <div class="form-group fv-plugins-icon-container mb-n8">
 
                                                         <label class="font-size-h6 font-weight-bolder text-dark">이메일</label>
                                                         <div class="email_box">
                                                             <input type="email" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_id" name="member_id" placeholder="abcdef@email.com" value="">
-                                                            <button type="button" class="btn bg-ssff1 bg-hover-ssff2 l-sp-015 m-2" id="idChk" onclick="fn_idChk();">이메일 중복 확인</button>
-
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn bg-ssff2 text-hover-ssff-green l-sp-015 m-2" id="idChk" onclick="fn_idChk();">이메일 중복 확인</button>
+                                                            </div>
                                                         </div>
                                                         <div class="fv-plugins-message-container"></div>
 
@@ -173,8 +174,12 @@
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">닉네임</label>
                                                     <input type="text" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_name" name="member_name" placeholder="사용할 닉네임을 입력해주세요." value="">
-                                                    <button type="button" class="btn bg-ssff1 bg-hover-ssff2 l-sp-015 m-2" id="nameChk" onclick="fn_nameChk();">닉네임 중복 확인</button>
-                                                    <div class="fv-plugins-message-container"></div></div>
+                                                    <div class="d-flex justify-content-end">
+                                                        <button type="button" class="btn bg-ssff2 text-hover-ssff-green l-sp-015 m-2" id="nameChk" onclick="fn_nameChk();">닉네임 중복 확인</button>
+                                                    </div>
+                                                    <div class="fv-plugins-message-container">
+                                                    </div>
+                                                </div>
                                                 <!--begin::Form Group-->
 
 
@@ -196,7 +201,7 @@
                                                     <button type="button" class="btn bg-danger bg-hover-ssff2 text-white l-sp-015 m-2" >돌아가기</button>
                                                 </div>
                                                 <!--end: Wizard Actions-->
-                                                <div></div><div></div>
+
 
                                             </form>
                                         </div>
