@@ -7,8 +7,38 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<style>
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #3498db;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+
+    }
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+
+    }
+</style>
+<script>
+    $(window).load(function () {
+        $(`.loader`).fadeOut();
+    });
+</script>
 <!------------------모바일 헤더 시작------------------>
+
 <div id="kt_header_mobile" class="header-mobile">
+    <div class="loader"><img src="/" </div>
     <!--로고 시작-->
     <a href="/">
         <img alt="Logo" src="/resources/assets/media/logos/logo-c1.png" class="max-h-30px" />
