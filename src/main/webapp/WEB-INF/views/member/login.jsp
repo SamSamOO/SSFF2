@@ -34,7 +34,7 @@
                 <!--begin::Login Header-->
                 <div class="d-flex flex-center mb-15">
 
-                    <a href="#">    <!-- 로고누르면 메인으로 가는기능 만들기 까먹지말고 -->
+                    <a href="/">    <!-- 로고누르면 메인으로 가는기능 만들기 까먹지말고 -->
 
                         <img src="${pageContext.request.contextPath}/resources/assets/images/logos/ssff/logo-c1.png" class="max-h-75px" alt="" />
                     </a>
@@ -42,8 +42,8 @@
                 <!--end::Login Header-->
                 <!--begin::Login Sign in form-->
                 <div class="login-signin">
-                    <div class="mb-20 font-weight-bolder">
-                        <h3>SamSamOO</h3>
+                    <div class="mb-20">
+                        <span class="font-size-h3 font-weight-bolder">SamSamOO</span>
                         <div class="text-muted">함께할 프로젝트원을 모집해보세요:p</div>
                     </div>
                     <form action="/member/login" method="POST" class="form" id="kt_login_signin_form">
@@ -70,7 +70,7 @@
                     </div>
                     <div class="mt-10">
                         <span class="opacity-70 mr-4">아직 계정이 없으신가요?</span>
-                        <a href="/member/joinGo" id="kt_login_signup" class="text-muted text-hover-primary font-weight-bold">가입하러가기</a>
+                        <a href="/member/joinGo" id="kt_login_signup" class="text-muted text-hover-primary font-weight-bolder">가입하러가기</a>
                     </div>
                 </div>
 
