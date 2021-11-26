@@ -1,10 +1,11 @@
 package kr.or.ssff.manager.service;
 
-import kr.or.ssff.manager.domain.ManagerVO;
-import kr.or.ssff.member.domain.MemberVO;
-import kr.or.ssff.study.domain.RecruitBoardVO;
+import java.util.HashMap;
+import kr.or.ssff.manager.domain.ManagerMemberVO;
 
 import java.util.List;
+import kr.or.ssff.manager.domain.ManagerStudyListByBossYVO;
+import kr.or.ssff.studyIns.model.Criteria;
 
 /*
 
@@ -29,6 +30,20 @@ public interface ManagerService {
     public abstract List<String> getListPerPage();
 
     // 7. 회원 전체 목록 조회
-    public abstract List<ManagerVO> getMemberList();
+    public abstract List<ManagerMemberVO> getMemberListPerPaging(Criteria criteria);
 
+    // 8. 회원 명수 카운트
+    public abstract Integer countMemberCount();
+
+    // 9 . 회원 검색
+    public abstract List<ManagerMemberVO> getSearchMemberPerPaging(Criteria criteria,String keyword);
+
+    // 9-1 . 회원 명수 카운트(검색 기준)
+    public abstract Integer countMemberCountBy(String keyword);
+
+    // 10 . 스터디 개수 카운트(전체경우)
+    public abstract Integer countStudyCount(HashMap<String,Object> map);
+
+    // 10-1 . 스터디 페이징 리스트 검색 (전체)
+    public  abstract List<ManagerStudyListByBossYVO> getStudyListPerPaging(Criteria criteria, HashMap<String,Object> map);
 }

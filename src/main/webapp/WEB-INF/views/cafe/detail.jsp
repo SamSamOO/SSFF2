@@ -31,8 +31,12 @@
 		<link rel="stylesheet"
 		      href="https://cdn.jsdelivr.net/npm/color-calendar/dist/css/theme-glass.css"/>
 		<script src="https://cdn.jsdelivr.net/npm/color-calendar/dist/bundle.min.js"></script>
-		
-		<style>
+	
+	<!-- 카카오map -->
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3916588b4559c956ff1595fb1b117cc4&libraries=services"></script>
+	
+	
+	<style>
 
 
     /*--------------- swiper [s] ---------------*/
@@ -586,13 +590,13 @@
 																																				
 																																				<!-- 카페 이미지와 -->
 																																				<div class="swiper-slide">
-																																						<img src="${cafeInfo[0].cafe_image_first}"/>
+																																						<img src="${cafeInfo[0].cafe_image_1}"/>
 																																				</div>
 																																				<div class="swiper-slide">
-																																						<img src="${cafeInfo[0].cafe_image_second}"/>
+																																						<img src="${cafeInfo[0].cafe_image_2}"/>
 																																				</div>
 																																				<div class="swiper-slide">
-																																						<img src="${cafeInfo[0].cafe_image_third}"/>
+																																						<img src="${cafeInfo[0].cafe_image_3}"/>
 																																				</div>
 																																				<!-- 카페 룸 이미지 -->
 																																				<c:forEach items="${fn:split(cafeInfo[0].room_list,':')}"
@@ -698,13 +702,16 @@
 																										<div class="col-md-10">
 																												<div
 																														class="justify-content-between flex-column flex-md-row">
-																														<h1 class="display-4 font-weight-boldest mb-10"
-																														    style="margin-bottom: 0 !important;">이쯤에는 지도가
-																																들어가고</h1>
-																														
-																														<h3 class="">전화걸기 버튼이랑, 길찾기 api가 있으면 좋겟다.</h3>
+																														<div>
+																														<button type="button" class="btn btn-outline-warning
+																														  font-size-h6 py-4 mr-2 mb-4 btn-pill" style="width:48%" id="loadView">길찾기</button>
+																														<button type="button" class="btn btn-outline-success
+																														  font-size-h6 py-4 mr-2 mb-4 btn-pill" style="width:48%" id="callInfo">전화걸기</button>
+
+																														</div>
 																														<div class="symbol-label min-w-65px min-h-300px"
-																														     style="background-color: #7e62dc">지도 들어가시고
+																														     id="map">
+																														     
 																														</div>
 																												</div>
 																										
@@ -867,7 +874,9 @@
 																																				</div>
 																																				<div class="ml-auto text-muted font-weight-bold"
 																																				     >
-																																								${room.amount_hour} 원/시간
+																																				     
+																																								<fmt:formatNumber value="${room.amount_hour}"
+																														                  pattern="#,###"/> 원/시간
 																																				</div>
 																																		</label>
 																																		<!-- radio [ e ] -->
@@ -941,7 +950,9 @@
 																												</div>
 																												<!--end::Radio list-->
 																												
-																												<a onclick="goRsrv();" class="btn btn-warning" role="button"
+																												<a onclick="goRsrv();" class="btn btn-warning
+																												font-size-h6 py-4 mr-2 mb-4
+																												" role="button"
 																												   style="display: block;">예약하기</a>
 																												
 																												<br>
@@ -1339,6 +1350,7 @@
 		  let totalAmount = $('#select-amount').html(); // 이용금액
     let maxPeople = $('#select-max-people').html(); // 방인원
 
+		  
     let $date = $('<input>', {
       type : "hidden",
       name : "use_date",
@@ -1375,6 +1387,26 @@
       value: maxPeople
     })
 
+	  //TODO 제약조건 확인
+			// if($('input[type="hidden"]').length != 8) {
+			// 	// 기존에 담긴 정보 지우기 //TODO 여기..
+			// 	$(`span[class='room']`).empty();
+			// 	$(`span[class='time']`).empty();
+			// 	$(`span[class='amount']`).empty();
+			// 	$(`span[class='info']`).empty();
+			// 	$("li[class='time time-active']").removeClass('time-active');
+	  //
+			// 	Swal.fire({
+			// 		          icon : 'danger', // Alert 타입
+			// 		          title: '선택오류', // Alert 제목
+			// 		          text : '모든 사항은 필수 선택입니다! ', // Alert 내용
+			// 	          })
+			//
+			// 	return;
+	 	//
+	  // }
+
+	  
     $('#formObj').append($date, $startTime, $endTime, $roomIdx, $totalAmount,$maxPeople);
     
     $('#formObj').submit();
@@ -1594,5 +1626,78 @@
 </script>
 
 
+<script>
+	// 카카오 맵
+	
+	
+	var coords = '';
+	// 지도 구현부
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+	    mapOption    = {
+		    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		    level : 3 // 지도의 확대 레벨
+	    };
+	
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+	
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch('${cafeInfo[0].cafe_location}', function (result, status) {
+		
+		// 정상적으로 검색이 완료됐으면
+		if (status === kakao.maps.services.Status.OK) {
+			
+			coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+			// 결과값으로 받은 위치를 마커로 표시합니다
+			var marker = new kakao.maps.Marker({
+				                                   map     : map,
+				                                   position: coords
+			                                   });
+			
+			// 인포윈도우로 장소에 대한 설명을 표시합니다
+			var infowindow = new kakao.maps.InfoWindow({
+				                                           content: '<div style="width:150px;text-align:center;padding:6px 0;">스터디카페의 위치입니다!</div>'
+			                                           });
+			infowindow.open(map, marker);
+			
+			// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			map.setCenter(coords);
+		}
+		
+		let coord = String(coords);
+		
+		coord = coord.substring(1, (coord.length-1));
+		console.log(coord.length);
+		
+		console.log(coord.substring(1, (coord.length-1)));
+
+
+		// 길찾기 버튼 클릭하면 길찾기로 감 ㄱㄱ
+		$('#loadView').on('click', (e) =>
+			location.href = "https://map.kakao.com/link/to/"+ "${cafeInfo[0].cafe_name}" + "," + coord);
+		
+		
+	});
+	
+	
+	// 전화걸기 버튼 누르면 가게 전화번호 노출
+	$('#callInfo').on('click', (e) =>
+	
+	Swal.fire({
+		          icon : 'info', // Alert 타입
+		          title: '${cafeInfo[0].cafe_telephone_number}', // Alert 제목
+		          text : '삼삼오오를 통해 연락했어요~!', // Alert 내용
+	          })
+	
+	
+	);
+	
+	
+	
+	
+</script>
 
 </html>
