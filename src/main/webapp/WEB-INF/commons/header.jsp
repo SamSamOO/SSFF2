@@ -11,7 +11,7 @@
 <div id="kt_header_mobile" class="header-mobile">
     <!--로고 시작-->
     <a href="/">
-        <img alt="Logo" src="/resources/assets/media/logos/logo-c1.png" class="max-h-30px" />
+        <img alt="Logo" src="/resources/assets/images/logos/ssff/logo-c1.png" class="max-h-30px" />
     </a>
     <!--로고 종료-->
     <!--툴바 시작-->
@@ -24,11 +24,19 @@
         <div class="dropdown dropdown-inline">
             <!--begin::Toggle-->
             <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px">
-                <div class="btn btn-dropdown top-memu">
-                    <!--유저 프로필 사진-->
-                    <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                        <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg"/>
-                    </div>
+                <div class="btn btn-dropdown top-memu text-hover-primary">
+
+                    <!--유저 프로필 사진(비로그인시 숨김)-->
+                    <c:if test="${member != null }">
+                        <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
+                            <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg" />
+                        </div>
+                    </c:if>
+                    <c:if test="${member == null }">
+                        <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
+                            <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default.png" />
+                        </div>
+                    </c:if>
                     <i class="text-dark fas fa-angle-down"></i>
                 </div>
 
@@ -38,18 +46,20 @@
             <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up p-0">
                 <!--begin::Nav 헤더 메뉴 네비 시작-->
                 <div class="navi align-items-center p-3 rounded-top">
-                    <!--begin::Item-->
-                    <a href="/member/loginGo" class="navi-item">
-                        <div class="navi-link">
+                    <c:if test="${member == null }">
+                        <!--begin::Item-->
+                        <a href="/member/loginGo" class="navi-item dropdown-item">
+                            <div class="navi-link">
 
-                            <div class="navi-text login">
-                                <div class="font-weight-bold">로그인 </div>
+                                <div class="navi-text login">
+                                    <div class="font-weight-bold">로그인 </div>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                    <!--end::Item-->
+                        </a>
+                        <!--end::Item-->
+                    </c:if>
                     <!--begin::Item-->
-                    <a href="/custom/apps/user/profile-1/personal-information.html" class="navi-item">
+                    <a href="/study/project/list" class="navi-item dropdown-item">
                         <div class="navi-link">
 
                             <div class="navi-text">
@@ -59,7 +69,7 @@
                     </a>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <a href="/custom/apps/user/profile-3.html" class="navi-item">
+                    <a href="/study/challenge/list" class="navi-item dropdown-item">
                         <div class="navi-link">
                             <div class="navi-text">
                                 <div class="font-weight-bold">챌린지</div>
@@ -68,7 +78,7 @@
                     </a>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <a href="/cafe/list" class="navi-item">
+                    <a href="/cafe/list" class="navi-item dropdown-item">
                         <div class="navi-link">
 
                             <div class="navi-text">
@@ -77,8 +87,9 @@
                         </div>
                     </a>
                     <!--end::Item-->
+
                     <!--begin::Item-->
-                    <a href="/custom/apps/userprofile-1/overview.html" class="navi-item">
+                    <a href="/member/myPage" class="navi-item dropdown-item">
                         <div class="navi-link">
 
                             <div class="navi-text">
@@ -88,7 +99,7 @@
                     </a>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <a href="/custom/apps/user/profile-1/personal-information.html" class="navi-item">
+                    <a href="/member/logout" class="navi-item dropdown-item">
                         <div class="navi-link">
 
                             <div class="navi-text logout">
@@ -97,6 +108,7 @@
                         </div>
                     </a>
                     <!--end::Item-->
+
                 </div>
                 <!--end::Nav 헤더 메뉴 네비 종료-->
             </div>
@@ -115,8 +127,8 @@
         <!--왼쪽 로고 파트 시작-->
         <div class="d-none d-lg-flex align-items-center mr-3">
             <!--begin::Logo-->
-            <a href="#" class="mr-20">
-                <img alt="Logo" src="/resources/assets/media/logos/logo-c1.png" class="logo-default max-h-35px" />
+            <a href="/" class="mr-20">
+                <img alt="Logo" src="/resources/assets/images/logos/ssff/logo-c1.png" class="logo-default max-h-35px" />
             </a>
             <!--end::Logo-->
         </div>
@@ -128,76 +140,79 @@
                 <!--begin::Toggle-->
                 <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px">
                     <div class="btn btn-dropdown top-memu">
-                        <!--유저 프로필 사진-->
-                        <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                            <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg"/>
-                        </div>
-                        <!--유저 닉네임(비로그인시 숨김)-->
+                        <!--유저 프로필 사진(비로그인시 숨김)-->
+                        <c:if test="${member != null }">
+                            <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
+                                <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg" />
+                            </div>
+                        </c:if>
+                        <c:if test="${member == null }">
+                            <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
+                                <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default.png" />
+                            </div>
+                        </c:if>
 
-                        <c:if test = "${member == null }">
+                        <!--유저 닉네임(비로그인시 숨김)-->
+                        <c:if test="${member == null }">
                             <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5"></div>
-                            <i class="text-dark fas fa-angle-down"></i>
                         </c:if>
 
                         <c:if test="${ member != null }">
                             <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5"> ${member.member_name}</div>
-                            <i class="text-dark fas fa-angle-down"></i>
                         </c:if>
+                        <i class="text-dark fas fa-angle-down"></i>
                     </div>
 
                 </div>
                 <!--end::Toggle-->
                 <!--begin::Dropdown 헤더 메뉴 드롭다운 시작-->
-                <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up p-0">
+                <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up">
                     <!--begin::Nav 헤더 메뉴 네비 시작-->
                     <div class="navi align-items-center p-3 rounded-top">
-                        <!--begin::Item-->
-                        <a href="/member/loginGo" class="navi-item">
-                            <div class="navi-link">
-
-                                <div class="navi-text login">
-                                    <c:if test = "${member == null }">
+                        <c:if test="${ member == null }">
+                            <!--begin::Item-->
+                            <a href="/member/loginGo" class="navi-item dropdown-item">
+                                <div class="navi-link">
+                                    <div class="navi-text login">
                                         <div class="font-weight-bold">로그인</div>
-                                    </c:if>
-
-                                    <c:if test="${ member != null }">
-                                        <div class="font-weight-bold"></div>
-                                    </c:if>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                        <!--end::Item-->
+                            </a>
+                            <!--end::Item-->
+                        </c:if>
+
                         <!--begin::Item-->
-                        <a href="custom/apps/user/profile-1/personal-information.html" class="navi-item">
+                        <a href="/study/project/list" class="navi-item dropdown-item">
                             <div class="navi-link">
 
                                 <div class="navi-text">
-                                    <div class="font-weight-bold">프로젝트 리스트</div>
+                                    <div class="font-weight-bold">프로젝트</div>
                                 </div>
                             </div>
                         </a>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <a href="custom/apps/user/profile-3.html" class="navi-item">
+                        <a href="/study/challenge/list" class="navi-item dropdown-item">
                             <div class="navi-link">
                                 <div class="navi-text">
-                                    <div class="font-weight-bold">챌린지 리스트</div>
+                                    <div class="font-weight-bold">챌린지</div>
                                 </div>
                             </div>
                         </a>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <a href="/cafe/list" class="navi-item">
+                        <a href="/cafe/list" class="navi-item dropdown-item">
                             <div class="navi-link">
 
                                 <div class="navi-text">
-                                    <div class="font-weight-bold">스터디 카페 예약</div>
+                                    <div class="font-weight-bold">스터디 카페</div>
                                 </div>
                             </div>
                         </a>
                         <!--end::Item-->
+
                         <!--begin::Item-->
-                        <a href="custom/apps/userprofile-1/overview.html" class="navi-item">
+                        <a href="/member/myPage" class="navi-item dropdown-item">
                             <div class="navi-link">
 
                                 <div class="navi-text">
@@ -207,7 +222,7 @@
                         </a>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <a href="/member/logout" class="navi-item">
+                        <a href="/member/logout" class="navi-item dropdown-item">
                             <div class="navi-link">
 
                                 <div class="navi-text logout">
@@ -216,6 +231,7 @@
                             </div>
                         </a>
                         <!--end::Item-->
+
                     </div>
                     <!--end::Nav 헤더 메뉴 네비 종료-->
                 </div>
