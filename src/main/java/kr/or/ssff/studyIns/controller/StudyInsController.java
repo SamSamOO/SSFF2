@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -216,8 +217,11 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: X  ( 해당 매핑으로 이동함)
      * */
     @GetMapping("/board/detail")
-    public String studyBoardDetail(@RequestParam("cont_No") Integer cont_No, Model model) throws Exception {
+    public String studyBoardDetail(@RequestParam("cont_No") Integer cont_No, @RequestParam("r_Idx") Integer r_Idx ,Model model) throws Exception {
         log.debug("studyBoardDetail({}) is invoked", "cont_no = " + cont_No + ", model = " + model);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("cont_No", cont_No);
+        map.put("r_Idx", r_Idx);
 
         Objects.requireNonNull(service);
         //내용물 불러오기
@@ -225,13 +229,17 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         //조회수 증가 쿼리
         service.updateHit(cont_No);
 
-        //파일 들고오기 //TODO -- 트랜젝션 처리 필요???
+        //파일 들고오기
         List<StudyInsFileVO> listOfFile = service.getFile(cont_No);
+
+        //조회수 순... > 으로 리스트를 들고옵니다..
+        List<StudyInsVO> listByHit = service.getListByHit(map);
 
         log.debug("안녕하세요");
         log.debug("detail = {}", detail);
         log.debug("listOfFile = {}", listOfFile);
 
+        model.addAttribute("listByHit", listByHit);
         model.addAttribute("detail", detail);
         model.addAttribute("fileList", listOfFile);
         return "studyIns/board/detail";

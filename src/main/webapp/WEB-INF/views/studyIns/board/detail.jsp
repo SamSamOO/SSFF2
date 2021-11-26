@@ -117,6 +117,58 @@
             imgWin.document.close();
         }
     </script>
+    <style>
+        .recommendPost_listWrapper__1Ix8x {
+            width: 240px;
+            margin-left: 2rem;
+            padding: 1rem 0.75rem;
+            line-height: 1.5;
+            font-size: .875rem;
+            max-height: calc(100vh - 128px);
+            overflow: hidden auto;
+            border: 2px solid #e2e2e2;
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            position: fixed;
+            top: 400px;
+        }
+
+        .recommendPost_title__38iq9 {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+        .recommendPost_userInfoWrapper__2T6u8 {
+            display: flex;
+            margin-left: 2rem;
+            position: fixed;
+            top: 350px;
+        }
+        .recommendPost_bar__3GKlv {
+            width: 0;
+            height: 2.5rem;
+            border: 2px solid #4482f7;
+
+        }
+        .recommendPost_userInfoWrapper__2T6u8 {
+            display: flex;
+            margin-left: 2rem;
+            position: fixed;
+            top: 350px;
+
+        }
+        .recommendPost_userInfo__1Ozvo {
+
+            margin-left: 0.5rem;
+
+        }
+        .recommendPost_userName__2gZg6 {
+            font-weight: 700;
+        }
+
+
+    </style>
 </head>
 <c:set var="fileListSize" value="${fn:length(fileList)}"/>
 <c:set var="slash" value="/"/>
@@ -244,7 +296,7 @@
 
                                                                 <c:if test="${fileListSize !=0}">
                                                                     <a href="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>"><img
-                                                                        src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="200" height="100" alt="사진"/></a>
+                                                                        src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="400" alt="사진"/></a>
                                                                 </c:if>
 
                                                                 <c:if test="${fileListSize==0}">
@@ -277,11 +329,32 @@
                     <!--end::Content-->
                 </div>
                 <!--end::Content Wrapper 내용물 종료-->
+                <div class="" style="position: relative; margin-top: 1.3rem">
+                    <div style="position:absolute; left: 100%">
+                        <div class="recommendPost_userInfoWrapper__2T6u8">
+                            <div class="recommendPost_bar__3GKlv"></div>
+                            <div class="recommendPost_userInfo__1Ozvo"><span class="recommendPost_userName__2gZg6">dd2323223</span>님이<br>좋아하실 글을 모아봤어요!</div>
+                        </div>
+                        <ul title="여기에 동적 생성이 들어가야합니다." class="recommendPost_listWrapper__1Ix8x">
+                        <c:forEach var="list" items="${listByHit}" begin="1" end="6" varStatus="status">
+
+                                <li class="recommendPost_postList__S6Av-">
+                                    <div class="recommendPost_index__2o2jf">${status.count}. </div>
+                                    <a class="recommendPost_title__38iq9" href="?cont_No=${list.cont_No}&r_Idx=${detail.r_Idx}"><c:out value="${list.title}"/>
+                                </li>
+                        </c:forEach>
+                        </ul>
+
+
+                    </div>
+                </div>
             </div>
             <%--컨테이너 종료--%>
             <!--footer.html Include-->
-            <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
         </div>
+    </div>
+    <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+</div>
 </body>
 <!----------------Body 종료----------------------->
 </html>

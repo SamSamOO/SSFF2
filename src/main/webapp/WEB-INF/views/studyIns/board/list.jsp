@@ -80,6 +80,7 @@
                             <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
                             <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
                             <input type="hidden" name="category" value="${category}"/>
+                            <input type="hidden" name="r_Idx" value="9002"/>
                             <table class="table table-borderless">
 
                                 <tr>
@@ -146,7 +147,7 @@
                                         <td>공지</td>
                                         <td>공지</td>
                                         <td><a
-                                            href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}"/> ">
+                                            href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=9002"/> ">
                                                 <c:out value="${noticeList.title}"/><a/></td>
                                         <td><c:out value="${fn:substring(noticeList.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
                                         <td>${noticeList.member_Name} </td>
@@ -166,7 +167,7 @@
                                         <td>${list.cont_No}</td>
                                         <td>${list.category}</td>
                                         <td><a
-                                            href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword}"/> ">
+                                            href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=9002"/> ">
                                                 <c:out value="${list.title}"/> <a/></td>
                                         <td><c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
                                         <td>${list.member_Name} </td>
