@@ -149,14 +149,15 @@
             <div class="card card-custom card-sticky">
               <div class="card-header flex-wrap border-0 pt-6 pb-0">
                 <div class="card-title">
-                  <h3 class="card-label">예약내역 확인하기
-                    <span
-                      class="d-block text-muted pt-2 font-size-sm">예약 내역과 해당하는 거래내역 조회가 가능합니다.</span>
-                  </h3>
+                
                 </div>
                 
                 <!--begin::card -->
                 <div class="card-body">
+                  <h3 class="card-label">예약내역 확인하기
+                    <span
+                      class="d-block text-muted pt-2 font-size-sm mb-20">예약 내역과 해당하는 거래내역 조회가 가능합니다.</span>
+                  </h3>
                   <!--begin: Search Form-->
                   <!--begin::Search Form-->
                   <div class="mb-7">
@@ -488,7 +489,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
         member_name = data.reservationList[i].member_name;
 
         amount = (data.reservationList[i].amount_to_be_paid).toLocaleString();
-        cafeInfo = cafe_name + ' :: ' + max_people + '인실 (' + room_idx + ')';
+        cafeInfo = cafe_name + ' :: ' + max_people + '인실';
 
         rsrv_email = data.reservationList[i].rsrv_email;
         rsrv_idx = data.reservationList[i].rsrv_idx;
@@ -514,7 +515,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
         client_bank_code = data.reservationList[i].client_bank_code;
         client_name = data.reservationList[i].client_name;
 
-        useInfo = use_date + ' ' + use_start_time + '시 ~ ' + use_end_time + '시 (' + (use_end_time
+        useInfo = use_date + ' ' + use_start_time + '~' + use_end_time + '시 (' + (use_end_time
                   - use_start_time + 1)
                   + '시간)';
 
@@ -532,11 +533,11 @@ $(document).on('click',"button[class^='btn']", function (e) {
           </td>
 
           <td data-field="ReservationID" aria-label="` + rsrv_idx
-                       + `" class="datatable-cell><span style="">` + rsrv_idx + `</span></td>
+                       + `" class="datatable-cell"><span style="">` + rsrv_idx + `</span></td>
           <td data-field="CafeInfo" aria-label="` + cafeInfo
-                       + `" class="datatable-cell><span style="">` + cafeInfo + `</span></td>
+                       + `" class="datatable-cell"><span style="">` + cafeInfo + `</span></td>
           <td data-field="ReservationAmount" aria-label="` + amount
-                       + `원" class="datatable-cell><span style="">` + amount + `원</span></td>
+                       + `원" class="datatable-cell"><span style="">` + amount + `원</span></td>
           <td data-field="UseDateInfo" aria-label="` + useInfo
                        + `" class="datatable-cell"><span style="">` + useInfo + `</span></td>
      
@@ -648,6 +649,14 @@ $(document).on('click',"button[class^='btn']", function (e) {
                       <span>` + member_name + `</span></td>
 
                   </tr>
+                  <tr data-row="0" class="datatable-row">
+                    <td class="col-4" data-field="rsrv_idx" aria-label="` + room_idx + `">
+                      <span><span>예약공간</span></span></td>
+                    <td data-field="ShipCountry" aria-label="ID" class="datatable-cell">
+                      <span>` + room_idx + `</span></td>
+
+                  </tr>
+
                   <tr data-row="0" class="datatable-row">
                     <td class="col-4" data-field="member_name" aria-label="` + rsrv_name + `">
                       <span><span>예약자명</span></span></td>
@@ -891,6 +900,10 @@ $(document).on('click',"button[class^='btn']", function (e) {
         
         //페이징 번호 클릭 이벤트
         $(".datatable-pager.datatable-paging-loaded ul li a").click(function () {
+          // $(this).closest("tr").toggleClass("datatable-row-subtable-expanded").next().fadeToggle();
+          $('tr[class^="datatable"]').removeClass("datatable-row-subtable-expanded");
+          $('td[class="datatable-subtable"]').css('display','none');
+
           console.log("s놀아>???: ");
 
           //전역변수에 선택한 페이지 번호를 담아서

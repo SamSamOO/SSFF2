@@ -83,6 +83,7 @@
 
         <property name="configLocation"
             value="classpath:mybatis-config.xml"/>
+
     </bean>
 
     <!-- ================= AOP =============== -->
@@ -110,6 +111,7 @@
 
     <!--웹소켓 메시지 처리-->
     <tx:annotation-driven/>
+
     <!--핸들러 빈 등록-->
     <websocket:handlers>
         <websocket:mapping handler="echoHandler" path="/echo"/>
