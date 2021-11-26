@@ -14,9 +14,20 @@
     <link href='../../../../resources/assets/fullcalendar/fullcalendar/lib/main.css' rel='stylesheet' />
     <script src='../../../../resources/assets/fullcalendar/fullcalendar/lib/main.js'></script>
     <script src='../../../../resources/assets/fullcalendar/script.js'></script>
+    <!--상부 js를 위한 설정-->
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!--이게 여기있는게 맞나 싶긴 한데.. 그래도 넣어놓음-->
+    <input type="hidden" id="member_name" value="nickname55"><!--이 페이지로 접근한 아이디-->
+    <input type="hidden" id="r_idx" value=129><!--이 페이지의 스터디번호-->
 
     <script>
-      let calendarData = getFullCalendarData()
+      let r_idx = document.querySelector('#r_idx').value;
+      let calendarData
+      async function doGetCalendarData() {
+        calendarData = await getFullCalendarData(r_idx);
+      }
+      doGetCalendarData()
+
       if (!calendarData) {
         calendarData = exmapleData()
       }
@@ -126,8 +137,6 @@
                             <!--카드 Body 시작-->
                             <div class="card-header border-0 pt-5 card-body mt-5" ><!--id="post-body-wrapper" 이거 넣으면 가운데정렬-->
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
-                                <input type="hidden" id="member_name" value="nickname55"><!--이 페이지로 접근한 아이디-->
-                                <input type="hidden" id="r_idx" value=129><!--이 페이지의 스터디번호-->
                                 <!--캘린더 섹션 start------->
                                 <div id="calendar-sec" style="width: 750px">
 
@@ -274,9 +283,9 @@
     let addEvent = {
       member_name:document.querySelector('#member_name').value,
       allday_ok:checkboxStatus,
-      title: document.getElementById('calendar-title').value , //cal_title
-      start: new Date(document.getElementById('calendar-start-date').value + time_start), //cal_start
-      end: new Date(document.getElementById('calendar-end-date').value + time_end), //cal_end
+      title: document.getElementById('calendar-title').value ,
+      start: new Date(document.getElementById('calendar-start-date').value + time_start),
+      end: new Date(document.getElementById('calendar-end-date').value + time_end),
       cal_cont:document.querySelector('#calendar-content').value
     }
     let flag = true

@@ -13,6 +13,20 @@
     #{cal_id}, #{type}, #{cal_events}, sysdate)
   </insert>
 
+  <!--cal_id로 json data 가져오기-->
+  <select id="getCalendarByCal_id" resultType="String">
+    SELECT cal_events FROM calendar_s WHERE cal_id=#{cal_id}
+  </select>
+
+  <!--update문-->
+  <update id="update">
+    UPDATE calendar_s
+    SET
+      cal_events = #{cal_events},
+    WHERE
+      cal_id = #{cal_id}
+  </update>
+
 </mapper>
 
 

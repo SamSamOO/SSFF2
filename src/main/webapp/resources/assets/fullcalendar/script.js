@@ -1,30 +1,25 @@
 function callApiService (url, jsonData, method) {
   if (method === 'GET') {
-    $.ajax({
-      url,
-      type: 'GET',
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify(jsonData),
-      success: function(response){
-        if (response) {
-          alert('if invoked')
-          return response
-        } else {
-          alert('else invoked')
-          return false
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: url + "?cal_id=" + jsonData.cal_id,
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        success: function (response) {
+          resolve(response)
+        },
+        error: function (request, status, error) {
+          reject(false)
         }
-      },
-      error: function (request, status, error){
-        console.log(error)
-      }
+      })
     })
   } else if (method === 'POST') {
     $.ajax({
       url : url,
       type: 'POST',
       dataType: 'json',
-      contentType: 'application/json',
+      contentType: 'application/json;charset=UTF-8',
       data: JSON.stringify(jsonData),
       success: function(response){
         if (response) {
@@ -42,18 +37,29 @@ function callApiService (url, jsonData, method) {
   }
 }
 
-function getFullCalendarData () {
-  return callApiService('/yesol', null, 'GET')
-}
-
-function setFullCalendarData (studyNum, updateData) {
-  setData = {
-    studyNum: studyNum,
-    callendarData: JSON.stringify(updateData),
+async function getFullCalendarData (cal_id) {
+  setCal_id = {
+    cal_id : cal_id
   }
+  let returnData
+  await callApiService('/calendar/get', setCal_id, 'GET').then((data) => {
+    returnData = data
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+  return returnData
 
-  return callApiService('/calendar/add', setData, 'POST')
+  // return callApiService('/calendar/get', setCal_id, 'GET')
 }
+
+function setFullCalendarData (cal_id, updateData) {
+  setData = {
+    cal_id: cal_id,
+    calendarData: JSON.stringify(updateData),
+  }
+  return callApiService('/calendar/add', setData, 'POST')
+}//setFullCalendarData
 
 function exmapleData () {
   return []
