@@ -118,7 +118,7 @@ public class CafeRestController {
 
     } catch (Exception e) { ;; }
 
-    log.info("jsonObject {} =", jsonObject);
+    // log.info("jsonObject {} =", jsonObject);
 
     // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)
     return jsonObject;
@@ -141,17 +141,17 @@ public class CafeRestController {
     String SearchDate = filterJSON.get("date");
     String SearchRoom = filterJSON.get("room");
 
-    log.debug("SearchDate({}) is ", SearchDate);
-    log.debug("SearchRoom({}) is ", SearchRoom);
+    log.info("SearchDate({}) is ", SearchDate);
+    log.info("SearchRoom({}) is ", SearchRoom);
     // join상태의 모든 정보 담아내기 (중복정보 있는 상태)
     List<RoomRsrvVO> list = this.service.getRoomRsrvList(SearchRoom, SearchDate);
-    log.debug("list({}) is ", list);
+   //  log.debug("list({}) is ", list);
     //최종 완성될 JSONObject 선언(전체)
     JSONObject jsonObject = new JSONObject();
 
     jsonObject.put("roomRsrvList", list);
 
-    log.debug("jsonObject({}) is ", jsonObject);
+    // log.info("jsonObject({}) is ", jsonObject);
 
     return jsonObject;
   } // getCafeList
@@ -186,7 +186,7 @@ public class CafeRestController {
 
     jsonObject.put("reservationList", list);
 
-    log.info("jsonObject {} =", jsonObject);
+    // log.info("jsonObject {} =", jsonObject);
 
     // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)
     return jsonObject;
