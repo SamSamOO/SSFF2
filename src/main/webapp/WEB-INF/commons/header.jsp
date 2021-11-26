@@ -7,38 +7,61 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%--로딩 에니메이션 관련 css js html--%>
 <style>
-    .loader {
-        border: 16px solid #f3f3f3;
-        border-top: 16px solid #3498db;
-        border-radius: 50%;
-        width: 120px;
-        height: 120px;
-        animation: spin 2s linear infinite;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
+    #loading {
+    !important;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        position: fixed;
+        display: block;
+        background: #FFFFFF;
+        opacity: 0.7;
+        z-index: 100;
+        text-align: center;
+    }
+    #loading img {
+    !important;
+        background: #FFFFFF;
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 400px;
+        height: auto;
+        top: 41%;
+        left: 37%;
+        transform: translate(-50%, -50%);
+        z-index: 101;
+        animation: shake 2s infinite;
 
     }
-    @keyframes spin {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-
+    @keyframes shake{
+        0%{	transform: translate(1px, 1px) rotate(0deg);}
+        10%{	transform: translate(-1px, -1px) rotate(-1deg);}
+        20%{	transform: translate(3px, 1px) rotate(1deg);}
+        30%{	transform: translate(3px, 2px) rotate(0deg);}
+        40%{	transform: translate(1px, -1px) rotate(1deg);}
+        50%{	transform: translate(-1px, 1px) rotate(-1deg);}
+        60%{	transform: translate(2px, -1px) rotate(0deg);}
+        70%{	transform: translate(-1px, 1px) rotate(1deg);}
+        80%{	transform: translate(3px, -1px) rotate(-1deg);}
+        90%{	transform: translate(1px, 3px) rotate(0deg);}
+        100%{	transform: translate(1px, -2px) rotate(1deg);}
     }
 </style>
+<div id="loading"><img src="/resources/assets/images/logos/ssff/SamSamOOLOGO.png" alt="로딩"/></div>
 <script>
-    $(window).load(function () {
-        $(`.loader`).fadeOut();
+    $(window).on('load',function () {
+        setTimeout(function (){$(`#loading`).hide()}, 1000);
     });
 </script>
 <!------------------모바일 헤더 시작------------------>
 
 <div id="kt_header_mobile" class="header-mobile">
-    <div class="loader"><img src="/" </div>
+
     <!--로고 시작-->
     <a href="/">
         <img alt="Logo" src="/resources/assets/media/logos/logo-c1.png" class="max-h-30px" />
