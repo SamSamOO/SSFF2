@@ -20,6 +20,10 @@ public interface MemberService {
     public int idChk( MemberDTO memberDTO) throws Exception;
     // 닉네임 중복체크
     public int nameChk( MemberDTO memberDTO) throws Exception;
+//    // 회원 프로필 사진 수정
+//    public void modifyUimage(String uid, String uimage) throws Exception;
+
+
 
 
     // 1. 새로운 게시물 등록
