@@ -753,7 +753,7 @@
 		  let location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?" +
 		                 "response_type=code&" +
 		                 "client_id=" + clientID + "&" +
-																	  "redirect_uri=http://localhost:8070/payment/rest/callback&" +
+																	  "redirect_uri=http://localhost:8070/payment/rest/withdraw&" +
 																	  "scope=login inquiry transfer&" +
 																	  "client_info=test&" +
 																	  "state=b80BLsfigm9OokPTjy03elbJqRHOfGSY&" +

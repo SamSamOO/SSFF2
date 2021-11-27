@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.payment.domain.PaymentAcntDTO;
 import kr.or.ssff.payment.domain.PaymentAuthDTO;
+import kr.or.ssff.payment.domain.PaymentWithdrawDTO;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -67,16 +68,18 @@ String id = "testJihye";
 
 //     service.connectAuth(code, id); // db에 저장할지말지 결정해서 auth 저장
 
-    PaymentAuthDTO paymentAuthDTO = service.getAuth(code, id);
+    PaymentAuthDTO paymentAuthDTO = service.getAuth(code, id); // 토큰 받기
     log.info("paymentAuthDTO({}): ", paymentAuthDTO);
 //		return "<script>opener.location.reload();window.close();</script>";
-    List<PaymentAcntDTO> acntList = service.getAcnt(paymentAuthDTO);
+    List<PaymentAcntDTO> acntList = service.getAcnt(paymentAuthDTO); // 핀테크 받기
     log.info("acntList({}): ", acntList);
+
+
 
     // userMe(paymentAuthDTO.getTokenType(), paymentAuthDTO.getAccessToken(), paymentAuthDTO.getUserSeqNo());
 
     return "<script>window.close();</script>";
-  } // getManagerCafeList
+  } // callback
 
 
 
@@ -121,6 +124,42 @@ String id = "testJihye";
 //		System.out.println(vo);
 
   } // userMe
+
+
+
+  /**
+   * withdraw
+   */
+  @RequestMapping("/withdraw")
+  public String withdraw(
+      @RequestParam("code") String code,
+      @RequestParam("state") String state,
+      Authentication authentication,
+      HttpServletResponse response) {
+    log.debug("withdraw({},{},{}) is invoked",
+        code, state, authentication);
+
+    //TODO 세션 회원이름 받아오기 - 순형 !
+//    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//    String id = userDetails.getUsername();
+    String id = "testJihye";
+
+//     service.connectAuth(code, id); // db에 저장할지말지 결정해서 auth 저장
+
+    PaymentAuthDTO paymentAuthDTO = service.getAuth(code, id); // 토큰 받기
+    log.info("paymentAuthDTO({}): ", paymentAuthDTO);
+//		return "<script>opener.location.reload();window.close();</script>";
+    List<PaymentAcntDTO> acntList = service.getAcnt(paymentAuthDTO); // 핀테크 받기
+    log.info("acntList({}): ", acntList);
+
+
+    PaymentWithdrawDTO paymentWithdrawDTO = service.getWithdrawDto(acntList,paymentAuthDTO ); // 핀테크 받기
+    log.info("paymentWithdrawDTO({}): ", paymentWithdrawDTO);
+
+    // userMe(paymentAuthDTO.getTokenType(), paymentAuthDTO.getAccessToken(), paymentAuthDTO.getUserSeqNo());
+
+    return "<script>window.close();</script>";
+  } // withdraw
 
 
 } // end class
