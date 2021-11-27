@@ -3,7 +3,10 @@ package kr.or.ssff.studyIns.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpSession;
+import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.studyIns.model.Room;
 import kr.or.ssff.studyIns.service.ChattingService;
 import lombok.AllArgsConstructor;
@@ -25,12 +28,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ChattingController {
 
-
     static int roomNumber = 0;
+    HttpSession session;
     //-------------------------------- 상준 채팅방--------------------------------//
     @Autowired
     ChattingService service;
+
+
     List<Room> roomList = new ArrayList<Room>();
+
 
     @RequestMapping("/chat")
     public ModelAndView chat() {
@@ -102,19 +108,32 @@ public class ChattingController {
      * @return url
      */
     @RequestMapping("/moveChating")
-    public String chating(@RequestParam String r_Idx, Model model) {
+    public String chating(@RequestParam("r_Idx") Integer r_Idx, Model model, HttpSession session) {
+        MemberDTO dto = (MemberDTO) session.getAttribute("member");
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("member", dto);
+        map.put("r_Idx", r_Idx);
+
+        log.info("session = {}", session.getAttribute("member"));
+
         log.info("chating({}) is invoked", "r_Idx = " + r_Idx + ", model = " + model);
-        String url = "";
+
+        log.info("dto = {}", dto);
 
         log.info("roomNumber = {}", roomNumber);
 
+        Objects.requireNonNull(service);
+
+        Integer insStudy = this.service.checkYouInStudy(map);
+
         List<Room> new_list = roomList.stream().filter(o -> o.getRoomNumber() == roomNumber).collect(Collectors.toList());
 
+        model.addAttribute("inStudy", insStudy);
         model.addAttribute("r_Idx", r_Idx);
+        log.info("new_list = {}", new_list);
 
-        url = "studyIns/chatRoom/room";
-
-        return url;
+        return "/studyIns/chatRoom/room";
     }
 
 }

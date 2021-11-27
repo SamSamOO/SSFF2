@@ -67,10 +67,9 @@
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label font-weight-bolder text-dark font-size-h2-lg">메인페이지 임시 공사중..</span>
                             <p>&nbsp;</p>
-                            <a href="/studyIns/moveChang?r_Idx=${r_Idx}">채팅방 입장</a>
+                            <a href="/moveChating?r_Idx=${map.get("r_Idx")}">채팅방 입장</a>
                         </h3>
                         <div class="card-toolbar">
-
                         </div>
                     </div>
                     <!--카드 헤더 종료-->
@@ -80,7 +79,7 @@
                             <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
                             <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
                             <input type="hidden" name="category" value="${category}"/>
-                            <input type="hidden" name="r_Idx" value="${r_Idx}"/>
+                            <input type="text" name="r_Idx" id="r_Idx" value="${map.get("r_Idx")}"/>
 
                             <table class="table table-borderless">
 
@@ -143,13 +142,13 @@
                                 </thead>
                                 <tbody>
 
-                                <c:forEach begin="1" end="3" var="noticeList" items="${noticeList}">
+                                <c:forEach end="3" var="noticeList" items="${noticeList}">
 
                                     <tr style="background-color: oldlace">
                                         <td>공지</td>
                                         <td>공지</td>
                                         <td><a
-                                            href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=9002"/> ">
+                                            href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
                                                 <c:out value="${noticeList.title}"/><a/></td>
                                         <td><c:out value="${fn:substring(noticeList.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
                                         <td>${noticeList.member_Name} </td>
@@ -163,15 +162,24 @@
                                 </c:forEach>
 
 
-                                <c:forEach items="${list}" var="list">
-                                    <c:if test="${list eq null or list eq ''} ">
-                                        <h2 style="font-weight: 700">게시판에 글이 없습니다!</h2>
-                                    </c:if>
+                                <c:set value="${fn:replace(pageMaker.total,' ' ,'' ) }" var="total"/>
+
+                                <c:forEach items="${list}" var="list" varStatus="status">
+
                                     <tr>
-                                        <td>${list.cont_No}</td>
+                                        <c:choose>
+                                            <c:when test="${map.get('category') eq '공지'}">
+                                                <td>공지</td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td> ${pageMaker.total - (pageMaker.criteria.pageNum*(status.index))}</td>
+
+                                            </c:otherwise>
+                                        </c:choose>
+
                                         <td>${list.category}</td>
                                         <td><a
-                                            href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=9002"/> ">
+                                            href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
                                                 <c:out value="${list.title}"/> <a/></td>
                                         <td><c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
                                         <td>${list.member_Name} </td>
@@ -184,6 +192,13 @@
 
                                     </tr>
                                 </c:forEach>
+                                <c:if test="${total eq '0'}">
+                                    <tr>
+                                        <td colspan="12" style="">
+                                    <h2 style="font-weight: 700; text-align: center; margin-bottom: 10px; margin-top: 10px">불러올 리스트가 없습니다.</h2>
+                                        </td>
+                                    </tr>
+                                </c:if>
                                 <tr style="background-color: white" class="align-center">
                                     <td colspan="8">
                                         <!--begin::Pagination-->
@@ -234,11 +249,13 @@
                 </div>
                 <!--카드 Body 종료-->
             </div>
+        </div>
             <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
-
+    </div>
             <!--컨테이너 종료-->
             <!--footer.html Include-->
             <jsp:include page="/WEB-INF/commons/footer.jsp"/>
+        </div>
 </body>
 <script>
     let kind = $(`#category`).val();
@@ -266,7 +283,7 @@
     $(`#category`).on("change", function (e) {
         console.log(`카테고리 변경되었습니다` + kind);
 
-        location.href = "/studyIns/board/list?category=" + $(`#category`).val();
+        location.href = "/studyIns/board/list?category=" + $(`#category`).val()+"&r_Idx="+$(`#r_Idx`).val();
 
     });
     let actionForm = $("#actionForm");

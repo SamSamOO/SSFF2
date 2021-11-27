@@ -16,8 +16,17 @@
         select /*+ INDEX_ASC(CHAT_MSG idx_chat_sendtime)*/ MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME
         from CHAT_MSG
         where R_IDX = #{r_Idx}
-          and ROWNUM <= 100 order by SEND_TIME
+          and ROWNUM <= 100
+        order by SEND_TIME
         ]]>
+    </select>
+
+    <select id="checkYouInStudy" parameterType="hashMap" resultType="Integer">
+        select *
+        from RECRUIT_BOARD
+        where R_IDX = #{map.r_Idx,jdbcType=INTEGER}
+          and MEMBER_NAME = #{map.member.member_name,jdbcType=VARCHAR}
+
     </select>
 
 </mapper>

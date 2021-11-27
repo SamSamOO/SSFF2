@@ -12,4 +12,5 @@ public interface ChattingMapper {
     public abstract List<ChatMsgDTO> selectBySendTime(Integer r_Idx);
 
 
+    public abstract Integer checkYouInStudy(HashMap<String, Object> map);
 }

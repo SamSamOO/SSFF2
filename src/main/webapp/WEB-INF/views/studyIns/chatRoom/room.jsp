@@ -2,6 +2,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -20,24 +22,24 @@
 
 
     <style>
-<%--        * {--%>
-<%--            margin: 0;--%>
-<%--            padding: 0;--%>
-<%--        }--%>
+        <%--        * {--%>
+        <%--            margin: 0;--%>
+        <%--            padding: 0;--%>
+        <%--        }--%>
 
-<%--        .container {--%>
-<%--            width: 500px;--%>
-<%--            margin: 0 auto;--%>
-<%--            padding: 25px--%>
-<%--        }--%>
+        <%--        .container {--%>
+        <%--            width: 500px;--%>
+        <%--            margin: 0 auto;--%>
+        <%--            padding: 25px--%>
+        <%--        }--%>
 
-<%--        .container h1 {--%>
-<%--            text-align: left;--%>
-<%--            padding: 5px 5px 5px 15px;--%>
-<%--            color: #FFBB00;--%>
-<%--            border-left: 3px solid #FFBB00;--%>
-<%--            margin-bottom: 20px;--%>
-<%--        }--%>
+        <%--        .container h1 {--%>
+        <%--            text-align: left;--%>
+        <%--            padding: 5px 5px 5px 15px;--%>
+        <%--            color: #FFBB00;--%>
+        <%--            border-left: 3px solid #FFBB00;--%>
+        <%--            margin-bottom: 20px;--%>
+        <%--        }--%>
 
         .chating {
             background-color: lightblue;
@@ -50,20 +52,22 @@
 
         .chating .me {
             color: black;
-            padding-right:10px ;
+            padding-right: 10px;
             text-align: right;
         }
 
         .chating .others {
             color: red;
-            padding-left:10px ;
+            padding-left: 10px;
 
             text-align: left;
         }
 
         input {
-            width: 330px;!important;
-            height: 25px;!important;
+            width: 330px;
+        !important;
+            height: 25px;
+        !important;
         }
 
 
@@ -74,8 +78,52 @@
 <script type="text/javascript">
     var ws;
     $(function () {
+        <c:choose>
+        <c:when test="${member.member_id==null}">
+
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '로그인 오류', // Alert 제목
+            text: '로그인 하세요', // Alert 내용
+
+            buttons: {
+                confirm: {
+                    text: '확인 ',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "/member/loginGo";
+            }
+        });
+
+        </c:when>
+        <c:when test="${inStudy==0}">
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '스터디원이 아닙니다.', // Alert 제목
+            text: '스터디원이 아닙니다.', // Alert 내용
+
+            buttons: {
+                confirm: {
+                    text: '스터디 ',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "javascript:history.back()";
+            }
+        });
+
+        </c:when>
+        </c:choose>
         wsOpen();
     });
+
     function wsOpen() {
         //웹소켓 전송시 현재 방의 번호를 넘겨서 보낸다.
         ws = new WebSocket("ws://" + location.host + "/chating/" + $("#r_Idx").val());
@@ -176,8 +224,6 @@
                     <!--카드 헤더 시작-->
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label font-weight-bolder text-dark font-size-h2-lg">메인페이지 임시 공사중..</span>
-                            <p>&nbsp;</p>
                         </h3>
                         <div class="card-toolbar">
 
@@ -196,24 +242,25 @@
                             <div id="chating" class="chating">
                             </div>
 
-<%--                            <div id="yourName">--%>
-<%--                                <table class="inputTable">--%>
-<%--                                    <tr>--%>
-<%--                                        <th>사용자명</th>--%>
-<%--                                        <th>--%>
-<%--                                            <input type="text" name="userName" id="userName" value="nickname55">--%>
-<%--                                        </th>--%>
-<%--                                        <th>--%>
-<%--                                            <button onclick="chatName()" id="startBtn">이름 등록</button>--%>
-<%--                                        </th>--%>
-<%--                                    </tr>--%>
-<%--                                </table>--%>
-<%--                            </div>--%>
+                            <%--                            <div id="yourName">--%>
+                            <%--                                <table class="inputTable">--%>
+                            <%--                                    <tr>--%>
+                            <%--                                        <th>사용자명</th>--%>
+                            <%--                                        <th>--%>
+                            <%--                                            <input type="text" name="userName" id="userName" value="nickname55">--%>
+                            <%--                                        </th>--%>
+                            <%--                                        <th>--%>
+                            <%--                                            <button onclick="chatName()" id="startBtn">이름 등록</button>--%>
+                            <%--                                        </th>--%>
+                            <%--                                    </tr>--%>
+                            <%--                                </table>--%>
+                            <%--                            </div>--%>
                             <div id="yourMsg">
                                 <table class="inputTable">
                                     <tr>
                                         <th>메시지</th>
-                                        <th><input type="text" class="form-control"  aria-label="Default"  aria-describedby="inputGroup-sizing-default" id="chatting" placeholder="보내실 메시지를 입력하세요...................................."></th>
+                                        <th><input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" id="chatting"
+                                                   placeholder="보내실 메시지를 입력하세요...................................."></th>
                                         <th>
                                             <button onclick="send()" id="sendBtn" class="btn btn-light-success font-weight-bold mr-2">보내기</button>
                                         </th>

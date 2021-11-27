@@ -203,12 +203,13 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
     @Override
     public List<StudyInsVO> showNotice(HashMap<String, Object> map) throws Exception {
 
-        log.info("showNotice() is invoked");
+        log.info("showNotice({}) is invoked", "map = " + map);
 
         Objects.requireNonNull(mapper);
         List<StudyInsVO> list = this.mapper.showNotice(map);
 
         log.info("list = {}", list);
+
         return list;
     }
 

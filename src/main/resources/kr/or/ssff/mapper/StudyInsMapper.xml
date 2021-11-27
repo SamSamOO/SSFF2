@@ -78,15 +78,15 @@
     <select id="countArticle" parameterType="hashMap" resultType="integer">
         <choose>
 
-            <when test="category=='전체'">
+            <when test="map.category=='전체'">
                 select count(*)
                 from SI_BOARD
-                where REMOVED_OK = 'n' and CATEGORY!='공지' and R_IDX=#{map.r_Idx}
+                where REMOVED_OK = 'n' and CATEGORY!='공지' and R_IDX=#{map.r_Idx,jdbcType=INTEGER}
             </when>
 
             <otherwise>
                 select count(*)
-                from SI_BOARD where REMOVED_OK='n' and CATEGORY=#{map.category} and CATEGORY!='공지' and R_IDX=#{map.r_Idx}
+                from SI_BOARD where REMOVED_OK='n' and CATEGORY=#{map.category,jdbcType=VARCHAR} and CATEGORY!='공지' and R_IDX=#{map.r_Idx,jdbcType=INTEGER}
             </otherwise>
         </choose>
 
@@ -121,8 +121,8 @@
                   TITLE,
                   HIT
               from SI_BOARD
-              where rownum <= #{map.pageNum} * #{map.amount} and REMOVED_OK='n' and CATEGORY!='공지' and R_IDX=#{map.r_Idx})
-        where rn > (#{map.pageNum} - 1) * #{map.amount}
+              where rownum <= #{map.pageNum,jdbcType=INTEGER} * #{map.amount,jdbcType=INTEGER} and REMOVED_OK='n' and CATEGORY!='공지' and R_IDX=#{map.r_Idx,jdbcType=INTEGER})
+        where rn > (#{map.pageNum,jdbcType=INTEGER} - 1) * #{map.amount,jdbcType=INTEGER}
         ]]>
             </when>
             <otherwise>
@@ -150,9 +150,9 @@
                   TITLE,
                   HIT
               from SI_BOARD
-              where rownum <= #{map.pageNum} * #{map.amount}
-                and CATEGORY = #{map.category} and REMOVED_OK='n' and R_IDX=#{r_Idx})
-        where rn > (#{map.pageNum} - 1) * #{map.amount}
+              where rownum <= #{map.pageNum,jdbcType=INTEGER} * #{map.amount,jdbcType=INTEGER}
+                and CATEGORY = #{map.category,jdbcType=VARCHAR} and REMOVED_OK='n' and R_IDX=#{map.r_Idx,jdbcType=INTEGER})
+        where rn > (#{map.pageNum,jdbcType=INTEGER} - 1) * #{map.amount,jdbcType=INTEGER}
         ]]>
             </otherwise>
         </choose>
@@ -176,7 +176,7 @@
 
     </update>
 
-    <select id="showNotice" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+    <select id="showNotice" parameterType="hashMap" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
         select /*+INDEX_DESC(si_board pk_si_board) */
             CONT_NO,
             MEMBER_NAME,
@@ -191,7 +191,7 @@
         from SI_BOARD
         where CATEGORY = '공지'
           and REMOVED_OK = 'n'
-          and R_IDX = #{map.r_Idx}
+          and R_IDX = #{map.r_Idx,jdbcType=INTEGER}
 
     </select>
 
@@ -210,7 +210,7 @@
                CATEGORY,
                TITLE,
                HIT
-        from SI_BOARD where R_IDX=#{map.r_Idx}
+        from SI_BOARD where R_IDX=#{map.r_Idx,jdbcType=INTEGER}
         order by HIT desc
 
     </select>

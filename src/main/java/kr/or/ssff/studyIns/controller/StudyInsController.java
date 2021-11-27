@@ -193,11 +193,12 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 내 특정 스터디 게시판 뷰단임
      * */
     @GetMapping("/board/list")
-    public String studyBoardList(@RequestParam(defaultValue = "전체") String category, Criteria criteria,@RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
+    public String studyBoardList(@RequestParam(value = "category",defaultValue = "전체") String category, Criteria criteria,@RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
         log.info("studyBoardList({}) is invoked", "category = " + category + ", criteria = " + criteria + ", model = " + model);
         HashMap<String, Object> map = new HashMap<>();
         map.put("category", category);
-        map.put("criteria", criteria);
+        map.put("pageNum", criteria.getPageNum());
+        map.put("amount", criteria.getAmount());
         map.put("sessionId", session.getId());
         map.put("r_Idx", r_Idx);
 
