@@ -224,6 +224,32 @@
     WHERE cafe_idx = #{cafe_idx}
   </select>
 
+  <!-- 카페 테이블 하나의 모든 정보를 리스트로 조회 : 신지혜 -->
+  <select id="selectManagerCafeList"
+    parameterType="hashMap"
+    resultType="kr.or.ssff.cafe.domain.CafeVO">
+
+    SELECT cafe_idx,
+           cafe_name,
+           cafe_telephone_number,
+           cafe_location,
+           cafe_open_time,
+           cafe_close_time,
+           cafe_contact_phone_number,
+           cafe_contact_email,
+           cafe_main_title,
+           cafe_sub_title,
+           cafe_details,
+           cafe_remove_yn,
+           cafe_image_1,
+           cafe_image_2,
+           cafe_image_3,
+           boss_name,
+           business_number
+
+    FROM cafe
+  </select>
+
 
   <!-- 카페 하나의 모든 룸 정보 조회 : 신지혜 -->
   <select id="selectRoom"

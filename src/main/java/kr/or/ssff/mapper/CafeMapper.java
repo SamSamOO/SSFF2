@@ -51,6 +51,9 @@ public interface CafeMapper {
   public abstract CafeVO selectCafe(String cafe_idx);
 
 
+  // 전체 목록조회(매니저) : 신지혜
+  List<CafeVO> selectManagerCafeList(HashMap<String, String> searchKey);
+
 
 
 
@@ -68,4 +71,5 @@ public interface CafeMapper {
 
   // 예약취소
   boolean cancelReservation(HashMap<String, String> searchKey);
+
 } // end interface

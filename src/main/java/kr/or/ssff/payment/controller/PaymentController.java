@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import kr.or.ssff.payment.model.PaymentDTO;
 import kr.or.ssff.payment.service.PaymentService;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +32,18 @@ public class PaymentController {
 
 
 
+//  @RequestMapping(
+//      value  = "/authIn",
+//      method = {RequestMethod.POST,RequestMethod.GET},
+//      produces="application/json;charset=utf-8")
+//  @ResponseBody
+@GetMapping("/authIn")
+
+//  public St selectCafeList(String nickName){
+  public void testAuthResult(HttpServletRequest request){
+
+//    return "payment/test";
+  } // challengeRefund
 
 
   /*
@@ -51,17 +64,17 @@ public class PaymentController {
    * 반환:
    * */
 
-
-  @RequestMapping(
-      value  = "/authIn",
-      method = {RequestMethod.POST,RequestMethod.GET},
-      produces="application/json;charset=utf-8")
-  @ResponseBody
-//  public St selectCafeList(String nickName){
-  public void testAuthResult(HttpServletRequest request){
-
-//    return "payment/test";
-  } // challengeRefund
+//
+//  @RequestMapping(
+//      value  = "/authIn",
+//      method = {RequestMethod.POST,RequestMethod.GET},
+//      produces="application/json;charset=utf-8")
+//  @ResponseBody
+////  public St selectCafeList(String nickName){
+//  public void testAuthResult(HttpServletRequest request){
+//
+////    return "payment/test";
+//  } // challengeRefund
 
 
 

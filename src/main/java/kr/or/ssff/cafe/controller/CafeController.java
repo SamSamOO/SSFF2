@@ -110,8 +110,8 @@ public class CafeController {
       Model model) {
     log.info("insertReservation({}) is invoked", reservationDTO);
 
-    Integer rsrv_phone_number = reservationDTO.getRsrv_phone_number();
-    reservationDTO.setRsrv_phone_number(rsrv_phone_number); // 형변환 자꾸 오류나서..
+//    Integer rsrv_phone_number = reservationDTO.getRsrv_phone_number();
+//    reservationDTO.setRsrv_phone_number(rsrv_phone_number); // 형변환 자꾸 오류나서..
 
 
 //    Objects.requireNonNull(service);

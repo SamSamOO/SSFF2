@@ -951,8 +951,7 @@
 																												<!--end::Radio list-->
 																												
 																												<a onclick="goRsrv();" class="btn btn-warning
-																												font-size-h6 py-4 mr-2 mb-4
-																												" role="button"
+																												font-size-h6 py-4 mr-2 mb-4" role="button"
 																												   style="display: block;">예약하기</a>
 																												
 																												<br>

@@ -74,9 +74,6 @@
               <!--begin::Toolbar-->
               <div class="d-flex align-items-center">
                 <!--begin::Button-->
-                <a href="#" class="btn btn-default font-weight-bold">Back</a> <!-- //TODO 링크 걸어죠-->
-                <!--end::Button-->
-                <!--begin::Dropdown-->
                 
                 <button type="button" class="btn btn-primary font-weight-bold"
                         onclick="goRegister();"> 수정하기
@@ -84,9 +81,10 @@
                 
                 
                 <a href="/cafe/remove?cafe_idx=${cafeVO.cafe_idx}"
-                   class="btn btn-warning font-weight-bold"> 삭제하기
+                   class="btn btn-warning font-weight-bold ml-5"> 삭제하기
                 </a>
-                <!--end::Dropdown-->
+                <!--end::Button-->
+  
               </div>
               <!--end::Toolbar-->
             </div>
