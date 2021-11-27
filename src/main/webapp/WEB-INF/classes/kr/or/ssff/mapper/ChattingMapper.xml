@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ssff.mapper.ChattingMapper">
+
+    <insert id="insertMsg" parameterType="hashMap">
+        insert into CHAT_MSG(MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME)
+        values (CHAT_MSG_SQE.nextval, #{member_Name}, #{r_Idx}, #{msg_Cont}, current_timestamp)
+
+    </insert>
+
+    <select id="selectBySendTime" resultType="kr.or.ssff.studyIns.model.ChatMsgDTO">
+        <![CDATA[
+        select /*+ INDEX_ASC(CHAT_MSG idx_chat_sendtime)*/ MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME
+        from CHAT_MSG
+        where R_IDX = #{r_Idx}
+          and ROWNUM <= 100 order by SEND_TIME
+        ]]>
+    </select>
+
+</mapper>

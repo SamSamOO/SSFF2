@@ -1,39 +1,13 @@
-<%--
-    to 순형
-    경로문제로 손댄거 있어서 좀 만졌어용........
-    하는 김에 head.jsp랑 footer.jsp로 중복해서 오류나는 소스있길래 고쳤습니다
-    혹시 수정전 소스 필요하면 여기
-    src/main/webapp/WEB-INF/views/manager/임시.jsp
-    from.민주....
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <head>
-        <meta charset="UTF-8">
-        <title>회원가입</title>
-        <link href="${pageContext.request.contextPath}/resources/assets/css/pages/wizard/wizard-5.css" rel="stylesheet" type="text/css" />
-        <!--head.html Include-->
-        <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
-
-        <style>
-            .email_box{
-                display: flex;
-                flex-direction: row;
-
-            }
-
-            #member_id{
-                padding-right: 10px;
-                margin-right: 10px;
-
-            }
-
-        </style>
-
-    </head>
+    <meta charset="UTF-8">
+    <title>회원가입</title>
+    <link href="${pageContext.request.contextPath}/resources/assets/css/pages/wizard/wizard-5.css" rel="stylesheet" type="text/css" />
+    <!--head.html Include-->
+    <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 </head>
+
 <body id="kt_body" class="header-fixed subheader-enabled page-loading ">
 <!----------------메인 시작----------------------->
 <div class="d-flex flex-column flex-root">
@@ -61,7 +35,7 @@
                                 <!--begin::Breadcrumb-->
                                 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                                     <li class="breadcrumb-item">
-                                        <a class="text-muted">삼삼오오에 오신걸 환엽합니다.</a>
+                                        <a class="text-muted">삼삼오오에 오신걸 환영합니다.</a>
                                     </li>
                                 </ul>
                                 <!--end::Breadcrumb-->
@@ -95,7 +69,7 @@
                                                             </div>
                                                             <div class="wizard-label">
                                                                 <h3 class="wizard-title">회원가입</h3>
-                                                                <div class="wizard-desc">이메일,비밀번호,닉네임을입력합니다.</div>
+                                                                <div class="wizard-desc">이메일, 비밀번호,닉네임을 입력합니다.</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -109,7 +83,7 @@
                                                             </div>
                                                             <div class="wizard-label">
                                                                 <h3 class="wizard-title">이메일 인증</h3>
-                                                                <div class="wizard-desc">회원가입버튼을 누르면 인증메일이 발송됩니다!</div>
+                                                                <div class="wizard-desc">회원가입 버튼을 누르면 인증메일이 발송됩니다!</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -122,8 +96,8 @@
                                                                 <span class="wizard-number">3</span>
                                                             </div>
                                                             <div class="wizard-label">
-                                                                <h3 class="wizard-title">가입완료!</h3>
-                                                                <div class="wizard-desc">인증후 삼삼오오에 로그인해보세요</div>
+                                                                <span class="font-size-h3 wizard-title">가입 완료!</span>
+                                                                <div class="wizard-desc">인증 후 삼삼오오에 로그인해보세요</div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -143,10 +117,10 @@
                                     <!--begin::Content-->
                                     <div class="wizard-content bg-gray-100 d-flex flex-column flex-row-fluid py-15 px-5 px-lg-10">
                                         <!--begin::Title-->
-                                        <div class="text-right mb-lg-30 mb-15 mr-xxl-10">
+                                        <%--<div class="text-right mb-lg-30 mb-15 mr-xxl-10">
                                             <span class="font-weight-bold text-muted font-size-h5">문제가 있나요?</span>
-                                            <a href="#" class="font-weight-bolder text-primary font-size-h4" id="kt_login_signup">처음으로</a>
-                                        </div>
+                                            <a href="#" class="font-weight-bolder font-size-h4" id="kt_login_signup">처음으로</a>
+                                        </div>--%>
                                         <!--end::Title-->
                                         <!--begin::Form-->
                                         <div class="d-flex justify-content-center flex-row-fluid">
@@ -157,17 +131,18 @@
                                                     <div class="pb-10 pb-lg-15">
                                                         <h3 class="font-weight-bolder text-dark font-size-h2"></h3>
                                                         <div class="text-muted font-weight-bold font-size-h5">이미 계정이 있으신가요 ?
-                                                            <a href="/member/loginGo" class="text-primary font-weight-bolder">Sign In</a></div>
+                                                            <a href="/member/loginGo" class="font-weight-bolder">로그인하기</a></div>
                                                     </div>
                                                     <!--begin::Title-->
                                                     <!--begin::Form Group-->
-                                                    <div class="form-group fv-plugins-icon-container">
+                                                    <div class="form-group fv-plugins-icon-container mb-n8">
 
-                                                        <label class="font-size-h6 font-weight-bolder text-dark">E-Mail</label>
+                                                        <label class="font-size-h6 font-weight-bolder text-dark">이메일</label>
                                                         <div class="email_box">
-                                                            <input type="email" class="form-control h-auto p-6 border-0 rounded-lg font-size-h6" id="member_id" name="member_id" placeholder="E-Mail" value="">
-                                                            <button type="button" class="btn btn-primary font-weight-bolder font-size-h5 pl-8 pr-7 py-4 my-5 " id="idChk" onclick="fn_idChk();">중복</button>
-
+                                                            <input type="email" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_id" name="member_id" placeholder="abcdef@email.com" value="">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn bg-ssff2 text-hover-ssff-green l-sp-015 m-2" id="idChk" onclick="fn_idChk();">이메일 중복 확인</button>
+                                                            </div>
                                                         </div>
                                                         <div class="fv-plugins-message-container"></div>
 
@@ -177,8 +152,8 @@
                                                     <!--begin::Form Group-->
 
                                                     <div class="form-group fv-plugins-icon-container">
-                                                        <label class="font-size-h6 font-weight-bolder text-dark" >PassWord</label>
-                                                        <input type="password" class="form-control h-auto p-6 border-0 rounded-lg font-size-h6" id="member_pwd" name="member_pwd" placeholder="PassWord" value=""/>
+                                                        <label class="font-size-h6 font-weight-bolder text-dark" >비밀번호</label>
+                                                        <input type="password" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_pwd" name="member_pwd" placeholder="비밀번호를 입력해주세요." value=""/>
                                                         <div class="fv-plugins-message-container" ></div>
                                                     </div>
                                                     <!--end::Form Group-->
@@ -189,17 +164,22 @@
                                                 <!--end::Title-->
                                                 <!--begin::Form Group-->
                                                 <div class="form-group fv-plugins-icon-container">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">PassWordCheck</label>
-                                                    <input type="password" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_pwd1" name="member_pwd" placeholder="PassWordCheck" value="">
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">비밀번호 확인</label>
+                                                    <input type="password" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_pwd1" name="member_pwd" placeholder="비밀번호를 한 번 더 입력해주세요." value="">
                                                     <div class="fv-plugins-message-container"></div></div>
                                                 <!--begin::Form Group-->
                                                 <!--end::Row-->
 
                                                 <!--end::Form Group-->
                                                 <div class="form-group fv-plugins-icon-container">
-                                                    <label class="font-size-h6 font-weight-bolder text-dark">NickName</label>
-                                                    <input type="text" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_name" name="member_name" placeholder="NickName" value="">
-                                                    <div class="fv-plugins-message-container"></div></div>
+                                                    <label class="font-size-h6 font-weight-bolder text-dark">닉네임</label>
+                                                    <input type="text" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_name" name="member_name" placeholder="사용할 닉네임을 입력해주세요." value="">
+                                                    <div class="d-flex justify-content-end">
+                                                        <button type="button" class="btn bg-ssff2 text-hover-ssff-green l-sp-015 m-2" id="nameChk" onclick="fn_nameChk();">닉네임 중복 확인</button>
+                                                    </div>
+                                                    <div class="fv-plugins-message-container">
+                                                    </div>
+                                                </div>
                                                 <!--begin::Form Group-->
 
 
@@ -216,15 +196,12 @@
 
                                                 </div>
 
-                                                <div class="d-flex justify-content-between pt-3">
-                                                    <div>
-                                                        <button type="submit" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3 text-align:center" >회원가입</button>
-
-                                                        <button type="button" class="btn btn-primary font-weight-bolder font-size-h6 pl-8 pr-7 py-4 my-3" >돌아가기</button>
-                                                    </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <button type="submit" class="btn bg-ssff1 bg-hover-ssff2 l-sp-015 m-2" >회원가입</button>
+                                                    <button type="button" class="btn bg-danger bg-hover-ssff2 text-white l-sp-015 m-2" >돌아가기</button>
                                                 </div>
                                                 <!--end: Wizard Actions-->
-                                                <div></div><div></div>
+
 
                                             </form>
                                         </div>
@@ -266,7 +243,7 @@
                     alert("중복된 이메일입니다.");
                 } else if (result == 0) {
                     $("#idChk").attr("value", "Y");
-                    alert("사용가능한 이메일입니다.");
+                    alert("사용 가능한 이메일입니다.");
                 } else {
                     alert("이메일을 입력해주세요.");
                 }
@@ -274,7 +251,24 @@
         })
     }
 
-
+    function fn_nameChk() {
+        $.ajax({
+            url     : "/member/nameChk",
+            type    : "post",
+            dataType: "int",
+            result  : {"member_id": $("#member_name").val()},
+            success : function (result) {
+                if (result == 1) {
+                    alert("중복된 닉네임입니다.");
+                } else if (result == 0) {
+                    $("#idChk").attr("value", "Y");
+                    alert("사용 가능한 닉네임입니다.");
+                } else {
+                    alert("닉네임을 입력해주세요.");
+                }
+            }
+        })
+    }
 </script>
 <style>
     .int_mobile_area {

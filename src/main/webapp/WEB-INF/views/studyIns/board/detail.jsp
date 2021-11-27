@@ -24,7 +24,6 @@
         /*    --text-color: #eee;*/
         /*    --bkg-color: #121212;*/
         /*}*/
-
         /*@media (prefers-color-scheme: dark) {*/
         /*    !* defaults to dark theme *!*/
         /*    body {*/
@@ -36,24 +35,19 @@
         /*        --bkg-color: #fff;*/
         /*    }*/
         /*}*/
-
         /** {*/
         /*    font-family: Arial, Helvetica, sans-serif;*/
         /*}*/
-
         /*body {*/
         /*    background: var(--bkg-color);*/
         /*}*/
-
         /*h1,*/
         /*p {*/
         /*    color: var(--text-color);*/
         /*}*/
-
     </style>
     <script>
-
-        $(function () {
+        $(function() {
             //다크모드
             // const btn = document.querySelector(".btn-toggle");
             // const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -67,13 +61,13 @@
             // });
             console.debug("제이쿼리 시작 ㅇㅇ");
 
-            $(`#modifyBtn`).on('click', function () {
+            $(`#modifyBtn`).on('click', function() {
                 console.log("수정 버튼 클릭");
 
                 self.location = '/studyIns/board/detail/modifyGo?cont_No=<c:out value="${detail.cont_No}"/>';
             }); // onclick
 
-            $(`#removeBtn`).on('click', function () {
+            $(`#removeBtn`).on('click', function() {
                 console.log("삭제 버튼 클릭");
 
                 <%--self.location = '/studyIns/board/detail/remove?cont_No=<c:out value="${detail.cont_No}"/> ';--%>
@@ -118,8 +112,8 @@
         }
     </script>
 </head>
-<c:set var="fileListSize" value="${fn:length(fileList)}"/>
-<c:set var="slash" value="/"/>
+<c:set var="fileListSize" value="${fn:length(fileList)}" />
+<c:set var="slash" value="/" />
 <!----------------Head 종료----------------------->
 <!----------------Body 시작----------------------->
 
@@ -143,8 +137,7 @@
                 <div class="main d-flex flex-column flex-row-fluid">
                     <!--Subheader : 서브헤더 페이지 제목란 시작-->
                     <div class="subheader py-2 py-lg-6" id="kt_subheader">
-                        <div
-                            class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                             <!--begin::Info-->
                             <div class="d-flex align-items-center flex-wrap mr-1">
                                 <!--begin::Page Heading-->
@@ -153,8 +146,7 @@
                                     <h5 class="text-dark font-weight-bold my-1 mr-5">프로젝트 찾기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
-                                    <ul
-                                        class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                                         <li class="breadcrumb-item">
                                             <a href="" class="text-muted">프로젝트</a>
                                         </li>
@@ -195,11 +187,11 @@
                                             <td colspan="6">카테고리 : ${detail.category}</td>
                                             <%--TODO 세션아이디와 현재글 닉네임과 동일한 경우 수정 삭제버튼 보입니다. --%>
                                             <td colspan="4" align="right">
-                                                <i class="far fa-eye">&nbsp;${detail.hit}</i> <%--TODO 조회수 관련 함수 짜야합니다.--%>
+                                                <i class="far fa-eye">&nbsp;${detail.hit}</i>
+                                                <%--TODO 조회수 관련 함수 짜야합니다.--%>
                                                 &nbsp;
                                                 <button type="button" id="modifyBtn" class="btn btn-light fa-1x">수정</button>
-                                                <button type="button" id="removeBtn" class="btn btn-light fa-1x">삭제</button>
-                                                ${detail.member_Name}
+                                                <button type="button" id="removeBtn" class="btn btn-light fa-1x">삭제</button> ${detail.member_Name}
                                             </td>
                                         </tr>
                                         <tr>
@@ -207,10 +199,14 @@
                                             <th colspan="4"></th>
 
                                             <th colspan="1" align="right">작성일자</th>
-                                            <td colspan="2"><fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
+                                            <td colspan="2">
+                                                <fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초" />
+                                            </td>
                                             <c:if test="${ not empty detail.modify_Date }">
                                                 <th colspan="1">수정일자</th>
-                                                <td colspan="2"><fmt:formatDate value="${detail.modify_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
+                                                <td colspan="2">
+                                                    <fmt:formatDate value="${detail.modify_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초" />
+                                                </td>
 
                                             </c:if>
                                         </tr>
@@ -244,7 +240,7 @@
 
                                                                 <c:if test="${fileListSize !=0}">
                                                                     <a href="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>"><img
-                                                                        src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="200" height="100" alt="사진"/></a>
+                                                                            src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="200" height="100" alt="사진"/></a>
                                                                 </c:if>
 
                                                                 <c:if test="${fileListSize==0}">
@@ -284,4 +280,5 @@
         </div>
 </body>
 <!----------------Body 종료----------------------->
+
 </html>
