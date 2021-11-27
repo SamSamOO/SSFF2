@@ -47,7 +47,7 @@
         /*}*/
     </style>
     <script>
-        $(function() {
+        $(function () {
             //다크모드
             // const btn = document.querySelector(".btn-toggle");
             // const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
@@ -61,13 +61,13 @@
             // });
             console.debug("제이쿼리 시작 ㅇㅇ");
 
-            $(`#modifyBtn`).on('click', function() {
+            $(`#modifyBtn`).on('click', function () {
                 console.log("수정 버튼 클릭");
 
                 self.location = '/studyIns/board/detail/modifyGo?cont_No=<c:out value="${detail.cont_No}"/>';
             }); // onclick
 
-            $(`#removeBtn`).on('click', function() {
+            $(`#removeBtn`).on('click', function () {
                 console.log("삭제 버튼 클릭");
 
                 <%--self.location = '/studyIns/board/detail/remove?cont_No=<c:out value="${detail.cont_No}"/> ';--%>
@@ -127,24 +127,32 @@
             top: 400px;
         }
 
+        .recommendPost_index__2o2jf {
+            color: #4b9ef4;
+            margin-right: 0.25rem;
+        }
+
         .recommendPost_title__38iq9 {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 1;
             overflow: hidden;
         }
+
         .recommendPost_userInfoWrapper__2T6u8 {
             display: flex;
             margin-left: 2rem;
             position: fixed;
             top: 350px;
         }
+
         .recommendPost_bar__3GKlv {
             width: 0;
             height: 2.5rem;
             border: 2px solid #4482f7;
 
         }
+
         .recommendPost_userInfoWrapper__2T6u8 {
             display: flex;
             margin-left: 2rem;
@@ -152,11 +160,13 @@
             top: 350px;
 
         }
+
         .recommendPost_userInfo__1Ozvo {
 
             margin-left: 0.5rem;
 
         }
+
         .recommendPost_userName__2gZg6 {
             font-weight: 700;
         }
@@ -164,8 +174,8 @@
 
     </style>
 </head>
-<c:set var="fileListSize" value="${fn:length(fileList)}" />
-<c:set var="slash" value="/" />
+<c:set var="fileListSize" value="${fn:length(fileList)}"/>
+<c:set var="slash" value="/"/>
 <!----------------Head 종료----------------------->
 <!----------------Body 시작----------------------->
 
@@ -243,7 +253,8 @@
                                                 <%--TODO 조회수 관련 함수 짜야합니다.--%>
                                                 &nbsp;
                                                 <button type="button" id="modifyBtn" class="btn btn-light fa-1x">수정</button>
-                                                <button type="button" id="removeBtn" class="btn btn-light fa-1x">삭제</button> ${detail.member_Name}
+                                                <button type="button" id="removeBtn" class="btn btn-light fa-1x">삭제</button>
+                                                ${detail.member_Name}
                                             </td>
                                         </tr>
                                         <tr>
@@ -252,12 +263,12 @@
 
                                             <th colspan="1" align="right">작성일자</th>
                                             <td colspan="2">
-                                                <fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초" />
+                                                <fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/>
                                             </td>
                                             <c:if test="${ not empty detail.modify_Date }">
                                                 <th colspan="1">수정일자</th>
                                                 <td colspan="2">
-                                                    <fmt:formatDate value="${detail.modify_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초" />
+                                                    <fmt:formatDate value="${detail.modify_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/>
                                                 </td>
 
                                             </c:if>
@@ -329,16 +340,15 @@
                     <div style="position:absolute; left: 100%">
                         <div class="recommendPost_userInfoWrapper__2T6u8">
                             <div class="recommendPost_bar__3GKlv"></div>
-                            <div class="recommendPost_userInfo__1Ozvo"><span class="recommendPost_userName__2gZg6">dd2323223</span>님이<br>좋아하실 글을 모아봤어요!</div>
+                            <div class="recommendPost_userInfo__1Ozvo"><span class="recommendPost_userName__2gZg6">${sessionId.id}</span>님이<br>좋아하실 글을 모아봤어요!</div>
                         </div>
                         <ul title="여기에 동적 생성이 들어가야합니다." class="recommendPost_listWrapper__1Ix8x">
-                        <c:forEach var="list" items="${listByHit}" begin="1" end="6" varStatus="status">
-
+                            <c:forEach var="list" items="${listByHit}" begin="1" end="6" varStatus="status">
                                 <li class="recommendPost_postList__S6Av-">
-                                    <div class="recommendPost_index__2o2jf">${status.count}. </div>
-                                    <a class="recommendPost_title__38iq9" href="?cont_No=${list.cont_No}&r_Idx=${detail.r_Idx}"><c:out value="${list.title}"/>
+                                    <div class="recommendPost_title__38iq9"><span style="">${status.count}.</span><a href="?cont_No=${list.cont_No}&r_Idx=${detail.r_Idx}"><c:out value="${list.title}"/></a></div>
+
                                 </li>
-                        </c:forEach>
+                            </c:forEach>
                         </ul>
 
 

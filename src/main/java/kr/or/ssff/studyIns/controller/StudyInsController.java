@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import javax.servlet.http.HttpSession;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
@@ -39,6 +40,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 public class StudyInsController implements InitializingBean, DisposableBean {
 
+    HttpSession session;
     @Autowired
     private StudyInsService service;
 
@@ -191,17 +193,19 @@ public class StudyInsController implements InitializingBean, DisposableBean {
     @GetMapping("/board/list")
     public String studyBoardList(@RequestParam(defaultValue = "전체") String category, Criteria criteria, Model model) throws Exception {
         log.info("studyBoardList({}) is invoked", "category = " + category + ", criteria = " + criteria + ", model = " + model);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("category", category);
+        map.put("criteria", criteria);
+        map.put("sessionId", session.getId());
 
         Objects.requireNonNull(service);
 
         log.info("service.getList(criteria) = {}", service.getList(criteria, category));
 
         model.addAttribute("list", service.getList(criteria, category));
-
+        model.addAttribute("map", map);
         model.addAttribute("noticeList", service.showNotice());
-
         model.addAttribute("category", category);
-
         model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category) + 1));
 
         log.info("criteria = {}", criteria);
@@ -217,11 +221,12 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: X  ( 해당 매핑으로 이동함)
      * */
     @GetMapping("/board/detail")
-    public String studyBoardDetail(@RequestParam("cont_No") Integer cont_No, @RequestParam("r_Idx") Integer r_Idx ,Model model) throws Exception {
+    public String studyBoardDetail(@RequestParam("cont_No") Integer cont_No, @RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
         log.debug("studyBoardDetail({}) is invoked", "cont_no = " + cont_No + ", model = " + model);
         HashMap<String, Object> map = new HashMap<>();
         map.put("cont_No", cont_No);
         map.put("r_Idx", r_Idx);
+        map.put("sessionId", session);
 
         Objects.requireNonNull(service);
         //내용물 불러오기
@@ -238,6 +243,8 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         log.debug("안녕하세요");
         log.debug("detail = {}", detail);
         log.debug("listOfFile = {}", listOfFile);
+
+        model.addAttribute("map", map);
 
         model.addAttribute("listByHit", listByHit);
         model.addAttribute("detail", detail);
