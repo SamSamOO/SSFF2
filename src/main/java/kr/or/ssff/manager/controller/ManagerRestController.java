@@ -35,6 +35,4 @@ public class ManagerRestController {
     private ManagerService service;
 
 
-
-
 } // end class
