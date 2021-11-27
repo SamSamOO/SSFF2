@@ -199,4 +199,19 @@
         select /*+INDEX_ASC(chat_msg pk_chat_msg) */ MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME
         from CHAT_MSG where R_IDX=#{r_Idx}
     </select>
+    <select id="getListByHit"  parameterType="hashMap" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+        select CONT_NO,
+               MEMBER_NAME,
+               R_IDX,
+               WRITE_DATE,
+               MODIFY_DATE,
+               REMOVED_OK,
+               CONT,
+               CATEGORY,
+               TITLE,
+               HIT
+        from SI_BOARD where R_IDX=#{map.r_Idx}
+        order by HIT desc
+
+    </select>
 </mapper>

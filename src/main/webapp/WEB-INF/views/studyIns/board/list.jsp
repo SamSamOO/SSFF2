@@ -21,17 +21,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
 
     <script>
-        $(function() {
+        $(function () {
             console.clear();
             console.log("제이쿼리 시작");
-            $(`#regBtn`).on('click', function() {
+            $(`#regBtn`).on('click', function () {
                 console.log("regBtn 클릭");
                 self.location = "/studyIns/board/postGo";
             });
 
         });
+
+
     </script>
     <style>
+
 
     </style>
 
@@ -50,10 +53,10 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!------------------header.html Include------------------>
-            <jsp:include page="/WEB-INF/commons/header.jsp" />
+            <jsp:include page="/WEB-INF/commons/header.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 시작------------------>
             <!--menu.html Include-->
-            <jsp:include page="/WEB-INF/commons/menu_main.jsp" />
+            <jsp:include page="/WEB-INF/commons/menu_main.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 종료------------------>
             <!--컨테이너 시작-->
             <div class="d-flex flex-row flex-column-fluid container">
@@ -64,7 +67,7 @@
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label font-weight-bolder text-dark font-size-h2-lg">메인페이지 임시 공사중..</span>
                             <p>&nbsp;</p>
-                            <a href="/studyIns/chatRoom?r_Idx=9002">채팅방 입장</a>
+                            <a href="/studyIns/movingChang?r_Idx=9002">채팅방 입장</a>
                         </h3>
                         <div class="card-toolbar">
 
@@ -74,9 +77,10 @@
                     <!--카드 Body 시작-->
                     <div class="card-body pt-2 pb-0 mt-n3">
                         <form id="actionForm" method="get" action="/studyIns/board/list">
-                            <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}" />
-                            <input type="hidden" name="amount" value="${pageMaker.criteria.amount}" />
-                            <input type="hidden" name="category" value="${category}" />
+                            <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
+                            <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
+                            <input type="hidden" name="category" value="${category}"/>
+                            <input type="hidden" name="r_Idx" value="9002"/>
                             <table class="table table-borderless">
 
                                 <tr>
@@ -105,32 +109,32 @@
                                 <thead>
                                 <tr id="mytr">
                                     <td>
-                                                                <span class="label label-inline label-light-primary font-weight-bold">
+                <span class="label label-inline label-light-primary font-weight-bold">
                     #
                 </span>
                                     </td>
                                     <td>
-                                                                <span class="label label-inline label-light-primary font-weight-bold ">
+                <span class="label label-inline label-light-primary font-weight-bold ">
                     카테고리
                 </span>
                                     </td>
                                     <td>
-                                                                <span class="label label-inline label-light-primary font-weight-bold ">
+                <span class="label label-inline label-light-primary font-weight-bold ">
                     제목
                 </span>
                                     </td>
                                     <td>
-                                                                <span class="label label-inline label-light-primary font-weight-bold">
+                <span class="label label-inline label-light-primary font-weight-bold">
                     내용
                 </span>
                                     </td>
                                     <td>
-                                                                <span class="label label-inline label-light-primary font-weight-bold">
+                <span class="label label-inline label-light-primary font-weight-bold">
                     닉네임
                 </span>
                                     </td>
                                     <td>
-                                                                <span class="label label-inline label-light-primary font-weight-bold">
+                <span class="label label-inline label-light-primary font-weight-bold">
                     작성일자
                 </span>
                                     </td>
@@ -142,15 +146,13 @@
                                     <tr style="background-color: oldlace">
                                         <td>공지</td>
                                         <td>공지</td>
-                                        <td>
-                                            <a href="/studyIns/board/detail?cont_No=<c:out value=" ${noticeList.cont_No}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword} "/> ">
-                                                    <c:out value="${noticeList.title}" /><a/></td>
-                                        <td>
-                                            <c:out value="${fn:substring(noticeList.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}" />
-                                        </td>
+                                        <td><a
+                                            href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=9002"/> ">
+                                                <c:out value="${noticeList.title}"/><a/></td>
+                                        <td><c:out value="${fn:substring(noticeList.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
                                         <td>${noticeList.member_Name} </td>
                                         <td>
-                                                                    <span class="label label-inline label-light-primary font-weight-bold">
+                                <span class="label label-inline label-light-primary font-weight-bold">
                                         <fmt:formatDate value="${noticeList.write_Date}" pattern="yyyy/MM/dd"/>
                                 </span>
                                         </td>
@@ -164,16 +166,14 @@
                                     <tr>
                                         <td>${list.cont_No}</td>
                                         <td>${list.category}</td>
-                                        <td>
-                                            <a href="/studyIns/board/detail?cont_No=<c:out value=" ${list.cont_No}&curPage=${map.boardPager.curPage}&searchOption=${map.searchOption}&keyword=${map.keyword} "/> ">
-                                                    <c:out value="${list.title}" /> <a/></td>
-                                        <td>
-                                            <c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}" />
-                                        </td>
+                                        <td><a
+                                            href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=9002"/> ">
+                                                <c:out value="${list.title}"/> <a/></td>
+                                        <td><c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
                                         <td>${list.member_Name} </td>
                                         <td>
 
-                                                                    <span class="label label-inline label-light-primary font-weight-bold">
+                                <span class="label label-inline label-light-primary font-weight-bold">
                                         <fmt:formatDate value="${list.write_Date}" pattern="yyyy/MM/dd"/>
                                 </span>
                                         </td>
@@ -190,13 +190,13 @@
                                                 <ul class="pagination">
 
                                                     <c:if test="${pageMaker.prev}">
-                                                        <li id="prev" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
-                                                            <a class="ki ki-bold-arrow-back icon-xs p-4" id="prev_a" href="${pageMaker.startPage -1}"></a>
-                                                        </li>
+                                                        <li id="prev" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-arrow-back icon-xs p-4"
+                                                                                                                                         id="prev_a" href="${pageMaker.startPage -1}"></a></li>
                                                     </c:if>
 
-                                                    <c:forEach var="num" begin="${pageMaker.startPage}" end="${pageMaker.endPage}">
-                                                        <li id="num" class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? " active ":" "} ">
+                                                    <c:forEach var="num" begin="${pageMaker.startPage}"
+                                                               end="${pageMaker.endPage}">
+                                                        <li id="num" class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
                                                             <a class="p-4" id="num_a" href="${num}">${num}</a>
                                                         </li>
                                                     </c:forEach>
@@ -234,11 +234,11 @@
 
             <!--컨테이너 종료-->
             <!--footer.html Include-->
-            <jsp:include page="/WEB-INF/commons/footer.jsp" />
+            <jsp:include page="/WEB-INF/commons/footer.jsp"/>
 </body>
 <script>
     let kind = $(`#category`).val();
-    $(function() {
+    $(function () {
         $(`#category`).val('${category}').prop("selected", true);
         console.log('${category}');
 
@@ -258,14 +258,15 @@
     //     })
     // });
 
-    let actionForm = $("#actionForm");
-    $(`#category`).on("change", function(e) {
+
+    $(`#category`).on("change", function (e) {
         console.log(`카테고리 변경되었습니다` + kind);
 
         location.href = "/studyIns/board/list?category=" + $(`#category`).val();
 
     });
-    $(".paginate_button a").on("click", function(e) {
+    let actionForm = $("#actionForm");
+    $(".paginate_button a").on("click", function (e) {
 
         e.preventDefault(); //기본 동작 제한
 
@@ -274,6 +275,7 @@
         actionForm.submit();
 
     });
+
 </script>
 <!----------------Body 종료----------------------->
 

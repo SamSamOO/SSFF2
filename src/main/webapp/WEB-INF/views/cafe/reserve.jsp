@@ -55,8 +55,16 @@
     }
 
     /*---------- 모달 ----------*/
+
+
+     #rsrvSubmit {
+	     justify-content: space-around;
+	     padding: 1.2rem 6rem;
+	     font-size: 1.28rem;
+	
+     }
 		
-		
+
 		</style>
 		<!--head.html Include-->
 		<jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
@@ -145,7 +153,7 @@
 																				<!--begin: Pic-->
 																				<div class="flex-shrink-0 w-xl-150px mr-7 mt-lg-0 mt-3">
 																						<div class="symbol symbol-50 symbol-lg-120">
-																								<img alt="${cafeVO.cafe_image_first}" src="${cafeVO.cafe_image_first}">
+																								<img alt="${cafeVO.cafe_image_1}" src="${cafeVO.cafe_image_1}">
 																						</div>
 																				</div>
 																				<!--end: Pic-->
@@ -338,7 +346,7 @@
 																																		<i class="la la-phone"></i>
 																																	</span>
 																														</div>
-																														<input type="number" name="rsrv_phone_number"
+																														<input type="text" name="rsrv_phone_number"
 																														       class="form-control form-control-lg form-control-solid"
 																														       value="" placeholder="Phone" required/>
 																												</div>
@@ -616,6 +624,7 @@
 																		        data-target="#my80sizeCenterModal">
 																				결제
 																		</button>
+																
 																		<div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1"
 																		     role="dialog" aria-labelledby="my80sizeCenterModalLabel">
 																				<div class="modal-dialog modal-80size modal-center" role="document">
@@ -623,6 +632,8 @@
 																								<div class="modal-header " style="background-color:#ffa800;">
 																										
 																										<h4 class="modal-title" id="myModalLabel">결제</h4>
+																									<button type="button" class="btn btn-default" data-dismiss="modal">X
+																								</button>
 																								</div>
 																								<div class="modal-body">
 																										<div class="row justify-content-center py-8 px-8 py-md-10 px-md-0">
@@ -631,29 +642,19 @@
 																																<table class="table">
 																																		<thead class="font-weight-boldest">
 																																		<tr>
-																																				<th
-																																						class="pl-0 mb-20 font-weight-bold text-muted text-uppercase">
-																																						결제하시겠습니까?
-																																				</th>
-																																		
-																																		</tr>
+																																				<th class="pl-0 mb-20 font-weight-bold h2 text-uppercase">
+																																						결제하시겠습니까? </th> 	</tr>
 																																		</thead>
-																																		
-																																		
-																																		<tbody>
-																																		
-																																		<tr class="">
-																																				<td class="pl-0 pt-7 d-flex align-items-center">
+																																	<tbody> <tr class="">
+																																				<td class="pl-0 pt-7 d-flex align-items-center text-muted">
 																																						<p><strong>예약공간</strong></p>
-																																				</td>
-																																				
-																																				<td
+																																				</td> 	<td
 																																						class="text-primary pr-0 pt-7 text-right align-middle">${cafeVO.cafe_name}(${roomRsrvInfoDTO.room_idx})
 																																				</td>
 																																		</tr>
 																																		
 																																		<tr class="">
-																																				<td class="pl-0 pt-7 d-flex align-items-center">
+																																				<td class="pl-0 pt-7 d-flex align-items-center text-muted">
 																																						<p><strong>예약날짜</strong></p>
 																																				</td>
 																																				
@@ -662,7 +663,7 @@
 																																		</tr>
 																																		
 																																		<tr class="">
-																																				<td class="pl-0 pt-7 d-flex align-items-center">
+																																				<td class="pl-0 pt-7 d-flex align-items-center text-muted">
 																																						<p><strong>예약시간</strong></p>
 																																				</td>
 																																				
@@ -678,12 +679,12 @@
 																																		
 																																		
 																																		<tr class="font-weight-boldest">
-																																				<td class="pl-0 pt-7 d-flex align-items-center">
+																																				<td class="pl-0 pt-7 d-flex align-items-center text-muted">
 																																						결제예정금액
 																																				</td>
 																																				
 																																				
-																																				<td class="text-primary pr-0 pt-7 text-right align-middle">
+																																				<td class="text-primary pr-0 pt-7 text-right align-middle h3">
 																																						<fmt:formatNumber value="${roomRsrvInfoDTO.total_amount}"
 																																						                  pattern="#,###"/> 원
 																																				</td>
@@ -695,12 +696,11 @@
 																												</div>
 																										</div>
 																								</div>
+																	
 																								<div class="modal-footer">
-																										<button type="button" class="btn btn-default" data-dismiss="modal">닫기
-																										</button>
-																								</div>
-																								<div class="modal-footer">
-																										<button type="submit" id="ttt">예약하기</button>
+																										<button type="button" class="btn btn-default btn-lg "
+																										        id="rsrvSubmit" style="" onclick="authorize();">예약하기</button>
+																						
 																								</div>
 																						</div>
 																				</div>
@@ -736,77 +736,37 @@
 
 <script>
 
-  function ttt() {
+  // function rsrvSubmit() {
+		//
+  //   console.log("rsrvSubmit");
+  //   $('#formObj').submit();
+  //   console.log("t33tt");
+		//
+  // }
+		//
+  
+  const clientID = '8492614f-7af7-472e-9c00-f0b61b38ed33';
+  const clientPWD = 'e9366e92-5b66-450e-8299-f1ebbf9473db';
 
-    console.log("ttt");
-    $('#formObj').submit();
-    console.log("t33tt");
-
+  // 결제를 위해 인증창 팝업
+	  function authorize() {
+		  let location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?" +
+		                 "response_type=code&" +
+		                 "client_id=" + clientID + "&" +
+																	  "redirect_uri=http://localhost:8070/payment/rest/callback&" +
+																	  "scope=login inquiry transfer&" +
+																	  "client_info=test&" +
+																	  "state=b80BLsfigm9OokPTjy03elbJqRHOfGSY&" +
+																	  "auth_type=0&" +
+																	  "cellphone_cert_yn=Y&" +
+																	  "authorized_cert_yn=Y&" +
+																	  "account_hold_auth_yn=N&" +
+																	  "register_info=A" ;
+	  var popup = window.open(location, '오픈뱅킹 본인인증', 'width=700px,height=800px,scrollbars=yes');
+	  
   }
 
+  
 </script>
-
-
-<%--<script>--%>
-<%--  function goRsrv() {--%>
-<%--    // TODO 처음부터 인풋 만들지 등..어휴.. 수정예정.. data-value로 인풋안에 때려볼까--%>
-
-<%--    let yy = $('#select-year').html();  // 선택된 연도--%>
-<%--    let mm = $('#select-month').html().padStart(2, '0'); // 선택된 월--%>
-<%--    let dd = $('#select-date').html().padStart(2, '0'); // 선택된 일자--%>
-
-<%--    let selectDate = yy + '/' + mm + '/' + dd; // 이용일자--%>
-<%--    let selectStartTime = $('#select-start-time').html();  // 이용시작시간--%>
-<%--    let selectEndTime = $('#select-end-time').html(); //이용종료시간--%>
-<%--    let selectRoom = $('#select-room').html();  // 선택된 룸--%>
-<%--    let totalAmount = $('#select-amount').html(); // 이용금액--%>
-<%--    let maxPeople = $('#select-max-people').html(); // 방인원--%>
-
-<%--    let $date = $('<input>', {--%>
-<%--      type : "hidden",--%>
-<%--      name : "use_date",--%>
-<%--      value: selectDate--%>
-<%--    })--%>
-
-<%--    let $startTime = $('<input>', {--%>
-<%--      type : "hidden",--%>
-<%--      name : "use_start_time",--%>
-<%--      value: selectStartTime--%>
-<%--    })--%>
-
-<%--    let $endTime = $('<input>', {--%>
-<%--      type : "hidden",--%>
-<%--      name : "use_end_time",--%>
-<%--      value: selectEndTime--%>
-<%--    })--%>
-
-<%--    let $roomIdx = $('<input>', {--%>
-<%--      type : "hidden",--%>
-<%--      name : "room_idx",--%>
-<%--      value: selectRoom--%>
-<%--    })--%>
-
-<%--    let $totalAmount = $('<input>', {--%>
-<%--      type : "hidden",--%>
-<%--      name : "total_amount",--%>
-<%--      value: totalAmount--%>
-<%--    })--%>
-
-<%--    let $maxPeople = $('<input>', {--%>
-<%--      type : "hidden",--%>
-<%--      name : "max_people",--%>
-<%--      value: maxPeople--%>
-<%--    })--%>
-
-<%--    $('#formObj').append($date, $startTime, $endTime, $roomIdx, $totalAmount,$maxPeople);--%>
-
-<%--    $('#formObj').submit();--%>
-
-
-<%--  }--%>
-<%--		--%>
-
-</script>
-
 
 </html>
