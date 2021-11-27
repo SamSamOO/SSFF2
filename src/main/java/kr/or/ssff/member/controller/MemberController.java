@@ -110,7 +110,7 @@ public class MemberController {
         }//catch
 
 
-        return "redirect:/registerWait";
+        return "redirect:/member/registerWait";
     } // memberJoin
 
 
@@ -273,7 +273,7 @@ public class MemberController {
             log.debug("loginGo() is invoked");
             session.invalidate();
 
-            return "/member/main";
+            return "/main";
         }
 
         /* 마이 페이지 이동

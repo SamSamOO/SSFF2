@@ -119,6 +119,7 @@
                                         <!--begin::Title-->
                                         <%--<div class="text-right mb-lg-30 mb-15 mr-xxl-10">
                                             <span class="font-weight-bold text-muted font-size-h5">문제가 있나요?</span>
+
                                             <a href="#" class="font-weight-bolder font-size-h4" id="kt_login_signup">처음으로</a>
                                         </div>--%>
                                         <!--end::Title-->
