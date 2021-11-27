@@ -11,7 +11,7 @@
 <head>
     <title>게시물 상세 페이지입니다</title>
     <!--head.html Include-->
-    <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/commons/head.jsp"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
     <style>
@@ -24,7 +24,6 @@
         /*    --text-color: #eee;*/
         /*    --bkg-color: #121212;*/
         /*}*/
-
         /*@media (prefers-color-scheme: dark) {*/
         /*    !* defaults to dark theme *!*/
         /*    body {*/
@@ -36,23 +35,18 @@
         /*        --bkg-color: #fff;*/
         /*    }*/
         /*}*/
-
         /** {*/
         /*    font-family: Arial, Helvetica, sans-serif;*/
         /*}*/
-
         /*body {*/
         /*    background: var(--bkg-color);*/
         /*}*/
-
         /*h1,*/
         /*p {*/
         /*    color: var(--text-color);*/
         /*}*/
-
     </style>
     <script>
-
         $(function () {
             //다크모드
             // const btn = document.querySelector(".btn-toggle");
@@ -117,6 +111,68 @@
             imgWin.document.close();
         }
     </script>
+    <style>
+        .recommendPost_listWrapper__1Ix8x {
+            width: 240px;
+            margin-left: 2rem;
+            padding: 1rem 0.75rem;
+            line-height: 1.5;
+            font-size: .875rem;
+            max-height: calc(100vh - 128px);
+            overflow: hidden auto;
+            border: 2px solid #e2e2e2;
+            border-radius: 1rem;
+            margin-top: 1.5rem;
+            position: fixed;
+            top: 400px;
+        }
+
+        .recommendPost_index__2o2jf {
+            color: #4b9ef4;
+            margin-right: 0.25rem;
+        }
+
+        .recommendPost_title__38iq9 {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+        }
+
+        .recommendPost_userInfoWrapper__2T6u8 {
+            display: flex;
+            margin-left: 2rem;
+            position: fixed;
+            top: 350px;
+        }
+
+        .recommendPost_bar__3GKlv {
+            width: 0;
+            height: 2.5rem;
+            border: 2px solid #4482f7;
+
+        }
+
+        .recommendPost_userInfoWrapper__2T6u8 {
+            display: flex;
+            margin-left: 2rem;
+            position: fixed;
+            top: 350px;
+
+        }
+
+        .recommendPost_userInfo__1Ozvo {
+
+            margin-left: 0.5rem;
+
+        }
+
+        .recommendPost_userName__2gZg6 {
+            font-weight: 700;
+        }
+
+
+    </style>
 </head>
 <c:set var="fileListSize" value="${fn:length(fileList)}"/>
 <c:set var="slash" value="/"/>
@@ -143,8 +199,7 @@
                 <div class="main d-flex flex-column flex-row-fluid">
                     <!--Subheader : 서브헤더 페이지 제목란 시작-->
                     <div class="subheader py-2 py-lg-6" id="kt_subheader">
-                        <div
-                            class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                             <!--begin::Info-->
                             <div class="d-flex align-items-center flex-wrap mr-1">
                                 <!--begin::Page Heading-->
@@ -153,8 +208,7 @@
                                     <h5 class="text-dark font-weight-bold my-1 mr-5">프로젝트 찾기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
-                                    <ul
-                                        class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                                    <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                                         <li class="breadcrumb-item">
                                             <a href="" class="text-muted">프로젝트</a>
                                         </li>
@@ -195,7 +249,8 @@
                                             <td colspan="6">카테고리 : ${detail.category}</td>
                                             <%--TODO 세션아이디와 현재글 닉네임과 동일한 경우 수정 삭제버튼 보입니다. --%>
                                             <td colspan="4" align="right">
-                                                <i class="far fa-eye">&nbsp;${detail.hit}</i> <%--TODO 조회수 관련 함수 짜야합니다.--%>
+                                                <i class="far fa-eye">&nbsp;${detail.hit}</i>
+                                                <%--TODO 조회수 관련 함수 짜야합니다.--%>
                                                 &nbsp;
                                                 <button type="button" id="modifyBtn" class="btn btn-light fa-1x">수정</button>
                                                 <button type="button" id="removeBtn" class="btn btn-light fa-1x">삭제</button>
@@ -207,10 +262,14 @@
                                             <th colspan="4"></th>
 
                                             <th colspan="1" align="right">작성일자</th>
-                                            <td colspan="2"><fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
+                                            <td colspan="2">
+                                                <fmt:formatDate value="${detail.write_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/>
+                                            </td>
                                             <c:if test="${ not empty detail.modify_Date }">
                                                 <th colspan="1">수정일자</th>
-                                                <td colspan="2"><fmt:formatDate value="${detail.modify_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/></td>
+                                                <td colspan="2">
+                                                    <fmt:formatDate value="${detail.modify_Date}" pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"/>
+                                                </td>
 
                                             </c:if>
                                         </tr>
@@ -244,7 +303,7 @@
 
                                                                 <c:if test="${fileListSize !=0}">
                                                                     <a href="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>"><img
-                                                                        src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="200" height="100" alt="사진"/></a>
+                                                                        src="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>" width="400" alt="사진"/></a>
                                                                 </c:if>
 
                                                                 <c:if test="${fileListSize==0}">
@@ -277,11 +336,32 @@
                     <!--end::Content-->
                 </div>
                 <!--end::Content Wrapper 내용물 종료-->
+                <div class="" style="position: relative; margin-top: 1.3rem">
+                    <div style="position:absolute; left: 100%">
+                        <div class="recommendPost_userInfoWrapper__2T6u8">
+                            <div class="recommendPost_bar__3GKlv"></div>
+                            <div class="recommendPost_userInfo__1Ozvo"><span class="recommendPost_userName__2gZg6">${sessionId}</span>님이<br>좋아하실 글을 모아봤어요!</div>
+                        </div>
+                        <ul title="여기에 동적 생성이 들어가야합니다." class="recommendPost_listWrapper__1Ix8x">
+                            <c:forEach var="list" items="${listByHit}" begin="1" end="6" varStatus="status">
+                                <li class="recommendPost_postList__S6Av-">
+                                    <div class="recommendPost_title__38iq9"><span style="font-size: 24px">${status.count}.</span><a href="?cont_No=${list.cont_No}&r_Idx=${detail.r_Idx}"><c:out value="${list.title}"/></a></div>
+
+                                </li>
+                            </c:forEach>
+                        </ul>
+
+
+                    </div>
+                </div>
             </div>
             <%--컨테이너 종료--%>
             <!--footer.html Include-->
-            <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
         </div>
+    </div>
+    <jsp:include page="/WEB-INF/commons/footer.jsp"></jsp:include>
+</div>
 </body>
 <!----------------Body 종료----------------------->
+
 </html>

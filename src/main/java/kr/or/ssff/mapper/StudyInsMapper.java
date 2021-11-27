@@ -1,5 +1,6 @@
 package kr.or.ssff.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
@@ -62,4 +63,7 @@ public interface StudyInsMapper {
 
     //채팅 리스트 불러오기
     public List<ChatMsgDTO> getChatList(Integer r_idx);
+
+    //조회수 순으로 리스트 불러오기
+    public List<StudyInsVO> getListByHit(@Param("map") HashMap<String,Object> map);
 }
