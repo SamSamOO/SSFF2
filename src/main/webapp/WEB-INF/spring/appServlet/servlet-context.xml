@@ -99,7 +99,8 @@
     <!--예솔 작업-->
     <context:component-scan base-package="kr.or.ssff.study.service"/>
     <context:component-scan base-package="kr.or.ssff.study.controller"/>
-
+    <context:component-scan base-package="kr.or.ssff.calendar.controller"/>
+    <context:component-scan base-package="kr.or.ssff.calendar.service"/>
     <!--상준 작업-->
     <context:component-scan base-package="kr.or.ssff.studyIns.service"/>
     <context:component-scan base-package="kr.or.ssff.studyIns.configuration"/>

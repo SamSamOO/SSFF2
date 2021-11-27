@@ -1,10 +1,42 @@
 package kr.or.ssff.calendar.service;
 
-/*
+import kr.or.ssff.mapper.CalendarMapper;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
 
- */
-public class CalendarServiceImpl {
+@Log4j2
+@AllArgsConstructor
 
+@Service("calendarService")
+public class CalendarServiceImpl implements CalendarService {
+
+    private CalendarMapper mapper;
+
+    @Override
+    public boolean register(String cal_id, String calendarData) {
+        String type = "study";
+        Integer result = this.mapper.insert(cal_id,calendarData,type);
+        return result==1;
+    }
+
+    @Override
+    public boolean modify(String cal_id, String calendarData) {
+        Integer result = this.mapper.update(cal_id,calendarData);
+        return result==1;
+    }
+
+    @Override
+    public boolean remove(String str) {
+        return false;
+    }
+
+    @Override
+    public String getCalendarByCal_id(String cal_id) {
+        String calendarData = this.mapper.getCalendarByCal_id(cal_id);
+        System.out.println(calendarData);
+        return calendarData;
+    }
 }
 
 
