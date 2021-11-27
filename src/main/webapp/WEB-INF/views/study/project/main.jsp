@@ -172,7 +172,7 @@
 
                                             <div id="cal-button-sec">
                                                 <button id="modal-regist"  class ="cal-button" onclick="eventRegist()">일정 등록하기</button>
-                                                <button id="modal-modify" class="hidden cal-button">수정</button>
+                                                <button id="modal-modify" class="hidden cal-button" onclick="modifyEvent()">수정</button>
                                                 <button id="modal-delete" class="hidden cal-button" onclick="deleteEvent()">삭제</button>
 
                                             </div>
@@ -312,22 +312,36 @@
   function deleteEvent () {
     if (showAlarm(5)) {
       currentEvent.remove()  // front calendar update
-      setFullCalendarData(calendar.getEvents()) // db update
+      setFullCalendarData(document.querySelector('#r_idx').value,calendar.getEvents()) // db update
       showAlarm(3)
       closeModal()
     } else {
       showAlarm(4)
     }
   }
+  function modifyEvent () {
+    if (showAlarm(6)) {
+      currentEvent.remove()  // front calendar update
+      setFullCalendarData(document.querySelector('#r_idx').value,calendar.getEvents()) // db update
+      eventRegist()
+      //showAlarm(7)
+      //closeModal()
+    } else {
+      showAlarm(8)
+    }
+  }
 
   function showAlarm (type) {
     switch (type) {
-      case 0: alert('제목 알맞게 입력하라고!!!!!!!!!!!!'); return false; break;
-      case 1: alert('날짜 제대로 입력안하냐!!!? 정신차리라고!!'); return false; break;
-      case 2: alert('일정이 등록되었습니다.( ":D" )'); return false; break;
-      case 3: alert('그래...삭제했다...너 혼자 잘살아봐라....'); return false; break;
-      case 4: alert('음~~삭제 안하는거지? 잘생각했어~~ ( ":D" )'); return false; break;
-      case 5: return confirm('일정을 삭제하겠다고? 와이? 정신차려이각박한세상속에!!!!!!!!'); break;
+      case 0: alert('제목을 입력해주세요'); return false; break;
+      case 1: alert('날짜를 입력해 주세요'); return false; break;
+      case 2: alert('성공적으로 완료되었습니다( ":D" )'); return false; break;
+      case 3: alert('일정이 정상적으로 삭제되었습니다'); return false; break;
+      case 4: alert('일정 삭제가 취소되었습니다'); return false; break;
+      case 5: return confirm('정말 삭제하시겠습니까?'); break;
+      case 6: return confirm('정말 수정하시겠습니까?'); break;
+      case 7: alert('일정이 정상적으로 수정되었습니다'); return false; break;
+      case 8: alert('일정 수정이 취소되었습니다'); return false; break;
     }
   }
 
