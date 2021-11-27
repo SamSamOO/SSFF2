@@ -202,7 +202,47 @@ public class PaymentServiceImpl
 
 
 
-
+//  @Override
+//  public List<PaymentAcntDTO> getWithdraw(PaymentAuthDTO auth) {
+//    log.debug("getAcnt({}) is invoked", auth);
+//
+//
+//    // 오픈뱅킹 api에서 계좌 json 받아오기 : 사용자 계좌 조회
+//    RestTemplate restTemplate = new RestTemplate();
+//
+//    String url = "https://testapi.openbanking.or.kr/v2.0/user/me";
+//
+//    HttpHeaders headers = new HttpHeaders();
+//    headers.add("Authorization", auth.getTokenType() + " "+ auth.getAccessToken());
+//    HttpEntity entity = new HttpEntity(headers);
+//
+//    UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(url)
+//        .queryParam("user_seq_no", auth.getUserSeqNo());
+//
+//    ResponseEntity<String> response = restTemplate.exchange(uriBuilder.toUriString(), HttpMethod.GET, entity, String.class);
+//
+//    ObjectMapper mapper = new ObjectMapper();
+//    JsonNode root;
+//
+//    List<PaymentAcntDTO> acntList = new ArrayList<PaymentAcntDTO>();
+//
+//    try {
+//      root = mapper.readTree(response.getBody());
+//      JsonNode node = root.path("res_list");
+//
+//      // 참고 : https://livenow14.tistory.com/68
+//      try {
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//        acntList = Arrays.asList(objectMapper.readValue(node.toPrettyString(), PaymentAcntDTO[].class));
+//
+//      } catch (JsonProcessingException e) {
+//        throw new RuntimeJsonMappingException("객체를 매핑할 수 없습니다.");
+//      } // t-c
+//
+//    } catch (JsonProcessingException e) {
+//      e.printStackTrace();
+//    } // t-c
 
 
 

@@ -16,7 +16,9 @@ public interface PaymentService {
   public abstract void connectAuth(String code, String id);
 
 	PaymentAuthDTO getAuth(String code, String id);
-	List<PaymentAcntDTO> getAcnt(PaymentAuthDTO auth);
+
+  List<PaymentAcntDTO> getAcnt(PaymentAuthDTO auth);
+
 //	OpenbankBalanceVO getBalance(String id, String fintechUseNum);
 //
 //
