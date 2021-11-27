@@ -3,7 +3,6 @@ package kr.or.ssff.manager.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 import kr.or.ssff.manager.domain.ManagerMemberVO;
 import kr.or.ssff.manager.domain.ManagerStudyListByBossYVO;
 import kr.or.ssff.manager.service.ManagerService;
@@ -238,4 +237,15 @@ public class ManagerController {
 
         return "manager/study/info";
     }
+
+
+    /* 카페 리스트
+     *반환 : 카페 리스트 페이지
+     * */
+    @GetMapping("/cafe/list")
+    public void getManagerCafeList() {
+        log.info("getManagerCafeList() is invoked");
+
+    } // getManagerCafeList
+
 } // end class

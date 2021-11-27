@@ -37,6 +37,9 @@ public interface CafeService {
   // 단일 카페정보 조회 : 신지혜
   public abstract CafeVO getCafe(String cafe_idx);
 
+  // 매니저 뷰단 사용할 카페 리스트 조회 : 신지혜
+  public abstract List<CafeVO>  getManagerCafeList(HashMap<String, String> searchKey);
+
   // 단일 카페의 모든 룸 정보 조회: 신지혜
   public abstract List<RoomVO> getRoom(String cafe_idx);
 
