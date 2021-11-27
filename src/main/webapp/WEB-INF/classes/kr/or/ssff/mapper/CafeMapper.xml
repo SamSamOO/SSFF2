@@ -311,7 +311,7 @@
             #{use_date},
             #{use_start_time},
             #{use_end_time},
-            'n',
+            't',
             #{rsrv_name},
             #{rsrv_phone_number},
             #{rsrv_email},
@@ -320,6 +320,42 @@
 
   </insert>
 
+  <!-- 임시 등록된 예약정보 조회 : 신지혜 --> <!--TODO 객체로 받아서 거래정보와 비교해서 담기 -->
+  <select id="selectTempRsrv"
+    resultType="kr.or.ssff.cafe.domain.ReservationVO">
+
+    select  rsrv_idx,
+            room_idx,
+            member_name,
+            use_date,
+            use_start_time,
+            use_end_time,
+            rsrv_status_ynz,
+            rsrv_name,
+            rsrv_phone_number,
+            rsrv_email,
+            rsrv_message,
+            rsrv_amount
+    FROM rsrv
+    WHERE rsrv_status_ynz = 't'
+
+  </select>
+
+  <!-- 정상예약처리 : 신지혜 -->
+  <update id="setReservation" parameterType="String">
+
+    UPDATE rsrv
+    SET rsrv_status_ynz = 'n'
+    WHERE rsrv_idx = #{rsrv_idx}
+  </update>
+
+
+  <!-- 거래등록 실패시 관련 예약정보도 삭제 : 신지혜 -->
+  <delete id="deleteReservation" parameterType="String">
+
+    DELETE rsrv
+    WHERE rsrv_idx = #{rsrv_idx}
+  </delete>
 
   <!-- 특정일자, 특정 room 예약정보만 조회 : 신지혜 -->
   <select id="selectRoomRsrvList"

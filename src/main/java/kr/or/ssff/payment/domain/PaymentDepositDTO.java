@@ -11,35 +11,38 @@ public class PaymentDepositDTO {
 
   private String id;
 
-  @JsonProperty(value = "api_tran_id")
-  private String apiTranId;
+//  @JsonProperty(value = "api_tran_id")
+//  private String apiTranId;
+//
+//  @JsonProperty(value = "rsp_code")
+//  private String rspCode;
+//
+//  @JsonProperty(value = "rsp_message")
+//  private String rspMessage;
+//
+//  @JsonProperty(value = "api_tran_dtm")
+//  private String apiTranDtm;
+//
+//  @JsonProperty(value = "dps_bank_code_std")
+//  private String dpsBankCodeStd;
+//
+//  @JsonProperty(value = "dps_bank_code_sub")
+//  private String dpsBankCodeSub;
+//
+//  @JsonProperty(value = "dps_bank_name")
+//  private String dpsBankName;
+//
+//  @JsonProperty(value = "dps_account_num_masked")
+//  private String dpsAccountNumMasked;
+//
+//  @JsonProperty(value = "dps_print_content")
+//  private String dpsPrintContent;
+//
+//  @JsonProperty(value = "dps_account_holder_name")
+//  private String dpsAccountHolderName;
 
-  @JsonProperty(value = "rsp_code")
-  private String rspCode;
-
-  @JsonProperty(value = "rsp_message")
-  private String rspMessage;
-
-  @JsonProperty(value = "api_tran_dtm")
-  private String apiTranDtm;
-
-  @JsonProperty(value = "dps_bank_code_std")
-  private String dpsBankCodeStd;
-
-  @JsonProperty(value = "dps_bank_code_sub")
-  private String dpsBankCodeSub;
-
-  @JsonProperty(value = "dps_bank_name")
-  private String dpsBankName;
-
-  @JsonProperty(value = "dps_account_num_masked")
-  private String dpsAccountNumMasked;
-
-  @JsonProperty(value = "dps_print_content")
-  private String dpsPrintContent;
-
-  @JsonProperty(value = "dps_account_holder_name")
-  private String dpsAccountHolderName;
+  @JsonProperty(value = "tran_no")
+  private String tranNo;
 
   @JsonProperty(value = "bank_tran_id")
   private String bankTranId;
@@ -80,11 +83,8 @@ public class PaymentDepositDTO {
   @JsonProperty(value = "tran_amt")
   private String tranAmt;
 
-  @JsonProperty(value = "account_holder_name")
-  private String accountHolderName;
-
-  @JsonProperty(value = "wd_limit_remain_amt")
-  private String wdLimitRemainAmt;
+  @JsonProperty(value = "cms_num")
+  private String cmsNum;
 
   @JsonProperty(value = "savings_bank_name")
   private String savingsBankName;

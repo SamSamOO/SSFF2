@@ -136,13 +136,12 @@
 										<!--begin::Content-->
 										<div class="content flex-column-fluid" id="kt_content">
 												<form action="/cafe/reserve/insert" method="post" id="formObj">
-														
 														<input type="hidden" name="member_name" value="nickname9312">
 														<input type="hidden" name="use_date" value="${roomRsrvInfoDTO.use_date}">
 														<input type="hidden" name="use_start_time" value="${roomRsrvInfoDTO.use_start_time}">
 														<input type="hidden" name="use_end_time" value="${roomRsrvInfoDTO.use_end_time}">
 														<input type="hidden" name="room_idx" value="${roomRsrvInfoDTO.room_idx}">
-														<input type="hidden" name="total_amount" value="${roomRsrvInfoDTO.total_amount}">
+														<input type="hidden" name="rsrv_amount" value="${roomRsrvInfoDTO.total_amount}">
 														
 														<!--begin::Card-->
 														<div class="card card-custom gutter-b">
@@ -750,6 +749,11 @@
 
   // 결제를 위해 인증창 팝업
 	  function authorize() {
+		
+		    console.log("rsrvSubmit");
+		    $('#formObj').submit();
+		    console.log("t33tt");
+		  
 		  let location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?" +
 		                 "response_type=code&" +
 		                 "client_id=" + clientID + "&" +
@@ -761,7 +765,8 @@
 																	  "cellphone_cert_yn=Y&" +
 																	  "authorized_cert_yn=Y&" +
 																	  "account_hold_auth_yn=N&" +
-																	  "register_info=A" ;
+																	  "register_info=A";
+				
 	  var popup = window.open(location, '오픈뱅킹 본인인증', 'width=700px,height=800px,scrollbars=yes');
 	  
   }
