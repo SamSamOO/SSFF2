@@ -73,15 +73,23 @@
 
     <select id="getStudyListPerPaging" parameterType="hashMap" resultType="kr.or.ssff.manager.domain.ManagerStudyListByBossYVO">
 
-        select R_IDX, MEMBER_NAME, TYPE_PC, TEAMNAME, WRITEDATE, DEAD_OK
+        select R_IDX, TITLE, WRITEDATE,CH_START ,CH_END, CH_PATTERN, SIDO, MEMBER_NAME, TYPE_PC, TEAMNAME, DEAD_OK,CONT,REMOVED_OK,CLOSED_OK
         from (select /*+ INDEX_DESC(recruit_board PK_RECRUIT_BOARD) */
         ROWNUM rn,
         RB.R_IDX,
+        RB.TITLE,
+        RB.WRITEDATE,
+        RB.CH_START,
+        RB.CH_END,
+        RB.CH_PATTERN,
+        RB.SIDO,
         AM.MEMBER_NAME,
         RB.TYPE_PC,
         RB.TEAMNAME,
-        RB.WRITEDATE,
-        RB.DEAD_OK
+        RB.DEAD_OK,
+        RB.CONT,
+        RB.REMOVED_OK,
+        RB.CLOSED_OK
         from RECRUIT_BOARD RB
         join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
         join MEMBER M on M.MEMBER_NAME = AM.MEMBER_NAME
@@ -107,7 +115,7 @@
             </if>
         </if>
         <if test='map.keyword!=null or !map.keyword.equals("")'>
-                and (AM.MEMBER_NAME like '%' || #{map.keyword} || '%' or RB.TEAMNAME like '%' || #{map.keyword} || '%')
+            and (AM.MEMBER_NAME like '%' || #{map.keyword} || '%' or RB.TEAMNAME like '%' || #{map.keyword} || '%')
         </if>
         )
 
