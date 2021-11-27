@@ -192,10 +192,17 @@ String id = "testJihye";
     Integer deleteRsrvRow ;
     Integer setRsrvRow ;
 
+    String resultHtml = "";
 
     if(!result){  // insert 실패했다면 (== 거래실패) 예약내역도 삭제
       deleteRsrvRow= service.deleteRsrv(tempRsrvIdx);
       log.info("service.deleteRsrv({}): ", deleteRsrvRow);
+
+      resultHtml = "     Swal.fire({\n"
+          + "                  icon : 'warning', \n"
+          + "                  title: '예약실패', \n"
+          + "                  text : '다시 시도해주세요.', \n"
+          + "                });";
     } else { // 거래정보 insert 성공시 예약내역에 상태 정보 정상으로 업데이트
       setRsrvRow= service.setReservation(tempRsrvIdx);
       log.info("service.setReservation({}): ", setRsrvRow);
@@ -205,7 +212,8 @@ String id = "testJihye";
 
     //TODO row값 따라서 view 변경해주기 - 실패시 실패 알럿, 성공시 예약내역리스트 ㄱ
 //    return "<script>window.close();</script>";
-    return "제발 돼라";
+    		return "<script>opener.location.reload();window.close();"+resultHtml+"</script>";
+
   } // withdraw
 
 

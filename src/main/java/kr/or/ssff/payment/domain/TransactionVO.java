@@ -34,7 +34,7 @@ public class TransactionVO {
 	private String transaction_categories;
 	private String transaction_categorie;
 	private Integer transaction_amount;
-	private Integer client_account_number;
+	private String client_account_number;
 	private Integer client_bank_code;
 	private String client_name;
 	private Integer amount_to_be_paid;
