@@ -19,13 +19,16 @@
 }
 
 .mng_user_list td{
-!important;
-    text-align: center;
-    vertical-align: center;
+    text-align: center !important;
+    vertical-align: middle !important;
 }
 
 .mng_user_list td:first-child{
     width: 3rem;
+}
+
+.mng_user_list td:last-child{
+    width: 2rem;
 }
 
 /*----관리자 스터디 리스트----*/

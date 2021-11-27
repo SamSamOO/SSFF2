@@ -24,8 +24,10 @@ License: You must have a valid license purchased only from themeforest(the above
     <title>관리자::회원</title>
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script type="text/javascript">
         $(function () {
             $(`#searchBtn`).on('click', function (e) {
@@ -34,6 +36,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 actionForm.attr('action', '/manager/member/search');
                 actionForm.submit();
             });
+
             $("input[name='keyword']").on("keyup", function (key) {
                 if (key.keyCode == 13) {
                     key.preventDefault(); //기본 동작 제한
@@ -160,18 +163,23 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                                         <%--회원 사진 / 닉네임--%>
                                                     <td class="user_pic_nick">
-                                                        <div>
-                                                            <a href="">
-                                                                <div class="symbol symbol-45 mr-3">
-                                                                    <c:if test="${list.member_Profile != '/resources/assets/images/icon/profile_default1.png' || list.member_Profile != 'default.jpg' }">
-                                                                    <img src="${list.member_Profile}" alt="photo">
-                                                                    </c:if>
-                                                                    <c:if test="${list.member_Profile == '/resources/assets/images/icon/profile_default1.png' || list.member_Profile == 'default.jpg' }">
-                                                                    <span class="symbol-label font-size-h5"> ${fn:substring(list.member_Name,0,1)} </span>
-                                                                    </c:if>
+                                                        <div class= "d-flex mx-8">
+                                                            <a href="" class="w-100 d-flex align-items-center justify-content-around">
+                                                                <div class="symbol symbol-45 justify-content-start align-items-center">
+                                                                    <c:choose>
+                                                                    <c:when test="${list.member_Profile == '/resources/assets/images/icon/profile_default_g_w.png'}">
+                                                                        <span class="symbol-label font-size-h5"> ${fn:substring(list.member_Name,0,1)} </span>
+                                                                    </c:when>
+                                                                    <c:when test="${list.member_Profile == 'defualt.jpg'}">
+                                                                        <span class="symbol-label font-size-h5"> ${fn:substring(list.member_Name,0,1)} </span>
+                                                                    </c:when>
+                                                                    <c:otherwise>
+                                                                        <img src="${list.member_Profile}" alt="photo" class="object-cover">
+                                                                    </c:otherwise>
+                                                                    </c:choose>
                                                                 </div>
 
-                                                                <div class="ml-10 text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
+                                                                <div class="w-75 font-weight-bolder font-size-lg">
                                                                     ${list.member_Name}
                                                                 </div>
                                                             </a>

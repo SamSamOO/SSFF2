@@ -39,7 +39,7 @@
                     </c:if>
                     <c:if test="${member == null }">
                         <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                            <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default1.png" />
+                            <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default_g_w.png" />
                         </div>
                     </c:if>
                     <i class="text-dark fas fa-angle-down"></i>
@@ -153,7 +153,7 @@
                         </c:if>
                         <c:if test="${member == null }">
                             <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                                <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default1.png" />
+                                <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default_g_w.png" />
                             </div>
                         </c:if>
 

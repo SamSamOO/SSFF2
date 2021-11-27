@@ -207,13 +207,17 @@ a.text-hover-ssff-orange:hover,
 }
 
 /*----디자인 설정용 단축태그----*/
+.object-cover{
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+}
 
 .inline-flex{
-    display: inline-flex;
+    display: inline-flex !important;
 }
 
 .list-style-none{
-    list-style: none;
+    list-style: none !important;
 }
 
 .filter-shadow{
