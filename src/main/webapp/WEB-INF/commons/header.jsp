@@ -11,7 +11,7 @@
 <div id="kt_header_mobile" class="header-mobile">
     <!--로고 시작-->
     <a href="/">
-        <img alt="Logo" src="/resources/assets/media/logos/logo-c1.png" class="max-h-30px" />
+        <img alt="Logo" src="${pageContext.request.contextPath}/resources/assets/images/logos/ssff/SamSamOOLOGO.png" class="max-h-30px" />
     </a>
     <!--로고 종료-->
     <!--툴바 시작-->
@@ -78,9 +78,8 @@
                     </a>
                     <!--end::Item-->
                     <!--begin::Item-->
-                    <a href="/custom/apps/userprofile-1/overview.html" class="navi-item">
+                    <a href="/member/myPage" class="navi-item">
                         <div class="navi-link">
-
                             <div class="navi-text">
                                 <div class="font-weight-bold">마이 페이지</div>
                             </div>
@@ -116,7 +115,7 @@
         <div class="d-none d-lg-flex align-items-center mr-3">
             <!--begin::Logo-->
             <a href="#" class="mr-20">
-                <img alt="Logo" src="/resources/assets/media/logos/logo-c1.png" class="logo-default max-h-35px" />
+                <img alt="Logo" src="${pageContext.request.contextPath}/resources/assets/images/logos/ssff/SamSamOOLOGO.png" class="logo-default max-h-35px" />
             </a>
             <!--end::Logo-->
         </div>
@@ -197,7 +196,7 @@
                         </a>
                         <!--end::Item-->
                         <!--begin::Item-->
-                        <a href="custom/apps/userprofile-1/overview.html" class="navi-item">
+                        <a href="/member/myPage" class="navi-item">
                             <div class="navi-link">
 
                                 <div class="navi-text">

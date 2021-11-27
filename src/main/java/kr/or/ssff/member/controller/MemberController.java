@@ -223,6 +223,7 @@ public class MemberController {
         log.debug("login() is invoked" + memberDTO, request, rttr);
 
         HttpSession session = request.getSession();
+
         String rawPw = "";
         String encodePw = "";
 

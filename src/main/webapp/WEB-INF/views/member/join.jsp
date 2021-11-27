@@ -28,6 +28,18 @@
 
         }
 
+        .NickName_box{
+            display: flex;
+            flex-direction: row;
+
+        }
+        #member_Name{
+            padding-right: 10px;
+            margin-right: 10px;
+
+        }
+
+
     </style>
 
 </head>
@@ -157,7 +169,7 @@
                         <!--end::Aside Top-->
                         <!--begin::Aside Bottom-->
                         <div class="d-flex flex-row-auto bgi-no-repeat bgi-position-y-bottom bgi-position-x-center bgi-size-contain pt-2 pt-lg-5 h-350px"
-                             style="background-image: url(/resources/assets/image/SamSamOOLOGO.png)"></div>
+                             style="background-image: url(${pageContext.request.contextPath}/resources/assets/images/logos/ssff/SamSamOOLOGO.png)"></div>
                         <!--end::Aside Bottom-->
                     </div>
                     <!--begin::Aside-->
@@ -186,7 +198,7 @@
 
                                         <label class="font-size-h6 font-weight-bolder text-dark">E-Mail</label>
                                         <div class="email_box">
-                                        <input type="email" class="form-control h-auto p-6 border-0 rounded-lg font-size-h6" id="member_id" name = "member_id" placeholder="E-Mail" >
+                                             <input type="email" class="form-control h-auto p-6 border-0 rounded-lg font-size-h6" id="member_id" name = "member_id" placeholder="E-Mail" >
                                             <button type="button" class="btn btn-primary font-weight-bolder font-size-h5 pl-8 pr-7 py-4 my-5 " id="idChk" onclick="fn_idChk();">중복</button>
 
                                       </div>
@@ -219,7 +231,10 @@
                                             <!--end::Form Group-->
                                             <div class="form-group fv-plugins-icon-container">
                                                 <label class="font-size-h6 font-weight-bolder text-dark">NickName</label>
-                                                <input type="text" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_name" name="member_name" placeholder="NickName" value="">
+                                                <div class="NickName_box">
+                                                    <input type="text" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_name" name="member_name" placeholder="NickName" value="">
+                                                    <button type="button" class="btn btn-primary font-weight-bolder font-size-h5 pl-8 pr-7 py-4 my-5 " id="nameChk" onclick="fn_nameChk();">중복</button>
+                                                </div>
                                                 <div class="fv-plugins-message-container"></div></div>
                                             <!--begin::Form Group-->
 
@@ -274,6 +289,28 @@
 $(document).ready(function(){
 
 });
+
+function fn_nameChk(){
+    $.ajax({
+        url : "/member/nameChk",
+        type : "post",
+        dataType : "json",
+        data : {"member_name" : $("#member_name").val()},
+        success : function(data){
+            if(data == 1){
+                alert("중복된 닉네임입니다.");
+                console.log("중복");
+            }else if(data == 0){
+                $("#nameChk").attr("value", "Y");
+                alert("사용가능한 닉네임입니다.");
+                console.log("사용가능함");
+            }else {
+                alert("닉네임을 입력해주세요.");
+            }
+        }
+    })
+
+}
 function fn_idChk(){
     $.ajax({
         url : "/member/idChk",

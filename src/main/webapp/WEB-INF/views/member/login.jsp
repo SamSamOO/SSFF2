@@ -68,7 +68,8 @@
                                     <input type="checkbox" name="remember" />
                                     <span></span>Remember me</label>
                             </div>
-                            <a href="/member/idPwFindGo" id="kt_login_forgot" class="text-muted text-hover-primary">비밀번호를 잊으셧나요?</a>
+                            <a href="/member/idPwFindGo" id="kt_login_forgot1" class="text-muted text-hover-primary"> 아이디</a>
+                            <a href="/member/idPwFindGo" id="kt_login_forgot" class="text-muted text-hover-primary">/비밀번호 찾기</a>
                         </div>
                         <button type="submit" id="kt_login_signin_submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-4">로그인</button>
 
