@@ -110,9 +110,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <h3 class="card-label"></h3>
                                     </div>
                                     <!--begin::Search Form 검색-->
-                                    <div class="d-flex align-items-center" id="kt_subheader_search" style="">
-                                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total" style="width: 40%;">${pageMaker.total} 전체</span>&nbsp
-                                        <span style="width: 30%"><a href="#" onclick="submitConfirm()"><i class="fas fa-sync-alt"></i></a></span>
+                                    <div class="d-flex align-items-center" id="kt_subheader_search">
+                                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">${pageMaker.total} 전체</span>&nbsp
+                                        <span><a href="#" onclick="submitConfirm()"><i class="fas fa-sync-alt"></i></a></span>
                                         <form class="ml-5">
                                             <div class="input-group input-group-sm input-group-solid">
                                                 <input type="text" class="form-control"
@@ -209,15 +209,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <%------ 테이블 종료-------%>
 
                                             <%--------------아랫단 시작-----------%>
-                                            <tr style="background-color: white" class="align-center">
+                                            <tr class="align-center">
                                                 <td colspan="8">
                                                     <!--begin::Pagination-->
                                                     <div class="d-flex justify-content-between align-items-center flex-wrap ">
                                                         <h2>${pageMaker}</h2>
-                                                        <div style="width: 8%"></div>
                                                         <div class='pull-right'>
                                                             <ul class="pagination">
-
 
                                                                 <c:if test="${pageMaker.prev}">
                                                                     <li id="prev" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-double-arrow-back icon-xs p-4"

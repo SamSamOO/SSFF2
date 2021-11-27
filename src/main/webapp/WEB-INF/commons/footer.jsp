@@ -37,13 +37,6 @@
 </div>
 <!----------------메인 종료----------------------->
 
-
-<!----------------퀵카트 시작----------------------->
-<!----------------퀵카트 종료----------------------->
-
-<!----------------퀵패널 시작----------------------->
-<!----------------퀵패널 종료----------------------->
-
 <!--begin::Scrolltop-->
 <div id="kt_scrolltop" class="scrolltop">
     <span class="svg-icon">
@@ -62,14 +55,7 @@
 </span>
 </div>
 <!--end::Scrolltop-->
-<%--<!----------------Sticky 툴바 시작---------------->
-<ul class="sticky-toolbar nav flex-column pl-2 pr-2 pt-3 pb-3 mt-4">
-  <!--begin::Item-->
-  이거 살릴겨?
-  안살리는걸로
-  <!--end::Item-->
-</ul>
-<!----------------Sticky 툴바 종료---------------->--%>
+
 
 <script>
     var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";
