@@ -1,6 +1,5 @@
 package kr.or.ssff.study.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,7 @@ import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 
 /*
-    일단 이거 임시로 만들어놓은 거임. 동작 안하니까 꼭 고쳐야 함
+
  */
 public interface StudyService {
     // 1. 새로운 게시물 등록 - 정상동작중!
