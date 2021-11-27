@@ -29,8 +29,6 @@
     <insert id="insertBoard">
         insert into SI_BOARD(cont_No, member_name, r_idx, cont, category, title, REMOVED_OK, WRITE_DATE)
         values (#{cont_No}, #{member_Name}, #{r_Idx}, #{cont}, #{category}, #{title}, 'n', current_timestamp)
-
-
     </insert>
 
 
@@ -77,28 +75,28 @@
     </select>
 
 
-    <select id="countArticle" resultType="integer">
+    <select id="countArticle" parameterType="hashMap" resultType="integer">
         <choose>
 
             <when test="category=='전체'">
                 select count(*)
                 from SI_BOARD
-                where REMOVED_OK = 'n' and CATEGORY!='공지'
+                where REMOVED_OK = 'n' and CATEGORY!='공지' and R_IDX=#{map.r_Idx}
             </when>
 
             <otherwise>
                 select count(*)
-                from SI_BOARD where REMOVED_OK='n' and CATEGORY=#{category} and CATEGORY!='공지'
+                from SI_BOARD where REMOVED_OK='n' and CATEGORY=#{map.category} and CATEGORY!='공지' and R_IDX=#{map.r_Idx}
             </otherwise>
         </choose>
 
     </select>
 
 
-    <select id="getListWithPaging" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+    <select id="getListWithPaging"  parameterType="hashMap" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
         <choose>
 
-            <when test="category =='전체'">
+            <when test="map.category =='전체'">
                 <![CDATA[
         select CONT_NO,
                MEMBER_NAME,
@@ -123,8 +121,8 @@
                   TITLE,
                   HIT
               from SI_BOARD
-              where rownum <= #{pageNum} * #{amount} and REMOVED_OK='n' and CATEGORY!='공지')
-        where rn > (#{pageNum} - 1) * #{amount}
+              where rownum <= #{map.pageNum} * #{map.amount} and REMOVED_OK='n' and CATEGORY!='공지' and R_IDX=#{map.r_Idx})
+        where rn > (#{map.pageNum} - 1) * #{map.amount}
         ]]>
             </when>
             <otherwise>
@@ -152,9 +150,9 @@
                   TITLE,
                   HIT
               from SI_BOARD
-              where rownum <= #{pageNum} * #{amount}
-                and CATEGORY = #{category} and REMOVED_OK='n')
-        where rn > (#{pageNum} - 1) * #{amount}
+              where rownum <= #{map.pageNum} * #{map.amount}
+                and CATEGORY = #{map.category} and REMOVED_OK='n' and R_IDX=#{r_Idx})
+        where rn > (#{map.pageNum} - 1) * #{map.amount}
         ]]>
             </otherwise>
         </choose>
@@ -180,19 +178,21 @@
 
     <select id="showNotice" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
         select /*+INDEX_DESC(si_board pk_si_board) */
-               CONT_NO,
-               MEMBER_NAME,
-               R_IDX,
-               WRITE_DATE,
-               MODIFY_DATE,
-               REMOVED_OK,
-               CONT,
-               CATEGORY,
-               TITLE,
-               HIT
+            CONT_NO,
+            MEMBER_NAME,
+            R_IDX,
+            WRITE_DATE,
+            MODIFY_DATE,
+            REMOVED_OK,
+            CONT,
+            CATEGORY,
+            TITLE,
+            HIT
         from SI_BOARD
         where CATEGORY = '공지'
           and REMOVED_OK = 'n'
+          and R_IDX = #{map.r_Idx}
+
     </select>
 
     <select id="getChatList" resultType="kr.or.ssff.studyIns.model.ChatMsgDTO">

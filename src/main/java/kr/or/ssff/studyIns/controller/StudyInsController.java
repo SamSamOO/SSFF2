@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
@@ -192,22 +193,23 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 내 특정 스터디 게시판 뷰단임
      * */
     @GetMapping("/board/list")
-    public String studyBoardList(@RequestParam(defaultValue = "전체") String category, Criteria criteria, Model model) throws Exception {
+    public String studyBoardList(@RequestParam(defaultValue = "전체") String category, Criteria criteria,@RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
         log.info("studyBoardList({}) is invoked", "category = " + category + ", criteria = " + criteria + ", model = " + model);
         HashMap<String, Object> map = new HashMap<>();
         map.put("category", category);
         map.put("criteria", criteria);
         map.put("sessionId", session.getId());
+        map.put("r_Idx", r_Idx);
 
         Objects.requireNonNull(service);
+        List<StudyInsVO> list = service.getList(map);
+        log.info("service.getList(criteria) = {}", service.getList(map));
 
-        log.info("service.getList(criteria) = {}", service.getList(criteria, category));
-
-        model.addAttribute("list", service.getList(criteria, category));
+        model.addAttribute("list", list);
         model.addAttribute("map", map);
-        model.addAttribute("noticeList", service.showNotice());
+        model.addAttribute("noticeList", service.showNotice(map));
         model.addAttribute("category", category);
-        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(category) + 1));
+        model.addAttribute("pageMaker", new PageDTO(criteria, service.countArticle(map)));
 
         log.info("criteria = {}", criteria);
 
@@ -222,12 +224,16 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: X  ( 해당 매핑으로 이동함)
      * */
     @GetMapping("/board/detail")
-    public String studyBoardDetail(@RequestParam("cont_No") Integer cont_No, @RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
+    public String studyBoardDetail(HttpServletRequest request,@RequestParam("cont_No") Integer cont_No, @RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
         log.debug("studyBoardDetail({}) is invoked", "cont_no = " + cont_No + ", model = " + model);
+
+        HttpSession session = request.getSession();
+        String name = (String) session.getAttribute("sessionId");
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("cont_No", cont_No);
         map.put("r_Idx", r_Idx);
-        map.put("sessionId", session.getId());
+        map.put("sessionId",name);
 
         Objects.requireNonNull(service);
         //내용물 불러오기
@@ -299,7 +305,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/detail/modify")
-    public String studyBoardDetailModify(StudyInsDTO studyInsDTO, MultipartFile[] uploadFile, RedirectAttributes rttrs) {
+    public String studyBoardDetailModify(StudyInsDTO studyInsDTO, @RequestParam(required = false) MultipartFile[] uploadFile, RedirectAttributes rttrs) {
         log.debug("studyBoardDetailModify({}) is invoked", "studyIns = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile) + ", rttrs = " + rttrs);
 
         String uploadFolder = "C:/temp/upload";
@@ -426,67 +432,69 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         /*이미지의 정보를 담는 객체*/
         List<StudyInsFileDTO> list = new ArrayList<>();
+        if (uploadFile != null) {
+            for (MultipartFile multipartFile : uploadFile) {
+                log.debug("------------------------------------");
+                log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
+                log.debug("Upload File Size : " + multipartFile.getSize());
 
-        for (MultipartFile multipartFile : uploadFile) {
-            log.debug("------------------------------------");
-            log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
-            log.debug("Upload File Size : " + multipartFile.getSize());
+                /*이미지 정보 객체입니다.*/
+                StudyInsFileDTO dto = new StudyInsFileDTO();
+                dto.setCont_No(cont_No);
 
-            /*이미지 정보 객체입니다.*/
-            StudyInsFileDTO dto = new StudyInsFileDTO();
-            dto.setCont_No(cont_No);
+                String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
 
-            String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
+                dto.setFile_Name(uploadFileName);//3 : fileName
+                dto.setUploadPath(uploadPath.toString());//4 : uploadPath
+                System.out.println("업로드파일+" + uploadFileName);
 
-            dto.setFile_Name(uploadFileName);//3 : fileName
-            dto.setUploadPath(uploadPath.toString());//4 : uploadPath
-            System.out.println("업로드파일+" + uploadFileName);
+                //IE has file path
+                uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
 
-            //IE has file path
-            uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+                System.out.println("업로드파일+" + uploadFileName);
 
-            System.out.println("업로드파일+" + uploadFileName);
+                log.debug("only file name : " + uploadFileName);
 
-            log.debug("only file name : " + uploadFileName);
+                String uuid = UUID.randomUUID().toString();
+                dto.setUuid(uuid); // 5 : uuid
 
-            String uuid = UUID.randomUUID().toString();
-            dto.setUuid(uuid); // 5 : uuid
+                uploadFileName = uuid + "_" + uploadFileName;
 
-            uploadFileName = uuid + "_" + uploadFileName;
+                File saveFile = new File(uploadPath, uploadFileName);
 
-            File saveFile = new File(uploadPath, uploadFileName);
+                try {
+                    multipartFile.transferTo(saveFile);
 
-            try {
-                multipartFile.transferTo(saveFile);
+                    //check image type file
+                    if (UploadFileUtils.checkImageType(saveFile)) {
+                        FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+                        Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
 
-                //check image type file
-                if (UploadFileUtils.checkImageType(saveFile)) {
-                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
+                        thumbnail.close();
+                    }
+                } catch (Exception e) {
+                    log.error(e.getMessage());
 
-                    thumbnail.close();
-                }
-            } catch (Exception e) {
-                log.error(e.getMessage());
+                } // end catch
+                list.add(dto);
+            } // end for}
+            studyInsDTO.setFileDTO(list);
 
-            } // end catch
-            list.add(dto);
-        } // end for
+        }
 
-        studyInsDTO.setFileDTO(list);
 
-        Objects.requireNonNull(service);
+            Objects.requireNonNull(service);
 
-        if (service.register(cont_No, studyInsDTO, uploadFile)) {
-            rttrs.addFlashAttribute("result", "success");
-        } // if
+            if (service.register(cont_No, studyInsDTO, uploadFile)) {
+                rttrs.addFlashAttribute("result", "success");
+            } // if
 
-        log.debug(service.findMaxContNo());
+            log.debug(service.findMaxContNo());
 
-        //리다이렉트 파라미터 값 전송!
-        rttrs.addAttribute("cont_No", cont_No);
-        return "redirect:/studyIns/board/detail";
-    } // studyBoardPost
+            //리다이렉트 파라미터 값 전송!
+            rttrs.addAttribute("cont_No", cont_No);
+            return "redirect:/studyIns/board/detail";
+        } // studyBoardPost
 
 
 

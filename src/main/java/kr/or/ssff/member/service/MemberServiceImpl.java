@@ -50,20 +50,30 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
     public void insertMember(MemberDTO memberDTO) throws Exception{
         log.debug("insertMember({}) is invoked", "memberDTO = " + memberDTO);
         mapper.insertMember(memberDTO);
+        log.info("memberDTO = {}", memberDTO);
+
         // 인증키 생성
         String key = new TempKey().getKey(10, false);
-        mapper.createAuthkey(memberDTO.getMember_id(),key );
+        mapper.createAuthkey(memberDTO.getMember_id(), key);
+        log.info("key = {}", key);
+        log.info("mailSender = {}", mailSender);
+
         MailHandler sendMail = new MailHandler(mailSender);
+        log.info("sendMail = {}", sendMail);
 
         sendMail.setSubject("[삼삼오오 회원가입 서비스 이메일 인증 입니다.]");
         sendMail.setText(new StringBuffer().append("<h1>삼삼오오 가입 메일인증 입니다</h1>")
-                .append("<a href='http://localhost:8070/member/emailConfirm?member_id=")
-                .append(memberDTO.getMember_id()).append("&key=").append(key)
-                .append("' target='_blenk'>가입 완료를 위해 이메일 이곳을 눌러주세요</a>").toString());
+            .append("<a href='http://localhost:8070/member/emailConfirm?member_id=")
+            .append(memberDTO.getMember_id()).append("&key=").append(key)
+            .append("' target='_blenk'>가입 완료를 위해 이메일 이곳을 눌러주세요</a>").toString());
+
         sendMail.setFrom("tnsgud2358@naver.com", "SAMSAMOO");
         sendMail.setTo(memberDTO.getMember_id());
+
+        log.info("sendMail = {}", sendMail);
         sendMail.send();
 
+        log.info("sendMail = {}", sendMail);
     }//insertMember
 
     // 로그인 로직

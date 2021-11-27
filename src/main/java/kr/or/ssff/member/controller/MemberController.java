@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import kr.or.ssff.member.service.KaKaoService;
 import lombok.Setter;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletResponse;
@@ -81,9 +82,11 @@ public class MemberController {
 
         // 이메일 중복여부 확인 (사용가능하면 0)
         int result = service.idChk(memberDTO);
+        log.info("result = {}", result);
 
         // 닉네임 중복여부 확인 (사용가능하면 0)
         int result2 = service.nameChk(memberDTO);
+        log.info("result2 = {}", result2);
 
         try {
             // 닉네임 또는 이메일 중복일 때
@@ -98,25 +101,31 @@ public class MemberController {
                 rawPw = memberDTO.getMember_pwd();            // 비밀번호 데이터 얻음
                 encodePw = passwordEncoder.encode(rawPw);        // 비밀번호 인코딩
                 memberDTO.setMember_pwd(encodePw);
+                log.info("result2 = {}", result2);
+
                 // 인코딩된 비밀번호 member객체에 다시 저장
                 this.service.insertMember(memberDTO);
 
                 model.addAttribute("result", "ok");
                 model.addAttribute("refreshUrl", "2;url=../member/loginGo");
+
             }// try-resources
 
         } catch (Exception e) {
-            throw new RuntimeException();
+            e.printStackTrace();
+
         }//catch
 
 
-        return "redirect:/registerWait";
+        return "redirect:/member/registerWait";
     } // memberJoin
+
 
 
     // 이메일 인증 확인하면 나오는 경로
     @GetMapping("/emailConfirm")
     public String emailConfirm(String member_id, Model model) throws Exception {
+
         // authstatus 권한 상태 1로 변경
         service.updateAuthstatus(member_id);
         log.info("updateAuthstatus ({})", member_id);
@@ -258,7 +267,7 @@ public class MemberController {
     public String registerWaitGo() {
         log.debug("registerWaitGo() is invoked");
 
-        return "/registerWait";
+        return "/member/registerWait";
     } // memberMainGo
 
 

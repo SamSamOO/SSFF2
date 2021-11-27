@@ -67,7 +67,7 @@
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label font-weight-bolder text-dark font-size-h2-lg">메인페이지 임시 공사중..</span>
                             <p>&nbsp;</p>
-                            <a href="/studyIns/movingChang?r_Idx=9002">채팅방 입장</a>
+                            <a href="/studyIns/moveChang?r_Idx=${r_Idx}">채팅방 입장</a>
                         </h3>
                         <div class="card-toolbar">
 
@@ -80,7 +80,8 @@
                             <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
                             <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
                             <input type="hidden" name="category" value="${category}"/>
-                            <input type="hidden" name="r_Idx" value="9002"/>
+                            <input type="hidden" name="r_Idx" value="${r_Idx}"/>
+
                             <table class="table table-borderless">
 
                                 <tr>
@@ -141,6 +142,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+
                                 <c:forEach begin="1" end="3" var="noticeList" items="${noticeList}">
 
                                     <tr style="background-color: oldlace">
@@ -162,7 +164,9 @@
 
 
                                 <c:forEach items="${list}" var="list">
-
+                                    <c:if test="${list eq null or list eq ''} ">
+                                        <h2 style="font-weight: 700">게시판에 글이 없습니다!</h2>
+                                    </c:if>
                                     <tr>
                                         <td>${list.cont_No}</td>
                                         <td>${list.category}</td>

@@ -165,7 +165,7 @@
                                                 <!--begin::Form Group-->
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">비밀번호 확인</label>
-                                                    <input type="password" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_pwd1" name="member_pwd" placeholder="비밀번호를 한 번 더 입력해주세요." value="">
+                                                    <input type="password" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_pwd1" name="member_pwd1" placeholder="비밀번호를 한 번 더 입력해주세요." value="">
                                                     <div class="fv-plugins-message-container"></div></div>
                                                 <!--begin::Form Group-->
                                                 <!--end::Row-->

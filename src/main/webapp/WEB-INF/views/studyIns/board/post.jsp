@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -25,10 +26,10 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!------------------header.html Include------------------>
-            <jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/commons/header.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 시작------------------>
             <!--menu.html Include-->
-            <jsp:include page="/WEB-INF/commons/menu_main.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/commons/menu_main.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 종료------------------>
             <!--컨테이너 시작-->
             <div class="d-flex flex-row flex-column-fluid container">
@@ -97,7 +98,7 @@
                                                 </td>
                                                 <td align="right" colspan="2">
 
-                                                    <input id="member_Name" maxlength="20" value="nickname11"
+                                                    <input id="member_Name" maxlength="20" value="${member.member_name}"
                                                            name="member_Name">
                                                 </td>
                                             </tr>

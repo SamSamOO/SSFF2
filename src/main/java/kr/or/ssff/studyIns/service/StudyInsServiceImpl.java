@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-import javax.naming.event.ObjectChangeListener;
 import kr.or.ssff.mapper.StudyInsMapper;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
@@ -14,8 +13,6 @@ import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.socket.server.HandshakeHandler;
 
 /*
 
@@ -53,11 +49,11 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      */
 
     @Override
-    public Integer countArticle(String category) {
+    public Integer countArticle(HashMap<String, Object> map) {
         log.info("countArticle() is invoked");
 
         Objects.requireNonNull(mapper);
-        return this.mapper.countArticle(category);
+        return this.mapper.countArticle(map);
     }
 
     /* 게시글의 목록을 조회하는 함수입니다. (SI_BOARD table)
@@ -67,12 +63,12 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      */
 
     @Override
-    public List<StudyInsVO> getList(Criteria criteria, String category) throws Exception {
-        log.info("getList({}) is invoked", "criteria = " + criteria + ", category = " + category);
+    public List<StudyInsVO> getList(HashMap<String, Object> map) throws Exception {
+        log.info("getList({}) is invoked", "map = " + map);
 
         Objects.requireNonNull(mapper);
 
-        List<StudyInsVO> list = this.mapper.getListWithPaging(criteria.getPageNum(),criteria.getAmount(), category);
+        List<StudyInsVO> list = this.mapper.getListWithPaging(map);
 
         log.info("list = {}", list);
 
@@ -205,12 +201,12 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
     /*공지글 보이게하는 함수 -- 상준*/
     @Override
-    public List<StudyInsVO> showNotice() throws Exception {
+    public List<StudyInsVO> showNotice(HashMap<String, Object> map) throws Exception {
 
         log.info("showNotice() is invoked");
 
         Objects.requireNonNull(mapper);
-        List<StudyInsVO> list = this.mapper.showNotice();
+        List<StudyInsVO> list = this.mapper.showNotice(map);
 
         log.info("list = {}", list);
         return list;

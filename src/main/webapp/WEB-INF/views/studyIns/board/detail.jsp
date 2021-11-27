@@ -162,7 +162,7 @@
         }
 
         .recommendPost_userInfo__1Ozvo {
-
+            font-size: 20px;
             margin-left: 0.5rem;
 
         }
@@ -187,10 +187,10 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!------------------header.html Include------------------>
-            <jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/commons/header.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 시작------------------>
             <!--menu.html Include-->
-            <jsp:include page="/WEB-INF/commons/menu_main.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/commons/menu_main.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 종료------------------>
             <!--컨테이너 시작-->
             <div class="d-flex flex-row flex-column-fluid container">
@@ -342,10 +342,12 @@
                             <div class="recommendPost_bar__3GKlv"></div>
                             <div class="recommendPost_userInfo__1Ozvo"><span class="recommendPost_userName__2gZg6">${sessionId}</span>님이<br>좋아하실 글을 모아봤어요!</div>
                         </div>
-                        <ul title="여기에 동적 생성이 들어가야합니다." class="recommendPost_listWrapper__1Ix8x">
-                            <c:forEach var="list" items="${listByHit}" begin="1" end="6" varStatus="status">
+                        <ul class="recommendPost_listWrapper__1Ix8x">
+                            <c:forEach var="list" items="${listByHit}" begin="1" end="8" varStatus="status">
                                 <li class="recommendPost_postList__S6Av-">
-                                    <div class="recommendPost_title__38iq9"><span style="font-size: 24px">${status.count}.</span><a href="?cont_No=${list.cont_No}&r_Idx=${detail.r_Idx}"><c:out value="${list.title}"/></a></div>
+                                    <div class="recommendPost_index__2o2jf"></div>
+                                    <div class="recommendPost_title__38iq9"><span style="font-size: 24px">${status.count}. </span><a href="?cont_No=${list.cont_No}&r_Idx=${detail.r_Idx}" style="font-weight: 200; font-size: 24px; overflow: hidden"><c:out value="${list.title}"/></a></div>
+
 
                                 </li>
                             </c:forEach>
