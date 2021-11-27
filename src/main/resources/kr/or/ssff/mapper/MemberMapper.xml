@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.ssff.mapper.MemberMapper">
 
 	<!-- 회원가입 로직 - 장순형 -->
 	<insert id="insertMember"
-		parameterType="kr.or.ssff.member.domain.MemberDTO">
+			parameterType="kr.or.ssff.member.domain.MemberDTO">
 
 		<selectKey keyProperty="member_no" order="BEFORE" resultType="int">
 			SELECT MEMBER_SQE.NEXTVAL
@@ -30,7 +30,7 @@
 		SELECT *
 		FROM member
 		WHERE member_id=#{member_id}
-    </select>
+	</select>
 
 	<!-- 생성된 메일 인증키 업데이트 -->
 	<update id="createAuthkey">
@@ -67,7 +67,7 @@
 		<result column="STUDY_BOSS_YN" property="study_boss_yn"/>
 		<result column="ATTENDANCE_DAYS" property="attendance_days"/>
 
-		
+
 		<association javaType="kr.or.ssff.study.domain.RecruitBoardDTO" property="recruitBoardDTO">
 			<id column="R_IDX" property="r_idx"/>
 			<result column="MEMBER_NAME" property="member_name"/>
@@ -88,4 +88,3 @@
 	</resultMap>
 
 </mapper>
-

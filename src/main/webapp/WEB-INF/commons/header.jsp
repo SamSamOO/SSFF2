@@ -14,7 +14,6 @@
 <!------------------모바일 헤더 시작------------------>
 
 <div id="kt_header_mobile" class="header-mobile">
-ㅡ
     <!--로고 시작-->
     <a href="/">
         <img alt="Logo" src="/resources/assets/images/logos/ssff/logo-c1.png" class="max-h-30px" />
@@ -40,7 +39,7 @@
                     </c:if>
                     <c:if test="${member == null }">
                         <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                            <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default.png" />
+                            <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default1.png" />
                         </div>
                     </c:if>
                     <i class="text-dark fas fa-angle-down"></i>
@@ -154,7 +153,7 @@
                         </c:if>
                         <c:if test="${member == null }">
                             <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                                <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default.png" />
+                                <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default1.png" />
                             </div>
                         </c:if>
 

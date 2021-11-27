@@ -2,6 +2,7 @@
     | File Templates. --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <!--
@@ -25,7 +26,6 @@ License: You must have a valid license purchased only from themeforest(the above
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <link href="/resources/assets/css/style.list.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
         $(function () {
             $(`#searchBtn`).on('click', function (e) {
@@ -33,7 +33,6 @@ License: You must have a valid license purchased only from themeforest(the above
                 e.preventDefault(); //기본 동작 제한
                 actionForm.attr('action', '/manager/member/search');
                 actionForm.submit();
-
             });
             $("input[name='keyword']").on("keyup", function (key) {
                 if (key.keyCode == 13) {
@@ -48,14 +47,12 @@ License: You must have a valid license purchased only from themeforest(the above
         function submitConfirm() {
             $('#actionForm').submit();
         }
-
     </script>
+
 </head>
-
 <!----------------Head 종료----------------------->
+
 <!----------------Body 시작----------------------->
-
-
 <body id="kt_body" class="header-fixed subheader-enabled page-loading ">
 <!----------------메인 시작----------------------->
 <div class="d-flex flex-column flex-root">
@@ -89,10 +86,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                                         <li class="breadcrumb-item">
-                                            <a href="" class="text-muted">관리자 페이지</a>
+                                            <a href="/manager/member/list" class="text-muted">관리자 페이지</a>
                                         </li>
                                         <li class="breadcrumb-item">
-                                            <a href="" class="text-muted">회원 관리</a>
+                                            <a href="/manager/member/list" class="text-muted">회원 관리</a>
                                         </li>
                                     </ul>
                                     <!--Breadcrumb : 로드맵 종료-->
@@ -135,20 +132,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                          id="">
                                         <%------ 테이블 시작-------%>
                                         <%------ 테이블 헤드-------%>
-                                        <table class="user_list table table-hover">
+                                        <table class="mng_user_list table table-hover">
                                             <thead class="text-center">
                                             <tr>
+                                                <th scope="col">  </th>
                                                 <th scope="col">
-                                                    유저 번호
+                                                    닉네임
                                                 </th>
                                                 <th scope="col">
-                                                    유저 프로필
+                                                    아이디
                                                 </th>
                                                 <th scope="col">
-                                                    유저 아이디
-                                                </th>
-                                                <th scope="col">
-                                                    유저 이름
+                                                    액션
                                                 </th>
                                             <tr>
                                             </thead>
@@ -158,50 +153,47 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <c:forEach items="${memberList}" var="list">
 
                                                 <tr>
-
                                                         <%--회원번호--%>
-                                                    <td class="user_num"
-                                                        aria-label="회원 번호"
-                                                        data-field="UserNum">
-                                                        <div class="text-center">
-                                                                ${list.member_No}
-                                                        </div>
+                                                    <td class="user_num">
+                                                            ${list.member_No}
                                                     </td>
 
+                                                        <%--회원 사진 / 닉네임--%>
+                                                    <td class="user_pic_nick">
+                                                        <div>
+                                                            <a href="">
+                                                                <div class="symbol symbol-45 mr-3">
+                                                                    <c:if test="${list.member_Profile != '/resources/assets/images/icon/profile_default1.png' || list.member_Profile != 'default.jpg' }">
+                                                                    <img src="${list.member_Profile}" alt="photo">
+                                                                    </c:if>
+                                                                    <c:if test="${list.member_Profile == '/resources/assets/images/icon/profile_default1.png' || list.member_Profile == 'default.jpg' }">
+                                                                    <span class="symbol-label font-size-h5"> ${fn:substring(list.member_Name,0,1)} </span>
+                                                                    </c:if>
+                                                                </div>
 
-                                                        <%--닉네임--%>
-                                                    <td data-field="Nickname"
-                                                        aria-label="유저 닉네임"
-                                                        class="user_nick" align="center">
-
-                                                        <div class="symbol symbol-40 symbol-sm flex-shrink-0 ">
-                                                            <img src="${list.member_Profile}" alt="photo">
+                                                                <div class="ml-10 text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
+                                                                    ${list.member_Name}
+                                                                </div>
+                                                            </a>
                                                         </div>
-
-
                                                     </td>
-
-
                                                         <%--아이디--%>
-                                                    <td data-field="ID"
-                                                        aria-label="아이디"
-                                                        class="user_id ">
+                                                    <td class="user_id">
                                                         <div class="d-flex align-items-center justify-content-center">
                                                     <span class="mb-0">
                                                             ${list.member_Id}
                                                     </span>
-
                                                         </div>
                                                     </td>
-
-                                                        <%--액션--%>
-                                                    <td data-field="Actions"
-                                                        aria-label="액션 버튼"
-                                                        class="list_action text-center">
+                                                    <%--액션--%>
+                                                    <td class="list_action text-center">
                                                         <div class="ml-10 text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
-                                                                ${list.member_Name}
-                                                        </div>
-                                                    </td>
+                                                            <a href="javascript:;"
+                                                               class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2">
+                                                                <i class="far fa-user-circle"></i>
+                                                            </a>
+                                                                </div>
+                                                            </td>
                                                 </tr>
                                             </c:forEach>
                                             </tbody>
