@@ -41,6 +41,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class StudyInsController implements InitializingBean, DisposableBean {
 
     HttpSession session;
+
     @Autowired
     private StudyInsService service;
 
@@ -226,7 +227,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         HashMap<String, Object> map = new HashMap<>();
         map.put("cont_No", cont_No);
         map.put("r_Idx", r_Idx);
-        map.put("sessionId", session);
+        map.put("sessionId", session.getId());
 
         Objects.requireNonNull(service);
         //내용물 불러오기
