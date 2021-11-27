@@ -39,9 +39,7 @@
 
     <context:component-scan base-package="kr.or.ssff.controller"/>
 
-    <!-- 순형 작업 -->
-    <context:component-scan base-package="kr.or.ssff.member.controller"/>
-    <context:component-scan base-package="kr.or.ssff.member.service"/>
+
 	<!-- 순형 작업 -->
 	<context:component-scan base-package="kr.or.ssff.member.controller" />
 	<context:component-scan base-package="kr.or.ssff.member.service" />
@@ -49,22 +47,22 @@
 	<context:component-scan base-package="kr.or.ssff.member.Interceptor" />
 
 	<!-- interceptor 는 등록된 순서대로 순차적으로 실행 된다 -->
-    <beans:bean id="loginInterceptor"
-                class="kr.or.ssff.member.Interceptor.LoginInterceptor"/>
+<!--    <beans:bean id="loginInterceptor"-->
+<!--                class="kr.or.ssff.member.Interceptor.LoginInterceptor"/>-->
 
-	<interceptors>
-		<!-- 로그인을 처리하는 인터셉터  -->
-		<interceptor>
-
-            <mapping path="/member/main"/>
-            <mapping path="/member/modifyGo"/>
-            <mapping path="/member/idPwFindGo"/>
-            <mapping path="/study/challenge/main"/>
-            <beans:ref bean="loginInterceptor"/>
-		</interceptor>
+<!--	<interceptors>-->
+<!--		&lt;!&ndash; 로그인을 처리하는 인터셉터  &ndash;&gt;-->
+<!--		<interceptor>-->
 
 
-	</interceptors>
+<!--            <mapping path="/member/modifyGo"/>-->
+<!--            <mapping path="/member/idPwFindGo"/>-->
+<!--            <mapping path="/study/challenge/main"/>-->
+<!--            <beans:ref bean="loginInterceptor"/>-->
+<!--		</interceptor>-->
+
+
+<!--	</interceptors>-->
 
 
 
