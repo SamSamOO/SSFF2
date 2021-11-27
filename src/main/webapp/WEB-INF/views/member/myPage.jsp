@@ -16,12 +16,20 @@
 
             margin-left: 10px;
         }
-        .d-flex1{
+        .d-flex1 {
             margin-left: 500px;
+        }
 
-
+         ul{
+             list-style:none;
+         }
+        .logo-to-sort li {
+            float: left;
+            margin: 0.75rem;
+            list-style: none;
         }
     </style>
+
 </head>
 <body>
 <form class="form">
@@ -106,7 +114,7 @@
 
                         <div class="studylist-nav d-inline-block w-100 mt-4 mb-4 pt-4 rounded-xl shadow">
                             <!--스터디리스트 중간 로고 박힌 네비 부분-->
-                            <ul class="logo-to-sort d-flex flex-wrap justify-content-center ">
+                            <ul class="logo-to-sort d-flex flex-wrap justify-content-center">
                                 <li><img src="${pageContext.request.contextPath}/resources/assets/images/logos/language/javascript.png" width="50px" onclick="logoClicked('javascript')" id="logo_javascript"></li>
                                 <li><img src="${pageContext.request.contextPath}/resources/assets/images/logos/language/typescript.png" width="50px" onclick="logoClicked('typescript')" id="logo_typescript" class=""></li>
                                 <li><img src="${pageContext.request.contextPath}/resources/assets/images/logos/language/react.png" width="50px" onclick="logoClicked('react')" id="logo_react" class=""></li>
