@@ -120,7 +120,6 @@
                                         <div class="apply-sec">
                                             <ul>
                                             <!-- TODO data-value="re" << 값 세션 아이디로 바꿔야 될 부분  -->
-
                                                 <c:choose>
                                                     <c:when test="${member.member_name != board.member_name}">
 
@@ -354,14 +353,11 @@
 function applyChallenge(action){
     //예솔 : 세션 없는사람은 튕겨내는 로직///////////////////
     let member_name ='${member.member_name}';
-
     if(!member_name){
         alert('로그인후 지원 부탁드립니다');
         return;
     }
-
-
-    ///////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////
     sAlert();
     
     var submitObj = new Object();

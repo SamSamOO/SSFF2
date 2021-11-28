@@ -282,13 +282,13 @@ public class StudyController {
         List<LangVO> langList = this.service.getLangTagByR_idx(r_idx);
 
         Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
-
+        List<ApplyMemberDTO> applylist = this.service.getMemberByR_idx(r_idx);
         if (replyCount == null) {
             model.addAttribute("replyCount", 0);
         } else {
             model.addAttribute("replyCount", replyCount);
         }
-
+        model.addAttribute("applylist", applylist);
         model.addAttribute("board", board);
         model.addAttribute("langList", langList);
     } // selectProjectDetailGo
