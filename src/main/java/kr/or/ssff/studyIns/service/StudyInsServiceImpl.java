@@ -131,13 +131,21 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
         studyInsDTO.setCont_No(cont_No);
         /*파일 리스트를 변수에 저장합니다.*/
-        List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
+        List<StudyInsFileDTO> listOfFiles;
+        listOfFiles = studyInsDTO.getFileDTO();
+
+        log.info("listOfFiles = {}", listOfFiles);
 
         /*게시물 내용 저장합니다.*/
         int affectedRows = mapper.insertBoard(studyInsDTO);
 
+        log.info("listOfFiles = {}", listOfFiles);
+
         /*게시물 첨부파일을 저장합니다.*/
+
         int ar2 = mapper.insertFiles(listOfFiles);
+        log.info("ar2 = {}", ar2);
+
         return affectedRows == 1;
     }
 

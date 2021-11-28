@@ -12,51 +12,7 @@
 
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
-    <script>
-        <c:choose>
-        <c:when test="${member.member_id==null}">
 
-        Swal.fire({
-            icon: 'warning', // Alert 타입
-            title: '로그인 오류', // Alert 제목
-            text: '로그인 하세요', // Alert 내용
-
-            buttons: {
-                confirm: {
-                    text: '확인 ',
-                    value: true,
-                    className: 'btn btn-outline-primary'
-                }
-            }
-        }).then((result)=>{
-            if (result) {
-                location.href = "/member/loginGo";
-            }
-        });
-
-        </c:when>
-        <c:when test="${inStudy==0}">
-        Swal.fire({
-            icon: 'warning', // Alert 타입
-            title: '스터디원이 아닙니다.', // Alert 제목
-            text: '스터디원이 아닙니다.', // Alert 내용
-
-            buttons: {
-                confirm: {
-                    text: '스터디 ',
-                    value: true,
-                    className: 'btn btn-outline-primary'
-                }
-            }
-        }).then((result)=>{
-            if (result) {
-                location.href = "javascript:history.back()";
-            }
-        });
-
-        </c:when>
-        </c:choose>
-    </script>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -122,7 +78,7 @@
                                         <input type="hidden" name="cont_No" value="${cont_No+1}">
                                         <c:out value="${cont_No+1}"/>
                                         <p>cont_No 출력</p>
-                                        <input type="hidden" name="r_Idx" value="9002"/>
+                                        <input type="text" name="r_Idx" value="${map.get("r_Idx")}"/>
 
                                         <table style="width: 100%">
 
@@ -207,6 +163,49 @@
     let regex = new RegExp(`(.*?).(jpg|jpeg|png|gif|bmp)$`, `i`);
     let maxSize = 5242880; //5MB
     $(function () {
+        <c:choose>
+        <c:when test="${member.member_id==null}">
+
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '로그인 오류', // Alert 제목
+            text: '로그인 하세요', // Alert 내용
+
+            buttons: {
+                confirm: {
+                    text: '확인 ',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "/member/loginGo";
+            }
+        });
+
+        </c:when>
+        <c:when test="${inStudy==0}">
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '스터디원이 아닙니다.', // Alert 제목
+            text: '스터디원이 아닙니다.', // Alert 내용
+
+            buttons: {
+                confirm: {
+                    text: '스터디',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "/";
+            }
+        });
+
+        </c:when>
+        </c:choose>
         console.clear();
         console.debug("제이쿼리 시작");
 
@@ -263,9 +262,9 @@
             $.ajax({
                 url: '/board/postGo',
                 processData: false,
-                contentType : false,
-                data : formData,
-                type : 'POST',
+                contentType: false,
+                data: formData,
+                type: 'POST',
                 dataType: 'json'
             });
 

@@ -39,8 +39,8 @@
                DEAD_OK
         from RECRUIT_BOARD RB
                  join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
-        where RB.R_IDX = #{map.r_Idx,jdbcType=INTEGER}
-          and RB.MEMBER_NAME = #{map.member.member_name,jdbcType=VARCHAR}
+        where AM.R_IDX = #{map.r_Idx,jdbcType=INTEGER}
+          and AM.MEMBER_NAME = #{map.member.member_name,jdbcType=VARCHAR}
           and AM.STUDY_JOIN_ARCIWF = 'i'
 
 

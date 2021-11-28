@@ -70,7 +70,7 @@
             console.log("제이쿼리 시작");
             $(`#regBtn`).on('click', function () {
                 console.log("regBtn 클릭");
-                self.location = "/studyIns/board/postGo";
+                self.location = "/studyIns/board/postGo?r_Idx=" + $(`#r_Idx`).val();
             });
 
         });
@@ -111,7 +111,7 @@
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label font-weight-bolder text-dark font-size-h2-lg">메인페이지 임시 공사중..</span>
                             <p>&nbsp;</p>
-                            <a href="/moveChating?r_Idx=${map.get("r_Idx")}">채팅방 입장</a>
+                            <button class="btn btn-light-instagram" onclick="window.open('/moveChating?r_Idx=${map.get("r_Idx")}','window_name','width=600,height=500,location=no,status=no,scrollbars=yes');">button</button>
                         </h3>
                         <div class="card-toolbar">
                         </div>

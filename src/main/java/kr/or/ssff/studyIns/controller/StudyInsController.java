@@ -420,12 +420,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * */
     @GetMapping("/board/postGo")
     public String studyBoardPostGo(@RequestParam("r_Idx") Integer r_Idx,Model model) {
-        log.info("studyBoardPostGo({}) is invoked", ", model = " + model);
+        log.info("studyBoardPostGo({}) is invoked", "r_Idx = " + r_Idx + ", model = " + model);
+
         MemberDTO dto = (MemberDTO) session.getAttribute("member");
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("member", dto);
-        map.put("r_idx", r_Idx);
+        map.put("r_Idx", r_Idx);
 
         Objects.requireNonNull(service);
         Integer maxNumber = service.findMaxContNo();
@@ -434,8 +435,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         Integer inStudy = service1.checkYouInStudy(map);
         log.info("inStudy = {}", inStudy);
 
-
-
+        model.addAttribute("map", map);
         model.addAttribute("inStudy", inStudy);
         model.addAttribute("cont_No", maxNumber);
 
@@ -470,10 +470,12 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         //make yyyy/MM/dd folder
 
+        log.info("uploadFile = {}", (Object) uploadFile);
 
         /*이미지의 정보를 담는 객체*/
         List<StudyInsFileDTO> list = new ArrayList<>();
-        if (uploadFile != null) {
+
+        if (studyInsDTO.getFileDTO()!=null) {
             for (MultipartFile multipartFile : uploadFile) {
                 log.debug("------------------------------------");
                 log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
@@ -519,10 +521,10 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
                 } // end catch
                 list.add(dto);
-            } // end for}
+            } // end for
             studyInsDTO.setFileDTO(list);
 
-        }
+        } // if
 
 
             Objects.requireNonNull(service);
