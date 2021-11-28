@@ -139,7 +139,7 @@ public class StudyController {
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                null, "nickname55", 'C',
+                null, dto.getMember_name(), 'C',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),
@@ -315,7 +315,7 @@ public class StudyController {
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                null, "nickname55", 'P',
+                null, dto.getMember_name(), 'P',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),

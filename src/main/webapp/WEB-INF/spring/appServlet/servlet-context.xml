@@ -55,10 +55,12 @@
 <!--		<interceptor>-->
 
 
-<!--            <mapping path="/member/modifyGo"/>-->
-<!--            <mapping path="/member/idPwFindGo"/>-->
-<!--            <mapping path="/study/challenge/main"/>-->
-<!--            <beans:ref bean="loginInterceptor"/>-->
+  <!--            <mapping path="/member/modifyGo"/>-->
+  <!--            <mapping path="/member/idPwFindGo"/>-->
+  <!--            <mapping path="/study/challenge/main"/>-->
+  <!--            <mapping path="/study/challenge/postGo"/> 예솔-->
+  <!--            <mapping path="/study/project/postGo"/> 예솔-->
+  <!--            <beans:ref bean="loginInterceptor"/>-->
 <!--		</interceptor>-->
 
 
