@@ -141,7 +141,7 @@
 
                                         <!--parameter 6 : 글내용-->
                                         <div id="cont-sec">
-                                            <textarea id="summernote" name="cont"></textarea>
+                                            <textarea id="summernote" name="cont">${member.member_name}</textarea>
                                         </div>
                                         <div id="button-sec">
                                             <ul>

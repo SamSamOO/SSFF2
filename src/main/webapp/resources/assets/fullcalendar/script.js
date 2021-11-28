@@ -65,7 +65,7 @@ function exmapleData () {
   return [
     {
       title: "All Day Event",
-      start: "2021-11-01",
+      start: "2021-11-01"
     },
     {
       title: "Long Event",

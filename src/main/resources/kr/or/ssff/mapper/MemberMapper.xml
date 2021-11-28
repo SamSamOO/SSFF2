@@ -27,7 +27,8 @@
 			id="Login"
 			resultType="kr.or.ssff.member.domain.MemberDTO"
 	>
-		SELECT *
+		SELECT member_no, member_name,member_id,member_pwd,member_pwd,member_profile,member_introduce
+		,member_enabled,authkey,authstatus
 		FROM member
 		WHERE member_id=#{member_id}
     </select>

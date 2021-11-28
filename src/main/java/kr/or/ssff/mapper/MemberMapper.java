@@ -12,14 +12,14 @@ import org.apache.ibatis.annotations.Mapper;
  * 목적: member DAO (Data Access Object) : 지정된 테이블을 목록 조회, CRUD할 수 있는 메소드를 선언
  */
 
-@Mapper
+
 public interface MemberMapper {
 
 	//-------------- 장순형 CRUD ---------------//
 	//회원가입
 	public void insertMember(MemberDTO MemberDTO)  throws Exception;
 	//로그인
-	public  MemberDTO Login(MemberDTO MemberDTO);
+	public  abstract MemberDTO Login(MemberDTO MemberDTO);
 	// 디비에 authkey저장
 	public int createAuthkey(String member_id, String authkey) throws Exception;
 	// 이메일 인증 후 authstatus 1로  변경
