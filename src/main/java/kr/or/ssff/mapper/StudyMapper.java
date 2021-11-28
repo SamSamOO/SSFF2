@@ -10,6 +10,7 @@ import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface StudyMapper {
     //글등록하기
@@ -74,6 +75,6 @@ public interface StudyMapper {
     //logoset을 쓰는 게시글 번호들을 받아오기
     //public abstract ArrayList<Integer> getR_idxListUsingLogoset(@Param("arr")String[] arr);
     //출석 +1 기능입니다 : 박상준
-    public abstract Integer updateAttendance(HashMap<String, Object> map);
+    public abstract Integer updateAttendance(@Param("map") HashMap<String, Object> map);
 }
 
