@@ -2,6 +2,8 @@ package kr.or.ssff.study.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -105,12 +107,15 @@ public class StudyController {
 
         Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
 
+        List<ApplyMemberDTO> applylist = this.service.getMemberByR_idx(r_idx);
+
         if (replyCount == null) {
             model.addAttribute("replyCount", 0);
         } else {
             model.addAttribute("replyCount", replyCount);
         }
         model.addAttribute("board", board);
+        model.addAttribute("applylist", applylist);
     } // selectChallengeDetailGo
 
 

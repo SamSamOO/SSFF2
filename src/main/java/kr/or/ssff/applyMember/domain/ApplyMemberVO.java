@@ -1,5 +1,7 @@
 package kr.or.ssff.applyMember.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Value;
 
 import java.sql.Date;
@@ -18,7 +20,6 @@ STUDY_JOIN_CHANGE_DATE	DATE				Yes		5	최종상태변경일자
 STUDY_BOSS_YN			CHAR(1 BYTE)		No	'n' 6	개설자여부
 ATTENDANCE_DAYS			NUMBER				Yes		7	누적출석일수
  */
-
 @Value
 public class ApplyMemberVO {
 	private String apply_idx;
