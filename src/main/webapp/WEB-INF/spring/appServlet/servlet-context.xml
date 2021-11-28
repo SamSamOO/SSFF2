@@ -27,7 +27,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
 	<!--상준 : 로컬에서 이미지 불러오기 (우회)-->
-	<resources mapping="/image/**" location="file:///C:/Temp/upload/"/>
+<!--	<resources mapping="/image/**" location="file:///C:/Temp/upload/"/>-->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -44,26 +44,23 @@
 	<context:component-scan base-package="kr.or.ssff.member.controller" />
 	<context:component-scan base-package="kr.or.ssff.member.service" />
 	<context:component-scan base-package="kr.or.ssff.member.Utils" />
-<!--	<context:component-scan base-package="kr.or.ssff.member.Interceptor" />-->
+	<context:component-scan base-package="kr.or.ssff.member.Interceptor" />
 
-<!--	&lt;!&ndash; interceptor 는 등록된 순서대로 순차적으로 실행 된다 &ndash;&gt;-->
+	<!-- interceptor 는 등록된 순서대로 순차적으로 실행 된다 -->
+<!--    <beans:bean id="loginInterceptor"-->
+<!--                class="kr.or.ssff.member.Interceptor.LoginInterceptor"/>-->
+
 <!--	<interceptors>-->
-
-
 <!--		&lt;!&ndash; 로그인을 처리하는 인터셉터  &ndash;&gt;-->
 <!--		<interceptor>-->
-<!--			<mapping path="/user/login"/>-->
-<!--			<beans:ref bean="loginInterceptor"/>-->
 
+
+<!--            <mapping path="/member/modifyGo"/>-->
+<!--            <mapping path="/member/idPwFindGo"/>-->
+<!--            <mapping path="/study/challenge/main"/>-->
+<!--            <beans:ref bean="loginInterceptor"/>-->
 <!--		</interceptor>-->
 
-<!--		<interceptor>-->
-<!--			&lt;!&ndash; login 인증이 필요한 URI 들 &ndash;&gt;-->
-<!--			<mapping path="/member/main"/>-->
-<!--			<mapping path="/member/modify"/>-->
-<!--			<mapping path="/member/idPwFind"/>-->
-<!--			<beans:ref bean="authInterceptor"/>-->
-<!--		</interceptor>-->
 
 <!--	</interceptors>-->
 
@@ -83,15 +80,15 @@
 
     <!-- 파일 업로드를 위한 설정을 추가 -->
 
-    <!--	<beans:bean-->
-    <!--		id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
-    <!--      <beans:property name="defaultEncoding" value="utf8"/>-->
-    <!--      <beans:property name="maxUploadSize" value="10485760"/>-->
-    <!--      <beans:property name="maxUploadSizePerFile" value="2097152"/>-->
-    <!--      <beans:property name="uploadTempDir" value="/Users/jangsunhyeong/Desktop/복습"/>-->
-    <!--      <beans:property name="maxInMemorySize" value="1048576"/>-->
-    <!--      <beans:property name="preserveFilename" value="true"/>-->
-    <!--    </beans:bean>-->
+<!--    	<beans:bean-->
+<!--    		id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">-->
+<!--          <beans:property name="defaultEncoding" value="utf8"/>-->
+<!--          <beans:property name="maxUploadSize" value="10485760"/>-->
+<!--          <beans:property name="maxUploadSizePerFile" value="2097152"/>-->
+<!--          <beans:property name="uploadTempDir" value="file:/Users/jangsunhyeong/Desktop/복습"/>-->
+<!--          <beans:property name="maxInMemorySize" value="1048576"/>-->
+<!--          <beans:property name="preserveFilename" value="true"/>-->
+<!--        </beans:bean>-->
 
 
     <!--예솔 작업-->
@@ -107,6 +104,7 @@
 
     <!--민주 작업-->
     <context:component-scan base-package="kr.or.ssff.manager.controller"/>
+
     <context:component-scan base-package="kr.or.ssff.manager.service"/>
 
     <!--이미지 리소스 경로설정-->

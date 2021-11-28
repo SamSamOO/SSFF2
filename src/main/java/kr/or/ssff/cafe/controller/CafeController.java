@@ -105,13 +105,13 @@ public class CafeController {
    * 반환: 우선 카페리스트
    * */
   @PostMapping("/reserve/insert")
-  public String insertReservation(RedirectAttributes rttrs,
+  public void insertReservation(RedirectAttributes rttrs,
       @ModelAttribute("reservationDTO") ReservationDTO reservationDTO,
       Model model) {
     log.info("insertReservation({}) is invoked", reservationDTO);
 
-    Integer rsrv_phone_number = reservationDTO.getRsrv_phone_number();
-    reservationDTO.setRsrv_phone_number(rsrv_phone_number); // 형변환 자꾸 오류나서..
+//    Integer rsrv_phone_number = reservationDTO.getRsrv_phone_number();
+//    reservationDTO.setRsrv_phone_number(rsrv_phone_number); // 형변환 자꾸 오류나서..
 
 
 //    Objects.requireNonNull(service);
@@ -120,7 +120,6 @@ public class CafeController {
       log.info("rttrs({}) is rttrs", rttrs);
     } // if
 
-    return "redirect:/cafe/list"; // TODO 예약내역단 나오면 변경예정!
   } // insertReservation
 
 

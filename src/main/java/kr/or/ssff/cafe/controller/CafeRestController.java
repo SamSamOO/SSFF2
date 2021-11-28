@@ -5,10 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import kr.or.ssff.cafe.domain.CafeListVO;
-import kr.or.ssff.cafe.domain.ReservationVO;
+import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
 import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
-import kr.or.ssff.cafe.model.RoomDTO;
 import kr.or.ssff.cafe.service.CafeService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Log4j2
@@ -34,10 +32,38 @@ public class CafeRestController {
   private CafeService service;
 
 
+  /*
+   * 스터디 카페 리스트를 비동기 조회
+   * 매니저 단에서 활용
+   * 매개변수: ajax로 전송받은 검색키워드
+   * 반환: 스터디 카페 리스트 정보를 담은 JSON객체
+   * */
+  @RequestMapping(value= "/manager/listData",
+      method = RequestMethod.POST,
+      produces = "application/json; charset=UTF-8")
+  //없으면 AJAX 통신 안됨
+  public  JSONObject getManagerCafeList(
+      @RequestBody HashMap<String, String> filterJSON
+  ) throws Exception {
+    log.debug("getManagerCafeList({}) is invoked", filterJSON);
+    log.info("ajax 요청 도착!");
+
+    // Cafe 모든 정보 담아내기
+    List<CafeVO> cafeList = this.service.getManagerCafeList(filterJSON);
+
+    //최종 완성될 JSONObject 선언(전체)
+    JSONObject jsonObject = new JSONObject();
+
+    jsonObject.put("cafeList", cafeList);
+
+
+    return jsonObject;
+  } // getManagerCafeList
 
 
   /*
    * 스터디 카페 리스트를 비동기 조회
+   * 사용자용 카페 리스트 화면에서 활용
    * 매개변수: ajax로 전송받은 JSON객체
    * 반환: 스터디 카페 리스트 정보를 담은 JSON객체
    * */
@@ -161,7 +187,7 @@ public class CafeRestController {
 //---------------------------예약-----------
 
   /*
-   * 스터디 카페 리스트를 비동기 조회
+   * 예약내역 리스트를 비동기 조회
    * 매개변수: ajax로 전송받은 JSON객체
    * 반환: 스터디 카페 리스트 정보를 담은 JSON객체
    * */

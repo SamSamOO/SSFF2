@@ -24,12 +24,11 @@ public interface MemberMapper {
 	public int createAuthkey(String member_id, String authkey) throws Exception;
 	// 이메일 인증 후 authstatus 1로  변경
 	public void updateAuthstatus(String member_id) throws Exception;
-
 	// 이메일 중복체크
 	public int idChk( MemberDTO memberDTO) throws Exception;
-
 	// 닉네임 중복체크
 	public int nameChk( MemberDTO memberDTO) throws Exception;
+
 
 
 

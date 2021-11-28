@@ -6,6 +6,7 @@ import kr.or.ssff.cafe.domain.CafeInfoVO;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationDTO;
+import kr.or.ssff.cafe.domain.ReservationVO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
 import kr.or.ssff.cafe.domain.RoomVO;
 import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
@@ -51,6 +52,9 @@ public interface CafeMapper {
   public abstract CafeVO selectCafe(String cafe_idx);
 
 
+  // 전체 목록조회(매니저) : 신지혜
+  List<CafeVO> selectManagerCafeList(HashMap<String, String> searchKey);
+
 
 
 
@@ -68,4 +72,13 @@ public interface CafeMapper {
 
   // 예약취소
   boolean cancelReservation(HashMap<String, String> searchKey);
+
+  // 임시 예약된 정보 하나를 조회
+  ReservationVO selectTempRsrv();
+
+  // 거래정보 등록 실패시 관련 예약 정보도 삭제
+  Integer deleteReservation(String tempRsrvIdx);
+
+  // 거래정보 등록 성공시 예약정보의 상태컬럼 정상으로 업데이트!
+  Integer setReservation(String tempRsrvIdx);
 } // end interface
