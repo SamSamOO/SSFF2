@@ -54,7 +54,7 @@
       vertical-align: middle;
     }
 
-    /*---------- 모달 ----------*/
+    /*---------- 모달 end ----------*/
 
 
      #rsrvSubmit {
@@ -63,7 +63,11 @@
 	     font-size: 1.28rem;
 	
      }
-		
+
+    .datatable-cell.datatable-cell-sort.datatable-cell-sorted span {
+	     font-size: 5.0rem;
+     }
+
 
 		</style>
 		<!--head.html Include-->
@@ -109,7 +113,7 @@
 																<!--end::Separator-->
 																<!--begin::Search Form-->
 																<div class="d-flex align-items-center" id="kt_subheader_search">
-																		<span class="text-dark-50 font-weight-bold" id="kt_subheader_total">카페이름</span>
+																		<span class="text-dark-50 font-weight-bold" id="kt_subheader_total">${cafeVO.cafe_name}</span>
 																</div>
 																<!--end::Search Form-->
 														</div>
@@ -117,14 +121,9 @@
 														<!--begin::Toolbar-->
 														<div class="d-flex align-items-center">
 																<!--begin::Button-->
-																<a href="#" class="btn btn-default font-weight-bold">Back</a>
+																<a onclick="history.back();" class="btn btn-default font-weight-bold">Back</a>
 																<!--end::Button-->
-																<!--begin::Dropdown-->
-																<div class="btn-group ml-2">
-																		<button type="button" class="btn btn-primary font-weight-bold">Save Changes
-																		</button>
-																</div>
-																<!--end::Dropdown-->
+																
 														</div>
 														<!--end::Toolbar-->
 												</div>
@@ -136,7 +135,7 @@
 										<!--begin::Content-->
 										<div class="content flex-column-fluid" id="kt_content">
 												<form action="/cafe/reserve/insert" method="post" id="formObj">
-														<input type="hidden" name="member_name" value="nickname9312">
+														<input type="hidden" name="member_name" value="${member.member_name}">
 														<input type="hidden" name="use_date" value="${roomRsrvInfoDTO.use_date}">
 														<input type="hidden" name="use_start_time" value="${roomRsrvInfoDTO.use_start_time}">
 														<input type="hidden" name="use_end_time" value="${roomRsrvInfoDTO.use_end_time}">
@@ -168,18 +167,20 @@
 																										
 																										<!--begin::Name-->
 																										<a href="/cafe/detail?cafe_idx=${cafeVO.cafe_idx}"
-																										   class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">
+																										   class="d-flex align-items-center text-dark text-hover-primary font-size-h1 font-weight-bold mr-3">
 																												${cafeVO.cafe_main_title}
-																												<i class="flaticon2-correct text-success icon-md ml-2"></i></a>
+																												<i class="flaticon2-correct text-success icon-lg ml-2"></i></a>
 																										<!--end::Name-->
+																									<div style="height: 200px;">
 																										<span
 																												class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">
 																										
-																										<c:forEach items="${fn:split(cafeVO.cafe_details,' ')}"
+																										<c:forEach items="${fn:split(cafeVO.cafe_details,'.')}"
 																										           var="content">
-																												- ${content}
+																											&nbsp;*&nbsp; ${content}
 																										</c:forEach>
 																										</span>
+																								</div>
 																								</div>
 																								
 																								
@@ -297,46 +298,19 @@
 																				
 																				<!--begin::Tab Content-->
 																				<div class="tab-pane active" id="kt_apps_projects_view_tab_3">
-																						
-																								<div class="row">
-																										<div class="col-lg-9 col-xl-6 offset-xl-3">
-																												
-																												<!--begin::Notice alert-->
-																												<div class="alert alert-custom alert-light-danger fade show mb-9"
-																												     role="alert">
-																														<div class="alert-icon">
-																																<i class="flaticon-warning"></i>
-																														</div>
-																														<div class="alert-text"> 모두 입력해야 예약 가능하다는 안내 함 째리고요
-																														</div>
-																														<div class="alert-close">
-																																<button type="button" class="close" data-dismiss="alert"
-																																        aria-label="Close">
-																																<span aria-hidden="true">
-																																	<i class="ki ki-close"></i>
-																																</span>
-																																</button>
-																														</div>
-																												</div>
-																												<!--end::Notice alert -->
-																										
-																										</div>
-																								</div>
-																								
 																								
 																								<div class="form-group row">
-																										<label class="col-xl-3 col-lg-3 col-form-label text-right">성함</label>
+																										<label class="col-xl-3 col-lg-3 col-form-label text-right">Name</label>
 																										<div class="col-lg-9 col-xl-6">
-																												<div class="spinner spinner-sm spinner-success spinner-right">
-																														<input class="form-control form-control-lg form-control-solid"
-																														       name="rsrv_name"
-																														       type="text" value="" required/>
-																												</div>
+																											<input class="form-control form-control-lg form-control-solid"
+																											       name="rsrv_name" title="성함" id="rname" placeholder="필수입력"
+																											       type="text" value="" required/>
+																												
 																										</div>
 																								</div>
 																								
 																								<div class="form-group row">
-																										<label class="col-xl-3 col-lg-3 col-form-label text-right">연락처</label>
+																										<label class="col-xl-3 col-lg-3 col-form-label text-right">Phone</label>
 																										<div class="col-lg-9 col-xl-6">
 																												<div class="input-group input-group-lg input-group-solid">
 																														
@@ -345,9 +319,9 @@
 																																		<i class="la la-phone"></i>
 																																	</span>
 																														</div>
-																														<input type="text" name="rsrv_phone_number"
+																														<input type="text" name="rsrv_phone_number" title="연락처" id="rnum"
 																														       class="form-control form-control-lg form-control-solid"
-																														       value="" placeholder="Phone" required/>
+																														       value="" placeholder="필수입력" required/>
 																												</div>
 																												<span class="form-text text-muted">예약 알림톡이 발송됩니다.</span>
 																										</div>
@@ -357,7 +331,7 @@
 																								
 																								<div class="form-group row">
 																										<label class="col-xl-3 col-lg-3 col-form-label text-right">Email
-																												Address</label>
+																												</label>
 																														<div class="col-lg-9 col-xl-6">
 																																<div class="input-group input-group-lg input-group-solid">
 																																		<div class="input-group-prepend">
@@ -365,18 +339,17 @@
 																																				<i class="la la-at"></i>
 																																			</span>
 																																		</div>
-																																		<input type="text" name="rsrv_email"
+																																		<input type="text" name="rsrv_email" title="이메일주소" id="remail"
 																																		       class="form-control form-control-lg form-control-solid"
-																																		       value="" placeholder="Email" required/>
+																																		       value="" placeholder="필수입력" required/>
 																																</div>
-																																<span class="form-text text-muted">메일발송째림.
-																																<a href="#">Learn more</a>.</span>
+																															<span class="form-text text-muted">알림 메일이 발송됩니다.</span>
 																														</div>
 																								</div>
 																								
 																								
 																								<div class="form-group row">
-																										<label class="col-xl-3 col-lg-3 col-form-label text-right">요청사항</label>
+																										<label class="col-xl-3 col-lg-3 col-form-label text-right">Memo</label>
 																												<div class="col-lg-9 col-xl-6">
 																														<textarea class="form-control form-control-lg form-control-solid"
 																														          id="rsrv_message" rows="3" name="rsrv_message"
@@ -384,10 +357,6 @@
 																														</textarea>
 																										</div>
 																								</div>
-																						
-																						
-																						
-																						
 																						
 																						<!--begin: Items-->
 																				
@@ -442,7 +411,7 @@
 																						<tr class="datatable-row" style="left: 0px;">
 																								<th data-field="OrderID"
 																								    class="datatable-cell datatable-cell-sort datatable-cell-sorted"
-																								    data-sort="asc"><span style="width: 250px;">결제정보</span></th>
+																								    data-sort="asc"><span style="width: 250px;font-size: 1.3rem;">결제정보</span></th>
 																						</tr>
 																						</thead>
 																						<tbody style="" class="datatable-body">
@@ -509,7 +478,7 @@
 																								<span style="">
 																								<div class="d-flex align-items-center">
 																										<div class="ml-4">
-																												<div class="text-dark-75 font-size-lg mb-0">
+																												<div class="font-weight-bolder mb-0 datatable-cell-sorted h3">
 																														
 																														<fmt:formatNumber value="${roomRsrvInfoDTO.total_amount}"
 																														                  pattern="#,###"/> 원</div>
@@ -537,16 +506,94 @@
 																						<tr class="datatable-row" style="left: 0px;">
 																								<th data-field="OrderID"
 																								    class="datatable-cell datatable-cell-sort datatable-cell-sorted"
-																								    data-sort="asc"><span style="width: 250px;">환불규정</span></th>
+																								    data-sort="asc"><span style="width: 250px;font-size: 1.3rem;">환불규정</span></th>
 																						</tr>
 																						</thead>
 																						<tbody style="" class="datatable-body">
 																						
-																						<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
-																								<td class="datatable-cell-left datatable-cell ml-15" data-field="RecordID"
-																								    aria-label="400"><span><span
-																										class="font-weight-bolder">1. 다꺼져ㅠ 왜 안돼</span></span></td>
+																						
+																						<tr data-row="0" class="datatable-row" style="left: 0px;">
+																							<td class="col-4 datatable-cell-center datatable-cell" data-field=""
+																							    aria-label="400"><span><span
+																								class="font-weight-bolder">이용 4일 전</span></span></td>
+																							<td class="datatable-cell-sorted datatable-cell" data-field=""
+																							    aria-label="0004-0800">
+																								<span style="">
+																								<div class="d-flex align-items-center">
+																										<div class="ml-4">
+																												<div class="text-dark-75 font-size-lg mb-0">
+																															총 금액의 100% 환불</div>
+																										</div>
+																								</div></span>
+																							</td>
 																						</tr>
+																						
+																						<tr data-row="0" class="datatable-row" style="left: 0px;">
+																							<td class="col-4 datatable-cell-center datatable-cell" data-field=""
+																							    aria-label="400"><span><span
+																								class="font-weight-bolder">이용 3일 전</span></span></td>
+																							<td class="datatable-cell-sorted datatable-cell" data-field=""
+																							    aria-label="0004-0800">
+																								<span style="">
+																								<div class="d-flex align-items-center">
+																										<div class="ml-4">
+																												<div class="text-dark-75 font-size-lg mb-0">
+																															총 금액의 50% 환불</div>
+																										</div>
+																								</div></span>
+																							</td>
+																						</tr>
+																						
+																						<tr data-row="0" class="datatable-row" style="left: 0px;">
+																							<td class="col-4 datatable-cell-center datatable-cell" data-field=""
+																							    aria-label="400"><span><span
+																								class="font-weight-bolder">이용 2일 전</span></span></td>
+																							<td class="datatable-cell-sorted datatable-cell" data-field=""
+																							    aria-label="0004-0800">
+																								<span style="">
+																								<div class="d-flex align-items-center">
+																										<div class="ml-4">
+																												<div class="text-dark-75 font-size-lg mb-0">
+																															총 금액의 50% 환불 </div>
+																										</div>
+																								</div></span>
+																							</td>
+																						</tr>
+																						
+																						<tr data-row="0" class="datatable-row" style="left: 0px;">
+																							<td class="col-4 datatable-cell-center datatable-cell" data-field=""
+																							    aria-label="400"><span><span
+																								class="font-weight-bolder">이용 전날</span></span></td>
+																							<td class="datatable-cell-sorted datatable-cell" data-field=""
+																							    aria-label="0004-0800">
+																								<span style="">
+																								<div class="d-flex align-items-center">
+																										<div class="ml-4">
+																												<div class="text-dark-75 font-size-lg mb-0">
+																															총 금액의 50% 환불</div>
+																										</div>
+																								</div></span>
+																							</td>
+																						</tr>
+																						
+																						<tr data-row="0" class="datatable-row" style="left: 0px;">
+																							<td class="col-4 datatable-cell-center datatable-cell" data-field=""
+																							    aria-label="400"><span><span
+																								class="font-weight-bolder">이용 당일</span></span></td>
+																							<td class="datatable-cell-sorted datatable-cell" data-field=""
+																							    aria-label="0004-0800">
+																								<span style="">
+																								<div class="d-flex align-items-center">
+																										<div class="ml-4">
+																												<div class="text-dark-75 font-size-lg mb-0">
+																														환불 불가</div>
+																										</div>
+																								</div></span>
+																							</td>
+																						</tr>
+																						
+																						
+																						
 																						
 																						</tbody>
 																				</table>
@@ -554,23 +601,36 @@
 																		
 																		
 																		<div class="separator separator-dashed my-10"></div>
-																		
-																		
-																		<div class="form-group row">
-																				<label class="col-xl-3 col-lg-3 col-form-label text-right">Radios</label>
-																				<div class="col-9 col-form-label">
-																						<div class="radio-list">
-																								<label class="radio" for="card">
-																										<input type="radio" id="card" name="pay" value="">
-																										<span></span>신카</label>
-																								<label class="radio" for="cash">
-																										<input type="radio" id="cash" name="pay" value="">
-																										<span></span>출금</label>
-																						
-																						</div>
-																				</div>
-																		</div>
-																		
+																	
+																	<div class="datatable datatable-bordered datatable-head-custom
+																		datatable-default datatable-primary datatable-loaded" style="">
+																		<table class="datatable-table"
+																		       style="display: block;margin-left: auto;margin-right: auto;width: 65%;">
+																			<thead class="datatable-head">
+																			<tr class="datatable-row" style="left: 0px;">
+																				<th data-field="PayID" style="border-bottom: 1px solid #ebedf3;"
+																				    class="datatable-cell datatable-cell-sort datatable-cell-sorted"
+																				    data-sort="asc"><span style="width: 250px;font-size: 1.3rem;">결제방법</span></th>
+																			</tr>
+																			</thead>
+																			<tbody style="" class="datatable-body">
+																			
+																			<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
+																				<td class="datatable-cell-left datatable-cell ml-15" data-field="RecordID"
+																				    aria-label="400">
+																					
+																					<label class="radio font-weight-bolder" for="cash">
+																						<input type="radio" id="cash" name="pay" value="" class="ck" title="결제방법">
+																						<span class="mr-2"></span>실시간 출금</label>
+																				
+																				</td>
+																			</tr>
+																			
+																			</tbody>
+																		</table>
+																	</div>
+																	
+
 																		
 																		<%--																<div class="form-group row align-items-center mb-0">--%>
 																		<%--																		<label class="col-xl-3 col-lg-3 col-form-label text-right"></label>--%>
@@ -594,45 +654,53 @@
 																		
 																		<div class="separator separator-dashed my-10"></div>
 																	
-																	<div class="datatable datatable-bordered datatable-head-custom
-																		datatable-default datatable-primary datatable-loaded" id="환불규정" style="">
-																		<table class="datatable-table"
+																	<div class="datatable datatable-head-custom
+																		datatable-default datatable-primary datatable-loaded" style="">
+																		<table class="datatable-table mb-10"
 																		       style="display: block;margin-left: auto;margin-right: auto;width: 65%;">
 																			<thead class="datatable-head">
 																			<tr class="datatable-row" style="left: 0px;">
 																				<th data-field="OrderID"
 																				    class="datatable-cell datatable-cell-sort datatable-cell-sorted"
-																				    data-sort="asc"><span style="width: 250px;">서비스 동의</span>
-																					<label class="text-right checkbox" for="check_all">
-																						<input type="checkbox" id="check_all">
-																						<span></span>전체 동의</label>
+																				    data-sort="asc"><span style="width: 250px;font-size: 1.3rem;">서비스 동의</span>
+																					
+																					
 																				
 																				</th>
 																			</tr>
 																			</thead>
-																			<tbody style="" class="datatable-body">
-																			
+																			<tbody style="" class="datatable-body checkbox_group">
 																			<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
 																				<td class="datatable-cell-left datatable-cell ml-15"
 																				    aria-label="400"><span>
 																					
-																					<span	class="font-weight-bolder">	<label class="checkbox" for="check_1">
-																										<input type="checkbox" id="check_1" class="nomal">
-																										<span></span> &nbsp; 위 공간의 예약조건 확인 및 결제진행 동의</label></span></span></td>
+																					<span	class="font-weight-bolder">	<label class="text-right checkbox" for="check_all">
+																						<input type="checkbox" id="check_all" name="check_all" class="ck" title="서비스동의">
+																						<span class="mr-2"></span>전체 동의</label></span></span></td>
+																			</tr>
+																			<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
+																				<td class="datatable-cell-left datatable-cell ml-15"
+																				    aria-label="400"><span>
+																					
+																					<span	class="font-weight-bolder">	<label class="checkbox mr-2" for="check_1">
+																										<input type="checkbox" id="check_1" class="normal" >
+																										<span class="mr-2"></span>위 공간의 예약조건 확인 및 결제진행 동의 <h8 class="text-danger ml-1">(필수)</h8></label> </span>
+																				
+																				</span></td>
 																			</tr>
 																			<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
 																				<td class="datatable-cell-left datatable-cell ml-15"
 																				    aria-label="400"><span>
 																					<span	class="font-weight-bolder">	<label class="checkbox" for="check_2">
-																										<input type="checkbox" id="check_2" class="nomal">
-																										<span></span>개인정보 제3자 제공 동의</label></span></span></td>
+																										<input type="checkbox" id="check_2" class="normal">
+																										<span class="mr-2"></span>개인정보 제3자 제공 동의<h8 class="text-danger ml-1">(필수)</h8></label></span></span></td>
 																			</tr>
 																			<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
 																				<td class="datatable-cell-left datatable-cell ml-15"
 																				    aria-label="400"><span>
 																					<span	class="font-weight-bolder"><label class="checkbox" for="check_3">
-																										<input type="checkbox" id="check_3" class="nomal">
-																										<span></span>개인정보 수집 및 이용 동의</label></span></span></td>
+																										<input type="checkbox" id="check_3" class="normal">
+																										<span class="mr-2"></span>개인정보 수집 및 이용 동의<h8 class="text-danger ml-1">(필수)</h8></label></span></span></td>
 																			</tr>
 																		
 																			</tbody>
@@ -642,11 +710,16 @@
 																		
 																		
 																		<!--end::Body-->
-																		<button type="button" class="btn btn-primary" data-toggle="modal"
+																	<div class="d-flex mb-10" style="justify-content: flex-end;">
+																		<button type="button" class="btn btn-primary font-weight-bold font-size-h6 px-10 py-4 mr-40"
+																		        data-toggle="modal" id="payBtn" onclick="checkFields();"
 																		        data-target="#my80sizeCenterModal">
-																				결제
+																			결제
 																		</button>
-																
+																	</div>
+																	
+																	
+																	<!--모달시작::-->
 																		<div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1"
 																		     role="dialog" aria-labelledby="my80sizeCenterModalLabel">
 																				<div class="modal-dialog modal-80size modal-center" role="document">
@@ -789,10 +862,55 @@
   
 </script>
 
+
 <script>
-	// 체크박스 옵션 선택 스크립트
 	
 	
+	  // input값을 체크해서 결제 모달 안뜨게~
+	function checkFields() {
+		$('#payBtn').attr('data-target', '#my80sizeCenterModal');
+
+  // 히든값 제외하고, 입력하는 사항 중에
+		var frm = $('input[type=text]');
+
+  // 밸류값이 없다면 (입력되지 않았다면 )
+		frm.each(function (idx, ele) {
+			
+			if ("" == $(ele).val()) {
+
+  // 모달창 실행 안되게 타겟 값을 임시로 바꿈
+				$('#payBtn').attr('data-target', 'ttt');
+
+  // 경고창
+				Swal.fire('예약자의 ' + $(ele).attr("title") + '을(를) 입력해주세요!', '', 'warning')
+
+  // 해당 입력 칸으로 포커스
+				$(ele).focus();
+
+  // if문 그만 타세요
+				return;
+			}
+		});
+		
+		// 체크박스 중에
+		var ckfrm = $('input[class="ck"]');
+		ckfrm.each(function (idx, ele) {
+			
+			if (!$(ele).is(":checked")) {
+				$('#payBtn').attr('data-target', 'ttt');
+				
+				Swal.fire($(ele).attr("title") + '을(를) 확인해주세요!', '', 'warning')
+				
+				return;
+			}
+			
+		});
+		
+	}
+	
+	
+</script>
+<script>
 	
 	// 체크박스 전체 선택, 전체 해제
 	$(".checkbox_group").on("click", "#check_all", function () {
@@ -808,26 +926,26 @@
 	});
 	
 	
-	// // 전체선택 후 하나만 해제했을 때, 전체선택도 해체
-	// $(".checkbox_group").on("click", ".normal", function() {
-	//
-	// 	//  checked 속성을 판단
-	// 	var checked = $(this).is(":checked");
-	//
-	// 	if (!checked) { // 체크 해제가 되어 있다면 전체선택의 체크박스도 해제
-	// 		$("#check_all").prop("checked", false);
-	// 	}
-	// });
-	//
+	// 전체선택 후 하나만 해제했을 때, 전체선택도 해체
+	$(".checkbox_group").on("click", ".normal", function() {
+		console.log("TLqkf" +  $(this).is(":checked"))
+		//  checked 속성을 판단
+
+		if ($(this).is(":checked")==false) { // 체크 해제가 되어 있다면 전체선택의 체크박스도 해제
+			$("#check_all").prop("checked", false);
+		}
+	});
+
+	
 	// 개별 선택으로 전체 다 선택되었을 때, 전체선택에도 체크
 	// 체크박스 개별 선택
 	$(".checkbox_group").on("click", ".normal", function() {
 		var is_checked = true;
-		
-		$(".checkbox_group .normal").each(function(){
+
+		$(".normal").each(function(){
 			is_checked = is_checked && $(this).is(":checked");
 		});
-		
+
 		$("#check_all").prop("checked", is_checked);
 	});
 	

@@ -212,7 +212,6 @@
               <!--begin::Row-->
               <div class="row" id="cafeListCardLow">
               
-                
               </div>
               <!--begin::Row-->
             <!------------------ 본문 종료 ------------------>
@@ -388,7 +387,8 @@
 
           let $div = $('<div>').addClass("carousel-caption")
           let $item = $('<div>').addClass("item")
-                                .append($('<img>').attr("src", "http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg"/*data.cafeList[i].roomImgs[j]*/))
+                                .append($('<img>').attr("src", data.cafeList[i].roomImgs[j]
+                                                        /*http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg*/))
                                 .append($div);
 
           $('.carousel-inner').eq(num).append($item);
@@ -421,7 +421,6 @@
             }))
 
         $('.carousel.slide').eq(num).append($aPrev, $aNext);
-				// TODO 여기 같이 움직이는거 , 눈금자 빼기 
 				
         // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 end
         
