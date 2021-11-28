@@ -12,6 +12,8 @@ import kr.or.ssff.cafe.domain.RoomVO;
 import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
+import kr.or.ssff.manager.domain.ManagerMemberVO;
+import kr.or.ssff.studyIns.model.Criteria;
 
 /*
  스터디카페 crud, 예약 정보 관리
@@ -57,32 +59,8 @@ public interface CafeService {
 
   // 예약정보&거래내역 조회 (예약내역리스트 View에서 이용)
   public abstract List<RsrvJoinTrnscVO> getRsrvJoinTrnscList(HashMap<String, String> searchKey);
+  public abstract List<ManagerMemberVO> getRsrvListPerPaging(Criteria criteria);
 
   // 예약취소
   public abstract boolean cancelReservation(HashMap<String, String> searchKey);
 } // end interface
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

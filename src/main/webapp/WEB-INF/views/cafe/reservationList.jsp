@@ -52,7 +52,7 @@
               <div class="d-flex align-items-center flex-wrap mr-1">
                 <!--begin::Title-->
                 <i class="fas fa-concierge-bell"></i>&nbsp;&nbsp;
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">예약 내역 조회</h5>
+                <h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">예약 내역 조회</h5>
                 <!--end::Title-->
                 <!--Breadcrumb : 로드맵 시작-->
                 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -95,11 +95,11 @@
           <div class="content flex-column-fluid">
             
             <!--begin::cardcustom-->
-            <div class="card card-custom card-sticky">
-              <div class="card-header flex-wrap">
+            <div class="card card-custom">
+              <div class="card-header flex-wrap pt-6 pb-0">
                 <div class="card-title">
                   <h3 class="card-label">예약 내역 확인하기
-                    <span class="d-block text-muted pt-2 font-size-sm mb-20">
+                    <span class="d-block text-muted pt-2 font-size-sm">
                       예약 내역과 해당하는 거래내역 조회가 가능합니다.
                     </span>
                   </h3>
@@ -221,18 +221,15 @@
                       </tr>
                       </thead>
                       <!-- 테이블 공통 헤드 e -->
-                      
                       <tbody class="datatable-body putData">
-                      
-                      
+
                       </tbody>
                     </table>
                     <!--end: table-->
-                    
+
+                    <!--begin: pagenation-->
                     <!--begin: pager-->
                     <div class="datatable-pager datatable-paging-loaded">
-                      
-                      
                       <div class="datatable-pager-info my-2 mb-sm-0">
                         <div class="dropdown bootstrap-select datatable-pager-size dropup"
                              style="width: 60px;">
@@ -253,6 +250,7 @@
                         <span class="datatable-pager-detail">Showing 1 - 10 of 350</span></div>
                     </div>
                     <!--end: pager-->
+                    <!--end: pagenation-->
                   
                   
                   </div>
@@ -294,22 +292,15 @@ $(document).on('click',"button[class^='btn']", function (e) {
   $('#'+mID).modal('show');
 });
 
-
-
-
-
 // 버튼 클릭을 통해 세부 룸정보 add, delete
   $(document).on('click', "a[title='Load sub table']", function () {
     $(this).closest("tr").toggleClass("datatable-row-subtable-expanded").next().fadeToggle();
-    
- 
   })
 
  // 페이지 진입시 리스트 세팅
   $(document).ready(function () {
     start.init();
     console.log("start.init();")
-
   }); // ready
 
   // 카드 리스트를 ajax 페이지 처리하여 뿌립니다.
@@ -765,28 +756,30 @@ $(document).on('click',"button[class^='btn']", function (e) {
         console.log("prev : " + prev);
         $pageHtml = "";
 
+
+        //--- pagenation ----
         // 이전, 처음으로 가기
         if (prev > 0) { // 이전, 처음으로 갈 수 있다면 이전, 처음버튼 활성화
           currentPage = Number(currentPage);
           console.log("prev > 0 : ");
           $pageHtml +=
-              `<li><a title="First"
-                    class="datatable-pager-link datatable-pager-link-first"
+                  `<li><a title="First"
+                    class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 datatable-pager-link datatable-pager-link-first"
                     data-page="1">
                       <i class="flaticon2-fast-back"></i></a></li>
              <li><a title="Previous"
-                    class="datatable-pager-link datatable-pager-link-prev"
+                    class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 datatable-pager-link datatable-pager-link-prev"
                     data-page="` + (currentPage - 1) + `">
                       <i class="flaticon2-back"></i></a></li>`;
         } else { // 현재 페이지가 첫번째 페이지라면 이전, 처음버튼 비활성화
           $pageHtml +=
-              `<li><a title="First"
-                    class="datatable-pager-link datatable-pager-link-first datatable-pager-link-disabled"
+                  `<li><a title="First"
+                    class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 datatable-pager-link datatable-pager-link-first datatable-pager-link-disabled"
                     data-page="1"
                     disabled="disabled">
                        <i class="flaticon2-fast-back"></i></a></li>
               <li><a title="Previous"
-                      class="datatable-pager-link datatable-pager-link-prev datatable-pager-link-disabled"
+                      class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 datatable-pager-link datatable-pager-link-prev datatable-pager-link-disabled"
                       data-page="1"
                       disabled="disabled">
                         <i class="flaticon2-back"></i></a></li>`;
@@ -797,13 +790,13 @@ $(document).on('click',"button[class^='btn']", function (e) {
 
           if (currentPage == i) { // 내가 클릭한 페이지(현재페이지) 번호 버튼은 활성화!
             $pageHtml += `
-            <li><a class="datatable-pager-link datatable-pager-link-number
+            <li class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 active"><a class="datatable-pager-link datatable-pager-link-number
                           datatable-pager-link-active"
                    data-page="` + i + `"
                    title="` + i + `">` + i + `</a></li>`
           } else { // 아닌 페이지 번호는 하얗게
             $pageHtml +=
-                `<li><a class="datatable-pager-link datatable-pager-link-number"
+                    `<li><a class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 datatable-pager-link datatable-pager-link-number"
                       data-page="` + i + `"
                       title="` + i + `">` + i + `</a></li>`;
           } // if-else
@@ -812,28 +805,28 @@ $(document).on('click',"button[class^='btn']", function (e) {
         // 이후, 맨 뒤로 가기
         if (next < totalPage) { // 이후로 갈 수 있다면(=내 페이지가 맨 끝이 아니라면) 이후 버튼 활성화
           $pageHtml +=
-              `<li><a title="Next"
-                    class="datatable-pager-link datatable-pager-link-next"
+                  `<li><a title="Next"
+                    class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 datatable-pager-link datatable-pager-link-next"
                     data-page="` + (currentPage + 1) + `">
                       <i class="flaticon2-next"></i></a></li>`;
         } else { // 내 페이지가 맨 끝이라면 이후 버튼 비활성화
           $pageHtml +=
-              `<li><a title="Next"
-                    class="datatable-pager-link datatable-pager-link-next datatable-pager-link-disabled"
+                  `<li><a title="Next"
+                    class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 datatable-pager-link datatable-pager-link-next datatable-pager-link-disabled"
                     data-page="` + (currentPage + 1) + `"
                     disabled="disabled">
                       <i class="flaticon2-next"></i></a></li>`
         } // if-else
         if (last < totalPage) { // 내 페이지가 맨 끝이 아니라면 마지막으로 가기 버튼 활성화
           $pageHtml +=
-              `<li><a title="Last"
-                    class="datatable-pager-link datatable-pager-link-last"
+                  `<li><a title="Last"
+                    class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 datatable-pager-link datatable-pager-link-last"
                     data-page="` + totalPage + `">
                       <i class="flaticon2-fast-next"></i></a></li>`;
         } else { // 내 페이지가 마지막이라면 마지막으로 가기 버튼 비활성화
           $pageHtml +=
-              `<li><a title="Last"
-                    class="datatable-pager-link datatable-pager-link-last
+                  `<li><a title="Last"
+                    class="btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 datatable-pager-link datatable-pager-link-last
                            datatable-pager-link-disabled"
                     data-page="` + totalPage + `"
                     disabled="disabled">
@@ -843,9 +836,9 @@ $(document).on('click',"button[class^='btn']", function (e) {
         console.log($(".datatable-pager.datatable-paging-loaded"));
 
         // 페이징 번호 그리기
-       // $(".datatable-pager-nav.my-2.mb-sm-0").html(pageHtml);
-        $(".datatable-pager.datatable-paging-loaded").html($("<ul>" + $pageHtml + "</ul>"));
-        
+        // $(".datatable-pager-nav.my-2.mb-sm-0").html(pageHtml);
+        $(".datatable-pager.datatable-paging-loaded").html($("<ul class='pagination'>" + $pageHtml + "</ul>"));
+
         //페이징 번호 클릭 이벤트
         $(".datatable-pager.datatable-paging-loaded ul li a").click(function () {
           // $(this).closest("tr").toggleClass("datatable-row-subtable-expanded").next().fadeToggle();

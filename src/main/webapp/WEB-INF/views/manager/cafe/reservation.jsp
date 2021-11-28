@@ -56,7 +56,7 @@ License: You must have a valid license purchased only from themeforest(the above
               <div class="d-flex align-items-center flex-wrap mr-2">
                 <!--begin::Title-->
                 <i class="far fa-list-alt"></i>&nbsp;&nbsp;
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">카페 예약 목록</h5>
+                <h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">카페 예약 목록</h5>
                 <!--end::Title-->
                 <!--Breadcrumb : 로드맵 시작-->
                 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">

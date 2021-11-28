@@ -78,13 +78,13 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!--begin::Content Wrapper 내용물 시작-->
                     <div class="main d-flex flex-column flex-row-fluid">
                         <!--begin::Subheader 페이지 서브 헤더 시작-->
-                        <div class="subheader py-2 py-lg-4" id="kt_subheader">
+                        <div class="subheader py-2 py-lg-4">
                             <div class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                                 <!--begin::Details-->
                                 <div class="d-flex align-items-center flex-wrap mr-2">
                                     <!--begin::Title-->
                                     <i class="fas fa-users"></i>&nbsp;&nbsp;
-                                    <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">회원 목록</h5>
+                                    <h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">회원 목록</h5>
                                     <!--end::Title-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -101,7 +101,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                         <!--end::Subheader  페이지 서브 헤더 종료-->
-                        <div class="content flex-column-fluid" id="kt_content">
+                        <div class="content flex-column-fluid">
                             <!--begin::Card-->
                             <div class="card card-custom">
                                 <!--begin::Header-->
