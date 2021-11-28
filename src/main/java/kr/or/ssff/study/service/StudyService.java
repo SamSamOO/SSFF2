@@ -102,10 +102,6 @@ public interface StudyService {
 
     //21. 출석 +1 함수입니다.--상준
     public abstract boolean updateAttendance(HashMap<String, Object> map);
-
-
-
-
 }
 
 
