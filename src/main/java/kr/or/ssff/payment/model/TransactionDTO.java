@@ -1,6 +1,6 @@
-package kr.or.ssff.payment.domain;
+package kr.or.ssff.payment.model;
 
-import lombok.Value;
+import lombok.Data;
 
 /*
  * 최초 작성자: 신지혜
@@ -24,13 +24,14 @@ PAYMENT_COMPLETED_YN		CHAR(1 BYTE)				No	'n' 	13	거래완료여부
 
  */
 
-@Value
-public class TransactionVO {
+@Data
+public class TransactionDTO {
 
 	private String trnsc_idx;
 	private String rsrv_idx;
 	private String apply_idx;
 	private String transaction_date;
+	private String member_name;
 	private String transaction_categories;
 	private String transaction_categorie;
 	private Integer transaction_amount;
