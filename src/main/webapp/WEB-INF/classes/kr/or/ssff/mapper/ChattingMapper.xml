@@ -22,7 +22,7 @@
     </select>
 
     <select id="checkYouInStudy" parameterType="hashMap" resultType="Integer">
-        select *
+        select R_IDX, MEMBER_NAME, TYPE_PC, TITLE, TEAMNAME, CONT, HIT, WRITEDATE, SIDO, CH_PATTERN, CH_START, CH_END, REMOVED_OK, CLOSED_OK, DEAD_OK
         from RECRUIT_BOARD
         where R_IDX = #{map.r_Idx,jdbcType=INTEGER}
           and MEMBER_NAME = #{map.member.member_name,jdbcType=VARCHAR}

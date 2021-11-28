@@ -126,11 +126,13 @@ public class ChattingController {
         Objects.requireNonNull(service);
 
         Integer insStudy = this.service.checkYouInStudy(map);
+        log.info("insStudy = {}", insStudy);
 
         List<Room> new_list = roomList.stream().filter(o -> o.getRoomNumber() == roomNumber).collect(Collectors.toList());
 
         model.addAttribute("inStudy", insStudy);
         model.addAttribute("r_Idx", r_Idx);
+
         log.info("new_list = {}", new_list);
 
         return "/studyIns/chatRoom/room";

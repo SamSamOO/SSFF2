@@ -22,6 +22,50 @@
 
     <script>
         $(function () {
+            <c:choose>
+            <c:when test="${member.member_id==null}">
+
+            Swal.fire({
+                icon: 'warning', // Alert 타입
+                title: '로그인 오류', // Alert 제목
+                text: '로그인 하세요', // Alert 내용
+
+                buttons: {
+                    confirm: {
+                        text: '확인 ',
+                        value: true,
+                        className: 'btn btn-outline-primary'
+                    }
+                }
+            }).then((result) => {
+                if (result) {
+                    location.href = "/member/loginGo";
+                }
+            });
+
+            </c:when>
+            <c:when test="${insStudy==0}">
+            Swal.fire({
+                icon: 'warning', // Alert 타입
+                title: '스터디원이 아닙니다.', // Alert 제목
+                text: '스터디원이 아닙니다.', // Alert 내용
+
+                buttons: {
+                    confirm: {
+                        text: '스터디 ',
+                        value: true,
+                        className: 'btn btn-outline-primary'
+                    }
+                }
+            }).then((result) => {
+                if (result) {
+                    location.href = "javascript:history.back()";
+                }
+            });
+
+            </c:when>
+            </c:choose>
+
             console.clear();
             console.log("제이쿼리 시작");
             $(`#regBtn`).on('click', function () {

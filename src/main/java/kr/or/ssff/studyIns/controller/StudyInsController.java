@@ -8,8 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.function.DoubleToIntFunction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
@@ -17,6 +19,7 @@ import kr.or.ssff.studyIns.model.Criteria;
 import kr.or.ssff.studyIns.model.PageDTO;
 import kr.or.ssff.studyIns.model.StudyInsDTO;
 import kr.or.ssff.studyIns.model.StudyInsFileDTO;
+import kr.or.ssff.studyIns.service.ChattingService;
 import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -45,6 +48,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
     @Autowired
     private StudyInsService service;
+    ChattingService service1;
 
     @Override
     public void destroy() throws Exception {
@@ -193,19 +197,28 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 내 특정 스터디 게시판 뷰단임
      * */
     @GetMapping("/board/list")
-    public String studyBoardList(@RequestParam(value = "category",defaultValue = "전체") String category, Criteria criteria,@RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
+    public String studyBoardList(@RequestParam(value = "category", defaultValue = "전체") String category, Criteria criteria, @RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
+        
         log.info("studyBoardList({}) is invoked", "category = " + category + ", criteria = " + criteria + ", model = " + model);
+
+        MemberDTO dto = (MemberDTO) session.getAttribute("member");
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("category", category);
         map.put("pageNum", criteria.getPageNum());
         map.put("amount", criteria.getAmount());
-        map.put("sessionId", session.getId());
+        map.put("member", dto);
         map.put("r_Idx", r_Idx);
+        log.info("map = {}", map);
 
         Objects.requireNonNull(service);
         List<StudyInsVO> list = service.getList(map);
         log.info("service.getList(criteria) = {}", service.getList(map));
 
+        Integer insStudy = this.service1.checkYouInStudy(map);
+        log.info("insStudy = {}", insStudy);
+
+        model.addAttribute("insStudy", insStudy);
         model.addAttribute("list", list);
         model.addAttribute("map", map);
         model.addAttribute("noticeList", service.showNotice(map));
@@ -225,16 +238,16 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: X  ( 해당 매핑으로 이동함)
      * */
     @GetMapping("/board/detail")
-    public String studyBoardDetail(HttpServletRequest request,@RequestParam("cont_No") Integer cont_No, @RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
+    public String studyBoardDetail(@RequestParam("cont_No") Integer cont_No, @RequestParam("r_Idx") Integer r_Idx, Model model) throws Exception {
         log.debug("studyBoardDetail({}) is invoked", "cont_no = " + cont_No + ", model = " + model);
 
-        HttpSession session = request.getSession();
-        String name = (String) session.getAttribute("sessionId");
+        MemberDTO dto = (MemberDTO) session.getAttribute("member");
+        
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("cont_No", cont_No);
         map.put("r_Idx", r_Idx);
-        map.put("sessionId",name);
+        map.put("member",dto);
 
         Objects.requireNonNull(service);
         //내용물 불러오기
@@ -244,7 +257,12 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
         //파일 들고오기
         List<StudyInsFileVO> listOfFile = service.getFile(cont_No);
+        
+        //아이디 검증 및 .. 스터디안에 있는지
+        Integer insStudy = this.service1.checkYouInStudy(map);
+        log.info("insStudy = {}", insStudy);
 
+        model.addAttribute("insStudy", insStudy);
         //조회수 순... > 으로 리스트를 들고옵니다..
         List<StudyInsVO> listByHit = service.getListByHit(map);
 
@@ -253,9 +271,11 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         log.debug("listOfFile = {}", listOfFile);
 
         model.addAttribute("map", map);
+        model.addAttribute("insStudy", insStudy);
 
         model.addAttribute("listByHit", listByHit);
         model.addAttribute("detail", detail);
+
         model.addAttribute("fileList", listOfFile);
         return "studyIns/board/detail";
     } // studyBoardDetail
@@ -285,7 +305,13 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 수정페이지 뷰단
      * */
     @GetMapping("/board/detail/modifyGo")
-    public String studyBoardDetailModifyGo(@RequestParam Integer cont_No, Model model) throws Exception {
+    public String studyBoardDetailModifyGo(@RequestParam("r_Idx") Integer r_Idx,@RequestParam Integer cont_No, Model model) throws Exception {
+        MemberDTO dto = (MemberDTO) session.getAttribute("member");
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("r_Idx", r_Idx);
+        map.put("member", dto);
+
 
         log.debug("studyBoardDetailModifyGo({}) is invoked", "cont_No = " + cont_No);
 
@@ -293,8 +319,12 @@ public class StudyInsController implements InitializingBean, DisposableBean {
         StudyInsVO detail = service.get(cont_No);
         List<StudyInsFileVO> listOfFiles = service.getFile(cont_No);
 
+        Integer inStudy = service1.checkYouInStudy(map);
+        log.info("inStudy = {}", inStudy);
+
         log.debug("modifyDetail = {}", detail);
 
+        model.addAttribute("inStudy", inStudy);
         model.addAttribute("detail", detail);
         model.addAttribute("listOfFiles", listOfFiles);
         return "/studyIns/board/modify";
@@ -389,14 +419,24 @@ public class StudyInsController implements InitializingBean, DisposableBean {
      * 반환: 스터디 게시물 생성페이지 뷰단
      * */
     @GetMapping("/board/postGo")
-    public String studyBoardPostGo(Model model) {
+    public String studyBoardPostGo(@RequestParam("r_Idx") Integer r_Idx,Model model) {
         log.info("studyBoardPostGo({}) is invoked", ", model = " + model);
+        MemberDTO dto = (MemberDTO) session.getAttribute("member");
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("member", dto);
+        map.put("r_idx", r_Idx);
 
         Objects.requireNonNull(service);
         Integer maxNumber = service.findMaxContNo();
 
         log.info("maxNumber = {}", maxNumber);
+        Integer inStudy = service1.checkYouInStudy(map);
+        log.info("inStudy = {}", inStudy);
 
+
+
+        model.addAttribute("inStudy", inStudy);
         model.addAttribute("cont_No", maxNumber);
 
         return "/studyIns/board/post";
@@ -473,6 +513,7 @@ public class StudyInsController implements InitializingBean, DisposableBean {
 
                         thumbnail.close();
                     }
+
                 } catch (Exception e) {
                     log.error(e.getMessage());
 
