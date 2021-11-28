@@ -122,7 +122,7 @@
                                         <input type="hidden" name="cont_No" value="${detail.cont_No}">
                                         <c:out value="${detail.cont_No}"/>
                                         <p>cont_No 출력</p>
-                                        <input type="hidden" name="r_Idx" value="9002"/>
+                                        <input type="hidden" name="r_Idx" value="${detail.r_Idx}"/>
 
                                         <table style="width: 100%">
 

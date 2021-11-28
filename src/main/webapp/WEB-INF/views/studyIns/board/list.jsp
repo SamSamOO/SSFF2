@@ -216,8 +216,7 @@
                                                 <td>공지</td>
                                             </c:when>
                                             <c:otherwise>
-                                                <td> ${pageMaker.total - (pageMaker.criteria.pageNum*(status.index))}</td>
-
+                                                <td>${pageMaker.total - (pageMaker.criteria.pageNum*(status.index))}</td>
                                             </c:otherwise>
                                         </c:choose>
 
@@ -251,26 +250,21 @@
                                             <div style="width: 8%"></div>
                                             <div class='pull-right'>
                                                 <ul class="pagination">
-
                                                     <c:if test="${pageMaker.prev}">
                                                         <li id="prev" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-arrow-back icon-xs p-4"
                                                                                                                                          id="prev_a" href="${pageMaker.startPage -1}"></a></li>
                                                     </c:if>
-
                                                     <c:forEach var="num" begin="${pageMaker.startPage}"
                                                                end="${pageMaker.endPage}">
                                                         <li id="num" class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
                                                             <a class="p-4" id="num_a" href="${num}">${num}</a>
                                                         </li>
                                                     </c:forEach>
-
                                                     <c:if test="${pageMaker.next}">
                                                         <li id="next" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
                                                             <a id="next_a" class="ki ki-bold-arrow-next icon-xs p-4" href="${pageMaker.endPage +1 }"></a>
                                                         </li>
                                                     </c:if>
-
-
                                                 </ul>
                                             </div>
                                             <div class="d-flex align-items-center py-3">
@@ -280,10 +274,10 @@
                                         <!--end:: Pagination-->
                                     </td>
                                 </tr>
-                                <%--                            <tr>--%>
+                                <%--<tr>--%>
 
 
-                                <%--                            </tr>--%>
+                                <%--</tr>--%>
 
                                 </tbody>
                             </table>
