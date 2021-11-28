@@ -641,7 +641,7 @@
                     <td class="col-4" data-field="rsrv_idx" aria-label="` + member_name + `">
                       <span><span>예약번호</span></span></td>
                     <td data-field="ShipCountry" aria-label="ID" class="datatable-cell">
-                      <span>` + member_name + `</span></td>
+                      <span>` + rsrv_idx + `</span></td>
 
                   </tr>
                   <tr data-row="0" class="datatable-row">

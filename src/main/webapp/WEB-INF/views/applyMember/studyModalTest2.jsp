@@ -111,33 +111,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <script type="text/javascript">
   // TODO 승인되고난 후 해당 버튼 비활성화(처리 중이라는 것을 확인시키기위한 view 작업 필요함)
   function x() { // TODO 멤버 확인버튼 누를때 스터디번호, 개설자여부 받아와야함! 민주, 예솔 작업시 버튼에 값 매칭하기
-    let putListModalHtml = '';
-    putListModalHtml +=
-        `<div class="modal-dialog modal-xl">
-            <div class="modal-content" style="min-height: 590px;">
-              <div class="modal-header py-5" id="studyMemberTab">
-                <div id="btnMemberList" class="btn btn-success btn-lg btn-block" onclick="studyMemberListOn();"><h5 class="modal-title">
-                  스터디 멤버 <span class="d-block text-muted font-size-sm">
-											스터디 멤버를 확인해보세요!</span>
-                </h5></div>
-                <div id="btnApplyMemberList" class="btn btn-primary btn-lg btn-block"  onclick="applyMemberListOn();" style="display:none;"><h5 class="modal-title">
-                  참여 신청자<span class="d-block text-muted font-size-sm">
-                  가입신청한 회원을 확인해보세요!</span>
-                </h5></div>
-                
-                
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close" style="width: 10%;">
-                  <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
-              </div>
-             <div class="modal-body">
->
-    
-              </div>
-            </div>
-          </div>`
-    $('#memberListModal').html(putListModalHtml);
+   
 
     let putBodyHtml = '';
     putBodyHtml +=
@@ -165,63 +139,13 @@ License: You must have a valid license purchased only from themeforest(the above
     // 일반 회원이라면
     putBodyHtml +=
 
-        `<div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
-        id="studyMemberList">
-      <table class="datatable-table"
-             style="display: block; min-height: 400px; max-height: 400px;">
-        
-        <thead class="datatable-head">
-        <tr class="datatable-row" style="left: 0px;">
-          <th data-field=""
-              class="datatable-cell datatable-cell-sort"
-              style="width: 5%; text-align: center;"><span>&nbsp;</span></th>
-          
-          <th data-field="Number"
-              class="datatable-cell datatable-cell-sort"
-              style="width: 10%;"><span>#</span></th>
-          
-          <th data-field="studyTeamName"
-              class="datatable-cell datatable-cell-sort"
-              style="width: 45%;"><span style="text-align: center;">study&nbsp;Team&nbsp;Name</span>
-          </th>
-          
-          <th data-field="NickName"
-              class="datatable-cell datatable-cell-sort"
-              style="width: 40%;"><span style="text-align: center;">NickName</span></th>
-        </tr>
-        </thead>
-        
-        <tbody class="datatable-body ps">
+        `
         <c:set var="num" value="0"/>
         <c:forEach items="${applyMemberList}" var="applyMemberList">
           <c:if test="${applyMemberList.study_join_arciwf eq 105}">
             
               <c:set var="num" value="${num+1}"/>
-              <tr data-row="${num}" class="datatable-row" style="left: 0px;">
-                <td class="datatable-cell" data-field=""
-                    style="width: 5%;"><span>&nbsp;</span></td>
-                
-                <td class="datatable-cell" data-field="Number"
-                    aria-label="${num}" style="width: 10%;"><span>${num}</span>
-                </td>
-                
-                <td class="datatable-cell" data-field="studyTeamName"
-                    aria-label="${applyMemberList.teamname}"
-                    style="width: 45%;">
-                  <span>${applyMemberList.teamname}</span>
-                </td>
-                
-                
-                <td data-field="NickName"
-                    aria-label="${applyMemberList.member_name}"
-                    class="datatable-cell" style="width: 40%;"><span>
-                        <img class="symbol symbol-40 symbol-sm flex-shrink-0"
-                             src="${applyMemberList.member_profile}" alt="photo"
-                             style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
-                        ${applyMemberList.member_name}
-                    </span></td>
-              </tr>
-          
+        
           </c:if>
         </c:forEach>
         <div class="ps__rail-x"><div class="ps__thumb-x" tabindex="0"></div></div>
@@ -232,155 +156,15 @@ License: You must have a valid license purchased only from themeforest(the above
     </div>
     
     <div id="s-dtbl-pager" class="datatable-pager datatable-paging-loaded">
-      <ul class="datatable-pager-nav my-2 mb-sm-0"></ul>
 
-      <div class="datatable-pager-info my-2 mb-sm-0">
-        <div class="dropdown bootstrap-select datatable-pager-size"
-             style="width: 60px;">
-          <select class="selectpicker datatable-pager-size"
-                  title="Select page size" data-width="60px"
-                  data-container="body" data-selected="5" id="pageSizePicker">
-
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="20">20</option>
-            <option value="30">30</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-
-          <div class="dropdown-menu">
-            <div class="inner show" role="listbox" id="bs-select-10" tabindex="-1">
-              <ul class="dropdown-menu inner show" role="presentation"></ul>
-            </div>
-          </div>
-        </div>
-      </div>
+    
     </div>`
 
     if (1 == 1) {     // TODO 개설자라면
                       // 참여신청자 버튼이 보이도록
       $("#btnApplyMemberList").attr('style', ('display:""'));
       putBodyHtml +=
-          `<!--begin: Datatable-->
-        <div
-            class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-scroll datatable-loaded"
-            id="applyMemberList" style="display:none;">
-          <table class="datatable-table"
-                 style="display: block; min-height: 400px; max-height: 400px;">
-            
-            <thead class="datatable-head">
-            <tr class="datatable-row" style="left: 0px;">
-           
-              
-              <th data-field="number"
-                  class="datatable-cell datatable-cell-sort"
-                  style="width: 5%;"><span style="text-align: center;">#</span></th>
-              <th data-field="applyIdx"
-                  class="datatable-cell datatable-cell-sort"
-                  style="width: 15%;"><span style="text-align: center;">apply idx</span></th>
-              <th data-field="studyTeamName"
-                  class="datatable-cell datatable-cell-sort"
-                  style="width: 25%;"><span
-                  style="text-align: center;">study Team Name</span></th>
-              
-              <th data-field="nickName"
-                  class="datatable-cell datatable-cell-sort"
-                  style="width: 25%;"><span style="text-align: center;">NickName</span></th>
-              
-              
-              <th data-field="action"
-                  class="datatable-cell datatable-cell-sort"
-                  style="width: 20%;"><span style="text-align: center;">action</span></th>
-            </tr>
-            </thead>
-            
-            <tbody class="datatable-body ps">
-            <c:set var="num" value="0"/>
-            
-            <c:forEach items="${applyMemberList}" var="applyMemberList">
-              <!-- 대기a97, 거절r72, 취소c99, 가입중i105, 탈퇴w119, 실패(결제x)f114 -->
-              <c:if test="${applyMemberList.study_join_arciwf eq 97}">
-                
-                
-                <c:set var="num" value="${num+1}"/>
-                <tr data-row="${num}" class="datatable-row" style="left: 0px;">
-                  
-                  <td class="datatable-cell" data-field="Number"
-                      aria-label="${num}" style="width: 5%;"><span style="text-align: center;">${num}</span>
-                  </td>
-                  <td class="datatable-cell" data-field="applyIdx"
-                      aria-label="${applyMemberList.apply_idx}"
-                      style="width: 15%;">
-                    <span style="text-align: center;">${applyMemberList.apply_idx}</span>
-                  </td>
-                  <td class="datatable-cell" data-field="studyTeamName"
-                      aria-label="${applyMemberList.teamname}"
-                      style="width: 25%;">
-                    <span style="text-align: center;">${applyMemberList.teamname}</span>
-                  </td>
-                  
-                  <td data-field="NickName"
-                      aria-label="${applyMemberList.member_name}"
-                      class="datatable-cell" style="width: 25%;"><span style="text-align: center;">
-                            <img class="symbol symbol-40 symbol-sm flex-shrink-0"
-                                 src="${applyMemberList.member_profile}"
-                                 alt="photo"
-                                 style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
-                            ${applyMemberList.member_name}
-                        </span></td>
-                  
-                  <td class="datatable-cell" data-field="action"
-                      aria-label="action"
-                      style="width: 20%; text-align: center;">
-                    <a href="javascript:void(0);" data-value="re"
-                         onclick="applyAction('${applyMemberList.apply_idx}','${applyMemberList.type_pc}','approval');"
-                         class="btn btn-light-success font-weight-bold mr-2">승인</a><!--//TODO 밸류값에 스터디 타입 엮어서 챌린지면 'approval->challenge'  -->
-                    <a href="javascript:void(0);" data-value="re"
-                       onclick="applyAction('${applyMemberList.apply_idx}','${applyMemberList.type_pc}','refusal');"
-                       class="btn btn-light-warning font-weight-bold mr-2">거부</a>
-                  </td>
-                </tr>
-              
-              </c:if>
-            </c:forEach>
-            <div class="ps__rail-x">
-              <div class="ps__thumb-x" tabindex="0"></div>
-            </div>
-            <div class="ps__rail-y">
-              <div class="ps__thumb-y" tabindex="0"></div>
-            </div>
-            </tbody>
-          </table>
-        
-        </div>
-   
-        <div id="a-dtbl-pager" class="datatable-pager datatable-paging-loaded" style="display:none;">
-          <ul class="datatable-pager-nav my-2 mb-sm-0"></ul>
-
-          <div class="datatable-pager-info my-2 mb-sm-0">
-            <div class="dropdown bootstrap-select datatable-pager-size"
-                 style="width: 60px;">
-              <select class="selectpicker datatable-pager-size"
-                      title="Select page size" data-width="60px"
-                      data-container="body" data-selected="5" id="pageSizePicker">
-  
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
-              </select>
-
-              <div class="dropdown-menu">
-                <div class="inner show" role="listbox" id="bs-select-10" tabindex="-1">
-                  <ul class="dropdown-menu inner show" role="presentation"></ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>`
+      
 
     } // if-else
 
@@ -420,17 +204,9 @@ License: You must have a valid license purchased only from themeforest(the above
 
   } // applyMemberListOn
 
-  /* 회원의 스터디 참여 상태 정보를 변경하는 함수
-     가입신청 [거절, 승인, 취소] , [탈퇴],
-  매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
-  작성자 : 신지혜
-  */
+
   function applyAction(apply_idx, study_type, action) {
-    actionName =
-        action == 'refusal' ? '가입신청 거절' :
-        action == 'approval' ? '가입신청 승인' :
-        action == 'cancle' ? '가입신청 취소' :
-        '해당 스터디에서 탈퇴';
+    
     if (!confirm(actionName + " 하시겠습니까?")) {
       return false;
 
