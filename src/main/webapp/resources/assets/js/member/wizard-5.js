@@ -55,26 +55,7 @@ var KTWizard5 = function () {
 			KTUtil.scrollTop();
 		});
 
-		// Submit event
-		_wizardObj.on('submit', function (wizard) {
-			Swal.fire({
-				text: "삼삼오오 가입이 완료되었습니다.",
-				icon: "success",
 
-				showCancelButton: false,
-				buttonsStyling: false,
-				confirmButtonText: "확인",
-				customClass: {
-					confirmButton: "btn font-weight-bold btn-primary",
-					cancelButton: "btn font-weight-bold btn-default"
-				}
-			}).then(function(isConfirm){
-				if(isConfirm){
-					jQuery("#join").submit();
-				}
-
-		});
-		});
 	}
 
 	var _initValidation = function () {

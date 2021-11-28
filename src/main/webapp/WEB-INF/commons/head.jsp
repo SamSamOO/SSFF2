@@ -54,20 +54,25 @@
 <!--end::Page Vendors Styles-->
 <!--begin::Global Theme Styles(used by all pages)-->
 
+
 <link href="/resources/assets/plugins/global/plugins.bundle.css" rel="stylesheet" type="text/css"/>
 <link href="/resources/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css"/>
 <link href="/resources/assets/css/style.bundle.css" rel="stylesheet" type="text/css"/>
 <link href="/resources/assets/css/style.ssff.css" rel="stylesheet" type="text/css"/>
 <link href="/resources/assets/css/style.list.css" rel="stylesheet" type="text/css"/>
 
-<!--예솔 작업에 필요한 css-->
-<%--<link href="../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">--%>
-
-
 <!--end::Global Theme Styles-->
 <!--begin::Layout Themes(used by all pages)-->
 <!--end::Layout Themes-->
 
+<%--파비콘--%>
 <link rel="icon" type="image/png" sizes="32x32" href="/resources/assets/images/logos/ssff/ssff-favicon32x32.png"/>
 <link rel="icon" type="image/png" sizes="196x196" href="/resources/assets/images/logos/ssff/ssff-favicon196x196.png"/>
 <link rel="shortcut icon" href="/resources/assets/images/logos/ssff/ssff-favicon.ico"/>
+
+<%--제이쿼리--%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<%--로딩화면--%>
+<script src="/resources/assets/js/effects/loading.js"></script>

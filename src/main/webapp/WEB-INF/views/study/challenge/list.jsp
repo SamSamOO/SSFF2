@@ -11,9 +11,7 @@
 <head>
 
     <title>챌린지 리스트</title>
-
     <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
     <!--<script src="../../../../resources/assets/js/location/location.js"></script>-->
     <!--head.html Include-->

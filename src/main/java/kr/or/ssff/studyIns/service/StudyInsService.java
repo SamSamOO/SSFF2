@@ -1,6 +1,7 @@
 package kr.or.ssff.studyIns.service;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.IntSequenceGenerator;
+import java.util.HashMap;
 import javax.swing.plaf.multi.MultiInternalFrameUI;
 import kr.or.ssff.studyIns.domain.StudyInsFileVO;
 import kr.or.ssff.studyIns.domain.StudyInsVO;
@@ -52,6 +53,10 @@ public interface StudyInsService {
 
     //11. 채팅 리스트 불러오기
     public abstract List<ChatMsgDTO> getChatList(Integer r_idx);
+
+    //12 조회수 순으로 리스트 불러오기
+    List<StudyInsVO> getListByHit(HashMap<String, Object> map);
+
 
 } // end interface
 

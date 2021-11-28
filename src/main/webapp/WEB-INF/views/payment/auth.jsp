@@ -116,8 +116,8 @@
     var tmpWindow = window.open('about:blank')
     tmpWindow.location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?" +
                          "response_type=code&"+
-                         "client_id=8492614f-7af7-472e-9c00-f0b61b38ed33&" + //
-                         "redirect_uri=http://localhost:8070/payment/authIn&"+
+                         "client_id=" + clientID + "&" +
+                         "redirect_uri=http://localhost:8070/paymentRest/authIn&"+
                          "scope=login inquiry transfer&"+
                          "client_info=test&"+
                          "state=b80BLsfigm9OokPTjy03elbJqRHOfGSY&"+
@@ -127,7 +127,7 @@
                          "account_hold_auth_yn=N&" +
                          "register_info=A"
     
-  })
+  }) // $("#authBtn").click_fn
 
 </script>
 </html>

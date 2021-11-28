@@ -7,7 +7,12 @@
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%--로딩 에니메이션 js html--%>
+<div id="loading"><img src="/resources/assets/images/logos/ssff/logo-c1.png" alt="로딩"/></div>
+
 <!------------------모바일 헤더 시작------------------>
+
 <div id="kt_header_mobile" class="header-mobile">
     <!--로고 시작-->
     <a href="/">
@@ -27,14 +32,14 @@
                 <div class="btn btn-dropdown top-memu text-hover-primary">
 
                     <!--유저 프로필 사진(비로그인시 숨김)-->
-                    <c:if test="${member != null }">
+                    <c:if test="${member != null}">
                         <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
                             <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg" />
                         </div>
                     </c:if>
                     <c:if test="${member == null }">
                         <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                            <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default.png" />
+                            <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default_g_w.png" />
                         </div>
                     </c:if>
                     <i class="text-dark fas fa-angle-down"></i>
@@ -148,7 +153,7 @@
                         </c:if>
                         <c:if test="${member == null }">
                             <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                                <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default.png" />
+                                <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default_g_w.png" />
                             </div>
                         </c:if>
 

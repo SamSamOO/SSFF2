@@ -1,38 +1,31 @@
-function callApiService (url, data, method) {
-  return
+function callApiService (url, jsonData, method) {
   if (method === 'GET') {
-    $.ajax({
-      url,
-      type: 'GET',
-      dataType: 'json',
-      contentType: 'application/json',
-      data: JSON.stringify(jsonData),
-      success: function(response){
-        if (response) {
-          alert('goongdoong smell is good!')
-          return true
-        } else {
-          alert('wooo weck!')
-          return false
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: url + "?cal_id=" + jsonData.cal_id,
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json;charset=UTF-8',
+        success: function (response) {
+          resolve(response)
+        },
+        error: function (request, status, error) {
+          reject(false)
         }
-      },
-      error: function (request, status, error){
-        console.log(error)
-      }
+      })
     })
   } else if (method === 'POST') {
     $.ajax({
-      url,
+      url : url,
       type: 'POST',
       dataType: 'json',
-      contentType: 'application/json',
+      contentType: 'application/json;charset=UTF-8',
       data: JSON.stringify(jsonData),
       success: function(response){
         if (response) {
-          alert('goongdoong smell is dirty!')
           return true 
         } else {
-          alert('wooo weck!')
+          alert('else invoked')
           return false
         }
       },
@@ -43,19 +36,36 @@ function callApiService (url, data, method) {
   }
 }
 
-function getFullCalendarData () {
-  return callApiService('/yeshow/goong~doong/smell', null, 'GET')
+async function getFullCalendarData (cal_id) {
+  setCal_id = {
+    cal_id : cal_id
+  }
+  let returnData
+  await callApiService('/calendar/get', setCal_id, 'GET').then((data) => {
+    returnData = data
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+  return returnData
+
+  // return callApiService('/calendar/get', setCal_id, 'GET')
 }
 
-function setFullCalendarData (data) {
-  return callApiService('/yeshow/goong~doong/dirty', data, 'POST')
-}
+function setFullCalendarData (cal_id, updateData) {
+  setData = {
+    cal_id: cal_id,
+    calendarData: JSON.stringify(updateData),
+  }
+  return callApiService('/calendar/add', setData, 'POST')
+}//setFullCalendarData
 
 function exmapleData () {
+  return []
   return [
     {
       title: "All Day Event",
-      start: "2021-11-01",
+      start: "2021-11-01"
     },
     {
       title: "Long Event",
@@ -114,7 +124,8 @@ function exmapleData () {
     {
       title: "yesoltest",
       start: "2021-11-14",
-      end:"2021-11-15"
+      end:"2021-11-15",
+      wow:"wow?"
     },
   ];
 }

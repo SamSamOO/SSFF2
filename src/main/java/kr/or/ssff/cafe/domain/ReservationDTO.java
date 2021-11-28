@@ -37,7 +37,7 @@ public class ReservationDTO {
   private Integer  use_end_time;
   private Character  rsrv_status_ynz;
   private String rsrv_name;
-  private Integer rsrv_phone_number;
+  private String rsrv_phone_number;
   private String rsrv_email;
   private String rsrv_message;
   private Integer rsrv_amount;

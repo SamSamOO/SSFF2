@@ -1,6 +1,7 @@
 package kr.or.ssff.studyIns.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import javax.naming.event.ObjectChangeListener;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.socket.server.HandshakeHandler;
 
 /*
 
@@ -34,6 +36,15 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
 
     @Autowired
     private StudyInsMapper mapper;
+
+    @Override
+    public List<StudyInsVO> getListByHit(HashMap<String, Object> map) {
+        log.info("getListByHit({}) is invoked", "map = " + map);
+
+        Objects.requireNonNull(mapper);
+
+        return this.mapper.getListByHit(map);
+    }
 
     /* 게시글중 removedOK 가 'n'인 게시물의 개수를 들고옵니다 (SI_BOARD table)
      * 매개변수: 없음

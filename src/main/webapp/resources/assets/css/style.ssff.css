@@ -128,8 +128,7 @@ https://cactus.tistory.com/306
     src: url('/resources/assets/fonts/Pretendard-Thin.woff') format('woff');
 }
 
-
-
+/*----줄바꿈 환경----*/
 body{
     word-break: keep-all;
 }
@@ -179,7 +178,6 @@ body{
 }
 
 /*-----포인트 색상 텍스트-----*/
-
 .text-ssff1{
     color: #6b984f !important;
 }
@@ -208,10 +206,78 @@ a.text-hover-ssff-orange:hover,
     color: #ebab31 !important;
 }
 
+/*----디자인 설정용 단축태그----*/
+.object-cover{
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+}
+
+.inline-flex{
+    display: inline-flex !important;
+}
+
+.list-style-none{
+    list-style: none !important;
+}
+
+.filter-shadow{
+    -webkit-box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05);
+    box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05);
+}
+
+.px-p15{
+    padding:0 15% !important;
+}
+
 .l-sp-015{
     letter-spacing: 0.15em !important;
 }
 
+/*----로그인 화면----*/
 #kt_login_signin_submit{
     width: 180px !important;
+}
+
+/*-----로딩중 페이지 효과-----*/
+#loading {
+!important;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    display: block;
+    background: #FFFFFF;
+    opacity: 0.7;
+    z-index: 100;
+    text-align: center;
+}
+
+#loading img {
+!important;
+    background: #FFFFFF;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    width: 400px;
+    height: auto;
+    top: 41%;
+    left: 37%;
+    transform: translate(-50%, -50%);
+    z-index: 101;
+    animation: shake 2s infinite;
+
+}
+@keyframes shake{
+    0%{	transform: translate(1px, 1px) rotate(0deg);}
+    10%{	transform: translate(-1px, -1px) rotate(-1deg);}
+    20%{	transform: translate(3px, 1px) rotate(1deg);}
+    30%{	transform: translate(3px, 2px) rotate(0deg);}
+    40%{	transform: translate(1px, -1px) rotate(1deg);}
+    50%{	transform: translate(-1px, 1px) rotate(-1deg);}
+    60%{	transform: translate(2px, -1px) rotate(0deg);}
+    70%{	transform: translate(-1px, 1px) rotate(1deg);}
+    80%{	transform: translate(3px, -1px) rotate(-1deg);}
+    90%{	transform: translate(1px, 3px) rotate(0deg);}
+    100%{	transform: translate(1px, -2px) rotate(1deg);}
 }

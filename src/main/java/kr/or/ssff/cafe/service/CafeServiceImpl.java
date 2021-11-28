@@ -160,6 +160,21 @@ public class CafeServiceImpl
         return cafeVO;
     } //getCafe
 
+    /*
+     * 카페 리스트 조회
+     * 매개변수 : 검색할 값
+     * 뷰단 : 매니저 카페 리스트
+     * 반환 : 카페 리스트
+     * 작성자: 신지혜
+     * */
+    @Override
+    public List<CafeVO> getManagerCafeList(HashMap<String, String> searchKey) {
+        log.debug("getManagerCafeList {} :  invoked", searchKey);
+        List<CafeVO> list = this.mapper.selectManagerCafeList(searchKey);
+
+        return list;
+    } // getManagerCafeList
+
 
     /*
      * 카페 하나의 모든 룸 정보 조회
