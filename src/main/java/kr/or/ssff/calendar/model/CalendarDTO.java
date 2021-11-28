@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Data;
 
 /*
-
+    쓰지 않음
  */
 @Data
 public class CalendarDTO {

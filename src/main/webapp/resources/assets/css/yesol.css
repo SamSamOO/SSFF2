@@ -369,8 +369,10 @@
   cursor: pointer;
 }
 
-/* p-> a태그로 변경해서 추가해놨어: 지혜*/
-#applyChallenge{
+/* p-> a태그로 변경해서 추가해놨어: 지혜
+  2021.11.28
+ -프로젝트 스터디에도 버튼 넣어야해서 #applyChallenge->.applyBtn으로 수정: 지혜*/
+.applyBtn{
   background-color: rgb(235, 171, 49);
   padding: 7px 9px;
   border-radius: 5px;

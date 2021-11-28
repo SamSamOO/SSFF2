@@ -33,16 +33,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Service("memberService")
 public class MemberServiceImpl implements MemberService, InitializingBean, DisposableBean  {
 
-
-
-    @Setter(onMethod_ = {@Autowired})
     private MemberMapper mapper;
 
     @Autowired
     private JavaMailSender mailSender;
-
-
-
 
 
     // 회원가입 로직(장순형)
