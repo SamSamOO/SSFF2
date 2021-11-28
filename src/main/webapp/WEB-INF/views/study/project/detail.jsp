@@ -338,8 +338,7 @@
         
         // 실패
         function errorCallback() {
-            
-            alert("요청에 실패하였습니다. 다시 시도해주세요!");
+            Swal.fire('요청에 실패하였습니다. 다시 시도해주세요!', '', 'warning')
         } // errorCallback
     }
 
