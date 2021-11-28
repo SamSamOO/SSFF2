@@ -144,7 +144,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <%--                                                <div id="filter_1">--%>
                 <%--                                                    <h6 class="font-weight-bolder text-ssff2 mb-2">스터디 타입</h6>--%>
                 <%--                                                    <ul class="list-inline checklist">--%>
-                <%--                                                        <li class="inline-flex">--%>
+                <%--                                                        <li class="d-inline-flex">--%>
                 <%--                                                            <span class="mr-2 w-20px">--%>
                 <%--                                                                <label class="checkbox checkbox-single checkbox-all mr-4">--%>
                 <%--                                                                    <input type="checkbox">&nbsp;<span></span>--%>
@@ -153,7 +153,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <%--                                                            전체--%>
                 <%--                                                        </li>--%>
                 
-                <%--                                                        <li class="inline-flex">--%>
+                <%--                                                        <li class="d-inline-flex">--%>
                 <%--															<span class="mr-2 w-20px">--%>
                 <%--																<label class="checkbox checkbox-single">--%>
                 <%--																	<input type="checkbox" value="1">&nbsp;<span></span>--%>
@@ -162,7 +162,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <%--                                                            프로젝트--%>
                 <%--                                                        </li>--%>
                 
-                <%--                                                        <li class="inline-flex">--%>
+                <%--                                                        <li class="d-inline-flex">--%>
                 <%--															<span class="mr-2 w-20px">--%>
                 <%--																<label class="checkbox checkbox-single">--%>
                 <%--																	<input type="checkbox" value="2">&nbsp;<span></span>--%>
@@ -180,7 +180,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <%--                                                <div id="filter_2">--%>
                 <%--                                                    <h6 class="font-weight-bolder text-ssff2 mb-2">진행</h6>--%>
                 <%--                                                    <ul class="list-inline checklist">--%>
-                <%--                                                        <li class="inline-flex">--%>
+                <%--                                                        <li class="d-inline-flex">--%>
                 <%--															<span class="mr-2 w-20px">--%>
                 <%--																<label class="checkbox checkbox-single checkbox-all">--%>
                 <%--																	<input type="checkbox">&nbsp;<span></span>--%>
@@ -189,7 +189,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <%--                                                            전체--%>
                 <%--                                                        </li>--%>
                 
-                <%--                                                        <li class="inline-flex">--%>
+                <%--                                                        <li class="d-inline-flex">--%>
                 <%--															<span class="mr-2 w-20px">--%>
                 <%--																<label class="checkbox checkbox-single">--%>
                 <%--																	<input type="checkbox" value="1">&nbsp;<span></span>--%>
@@ -198,7 +198,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <%--                                                            진행 대기중--%>
                 <%--                                                        </li>--%>
                 
-                <%--                                                        <li class="inline-flex">--%>
+                <%--                                                        <li class="d-inline-flex">--%>
                 <%--															<span class="mr-2 w-20px">--%>
                 <%--																<label class="checkbox checkbox-single">--%>
                 <%--																	<input type="checkbox" value="2">&nbsp;<span></span>--%>
@@ -207,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <%--                                                            진행중--%>
                 <%--                                                        </li>--%>
                 
-                <%--                                                        <li class="inline-flex ml-n8">--%>
+                <%--                                                        <li class="d-inline-flex ml-n8">--%>
                 <%--															<span class="mr-2 w-20px">--%>
                 <%--																<label class="checkbox checkbox-single">--%>
                 <%--																	<input type="checkbox" value="3">&nbsp;<span></span>--%>

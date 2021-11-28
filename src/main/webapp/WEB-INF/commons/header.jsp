@@ -55,7 +55,6 @@
                         <!--begin::Item-->
                         <a href="/member/loginGo" class="navi-item dropdown-item">
                             <div class="navi-link">
-
                                 <div class="navi-text login">
                                     <div class="font-weight-bold">로그인 </div>
                                 </div>

@@ -17,60 +17,6 @@
 
 <head>
   <title>예약내역 조회</title>
-  
-  <style>
-    .row {
-      justify-content: space-evenly;
-    }
-  
-    ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex;
-      flex-direction: row;
-      box-sizing: border-box;
-      text-align: left;
-      font-weight: 400;
-      font-size: 12px !important;
-      color: #3F4254;
-      word-wrap: break-word;
-      -webkit-box-direction: normal;
-    }
-
-    li{
-      padding: 1em;
-    }
-
-    th[data-field="RecordID"], tr[data-field="RecordID"], td[data-field="RecordID"] {
-      width: 5% !important;
-    }
-    th[data-field="ReservationID"], tr[data-field="ReservationID"], td[data-field="ReservationID"] {
-      width: 15% !important;
-    }
-    th[data-field="CafeInfo"], tr[data-field="CafeInfo"], td[data-field="CafeInfo"] {
-      width: 25% !important;
-    }
-    th[data-field="ReservationAmount"], tr[data-field="ReservationAmount"], td[data-field="ReservationAmount"] {
-      width: 10% !important;
-    }
-    th[data-field="UseDateInfo"], tr[data-field="UseDateInfo"], td[data-field="UseDateInfo"] {
-      width: 25% !important;
-    }
-    th[data-field="Status"], tr[data-field="Status"], td[data-field="Status"] {
-      width: 10% !important;
-    }
-    th[data-field="cancel"], tr[data-field="cancel"], td[data-field="cancel"] {
-      width: 10% !important;
-    }
-    th[data-field="NickName"], tr[data-field="NickName"], td[data-field="NickName"] {
-      width: 10% !important;
-      display: none ; /*TODO 세션 아이디 따라 none - block */
-    }
-    
-  </style>
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
 </head>
@@ -79,7 +25,6 @@
 <!----------------Body 시작----------------------->
 
 <body id="kt_body" class="header-fixed subheader-enabled page-loading">
-
 <!----------------메인 시작----------------------->
 <div class="d-flex flex-column flex-root">
   <!----------------페이지 시작----------------------->
@@ -106,22 +51,26 @@
               <!--begin::Details-->
               <div class="d-flex align-items-center flex-wrap mr-1">
                 <!--begin::Title-->
-                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">예약내역 조회</h5>
+                <i class="fas fa-concierge-bell"></i>&nbsp;&nbsp;
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">예약 내역 조회</h5>
                 <!--end::Title-->
-                <!--begin::Separator-->
-                <div
-                  class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
-                <!--end::Separator-->
-                <!--begin::Search Form-->
-                <div class="d-flex align-items-center" id="kt_subheader_search">
-                </div>
-                <!--end::Search Form-->
+                <!--Breadcrumb : 로드맵 시작-->
+                <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                  <li class="breadcrumb-item">
+                    <a href="/manager/member/list" class="text-muted">관리자 페이지</a>
+                  </li>
+                  <li class="breadcrumb-item">
+                    <a href="/manager/study/list" class="text-muted">스터디 관리</a>
+                  </li>
+                </ul>
+                <!--Breadcrumb : 로드맵 종료-->
+
               </div>
               <!--end::Details-->
               <!--begin::Toolbar-->
               <div class="d-flex align-items-center">
-                <!--begin::Button-->
-                <a href="#" class="btn btn-default font-weight-bold">Back</a> <!-- //TODO 링크 걸어죠-->
+                <!--begin::Button 뒤로가기-->
+                <a href="javascript:history.back();" class="btn btn-secondary font-weight-bolder"><i class="fas fa-arrow-left"></i>Back</a>
                 <!--end::Button-->
                 <!--begin::Dropdown-->
                 
@@ -147,18 +96,17 @@
             
             <!--begin::cardcustom-->
             <div class="card card-custom card-sticky">
-              <div class="card-header flex-wrap border-0 pt-6 pb-0">
+              <div class="card-header flex-wrap">
                 <div class="card-title">
-                
+                  <h3 class="card-label">예약 내역 확인하기
+                    <span class="d-block text-muted pt-2 font-size-sm mb-20">
+                      예약 내역과 해당하는 거래내역 조회가 가능합니다.
+                    </span>
+                  </h3>
                 </div>
                 
                 <!--begin::card -->
                 <div class="card-body">
-                  <h3 class="card-label">예약내역 확인하기
-                    <span
-                      class="d-block text-muted pt-2 font-size-sm mb-20">예약 내역과 해당하는 거래내역 조회가 가능합니다.</span>
-                  </h3>
-                  <!--begin: Search Form-->
                   <!--begin::Search Form-->
                   <div class="mb-7">
                     <div class="row align-items-center">
@@ -169,8 +117,8 @@
                               <input type="text" class="form-control" placeholder="Search..."
                                      id="kt_datatable_search_query">
                               <span>
-																	<i class="flaticon2-search-1 text-muted"></i>
-																</span>
+                                <i class="flaticon2-search-1 text-muted"></i>
+                              </span>
                             </div>
                           </div>
                           <div class="col-md-4 my-2 my-md-0">
@@ -959,14 +907,12 @@ function access(){
 
 
 // 지원신청 누르면 작업 고고
-function cancelRsrv(obj){ 
-    
-
+function cancelRsrv(obj){
     Swal.fire({
-              icon : 'warning', // Alert 타입
-              title: '예약취소', // Alert 제목
-              text : '예약을 취소하고 환불함을 동의합니다.', // Alert 내용
-            });
+      icon : 'warning', // Alert 타입
+      title: '예약취소', // Alert 제목
+      text : '예약을 취소하고 환불함을 동의합니다.', // Alert 내용
+    });
 
   var submitObj = new Object();
   let searchRsrvID = $(obj).attr('value');

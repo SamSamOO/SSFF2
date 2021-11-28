@@ -105,37 +105,41 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Card-->
                             <div class="card card-custom">
                                 <!--begin::Header-->
-                                <div class="card-header flex-wrap border-0 pt-6 pb-0">
+                                <div class="card-header flex-wrap pt-6 pb-0">
                                     <div class="card-title">
-                                        <h3 class="card-label"></h3>
+                                        <h3 class="card-label">회원 목록</h3>
                                     </div>
-                                    <!--begin::Search Form 검색-->
-                                    <div class="d-flex align-items-center" id="kt_subheader_search">
-                                        <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">${pageMaker.total} 전체</span>&nbsp
-                                        <span><a href="#" onclick="submitConfirm()"><i class="fas fa-sync-alt"></i></a></span>
-                                        <form class="ml-5">
-                                            <div class="input-group input-group-sm input-group-solid">
-                                                <input type="text" class="form-control"
-                                                       id="kt_subheader_search_form" name="keyword" placeholder="Search..."/>
-                                                <div id="searchBtn" class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="flaticon2-search-1 icon-sm"></i>
-                                                            </span>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!--end::Search Form-->
                                 </div>
                                 <!--end::Header-->
                                 <!--begin::Body 북마크-->
                                 <div class="card-body">
                                     <!--begin: Datatable-->
-                                    <div class=" datatable-default datatable-primary "
-                                         id="">
+                                    <div class="mng_user_list datatable-default datatable-primary overflow-auto">
+                                        <!--begin::Search Form 검색-->
+                                        <div class="d-flex align-items-start w-50">
+                                            <div class="text-dark-50"> 전체 ${pageMaker.total}</div>
+
+                                            <form class="ml-5">
+                                                <div class="input-group input-group-sm input-group-solid align-self-center">
+                                                    <input type="text" class="form-control"
+                                                          name="keyword" placeholder="Search..."/>
+                                                    <div id="searchBtn" class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="flaticon2-search-1 icon-sm"></i>
+                                                            </span>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                            <div class="align-self-center">
+                                                <a href="" onclick="submitConfirm()">
+                                                    <i class="fas fa-sync-alt icon-lg text-hover-ssff-orange mx-2"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <!--end::Search Form-->
                                         <%------ 테이블 시작-------%>
                                         <%------ 테이블 헤드-------%>
-                                        <table class="mng_user_list table table-hover">
+                                        <table class="table table-hover">
                                             <thead class="text-center">
                                             <tr>
                                                 <th scope="col">  </th>
@@ -146,7 +150,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     아이디
                                                 </th>
                                                 <th scope="col">
-                                                    액션
+                                                    마이 페이지
                                                 </th>
                                             <tr>
                                             </thead>
@@ -154,7 +158,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <%------ 테이블 바디-------%>
                                             <tbody>
                                             <c:forEach items="${memberList}" var="list">
-
                                                 <tr>
                                                         <%--회원번호--%>
                                                     <td class="user_num">
@@ -163,15 +166,15 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                                         <%--회원 사진 / 닉네임--%>
                                                     <td class="user_pic_nick">
-                                                        <div class= "d-flex mx-8">
-                                                            <a href="" class="w-100 d-flex align-items-center justify-content-around">
+                                                        <div class= "d-flex">
+                                                            <a href="" class="d-flex align-items-center">
                                                                 <div class="symbol symbol-45 justify-content-start align-items-center">
                                                                     <c:choose>
                                                                     <c:when test="${list.member_Profile == '/resources/assets/images/icon/profile_default_g_w.png'}">
-                                                                        <span class="symbol-label font-size-h5"> ${fn:substring(list.member_Name,0,1)} </span>
+                                                                        <span class="symbol-label font-size-h5 font-weight-bolder"> ${fn:substring(list.member_Name,0,1)} </span>
                                                                     </c:when>
                                                                     <c:when test="${list.member_Profile == 'defualt.jpg'}">
-                                                                        <span class="symbol-label font-size-h5"> ${fn:substring(list.member_Name,0,1)} </span>
+                                                                        <span class="symbol-label font-size-h5 font-weight-bolder"> ${fn:substring(list.member_Name,0,1)} </span>
                                                                     </c:when>
                                                                     <c:otherwise>
                                                                         <img src="${list.member_Profile}" alt="photo" class="object-cover">
@@ -179,7 +182,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                     </c:choose>
                                                                 </div>
 
-                                                                <div class="w-75 font-weight-bolder font-size-lg">
+                                                                <div class="pl-6 font-weight-bolder font-size-lg text-left">
                                                                     ${list.member_Name}
                                                                 </div>
                                                             </a>
@@ -195,7 +198,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     </td>
                                                     <%--액션--%>
                                                     <td class="list_action text-center">
-                                                        <div class="ml-10 text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
+                                                        <div class="text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
                                                             <a href="javascript:;"
                                                                class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2">
                                                                 <i class="far fa-user-circle"></i>
@@ -204,59 +207,48 @@ License: You must have a valid license purchased only from themeforest(the above
                                                             </td>
                                                 </tr>
                                             </c:forEach>
-                                            </tbody>
-
                                             <%------ 테이블 종료-------%>
-
-                                            <%--------------아랫단 시작-----------%>
-                                            <tr class="align-center">
-                                                <td colspan="8">
-                                                    <!--begin::Pagination-->
-                                                    <div class="d-flex justify-content-between align-items-center flex-wrap ">
-                                                        <h2>${pageMaker}</h2>
-                                                        <div class='pull-right'>
-                                                            <ul class="pagination">
-
-                                                                <c:if test="${pageMaker.prev}">
-                                                                    <li id="prev" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-double-arrow-back icon-xs p-4"
-                                                                                                                                                     id="prev_aa" href="1"></a>
-                                                                    </li>
-                                                                    <li id="prev" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-arrow-back icon-xs p-4"
-                                                                                                                                                     id="prev_a" href="${pageMaker.startPage -1}"></a>
-                                                                    </li>
-                                                                </c:if>
-
-                                                                <c:forEach var="num" begin="${pageMaker.startPage}"
-                                                                           end="${pageMaker.endPage}">
-                                                                    <li id="num"
-                                                                        class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
-                                                                        <a class="p-4" id="num_a" href="${num}">${num}</a>
-                                                                    </li>
-                                                                </c:forEach>
-
-                                                                <c:if test="${pageMaker.next}">
-                                                                    <c:set var="pages" value="${pageMaker.total div pageMaker.criteria.amount}"/>
-                                                                    <c:set var="pages2" value="${pages+((pages%1>0.5)?(1-(pages%1))%1:-(pages%1))}"/>
-                                                                    <fmt:formatNumber value="${pages2}" type="number" var="numberType"/>
-                                                                    <li id="next" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
-                                                                        <a id="next_a" class="ki ki-bold-arrow-next icon-xs p-4" href="${pageMaker.endPage +1 }"></a>
-                                                                    </li>
-                                                                    <li id="next" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-double-arrow-next icon-xs p-4"
-                                                                                                                                                     id="next_aa" href="${numberType}"></a>
-                                                                    </li>
-                                                                </c:if>
-
-
-                                                            </ul>
-                                                        </div>
-                                                        <div class="d-flex align-items-center py-3">
-                                                        </div>
-                                                    </div>
-                                                    <!--end:: Pagination-->
-                                                </td>
-                                            </tr>
+                                            </tbody>
                                         </table>
-                                        <%--------------아랫단 종료-----------%>
+                                        <%--------------페이지네이션 시작-----------%>
+                                        <div class="d-flex flex-column align-items-center">
+                                            <ul class="pagination">
+                                                <c:if test="${pageMaker.prev}">
+                                                    <li id="prev" class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1">
+                                                        <a class="ki ki-bold-double-arrow-back icon-xs p-4"
+                                                           id="prev_aa" href="1"></a>
+                                                    </li>
+                                                    <li id="prev" class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1">
+                                                        <a class="ki ki-bold-arrow-back icon-xs p-4"
+                                                           id="prev_a" href="${pageMaker.startPage -1}"></a>
+                                                    </li>
+                                                </c:if>
+
+                                                <c:forEach var="num" begin="${pageMaker.startPage}"
+                                                           end="${pageMaker.endPage}">
+                                                    <li id="num"
+                                                        class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 ${pageMaker.criteria.pageNum == num ? "active":""}">
+                                                        <a class="w-100 h-100 d-flex justify-content-center align-items-center" id="num_a" href="${num}">${num}</a>
+                                                    </li>
+
+                                                </c:forEach>
+
+                                                <c:if test="${pageMaker.next}">
+                                                    <c:set var="pages" value="${pageMaker.total div pageMaker.criteria.amount}"/>
+                                                    <c:set var="pages2" value="${pages+((pages%1>0.5)?(1-(pages%1))%1:-(pages%1))}"/>
+                                                    <fmt:formatNumber value="${pages2}" type="number" var="numberType"/>
+                                                    <li id="next" class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1">
+                                                        <a id="next_a" class="ki ki-bold-arrow-next icon-xs p-4" href="${pageMaker.endPage +1 }"></a>
+                                                    </li>
+                                                    <li id="next" class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1">
+                                                        <a class="ki ki-bold-double-arrow-next icon-xs p-4"
+                                                           id="next_aa" href="${numberType}"></a>
+                                                    </li>
+                                                </c:if>
+                                            </ul>
+                                            <%--------------페이지네이션 종료-----------%>
+<%--                                            <h6>${pageMaker}</h6>--%>
+                                        </div>
                                         <!--end: Datatable-->
                                     </div>
                                     <!--end::Body-->

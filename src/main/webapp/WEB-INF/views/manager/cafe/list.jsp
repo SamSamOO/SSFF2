@@ -164,7 +164,7 @@ License: You must have a valid license purchased only from themeforest(the above
                           <div id="filter_1">
                             <h6 class="font-weight-bolder text-ssff2 mb-2">스터디 타입</h6>
                             <ul class="list-inline checklist" aria-required="true">
-                              <li class="inline-flex">
+                              <li class="d-inline-flex">
                                 <span class="mr-2 w-20px">
                                   <label
                                     class="checkbox checkbox-single checkbox-all mr-4">
@@ -176,7 +176,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 전체
                               </li>
                               
-                              <li class="inline-flex">
+                              <li class="d-inline-flex">
                                <span class="mr-2 w-20px">
                                 <label class="checkbox checkbox-single">
                                  <input name="chk" type="checkbox" value="P">&nbsp;<span></span>
@@ -185,7 +185,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 프로젝트
                               </li>
                               
-                              <li class="inline-flex">
+                              <li class="d-inline-flex">
                                <span class="mr-2 w-20px">
                                 <label class="checkbox checkbox-single">
                                  <input name="chk" type="checkbox" value="C">&nbsp;<span></span>
