@@ -1,7 +1,7 @@
 <%--
-  스터디 카페 생성 화면단
+  스터디 카페 예약 리스트 화면단
   User: 신지혜
-  Date: 2021-11-20
+  Date: 2021-11-25
   Time: 오전 6:13
   To change this template use File | Settings | File Templates.
 --%>
@@ -989,16 +989,15 @@ function cancelRsrv(obj){
   function successCallback(data) {
     console.log("data: " + data);
     //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고
+    Swal.fire({
+                icon : 'info', // Alert 타입
+                title: '취소완료', // Alert 제목
+                text : '예약취소가 완료되었습니다.', // Alert 내용
+              });
+     // start.init();
+    window.location.href = 'http://www.abc.com/';
 
-    // start.init();
-    
-    // 참여신청 버튼 비활성화처리 //TODO 전역함수로도 설정해서 재신청 불가능하게~
-    $('#applyChallenge').css("background-color","gray"); //색 변경
-    // $('#applyChallenge').unbind('mouseenter mouseleave'); // 호버 제거 안되죠?
-    $("#applyChallenge").attr('onclick', '').unbind('click');
 
-
-    $('#applyChallenge').text('지원완료'); // 글자 변경
   } // successCallback
 
   // 실패

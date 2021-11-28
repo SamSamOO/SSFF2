@@ -593,30 +593,53 @@
 																		
 																		
 																		<div class="separator separator-dashed my-10"></div>
+																	
+																	<div class="datatable datatable-bordered datatable-head-custom
+																		datatable-default datatable-primary datatable-loaded" id="환불규정" style="">
+																		<table class="datatable-table"
+																		       style="display: block;margin-left: auto;margin-right: auto;width: 65%;">
+																			<thead class="datatable-head">
+																			<tr class="datatable-row" style="left: 0px;">
+																				<th data-field="OrderID"
+																				    class="datatable-cell datatable-cell-sort datatable-cell-sorted"
+																				    data-sort="asc"><span style="width: 250px;">서비스 동의</span>
+																					<label class="text-right checkbox" for="check_all">
+																						<input type="checkbox" id="check_all">
+																						<span></span>전체 동의</label>
+																				
+																				</th>
+																			</tr>
+																			</thead>
+																			<tbody style="" class="datatable-body">
+																			
+																			<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
+																				<td class="datatable-cell-left datatable-cell ml-15"
+																				    aria-label="400"><span>
+																					
+																					<span	class="font-weight-bolder">	<label class="checkbox" for="check_1">
+																										<input type="checkbox" id="check_1" class="nomal">
+																										<span></span> &nbsp; 위 공간의 예약조건 확인 및 결제진행 동의</label></span></span></td>
+																			</tr>
+																			<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
+																				<td class="datatable-cell-left datatable-cell ml-15"
+																				    aria-label="400"><span>
+																					<span	class="font-weight-bolder">	<label class="checkbox" for="check_2">
+																										<input type="checkbox" id="check_2" class="nomal">
+																										<span></span>개인정보 제3자 제공 동의</label></span></span></td>
+																			</tr>
+																			<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
+																				<td class="datatable-cell-left datatable-cell ml-15"
+																				    aria-label="400"><span>
+																					<span	class="font-weight-bolder"><label class="checkbox" for="check_3">
+																										<input type="checkbox" id="check_3" class="nomal">
+																										<span></span>개인정보 수집 및 이용 동의</label></span></span></td>
+																			</tr>
 																		
+																			</tbody>
+																		</table>
+																	</div>
+																	
 																		
-																		<div class="form-group row mb-30">
-																				<label class="col-xl-3 col-lg-3 col-form-label text-right">약관</label>
-																				<div class="col-lg-9 col-xl-6">
-																						<div class="checkbox-list">
-																								<label class="text-right checkbox">
-																										<input type="checkbox">
-																										<span></span>약관 전체선택</label>
-																								<label class="checkbox">
-																										<input type="checkbox">
-																										<span></span>약관 1: ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</label>
-																								<label class="checkbox">
-																										<input type="checkbox" checked="checked">
-																										<span></span>약관 2: ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</label>
-																								<label class="checkbox">
-																										<input type="checkbox" checked="checked">
-																										<span></span>약관 3: ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</label>
-																								<label class="checkbox">
-																										<input type="checkbox" checked="checked">
-																										<span></span>약관 4</label>
-																						</div>
-																				</div>
-																		</div>
 																		
 																		<!--end::Body-->
 																		<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -735,14 +758,6 @@
 
 <script>
 
-  // function rsrvSubmit() {
-		//
-  //   console.log("rsrvSubmit");
-  //   $('#formObj').submit();
-  //   console.log("t33tt");
-		//
-  // }
-		//
   
   const clientID = '8492614f-7af7-472e-9c00-f0b61b38ed33';
   const clientPWD = 'e9366e92-5b66-450e-8299-f1ebbf9473db';
@@ -774,4 +789,47 @@
   
 </script>
 
+<script>
+	// 체크박스 옵션 선택 스크립트
+	
+	
+	
+	// 체크박스 전체 선택, 전체 해제
+	$(".checkbox_group").on("click", "#check_all", function () {
+		
+		// 전체선택이 체크가 되어있는지 확인 한 후,
+		var checked = $(this).is(":checked");
+		
+		if(checked){ // 체크가 되어 있으면 div.checkbox_group 의 input들에 모두 checked, true
+			$(this).parents(".checkbox_group").find('input').prop("checked", true);
+		} else { // 체크가 해제 되면 모두 checked, false
+			$(this).parents(".checkbox_group").find('input').prop("checked", false);
+		}
+	});
+	
+	
+	// // 전체선택 후 하나만 해제했을 때, 전체선택도 해체
+	// $(".checkbox_group").on("click", ".normal", function() {
+	//
+	// 	//  checked 속성을 판단
+	// 	var checked = $(this).is(":checked");
+	//
+	// 	if (!checked) { // 체크 해제가 되어 있다면 전체선택의 체크박스도 해제
+	// 		$("#check_all").prop("checked", false);
+	// 	}
+	// });
+	//
+	// 개별 선택으로 전체 다 선택되었을 때, 전체선택에도 체크
+	// 체크박스 개별 선택
+	$(".checkbox_group").on("click", ".normal", function() {
+		var is_checked = true;
+		
+		$(".checkbox_group .normal").each(function(){
+			is_checked = is_checked && $(this).is(":checked");
+		});
+		
+		$("#check_all").prop("checked", is_checked);
+	});
+	
+</script>
 </html>

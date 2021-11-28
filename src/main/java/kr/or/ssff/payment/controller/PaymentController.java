@@ -32,69 +32,6 @@ public class PaymentController {
 
 
 
-//  @RequestMapping(
-//      value  = "/authIn",
-//      method = {RequestMethod.POST,RequestMethod.GET},
-//      produces="application/json;charset=utf-8")
-//  @ResponseBody
-@GetMapping("/authIn")
-
-//  public St selectCafeList(String nickName){
-  public void testAuthResult(HttpServletRequest request){
-
-//    return "payment/test";
-  } // challengeRefund
-
-
-  /*
-   * 결제 인증 Test
-   * 매개변수: 회원 닉네임
-   * 반환:
-   * */
-  @GetMapping("/auth")
-//  public St selectCafeList(String nickName){
-  public void testAuth(){
-
-//    return "payment/test";
-  } // challengeRefund
-
-  /*
-   * 결제 인증 TestResult
-   * 매개변수: 회원 닉네임
-   * 반환:
-   * */
-
-//
-//  @RequestMapping(
-//      value  = "/authIn",
-//      method = {RequestMethod.POST,RequestMethod.GET},
-//      produces="application/json;charset=utf-8")
-//  @ResponseBody
-////  public St selectCafeList(String nickName){
-//  public void testAuthResult(HttpServletRequest request){
-//
-////    return "payment/test";
-//  } // challengeRefund
-
-
-
-  /*
-   * 결제 인증 TestResult
-   * 매개변수: 회원 닉네임
-   * 반환:
-   * */
-//  @PostMapping("/authtoken")
-////  public St selectCafeList(String nickName){
-//  public void testAuthTokenResult(){
-//
-////    return "payment/test";
-//  } // challengeRefund
-
-
-
-
-
-
   /*
    * 거래내역 리스트를 조회
    * 매개변수: 회원 닉네임
@@ -107,20 +44,6 @@ public class PaymentController {
     return "payment/transactionList";
   } // selectTransactionList
 
-  /*
-   * 결제시 예약릴레이션에 결제정보를 추가
-   * 매개변수: 회원 닉네임, 챌린지ID, PaymentDTO(등록할 결제 정보를 담을 객체)
-   * 반환: 거래내역 리스트 뷰단
-   *
-  @PostMapping("/")
-//  public St selectCafeList(String nickName){
-  public String s(String nickName, String challengeId, PaymentDTO paymentDTO){
-      String a = "a";
-
-
-    return "foward:" + a;
-  } // selectTransactionList
-*/
 
   /*
    * 챌린지시작시 결제 페이지 팝업(안에 금액 등 데이터 담아서 팝업)
@@ -147,20 +70,6 @@ public class PaymentController {
     return "payment/challengeRefund";
   } // challengeRefund
 
-  /*
-   * 스터디카페 결제 페이지 팝업(안에 금액 등 데이터 담아서 팝업)
-   * 매개변수: 회원 닉네임, 예약정보ID, PaymentDTO(등록할 결제 정보를 담을 객체)
-   * 반환: 예약정보에 결제정보를 변경(담을) 수 있는 페이지(이름 정해야해//TODO)
-   * */
-  @PostMapping("/cafeReservation")
-//  public St selectCafeList(String nickName){
-  public String cafeReservation(String nickName, String reservationId, PaymentDTO paymentDTO){
-
-
-
-
-    return "payment/cafeReservation";
-  } // insertChallenge
 
 
 }

@@ -320,7 +320,7 @@
 
   </insert>
 
-  <!-- 임시 등록된 예약정보 조회 : 신지혜 --> <!--TODO 객체로 받아서 거래정보와 비교해서 담기 -->
+  <!-- 임시 등록된 예약정보 조회 : 신지혜 -->
   <select id="selectTempRsrv"
     resultType="kr.or.ssff.cafe.domain.ReservationVO">
 

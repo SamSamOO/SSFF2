@@ -40,8 +40,8 @@
     <context:component-scan base-package="kr.or.ssff.controller"/>
 
     <!-- 순형 작업 -->
-    <context:component-scan base-package="kr.or.ssff.member.controller"/>
-    <context:component-scan base-package="kr.or.ssff.member.service"/>
+<!--    <context:component-scan base-package="kr.or.ssff.member.controller"/>-->
+<!--    <context:component-scan base-package="kr.or.ssff.member.service"/>-->
 	<!-- 순형 작업 -->
 	<context:component-scan base-package="kr.or.ssff.member.controller" />
 	<context:component-scan base-package="kr.or.ssff.member.service" />

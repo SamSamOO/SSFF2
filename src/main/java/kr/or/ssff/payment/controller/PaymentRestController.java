@@ -8,11 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationVO;
+import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
 import kr.or.ssff.payment.domain.PaymentAcntDTO;
 import kr.or.ssff.payment.domain.PaymentAuthDTO;
 import kr.or.ssff.payment.domain.PaymentDepositDTO;
 import kr.or.ssff.payment.domain.PaymentWithdrawDTO;
 import kr.or.ssff.payment.model.TransactionDTO;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -212,13 +214,14 @@ String id = "testJihye";
 
     //TODO row값 따라서 view 변경해주기 - 실패시 실패 알럿, 성공시 예약내역리스트 ㄱ
 //    return "<script>window.close();</script>";
-    		return "<script>opener.location.reload();window.close();"+resultHtml+"</script>";
+
+    		return "<script>opener.location.replace('/cafe/list');window.close();"+resultHtml+"</script>";
 
   } // withdraw
 
 
   /* 사용 x */
-  @RequestMapping("/diposit")
+  /*@RequestMapping("/diposit")
   public String diposit(
       @RequestParam("code") String code,
       @RequestParam("state") String state,
@@ -248,6 +251,39 @@ String id = "testJihye";
 
     return "<script></script>";
   } // withdraw
+*/
+
+
+  /* //TODO 미구현
+   * 거래내역 리스트를 비동기 조회
+   * 매개변수: 매니저/회원단 동시 활용하기에 sessionName
+   * 반환: 거래내역 리스트 정보를 담은 JSON객체
+   * */
+  @RequestMapping(value= "/transactionList/Data", method = RequestMethod.POST,
+      produces = "application/json; charset=UTF-8")
+  //없으면 AJAX 통신 안됨
+  public  JSONObject getTransactionList(
+      @RequestBody HashMap<String, String> searchKey
+  ) throws Exception {
+    log.debug("getReservationList({}) is invoked", searchKey);
+    log.info("ajax 요청 도착!");
+
+//    searchKey = new HashMap<>();
+    String member_name = "";
+    // jReservationVO 모든 정보 담아내기 (중복정보 있는 상태)
+//    List<RsrvJoinTrnscVO> list = this.service.getRsrvJoinTrnscList(searchKey);
+
+    //최종 완성될 JSONObject 선언(전체)
+    JSONObject jsonObject = new JSONObject();
+    //cafeInfo JSON정보를 담을 Array 선언
+    JSONArray arr = new JSONArray();
+
+
+    // log.info("jsonObject {} =", jsonObject);
+
+    // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)
+    return jsonObject;
+  } // getReservationList
 
 } // end class
 

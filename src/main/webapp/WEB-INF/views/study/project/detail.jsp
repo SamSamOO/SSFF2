@@ -113,8 +113,11 @@
                                         </div>
                                         <div class="apply-sec">
                                             <ul>
-                                                <li><p>지원하기</p></li>
-                                                <li style="padding-right:10px"><a href="/study/project/modifyGo?r_idx=${board.r_idx}">수정</a> | <a href="/study/project/remove?r_idx=${board.r_idx}">삭제</a></li>
+                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                       onclick="applyProject('project')"  class="applyBtn"
+                                                       id="applyProject">지원하기</a></li>
+                                                <li style="padding-right:10px"><a href="/study/project/modifyGo?r_idx=${board.r_idx}">수정</a> |
+                                                    <a href="/study/project/remove?r_idx=${board.r_idx}">삭제</a></li>
                                                 <li style="padding-right:10px">
                                                     <img src="../../../../resources/assets/images/icon/hit.png"
                                                          width="15px">
@@ -290,6 +293,75 @@
       }
     });
   }//modifyReplySubmit
+
+
+</script>
+
+<script>
+    
+    // 지원신청 누르면 작업 고고
+    function applyProject(){
+    
+        sAlert();
+        var submitObj = new Object();
+        submitObj.boss = 'n',
+          submitObj.r_idx = ${board.r_idx},
+          submitObj.member_name = 'nickname104';
+        
+        console.log("submitObj.boss: "+submitObj.boss);
+        console.log("submitObj.r_idx: "+submitObj.r_idx);
+        console.log("submitObj.member_name: "+ submitObj.member_name);
+        
+        $.ajax({
+                   type       : 'POST',
+                   url        : '/applyMemberRest/insert',
+                   data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+                   dataType   : 'text', // 받을 데이터는 json
+                   contentType: "application/json; charset=utf-8",
+                   success    : successCallback,
+                   error      : errorCallback
+               });
+        
+        // 성공시 데이터 처리
+        function successCallback(data) {
+            console.log("data: " + data);
+            //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고
+            
+            // 참여신청 버튼 비활성화처리 //TODO 전역함수로도 설정해서 재신청 불가능하게~
+            $('#applyProject').css("background-color","gray"); //색 변경 pointer-events: none
+            
+            // 마우스 이벤트 제거
+            $('#applyProject').css("pointer-events","none");
+            
+            $('#applyProject').text('지원완료'); // 글자 변경
+        } // successCallback
+        
+        // 실패
+        function errorCallback() {
+            
+            alert("요청에 실패하였습니다. 다시 시도해주세요!");
+        } // errorCallback
+    }
+
+    function sAlert(){
+        
+        Swal.fire({
+                      title : '가입 신청하시겠습니까?',
+                      text : '스터디장의 승인 이후 가입됩니다.',
+                      showDenyButton: true,
+                      showCancelButton: true,
+                      confirmButtonText: '예',
+                      denyButtonText: `아니오`,
+                  }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                Swal.fire('지원 신청되었습니다!', '', 'success')
+            } else if (result.isDenied) {
+                Swal.fire('다음에 꼭 함께해요!', '', 'info')
+            }
+        })
+        
+    }
 
 </script>
 </html>
