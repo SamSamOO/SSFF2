@@ -1,4 +1,10 @@
 /*----페이지네이션----*/
+.pagination .active,
+.pagination li:hover{
+    background-color: #6b984f !important;
+    color: #FFFFFF !important;
+}
+
 .pagination .active a,
 .pagination a:hover{
     color: #FFFFFF !important;
@@ -15,7 +21,8 @@
 
 /*----관리자 멤버 리스트----*/
 .mng_user_list{
-    vertical-align: center !important;
+    vertical-align: middle !important;
+    word-break: break-word !important;
 }
 
 .mng_user_list td{
@@ -23,12 +30,22 @@
     vertical-align: middle !important;
 }
 
-.mng_user_list td:first-child{
+/*.mng_user_list td:first-child{
     width: 3rem;
 }
 
 .mng_user_list td:last-child{
     width: 2rem;
+}*/
+
+.user_pic_nick{
+    word-break: normal !important;
+}
+
+.user_pic_nick .symbol{
+    width: 100% !important;
+    max-width: 45px !important;
+    height: 45px !important;
 }
 
 /*----관리자 스터디 리스트----*/

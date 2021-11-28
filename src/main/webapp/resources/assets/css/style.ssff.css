@@ -210,10 +210,13 @@ a.text-hover-ssff-orange:hover,
 .object-cover{
     object-fit: cover !important;
     object-position: 50% 50% !important;
+    -o-object-fit: cover !important;
+    -o-object-position: 50% 50% !important;
 }
 
-.inline-flex{
-    display: inline-flex !important;
+.align-self-center{
+    align-self: center !important;
+    -webkit-align-self: center !important;
 }
 
 .list-style-none{
