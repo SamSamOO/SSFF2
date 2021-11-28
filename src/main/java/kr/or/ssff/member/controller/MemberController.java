@@ -106,11 +106,12 @@ public class MemberController {
             }// try-resources
 
         } catch (Exception e) {
-            throw new RuntimeException();
+          e.printStackTrace(
+          );
         }//catch
 
 
-        return "redirect:/registerWait";
+        return "redirect:/member/registerWait";
     } // memberJoin
 
 
@@ -220,35 +221,40 @@ public class MemberController {
             MemberDTO memberDTO,
             HttpServletRequest request,
             RedirectAttributes rttr) {
-        log.debug("login() is invoked" + memberDTO, request, rttr);
+        log.debug("login({}{}{}) is invoked" , memberDTO, request, rttr);
 
         HttpSession session = request.getSession();
+        log.debug(session);
         String rawPw = "";
         String encodePw = "";
 
         MemberDTO mVO = this.service.Login(memberDTO);
-
+        log.debug(mVO);
 
         if (mVO != null) {                                // 일치하는 아이디 존재시
-
+            log.debug("0not ilchi");
             rawPw = memberDTO.getMember_pwd(); // 사용자가 제출한 비밀번호
+            log.debug("rawPW({})",rawPw);
             encodePw = mVO.getMember_pwd(); // 데이터베이스에 저장한 인코딩된 비밀번호
+            log.debug("encodePw({})",encodePw);
 
             if (passwordEncoder.matches(rawPw, encodePw)) {        // 비밀번호 일치여부 판단
-
+                log.debug("pw match");
                 mVO.setMember_pwd("");  // 인코딩된 비밀번호 정보 지움
                 session.setAttribute("member", mVO);     // session에 사용자의 정보 저장
 
                 return "redirect:/member/main";        // 메인페이지 이동
 
 
-            } else {                    // 일치하는 아이디가 존재하지 않을 시 (로그인 실패)
-
+            } else {                    // 비밀번호가 일치하지 않을 시 (로그인 실패)
+                log.debug("pw not match");
                 rttr.addFlashAttribute("result", 0);
-                return "redirect:/member/login";
+
+                return "redirect:/member/loginGo";
 
             } // memberLogin
         }
+        log.debug("시발");
         return "redirect:/member/main";
     }
 
@@ -272,7 +278,7 @@ public class MemberController {
             log.debug("loginGo() is invoked");
             session.invalidate();
 
-            return "/member/main";
+            return "/main";
         }
 
         /* 마이 페이지 이동
