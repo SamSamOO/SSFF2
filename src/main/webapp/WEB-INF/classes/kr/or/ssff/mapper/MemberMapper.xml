@@ -72,6 +72,9 @@
 <!--    WHERE member_id = #{member_id}-->
 <!--    </update>-->
 
+    <!-- 가입한 스터디 리스트 -->
+
+
 
     <!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->
     <resultMap type="kr.or.ssff.applyMember.domain.ApplyMemberDTO" id="applyMemberMap">

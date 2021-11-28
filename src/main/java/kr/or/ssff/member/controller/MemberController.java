@@ -296,7 +296,8 @@ public class MemberController {
          * 파라메터 : nickname
          * 스터디 목록 페이지
          * */
-        @GetMapping("/studyList")
+
+   @GetMapping("/studyList")
         public String selectStudyList (String nickname){
             log.debug("selectStudyList({}) is invoked", "nickname = " + nickname);
 

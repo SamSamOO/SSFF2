@@ -77,7 +77,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Header-->
                             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                                 <div class="card-title">
-                                    <a href="/manager/study/list">
+                                    <a href="javascript:history.back();">
                                         <i class="fas fa-arrow-left icon-xl"></i>
                                     </a>
                                 <h3 class="ml-8 card-label">

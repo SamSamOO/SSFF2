@@ -214,24 +214,23 @@
                                             <!-- 테이블 공통 헤드 s -->
                                             <thead class="datatable-head">
                                             <tr class="datatable-row">
-                                                <th data-field="RecordID" class="datatable-cell-center datatable-cell ">
-                                                    <span style="width: 30px;"></span></th>
-                                                <th data-field="ReservationID" class="datatable-cell "><span
-                                                        style="">Reservation ID</span></th>
-                                                <th data-field="CafeInfo" class="datatable-cell "><span
-                                                        style="">Cafe Info</span></th>
-                                                <th data-field="ReservationAmount" class="datatable-cell "><span
-                                                        style="">Amount</span></th>
-                                                <th data-field="UseDateInfo" class="datatable-cell "><span
-                                                        style="">Use Date</span></th>
+                                                <th data-field="RecordID" class="datatable-cell-center datatable-cell">
+                                                    </th>
+                                                <th data-field="ReservationID" class="datatable-cell"><span
+                                                        >예약번호</span></th>
+                                                <th data-field="CafeInfo" class="datatable-cell"><span
+                                                        style="">예약 정보</span></th>
+                                                <th data-field="ReservationAmount" class="datatable-cell">결제금액</th>
+                                                <th data-field="UseDateInfo" class="datatable-cell">이용일자</th>
                                                 <th data-field="Status" data-autohide-disabled="false"
-                                                    class="datatable-cell "><span style="">Status</span></th>
+                                                    class="datatable-cell">상태</th>
                                                 <!--TODO 세션 값에 따라 none처리 할 수 있게 admin-> 닉네임만on -->
-                                                <th data-field="cancel" class="datatable-cell "><span
-                                                        style="">cancel</span>
+                                                <th data-field="cancel" class="datatable-cell">
+                                                    취소
                                                 </th>
-                                                <th data-field="NickName" class="datatable-cell "><span
-                                                        style="">Nick Name</span></th>
+                                                <th data-field="NickName" class="datatable-cell">
+                                                    닉네임
+                                                </th>
 
                                             </tr>
                                             </thead>
@@ -244,12 +243,11 @@
 
                                         <!--begin: pagenation-->
                                         <!--begin: pager-->
-                                        <div class="datatable-pager datatable-paging-loaded">
-                                            <div class="datatable-pager-info my-2 mb-sm-0">
-                                                <div class="dropdown bootstrap-select datatable-pager-size dropup"
-                                                     style="width: 60px;">
+                                        <div class="datatable-pager datatable-paging-loaded d-flex justify-content-center mt-4">
+                                            <div class="datatable-pager-info">
+                                                <div class="dropdown bootstrap-select datatable-pager-size dropup">
                                                     <select class="selectpicker datatable-pager-size"
-                                                            title="Select page size" data-width="60px"
+                                                            title="Select page size"
                                                             data-container="body" data-selected="10"
                                                             tabindex="null" id="select-pager">
                                                         <option class="bs-title-option" value=""></option>
