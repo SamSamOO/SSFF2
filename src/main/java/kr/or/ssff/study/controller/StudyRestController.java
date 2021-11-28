@@ -199,24 +199,4 @@ public class StudyRestController {
     }
 
 
-    /*스터디에서 참여했는지 확인하는 기능 수행
-     * 파라메터 :
-     * 반환 : //TODO --예솔
-     * */
-//    @PostMapping("/applyCheck")
-//    public @ResponseBody String applyCheck(@RequestBody Map<String, String> jsonData) {
-//        log.info("applyCheck({}) is invoked",jsonData);
-//
-//        Integer r_idx= Integer.parseInt(jsonData.get("r_idx"));
-//        String member_name= jsonData.get("member_name");
-//
-//        //가입했는지 체크, 가입했으면 "true" 안했으면 "false"
-//        String result = this.service.applyCheck(r_idx,member_name);
-//
-//        return result;
-//    }
-
-
-
-
 }//end- class
