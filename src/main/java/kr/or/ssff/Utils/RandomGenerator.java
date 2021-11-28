@@ -26,7 +26,7 @@ public class RandomGenerator {
       } else if (dupCd == 2) {
         // num 허용하지 않을시 중복된 값 유무 검사
         if (!num.contains(ran)) {
-          // 중복된 값이 없으면 numStr에 append
+          // 중복된 값이 없으면 num에 append
           num += ran;
         } else {
           // 중복수 있으면 다시 돌기
