@@ -22,10 +22,27 @@
     </select>
 
     <select id="checkYouInStudy" parameterType="hashMap" resultType="Integer">
-        select R_IDX, MEMBER_NAME, TYPE_PC, TITLE, TEAMNAME, CONT, HIT, WRITEDATE, SIDO, CH_PATTERN, CH_START, CH_END, REMOVED_OK, CLOSED_OK, DEAD_OK
-        from RECRUIT_BOARD
-        where R_IDX = #{map.r_Idx,jdbcType=INTEGER}
-          and MEMBER_NAME = #{map.member.member_name,jdbcType=VARCHAR}
+        select RB.R_IDX,
+               RB.MEMBER_NAME,
+               TYPE_PC,
+               TITLE,
+               TEAMNAME,
+               CONT,
+               HIT,
+               WRITEDATE,
+               SIDO,
+               CH_PATTERN,
+               CH_START,
+               CH_END,
+               REMOVED_OK,
+               CLOSED_OK,
+               DEAD_OK
+        from RECRUIT_BOARD RB
+                 join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
+        where RB.R_IDX = #{map.r_Idx,jdbcType=INTEGER}
+          and RB.MEMBER_NAME = #{map.member.member_name,jdbcType=VARCHAR}
+          and AM.STUDY_JOIN_ARCIWF = 'i'
+
 
     </select>
 

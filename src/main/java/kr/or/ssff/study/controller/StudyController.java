@@ -1,5 +1,6 @@
 package kr.or.ssff.study.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import kr.or.ssff.study.domain.LangVO;
@@ -10,11 +11,13 @@ import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
@@ -39,8 +42,12 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 메인 페이지
      * */
     @GetMapping("/challenge/main")
-    public String challengeMainGo(Model model) {
+    public String challengeMainGo(@RequestParam(value = "r_Idx",defaultValue = "9002")Integer r_Idx,Model model) {
         log.info("mainGo({}) is invoked", "model = " + model);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("r_Idx", r_Idx);
+
+        model.addAttribute("map", map);
 
         return "/study/challenge/main";
     }
@@ -346,8 +353,8 @@ public class StudyController {
      * */
     @GetMapping("/project/modifyGo")
     public void updateProjectDetailGo(Integer r_idx, Model model) {
+        log.info("updateProjectDetailGo({}) is invoked", "r_idx = " + r_idx + ", model = " + model);
 
-        log.info("updateChallengeDetailGo() is invoked");
         RecruitBoardVO board = this.service.get(r_idx);
         List<LangVO> langList = this.service.getLangTagByR_idx(r_idx);
 
@@ -409,10 +416,14 @@ public class StudyController {
      * 반환 : 프로젝트형 게시글 수정 페이지.
      * */
     @GetMapping("/project/main") //아이디와 게시글
-    public void projectMainGo(Integer r_idx, Model model) {
+    public String projectMainGo(@RequestParam(value = "r_Idx",defaultValue = "9002") Integer r_idx, Model model) {
         log.info("projectMainGo() is invoked");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("r_Idx", r_idx);
+        log.info("map = {}", map);
 
-
+        model.addAttribute("map", map);
+        return "study/project/main";
     } // updateProjectDetailGo
 
 

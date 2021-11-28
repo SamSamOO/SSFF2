@@ -93,7 +93,7 @@
                     className: 'btn btn-outline-primary'
                 }
             }
-        }).then((result)=>{
+        }).then((result) => {
             if (result) {
                 location.href = "/member/loginGo";
             }
@@ -113,12 +113,11 @@
                     className: 'btn btn-outline-primary'
                 }
             }
-        }).then((result)=>{
+        }).then((result) => {
             if (result) {
                 location.href = "javascript:history.back()";
             }
         });
-
         </c:when>
         </c:choose>
         wsOpen();
