@@ -63,7 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="d-flex align-items-center flex-wrap mr-2">
                   <!--begin::Title-->
                   <i class="far fa-list-alt"></i>&nbsp;&nbsp;
-                  <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">제휴카페 목록</h5>
+                  <h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">제휴카페 목록</h5>
                   <!--end::Title-->
                   <!--Breadcrumb : 로드맵 시작-->
                   <ul
@@ -87,6 +87,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!--begin::Header-->
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                   <div class="card-title">
+                    <button type="button"  class="btn btn-primary font-weight-bold font-size-h6 px-10 py-4 mr-40"
+                    onclick="location.href='/cafe/register'">
+                      
+                      
+                      신규등록</button>
                     <h3 class="card-label"></h3>
                   </div>
                   <!--begin::Search Form 검색-->
@@ -164,7 +169,7 @@ License: You must have a valid license purchased only from themeforest(the above
                           <div id="filter_1">
                             <h6 class="font-weight-bolder text-ssff2 mb-2">스터디 타입</h6>
                             <ul class="list-inline checklist" aria-required="true">
-                              <li class="inline-flex">
+                              <li class="d-inline-flex">
                                 <span class="mr-2 w-20px">
                                   <label
                                     class="checkbox checkbox-single checkbox-all mr-4">
@@ -176,7 +181,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 전체
                               </li>
                               
-                              <li class="inline-flex">
+                              <li class="d-inline-flex">
                                <span class="mr-2 w-20px">
                                 <label class="checkbox checkbox-single">
                                  <input name="chk" type="checkbox" value="P">&nbsp;<span></span>
@@ -185,7 +190,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 프로젝트
                               </li>
                               
-                              <li class="inline-flex">
+                              <li class="d-inline-flex">
                                <span class="mr-2 w-20px">
                                 <label class="checkbox checkbox-single">
                                  <input name="chk" type="checkbox" value="C">&nbsp;<span></span>
@@ -370,6 +375,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
     // 데이터 setting
     setListItems: function (data) {
+      $('#kt_subheader_total').html('전체 ' +  data.cafeList.length + '건');
+      
       console.log("셋팅창 떴어유~");
 
       // 기본 템플릿 셋팅

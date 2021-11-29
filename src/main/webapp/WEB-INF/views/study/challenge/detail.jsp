@@ -53,7 +53,7 @@
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">프로젝트 찾기</h5>
+                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">프로젝트 찾기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
@@ -86,6 +86,7 @@
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
                                 <div id="post-body" style="width: 55%">
                                     <div id="article"><!--본문-->
+                                        <input type="hidden" id="closed_ok" value="${board.closed_ok}">
                                         <div class="back-button">
                                             <img src="../../../../resources/assets/images/icon/arrow.png"
                                                  style="width:20px;" onclick="location.href='/study/challenge/list'">
@@ -135,11 +136,22 @@
                                                         </c:forEach>
 
                                                         <c:choose>
+
+                                                            <c:when test="${board.closed_ok eq 'y'.charAt(0)}">
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="" class="applyBtn" style="background-color: grey"
+                                                                       id="">마감완료</a></li>
+                                                            </c:when>
+
+
                                                             <c:when test="${not myStatus}">
                                                                 <li><a href="javascript:void(0);" data-value="세션아이디"
                                                                        onclick="applyChallenge('challenge')" class="applyBtn"
                                                                        id="applyChallenge">지원하기</a></li>
                                                             </c:when>
+
+
+
                                                             <c:otherwise>
                                                                 <li><a href="javascript:void(0);" data-value="세션아이디"
                                                                        onclick="" class="applyBtn" style="background-color: gray"
@@ -207,6 +219,13 @@
 <script>
     $(function () {
       console.log("글번호:"+${board.r_idx});
+      console.log("closed_ok:"+$('#closed_ok').val());
+      /////
+      if($('#closed_ok').val()=='y'){
+        $('#applyChallenge').html = '마감완료';
+      }
+      ////
+
       getReply();
     });//window-start
 

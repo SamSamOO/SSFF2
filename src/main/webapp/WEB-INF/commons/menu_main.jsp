@@ -30,7 +30,7 @@
         <!------------------두번째 탭 종료------------------>
         <!------------------세번째 탭 시작------------------>
         <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-          <a href="/cafe/list" class="menu-link menu-toggle">
+          <a href="javascript:;" class="menu-link menu-toggle">
             <span class="menu-text">스터디 카페</span>
             <span class="menu-desc"></span>
             <i class="menu-arrow"></i>
@@ -48,7 +48,7 @@
                 </a>
               </li>
               <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
+                <a href="/cafe/reservationList" class="menu-link">
                   <i class="menu-bullet menu-bullet-dot">
                     <span></span>
                   </i>

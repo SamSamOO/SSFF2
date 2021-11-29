@@ -44,7 +44,7 @@
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">프로젝트 찾기</h5>
+                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">프로젝트 찾기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
@@ -129,6 +129,14 @@
                                                         </c:forEach>
 
                                                         <c:choose>
+
+                                                            <c:when test="${board.closed_ok eq 'y'.charAt(0)}">
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="" class="applyBtn" style="background-color: grey"
+                                                                       id="">마감완료</a></li>
+                                                            </c:when>
+
+
                                                             <c:when test="${not myStatus}">
                                                                 <li><a href="javascript:void(0);" data-value="세션아이디"
                                                                        onclick="applyProject('project')" class="applyBtn"

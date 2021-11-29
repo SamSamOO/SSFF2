@@ -58,7 +58,7 @@
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                   <!--Page Title : 페이지 제목 시작-->
-                  <h5 class="text-dark font-weight-bold my-1 mr-5">스터디카페 리스트</h5>
+                  <h5 class="text-dark font-weight-bolder my-1 mr-5">스터디카페 리스트</h5>
                   <!--Page Title : 페이지 제목 종료-->
                   <!--Breadcrumb : 로드맵 시작-->
                   <ul

@@ -53,7 +53,7 @@
 														<!--begin::Details-->
 														<div class="d-flex align-items-center flex-wrap mr-2">
 																<!--begin::Title-->
-																<h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">예약하기</h5>
+																<h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">예약하기</h5>
 																<!--end::Title-->
 																<!--begin::Separator-->
 																<div class="subheader-separator subheader-separator-ver mt-2 mb-2 mr-5 bg-gray-200"></div>
@@ -68,8 +68,9 @@
 														<!--begin::Toolbar-->
 														<div class="d-flex align-items-center">
 																<!--begin::Button-->
-																<a href="#" class="btn btn-default font-weight-bold">Back</a>
-																<!--end::Button-->
+															<a onclick="history.back();" class="btn btn-default font-weight-bold">Back</a>
+															
+															<!--end::Button-->
 																<!--begin::Dropdown-->
 																<div class="btn-group ml-2">
 																		<button type="button" class="btn btn-primary font-weight-bold">Save Changes</button>

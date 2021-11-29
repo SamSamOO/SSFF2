@@ -18,7 +18,7 @@ public interface ApplyMemberMapper {
 
 	//-------------- 신지혜 스터디 참여멤버 관리 ---------------//
 	// 특정 스터디의 멤버 조회 : 신지혜
-	public abstract List<ApplyMemberListVO> getApplyMemberList(String r_idx);
+	public abstract List<ApplyMemberListVO> getApplyMemberList(HashMap<String, String> r_idx);
 
 	// 전체 회원 목록 조회 : 신지혜
 	public abstract List<MemberVO> getMemberList();

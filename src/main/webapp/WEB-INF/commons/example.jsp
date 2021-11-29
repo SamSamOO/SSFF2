@@ -16,7 +16,7 @@
         <!--begin::Page Heading-->
         <div class="d-flex align-items-baseline flex-wrap mr-5">
           <!--Page Title : 페이지 제목 시작-->
-          <h5 class="text-dark font-weight-bold my-1 mr-5">메인페이지단</h5>
+          <h5 class="text-dark font-weight-bolder my-1 mr-5">메인페이지단</h5>
           <!--Page Title : 페이지 제목 종료-->
           <!--Breadcrumb : 로드맵 시작-->
           <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -57,6 +57,8 @@
         <p><a href="/study/project/list">(예솔)여기 누르면 프로젝트 리스트로</a></p>
         <p><a href="/study/challenge/main">(상준) 여기 누르면 챌린지 메인으로</a> </p>
         <p><a href="/manager/member/list">관리자 페이지</a></p>
+        <p><a href="/cafe/reservationList">예약 내역 페이지</a></p>
+        <p><a href="/studyIns/board/list?r_Idx=130">스터디내 게시판</a></p>
         <p><a href="/study/project/main">(예솔)여기 누르면 nickname55 -> 마이페이지 -> r_idx 129번 프로젝트 스터디 메인단</a></p>
 
       </div>
