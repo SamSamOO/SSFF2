@@ -42,7 +42,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <%--로딩 에니메이션 js html--%>
             <div id="loading"><img src="/resources/assets/images/logos/ssff/logo-c1.png" alt="로딩"/></div>
             <!------------------모바일 헤더 시작------------------>
-            <div id="kt_header_mobile" class="header-mobile">
+            <div id="kt_header_mobile" class="header-mobile justify-content-end">
                 <!--툴바 시작-->
                 <div class="d-flex align-items-center">
                     <button class="btn p-0 burger-icon burger-icon-left ml-4 mr-4" id="kt_header_mobile_toggle">
@@ -151,7 +151,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <!------------------헤더 시작------------------>
             <div id="kt_header" class="header header-fixed">
                 <!--컨테이너 시작-->
-                <div class="container">
+                <div class="container justify-content-end">
                     <!--begin::Topbar 우측 메뉴 파트 시작-->
                     <div class="topbar topbar-minimize">
                         <!--begin::User 헤더 메뉴 시작-->
@@ -264,23 +264,26 @@ License: You must have a valid license purchased only from themeforest(the above
             </div>
             <!------------------헤더 종료------------------>
             <!---------body 시작---------->
-            <div class="d-flex flex-row  justify-center align-items-center w-100 mx-25 my-auto">
-                <div id="main_LOGO" class="ml-32 w-700px object-cover" alt="메인로고">
+            <div class="d-flex flex-row  justify-center align-items-center mx-auto my-auto">
+                <div id="main_LOGO" class="object-contain" alt="메인로고">
+                    <img src="/resources/assets/images/logos/ssff/logo-c2.png">
                 </div>
 
-                <div class="main_menu d-flex flex-column w-500">
+                <div class="main_menu d-flex flex-column">
                     <a href="/study/project/list" alt="프로젝트">
-                        <div class="main_proj my-1">
-                        </div>
+                        <div class="main_proj my-1 object-contain">
+                            <img src="/resources/assets/images/icon/main/main_proj.png"></div>
                     </a>
 
                     <a href="/study/challenge/list" alt="챌린지">
-                        <div class="main_chal my-1">
+                        <div class="main_chal my-1 object-contain">
+                            <img src="/resources/assets/images/icon/main/main_chal.png">
                         </div>
                     </a>
 
                     <a href="/cafe/list" alt="카페">
-                        <div class="main_cafe my-1">
+                        <div class="main_cafe my-1 object-contain">
+                            <img src="/resources/assets/images/icon/main/main_cafe.png">
                         </div>
                     </a>
                 </div>
