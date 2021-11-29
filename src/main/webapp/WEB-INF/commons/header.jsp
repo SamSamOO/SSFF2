@@ -12,7 +12,6 @@
 <div id="loading"><img src="/resources/assets/images/logos/ssff/logo-c1.png" alt="로딩"/></div>
 
 <!------------------모바일 헤더 시작------------------>
-
 <div id="kt_header_mobile" class="header-mobile">
     <!--로고 시작-->
     <a href="/">
@@ -127,7 +126,7 @@
 <!------------------헤더 시작------------------>
 <div id="kt_header" class="header header-fixed">
     <!--컨테이너 시작-->
-    <div class="container">
+    <div class="container container">
         <!--왼쪽 로고 파트 시작-->
         <div class="d-none d-lg-flex align-items-center mr-3">
             <!--begin::Logo-->
