@@ -1,13 +1,18 @@
 package kr.or.ssff.applyMember.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
 import kr.or.ssff.applyMember.service.ApplyMemberService;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +33,31 @@ public class ApplyMemberRestController {
 
     @Setter(onMethod_ = {@Autowired})
     private ApplyMemberService service;
+
+
+    /* 참여신청자, 멤버목록
+     * 매개변수:
+     * 반환: 스터디목록 뷰
+     * 작성자: 신지혜
+     * */
+    @RequestMapping(value = "/applyList", method = RequestMethod.POST, produces = "application/json; charset=UTF-8")
+    public JSONObject studyModalTest(
+        @RequestBody HashMap<String, String> filterJSON,
+        String r_idx, Model model){
+        r_idx = "9003"; //TODO 추후 클릭하는 스터디 정보로 변경
+        log.debug("studyModalTest() is invoked");
+
+        List<ApplyMemberListVO> applyMemberList = this.service.getApplyMemberList(filterJSON);
+        log.info("\t + >>>>>>>>>>>>>>>>applyMemberList:{}", applyMemberList);
+        log.info("\t+ list size: {}", applyMemberList.size());
+
+        JSONObject jsonObject = new JSONObject();
+
+        jsonObject.put("list", applyMemberList);
+        model.addAttribute("applyMemberList", applyMemberList);
+
+        return jsonObject;
+    } // studyModalTest
 
 
     /* 스터디 가입상태 변경처리 (승인, 거절, 탈퇴, 취소)

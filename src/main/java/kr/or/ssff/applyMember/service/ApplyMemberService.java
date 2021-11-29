@@ -16,7 +16,7 @@ public interface ApplyMemberService {
     public abstract List<MemberVO> getMemberList();
 
     // 특정 스터디의 멤버 조회 : 신지혜
-    public abstract List<ApplyMemberListVO> getApplyMemberList(String r_idx);
+    public abstract List<ApplyMemberListVO> getApplyMemberList(HashMap<String, String> param);
 
     // 스터디 가입 상태 변경 : 신지혜
     public abstract boolean applyAction(HashMap<String, String> aMember);

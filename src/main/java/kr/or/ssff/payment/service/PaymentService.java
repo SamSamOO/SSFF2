@@ -3,9 +3,9 @@ package kr.or.ssff.payment.service;
 import java.util.List;
 
 import kr.or.ssff.cafe.domain.ReservationVO;
-import kr.or.ssff.payment.domain.PaymentAcntDTO;
-import kr.or.ssff.payment.domain.PaymentAuthDTO;
-import kr.or.ssff.payment.domain.PaymentDepositDTO;
+import kr.or.ssff.payment.model.PaymentAcntDTO;
+import kr.or.ssff.payment.model.PaymentAuthDTO;
+import kr.or.ssff.payment.model.PaymentDepositDTO;
 import kr.or.ssff.payment.domain.PaymentWithdrawDTO;
 import kr.or.ssff.payment.model.TransactionDTO;
 
