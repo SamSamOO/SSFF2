@@ -260,10 +260,21 @@ public class StudyServiceImpl implements StudyService {
     @Override
     public boolean updateAttendance(HashMap<String, Object> map) {
         log.info("updateAttendance({}) is invoked", "map = " + map);
-
+        int affectedRows = 0;
+        int afrow = 0;
+    
         Objects.requireNonNull(mapper);
-        int affectedRows = this.mapper.updateAttendance(map);
-        log.info("affectedRows = {}", affectedRows);
+        if (this.mapper.attendanceOkOneByOne(map)!=1){
+            log.debug(this.mapper.attendanceOkOneByOne(map));
+            
+             affectedRows = this.mapper.updateAttendance(map);
+            afrow = this.mapper.updateTotalAttendance(map);
+            log.info("afrow = {}", afrow);
+            
+            log.info("affectedRows = {}", affectedRows);
+        }
+    
+        
         return affectedRows==1;
     } // updateAttendance
 

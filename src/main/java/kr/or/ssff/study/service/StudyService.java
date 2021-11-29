@@ -100,7 +100,7 @@ public interface StudyService {
     //19. 게시물번호에 해당하는 댓글 수 가져오기
     public abstract Integer getReplyCountByR_idx(Integer r_idx);
 
-    //21. 출석 +1 함수입니다.--상준
+    //21. 출석테이블에 언제 출석한지 기록하는 함수입니다.--상준
     public abstract boolean updateAttendance(HashMap<String, Object> map);
 }
 

@@ -42,7 +42,7 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 메인 페이지
      * */
     @GetMapping("/challenge/main")
-    public String challengeMainGo(@RequestParam(value = "r_Idx", defaultValue = "9002") Integer r_Idx, Model model) {
+    public String challengeMainGo(@RequestParam(value = "r_Idx") Integer r_Idx, Model model) {
 
         log.info("mainGo({}) is invoked", "model = " + model);
 
@@ -50,7 +50,7 @@ public class StudyController {
         map.put("r_Idx", r_Idx);
 
         model.addAttribute("map", map);
-
+        
         return "/study/challenge/main";
     }
 
@@ -177,9 +177,11 @@ public class StudyController {
      * */
     @GetMapping("/challenge/modifyGo")
     public void updateChallengeDetailGo(Integer r_idx, Model model) {
+        
         log.info("updateChallengeDetailGo() is invoked");
         RecruitBoardVO board = this.service.get(r_idx);
         model.addAttribute("board", board);
+        
     }
 
 
