@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
@@ -278,9 +280,13 @@ public class StudyServiceImpl implements StudyService {
         return affectedRows==1;
     } // updateAttendance
 
+    @Override
+    public List<ApplyMemberDTO> getMemberByR_idx(Integer r_idx) {
 
+        List<ApplyMemberDTO> applyList = this.mapper.getMemberByR_idx(r_idx);
 
-
+        return applyList;
+    }
 
 
 }//end class

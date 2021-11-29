@@ -77,6 +77,8 @@
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
                                 <div id="post-body">
                                     <form action="/study/challenge/post" method="post" id="article-form" class="article-form" role="form">
+                                        <!--parameter 0 : 아이디-->
+                                        <input type="hidden" id="member_name" name="member_name" value="${member.member_name}">
                                         <!--parameter 1 : 제목-->
                                         <div id="title-sec">
                                             <input type="text" id="title" name="title" placeholder="제목을 입력해 주세요">
@@ -141,7 +143,7 @@
 
                                         <!--parameter 6 : 글내용-->
                                         <div id="cont-sec">
-                                            <textarea id="summernote" name="cont">${member.member_name}</textarea>
+                                            <textarea id="summernote" name="cont"></textarea>
                                         </div>
                                         <div id="button-sec">
                                             <ul>

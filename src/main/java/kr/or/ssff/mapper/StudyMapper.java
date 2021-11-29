@@ -1,6 +1,17 @@
 package kr.or.ssff.mapper;
 
 import kr.or.ssff.study.domain.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
+import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
+import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.study.domain.ReplyCountVO;
+import kr.or.ssff.study.domain.ReplyVO;
+import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -103,5 +114,7 @@ public interface StudyMapper{
     
     //이미 출석한 경우 막아야합니다  : r_Idx와 member_name 활용 : 박상준
     public abstract Integer attendanceOkOneByOne(@Param("map") HashMap<String, Object> map);
+    //가입했는지 체크
+    public abstract List<ApplyMemberDTO> getMemberByR_idx(@Param("r_idx")Integer r_idx);
 }
 

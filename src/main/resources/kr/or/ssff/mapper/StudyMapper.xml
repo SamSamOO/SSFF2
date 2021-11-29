@@ -508,7 +508,12 @@
         WHERE R_IDX = #{map.r_idx}
           AND MEMBER_NAME = #{map.member_name}
           AND AT_DAY = TO_CHAR(CURRENT_DATE, 'yyyy-MM-dd')
-
+    </select>
+    <!--가입여부 확인-->
+    <select id="getMemberByR_idx" resultType="kr.or.ssff.applyMember.domain.ApplyMemberDTO">
+        SELECT apply_idx, r_idx, member_name
+        FROM apply_member
+        WHERE r_idx=#{r_idx}
     </select>
 </mapper>
 
