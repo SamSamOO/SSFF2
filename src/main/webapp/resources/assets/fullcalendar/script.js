@@ -23,7 +23,6 @@ function callApiService (url, jsonData, method) {
       data: JSON.stringify(jsonData),
       success: function(response){
         if (response) {
-          alert('일정이 성공적으로 등록되었습니다')
           return true 
         } else {
           alert('else invoked')
@@ -66,7 +65,7 @@ function exmapleData () {
   return [
     {
       title: "All Day Event",
-      start: "2021-11-01",
+      start: "2021-11-01"
     },
     {
       title: "Long Event",
