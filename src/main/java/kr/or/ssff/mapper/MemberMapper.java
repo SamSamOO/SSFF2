@@ -28,7 +28,8 @@ public interface MemberMapper {
 	public int idChk( MemberDTO memberDTO) throws Exception;
 	// 닉네임 중복체크
 	public int nameChk( MemberDTO memberDTO) throws Exception;
-
+	// 이미지 수정
+	public void upload(MemberDTO memberDTO) throws Exception;
 
 
 

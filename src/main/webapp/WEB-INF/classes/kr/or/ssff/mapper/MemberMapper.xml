@@ -65,12 +65,12 @@
     <update id="updatePw" >
         update member set member_pwd = #{member_pwd} where member_id = #{member_pwd}
     </update>
-<!--    &lt;!&ndash;회원 프로필 이미지 변경&ndash;&gt;-->
-<!--    <update id="updateUimage">-->
-<!--    UPDATE member-->
-<!--    SET profile = #{profile}-->
-<!--    WHERE member_id = #{member_id}-->
-<!--    </update>-->
+    <!--회원 프로필 이미지 변경-->
+    <update id="upload">
+    UPDATE member
+    SET member_profile = #{member_profile}
+    WHERE member_id = #{member_id}
+    </update>
 
 
     <!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->

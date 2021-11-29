@@ -30,7 +30,8 @@
 	<hr />
 	<h3>${kemail}</h3>
 	<h3>${kname}</h3>
-	<h3>${member_id}</h3>
+	<h3>${kimage}</h3>
+	<h3>${member.member_id}</h3>
 
 
 	<div id="k_email" style="text-align:center"></div>

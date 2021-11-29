@@ -94,6 +94,12 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
         return result;
     }//nameChk
 
+    @Override
+    public void upload(MemberDTO memberDTO) throws Exception {
+
+
+    }
+
 
     @Override
   public boolean register() {

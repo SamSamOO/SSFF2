@@ -8,7 +8,7 @@
     <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/footer.jsp"></jsp:include>
     <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
     <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/header.jsp"></jsp:include>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>
+<%--    <script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>--%>
 
 
     <style>
@@ -43,16 +43,11 @@
                     <div class="symbol symbol-50 symbol-lg-120">
                         <div class="image-input image-input-empty image-input-outline" id="kt_image_5"
                              style="background-image: url(${pageContext.request.contextPath}/resources/assets/media/users/blank.png)">
-                            <div class="image-input-wrapper"></div>
 
-                            <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                   data-action="change" data-toggle="tooltip" title=""
-                                   data-original-title="Change avatar">
+                            <div class="image-input-wrapper">
+<%--                                <img src="${member_profile}"/>--%>
+                            </div>
 
-                                <i class="fa fa-pen icon-sm text-muted"></i>
-                                <input type="file" name="profile_avatar" accept=".png, .jpg, .jpeg"/>
-                                <input type="hidden" name="profile_avatar_remove"/>
-                            </label>
 
                             <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
                                   data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
@@ -76,6 +71,7 @@
                     <div class="d-flex justify-content-between flex-wrap mt-1">
                         <div class="d-flex mr-3">
                             <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">${member.member_name}님</a>
+
                             <a href="#">
                                 <i class="flaticon2-correct text-success font-size-h5"></i>
                             </a>
@@ -89,6 +85,9 @@
                             <div class="d-flex flex-wrap mb-4">
                                 <a href="#"
                                    class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                    <c:choose>
+
+                                    </c:choose>
                                     <i class="flaticon2-new-email mr-2 font-size-lg"></i>${member.member_id}</a>
                                 <a href="#"
                                    class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
@@ -140,20 +139,25 @@
             <!--begin::Items-->
         </div>
     </div>
+
+
 </form>
 </body>
 </html>
 <script type="text/javascript">
+
+
+
     function fn_modify(){
         $.ajax({
-            url : "/member/modify",  // 켈린더로 가는 링크
+            url : "/member/modifyGo",  // 멤버수정으로 가는 링크
         })
-    }
+    };
 
 
     function fn_findPJ(){
     $.ajax({
     url : "/member/",  // 켈린더로 가는 링크
     })
-    }
+    };
 </script>

@@ -24,6 +24,7 @@ public class MemberDTO {
 	private String member_id;
 	private String member_pwd;
 	private String member_profile;
+	private String member_thumimg;
 	private String member_introduce;
 	private Character member_enabled;
 	private String Authkey;
