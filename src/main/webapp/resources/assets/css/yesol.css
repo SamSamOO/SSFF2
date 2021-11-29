@@ -20,6 +20,9 @@
 .logo-to-sort {
   list-style: none;
 }
+.logo-to-sort img:hover{
+  cursor: pointer;
+}
 .logo-to-sort li {
   float: left;
   margin: 0.75rem;
@@ -242,7 +245,6 @@
   padding: 3px 5px;
   color: white;
   cursor: pointer;
-  width: 30px;
 }
 .mini-tag span{
   color:red;
@@ -427,3 +429,10 @@
 
 
 /*********************스터디 메인 - 캘린더 및 기타************************************/
+.mainpage_index{
+  margin-top: 30px;
+  margin-bottom: 30px ;
+  font-size: 24px;
+  background-color: rgb(235, 171, 49) ;
+  padding:3px 5px
+}

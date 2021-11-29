@@ -59,7 +59,7 @@
               <!--begin::Details-->
               <div class="d-flex align-items-center flex-wrap mr-1">
                 <!--begin::Title-->
-                <h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">예약하기</h5>
+                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">카페 등록하기</h5>
                 <!--end::Title-->
                 <!--begin::Separator-->
                 <div
@@ -73,10 +73,11 @@
               <!--end::Details-->
               <!--begin::Toolbar-->
               <div class="d-flex align-items-center">
+                
                 <!--begin::Button-->
-                <a href="#" class="btn btn-default font-weight-bold">Back</a> <!-- //TODO 링크 걸어죠-->
+                <a onclick="history.back();" class="btn btn-default font-weight-bold">Back</a>
                 <!--end::Button-->
-                <!--begin::Dropdown-->
+                          <!--begin::Dropdown-->
                 <div class="btn-group ml-2">
                   <button type="button" class="btn btn-primary font-weight-bold"
                           onclick="goRegister();"> 등록하기
@@ -261,7 +262,6 @@
                       
                       <!-- 룸 시작 (기본 셋팅 하나만 하고 나머지 버튼 -> 동적생성) -->
                     
-                    
                     </div>
                     
                     <div class="separator separator-dashed my-10"></div>
@@ -402,15 +402,13 @@
     // const $btnRoom = document.querySelector('.btn-room');
     // 첫번째 룸정보는 삭제 불가하게 delete button 숨김처리
 
-
-
     $(document).on('click', "button[class^='delete']", function () {
 
       // e.preventDefault()
       console.log("delete cc");
-      
+
       // 첫번째를 삭제하려고 하면
-      if ($(`.card-body.room`).children().length <=2) {
+      if ($(`.card-body.room`).children().length <= 2) {
         alert("한개 이상의 룸은 필수로 존재해야합니다.")
 
         // 클릭한 row의 value 내용 비워줌

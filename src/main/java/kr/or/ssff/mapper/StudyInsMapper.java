@@ -21,7 +21,7 @@ public interface StudyInsMapper {
     public List<StudyInsVO> getList(Integer start , Integer end , String searchOption , String keyword);
 
     //페이징 적용 및 카테고리 적용 리스트 출력
-    public List<StudyInsVO> getListWithPaging(@Param("pageNum") Integer pageNum,@Param("amount")Integer amount,@Param("category") String category);
+    public List<StudyInsVO> getListWithPaging(@Param("map") HashMap<String,Object> map);
 
     public StudyInsVO read(Integer cont_No);
 
@@ -51,7 +51,7 @@ public interface StudyInsMapper {
     public Integer deleteFiles(StudyInsDTO studyInsDTO);
 
     //removedOk 가 n인 게시물의 갯수를 리턴합니다.
-    public Integer countArticle(String category);
+    public Integer countArticle(@Param("map") HashMap<String,Object>map);
 
     public List<StudyInsVO> getListByCategory(Criteria criteria, String category);
 
@@ -59,7 +59,7 @@ public interface StudyInsMapper {
     public Integer updateHit(Integer cont_No);
 
     //공지만 들고옵니다
-    public List<StudyInsVO> showNotice();
+    public List<StudyInsVO> showNotice(@Param("map") HashMap<String, Object> map);
 
     //채팅 리스트 불러오기
     public List<ChatMsgDTO> getChatList(Integer r_idx);

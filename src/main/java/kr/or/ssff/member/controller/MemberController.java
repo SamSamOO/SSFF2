@@ -169,14 +169,16 @@ public class MemberController {
 
     //카카오 로그인 버튼 클릭
     @RequestMapping(value = "/loginGo", method = RequestMethod.GET)
-    public ModelAndView memberLoginForm(HttpSession session) {
+    public ModelAndView memberLoginForm(HttpSession session,HttpServletRequest request,Model model) {
         ModelAndView mav = new ModelAndView(); /* 네아로 인증 URL을 생성하기 위하여 getAuthorizationUrl을 호출 */
-
         String kakaoUrl = kaKaoService.getAuthorizationUrl(session); /* 생성한 인증 URL을 View로 전달 */
         mav.setViewName("member/login");
-
+        String referer = request.getHeader("Referer");
+        mav.addObject("referer", referer);
         // 카카오 로그인
         mav.addObject("kakao_url", kakaoUrl);
+
+        mav.addObject("referer", referer);
 
         return mav;
     }// end memberLoginForm()
@@ -217,14 +219,16 @@ public class MemberController {
     }
 
     @RequestMapping(value= "/login", method = {RequestMethod.GET, RequestMethod.POST})
-    public String memberLogin(
+    public String memberLogin(@RequestParam("referer") String referer,
             MemberDTO memberDTO,
             HttpServletRequest request,
             RedirectAttributes rttr) {
         log.debug("login({}{}{}) is invoked" , memberDTO, request, rttr);
+        request.getSession().setAttribute("redirectURI", referer);
 
         HttpSession session = request.getSession();
         log.debug(session);
+
         String rawPw = "";
         String encodePw = "";
 
@@ -243,7 +247,16 @@ public class MemberController {
                 mVO.setMember_pwd("");  // 인코딩된 비밀번호 정보 지움
                 session.setAttribute("member", mVO);     // session에 사용자의 정보 저장
 
-                return "redirect:/member/main";        // 메인페이지 이동
+                log.info("request = {}", request.getRequestURI());
+
+                if (referer.equals(request.getRequestURL().toString().replace(request.getRequestURI(), "") + request.getContextPath() + "/member/loginGo")) {
+
+                    referer = "/";
+                    log.info("referer = {}", referer);
+                }
+                log.info("referer = {}", referer);
+
+                return "redirect:"+referer;        // 메인페이지 이동
 
 
             } else {                    // 비밀번호가 일치하지 않을 시 (로그인 실패)

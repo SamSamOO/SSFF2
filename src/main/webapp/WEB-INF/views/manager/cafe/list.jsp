@@ -87,6 +87,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 <!--begin::Header-->
                 <div class="card-header flex-wrap border-0 pt-6 pb-0">
                   <div class="card-title">
+                    <button type="button"  class="btn btn-primary font-weight-bold font-size-h6 px-10 py-4 mr-40"
+                    onclick="location.href='/cafe/register'">
+                      
+                      
+                      신규등록</button>
                     <h3 class="card-label"></h3>
                   </div>
                   <!--begin::Search Form 검색-->
@@ -370,6 +375,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
     // 데이터 setting
     setListItems: function (data) {
+      $('#kt_subheader_total').html('전체 ' +  data.cafeList.length + '건');
+      
       console.log("셋팅창 떴어유~");
 
       // 기본 템플릿 셋팅

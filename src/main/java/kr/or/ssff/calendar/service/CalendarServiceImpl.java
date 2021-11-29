@@ -1,5 +1,7 @@
 package kr.or.ssff.calendar.service;
 
+import java.util.List;
+import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
 import kr.or.ssff.mapper.CalendarMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +23,13 @@ public class CalendarServiceImpl implements CalendarService {
     }
 
     @Override
+    public boolean registerNameType(String cal_id, String calendarData) {
+        String type = "member";
+        Integer result = this.mapper.insert(cal_id,calendarData,type);
+        return result==1;
+    }
+
+    @Override
     public boolean modify(String cal_id, String calendarData) {
         Integer result = this.mapper.update(cal_id,calendarData);
         return result==1;
@@ -37,7 +46,14 @@ public class CalendarServiceImpl implements CalendarService {
         System.out.println(calendarData);
         return calendarData;
     }
-}
+    @Override
+    public List<ApplyMemberDTO> getR_idxByMember_name(String cal_id) {
+
+        List<ApplyMemberDTO> applyList = this.mapper.getR_idxByMember_name(cal_id);
+
+        return applyList;
+    }
+}//end-class
 
 
 

@@ -86,6 +86,7 @@
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
                                 <div id="post-body" style="width: 55%">
                                     <div id="article"><!--본문-->
+                                        <input type="hidden" id="closed_ok" value="${board.closed_ok}">
                                         <div class="back-button">
                                             <img src="../../../../resources/assets/images/icon/arrow.png"
                                                  style="width:20px;" onclick="location.href='/study/challenge/list'">
@@ -120,13 +121,52 @@
                                         <div class="apply-sec">
                                             <ul>
                                             <!-- TODO data-value="re" << 값 세션 아이디로 바꿔야 될 부분  -->
-                                                <li><a href="javascript:void(0);" data-value="세션아이디"
-                       																 onclick="applyChallenge('challenge')" class="applyBtn"
-                       																 id="applyChallenge">지원하기</a></li>
-                                                <li style="padding-right:10px">
-                                                    <a href="/study/challenge/modifyGo?r_idx=${board.r_idx}">수정</a> |
-                                                    <a href="/study/challenge/remove?r_idx=${board.r_idx}">삭제</a>
-                                                </li>
+                                                <c:choose>
+                                                    <c:when test="${member.member_name != board.member_name}">
+
+                                                        <c:set var="myStatus" value="false"/>
+                                                        <c:set var="loop_flag" value="false"/>
+                                                        <c:forEach var="applylist" items="${applylist}">
+                                                                <c:if test="${not loop_flag}">
+                                                                    <c:if test="${member.member_name eq applylist.member_name}">
+                                                                        <c:set var="myStatus" value="true"/>
+                                                                        <c:set var="loop_flag" value="true"/>
+                                                                    </c:if>
+                                                                </c:if>
+                                                        </c:forEach>
+
+                                                        <c:choose>
+
+                                                            <c:when test="${board.closed_ok eq 'y'.charAt(0)}">
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="" class="applyBtn" style="background-color: grey"
+                                                                       id="">마감완료</a></li>
+                                                            </c:when>
+
+
+                                                            <c:when test="${not myStatus}">
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="applyChallenge('challenge')" class="applyBtn"
+                                                                       id="applyChallenge">지원하기</a></li>
+                                                            </c:when>
+
+
+
+                                                            <c:otherwise>
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="" class="applyBtn" style="background-color: gray"
+                                                                       >지원완료</a></li>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:when>
+
+                                                    <c:when test="${member.member_name == board.member_name}">
+                                                        <li style="padding-right:10px">
+                                                            <a href="/study/challenge/modifyGo?r_idx=${board.r_idx}">수정</a> |
+                                                            <a href="/study/challenge/remove?r_idx=${board.r_idx}">삭제</a>
+                                                        </li>
+                                                    </c:when>
+                                                </c:choose>
 
                                                 <li style="padding-right:10px">
                                                     <img src="../../../../resources/assets/images/icon/hit.png"
@@ -141,7 +181,7 @@
 
                                         <div class="reply-write">
                                             <div><p id="reply-count"><span id="reply-count-here">${replyCount}</span>개의 댓글이 있습니다</p></div>
-                                            <input type="hidden" id="member_name" name ="member_name" value="nickname55"><!--나중에 세션 아이디로 바꿔야 될 부분-->
+                                            <input type="hidden" id="member_name" name ="member_name" value="${member.member_name}"><!--나중에 세션 아이디로 바꿔야 될 부분-->
                                             <div><textarea id="reply-write-sec"></textarea></div>
                                             <div id="reply-submit"><p onclick="replySubmit()">댓글등록</p></div>
                                         </div>
@@ -179,6 +219,13 @@
 <script>
     $(function () {
       console.log("글번호:"+${board.r_idx});
+      console.log("closed_ok:"+$('#closed_ok').val());
+      /////
+      if($('#closed_ok').val()=='y'){
+        $('#applyChallenge').html = '마감완료';
+      }
+      ////
+
       getReply();
     });//window-start
 
@@ -217,7 +264,7 @@
               html+=      '<div>'+reply.c_date+'</div>';
               html+=    '</div>';
               html+=    '<div class="item3">';
-              html+=      '<p><a href="javascript:modifyReply(`'+reply.no+'`,`'+reply.c_cont+'`)">수정</a> |' ;
+              html+=      '<p hidden class="auth-'+reply.member_name+'"><a href="javascript:modifyReply(`'+reply.no+'`,`'+reply.c_cont+'`)">수정</a> |' ;
               html+=       '<a href="javascript:deleteReply(`'+reply.no+'`)">삭제</a></p>';
               html+=    '</div>';
               html+=  '</div>';
@@ -226,6 +273,10 @@
             }
           }
           $('.reply').html(html);
+          //본인의 댓글만 수정삭제 보이는 로직
+          let member_name = '${member.member_name}';
+          let member_name_auth = '.'+'auth-'+member_name;
+          $(member_name_auth).removeAttr( 'hidden' );
         },
         error:function(request,status,error){
           console.debug('---------- error -----------')
@@ -237,6 +288,11 @@
     }//getReply
 
     function replySubmit(){
+      let member_name = ${member.member_name}+"";
+      if(member_name==""){
+        alert('로그인이 필요한 서비스입니다');
+        return;
+      }
       let jsonData= {
         r_idx:"${board.r_idx}",
         member_name:$('#member_name').val(),
@@ -323,13 +379,19 @@
 
 // 지원신청 누르면 작업 고고
 function applyChallenge(action){
-    
+    //예솔 : 세션 없는사람은 튕겨내는 로직///////////////////
+    let member_name ='${member.member_name}';
+    if(!member_name){
+        alert('로그인후 지원 부탁드립니다');
+        return;
+    }
+    ///////////////////////////////////////////////////
     sAlert();
     
     var submitObj = new Object();
     submitObj.boss = 'n',
       submitObj.r_idx = ${board.r_idx},
-      submitObj.member_name = 'nickname104';
+      submitObj.member_name = '${member.member_name}'
     
     console.log("submitObj.boss: "+submitObj.boss);
     console.log("submitObj.r_idx: "+submitObj.r_idx);

@@ -11,4 +11,6 @@ public interface ChattingService {
 
     public List<ChatMsgDTO> selectBySendTime(Integer r_Idx);
 
+    public Integer checkYouInStudy(HashMap<String,Object> map);
+
 }

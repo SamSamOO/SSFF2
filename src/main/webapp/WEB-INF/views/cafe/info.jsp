@@ -68,8 +68,9 @@
 														<!--begin::Toolbar-->
 														<div class="d-flex align-items-center">
 																<!--begin::Button-->
-																<a href="#" class="btn btn-default font-weight-bold">Back</a>
-																<!--end::Button-->
+															<a onclick="history.back();" class="btn btn-default font-weight-bold">Back</a>
+															
+															<!--end::Button-->
 																<!--begin::Dropdown-->
 																<div class="btn-group ml-2">
 																		<button type="button" class="btn btn-primary font-weight-bold">Save Changes</button>

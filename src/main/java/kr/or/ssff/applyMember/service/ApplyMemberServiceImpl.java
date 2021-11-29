@@ -55,13 +55,13 @@ public class ApplyMemberServiceImpl implements ApplyMemberService, InitializingB
    * 작성자	: 신지혜
    */
   @Override
-  public List<ApplyMemberListVO> getApplyMemberList(String r_idx) {
+  public List<ApplyMemberListVO> getApplyMemberList(HashMap<String, String> param) {
     //TODO 추후 클릭하는 스터디로 변경해야해~
-    r_idx= "9003";
-    log.debug("getApplyMemberList({}) invoked", r_idx);
+//    r_idx= "9003";
+    log.debug("getApplyMemberList({}) invoked", param);
 
 
-    List<ApplyMemberListVO> allApplyMemberList = this.mapper.getApplyMemberList(r_idx);
+    List<ApplyMemberListVO> allApplyMemberList = this.mapper.getApplyMemberList(param);
     log.info("\t + allApplyMemberList:{}", allApplyMemberList);
 
     return allApplyMemberList;

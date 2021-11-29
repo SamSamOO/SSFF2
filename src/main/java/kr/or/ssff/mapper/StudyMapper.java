@@ -3,6 +3,8 @@ package kr.or.ssff.mapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -10,6 +12,7 @@ import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 public interface StudyMapper {
     //글등록하기
@@ -74,6 +77,9 @@ public interface StudyMapper {
     //logoset을 쓰는 게시글 번호들을 받아오기
     //public abstract ArrayList<Integer> getR_idxListUsingLogoset(@Param("arr")String[] arr);
     //출석 +1 기능입니다 : 박상준
-    public abstract Integer updateAttendance(HashMap<String, Object> map);
+    public abstract Integer updateAttendance(@Param("map") HashMap<String, Object> map);
+    //가입했는지 체크
+    public abstract List<ApplyMemberDTO> getMemberByR_idx(@Param("r_idx")Integer r_idx);
+
 }
 

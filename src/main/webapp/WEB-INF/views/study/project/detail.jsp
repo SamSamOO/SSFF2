@@ -113,11 +113,51 @@
                                         </div>
                                         <div class="apply-sec">
                                             <ul>
-                                                <li><a href="javascript:void(0);" data-value="세션아이디"
-                                                       onclick="applyProject('project')"  class="applyBtn"
-                                                       id="applyProject">지원하기</a></li>
-                                                <li style="padding-right:10px"><a href="/study/project/modifyGo?r_idx=${board.r_idx}">수정</a> |
-                                                    <a href="/study/project/remove?r_idx=${board.r_idx}">삭제</a></li>
+                                                <!-- TODO data-value="re" << 값 세션 아이디로 바꿔야 될 부분  -->
+                                                <c:choose>
+                                                    <c:when test="${member.member_name != board.member_name}">
+
+                                                        <c:set var="myStatus" value="false"/>
+                                                        <c:set var="loop_flag" value="false"/>
+                                                        <c:forEach var="applylist" items="${applylist}">
+                                                            <c:if test="${not loop_flag}">
+                                                                <c:if test="${member.member_name eq applylist.member_name}">
+                                                                    <c:set var="myStatus" value="true"/>
+                                                                    <c:set var="loop_flag" value="true"/>
+                                                                </c:if>
+                                                            </c:if>
+                                                        </c:forEach>
+
+                                                        <c:choose>
+
+                                                            <c:when test="${board.closed_ok eq 'y'.charAt(0)}">
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="" class="applyBtn" style="background-color: grey"
+                                                                       id="">마감완료</a></li>
+                                                            </c:when>
+
+
+                                                            <c:when test="${not myStatus}">
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="applyProject('project')" class="applyBtn"
+                                                                       id="applyProject">지원하기</a></li>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="" class="applyBtn" style="background-color: gray"
+                                                                >지원완료</a></li>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:when>
+
+                                                    <c:when test="${member.member_name == board.member_name}">
+                                                        <li style="padding-right:10px">
+                                                            <a href="/study/project/modifyGo?r_idx=${board.r_idx}">수정</a> |
+                                                            <a href="/study/project/remove?r_idx=${board.r_idx}">삭제</a>
+                                                        </li>
+                                                    </c:when>
+                                                </c:choose>
+
                                                 <li style="padding-right:10px">
                                                     <img src="../../../../resources/assets/images/icon/hit.png"
                                                          width="15px">
@@ -131,7 +171,7 @@
 
                                         <div class="reply-write">
                                             <div><p id="reply-count"><span id="reply-count-here">${replyCount}</span>개의 댓글이 있습니다</p></div>
-                                            <input type="hidden" id="member_name" name ="member_name" value="nickname55"><!--나중에 세션 아이디로 바꿔야 될 부분-->
+                                            <input type="hidden" id="member_name" name ="member_name" value="${member.member_name}"><!--나중에 세션 아이디로 바꿔야 될 부분-->
                                             <div><textarea id="reply-write-sec"></textarea></div>
                                             <div id="reply-submit"><p onclick="replySubmit()">댓글등록</p></div>
                                         </div>
@@ -201,7 +241,7 @@
             html+=      '<div>'+reply.c_date+'</div>';
             html+=    '</div>';
             html+=    '<div class="item3">';
-            html+=      '<p><a href="javascript:modifyReply(`'+reply.no+'`,`'+reply.c_cont+'`)">수정</a> |' ;
+            html+=      '<p hidden class="auth-'+reply.member_name+'"><a href="javascript:modifyReply(`'+reply.no+'`,`'+reply.c_cont+'`)">수정</a> |' ;
             html+=       '<a href="javascript:deleteReply(`'+reply.no+'`)">삭제</a></p>';
             html+=    '</div>';
             html+=  '</div>';
@@ -210,6 +250,10 @@
           }
         }
         $('.reply').html(html);
+        //본인의 댓글만 수정삭제 보이는 로직
+        let member_name = '${member.member_name}';
+        let member_name_auth = '.'+'auth-'+member_name;
+        $(member_name_auth).removeAttr( 'hidden' );
       },
       error:function(){
         alert('댓글 로드 실패');
@@ -218,6 +262,11 @@
   }//getReply
 
   function replySubmit(){
+    let member_name = ${member.member_name}+"";
+    if(member_name==""){
+      alert('로그인이 필요한 서비스입니다');
+      return;
+    }
     let jsonData= {
       r_idx:"${board.r_idx}",
       member_name:$('#member_name').val(),
@@ -301,12 +350,18 @@
     
     // 지원신청 누르면 작업 고고
     function applyProject(){
-    
+      //예솔 : 세션 없는사람은 튕겨내는 로직///////////////////
+      let member_name ='${member.member_name}';
+      if(!member_name){
+        alert('로그인후 지원 부탁드립니다');
+        return;
+      }
+      ///////////////////////////////////////////////////
         sAlert();
         var submitObj = new Object();
         submitObj.boss = 'n',
           submitObj.r_idx = ${board.r_idx},
-          submitObj.member_name = 'nickname104';
+          submitObj.member_name = '${member.member_name}'
         
         console.log("submitObj.boss: "+submitObj.boss);
         console.log("submitObj.r_idx: "+submitObj.r_idx);
