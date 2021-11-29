@@ -14,6 +14,6 @@ public interface ChattingService {
 
     public Integer checkYouInStudy(HashMap<String,Object> map);
     
-    public void getStudyInfo(Integer r_idx);
+    public Object getStudyInfo(Integer r_idx);
     
 }

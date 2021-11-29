@@ -23,10 +23,11 @@ public class ChattingServiceImpl  implements ChattingService, InitializingBean, 
     private ChattingMapper mapper;
     
     @Override
-    public void getStudyInfo(Integer r_idx){
+    public Object getStudyInfo(Integer r_idx){
         log.info("getStudyInfo({}) is invoked", "r_idx = " + r_idx);
     
-        this.mapper.getStudyInfo(r_idx);
+        
+        return this.mapper.getStudyInfo(r_idx);
     }
     
     @Override
