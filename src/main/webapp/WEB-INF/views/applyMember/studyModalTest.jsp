@@ -106,7 +106,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!---------------- 지혜: 신청자/멤버 명단 모달창 시작 -------------------->
         <a href="#" class="btn btn-light-danger font-weight-bold"
            data-toggle="modal" data-target="#memberListModal"
-           onclick="start.callAjax('YA', '9002');">멤버확인</a>
+           onclick="start.callAjax('NA', '9002');">멤버확인</a>
   
     
   
@@ -174,11 +174,11 @@ License: You must have a valid license purchased only from themeforest(the above
   let start = {
 // style="visibility: hidden;"
     // 백단으로 db 달라 요청
-    callAjax: function (action, rId) {
+    callAjax: function (applyType, rId) {
       <%--"${member.member_name}";--%>
       let param = new Object();
       param.memName =  'admin';
-      param.applyType = action;
+      param.applyType = applyType;
       param.rId = rId; //TODO 스터디 번호 설정
       
       $.ajax({
@@ -205,7 +205,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
         // 데이터가 있다면 뿌리기
         if (data.length != 0) {
-          if (action == "YA") {
+          if (applyType == "YA") {
             start.setListApplyMem(data);  // 참여신청자 명단조회
           } else{
             start.setListStudyMem(data); // 스터디 멤버원 명단 조회
@@ -350,11 +350,11 @@ License: You must have a valid license purchased only from themeforest(the above
                 aria-label="action"
                 style="width: 20%; text-align: center;">
               <a href="javascript:void(0);" data-value="re"
-                 onclick="applyAction('`+apply_idx+`','`+type_pc+`','approval');"
+                 onclick="applyAction('`+apply_idx+`','`+type_pc+`','approval', `+r_idx+`);"
                  class="btn btn-light-success font-weight-bold mr-2">승인</a>
               <!--//TODO 밸류값에 스터디 타입 엮어서 챌린지면 'approval->challenge'  -->
               <a href="javascript:void(0);" data-value="re"
-                 onclick="applyAction('`+apply_idx+`','`+type_pc+`','refusal');"
+                 onclick="applyAction('`+apply_idx+`','`+type_pc+`','refusal', `+r_idx+`);"
                  class="btn btn-light-warning font-weight-bold mr-2">거부</a>
             </td>
           </tr>
@@ -615,12 +615,15 @@ License: You must have a valid license purchased only from themeforest(the above
 
       // 이후, 맨 뒤로 가기
       if (next < totalPage) { // 이후로 갈 수 있다면(=내 페이지가 맨 끝이 아니라면) 이후 버튼 활성화
+        console.log('tlqotlqk');
         $pageHtml +=
             `<li><a title="Next"
                     class="datatable-pager-link datatable-pager-link-next"
                     data-page="` + (currentPage + 1) + `">
                       <i class="flaticon2-next"></i></a></li>`;
       } else { // 내 페이지가 맨 끝이라면 이후 버튼 비활성화
+        console.log('tlq444444444444444otlqk');
+
         $pageHtml +=
             `<li><a title="Next"
                     class="datatable-pager-link datatable-pager-link-next datatable-pager-link-disabled"
@@ -714,7 +717,7 @@ License: You must have a valid license purchased only from themeforest(the above
 작성자 : 신지혜
 */
   
-  function applyAction(apply_idx, study_type, action) {
+  function applyAction(apply_idx, study_type, action, rId) {
    
     actionName =
         action == 'refusal' ? '가입신청 거절' :
@@ -763,18 +766,17 @@ License: You must have a valid license purchased only from themeforest(the above
       // 성공시 데이터 처리
       function successCallback(data) {
         console.log("data: " + data);
-        //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고
-//TODO btn 클릭함수 주기~~ 새로 뿌려줘야하니까~~
 
         Swal.fire(actionName + ' 처리 되었습니다!', '', 'success')
 
-        // start.init();
+        start.callAjax('YA', rId);
 
       } // successCallback
 
       // 실패
       function errorCallback() {
         Swal.fire(actionName + ' 실패하였습니다!', '', 'warning')
+        start.callAjax('YA', rId);
       } // errorCallback
     } // callAjax
 
