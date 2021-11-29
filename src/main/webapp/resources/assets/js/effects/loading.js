@@ -1,4 +1,4 @@
 
 $(window).on('load',function () {
-    setTimeout(function (){$(`#loading`).hide()}, 1000);
+    setTimeout(function (){$(`#loading`).hide()}, 500);
 });

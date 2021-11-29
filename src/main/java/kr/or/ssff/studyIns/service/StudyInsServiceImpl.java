@@ -159,24 +159,26 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
     @Override
     public boolean modify(StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile){
         
-        log.debug("modify({}) is invoked", "studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
-        
         log.info("uploadFile = {}", Arrays.stream(uploadFile).toArray());
         
         Objects.requireNonNull(mapper);
+    
+        List<StudyInsFileDTO> listOfFiles = new ArrayList<>();
+        listOfFiles = studyInsDTO.getFileDTO();
         
-        List<StudyInsFileDTO> listOfFiles = studyInsDTO.getFileDTO();
         log.info("listOfFiles = {}", listOfFiles.toArray());
         int affectedRows = mapper.update(studyInsDTO);
         
         /*파일 삭제후 다시 넣어줘야할 거같습니다....*/
         int deleteFiles = mapper.deleteFiles(studyInsDTO);
         log.info("deleteFiles = {}", deleteFiles);
+    
+        if (!listOfFiles.isEmpty()){
+            this.mapper.insertFiles(listOfFiles);
+    
+        }
         
-        int ar2 = mapper.insertFiles(listOfFiles);
-        log.info("ar2 = {}", ar2);
-        
-        return (affectedRows == 1) ? true : false;
+        return affectedRows == 1;
     } // modify
     
     @Override
