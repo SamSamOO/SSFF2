@@ -50,7 +50,7 @@
 				<!--begin::Page Heading-->
 				<div class="d-flex align-items-baseline flex-wrap mr-5">
 					<!--begin::Page Title-->
-					<h5 class="text-dark font-weight-bold my-1 mr-5">회원가입</h5>
+					<h5 class="text-dark font-weight-bolder my-1 mr-5">회원가입</h5>
 					<!--end::Page Title-->
 					<!--begin::Breadcrumb-->
 					<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
