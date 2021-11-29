@@ -287,8 +287,13 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>2.0.6</version>
 		</dependency>
-<!--javax-websocket-->
 
+		<!--javax-websocket-->
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+		</dependency>
 
 		<!-- HikariCP -->
 		<dependency>

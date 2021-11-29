@@ -110,11 +110,13 @@ public class ChattingController {
     @RequestMapping("/moveChating")
     public String chating(@RequestParam("r_Idx") Integer r_Idx, Model model, HttpSession session) {
         MemberDTO dto = (MemberDTO) session.getAttribute("member");
-
+    
+        service.getStudyInfo(r_Idx);
+        
         HashMap<String, Object> map = new HashMap<>();
         map.put("member", dto);
         map.put("r_Idx", r_Idx);
-        
+        map.put("")
         log.info("session = {}", session.getAttribute("member"));
 
         log.info("chating({}) is invoked", "r_Idx = " + r_Idx + ", model = " + model);
@@ -129,10 +131,10 @@ public class ChattingController {
         log.info("insStudy = {}", insStudy);
 
         List<Room> new_list = roomList.stream().filter(o -> o.getRoomNumber() == roomNumber).collect(Collectors.toList());
-
+        
         model.addAttribute("inStudy", insStudy);
         model.addAttribute("r_Idx", r_Idx);
-
+        model.addAttribute("map", map);
         log.info("new_list = {}", new_list);
 
         return "/studyIns/chatRoom/room";

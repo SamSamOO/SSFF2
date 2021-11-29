@@ -136,6 +136,7 @@
     
         ws.onmessage = function(data) {
             //메시지를 받으면 동작
+            data.member_Name =${member.member_name};
             var msg = data.data;
             console.log(data.data);
         
@@ -239,7 +240,7 @@
                     <!--카드 Body 시작-->
                     <div class="card-body pt-2 pb-0 mt-n3">
                         <div id="container" class="container" align="center">
-                            <h1>${r_Idx}의 채팅방</h1>
+                            <h1>${}의 채팅방</h1>
                             <input type="hidden" id="sessionId" value="">
                             <input type="hidden" id="roomNumber" value="2">
                             <input type="hidden" id="r_Idx" value="${r_Idx}">

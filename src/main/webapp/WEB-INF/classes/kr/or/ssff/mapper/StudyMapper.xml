@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-<<<<<<< HEAD
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-=======
-    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
->>>>>>> 0999f7fbe9399cfdee0bd96419d6a69acb4bebcc
 
 <mapper namespace="kr.or.ssff.mapper.StudyMapper">
 
@@ -123,55 +118,55 @@
     <!--가장 최근에 쓴 게시글 번호 가져오기-->
     <select id="getListWithJoinReplyAddSearch" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
     <![CDATA[
-        SELECT b.r_idx,
-               member_name,
-               type_pc,
-               title,
-               teamname,
-               cont,
-               hit,
-               writedate,
-               sido,
-               ch_pattern,
-               ch_start,
-               ch_end,
-               removed_ok,
-               closed_ok,
-               dead_ok,
-               nvl(counting, 0) as reply_count,
+        SELECT b.R_IDX,
+               MEMBER_NAME,
+               TYPE_PC,
+               TITLE,
+               TEAMNAME,
+               CONT,
+               HIT,
+               WRITEDATE,
+               SIDO,
+               CH_PATTERN,
+               CH_START,
+               CH_END,
+               REMOVED_OK,
+               CLOSED_OK,
+               DEAD_OK,
+               NVL(counting, 0) AS reply_count,
                nonblank_sido,
                nonblank_pattern
         FROM (
-                 select r_idx,
-                        member_name,
-                        type_pc,
-                        title,
-                        teamname,
-                        cont,
-                        hit,
-                        writedate,
-                        sido,
-                        ch_pattern,
-                        ch_start,
-                        ch_end,
-                        removed_ok,
-                        closed_ok,
-                        dead_ok,
-                        replace(sido, ' ', '')       as nonblank_sido,
-                        replace(ch_pattern, ' ', '') as nonblank_pattern
-                 from recruit_board
+                 SELECT R_IDX,
+                        MEMBER_NAME,
+                        TYPE_PC,
+                        TITLE,
+                        TEAMNAME,
+                        CONT,
+                        HIT,
+                        WRITEDATE,
+                        SIDO,
+                        CH_PATTERN,
+                        CH_START,
+                        CH_END,
+                        REMOVED_OK,
+                        CLOSED_OK,
+                        DEAD_OK,
+                        REPLACE(SIDO, ' ', '')       AS nonblank_sido,
+                        REPLACE(CH_PATTERN, ' ', '') AS nonblank_pattern
+                 FROM RECRUIT_BOARD
              ) b
                  LEFT JOIN (
-            select r_idx, count(r_idx) as counting
-            from reply
-            group by r_idx
+            SELECT R_IDX, COUNT(R_IDX) AS counting
+            FROM REPLY
+            GROUP BY R_IDX
         ) r
-                           ON b.r_idx = r.r_idx
-        WHERE b.r_idx < 1000
-          and type_pc = #{type}
-          and removed_ok = 'n'
-          and (nonblank_sido like #{text} or nonblank_pattern like #{text})
-        ORDER BY b.r_idx DESC
+                           ON b.R_IDX = r.R_IDX
+        WHERE b.R_IDX < 1000
+          AND TYPE_PC = #{type}
+          AND REMOVED_OK = 'n'
+          AND (nonblank_sido LIKE #{text} OR nonblank_pattern LIKE #{text})
+        ORDER BY b.R_IDX DESC
         OFFSET (#{page} - 1) * 15 ROW FETCH NEXT 15 ROWS ONLY
         ]]>
   </select>
@@ -179,30 +174,30 @@
     <!--게시글 번호로 언어 태그 등록하기-->
     <select id="getListWithJoinReplyExceptClosed" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
     <![CDATA[
-        SELECT b.r_idx,
-               member_name,
-               type_pc,
-               title,
-               teamname,
-               cont,
-               hit,
-               writedate,
-               sido,
-               ch_pattern,
-               ch_start,
-               ch_end,
-               removed_ok,
-               closed_ok,
-               dead_ok,
-               nvl(counting, 0) as reply_count
-        FROM recruit_board b
-                 left join (select r_idx, count(r_idx) as counting from reply group by r_idx) r
-                           on b.r_idx = r.r_idx
-        WHERE b.r_idx < 1000
-          and type_pc = #{type}
-          and removed_ok = 'n'
-          and closed_ok = 'n'
-        ORDER BY b.r_idx DESC
+        SELECT b.R_IDX,
+               MEMBER_NAME,
+               TYPE_PC,
+               TITLE,
+               TEAMNAME,
+               CONT,
+               HIT,
+               WRITEDATE,
+               SIDO,
+               CH_PATTERN,
+               CH_START,
+               CH_END,
+               REMOVED_OK,
+               CLOSED_OK,
+               DEAD_OK,
+               NVL(counting, 0) AS reply_count
+        FROM RECRUIT_BOARD b
+                 LEFT JOIN (SELECT R_IDX, COUNT(R_IDX) AS counting FROM REPLY GROUP BY R_IDX) r
+                           ON b.R_IDX = r.R_IDX
+        WHERE b.R_IDX < 1000
+          AND TYPE_PC = #{type}
+          AND REMOVED_OK = 'n'
+          AND CLOSED_OK = 'n'
+        ORDER BY b.R_IDX DESC
         OFFSET (#{page} - 1) * 15 ROW FETCH NEXT 15 ROWS ONLY
         ]]>
   </select>
@@ -210,60 +205,61 @@
     <!--lang list 전체 가져오기-->
     <select id="getListWithJoinReplyOrderByHit" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
     <![CDATA[
-        SELECT b.r_idx,
-               member_name,
-               type_pc,
-               title,
-               teamname,
-               cont,
-               hit,
-               writedate,
-               sido,
-               ch_pattern,
-               ch_start,
-               ch_end,
-               removed_ok,
-               closed_ok,
-               dead_ok,
-               nvl(counting, 0) as reply_count
-        FROM recruit_board b
-                 left join (select r_idx, count(r_idx) as counting from reply group by r_idx) r
-                           on b.r_idx = r.r_idx
-        WHERE b.r_idx < 1000
-          and type_pc = #{type}
-          and removed_ok = 'n'
-        ORDER BY hit desc
+        SELECT b.R_IDX,
+               MEMBER_NAME,
+               TYPE_PC,
+               TITLE,
+               TEAMNAME,
+               CONT,
+               HIT,
+               WRITEDATE,
+               SIDO,
+               CH_PATTERN,
+               CH_START,
+               CH_END,
+               REMOVED_OK,
+               CLOSED_OK,
+               DEAD_OK,
+               NVL(counting, 0) AS reply_count
+        FROM RECRUIT_BOARD b
+                 LEFT JOIN (SELECT R_IDX, COUNT(R_IDX) AS counting FROM REPLY GROUP BY R_IDX) r
+                           ON b.R_IDX = r.R_IDX
+        WHERE b.R_IDX < 1000
+          AND TYPE_PC = #{type}
+          AND REMOVED_OK = 'n'
+        ORDER BY HIT DESC
         OFFSET (#{page} - 1) * 15 ROW FETCH NEXT 15 ROWS ONLY
         ]]>
   </select>
 
     <!--글 하나 가져오기-->
-    <select id="getListWithJoinReplyOrderByHitExceptClosed" resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
+    <select id="getListWithJoinReplyOrderByHitExceptClosed"
+            resultType="kr.or.ssff.study.domain.RecruitBoardJoinReplyVO">
     <![CDATA[
-        SELECT b.r_idx,
-               member_name,
-               type_pc,
-               title,
-               teamname,
-               cont,
-               hit,
-               writedate,
-               sido,
-               ch_pattern,
-               ch_start,
-               ch_end,
-               removed_ok,
-               closed_ok,
-               dead_ok,
-               nvl(counting, 0) as reply_count
-        FROM recruit_board b
-                 left join (select r_idx, count(r_idx) as counting from reply group by r_idx) r
-                           on b.r_idx = r.r_idx
-        WHERE b.r_idx < 1000
-          and type_pc = #{type}
-          and removed_ok = 'n'
-          and closed_ok = 'n'
-        ORDER BY hit desc
+        SELECT b.R_IDX,
+               MEMBER_NAME,
+               TYPE_PC,
+               TITLE,
+               TEAMNAME,
+               CONT,
+               HIT,
+               WRITEDATE,
+               SIDO,
+               CH_PATTERN,
+               CH_START,
+               CH_END,
+               REMOVED_OK,
+               CLOSED_OK,
+               DEAD_OK,
+               NVL(counting, 0) AS reply_count
+        FROM RECRUIT_BOARD b
+                 LEFT JOIN (SELECT R_IDX, COUNT(R_IDX) AS counting FROM REPLY GROUP BY R_IDX) r
+                           ON b.R_IDX = r.R_IDX
+        WHERE b.R_IDX < 1000
+          AND TYPE_PC = #{type}
+          AND REMOVED_OK = 'n'
+          AND CLOSED_OK = 'n'
+        ORDER BY HIT DESC
         OFFSET (#{page} - 1) * 15 ROW FETCH NEXT 15 ROWS ONLY
         ]]>
   </select>
@@ -271,108 +267,108 @@
     <!--lang list 전체 가져오기-->
     <select id="getCurrentR_idx" resultType="int">
 <![CDATA[
-        select max(r_idx)
-        from recruit_board
-        WHERE r_idx < 1000
+        SELECT MAX(R_IDX)
+        FROM RECRUIT_BOARD
+        WHERE R_IDX < 1000
         ]]>
   </select>
 
     <!--Apply insert문 (제작중)-->
     <select id="getLangList" resultType="kr.or.ssff.study.domain.LangVO">
-        SELECT r_idx, lang_name
-        FROM lang
+        SELECT R_IDX, LANG_NAME
+        FROM LANG
     </select>
 
     <!--update문-->
     <select id="get" resultType="kr.or.ssff.study.domain.RecruitBoardVO">
     <![CDATA[
-        SELECT r_idx,
-               member_name,
-               type_pc,
-               title,
-               teamname,
-               cont,
-               hit,
-               writedate,
-               sido,
-               ch_pattern,
-               ch_start,
-               ch_end,
-               removed_ok,
-               closed_ok,
-               dead_ok
-        FROM recruit_board
-        WHERE r_idx = #{r_idx}
+        SELECT R_IDX,
+               MEMBER_NAME,
+               TYPE_PC,
+               TITLE,
+               TEAMNAME,
+               CONT,
+               HIT,
+               WRITEDATE,
+               SIDO,
+               CH_PATTERN,
+               CH_START,
+               CH_END,
+               REMOVED_OK,
+               CLOSED_OK,
+               DEAD_OK
+        FROM RECRUIT_BOARD
+        WHERE R_IDX = #{r_idx}
         ]]>
   </select>
 
     <!--언어태그 삭제하기-->
     <select id="getLangTags" resultType="kr.or.ssff.study.domain.LangVO">
-        SELECT r_idx, lang_name
-        FROM lang
-        WHERE r_idx = #{r_idx}
+        SELECT R_IDX, LANG_NAME
+        FROM LANG
+        WHERE R_IDX = #{r_idx}
     </select>
 
     <!--글 조회수 늘리기-->
     <select id="getReplyList" resultType="kr.or.ssff.study.domain.ReplyVO">
         SELECT
             /*+ index_asc(reply) */
-            no,
-            r_idx,
-            member_name,
-            c_cont,
-            c_date,
-            removed_ok
-        FROM reply
-        WHERE r_idx = #{r_idx}
-          and removed_ok = 'n'
+            NO,
+            R_IDX,
+            MEMBER_NAME,
+            C_CONT,
+            C_DATE,
+            REMOVED_OK
+        FROM REPLY
+        WHERE R_IDX = #{r_idx}
+          AND REMOVED_OK = 'n'
     </select>
 
     <!--댓글 등록하기-->
     <select id="getPostCount" resultType="int">
     <![CDATA[
-        select count(r_idx)
-        from recruit_board
-        where removed_ok = 'n'
-          and type_pc = #{type}
+        SELECT COUNT(R_IDX)
+        FROM RECRUIT_BOARD
+        WHERE REMOVED_OK = 'n'
+          AND TYPE_PC = #{type}
         ]]>
   </select>
     <!--댓글 가져오기-->
     <select id="getPostCountExceptClosed" resultType="int">
     <![CDATA[
-        select count(r_idx)
-        from recruit_board
-        where removed_ok = 'n'
-          and type_pc = #{type}
-          and closed_ok = 'n'
+        SELECT COUNT(R_IDX)
+        FROM RECRUIT_BOARD
+        WHERE REMOVED_OK = 'n'
+          AND TYPE_PC = #{type}
+          AND CLOSED_OK = 'n'
         ]]>
   </select>
 
     <!--글삭제-->
     <select id="getPostCountAddSearch" resultType="int">
     <![CDATA[
-        select count(r_idx)
-        from (select r_idx,
-                     member_name,
-                     type_pc,
-                     title,
-                     teamname,
-                     cont,
-                     hit,
-                     writedate,
-                     sido,
-                     ch_pattern,
-                     ch_start,
-                     ch_end,
-                     removed_ok,
-                     closed_ok,
-                     dead_ok,
-                     replace(sido, ' ', '')       as nonblank_sido,
-                     replace(ch_pattern, ' ', '') as nonblank_pattern
-              from recruit_board)
-        where removed_ok = 'n'
-          and type_pc = #{type}
-          and (nonblank_sido like #{text} or nonblank_pattern like #{text})
+        SELECT COUNT(R_IDX)
+        FROM (SELECT R_IDX,
+                     MEMBER_NAME,
+                     TYPE_PC,
+                     TITLE,
+                     TEAMNAME,
+                     CONT,
+                     HIT,
+                     WRITEDATE,
+                     SIDO,
+                     CH_PATTERN,
+                     CH_START,
+                     CH_END,
+                     REMOVED_OK,
+                     CLOSED_OK,
+                     DEAD_OK,
+                     REPLACE(SIDO, ' ', '')       AS nonblank_sido,
+                     REPLACE(CH_PATTERN, ' ', '') AS nonblank_pattern
+              FROM RECRUIT_BOARD)
+        WHERE REMOVED_OK = 'n'
+          AND TYPE_PC = #{type}
+          AND (nonblank_sido LIKE #{text} OR nonblank_pattern LIKE #{text})
         ]]>
   </select>
 
@@ -399,18 +395,18 @@
     <!--댓글수정-->
     <select id="replyCount" resultType="kr.or.ssff.study.domain.ReplyCountVO">
 <![CDATA[
-        select r_idx, count(no) as counting
-        from reply
-        group by r_idx
+        SELECT R_IDX, COUNT(NO) AS counting
+        FROM REPLY
+        GROUP BY R_IDX
         ]]>
   </select>
 
     <!--게시글 수 세기-->
     <select id="replyCountByR_idx" resultType="int">
 <![CDATA[
-        select count(r_idx)
-        from reply
-        WHERE r_idx = #{r_idx}
+        SELECT COUNT(R_IDX)
+        FROM REPLY
+        WHERE R_IDX = #{r_idx}
         ]]>
   </select>
 
@@ -451,60 +447,39 @@
     </select>
     <!--글 총갯수 구하기(타입 받음)+로고선택-->
     <update id="update">
-        UPDATE recruit_board
-        SET title      = #{title},
-            teamname   = #{teamname},
-            cont       = #{cont},
-            sido       = #{sido},
-            ch_pattern = #{ch_pattern},
-            closed_ok= #{closed_ok}
-        WHERE r_idx = #{r_idx}
+        UPDATE RECRUIT_BOARD
+        SET TITLE      = #{title},
+            TEAMNAME   = #{teamname},
+            CONT       = #{cont},
+            SIDO       = #{sido},
+            CH_PATTERN = #{ch_pattern},
+            CLOSED_OK= #{closed_ok}
+        WHERE R_IDX = #{r_idx}
     </update>
 
     <!--글번호&댓글 수 구하기-->
     <update id="hitUp">
-        UPDATE recruit_board
-        SET hit =(select nvl(max(hit), 0) + 1 from recruit_board where r_idx = #{r_idx})
-        WHERE r_idx = #{r_idx}
+        UPDATE RECRUIT_BOARD
+        SET HIT =(SELECT NVL(MAX(HIT), 0) + 1 FROM RECRUIT_BOARD WHERE R_IDX = #{r_idx})
+        WHERE R_IDX = #{r_idx}
     </update>
 
     <!--글번호에 해당하는 하나의 댓글 수 구하기-->
     <update id="delete">
-        UPDATE recruit_board
-        SET removed_ok='y'
-        WHERE r_idx = #{r_idx}
+        UPDATE RECRUIT_BOARD
+        SET REMOVED_OK='y'
+        WHERE R_IDX = #{r_idx}
     </update>
 
     <!--logoset을 쓰는 게시글 번호들을 받아오기 - 작동안함-->
     <update id="replyDelete">
-        UPDATE reply
-        SET removed_ok='y'
-        WHERE no = #{no}
+        UPDATE REPLY
+        SET REMOVED_OK='y'
+        WHERE NO = #{no}
     </update>
 
     <!--글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 로고조회기능-->
     <update id="replyUpdate">
-        UPDATE reply
-        SET c_cont=#{c_cont}
-        WHERE no = #{no}
-    </update>
-
-    <!--상준 : 출석 내역 +1 해주기 TODO 수정해야할수도-->
-    <update id="updateAttendance" parameterType="java.util.HashMap">
-    <![CDATA[
-        insert into ATTENDANCELIST(AT_NO, AT_DAY, R_IDX, MEMBER_NAME)
-        VALUES (ATTENDANCELIST_SEQ.nextval, to_char(current_date, 'yyyy-MM-dd'), #{map.r_Idx}, #{map.member_name})
-        ]]>
-  </update>
-
-  <!--가입여부 확인-->
-  <select id="getMemberByR_idx" resultType="kr.or.ssff.applyMember.domain.ApplyMemberDTO">
-    SELECT apply_idx, r_idx, member_name
-    FROM apply_member
-    WHERE r_idx=#{r_idx}
-  </select>
-
-
         UPDATE REPLY
         SET C_CONT=#{c_cont}
         WHERE NO = #{no}

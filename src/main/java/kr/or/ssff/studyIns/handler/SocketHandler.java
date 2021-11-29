@@ -27,10 +27,11 @@ public class SocketHandler extends TextWebSocketHandler{
     
     HttpSession sessionHttp;
     
-    @Autowired
+    
     ChattingService service;
     
     //HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
+    
     List<HashMap<String, Object>> rls = new ArrayList<>(); //웹소켓 세션을 담아둘 리스트 ---roomListSessions
     
     public SocketHandler(List<HashMap<String, Object>> rls){this.rls = rls;}
@@ -119,15 +120,17 @@ public class SocketHandler extends TextWebSocketHandler{
             
             HashMap<String, Object> map = rls.get(idx);
             map.put(session.getId(), session);
-            map.put("member", sessionHttp);
-    
+            
+            log.info("map = {}", map);
         }else{ //최초 생성하는 방이라면 방번호와 세션을 추가한다.
             
             
             HashMap<String, Object> map = new HashMap<String, Object>();
             map.put("r_Idx", r_Idx);
             map.put(session.getId(), session);
-            map.put("member",service.)
+            
+            log.info("map = {}", map);
+            
             rls.add(map);
         }
         
