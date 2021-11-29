@@ -3,6 +3,8 @@ package kr.or.ssff.study.service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -102,6 +104,11 @@ public interface StudyService {
 
     //21. 출석 +1 함수입니다.--상준
     public abstract boolean updateAttendance(HashMap<String, Object> map);
+
+    //22. 가입했는지 체크
+    public abstract List<ApplyMemberDTO> getMemberByR_idx(Integer r_idx);
+
+
 }
 
 

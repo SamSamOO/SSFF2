@@ -3,6 +3,8 @@ package kr.or.ssff.study.controller;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -114,12 +116,15 @@ public class StudyController {
 
         Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
 
+        List<ApplyMemberDTO> applylist = this.service.getMemberByR_idx(r_idx);
+
         if (replyCount == null) {
             model.addAttribute("replyCount", 0);
         } else {
             model.addAttribute("replyCount", replyCount);
         }
         model.addAttribute("board", board);
+        model.addAttribute("applylist", applylist);
     } // selectChallengeDetailGo
 
 
@@ -148,7 +153,7 @@ public class StudyController {
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                null, "nickname55", 'C',
+                null, dto.getMember_name(), 'C',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),
@@ -286,13 +291,13 @@ public class StudyController {
         List<LangVO> langList = this.service.getLangTagByR_idx(r_idx);
 
         Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
-
+        List<ApplyMemberDTO> applylist = this.service.getMemberByR_idx(r_idx);
         if (replyCount == null) {
             model.addAttribute("replyCount", 0);
         } else {
             model.addAttribute("replyCount", replyCount);
         }
-
+        model.addAttribute("applylist", applylist);
         model.addAttribute("board", board);
         model.addAttribute("langList", langList);
     } // selectProjectDetailGo
@@ -324,7 +329,7 @@ public class StudyController {
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                null, "nickname55", 'P',
+                null, dto.getMember_name(), 'P',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),
