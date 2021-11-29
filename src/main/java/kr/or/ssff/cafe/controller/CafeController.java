@@ -140,28 +140,13 @@ public class CafeController {
    * 반환: 스터디 카페 예약 내역 리스트 뷰단
    * */
 
-  @GetMapping("/member/list")
-  public String selectReservationList(Criteria criteria, Model model, String nickName) {
-    log.info("selectReservationList({}) is invoked", "criteria = " + criteria + ", model = " + model, ", nickname = " + nickName);
-
-    List<ReservationVO> reservationList = this.service.getRsrvListPerPaging(criteria);
-
-    model.addAttribute("reservationList", reservationList);
-    model.addAttribute("pageMaker", new PageDTO(criteria, service.countMemberCount()));
-
-    log.info("reservationList = {}", reservationList);
-
-    return "manager/member/list";
-  } // selectReservationList
-
-/*
   @GetMapping("/reservationList")
   public String selectReservationList(String nickName) {
     log.info("selectReservationList({}) is invoked", "nickName = " + nickName);
 
     return "cafe/reservationList";
   } // selectReservationList
-*/
+
 
   //-------------------------------- 지혜 카페 CRUD--------------------------------//
 
