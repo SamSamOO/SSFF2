@@ -233,7 +233,7 @@
             html+=      '<div>'+reply.c_date+'</div>';
             html+=    '</div>';
             html+=    '<div class="item3">';
-            html+=      '<p><a href="javascript:modifyReply(`'+reply.no+'`,`'+reply.c_cont+'`)">수정</a> |' ;
+            html+=      '<p hidden class="auth-'+reply.member_name+'"><a href="javascript:modifyReply(`'+reply.no+'`,`'+reply.c_cont+'`)">수정</a> |' ;
             html+=       '<a href="javascript:deleteReply(`'+reply.no+'`)">삭제</a></p>';
             html+=    '</div>';
             html+=  '</div>';
@@ -242,6 +242,10 @@
           }
         }
         $('.reply').html(html);
+        //본인의 댓글만 수정삭제 보이는 로직
+        let member_name = '${member.member_name}';
+        let member_name_auth = '.'+'auth-'+member_name;
+        $(member_name_auth).removeAttr( 'hidden' );
       },
       error:function(){
         alert('댓글 로드 실패');
@@ -250,6 +254,11 @@
   }//getReply
 
   function replySubmit(){
+    let member_name = ${member.member_name}+"";
+    if(member_name==""){
+      alert('로그인이 필요한 서비스입니다');
+      return;
+    }
     let jsonData= {
       r_idx:"${board.r_idx}",
       member_name:$('#member_name').val(),
