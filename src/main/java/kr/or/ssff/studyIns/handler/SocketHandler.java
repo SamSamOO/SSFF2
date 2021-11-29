@@ -1,5 +1,6 @@
 package kr.or.ssff.studyIns.handler;
 
+import kr.or.ssff.applyMember.domain.MemberDTO;
 import kr.or.ssff.studyIns.service.ChattingService;
 import lombok.extern.log4j.Log4j2;
 import org.json.simple.JSONObject;
@@ -94,7 +95,6 @@ public class SocketHandler extends TextWebSocketHandler{
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception{
         log.info("afterConnectionEstablished({}) is invoked", "session = " + session);
-        
         //소켓 연결
         super.afterConnectionEstablished(session);
         boolean flag = false;
