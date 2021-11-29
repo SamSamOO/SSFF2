@@ -537,7 +537,6 @@
 																											</thead>
 																											<tbody style="" class="datatable-body">
 																											
-																											
 																											<tr data-row="0" class="datatable-row" style="left: 0px;">
 																												<td class="col-4 datatable-cell-center datatable-cell" >
 																													<span
@@ -845,7 +844,6 @@
 		}
 	});
 
-	
 	// 개별 선택으로 전체 다 선택되었을 때, 전체선택에도 체크
 	// 체크박스 개별 선택
 	$(".checkbox_group").on("click", ".normal", function() {

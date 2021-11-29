@@ -215,7 +215,8 @@ String id = "testJihye";
 
 
   /**
-   * withdraw
+   * 챌린지 참여시
+   * withdraw/challenge
    */
   @RequestMapping("/withdraw/challenge")
   public String withdrawChallenge(
