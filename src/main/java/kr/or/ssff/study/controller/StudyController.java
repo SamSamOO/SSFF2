@@ -1,7 +1,10 @@
 package kr.or.ssff.study.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -10,11 +13,13 @@ import kr.or.ssff.study.service.StudyService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
@@ -39,8 +44,14 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 메인 페이지
      * */
     @GetMapping("/challenge/main")
-    public String challengeMainGo(Model model) {
+    public String challengeMainGo(@RequestParam(value = "r_Idx", defaultValue = "9002") Integer r_Idx, Model model) {
+
         log.info("mainGo({}) is invoked", "model = " + model);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("r_Idx", r_Idx);
+
+        model.addAttribute("map", map);
 
         return "/study/challenge/main";
     }
@@ -105,12 +116,15 @@ public class StudyController {
 
         Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
 
+        List<ApplyMemberDTO> applylist = this.service.getMemberByR_idx(r_idx);
+
         if (replyCount == null) {
             model.addAttribute("replyCount", 0);
         } else {
             model.addAttribute("replyCount", replyCount);
         }
         model.addAttribute("board", board);
+        model.addAttribute("applylist", applylist);
     } // selectChallengeDetailGo
 
 
@@ -139,7 +153,7 @@ public class StudyController {
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                null, "nickname55", 'C',
+                null, dto.getMember_name(), 'C',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),
@@ -277,13 +291,13 @@ public class StudyController {
         List<LangVO> langList = this.service.getLangTagByR_idx(r_idx);
 
         Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
-
+        List<ApplyMemberDTO> applylist = this.service.getMemberByR_idx(r_idx);
         if (replyCount == null) {
             model.addAttribute("replyCount", 0);
         } else {
             model.addAttribute("replyCount", replyCount);
         }
-
+        model.addAttribute("applylist", applylist);
         model.addAttribute("board", board);
         model.addAttribute("langList", langList);
     } // selectProjectDetailGo
@@ -315,7 +329,7 @@ public class StudyController {
 
         RecruitBoardVO vo =
             new RecruitBoardVO(
-                null, "nickname55", 'P',
+                null, dto.getMember_name(), 'P',
                 dto.getTitle(),
                 dto.getTeamname(),
                 dto.getCont(),
@@ -346,8 +360,8 @@ public class StudyController {
      * */
     @GetMapping("/project/modifyGo")
     public void updateProjectDetailGo(Integer r_idx, Model model) {
+        log.info("updateProjectDetailGo({}) is invoked", "r_idx = " + r_idx + ", model = " + model);
 
-        log.info("updateChallengeDetailGo() is invoked");
         RecruitBoardVO board = this.service.get(r_idx);
         List<LangVO> langList = this.service.getLangTagByR_idx(r_idx);
 
@@ -409,10 +423,14 @@ public class StudyController {
      * 반환 : 프로젝트형 게시글 수정 페이지.
      * */
     @GetMapping("/project/main") //아이디와 게시글
-    public void projectMainGo(Integer r_idx, Model model) {
+    public String projectMainGo(@RequestParam(value = "r_Idx",defaultValue = "9002") Integer r_idx, Model model) {
         log.info("projectMainGo() is invoked");
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("r_Idx", r_idx);
+        log.info("map = {}", map);
 
-
+        model.addAttribute("map", map);
+        return "study/project/main";
     } // updateProjectDetailGo
 
 

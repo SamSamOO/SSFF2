@@ -29,6 +29,46 @@
   
   
   <style>
+    
+    /*--//TODO 민주야 도와줘! 메인 --*/
+    .header-menu-wrapper .container, .header-menu-wrapper .container-fluid, .header-menu-wrapper .container-sm, .header-menu-wrapper .container-md, .header-menu-wrapper .container-lg, .header-menu-wrapper .container-xl, .header-menu-wrapper .container-xxl{
+      display: flex!important;
+ 
+      align-items: stretch!important;
+
+      justify-content: flex-start !important;
+    }
+    .header {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+      height: 100px;
+    }
+    
+    .header .container, .header .container-fluid, .header .container-sm, .header .container-md, .header .container-lg, .header .container-xl, .header .container-xxl {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: inline-flex!important;
+      -webkit-box-align: stretch;
+      -ms-flex-align: stretch!important;
+      align-items: stretch!important;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between!important;
+    }
+
+    
+    /*서브 타이틀 엇나가는거*/
+    .breadcrumb-item {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex !important;
+    }
     /* ---------- carousel ---------- */
 
     ul, breadcrumb.breadcrumb-transparent.breadcrumb-dot.font-weight-bold.p-0.my-2.font-size-sm{
@@ -40,8 +80,8 @@
       background:#000;
     }
 
-    #cafeListCardLow li{ /* bundle이랑 겹쳐서 안들어감 화가남 TODO 고쳐야해 */
-      -webkit-box-sizing: content-box;
+    #cafeListCardLow li{ !important; /* bundle이랑 겹쳐서 안들어감 화가남 TODO 고쳐야해 */
+      -webkit-box-sizing: content-box ;
       box-sizing: content-box;
       -webkit-box-flex: 0;
       -ms-flex: 0 1 auto;
@@ -53,6 +93,9 @@
       text-indent: -999px;
       cursor: pointer;
       background-color: #ffffff;
+      background-clip: border-box;
+      border-top: 0px solid transparent;
+      border-bottom: 0px solid transparent;
       /*background-clip: padding-box;*/
       /*border-top: 10px solid transparent;*/
       /*border-bottom: 10px solid transparent;*/
@@ -140,7 +183,7 @@
                 <!--begin::Page Heading-->
                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                   <!--Page Title : 페이지 제목 시작-->
-                  <h5 class="text-dark font-weight-bold my-1 mr-5">스터디카페 리스트</h5>
+                  <h5 class="text-dark font-weight-bolder my-1 mr-5">스터디카페 리스트</h5>
                   <!--Page Title : 페이지 제목 종료-->
                   <!--Breadcrumb : 로드맵 시작-->
                   <ul
@@ -169,7 +212,6 @@
               <!--begin::Row-->
               <div class="row" id="cafeListCardLow">
               
-                
               </div>
               <!--begin::Row-->
             <!------------------ 본문 종료 ------------------>
@@ -293,28 +335,7 @@
     // 데이터 setting
     setListItems: function (data) {
 
-      // 기본 템플릿 셋팅
-      let templet =
-              `<!--begin::Col-->
-              <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
-                <!--begin::Card-->
-                <div class="card card-custom gutter-b card-stretch">
-                  <section class="awSlider">
-                    <div  class="carousel slide" data-ride="carousel">
-                      <!-- Indicators -->
-                      <ol class="carousel-indicators">
-                      </ol>              
-                      <!-- Wrapper for slides -->
-                      <div class="carousel-inner" role="listbox">
-                      </div>              
-                      <!-- Controls $aPrev $aNext -->
-                    </div>
-                  </section>
-                </div>
-								<!--end::Card-->
-              </div>
-							<!--end::Col-->`
-
+      
       // 테이블 동적생성을 위해 불러온 data를 각 변수에 담아 활용
       let mainTitle = '';
       let subTitle = '';
@@ -327,20 +348,47 @@
       // 불러온 데이터 수만큼 돌며 카드 생성
       for (let i = 0; i < data.cafeList.length; i++) {
 
+        // 기본 템플릿 셋팅
+        let templet =
+                `<!--begin::Col-->
+              <div class="col-xl-4 col-lg-6 col-md-6 col-sm-6">
+                <!--begin::Card-->
+                <div class="card card-custom gutter-b card-stretch">
+                  <section class="awSlider">
+                    <div  class="carousel slide" data-ride="carousel"
+                          id="myCarousel`+i+`">
+                      <!-- Indicators -->
+                      <ol class="carousel-indicators">
+                      </ol>
+                      <!-- Wrapper for slides -->
+                      <div class="carousel-inner" role="listbox">
+                      </div>
+                      <!-- Controls $aPrev $aNext -->
+                    </div>
+                  </section>
+                </div>
+								<!--end::Card-->
+              </div>
+							<!--end::Col-->`
+        
+
         // 기본 구조 셋팅!
         $('#cafeListCardLow').append(templet);
 
         // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 start
         for (let j = 0; j < data.cafeList[i].roomImgs.length; j++) {
+          
           $li = $('<li>', {
-            "data-target"  : ".carousel",
+            "data-target"  : "#myCarousel"+i,
             "data-slide-to": j,
           });
+          
           $('ol').eq(num).append($li); // ol에 넣고
 
           let $div = $('<div>').addClass("carousel-caption")
           let $item = $('<div>').addClass("item")
-                                .append($('<img>').attr("src", "http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg"/*data.cafeList[i].roomImgs[j]*/))
+                                .append($('<img>').attr("src", data.cafeList[i].roomImgs[j]
+                                                        /*http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg*/))
                                 .append($div);
 
           $('.carousel-inner').eq(num).append($item);
@@ -352,7 +400,7 @@
 
         let $aPrev = $('<a>', {
           class       : "left carousel-control",
-          href        : ".carousel",
+          href        : "#myCarousel"+i,
           role        : "button",
           "data-slide": "prev"
         }).append(
@@ -363,7 +411,7 @@
 
         let $aNext = $('<a>', {
           class       : "right carousel-control",
-          href        : ".carousel",
+          href        : "#myCarousel"+i,
           role        : "button",
           "data-slide": "next"
         }).append(
@@ -373,7 +421,6 @@
             }))
 
         $('.carousel.slide').eq(num).append($aPrev, $aNext);
-				// TODO 여기 같이 움직이는거 , 눈금자 빼기 
 				
         // ---- cafe, room의 이미지 개수만큼 이미지 슬라이드 버튼을 동적 생성 end
         

@@ -185,23 +185,15 @@ public class StudyRestController {
 
         HashMap<String, Object> map = new HashMap<>();
         map.put("r_Idx", filterJSON.get("r_Idx"));
-        map.put("member_Name", filterJSON.get("member_Name"));
+        map.put("member_name", filterJSON.get("member_Name"));
 
         log.info("map = {}", map);
-
-        boolean row = this.service.updateAttendance(map);
-
 
 //        int affectedRow = this.service.updateAttendance()
 
 
-        return row;
+        return this.service.updateAttendance(map);
     }
-
-
-
-
-
 
 
 }//end- class

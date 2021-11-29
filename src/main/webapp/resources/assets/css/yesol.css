@@ -20,6 +20,9 @@
 .logo-to-sort {
   list-style: none;
 }
+.logo-to-sort img:hover{
+  cursor: pointer;
+}
 .logo-to-sort li {
   float: left;
   margin: 0.75rem;
@@ -242,7 +245,6 @@
   padding: 3px 5px;
   color: white;
   cursor: pointer;
-  width: 30px;
 }
 .mini-tag span{
   color:red;
@@ -369,8 +371,10 @@
   cursor: pointer;
 }
 
-/* p-> a태그로 변경해서 추가해놨어: 지혜*/
-#applyChallenge{
+/* p-> a태그로 변경해서 추가해놨어: 지혜
+  2021.11.28
+ -프로젝트 스터디에도 버튼 넣어야해서 #applyChallenge->.applyBtn으로 수정: 지혜*/
+.applyBtn{
   background-color: rgb(235, 171, 49);
   padding: 7px 9px;
   border-radius: 5px;
@@ -425,3 +429,10 @@
 
 
 /*********************스터디 메인 - 캘린더 및 기타************************************/
+.mainpage_index{
+  margin-top: 30px;
+  margin-bottom: 30px ;
+  font-size: 24px;
+  background-color: rgb(235, 171, 49) ;
+  padding:3px 5px
+}

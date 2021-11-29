@@ -27,6 +27,13 @@
       cal_id = #{cal_id}
   </update>
 
+  <!--cal_id로 json data 가져오기-->
+  <select id="getR_idxByMember_name" resultType="kr.or.ssff.applyMember.domain.ApplyMemberDTO">
+    SELECT apply_idx, r_idx, member_name
+    FROM apply_member
+    WHERE member_name=#{cal_id}
+  </select>
+
 </mapper>
 
 

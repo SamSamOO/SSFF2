@@ -38,13 +38,6 @@ public class ManagerController {
      * 반환 : 멤버리스트 조회페이지
      * */
 
-//    @GetMapping("/member/list")
-//    public String selectMemberList(List<MemberVO> allMemberList) {
-//        log.info("selectMemberList({}) is invoked", "allMemberList = " + allMemberList);
-//
-//        return "manager/member/list";
-//    } // selectMemberList
-
     @GetMapping("/member/list")
     public String allMemberList(Criteria criteria, Model model) {
         log.info("allMemberList({}) is invoked", "criteria = " + criteria + ", model = " + model);

@@ -11,9 +11,7 @@
 <head>
 
     <title>챌린지 리스트</title>
-
     <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>
     <!--<script src="../../../../resources/assets/js/location/location.js"></script>-->
     <!--head.html Include-->
@@ -50,7 +48,7 @@
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">프로젝트 찾기</h5>
+                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">프로젝트 찾기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul

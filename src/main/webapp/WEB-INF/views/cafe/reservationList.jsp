@@ -1,7 +1,7 @@
 <%--
-  스터디 카페 생성 화면단
+  스터디 카페 예약 리스트 화면단
   User: 신지혜
-  Date: 2021-11-20
+  Date: 2021-11-25
   Time: 오전 6:13
   To change this template use File | Settings | File Templates.
 --%>
@@ -22,7 +22,7 @@
     .row {
       justify-content: space-evenly;
     }
-  
+
     ul {
       list-style: none;
       margin: 0;
@@ -40,36 +40,42 @@
       -webkit-box-direction: normal;
     }
 
-    li{
+    li {
       padding: 1em;
     }
 
-    th[data-field="RecordID"], tr[data-field="RecordID"], td[data-field="RecordID"] {
-      width: 5% !important;
-    }
-    th[data-field="ReservationID"], tr[data-field="ReservationID"], td[data-field="ReservationID"] {
-      width: 15% !important;
-    }
-    th[data-field="CafeInfo"], tr[data-field="CafeInfo"], td[data-field="CafeInfo"] {
-      width: 25% !important;
-    }
-    th[data-field="ReservationAmount"], tr[data-field="ReservationAmount"], td[data-field="ReservationAmount"] {
-      width: 10% !important;
-    }
-    th[data-field="UseDateInfo"], tr[data-field="UseDateInfo"], td[data-field="UseDateInfo"] {
-      width: 25% !important;
-    }
-    th[data-field="Status"], tr[data-field="Status"], td[data-field="Status"] {
-      width: 10% !important;
-    }
-    th[data-field="cancel"], tr[data-field="cancel"], td[data-field="cancel"] {
-      width: 10% !important;
-    }
-    th[data-field="NickName"], tr[data-field="NickName"], td[data-field="NickName"] {
-      width: 10% !important;
-      display: none ; /*TODO 세션 아이디 따라 none - block */
-    }
+    /*th[data-field="RecordID"], tr[data-field="RecordID"], td[data-field="RecordID"] {*/
+    /*  width: 5% !important;*/
+    /*}*/
     
+    /*th[data-field="ReservationID"], tr[data-field="ReservationID"], td[data-field="ReservationID"] {*/
+    /*  width: 15% !important;*/
+    /*}*/
+    
+    /*th[data-field="CafeInfo"], tr[data-field="CafeInfo"], td[data-field="CafeInfo"] {*/
+    /*  width: 25% !important;*/
+    /*}*/
+    
+    /*th[data-field="ReservationAmount"], tr[data-field="ReservationAmount"], td[data-field="ReservationAmount"] {*/
+    /*  width: 10% !important;*/
+    /*}*/
+    
+    /*th[data-field="UseDateInfo"], tr[data-field="UseDateInfo"], td[data-field="UseDateInfo"] {*/
+    /*  width: 25% !important;*/
+    /*}*/
+    
+    /*th[data-field="Status"], tr[data-field="Status"], td[data-field="Status"] {*/
+    /*  width: 10% !important;*/
+    /*}*/
+    
+    /*th[data-field="cancel"], tr[data-field="cancel"], td[data-field="cancel"] {*/
+    /*  width: 10% !important;*/
+    /*}*/
+    
+    /*th[data-field="NickName"], tr[data-field="NickName"], td[data-field="NickName"] {*/
+    /*  width: 10% !important;*/
+    /*}*/
+  
   </style>
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
@@ -121,19 +127,8 @@
               <!--begin::Toolbar-->
               <div class="d-flex align-items-center">
                 <!--begin::Button-->
-                <a href="#" class="btn btn-default font-weight-bold">Back</a> <!-- //TODO 링크 걸어죠-->
-                <!--end::Button-->
-                <!--begin::Dropdown-->
-                
-                <button type="button" class="btn btn-primary font-weight-bold"
-                        onclick="goRegister();"> 수정하기
-                </button>
-                
-                
-                <a href="/cafe/remove?cafe_idx=${cafeVO.cafe_idx}"
-                   class="btn btn-warning font-weight-bold"> 삭제하기
-                </a>
-                <!--end::Dropdown-->
+                <a onclick="history.back();" class="btn btn-default font-weight-bold">Back</a>
+              
               </div>
               <!--end::Toolbar-->
             </div>
@@ -143,7 +138,7 @@
           
           <!------------------ 본문 시작 ------------------>
           <!--begin::Content-->
-          <div class="content flex-column-fluid">
+          <div class="content flex-column-fluid" style="max-width:1090px;">
             
             <!--begin::cardcustom-->
             <div class="card card-custom card-sticky">
@@ -173,20 +168,23 @@
 																</span>
                             </div>
                           </div>
+                          
                           <div class="col-md-4 my-2 my-md-0">
+                            
                             <div class="d-flex align-items-center">
                               <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
-                              <div class="dropdown bootstrap-select form-control"><select
-                                class="form-control" id="kt_datatable_search_status"
-                                tabindex="null">
-                                <option value="">All</option>
-                                <option value="1">Pending</option>
-                                <option value="2">Delivered</option>
-                                <option value="3">Canceled</option>
-                                <option value="4">Success</option>
-                                <option value="5">Info</option>
-                                <option value="6">Danger</option>
-                              </select>
+                              
+                              <div class="dropdown bootstrap-select form-control">
+                                
+                                <select class="form-control" id="kt_datatable_search_status"
+                                        tabindex="null">
+                                  <option value="">All</option>
+                                  <option value="1">이용대기</option>
+                                  <option value="2">이용완료</option>
+                                  <option value="3">취소완료</option>
+                                
+                                </select>
+                                
                                 <button type="button" tabindex="-1"
                                         class="btn dropdown-toggle btn-light bs-placeholder"
                                         data-toggle="dropdown" role="combobox"
@@ -199,6 +197,7 @@
                                     </div>
                                   </div>
                                 </button>
+                                
                                 <div class="dropdown-menu"
                                      style="max-height: 342.281px; overflow: hidden; min-height: 127px;">
                                   <div class="inner show" role="listbox" id="bs-select-1"
@@ -215,10 +214,13 @@
                                         class="text">All</span></a></li>
                                       <li><a role="option" class="dropdown-item" id="bs-select-1-1"
                                              tabindex="0" aria-setsize="7" aria-posinset="2"><span
-                                        class="text">Pending</span></a></li>
+                                        class="text">이용대기</span></a></li>
                                       <li><a role="option" class="dropdown-item" id="bs-select-1-2"
                                              tabindex="0" aria-setsize="7" aria-posinset="3"><span
-                                        class="text">Delivered</span></a></li>
+                                        class="text">이용완료</span></a></li>
+                                      <li><a role="option" class="dropdown-item" id="bs-select-1-3"
+                                             tabindex="0" aria-setsize="7" aria-posinset="3"><span
+                                        class="text">취소완료</span></a></li>
                                     </ul>
                                   </div>
                                 </div>
@@ -234,7 +236,7 @@
                         </div>
                       </div>
                       <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                        <a href="#" class="btn btn-light-primary px-6 font-weight-bold">Search</a>
+                        <a href="#" class="btn btn-primary px-6 font-weight-bold">Search</a>
                       </div>
                     </div>
                   </div>
@@ -252,24 +254,24 @@
                       <!-- 테이블 공통 헤드 s -->
                       <thead class="datatable-head">
                       <tr class="datatable-row">
-                        <th data-field="RecordID" class="datatable-cell-center datatable-cell ">
+                        <th data-field="RecordID" style="padding-right:0px;width:30px;" class="datatable-cell-center datatable-cell ">
                           <span style="width: 30px;"></span></th>
-                        <th data-field="ReservationID" class="datatable-cell "><span
-                          style="">Reservation ID</span></th>
+                        <th data-field="ReservationID" style="width:140px;padding-left:0px;"class="datatable-cell "><span
+                          >Reservation ID</span></th>
                         <th data-field="CafeInfo" class="datatable-cell "><span
                           style="">Cafe Info</span></th>
                         <th data-field="ReservationAmount" class="datatable-cell "><span
                           style="">Amount</span></th>
-                        <th data-field="UseDateInfo" class="datatable-cell "><span
+                        <th data-field="UseDateInfo"  style="padding-right: 80px;padding-left: 30px;"class="datatable-cell "><span
                           style="">Use Date</span></th>
-                        <th data-field="Status" data-autohide-disabled="false"
+                        <th data-field="Status" style="padding:13px 13px 13px 0px;"data-autohide-disabled="false"
                             class="datatable-cell "><span style="">Status</span></th>
-                        <!--TODO 세션 값에 따라 none처리 할 수 있게 admin-> 닉네임만on -->
-                        <th data-field="cancel" class="datatable-cell "><span style="">cancel</span>
+                        <!--TODO 세션 값에 따라 none처리 할 수 있게 admin-> 닉네임만on!!!!!!!!!!!! -->
+                        <th data-field="cancel" stylr="padding:0px 15px 0px 30px;"class="datatable-cell " ><span style="">cancel</span>
                         </th>
+                        
                         <th data-field="NickName" class="datatable-cell "><span
                           style="">Nick Name</span></th>
-                      
                       </tr>
                       </thead>
                       <!-- 테이블 공통 헤드 e -->
@@ -278,11 +280,12 @@
                       
                       
                       </tbody>
+                    
                     </table>
                     <!--end: table-->
                     
                     <!--begin: pager-->
-                    <div class="datatable-pager datatable-paging-loaded">
+                    <div class="datatable-pager datatable-paging-loaded" style="padding-left:280px;">
                       
                       
                       <div class="datatable-pager-info my-2 mb-sm-0">
@@ -338,26 +341,22 @@
 <script>
 
 
-// 동적 생성한 modal 오픈 이벤트 수동 부여
-$(document).on('click',"button[class^='btn']", function (e) {
+  // 동적 생성한 modal 오픈 이벤트 수동 부여
+  $(document).on('click', "button[class^='btn']", function (e) {
+    console.log("roTLqggk2f333333: "+e)
+    const mID = $(this).data('target');// #rsrvcancelModal-15
+    console.log($('#' + mID));
+    $('#' + mID).modal('show');
+  });
 
-  const mID =  $(this).data('target');// #rsrvcancelModal-15
-  console.log($('#'+mID));
-  $('#'+mID).modal('show');
-});
+  // 버튼 클릭을 통해 세부 룸정보 add, delete
+  $(document).on('click', "a[class='datatable-toggle-subtable']", function (e) {
+    console.log("roTLqkf: "+e)
+    $(this).closest('tr').next().toggleClass("datatable-row-subtable-expanded").fadeToggle();
 
-
-
-
-
-// 버튼 클릭을 통해 세부 룸정보 add, delete
-  $(document).on('click', "a[title='Load sub table']", function () {
-    $(this).closest("tr").toggleClass("datatable-row-subtable-expanded").next().fadeToggle();
-    
- 
   })
 
- // 페이지 진입시 리스트 세팅
+  // 페이지 진입시 리스트 세팅
   $(document).ready(function () {
     start.init();
     console.log("start.init();")
@@ -366,8 +365,9 @@ $(document).on('click',"button[class^='btn']", function (e) {
 
   // 카드 리스트를 ajax 페이지 처리하여 뿌립니다.
   let start = {
-    param  : {
+    param: {
       member_name : "admin", //TODO 세션 아이디로 (관리자, 멤버 구분해서 조회)
+      // member_name : "admin", //TODO 세션 아이디로 (관리자, 멤버 구분해서 조회)
       pageListSize: "웅", //TODO 추후  검색 정보 담아서 출발
     },
 
@@ -396,11 +396,6 @@ $(document).on('click',"button[class^='btn']", function (e) {
 
       // 성공시 데이터 처리
       function successCallback(data) {
-        console.log("data.reservationList: " + data.reservationList); // obj arr 와르르
-        console.log("data[0]: " + JSON.stringify(data)); // 와르르
-        console.log("data[0]: " + data.length); // undefined
-        console.log("data[0]: " + data.reservationList.length); // 82
-        console.log("data[0]: " + data.reservationList[0].use_date); //2023-11-15 00:00:00
 
         // 불러온 데이터가 없다면
         if (data.length == 0) {
@@ -468,7 +463,6 @@ $(document).on('click',"button[class^='btn']", function (e) {
       //TODO set, 거래, 예약, maintitle td 등 배열화 해서 하기 html문 정리
       console.log(dataFieldSet[0]); // RecordID
 
-
       // 기본 템플릿 셋팅
       $rsrvHtml = '';
       let subHtml = '';
@@ -480,7 +474,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
         cafe_name = data.reservationList[i].cafe_name;
         max_people = data.reservationList[i].max_people;
         room_idx = data.reservationList[i].room_idx;
-        use_date = String(data.reservationList[i].use_date).split(' ', 1);
+        use_date = String(data.reservationList[i].use_date).replaceAll('-','.').split(' ', 1);
         use_end_time = data.reservationList[i].use_end_time;
         use_start_time = data.reservationList[i].use_start_time;
         transaction_categorie = data.reservationList[i].transaction_categorie;
@@ -499,14 +493,13 @@ $(document).on('click',"button[class^='btn']", function (e) {
 
         rsrv_status_ynz = data.reservationList[i].rsrv_status_ynz;
         let rsrv_status_color =
-            rsrv_status_ynz == 'y' ? 'secondary' :
-            rsrv_status_ynz == 'z' ? 'danger' : 'warning';
+                rsrv_status_ynz == 'y' ? 'secondary' :
+                rsrv_status_ynz == 'z' ? 'danger' : 'warning';
 
         let rsrv_status_text =
-          rsrv_status_ynz == 'y' ? '사용완료' :
-          rsrv_status_ynz == 'z' ? '취소완료' : '사용대기';
-        
-        
+                rsrv_status_ynz == 'y' ? '이용완료' :
+                rsrv_status_ynz == 'z' ? '취소완료' : '이용대기';
+
         transaction_amount = data.reservationList[i].transaction_amount;
         trnsc_cate = transaction_categorie + '  |  ' + transaction_categories
         transaction_date = String(data.reservationList[i].transaction_date).split(' ', 0);
@@ -515,8 +508,8 @@ $(document).on('click',"button[class^='btn']", function (e) {
         client_bank_code = data.reservationList[i].client_bank_code;
         client_name = data.reservationList[i].client_name;
 
-        useInfo = use_date + ' ' + use_start_time + '~' + use_end_time + '시 (' + (use_end_time
-                  - use_start_time + 1)
+        useInfo = use_date + ' ' + use_start_time + '~' + use_end_time + '시(' + (use_end_time
+                  - use_start_time)
                   + '시간)';
 
         if (data.reservationList[i].transaction_categories == "결제") {
@@ -527,41 +520,41 @@ $(document).on('click',"button[class^='btn']", function (e) {
         <!-- 일반 예약정보 s -->
         <tr data-row="` + checkNum + `" class="datatable-row mainTable">
 
-          <td class="datatable-cell-center datatable-cell" data-field="RecordID" aria-label="1">
+          <td class="datatable-cell-center datatable-cell" data-field="RecordID" style="padding-right:0px;width:30px;max-width:30px;"aria-label="1">
             <a class="datatable-toggle-subtable" data-value="1" title="Load sub table" style="width: 30px;">
               &nbsp;<i style="width: 30px;" class="fa fa-caret-right"></i></a> <!--TODO 아이콘 토글 -->
           </td>
 
-          <td data-field="ReservationID" aria-label="` + rsrv_idx
+          <td data-field="ReservationID" style="padding-left:0px;min-width:110px;" aria-label="` + rsrv_idx
                        + `" class="datatable-cell"><span style="">` + rsrv_idx + `</span></td>
-          <td data-field="CafeInfo" aria-label="` + cafeInfo
+          <td data-field="CafeInfo" style="width:141px;" aria-label="` + cafeInfo
                        + `" class="datatable-cell"><span style="">` + cafeInfo + `</span></td>
           <td data-field="ReservationAmount" aria-label="` + amount
-                       + `원" class="datatable-cell"><span style="">` + amount + `원</span></td>
+                       + `원" class="datatable-cell" style="width:86px;"><span style="">` + amount + `원</span></td>
           <td data-field="UseDateInfo" aria-label="` + useInfo
-                       + `" class="datatable-cell"><span style="">` + useInfo + `</span></td>
+                       + `" class="datatable-cell" style="min-width:212px;padding-right:0px;"><span style="">` + useInfo + `</span></td>
      
 
 <td data-field="Status" data-autohide-disabled="false" aria-label="` + rsrv_status_ynz + `"
-              class="datatable-cell"><span style="width: 110px;"><span
-              class="label label-`+rsrv_status_color+` label-dot"></span>&nbsp;
-          <span class="font-weight-bold text-`+rsrv_status_color+`">` + rsrv_status_text + `</span>
+              class="datatable-cell" style="padding-left:0px;"><span style="width: 60px;"><span
+              class="label label-` + rsrv_status_color + ` label-dot"></span>&nbsp;
+          <span class="font-weight-bold text-` + rsrv_status_color + `">` + rsrv_status_text + `</span>
           </span></td>
           
-          <td data-field="cancel" aria-label="4" class="datatable-cell"><span
-              style="">`;
+          <td data-field="cancel" aria-label="4" class="datatable-cell" style="width:100px;padding-top: 10px;padding-bottom: 10px;"><span
+               >`;
 
           if (rsrv_status_ynz == 'n') {
-            $rsrvHtml += `<button  type="button" class="btn btn-default"
-                data-toggle="modal" data-target="rsrvcancelModal-`+checkNum+`" >cansle</button>
+            $rsrvHtml += `<button  type="button" style="padding-top: 2px;padding-bottom: 2px;"class="btn btn-default"
+                data-toggle="modal" data-target="rsrvcancelModal-` + checkNum + `" >cancel</button>
 
-                <div class="modal modal-center fade" id="rsrvcancelModal-`+checkNum+`" tabindex="-1"
+                <div class="modal modal-center fade" id="rsrvcancelModal-` + checkNum + `" tabindex="-1"
 																		     role="dialog" aria-labelledby="my80sizeCenterModalLabel">
 																				<div class="modal-dialog modal-80size modal-center" role="document">
-																						<div class="modal-content modal-80size">
+																						<div class="modal-content modal-80size"">
 																								<div class="modal-header " style="background-color:#ffa800;">
 																										
-																										<h4 class="modal-title" id="myModalLabel">취소</h4>
+																										<h4 class="modal-title" id="myModalLabel">예약취소</h4>
 																									<button type="button" class="btn btn-default" data-dismiss="modal">X
 																								</button>
 																								</div>
@@ -579,7 +572,8 @@ $(document).on('click',"button[class^='btn']", function (e) {
 																																				<td class="pl-0 pt-7 d-flex align-items-center text-muted">
 																																						<p><strong>예약공간</strong></p>
 																																				</td> 	<td
-																																						class="text-primary pr-0 pt-7 text-right align-middle">`+cafeInfo+`
+																																						class="text-primary pr-0 pt-7 text-right align-middle">`
+                         + cafeInfo + `
 																																				</td>
 																																		</tr>
 																																		<tr class="">
@@ -587,7 +581,8 @@ $(document).on('click',"button[class^='btn']", function (e) {
 																																						<p><strong>예약날짜</strong></p>
 																																				</td>
 																																				
-																																				<td class="text-primary pr-0 pt-7 text-right align-middle">`+use_date+`</td>
+																																				<td class="text-primary pr-0 pt-7 text-right align-middle">`
+                         + use_date + `</td>
 																																		</tr>
 																																		
 																																		<tr class="">
@@ -595,14 +590,14 @@ $(document).on('click',"button[class^='btn']", function (e) {
 																																						<p><strong>예약시간</strong></p>
 																																				</td>
 																																				<td class="text-primary pr-0 pt-7 text-right align-middle">
-																																					`+useInfo+`</td>
+																																					` + useInfo.split(' ')[1] + `</td>
 																																		</tr>
 																																		<tr class="font-weight-boldest">
 																																				<td class="pl-0 pt-7 d-flex align-items-center text-muted">
-																																						결제금액
+																																						환불예정금액
 																																				</td>
 																																				<td class="text-primary pr-0 pt-7 text-right align-middle h3">
-																																						`+amount+`원
+																																						` + amount + `원
 																																				</td>
 																																		</tr>
 																																		</tbody>
@@ -613,18 +608,19 @@ $(document).on('click',"button[class^='btn']", function (e) {
 																								</div>
 																	
 																								<div class="modal-footer">
-																										<button type="button" class="btn btn-default btn-lg " value="`+rsrv_idx+`" onclick="cancelRsrv(this)" style="">취소하기</button>
+																										<button type="button" class="btn btn-default btn-lg " value="` + rsrv_idx
+                         + `" onclick="cancelRsrv(this)" style="">취소하기</button>
 																						
 																								</div>
 																						</div>
 																				</div>
-																		</div>`;
-            
+																		`;
+
           }
 
           $rsrvHtml +=
-              `</span><td data-field="NickName" aria-label="` + member_name + `"
-                class="datatable-cell"><span style="">` + member_name + `</span></td> </td> <!--TODO 마이페이지 링크, 프로필사진 박아야해 -->
+              `</span></td><td data-field="NickName" aria-label="` + member_name + `"
+                class="datatable-cell"><span style="">` + member_name + `</span></td>  <!--TODO 마이페이지 링크, 프로필사진 박아야해 -->
         </tr>
          <tr class="datatable-row-subtable" style="display: none;"> <!-- display none-block  -->
           <td class="datatable-subtable"style="width: 50% !important; height: 400px!important;" >
@@ -646,7 +642,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
                     <td class="col-4" data-field="rsrv_idx" aria-label="` + member_name + `">
                       <span><span>예약번호</span></span></td>
                     <td data-field="ShipCountry" aria-label="ID" class="datatable-cell">
-                      <span>` + member_name + `</span></td>
+                      <span>` + rsrv_idx + `</span></td>
 
                   </tr>
                   <tr data-row="0" class="datatable-row">
@@ -769,7 +765,7 @@ $(document).on('click',"button[class^='btn']", function (e) {
       let currentPage = 1;
 
       // 드롭다운 value pix
-      
+
       $("#select-pager").val(10); // 그래서 강제로 줬엉..
       dataPerPage = $("#select-pager option:selected").val(); //TODO 안댐
       console.log(dataPerPage);
@@ -778,7 +774,8 @@ $(document).on('click',"button[class^='btn']", function (e) {
       // totalData = $('.datatable-body').children().length;
       console.log(totalData);
       if (totalData === 0) {
-        alert("해당 조건에 조회되는 데이터가 존재하지 않습니다.");
+        Swal.fire('조회되는 데이터가 없습니다. \n확인 후 이용해주세요!', '', 'warning')
+
         $('.datatable-pager').hide(); // 숨김처리
       } // if
 
@@ -895,14 +892,15 @@ $(document).on('click',"button[class^='btn']", function (e) {
         console.log($(".datatable-pager.datatable-paging-loaded"));
 
         // 페이징 번호 그리기
-       // $(".datatable-pager-nav.my-2.mb-sm-0").html(pageHtml);
+        // $(".datatable-pager-nav.my-2.mb-sm-0").html(pageHtml);
         $(".datatable-pager.datatable-paging-loaded").html($("<ul>" + $pageHtml + "</ul>"));
-        
+
         //페이징 번호 클릭 이벤트
         $(".datatable-pager.datatable-paging-loaded ul li a").click(function () {
+          
           // $(this).closest("tr").toggleClass("datatable-row-subtable-expanded").next().fadeToggle();
-          $('tr[class^="datatable"]').removeClass("datatable-row-subtable-expanded");
-          $('td[class="datatable-subtable"]').css('display','none');
+          $('tr').removeClass("datatable-row-subtable-expanded");
+           $('tr[class="datatable-row-subtable"]').css('display', 'none');
 
           console.log("s놀아>???: ");
 
@@ -946,69 +944,73 @@ $(document).on('click',"button[class^='btn']", function (e) {
         } // for
 
       } // displayData
+      
+      
 
     } // setListItem
   } // start
 
+  // 접속자의 권한을 확인하는 함수
 
-// 접속자의 권한을 확인하는 함수
-function access(){
-
-
-}
-
-
-// 지원신청 누르면 작업 고고
-function cancelRsrv(obj){ 
-    
+  // 지원신청 누르면 작업 고고
+  function cancelRsrv(obj) {
 
     Swal.fire({
-              icon : 'warning', // Alert 타입
-              title: '예약취소', // Alert 제목
-              text : '예약을 취소하고 환불함을 동의합니다.', // Alert 내용
-            });
+                title : '예약취소',
+                text : '예약을 취소하고 환불함을 동의합니다',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: '예',
+                denyButtonText: `아니오`,
+              }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        callAjax(obj);
+      } else if (result.isDenied) {
+        Swal.fire('다음에 꼭 함께해요!', '', 'info')
+      }
+    })
+    
 
-  var submitObj = new Object();
-  let searchRsrvID = $(obj).attr('value');
-  submitObj.rsrv_idx = searchRsrvID;
-
-  console.log("submitObj.rsrv_idx: "+submitObj.rsrv_idx);
  
-
-  $.ajax({
-           type       : 'POST',
-           url        : '/cafeRest/reservation/cancel',
-           data       : JSON.stringify(submitObj), // 예약번호 들고 출발
-           dataType   : 'text', // 받을 데이터는 json
-           contentType: "application/json; charset=utf-8",
-           success    : successCallback,
-           error      : errorCallback
-         });
-
-  // 성공시 데이터 처리
-  function successCallback(data) {
-    console.log("data: " + data);
-    //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고
-
-    // start.init();
     
-    // 참여신청 버튼 비활성화처리 //TODO 전역함수로도 설정해서 재신청 불가능하게~
-    $('#applyChallenge').css("background-color","gray"); //색 변경
-    // $('#applyChallenge').unbind('mouseenter mouseleave'); // 호버 제거 안되죠?
-    $("#applyChallenge").attr('onclick', '').unbind('click');
+    function callAjax(obj){
+      var submitObj = new Object();
+      let searchRsrvID = $(obj).attr('value');
+      submitObj.rsrv_idx = searchRsrvID;
 
+      console.log("submitObj.rsrv_idx: " + submitObj.rsrv_idx);
 
-    $('#applyChallenge').text('지원완료'); // 글자 변경
-  } // successCallback
+      $.ajax({
+               type       : 'POST',
+               url        : '/cafeRest/reservation/cancel',
+               data       : JSON.stringify(submitObj), // 예약번호 들고 출발
+               dataType   : 'text', // 받을 데이터는 json
+               contentType: "application/json; charset=utf-8",
+               success    : successCallback,
+               error      : errorCallback
+             });
 
-  // 실패
-  function errorCallback() {
-    Swal.fire({
-                icon : 'warning', // Alert 타입
-                title: '요청실패', // Alert 제목
-                text : '요청에 실패하였습니다. 다시 시도해주세요!', // Alert 내용
-              });
-  } // errorCallback
-}
+      // 성공시 데이터 처리
+      function successCallback(data) {
+        console.log("data: " + data);
+        
+        Swal.fire('예약취소되었습니다!', '', 'success')
+        
+        window.location.href = '/cafe/reservationList';
+
+      } // successCallback
+
+      // 실패
+      function errorCallback() {
+        Swal.fire({
+                    icon : 'warning', // Alert 타입
+                    title: '요청실패', // Alert 제목
+                    text : '요청에 실패하였습니다. 다시 시도해주세요!', // Alert 내용
+                  });
+      } // errorCallback
+    }
+    
+  }
 </script>
 </html>

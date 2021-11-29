@@ -53,7 +53,7 @@
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">프로젝트 찾기</h5>
+                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">프로젝트 찾기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
@@ -86,6 +86,7 @@
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
                                 <div id="post-body" style="width: 55%">
                                     <div id="article"><!--본문-->
+                                        <input type="hidden" id="closed_ok" value="${board.closed_ok}">
                                         <div class="back-button">
                                             <img src="../../../../resources/assets/images/icon/arrow.png"
                                                  style="width:20px;" onclick="location.href='/study/challenge/list'">
@@ -120,11 +121,52 @@
                                         <div class="apply-sec">
                                             <ul>
                                             <!-- TODO data-value="re" << 값 세션 아이디로 바꿔야 될 부분  -->
-                                                <li><a href="javascript:void(0);" data-value="세션아이디"
-                       																 onclick="applyChallenge('challenge')"
-                       																 id="applyChallenge">지원하기</a></li>
-                                                <li style="padding-right:10px"><a href="/study/challenge/modifyGo?r_idx=${board.r_idx}">수정</a> |<a href="/study/challenge/remove?r_idx=${board.r_idx}">삭제</a></li>
+                                                <c:choose>
+                                                    <c:when test="${member.member_name != board.member_name}">
 
+                                                        <c:set var="myStatus" value="false"/>
+                                                        <c:set var="loop_flag" value="false"/>
+                                                        <c:forEach var="applylist" items="${applylist}">
+                                                                <c:if test="${not loop_flag}">
+                                                                    <c:if test="${member.member_name eq applylist.member_name}">
+                                                                        <c:set var="myStatus" value="true"/>
+                                                                        <c:set var="loop_flag" value="true"/>
+                                                                    </c:if>
+                                                                </c:if>
+                                                        </c:forEach>
+
+                                                        <c:choose>
+
+                                                            <c:when test="${board.closed_ok eq 'y'.charAt(0)}">
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="" class="applyBtn" style="background-color: grey"
+                                                                       id="">마감완료</a></li>
+                                                            </c:when>
+
+
+                                                            <c:when test="${not myStatus}">
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="applyChallenge('challenge')" class="applyBtn"
+                                                                       id="applyChallenge">지원하기</a></li>
+                                                            </c:when>
+
+
+
+                                                            <c:otherwise>
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="" class="applyBtn" style="background-color: gray"
+                                                                       >지원완료</a></li>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </c:when>
+
+                                                    <c:when test="${member.member_name == board.member_name}">
+                                                        <li style="padding-right:10px">
+                                                            <a href="/study/challenge/modifyGo?r_idx=${board.r_idx}">수정</a> |
+                                                            <a href="/study/challenge/remove?r_idx=${board.r_idx}">삭제</a>
+                                                        </li>
+                                                    </c:when>
+                                                </c:choose>
 
                                                 <li style="padding-right:10px">
                                                     <img src="../../../../resources/assets/images/icon/hit.png"
@@ -139,7 +181,7 @@
 
                                         <div class="reply-write">
                                             <div><p id="reply-count"><span id="reply-count-here">${replyCount}</span>개의 댓글이 있습니다</p></div>
-                                            <input type="hidden" id="member_name" name ="member_name" value="nickname55"><!--나중에 세션 아이디로 바꿔야 될 부분-->
+                                            <input type="hidden" id="member_name" name ="member_name" value="${member.member_name}"><!--나중에 세션 아이디로 바꿔야 될 부분-->
                                             <div><textarea id="reply-write-sec"></textarea></div>
                                             <div id="reply-submit"><p onclick="replySubmit()">댓글등록</p></div>
                                         </div>
@@ -177,6 +219,13 @@
 <script>
     $(function () {
       console.log("글번호:"+${board.r_idx});
+      console.log("closed_ok:"+$('#closed_ok').val());
+      /////
+      if($('#closed_ok').val()=='y'){
+        $('#applyChallenge').html = '마감완료';
+      }
+      ////
+
       getReply();
     });//window-start
 
@@ -215,7 +264,7 @@
               html+=      '<div>'+reply.c_date+'</div>';
               html+=    '</div>';
               html+=    '<div class="item3">';
-              html+=      '<p><a href="javascript:modifyReply(`'+reply.no+'`,`'+reply.c_cont+'`)">수정</a> |' ;
+              html+=      '<p hidden class="auth-'+reply.member_name+'"><a href="javascript:modifyReply(`'+reply.no+'`,`'+reply.c_cont+'`)">수정</a> |' ;
               html+=       '<a href="javascript:deleteReply(`'+reply.no+'`)">삭제</a></p>';
               html+=    '</div>';
               html+=  '</div>';
@@ -224,6 +273,10 @@
             }
           }
           $('.reply').html(html);
+          //본인의 댓글만 수정삭제 보이는 로직
+          let member_name = '${member.member_name}';
+          let member_name_auth = '.'+'auth-'+member_name;
+          $(member_name_auth).removeAttr( 'hidden' );
         },
         error:function(request,status,error){
           console.debug('---------- error -----------')
@@ -235,6 +288,11 @@
     }//getReply
 
     function replySubmit(){
+      let member_name = ${member.member_name}+"";
+      if(member_name==""){
+        alert('로그인이 필요한 서비스입니다');
+        return;
+      }
       let jsonData= {
         r_idx:"${board.r_idx}",
         member_name:$('#member_name').val(),
@@ -313,65 +371,86 @@
       });
     }//modifyReplySubmit
 
-    // 접속자의 권한을 확인하는 함수
-    function access(){
+    
+</script>
+
+<script>
 
 
+// 지원신청 누르면 작업 고고
+function applyChallenge(action){
+    //예솔 : 세션 없는사람은 튕겨내는 로직///////////////////
+    let member_name ='${member.member_name}';
+    if(!member_name){
+        alert('로그인후 지원 부탁드립니다');
+        return;
     }
-
-
-    // 지원신청 누르면 작업 고고
-    function applyChallenge(action){
-
-    	// 유형별로 다른 문구
-    	let actionName =
-            action == 'challenge' ? '스터디장이 승인하더라도\n스터디 시작일에 [ 10,000원 ]이 결제하지 않으면 \n 참여되지 않습니다.\n\n' : '';
-
-
-    	if (!confirm("\n\n해당 스터디에서 지원신청 하시겠습니까?\n" +
-    			"스터디장의 승인 이후 가입됩니다.\n" + actionName)) {
-            return false;
-      } // if
-
-      var submitObj = new Object();
-      submitObj.boss = 'n',
+    ///////////////////////////////////////////////////
+    sAlert();
+    
+    var submitObj = new Object();
+    submitObj.boss = 'n',
       submitObj.r_idx = ${board.r_idx},
-      submitObj.member_name = 'nickname104';
-
-      console.log("submitObj.boss: "+submitObj.boss);
-      console.log("submitObj.r_idx: "+submitObj.r_idx);
-      console.log("submitObj.member_name: "+ submitObj.member_name);
-
-       $.ajax({
-                type       : 'POST',
-                url        : '/applyMemberRest/insert',
-                data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
-                dataType   : 'text', // 받을 데이터는 json
-                contentType: "application/json; charset=utf-8",
-                success    : successCallback,
-                error      : errorCallback
-              });
-
-       // 성공시 데이터 처리
-       function successCallback(data) {
+      submitObj.member_name = '${member.member_name}'
+    
+    console.log("submitObj.boss: "+submitObj.boss);
+    console.log("submitObj.r_idx: "+submitObj.r_idx);
+    console.log("submitObj.member_name: "+ submitObj.member_name);
+    
+    $.ajax({
+               type       : 'POST',
+               url        : '/applyMemberRest/insert',
+               data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+               dataType   : 'text', // 받을 데이터는 json
+               contentType: "application/json; charset=utf-8",
+               success    : successCallback,
+               error      : errorCallback
+           });
+    
+    // 성공시 데이터 처리
+    function successCallback(data) {
         console.log("data: " + data);
-    	   //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고
+        //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고
+        
+        // 참여신청 버튼 비활성화처리 //TODO 전역함수로도 설정해서 재신청 불가능하게~
+        $('#applyChallenge').css("background-color","gray"); //색 변경 pointer-events: none
+        
+        // 마우스 이벤트 제거
+        $('#applyChallenge').css("pointer-events","none");
+        
+        
+        $('#applyChallenge').text('지원완료'); // 글자 변경
+    } // successCallback
+    
+    // 실패
+    function errorCallback() {
+        Swal.fire('요청에 실패하였습니다. 다시 시도해주세요!', '', 'warning')
+    } // errorCallback
+}
 
-    	   // 참여신청 버튼 비활성화처리 //TODO 전역함수로도 설정해서 재신청 불가능하게~
-    	  $('#applyChallenge').css("background-color","gray"); //색 변경
-    	  // $('#applyChallenge').unbind('mouseenter mouseleave'); // 호버 제거 안되죠?
-           $("#applyChallenge").attr('onclick', '').unbind('click');
 
-
-    	   $('#applyChallenge').text('지원완료'); // 글자 변경
-       } // successCallback
-
-       // 실패
-       function errorCallback() {
-
-     	 alert("요청에 실패하였습니다. 다시 시도해주세요!");
-       } // errorCallback
-    }
+function sAlert(){
+    
+    Swal.fire({
+                  title : '가입 신청하시겠습니까?',
+                  text : '스터디장의 승인 이후 가입되며\n' +
+                         '스터디장이 승인하더라도\n' +
+                         '스터디 시작일에 [ 10,000원 ]을 결제하지 않으면 \n' +
+                         '참여되지 않습니다.',
+                  showDenyButton: true,
+                  showCancelButton: true,
+                  confirmButtonText: '예',
+                  denyButtonText: `아니오`,
+              }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            Swal.fire('지원 신청되었습니다!', '', 'success')
+        } else if (result.isDenied) {
+            Swal.fire('다음에 꼭 함께해요!', '', 'info')
+        }
+    })
+    
+}
 
 </script>
 </html>

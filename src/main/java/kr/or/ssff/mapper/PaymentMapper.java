@@ -1,8 +1,9 @@
 package kr.or.ssff.mapper;
 
 import java.util.List;
-import kr.or.ssff.payment.domain.PaymentAcntDTO;
-import kr.or.ssff.payment.domain.PaymentAuthDTO;
+import kr.or.ssff.payment.model.PaymentAcntDTO;
+import kr.or.ssff.payment.model.PaymentAuthDTO;
+import kr.or.ssff.payment.model.TransactionDTO;
 //import kr.or.ssff.payment.domain.PaymentBalanceDTO;
 
 
@@ -29,6 +30,8 @@ public interface PaymentMapper {
 
 
 	void mergeACNT(List<PaymentAcntDTO> list);
+
+  boolean insertTrnsc(TransactionDTO transactionDTO);
 //	void mergeBalance(List<PaymentBalanceDTO> list);
 
 

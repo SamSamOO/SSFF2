@@ -54,7 +54,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="d-flex align-items-center flex-wrap mr-2">
                                 <!--begin::Title-->
                                 <i class="far fa-list-alt"></i>
-                                <h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">스터디 상세정보</h5>
+                                <h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">스터디 상세정보</h5>
                                 <!--end::Title-->
                                 <!--Breadcrumb : 로드맵 시작-->
                                 <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
@@ -77,7 +77,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--begin::Header-->
                             <div class="card-header flex-wrap border-0 pt-6 pb-0">
                                 <div class="card-title">
-                                    <a href="/manager/study/list">
+                                    <a href="javascript:history.back();">
                                         <i class="fas fa-arrow-left icon-xl"></i>
                                     </a>
                                 <h3 class="ml-8 card-label">

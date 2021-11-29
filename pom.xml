@@ -48,6 +48,8 @@
 			<version>1.11.1001</version>
 		</dependency>
 
+
+
 <!--		<dependency>-->
 <!--			<groupId>org.springframework</groupId>-->
 <!--			<artifactId>spring-context-support</artifactId>-->
@@ -422,6 +424,13 @@
 			<groupId>javax.annotation</groupId>
 			<artifactId>javax.annotation-api</artifactId>
 			<version>1.3.2</version>
+		</dependency>
+		<!-- json object[e] -->
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>RELEASE</version>
+			<scope>compile</scope>
 		</dependency>
 		<!-- json object[e] -->
 

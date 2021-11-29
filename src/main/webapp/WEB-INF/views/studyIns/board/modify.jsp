@@ -12,7 +12,51 @@
 
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+    <script>
+        <c:choose>
+        <c:when test="${member.member_id==null}">
 
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '로그인 오류', // Alert 제목
+            text: '로그인 하세요', // Alert 내용
+
+            buttons: {
+                confirm: {
+                    text: '확인 ',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "/member/loginGo";
+            }
+        });
+
+        </c:when>
+        <c:when test="${inStudy==0}">
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '스터디원이 아닙니다.', // Alert 제목
+            text: '스터디원이 아닙니다.', // Alert 내용
+
+            buttons: {
+                confirm: {
+                    text: '스터디 ',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "javascript:history.back()";
+            }
+        });
+
+        </c:when>
+        </c:choose>
+    </script>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -45,7 +89,7 @@
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">프로젝트 찾기</h5>
+                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">프로젝트 찾기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
@@ -78,7 +122,7 @@
                                         <input type="hidden" name="cont_No" value="${detail.cont_No}">
                                         <c:out value="${detail.cont_No}"/>
                                         <p>cont_No 출력</p>
-                                        <input type="hidden" name="r_Idx" value="9002"/>
+                                        <input type="hidden" name="r_Idx" value="${detail.r_Idx}"/>
 
                                         <table style="width: 100%">
 

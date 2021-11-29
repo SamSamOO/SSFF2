@@ -1,11 +1,16 @@
+/*----페이지네이션----*/
+.pagination .active,
+.pagination li:hover{
+    background-color: #6b984f !important;
+    color: #FFFFFF !important;
+}
 
 .pagination .active a,
 .pagination a:hover{
     color: #FFFFFF !important;
 }
 
-
-
+/*----체크리스트 필터----*/
 .checklist li{
     width: 8rem;
 }
@@ -14,11 +19,52 @@
     width: 5rem !important;
 }
 
-.mng_study_list td{
-    vertical-align: center !important;
+/*----관리자 멤버 리스트----*/
+.mng_user_list{
+    vertical-align: middle !important;
+    word-break: break-word !important;
 }
 
+.mng_user_list td{
+    text-align: center !important;
+    vertical-align: middle !important;
+}
 
+.user_pic_nick{
+    word-break: normal !important;
+}
+
+.user_pic_nick .symbol{
+    width: 100% !important;
+    max-width: 45px !important;
+    height: 45px !important;
+}
+
+/*----관리자 스터디 리스트----*/
+.mng_study_list .label{
+    word-break: keep-all !important;
+}
+
+.mng_study_list td{
+    vertical-align: middle !important;
+    word-break: break-word !important;
+}
+
+.study_num{
+    width: 5rem;
+}
+
+.study_nick{
+    width: 10rem;
+}
+
+.study_name{
+    width: 35%;
+}
+
+.study_date{
+    width: 7rem;
+}
 
 .mng_info {
     margin: 0 auto;
@@ -40,6 +86,8 @@
 }
 
 
+/*----스터디 게시판 게시글 리스트----*/
+
 .board_list .notice{
     background-color: LemonChiffon;
 }
@@ -47,7 +95,6 @@
 .board_list .notice:hover{
     background-color: palegoldenrod;
 }
-
 
 .board_list td{
     text-align: center;
@@ -57,25 +104,8 @@
     font-size: 1rem;
 }
 
+/*----스터디 게시글----*/
 .study_board td{
     text-align: center;
     padding: 0.25rem;
-}
-
-
-.inline-flex{
-    display: inline-flex;
-}
-
-.list-style-none{
-    list-style: none;
-}
-
-.filter-shadow{
-    -webkit-box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05);
-    box-shadow: 0px 0px 30px 0px rgba(82, 63, 105, 0.05);
-}
-
-.px-p15{
-    padding:0 15% !important;
 }

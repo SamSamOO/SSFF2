@@ -108,7 +108,7 @@
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">챌린지</h5>
+                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">챌린지</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
@@ -135,11 +135,9 @@
                         <!--풀 사이즈 카드 시작 / 카드 필요 없으면 여기서부터 밀기☆-->
                         <div class="card card-custom gutter-b card-stretch">
                             <div class="container">
-                                <input hidden value="9001" id="r_Idx"/>
-                                <input hidden value="nickname9001" id="member_Name"/>
+                                <input type="text" value="${map.get("r_Idx")}" id="r_Idx"/>
+                                <input type="text" value="${member.member_name}" id="member_Name"/>
                                 <button type="button" value="" id="attendance" class="btn btn-secondary">출석버튼</button>
-
-
 
 
                                 <figure class="highcharts-figure">
@@ -147,9 +145,6 @@
 
 
                                 </figure>
-
-
-
 
 
                             </div>
@@ -174,6 +169,7 @@
 </body>
 <!----------------Body 종료----------------------->
 <script>
+
     $(function () {
         let now = new Date();
 
@@ -181,13 +177,23 @@
             console.log(e.target + `좀 돼라`);
             Swal.fire({
                 title: "출석",
-                text: now.getDate() + " 출석하시겠습니까?",
+                text: now.getDate() + "일 출석하시겠습니까?",
                 showCancelButton: true,
-                confirmButtonColor: "#1FAB45",
-                confirmButtonText: "출석",
-                cancelButtonText: "취소",
-                buttonsStyling: true
-            }).then(function () {
+                buttonsStyling: true,
+                buttons: {
+                    cancel: {
+                        text: '취소',
+                        value: false,
+                        className: 'btn btn-outline-primary' // 클래스 이름을 줄 수도 있다.
+                    },
+                    confirm: {
+                        text: '출석',
+                        value: true,
+                        className: 'btn btn-outline-primary'
+                    }
+                }
+            }).then(function (result) {
+                if (result) {
                     $.ajax({
                         type: "POST",
                         url: "/studyRest/updateAttendance",
@@ -198,13 +204,16 @@
                         contentType: 'application/json; charset=utf-8',
                         cache: false,
                         success: function (response) {
+                            console.log(`출석완료`);
                             Swal.fire(
                                 "알림",
                                 "출석되었습니다.",
                                 "success"
-                            )
+                            );
                         },
                         failure: function (response) {
+                            console.log(`출석안됨`);
+
                             Swal.fire(
                                 "내부 오류",
                                 "출석에 실패했습니다.", // had a missing comma
@@ -212,19 +221,12 @@
                             )
                         }
                     });
-                },
-                function (dismiss) {
-                    if (dismiss === "cancel") {
-                        Swal.fire(
-                            "취소",
-                            "취소 되었습니다.",
-                            "error"
-                        )
-                    }
-                })
+
+                }
+
+            });
 
         });
-
     });
     $(document).ready(function () {
         /*일단은 풀캘에서 들고오는 방법으로 선택해야합니다.*/
@@ -248,12 +250,12 @@
         var currentDay = new Date();
         var theYear = currentDay.getFullYear();
         var theMonth = currentDay.getMonth();
-        var theDate  = currentDay.getDate();
+        var theDate = currentDay.getDate();
         var theDayOfWeek = currentDay.getDay();
 
         var thisWeek = [];
 
-        for(var i=0; i<7; i++) {
+        for (var i = 0; i < 7; i++) {
             var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
             var yyyy = resultDay.getFullYear();
             var mm = Number(resultDay.getMonth()) + 1;
@@ -271,12 +273,12 @@
         var currentDay = new Date();
         var theYear = currentDay.getFullYear();
         var theMonth = currentDay.getMonth();
-        var theDate  = currentDay.getDate();
+        var theDate = currentDay.getDate();
         var theDayOfWeek = currentDay.getDay();
 
         var thisWeek = [];
 
-        for(var i=0; i<7; i++) {
+        for (var i = 0; i < 7; i++) {
             var resultDay = new Date(theYear, theMonth, theDate + (i - theDayOfWeek));
             var yyyy = resultDay.getFullYear();
             var mm = Number(resultDay.getMonth()) + 1;
@@ -305,7 +307,7 @@
             series: [{
                 type: 'column',
                 colorByPoint: true,
-                data: [10,10,10,10,10,10,10],
+                data: [10, 10, 10, 10, 10, 10, 10],
                 showInLegend: false
             }]
         });

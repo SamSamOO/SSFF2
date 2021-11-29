@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -25,10 +26,10 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!------------------header.html Include------------------>
-            <jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/commons/header.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 시작------------------>
             <!--menu.html Include-->
-            <jsp:include page="/WEB-INF/commons/menu_main.jsp"></jsp:include>
+            <jsp:include page="/WEB-INF/commons/menu_main.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 종료------------------>
             <!--컨테이너 시작-->
             <div class="d-flex flex-row flex-column-fluid container">
@@ -44,7 +45,7 @@
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">프로젝트 찾기</h5>
+                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">프로젝트 찾기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
@@ -77,7 +78,7 @@
                                         <input type="hidden" name="cont_No" value="${cont_No+1}">
                                         <c:out value="${cont_No+1}"/>
                                         <p>cont_No 출력</p>
-                                        <input type="hidden" name="r_Idx" value="9002"/>
+                                        <input type="text" name="r_Idx" value="${map.get("r_Idx")}"/>
 
                                         <table style="width: 100%">
 
@@ -97,7 +98,7 @@
                                                 </td>
                                                 <td align="right" colspan="2">
 
-                                                    <input id="member_Name" maxlength="20" value="nickname11"
+                                                    <input id="member_Name" maxlength="20" value="${member.member_name}"
                                                            name="member_Name">
                                                 </td>
                                             </tr>
@@ -162,6 +163,49 @@
     let regex = new RegExp(`(.*?).(jpg|jpeg|png|gif|bmp)$`, `i`);
     let maxSize = 5242880; //5MB
     $(function () {
+        <c:choose>
+        <c:when test="${member.member_id==null}">
+
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '로그인 오류', // Alert 제목
+            text: '로그인 하세요', // Alert 내용
+
+            buttons: {
+                confirm: {
+                    text: '확인 ',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "/member/loginGo";
+            }
+        });
+
+        </c:when>
+        <c:when test="${inStudy==0}">
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '스터디원이 아닙니다.', // Alert 제목
+            text: '스터디원이 아닙니다.', // Alert 내용
+
+            buttons: {
+                confirm: {
+                    text: '스터디',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "/";
+            }
+        });
+
+        </c:when>
+        </c:choose>
         console.clear();
         console.debug("제이쿼리 시작");
 
@@ -218,9 +262,9 @@
             $.ajax({
                 url: '/board/postGo',
                 processData: false,
-                contentType : false,
-                data : formData,
-                type : 'POST',
+                contentType: false,
+                data: formData,
+                type: 'POST',
                 dataType: 'json'
             });
 

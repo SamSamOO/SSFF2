@@ -4,19 +4,19 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.or.ssff.mapper.ApplyMemberMapper">
 
-	<!--  스터디 멤버 + 프로필사진(tn_member) + 스터디팀명(tn_recruit_board) 조회 : 신지혜  -->
+	<!--  스터디 멤버 + 프로필사진(tn_member) + 스터디팀명(tn_recruit_board) 조회
+	applyType = YA : 참여신청중인 study_join_arciwf = 'a'
+	applyType = NA : 정상 가입중인 study_join_arciwf = 'i' 만
+	rId : 해당 스터디의 정보만 가져오기 위해서 필요함
+
+	: 신지혜  -->
 	<select
 		id="getApplyMemberList"
-		parameterType="String"
+		parameterType="hashMap"
 		resultType="kr.or.ssff.applyMember.domain.ApplyMemberListVO">
 
-		<![CDATA[
-			SELECT
-				/*+ member_name_asc(apply_member) */
-				*
-			FROM
-				(
-					SELECT
+
+		SELECT
 						a.apply_idx,
 						a.r_idx,
 						a.member_name,
@@ -30,12 +30,16 @@
 					FROM
 						apply_member a
 						JOIN recruit_board r on r.r_idx = a.r_idx
-						JOIN member m on a.member_Name = m.member_Name
-				)
-			WHERE
-				r_idx > #{r_idx} and r_idx < 9020
-		]]>
+						JOIN member m on r.member_Name = m.member_Name
 
+			WHERE
+				a.r_idx = #{rId}
+			  <if test='applyType == "YA"'>
+          AND a.study_join_arciwf = 'a'
+				</if>
+				<if test='applyType == "NA"'>
+					AND a.study_join_arciwf = 'i'
+				</if>
 		<!-- //TODO WHERE절 Test를 위해 and 조건 / 추후 단항조건으로 변경예정-->
 	</select>
 

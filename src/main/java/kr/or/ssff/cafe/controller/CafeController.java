@@ -8,16 +8,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import kr.or.ssff.cafe.domain.CafeInfoVO;
-import kr.or.ssff.cafe.domain.CafeListVO;
-import kr.or.ssff.cafe.domain.CafeVO;
-import kr.or.ssff.cafe.domain.ReservationDTO;
-import kr.or.ssff.cafe.domain.RoomRsrvInfoDTO;
-import kr.or.ssff.cafe.domain.RoomVO;
+
+import kr.or.ssff.cafe.domain.*;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
 import kr.or.ssff.cafe.service.CafeService;
+import kr.or.ssff.cafe.domain.ReservationVO;
 import kr.or.ssff.studyIns.Utils.UploadFileUtils;
+import kr.or.ssff.studyIns.model.Criteria;
+import kr.or.ssff.studyIns.model.PageDTO;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -105,7 +104,7 @@ public class CafeController {
    * 반환: 우선 카페리스트
    * */
   @PostMapping("/reserve/insert")
-  public String insertReservation(RedirectAttributes rttrs,
+  public void insertReservation(RedirectAttributes rttrs,
       @ModelAttribute("reservationDTO") ReservationDTO reservationDTO,
       Model model) {
     log.info("insertReservation({}) is invoked", reservationDTO);
@@ -120,7 +119,6 @@ public class CafeController {
       log.info("rttrs({}) is rttrs", rttrs);
     } // if
 
-    return "redirect:/cafe/list"; // TODO 예약내역단 나오면 변경예정!
   } // insertReservation
 
 
@@ -141,12 +139,14 @@ public class CafeController {
    * 매개변수: 회원닉네임
    * 반환: 스터디 카페 예약 내역 리스트 뷰단
    * */
+
   @GetMapping("/reservationList")
   public String selectReservationList(String nickName) {
     log.info("selectReservationList({}) is invoked", "nickName = " + nickName);
 
     return "cafe/reservationList";
   } // selectReservationList
+
 
   //-------------------------------- 지혜 카페 CRUD--------------------------------//
 

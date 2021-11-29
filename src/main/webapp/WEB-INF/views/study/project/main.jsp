@@ -10,8 +10,9 @@
     <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
     <title>"엮인글" 팀의 메인페이지</title><!--r_idx로 스터디 팀네임 가져올것-->
     <!--fullcalendar 관련 설정----------------------------->
-    <link href="../../../../resources/assets/fullcalendar/modal.css" rel="stylesheet" />
-    <link href='../../../../resources/assets/fullcalendar/fullcalendar/lib/main.css' rel='stylesheet' />
+    <link href="../../../../resources/assets/fullcalendar/modal.css" rel="stylesheet"/>
+    <link href='../../../../resources/assets/fullcalendar/fullcalendar/lib/main.css'
+          rel='stylesheet'/>
     <script src='../../../../resources/assets/fullcalendar/fullcalendar/lib/main.js'></script>
     <script src='../../../../resources/assets/fullcalendar/script.js'></script>
     <!--상부 js를 위한 설정-->
@@ -23,9 +24,11 @@
     <script>
       let r_idx = document.querySelector('#r_idx').value;
       let calendarData
+
       async function doGetCalendarData() {
         calendarData = await getFullCalendarData(r_idx);
       }
+
       doGetCalendarData()
 
       if (!calendarData) {
@@ -107,17 +110,19 @@
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">프로젝트 찾기</h5>
+                                    <h5 class="text-dark font-weight-bold my-1 mr-5">메인페이지 :
+                                        코벤져스</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
                                             class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                                         <li class="breadcrumb-item">
-                                            <a href="" class="text-muted">프로젝트</a>
+                                            <a hidden href="" class="text-muted">프로젝트</a>
+                                            <!--숨겨놓음-->
                                         </li>
-                                        <li class="breadcrumb-item">
-                                            <a href="" class="text-muted">카테고리2</a>
-                                        </li>
+                                        <!--<li class="breadcrumb-item">
+                                            <a hidden href="" class="text-muted">카테고리2</a>
+                                        </li>-->
                                     </ul>
                                     <!--Breadcrumb : 로드맵 종료-->
                                 </div>
@@ -135,56 +140,95 @@
                         <div class="card card-custom gutter-b card-stretch">
 
                             <!--카드 Body 시작-->
-                            <div class="card-header border-0 pt-5 card-body mt-5" ><!--id="post-body-wrapper" 이거 넣으면 가운데정렬-->
+                            <div class="card-header border-0 pt-5 card-body mt-5"
+                                 id="post-body-wrapper"><!--id="post-body-wrapper" 이거 넣으면 가운데정렬-->
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
-                                <!--캘린더 섹션 start------->
-                                <div id="calendar-sec" style="width: 750px">
+                                <ul style="list-style: none">
+                                    <li class="mainpage_index">▶ 일정 관리</li>
+                                    <!--캘린더 섹션 start------->
+                                    <div id="calendar-sec" style="width: 900px"><!--캘린더 크기 설정-->
+                                        <!--calendar api-->
+                                        <div id='calendar'></div>
 
-                                    <!--calendar api-->
-                                    <div id='calendar'></div>
-
-                                    <!--modal-->
-                                    <div class="calmodal hidden">
-                                        <div class="calmodal-overlay"></div>
-                                        <div class="calmodal-content">
-                                            <img src="../../../../resources/assets/images/icon/close.png" style="width:20px;" id="close"><!--❎이거 어케한거지..-->
-                                            <h1 id="cal-title-sec">
-                                                <span>[코벤져스]</span> <!--팀명 자동으로 들어옴-->
-                                                <input type="text" id="calendar-title" placeholder="일정 제목을 입력하세요">
-                                            </h1>
-                                            <div id="cal-time-sec">
-                                                <div class="cal-index" style="display:inline-block">일시</div> <label>종일</label><input type="checkbox" id="allday" name="allday" checked >
-                                                <br>
-                                                <input type="date" id="calendar-start-date" name="cal_start" class="form-control inputBoxSetting1" >
-                                                <span>&nbsp;&nbsp;~</span>
-                                                <input type="date" id="calendar-end-date" name="cal_end" class="form-control inputBoxSetting1">
-                                                <br>
-                                                <br>
-                                                <div class="timeHidden hidden">
-                                                    <label for="calendar-start-time">시작</label><input type="time" id="calendar-start-time"  step="900" required class="form-control inputBoxSetting2" >
-                                                    <label for="calendar-end-time">종료</label><input type="time" id="calendar-end-time"   step="900" required class="form-control inputBoxSetting2" >
+                                        <!--modal-->
+                                        <div class="calmodal hidden">
+                                            <div class="calmodal-overlay"></div>
+                                            <div class="calmodal-content">
+                                                <img src="../../../../resources/assets/images/icon/close.png"
+                                                     style="width:20px;" id="close">
+                                                <!--❎이거 어케한거지..-->
+                                                <h1 id="cal-title-sec">
+                                                    <span>[코벤져스]</span> <!--팀명 자동으로 들어옴-->
+                                                    <input type="text" id="calendar-title"
+                                                           placeholder="일정 제목을 입력하세요">
+                                                </h1>
+                                                <div id="cal-time-sec">
+                                                    <div class="cal-index"
+                                                         style="display:inline-block">일시
+                                                    </div>
+                                                    <label>종일</label><input type="checkbox"
+                                                                            id="allday"
+                                                                            name="allday" checked>
+                                                    <br>
+                                                    <input type="date" id="calendar-start-date"
+                                                           name="cal_start"
+                                                           class="form-control inputBoxSetting1">
+                                                    <span>&nbsp;&nbsp;~</span>
+                                                    <input type="date" id="calendar-end-date"
+                                                           name="cal_end"
+                                                           class="form-control inputBoxSetting1">
+                                                    <br>
+                                                    <br>
+                                                    <div class="timeHidden hidden">
+                                                        <label for="calendar-start-time">시작</label><input
+                                                            type="time" id="calendar-start-time"
+                                                            step="900" required
+                                                            class="form-control inputBoxSetting2">
+                                                        <label for="calendar-end-time">종료</label><input
+                                                            type="time" id="calendar-end-time"
+                                                            step="900" required
+                                                            class="form-control inputBoxSetting2">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div id="cal-cont-sec">
-                                                <p class="cal-index">내용</p>
-                                                <textarea id="calendar-content"></textarea>
-                                            </div>
+                                                <div id="cal-cont-sec">
+                                                    <p class="cal-index">내용</p>
+                                                    <textarea id="calendar-content"></textarea>
+                                                </div>
 
-                                            <div id="cal-button-sec">
-                                                <button id="modal-regist"  class ="cal-button" onclick="eventRegist()">일정 등록하기</button>
-                                                <button id="modal-modify" class="hidden cal-button">수정</button>
-                                                <button id="modal-delete" class="hidden cal-button" onclick="deleteEvent()">삭제</button>
+                                                <div id="cal-button-sec">
+                                                    <button id="modal-regist" class="cal-button"
+                                                            onclick="eventRegist()">일정 등록하기
+                                                    </button>
+                                                    <button id="modal-modify"
+                                                            class="hidden cal-button"
+                                                            onclick="modifyEvent()">수정
+                                                    </button>
+                                                    <button id="modal-delete"
+                                                            class="hidden cal-button"
+                                                            onclick="deleteEvent()">삭제
+                                                    </button>
 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <!--캘린더 섹션 end------->
+                                    <li class="mainpage_index">▶ 게시판</li>
+                                    <!--to 상준 : 여기 21, 22번째줄을 보면 여기 들어온 아이디랑 여기 게시글번호가 하드코딩 되어있어
+                                        마이페이지 받고 마이페이지 통해서 정상적으로 들어오게되면 바꿔야 하구 그때까지는 저 하드코딩
+                                        밸류값 가져오면 될듯해-->
+                                    <table border="1">
+                                        <tr>
+                                            <td>가나다</td>
+                                            <td>가나다</td>
+                                        </tr>
+                                        <tr>
+                                            <td>가나다</td>
+                                            <td>가나다</td>
+                                        </tr>
+                                    </table>
 
-
-                                </div>
-
-                                <!--캘린더 섹션 end------->
-
-
+                                </ul>
                                 <!----------------------------------------------------------------------------------------------------------------------------->
                             </div>
                             <!--카드 Body 종료-->
@@ -216,7 +260,7 @@
   //offModal button
 
   const checkbox = document.querySelector("input[name=allday]");
-  let checkboxStatus='y' //종일이면 y, 아니면 n
+  let checkboxStatus = 'y' //종일이면 y, 아니면 n
   //종일체크
 
   const closeModal = () => {
@@ -231,6 +275,7 @@
       closeModal()
     }
   })
+
   //모달창 영역 밖
 
   function openModal(arg) {
@@ -241,22 +286,26 @@
       console.log(arg.event.id)
       document.getElementById('calendar-title').value = arg.event.title
 
-      let startDay= arg.event._instance.range.start;
-      let endDay =arg.event._instance.range.end;
+      let startDay = arg.event._instance.range.start;
+      let endDay = arg.event._instance.range.end;
       let allday_ok = arg.event.extendedProps.allday_ok;
 
       console.log(allday_ok);
-      if(allday_ok=='n') {
+      if (allday_ok == 'n') {
         $('#allday').removeAttr('checked');
         timeHidden.classList.remove('hidden')
-      }else{
+      } else {
         $("#allday").attr("checked", true);
         timeHidden.classList.add('hidden')
       }
-      document.getElementById('calendar-start-date').value =new Date(startDay + 3240 * 10000).toISOString().split("T")[0];
-      document.getElementById('calendar-end-date').value = new Date(endDay + 3240 * 10000).toISOString().split("T")[0];
-      document.getElementById('calendar-start-time').value =startDay.toTimeString().split(" ")[0].substr(0,5);
-      document.getElementById('calendar-end-time').value = endDay.toTimeString().split(" ")[0].substr(0,5);
+      document.getElementById('calendar-start-date').value = new Date(
+          startDay + 3240 * 10000).toISOString().split("T")[0];
+      document.getElementById('calendar-end-date').value = new Date(
+          endDay + 3240 * 10000).toISOString().split("T")[0];
+      document.getElementById('calendar-start-time').value = startDay.toTimeString().split(
+          " ")[0].substr(0, 5);
+      document.getElementById('calendar-end-time').value = endDay.toTimeString().split(
+          " ")[0].substr(0, 5);
       document.getElementById('calendar-content').value = arg.event.extendedProps.cal_cont
       modalRegist.classList.add('hidden')
       modalModify.classList.remove('hidden')
@@ -273,22 +322,23 @@
   }
 
   function eventRegist() {
-    let time_start="";
-    let time_end="";
-    if(document.getElementById('calendar-start-time').value!="" && document.getElementById('calendar-end-time').value!=""){
-      time_start = "T"+document.getElementById('calendar-start-time').value +":00";
-      time_end = "T"+document.getElementById('calendar-end-time').value +":00";
-    }else{
+    let time_start = "";
+    let time_end = "";
+    if (document.getElementById('calendar-start-time').value != "" && document.getElementById(
+        'calendar-end-time').value != "") {
+      time_start = "T" + document.getElementById('calendar-start-time').value + ":00";
+      time_end = "T" + document.getElementById('calendar-end-time').value + ":00";
+    } else {
       time_start = "T00:00:00";
       time_end = "T23:59:59";
     }
     let addEvent = {
-      member_name:document.querySelector('#member_name').value,
-      allday_ok:checkboxStatus,
-      title: document.getElementById('calendar-title').value ,
+      member_name: document.querySelector('#member_name').value,
+      allday_ok: checkboxStatus,
+      title: document.getElementById('calendar-title').value,
       start: new Date(document.getElementById('calendar-start-date').value + time_start),
       end: new Date(document.getElementById('calendar-end-date').value + time_end),
-      cal_cont:document.querySelector('#calendar-content').value
+      cal_cont: document.querySelector('#calendar-content').value
     }
     let flag = true
     if (!addEvent.title) {
@@ -309,10 +359,10 @@
     closeModal()
   }
 
-  function deleteEvent () {
+  function deleteEvent() {
     if (showAlarm(5)) {
       currentEvent.remove()  // front calendar update
-      setFullCalendarData(calendar.getEvents()) // db update
+      setFullCalendarData(document.querySelector('#r_idx').value, calendar.getEvents()) // db update
       showAlarm(3)
       closeModal()
     } else {
@@ -320,24 +370,64 @@
     }
   }
 
-  function showAlarm (type) {
-    switch (type) {
-      case 0: alert('제목 알맞게 입력하라고!!!!!!!!!!!!'); return false; break;
-      case 1: alert('날짜 제대로 입력안하냐!!!? 정신차리라고!!'); return false; break;
-      case 2: alert('일정이 등록되었습니다.( ":D" )'); return false; break;
-      case 3: alert('그래...삭제했다...너 혼자 잘살아봐라....'); return false; break;
-      case 4: alert('음~~삭제 안하는거지? 잘생각했어~~ ( ":D" )'); return false; break;
-      case 5: return confirm('일정을 삭제하겠다고? 와이? 정신차려이각박한세상속에!!!!!!!!'); break;
+  function modifyEvent() {
+    if (showAlarm(6)) {
+      currentEvent.remove()  // front calendar update
+      setFullCalendarData(document.querySelector('#r_idx').value, calendar.getEvents()) // db update
+      eventRegist()
+      //showAlarm(7)
+      //closeModal()
+    } else {
+      showAlarm(8)
     }
   }
 
-  checkbox.addEventListener('change', function() {
+  function showAlarm(type) {
+    switch (type) {
+      case 0:
+        alert('제목을 입력해주세요');
+        return false;
+        break;
+      case 1:
+        alert('날짜를 입력해 주세요');
+        return false;
+        break;
+      case 2:
+        alert('성공적으로 완료되었습니다( ":D" )');
+        return false;
+        break;
+      case 3:
+        alert('일정이 정상적으로 삭제되었습니다');
+        return false;
+        break;
+      case 4:
+        alert('일정 삭제가 취소되었습니다');
+        return false;
+        break;
+      case 5:
+        return confirm('정말 삭제하시겠습니까?');
+        break;
+      case 6:
+        return confirm('정말 수정하시겠습니까?');
+        break;
+      case 7:
+        alert('일정이 정상적으로 수정되었습니다');
+        return false;
+        break;
+      case 8:
+        alert('일정 수정이 취소되었습니다');
+        return false;
+        break;
+    }
+  }
+
+  checkbox.addEventListener('change', function () {
     if (this.checked) {
       timeHidden.classList.add('hidden')
-      checkboxStatus='y'
+      checkboxStatus = 'y'
     } else {
       timeHidden.classList.remove('hidden')
-      checkboxStatus='n'
+      checkboxStatus = 'n'
     }
   });//종일 체크가 되어있으면 시간체크를 보여주지 않는다
 

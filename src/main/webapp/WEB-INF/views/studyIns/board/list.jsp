@@ -22,11 +22,55 @@
 
     <script>
         $(function () {
+            <c:choose>
+            <c:when test="${member.member_id==null}">
+
+            Swal.fire({
+                icon: 'warning', // Alert 타입
+                title: '로그인 오류', // Alert 제목
+                text: '로그인 하세요', // Alert 내용
+
+                buttons: {
+                    confirm: {
+                        text: '확인 ',
+                        value: true,
+                        className: 'btn btn-outline-primary'
+                    }
+                }
+            }).then((result) => {
+                if (result) {
+                    location.href = "/member/loginGo";
+                }
+            });
+
+            </c:when>
+            <c:when test="${insStudy==0}">
+            Swal.fire({
+                icon: 'warning', // Alert 타입
+                title: '스터디원이 아닙니다.', // Alert 제목
+                text: '스터디원이 아닙니다.', // Alert 내용
+
+                buttons: {
+                    confirm: {
+                        text: '스터디 ',
+                        value: true,
+                        className: 'btn btn-outline-primary'
+                    }
+                }
+            }).then((result) => {
+                if (result) {
+                    location.href = "javascript:history.back()";
+                }
+            });
+
+            </c:when>
+            </c:choose>
+
             console.clear();
             console.log("제이쿼리 시작");
             $(`#regBtn`).on('click', function () {
                 console.log("regBtn 클릭");
-                self.location = "/studyIns/board/postGo";
+                self.location = "/studyIns/board/postGo?r_Idx=" + $(`#r_Idx`).val();
             });
 
         });
@@ -67,10 +111,9 @@
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label font-weight-bolder text-dark font-size-h2-lg">메인페이지 임시 공사중..</span>
                             <p>&nbsp;</p>
-                            <a href="/studyIns/movingChang?r_Idx=9002">채팅방 입장</a>
+                            <button class="btn btn-light-instagram" onclick="window.open('/moveChating?r_Idx=${map.get("r_Idx")}','window_name','width=600,height=500,location=no,status=no,scrollbars=yes');">button</button>
                         </h3>
                         <div class="card-toolbar">
-
                         </div>
                     </div>
                     <!--카드 헤더 종료-->
@@ -80,7 +123,8 @@
                             <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
                             <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
                             <input type="hidden" name="category" value="${category}"/>
-                            <input type="hidden" name="r_Idx" value="9002"/>
+                            <input type="text" name="r_Idx" id="r_Idx" value="${map.get("r_Idx")}"/>
+
                             <table class="table table-borderless">
 
                                 <tr>
@@ -141,13 +185,14 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach begin="1" end="3" var="noticeList" items="${noticeList}">
+
+                                <c:forEach end="3" var="noticeList" items="${noticeList}">
 
                                     <tr style="background-color: oldlace">
                                         <td>공지</td>
                                         <td>공지</td>
                                         <td><a
-                                            href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=9002"/> ">
+                                            href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
                                                 <c:out value="${noticeList.title}"/><a/></td>
                                         <td><c:out value="${fn:substring(noticeList.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
                                         <td>${noticeList.member_Name} </td>
@@ -161,13 +206,23 @@
                                 </c:forEach>
 
 
-                                <c:forEach items="${list}" var="list">
+                                <c:set value="${fn:replace(pageMaker.total,' ' ,'' ) }" var="total"/>
+
+                                <c:forEach items="${list}" var="list" varStatus="status">
 
                                     <tr>
-                                        <td>${list.cont_No}</td>
+                                        <c:choose>
+                                            <c:when test="${map.get('category') eq '공지'}">
+                                                <td>공지</td>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <td>${pageMaker.total - (pageMaker.criteria.pageNum*(status.index))}</td>
+                                            </c:otherwise>
+                                        </c:choose>
+
                                         <td>${list.category}</td>
                                         <td><a
-                                            href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=9002"/> ">
+                                            href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
                                                 <c:out value="${list.title}"/> <a/></td>
                                         <td><c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
                                         <td>${list.member_Name} </td>
@@ -180,6 +235,13 @@
 
                                     </tr>
                                 </c:forEach>
+                                <c:if test="${total eq '0'}">
+                                    <tr>
+                                        <td colspan="12" style="">
+                                    <h2 style="font-weight: 700; text-align: center; margin-bottom: 10px; margin-top: 10px">불러올 리스트가 없습니다.</h2>
+                                        </td>
+                                    </tr>
+                                </c:if>
                                 <tr style="background-color: white" class="align-center">
                                     <td colspan="8">
                                         <!--begin::Pagination-->
@@ -188,26 +250,21 @@
                                             <div style="width: 8%"></div>
                                             <div class='pull-right'>
                                                 <ul class="pagination">
-
                                                     <c:if test="${pageMaker.prev}">
                                                         <li id="prev" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1"><a class="ki ki-bold-arrow-back icon-xs p-4"
                                                                                                                                          id="prev_a" href="${pageMaker.startPage -1}"></a></li>
                                                     </c:if>
-
                                                     <c:forEach var="num" begin="${pageMaker.startPage}"
                                                                end="${pageMaker.endPage}">
                                                         <li id="num" class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
                                                             <a class="p-4" id="num_a" href="${num}">${num}</a>
                                                         </li>
                                                     </c:forEach>
-
                                                     <c:if test="${pageMaker.next}">
                                                         <li id="next" class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
                                                             <a id="next_a" class="ki ki-bold-arrow-next icon-xs p-4" href="${pageMaker.endPage +1 }"></a>
                                                         </li>
                                                     </c:if>
-
-
                                                 </ul>
                                             </div>
                                             <div class="d-flex align-items-center py-3">
@@ -217,10 +274,10 @@
                                         <!--end:: Pagination-->
                                     </td>
                                 </tr>
-                                <%--                            <tr>--%>
+                                <%--<tr>--%>
 
 
-                                <%--                            </tr>--%>
+                                <%--</tr>--%>
 
                                 </tbody>
                             </table>
@@ -230,11 +287,13 @@
                 </div>
                 <!--카드 Body 종료-->
             </div>
+        </div>
             <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
-
+    </div>
             <!--컨테이너 종료-->
             <!--footer.html Include-->
             <jsp:include page="/WEB-INF/commons/footer.jsp"/>
+        </div>
 </body>
 <script>
     let kind = $(`#category`).val();
@@ -262,7 +321,7 @@
     $(`#category`).on("change", function (e) {
         console.log(`카테고리 변경되었습니다` + kind);
 
-        location.href = "/studyIns/board/list?category=" + $(`#category`).val();
+        location.href = "/studyIns/board/list?category=" + $(`#category`).val()+"&r_Idx="+$(`#r_Idx`).val();
 
     });
     let actionForm = $("#actionForm");

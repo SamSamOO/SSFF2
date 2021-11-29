@@ -334,19 +334,18 @@
       padding: 10px;
       font-weight: bold;
       vertical-align: top;
-      border: 1px solid #ccc;
     }
 
     table.time-pick td {
       width: 350px;
       padding: 10px;
       vertical-align: top;
-      border: 1px solid #ccc;
       cursor: pointer;
     }
 
     .time-active {
-      background-color: red;
+	    background-color: #ebab317a;
+	    border: 1.5px solid #ffa800 !important;
     }
 
 
@@ -362,7 +361,7 @@
 
       font-weight: bold;
       vertical-align: top;
-      border: 1px solid #ccc;
+	    border: 1px solid #cccccc91;
       list-style: none;
 
       float: left;
@@ -420,7 +419,7 @@
 																<!--begin::Page Heading-->
 																<div class="d-flex align-items-baseline flex-wrap mr-5">
 																		<!--Page Title : 페이지 제목 시작-->
-																		<h5 class="text-dark font-weight-bold my-1 mr-5">스터디카페
+																		<h5 class="text-dark font-weight-bolder my-1 mr-5">스터디카페
 																				리스트</h5>
 																		<!--Page Title : 페이지 제목 종료-->
 																		<!--Breadcrumb : 로드맵 시작-->
@@ -550,7 +549,7 @@
 
   let cont =
           `
-		         ${fn:length(cafeInfo)}
+		         
 												<c:if test="${cafeInfo == null or fn:length(cafeInfo) == 0}">비었음</c:if>
 												
 												
@@ -676,7 +675,7 @@
 																																
 																																
 																																<td class="border-top-0 text-reft py-4 align-middle">
-																																		${cafeInfo[0].cafe_open_time} ~ ${cafeInfo[0].cafe_close_time} 시
+																																		${cafeInfo[0].cafe_open_time}시 ~ ${cafeInfo[0].cafe_close_time} 시
 																																</td>
 																														</tr>
 																														<tr class="border-bottom-0">
@@ -703,6 +702,9 @@
 																												<div
 																														class="justify-content-between flex-column flex-md-row">
 																														<div>
+																														<h1 class="display-4 font-weight-boldest mb-2"> ${cafeInfo[0].cafe_name}</h1>
+																														
+																														<h3 class="mb-3">${cafeInfo[0].cafe_location}</h3>
 																														<button type="button" class="btn btn-outline-warning
 																														  font-size-h6 py-4 mr-2 mb-4 btn-pill" style="width:48%" id="loadView">길찾기</button>
 																														<button type="button" class="btn btn-outline-success
@@ -721,7 +723,7 @@
 																								<!-- end: 가게 정보(지도, 전화번호)  -->
 																								
 																								
-																								<!-- begin: 환불 안내 -->
+																								<!-- begin: 이용 안내 -->
 																								<div
 																										class="row justify-content-center py-8 bg-gray-100 px-md-0 mx-0">
 																										<div class="col-md-10">
@@ -730,29 +732,29 @@
 																																<thead>
 																																<tr>
 																																		<th
-																																				class="pl-0 font-weight-bold text-muted text-uppercase">환불안내
+																																				class="pl-0 font-weight-bold text-muted text-uppercase">이용안내
 																																		</th>
 																																</tr>
 																																</thead>
 																																<tbody>
 																																<tr class="font-weight-boldest border-bottom-0">
 																																		<td class="border-top-0 text-reft py-4 align-middle">
-																																				1. 결제를 구현할 수 있다면 말이지
+																																				1. 사전 준비 및 뒷정리 시간을 포함하여 신청해야 합니다.
 																																		</td>
 																																</tr>
 																																<tr class="font-weight-boldest border-bottom-0">
 																																		<td class="border-top-0 text-reft py-4 align-middle">
-																																				2. 결제를 구현할 수 있다면 말이지
+																																				2. 코로나19 방역 수칙에 준수하여 운영됩니다.
 																																		</td>
 																																</tr>
 																																<tr class="font-weight-boldest border-bottom-0">
 																																		<td class="border-top-0 text-reft py-4 align-middle">
-																																				3. 결제를 구현할 수 있다면 말이지
+																																				3. 당일 예약은 카페로 문의바랍니다.
 																																		</td>
 																																</tr>
 																																<tr class="font-weight-boldest border-bottom-0">
 																																		<td class="border-top-0 text-reft py-4 align-middle">
-																																				4. 결제를 구현할 수 있다면 말이지
+																																				4. 예약 인원보다 실제 인원이 많을 경우, 초과 인원수의 2배가 벌금으로 부과됩니다.
 																																		</td>
 																																</tr>
 																																</tbody>
@@ -760,7 +762,7 @@
 																												</div>
 																										</div>
 																								</div>
-																								<!-- end: 환불 안내  -->
+																								<!-- end: 이용 안내  -->
 																						</div>
 																				</div>
 																				<!--end::Card-->
@@ -841,7 +843,7 @@
 																												<form action="/cafe/reserve" method="post" id="formObj">
 																												<input type="hidden" name="nickName" value="nickName9300">
 																												            <input type="hidden" name="cafe_idx" value="${cafeInfo[0].cafe_idx}">
-																												<div id="select-rsrv-info">
+																												<div id="select-rsrv-info" style="display:none;">
 																														<span id="select-year" class="date"></span>
 																														<span id="select-month" class="date"></span>
 																														<span id="select-date" class="date"></span>
@@ -950,8 +952,10 @@
 																												</div>
 																												<!--end::Radio list-->
 																												
+																												
+														
 																												<a onclick="goRsrv();" class="btn btn-warning
-																												font-size-h6 py-4 mr-2 mb-4" role="button"
+																												font-size-h6 py-4 mr-2 mb-4 mt-5" role="button"
 																												   style="display: block;">예약하기</a>
 																												
 																												<br>
@@ -1044,6 +1048,10 @@
     console.log("========================")
 
     // 기존에 담긴 정보 지우기
+	  // var frm = $("#frm :input").not(":input[type=hidden]");
+	
+	  
+	  // $(`span[id^='select']`).not(":span[class='date']").empty();
     $(`span[class='room']`).empty();
     $(`span[class='time']`).empty();
     $(`span[class='amount']`).empty();
@@ -1200,7 +1208,7 @@
 
     // 실패
     function errorCallback() {
-      $('d-flex.flex-row.flex-column-fluid.container').append(myAlert);
+	    Swal.fire('조회할 날짜를 먼저 선택해주세요!', '', 'warning')
     } // errorCallback
 
     // 테이블 생성 함수
@@ -1225,8 +1233,8 @@
 
 
     // timeSelect table 선택 (예약 정보 조회 이후)
-    $(document).on("click", ".time", function (e) {
-
+    $(document).on("click", "li[class='time']", function (e) {
+	    
       // 시작시간 출력단
       let st = isNaN(parseInt($('#select-start-time').html())) ? 0 : parseInt(
           $('#select-start-time').html());
@@ -1252,7 +1260,10 @@
 
       // 클릭한 시간은 활성화 (시작시간 정하기)
 
-      if ((st == 0 && et == 0) || rt != 0 || (selectTime < st && st != 0)) {
+      if ((st == 0 && et == 0)
+          || (st != 0 && et != 0)
+          || rt != 0
+          || (selectTime < st && st != 0)) {
         console.log("1: ");
         // 시간 모두 비활성화
         $("li[class='time time-active']").removeClass('time-active');
@@ -1266,23 +1277,22 @@
 
         // 시작 시간에 담기
         $('#select-start-time').html(selectTime);
+	      e.stopImmediatePropagation();
 
-      } // if
-
-      // 정상적 선택이라면 끝나는 시간 활성화
-      if (st != 0 && rt == 0) {
-
+      } else if (st != 0 && rt == 0) { // 정상적 선택이라면 끝나는 시간 활성화
+	      console.log("22: " + selectTime);
         // 시간 하나만 선택!
         if (selectTime === st) { // 시간 하나만 선택
-          console.log("3: ");
+          console.log("3: " +selectTime);
           $('#select-end-time').html(selectTime);
           result = true;
         } else if (selectTime > st) { // 다중 선택(정상)
-
+	        console.log("4: " +selectTime);
           // 비활성화 된 셀을 같이 클릭하면
           if ($(this).prevUntil(".time.time-active").is('.time.cal-none')) {
-            
-            alert("누르지말라구 ㅋㅋ3");
+	          console.log("5: " +selectTime);
+	
+	          alert("누르지말라구 ㅋㅋ3");
             // 시간 모두 비활성화
             $("li[class='time time-active']").removeClass('time-active');
 
@@ -1291,6 +1301,7 @@
             $(`span[class='amount']`).empty();
 
           } else { // 정상 선택이라면 ㄱㄱ
+	          console.log("6: " +selectTime);
 
             $(this).addClass('time-active');
             $('#select-end-time').html(selectTime);
@@ -1301,12 +1312,14 @@
 
             result=true;
           } // if-else
+	        e.stopImmediatePropagation();
 
         } // if-else
 
 		      if(result){
-          
-          // 종료 시간 확인해서
+			      console.log("6result: " +selectTime);
+			
+			      // 종료 시간 확인해서
           et = selectTime;
           // 단일 선택이라면 1시간 아니라면 총 이용시간 계산해서
           rt = et - st == 0 ? 1 : et - st + 1;
@@ -1321,12 +1334,15 @@
 
           // console.log("ㅇㄱww::"+$(this).prevAll().css("background", "black"));
           console.log("ㅇㄱss::" + $(this).prevAll().data('time'));
+										
+										return;
 				      
-		      }
-        
-
-      } // if
-    });
+		      } // if
+	
+	      e.stopImmediatePropagation();
+      } // if-else if
+	    e.stopImmediatePropagation();
+    }); // .time_fn
 
 		  
   }// callAjax: function
@@ -1348,8 +1364,8 @@
 		  let selectRoom = $('#select-room').html();  // 선택된 룸
 		  let totalAmount = $('#select-amount').html(); // 이용금액
     let maxPeople = $('#select-max-people').html(); // 방인원
+	
 
-		  
     let $date = $('<input>', {
       type : "hidden",
       name : "use_date",
@@ -1406,7 +1422,7 @@
 	  // }
 
 	  
-    $('#formObj').append($date, $startTime, $endTime, $roomIdx, $totalAmount,$maxPeople);
+    $('#formObj').append( $date, $startTime, $endTime, $roomIdx, $totalAmount,$maxPeople);
     
     $('#formObj').submit();
 

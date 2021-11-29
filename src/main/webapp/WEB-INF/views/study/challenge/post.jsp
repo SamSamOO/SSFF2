@@ -45,7 +45,7 @@
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bold my-1 mr-5">챌린지 글쓰기</h5>
+                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">챌린지 글쓰기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
@@ -77,6 +77,8 @@
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
                                 <div id="post-body">
                                     <form action="/study/challenge/post" method="post" id="article-form" class="article-form" role="form">
+                                        <!--parameter 0 : 아이디-->
+                                        <input type="hidden" id="member_name" name="member_name" value="${member.member_name}">
                                         <!--parameter 1 : 제목-->
                                         <div id="title-sec">
                                             <input type="text" id="title" name="title" placeholder="제목을 입력해 주세요">
