@@ -129,6 +129,14 @@
                                                         </c:forEach>
 
                                                         <c:choose>
+
+                                                            <c:when test="${board.closed_ok eq 'y'.charAt(0)}">
+                                                                <li><a href="javascript:void(0);" data-value="세션아이디"
+                                                                       onclick="" class="applyBtn" style="background-color: grey"
+                                                                       id="">마감완료</a></li>
+                                                            </c:when>
+
+
                                                             <c:when test="${not myStatus}">
                                                                 <li><a href="javascript:void(0);" data-value="세션아이디"
                                                                        onclick="applyProject('project')" class="applyBtn"
