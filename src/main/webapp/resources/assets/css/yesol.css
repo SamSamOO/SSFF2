@@ -429,3 +429,10 @@
 
 
 /*********************스터디 메인 - 캘린더 및 기타************************************/
+.mainpage_index{
+  margin-top: 30px;
+  margin-bottom: 30px ;
+  font-size: 24px;
+  background-color: rgb(235, 171, 49) ;
+  padding:3px 5px
+}
