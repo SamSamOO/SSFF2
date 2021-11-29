@@ -145,26 +145,35 @@
                 <div class="topbar-item" data-toggle="dropdown" data-offset="0px,0px">
                     <div class="btn btn-dropdown top-memu">
                         <!--유저 프로필 사진(비로그인시 숨김)-->
-                        <c:if test="${member != null }">
-                            <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                                <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg" />
-                            </div>
-                        </c:if>
-                        <c:if test="${member == null }">
-                            <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                                <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default_g_w.png" />
-                            </div>
-                        </c:if>
+                        <c:choose>
+                            <c:when test="${member != null || kemail != null }">
+                                <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
+                                    <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg" />
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
+                                    <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default.png" />
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
+
 
                         <!--유저 닉네임(비로그인시 숨김)-->
-                        <c:if test="${member == null }">
+                        <c:if test="${member == null || kemail == null}">
                             <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5"></div>
                         </c:if>
 
-                        <c:if test="${ member != null }">
+                        <c:if test="${ member != null}">
                             <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5"> ${member.member_name}</div>
                         </c:if>
+
+
+                        <c:if test="${ kname != null}">
+                            <div class="text-dark m-0 flex-grow-1 mr-3 font-size-h5"> ${kname}</div>
+                        </c:if>
                         <i class="text-dark fas fa-angle-down"></i>
+
                     </div>
 
                 </div>
@@ -173,7 +182,7 @@
                 <div class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up">
                     <!--begin::Nav 헤더 메뉴 네비 시작-->
                     <div class="navi align-items-center p-3 rounded-top">
-                        <c:if test="${ member == null }">
+                        <c:if test="${ member == null || kemail==null }">
                             <!--begin::Item-->
                             <a href="/member/loginGo" class="navi-item dropdown-item">
                                 <div class="navi-link">

@@ -565,7 +565,7 @@
 																											<tr data-row="0" class="datatable-row" style="left: 0px;">
 																												<td class="col-4 datatable-cell-center datatable-cell
 																												font-weight-bolder" >이용 2일 전</td>
-																												<td class="text-dark-75 font-size-lg mb-0" >
+																												<td class="text-dark-75 text-center font-size-md mb-0" >
 																								
 																															총 금액의 50% 환불
 																												</td>

@@ -54,38 +54,38 @@ License: You must have a valid license purchased only from themeforest(the above
       -webkit-box-direction: normal;
     }
 
-    li{
+    li {
       padding: 1em;
     }
-    
+
     a[disabled="disabled"] {
       /*pointer-events: none;*/
-      
+
     }
 
     /* modal scroll*/
-    .modal-dialog{
+    .modal-dialog {
       overflow-y: initial !important
     }
-    .modal-body{
+
+    .modal-body {
       height: 100%;
       overflow-y: auto;
     }
 
-    
 
     /*---------- 모달 ----------*/
 
     .modal-dialog.modal-80size {
-      width: 80%;
-      height: 80%;
+      width: 90%;
+      height: 90%;
       margin: 0;
       padding: 0;
     }
 
     .modal-content.modal-80size {
       height: auto;
-      min-height: 80%;
+      min-height: 90%;
     }
 
     .modal.modal-center {
@@ -108,8 +108,8 @@ License: You must have a valid license purchased only from themeforest(the above
     }
 
     /*---------- 모달 end ----------*/
-
-    
+  
+  
   </style>
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
@@ -141,12 +141,10 @@ License: You must have a valid license purchased only from themeforest(the above
         <a href="#" class="btn btn-light-danger font-weight-bold"
            data-toggle="modal" data-target="#memberListModal"
            onclick="start.callAjax('NA', '9002');">멤버확인</a>
-  
-    
-  
-  
+        
+        
         <div id="memberListModal" class="modal modal-center fade" role="dialog"
-             
+        
              aria-hidden="true">
         
         
@@ -169,14 +167,12 @@ License: You must have a valid license purchased only from themeforest(the above
     // start.init();
     set();
 
-
   }); // ready
-
 
   function set() {
     let putListModalHtml =
             `<div class="modal-dialog modal-center modal-80size">
-            <div class="modal-content modal-80size" style="min-height: 590px; ">
+            <div class="modal-content modal-80size" style="min-height: 400px;width:700px; ">
               <div class="modal-header py-5" id="studyMemberTab">
                 <div id="btnMemberList" class="btn btn-success btn-lg btn-block"
                 onclick="start.callAjax('NA', '9002');">
@@ -185,18 +181,15 @@ License: You must have a valid license purchased only from themeforest(the above
 											스터디 멤버를 확인해보세요!</span>
                 </h5></div>
                 <div id="btnApplyMemberList" class="btn btn-primary btn-lg btn-block"
-                    onclick="start.callAjax('YA', '9002');" ><h5 class="modal-title">
+                    onclick="start.callAjax('YA', '9002');" style="margin-top: 0px;" ><h5 class="modal-title">
                   참여 신청자<span class="d-block text-muted font-size-sm">
                   가입신청한 회원을 확인해보세요!</span>
                 </h5></div>
                 
                 
-                <button type="button" class="close" data-dismiss="modal"
-                        aria-label="Close" style="width: 10%;">
-                  <i aria-hidden="true" class="ki ki-close"></i>
-                </button>
+               
               </div>
-             <div class="modal-body">
+             <div class="modal-body pt-1">
 >
     
               </div>
@@ -204,7 +197,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </div>`
     $('#memberListModal').html(putListModalHtml);
   }
-  
+
   // 카드 리스트를 ajax 페이지 처리하여 뿌립니다.
   let start = {
 // style="visibility: hidden;"
@@ -212,10 +205,10 @@ License: You must have a valid license purchased only from themeforest(the above
     callAjax: function (applyType, rId) {
       <%--"${member.member_name}";--%>
       let param = new Object();
-      param.memName =  'admin';
+      param.memName = 'admin';
       param.applyType = applyType;
       param.rId = rId; //TODO 스터디 번호 설정
-      
+
       $.ajax({
                type       : 'POST',
                url        : '/applyMemberRest/applyList',
@@ -242,7 +235,7 @@ License: You must have a valid license purchased only from themeforest(the above
         if (data.length != 0) {
           if (applyType == "YA") {
             start.setListApplyMem(data);  // 참여신청자 명단조회
-          } else{
+          } else {
             start.setListStudyMem(data); // 스터디 멤버원 명단 조회
           } // if-else
         } // if
@@ -288,11 +281,10 @@ License: You must have a valid license purchased only from themeforest(the above
       let type_pc = '';
       let member_profile = '';
 
-
       // 기본 템플릿 셋팅
       let aHtml =
 
-          `<!--begin: Datatable-->
+              `<!--begin: Datatable-->
         <div class="datatable datatable-bordered datatable-head-custom
                   datatable-default datatable-primary datatable-scroll datatable-loaded"
             id="applyMemberList" style="display:block;">
@@ -332,15 +324,15 @@ License: You must have a valid license purchased only from themeforest(the above
           </table>
         
         </div>
-        <div id="s-dtbl-pager" class="datatable-pager datatable-paging-loaded">
+        <div id="s-dtbl-pager" style="padding-left: 230px;"  class="datatable-pager datatable-paging-loaded">
         </div>`;
 
       $('.modal-body').html(aHtml);
 
       aHtml = '';
-      
+
       for (let i = 0; i < data.list.length; i++) {
-      
+
         apply_idx = data.list[i].apply_idx;
         r_idx = data.list[i].r_idx;
         member_name = data.list[i].member_name;
@@ -354,55 +346,57 @@ License: You must have a valid license purchased only from themeforest(the above
 
         aHtml +=
             `
-            <tr data-row="`+(i+1)+`" class="datatable-row">
+            <tr data-row="` + (i + 1) + `" class="datatable-row">
   
             <td class="datatable-cell" data-field="Number"
-                aria-label="`+(i+1)+`" style="width: 5%;"><span style="text-align: center;">`+(i+1)+`</span>
+                aria-label="` + (i + 1) + `" style="width: 5%;"><span style="text-align: center;">`
+            + (i + 1) + `</span>
             </td>
             <td class="datatable-cell" data-field="applyIdx"
-                aria-label="`+apply_idx+`"
+                aria-label="` + apply_idx + `"
                                 style=" width: 15%;">
-            <span style="text-align: center;">`+apply_idx+`</span>
+            <span style="text-align: center;">` + apply_idx + `</span>
             </td>
             <td class="datatable-cell" data-field="studyTeamName"
-                aria-label="`+teamname+`"
+                aria-label="` + teamname + `"
                 style="width: 25%;">
-              <span style="text-align: center;">`+teamname+`</span>
+              <span style="text-align: center;">` + teamname + `</span>
             </td>
             
             <td data-field="NickName"
-                aria-label="`+member_name+`"
+                aria-label="` + member_name + `"
                 class="datatable-cell" style="width: 25%;">
             <span style="text-align: center;">
           <img class="symbol symbol-40 symbol-sm flex-shrink-0"
-               src="`+member_profile+`"
+               src="` + member_profile + `"
                alt="photo"
                style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
-          `+member_name+`
+          ` + member_name + `
            </span></td>
             
             <td class="datatable-cell" data-field="action"
                 aria-label="action"
                 style="width: 20%; text-align: center;">
               <a href="javascript:void(0);" data-value="re"
-                 onclick="applyAction('`+apply_idx+`','`+type_pc+`','approval', `+r_idx+`);"
+                 onclick="applyAction('` + apply_idx + `','` + type_pc + `','approval', ` + r_idx
+            + `);"
                  class="btn btn-light-success font-weight-bold mr-2">승인</a>
               <!--//TODO 밸류값에 스터디 타입 엮어서 챌린지면 'approval->challenge'  -->
               <a href="javascript:void(0);" data-value="re"
-                 onclick="applyAction('`+apply_idx+`','`+type_pc+`','refusal', `+r_idx+`);"
+                 onclick="applyAction('` + apply_idx + `','` + type_pc + `','refusal', ` + r_idx + `);"
                  class="btn btn-light-warning font-weight-bold mr-2">거부</a>
             </td>
           </tr>
             `;
-        
+
       } // for
 
       $('#aMemTBody').html(aHtml);
-      
+
       pager(data);
-      
+
       console.log("탄다탄다?")
-       
+
     }, // setApplyMem
 
     // 멤버 명단 뷰 셋팅 !
@@ -434,7 +428,6 @@ License: You must have a valid license purchased only from themeforest(the above
       let type_pc = '';
       let member_profile = '';
 
-
       // 기본 템플릿 셋팅
       let aHtml =
 
@@ -443,7 +436,7 @@ License: You must have a valid license purchased only from themeforest(the above
         datatable-default datatable-primary datatable-scroll datatable-loaded"
         id="studyMemberList">
       <table class="datatable-table"
-             style="display: block; min-height: 400px; max-height: 400px;">
+             style="display: block; min-height: 300px; max-height: 400px;">
         
         <thead class="datatable-head">
         <tr class="datatable-row" style="left: 0px;">
@@ -473,7 +466,7 @@ License: You must have a valid license purchased only from themeforest(the above
           </table>
         
         </div>
-        <div id="s-dtbl-pager" class="datatable-pager datatable-paging-loaded">
+        <div id="s-dtbl-pager" style="padding-left: 230px;" class="datatable-pager datatable-paging-loaded">
         </div>`;
 
       $('.modal-body').html(aHtml);
@@ -495,28 +488,29 @@ License: You must have a valid license purchased only from themeforest(the above
 
         aHtml +=
             `
-            <tr data-row="`+(i+1)+`" class="datatable-row" style="left: 0px;">
+            <tr data-row="` + (i + 1) + `" class="datatable-row" style="left: 0px;">
             <td class="datatable-cell" data-field=""
                 style="width: 5%;"><span>&nbsp;</span></td>
             
             <td class="datatable-cell" data-field="Number"
-                aria-label="`+(i+1)+`" style="width: 10%;"><span>`+(i+1)+`</span>
+                aria-label="` + (i + 1) + `" style="width: 10%;padding: 0px 45px 0px 16px;"><span>`
+            + (i + 1) + `</span>
             </td>
             
             <td class="datatable-cell" data-field="studyTeamName"
-                aria-label="`+teamname+`"
-                style="width: 45%;">
-              <span>`+teamname+`</span>
+                aria-label="` + teamname + `"
+                style="width: 45%;padding-right:45px;">
+              <span>` + teamname + `</span>
             </td>
             
             
             <td data-field="NickName"
-                aria-label="`+member_name+`"
+                aria-label="` + member_name + `"
                 class="datatable-cell" style="width: 40%;"><span>
                     <img class="symbol symbol-40 symbol-sm flex-shrink-0"
-                         src="`+member_profile+`" alt="photo"
+                         src="` + member_profile + `" alt="photo"
                          style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
-                    `+member_name+`
+                    ` + member_name + `
                 </span></td>
           </tr>
           
@@ -530,14 +524,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
       console.log("sMemberTbody?")
 
-
     } // setListItem
   } // start
 
   // 접속자의 권한을 확인하는 함수
 
- 
-  
+
 </script>
 
 <script>
@@ -723,7 +715,7 @@ License: You must have a valid license purchased only from themeforest(the above
 //기본 셋팅에서-> 숫자로 값 변동이 일어난다면 내용 숨기고 몇번째~몇번째 display만 변경하는 형식,
       let chartHtml = "";
       $('.datatable-body tr').css('display', 'none');
-      
+
       //Number로 변환하지 않으면 아래에서 +를 할 경우 연산 아닌 결합됨!
       currentPage = Number(currentPage);
       dataPerPage = Number(dataPerPage);
@@ -738,35 +730,34 @@ License: You must have a valid license purchased only from themeforest(the above
 
     } // displayData
 
-
   }
 
 
 </script>
 
 <script>
-  
+
   /* 회원의 스터디 참여 상태 정보를 변경하는 함수
    가입신청 [거절, 승인, 취소] , [탈퇴],
 매개변수: 참여번호, 변경하려는 action(거절, 승인, 탈퇴)
 작성자 : 신지혜
 */
-  
+
   function applyAction(apply_idx, study_type, action, rId) {
-   
+
     actionName =
         action == 'refusal' ? '가입신청 거절' :
         action == 'approval' ? '가입신청 승인' :
         action == 'cancle' ? '가입신청 취소' :
         '해당 스터디에서 탈퇴';
-    
+
     Swal.fire({
-                title : actionName ,
-                text : actionName + '하시겠습니까?',
-                showDenyButton: true,
-                showCancelButton: true,
+                title            : actionName,
+                text             : actionName + '하시겠습니까?',
+                showDenyButton   : true,
+                showCancelButton : true,
                 confirmButtonText: '예',
-                denyButtonText: `아니오`,
+                denyButtonText   : `아니오`,
               }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
@@ -776,10 +767,7 @@ License: You must have a valid license purchased only from themeforest(the above
       }
     })
 
-
-
-
-    function callAjax(){
+    function callAjax() {
 
       var submitObj = new Object();
       submitObj.apply_idx = apply_idx;
@@ -816,7 +804,6 @@ License: You must have a valid license purchased only from themeforest(the above
     } // callAjax
 
   }
-
 
 
 </script>
