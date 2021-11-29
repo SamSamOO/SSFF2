@@ -5,7 +5,7 @@ import java.util.Date;
 import lombok.Value;
 
 /*
-
+    쓰지 않음
  */
 @Value
 public class CalendarVO {

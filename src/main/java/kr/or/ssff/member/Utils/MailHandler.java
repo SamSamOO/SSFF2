@@ -1,5 +1,6 @@
 package kr.or.ssff.member.Utils;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
@@ -8,6 +9,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 
+@Log4j2
 public class MailHandler {
 
     private JavaMailSender mailSender;
@@ -41,6 +43,8 @@ public class MailHandler {
     }
 
     public void send() {
+        log.info("send() is invoked");
+        log.info("mailSender = {}", mailSender);
         mailSender.send(message);
     }
 

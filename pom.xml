@@ -41,6 +41,8 @@
 		</dependency>
 
 
+
+
 <!--		<dependency>-->
 <!--			<groupId>org.springframework</groupId>-->
 <!--			<artifactId>spring-context-support</artifactId>-->
@@ -411,7 +413,13 @@
       <artifactId>spring-web</artifactId>
       <version>5.3.11</version>
     </dependency>
-    <!-- json object[e] -->
+		<dependency>
+			<groupId>org.jetbrains</groupId>
+			<artifactId>annotations</artifactId>
+			<version>RELEASE</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- json object[e] -->
 
 	</dependencies>
 

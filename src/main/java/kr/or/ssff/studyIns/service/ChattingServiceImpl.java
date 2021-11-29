@@ -22,6 +22,18 @@ public class ChattingServiceImpl  implements ChattingService, InitializingBean, 
     @Autowired
     private ChattingMapper mapper;
 
+
+    @Override
+    public Integer checkYouInStudy(HashMap<String,Object>map) {
+        log.info("checkYouInStudy({}) is invoked", "map = " + map);
+        int result = 0;
+        Objects.requireNonNull(mapper);
+        if (this.mapper.checkYouInStudy(map) != null) {
+            result = 1;
+        }
+        return result;
+    }
+
     @Override
     public Integer insertMsg(HashMap<String, Object> params) {
         log.info("insertMsg({}) is invoked", "params = " + params);
