@@ -275,7 +275,7 @@ public class StudyServiceImpl implements StudyService {
         List<ApplyMemberDTO> applyList = this.mapper.getMemberByR_idx(r_idx);
 
         return applyList;
-    }
+    }//getMemberByR_idx
 
 
 }//end class

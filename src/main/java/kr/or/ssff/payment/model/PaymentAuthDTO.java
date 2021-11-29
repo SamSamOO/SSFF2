@@ -1,4 +1,4 @@
-package kr.or.ssff.payment.domain;
+package kr.or.ssff.payment.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

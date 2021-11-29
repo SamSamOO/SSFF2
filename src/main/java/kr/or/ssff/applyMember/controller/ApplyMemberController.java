@@ -46,17 +46,10 @@ public class ApplyMemberController {
      * 매개변수:
      * 반환: 스터디목록 뷰
      * 작성자: 신지혜
-     * */
+//     * */
     @GetMapping("/studyModalTest")
     public void studyModalTest(String r_idx, Model model){
-        r_idx = "9003"; //TODO 추후 클릭하는 스터디 정보로 변경
-        log.debug("studyModalTest() is invoked");
 
-        List<ApplyMemberListVO> applyMemberList = this.service.getApplyMemberList(r_idx);
-        log.info("\t + >>>>>>>>>>>>>>>>applyMemberList:{}", applyMemberList);
-        log.info("\t+ list size: {}", applyMemberList.size());
-
-        model.addAttribute("applyMemberList", applyMemberList);
     } // studyModalTest
 
     

@@ -125,7 +125,7 @@
 <!--begin::Global Theme Bundle(used by all pages)-->
 <script src="/resources/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/resources/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
-<!--<script src="/resources/assets/js/scripts.bundle.js"></script> 예솔이 막아놓음-->
+<script src="/resources/assets/js/scripts.bundle.js"></script>
 <!--end::Global Theme Bundle-->
 <!--begin::Page Vendors(used by this page)-->
 <!--<script src="/resources/assets/plugins/custom/fullcalendar/fullcalendar.bundle.js"></script>예솔이 막아놓음-->

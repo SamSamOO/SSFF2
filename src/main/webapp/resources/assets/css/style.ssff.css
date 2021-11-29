@@ -207,6 +207,19 @@ a.text-hover-ssff-orange:hover,
 }
 
 /*----디자인 설정용 단축태그----*/
+.cursor-pointer{
+    cursor: pointer !important;
+}
+
+.d-grid{
+    display: grid !important;
+}
+
+.object-contain{
+    object-fit: contain !important;
+    -o-object-fit: contain !important;
+}
+
 .object-cover{
     object-fit: cover !important;
     object-position: 50% 50% !important;
@@ -234,6 +247,74 @@ a.text-hover-ssff-orange:hover,
 
 .l-sp-015{
     letter-spacing: 0.15em !important;
+}
+
+/*----메인 화면----*/
+.main_page{
+    background-color: #FFFFFF;
+    background-image: url("/resources/assets/images/bg/bg-0.png") !important;
+    background-position:left top;
+    background-size: contain;
+    background-repeat: repeat-y !important;
+}
+
+#main_LOGO img{
+    width: 100%;
+    max-width: 700px !important;
+    min-width: 200px !important;
+    animation: shake 12s infinite;
+}
+
+#main_LOGO{
+    padding-left: 6rem;
+}
+
+@media (min-width: 576px) {
+    #main_LOGO {
+        padding-left: 8rem;
+    }
+}
+
+@media (min-width: 768px) {
+        #main_LOGO {
+            padding-left: 10rem;
+        }
+    }
+
+@media (min-width: 992px) {
+    #main_LOGO {
+        padding-left: 13rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    #main_LOGO {
+        padding-left: 15rem;
+    }
+}
+
+@media (min-width: 1400px) {
+    #main_LOGO {
+        padding-left: 17rem;
+    }
+}
+
+
+
+
+
+.main_menu{
+    padding-right: 8rem;
+}
+
+.main_menu img{
+    width: 100%;
+    max-width: 500px !important;
+    min-width: 200px !important;
+}
+
+.main_menu img:hover {
+    animation: shake 2s infinite;
 }
 
 /*----로그인 화면----*/
@@ -283,4 +364,31 @@ a.text-hover-ssff-orange:hover,
     80%{	transform: translate(3px, -1px) rotate(-1deg);}
     90%{	transform: translate(1px, 3px) rotate(0deg);}
     100%{	transform: translate(1px, -2px) rotate(1deg);}
+}
+
+:root {
+    --ssff-orange: #ebab31;
+    --ssff-green: #6b984f;
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --white: #ffffff;
+    --gray: #7E8299;
+    --gray-dark: #3F4254;
+    --primary: #6b984f;
+    --secondary: #E4E6EF;
+    --success: #1BC5BD;
+    --info: #6993FF;
+    --warning: #FFA800;
+    --danger: #F64E60;
+    --light: #F3F6F9;
+    --dark: #181C32;
+    --white: #ffffff;
 }

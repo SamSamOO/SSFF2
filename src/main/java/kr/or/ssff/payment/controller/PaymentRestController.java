@@ -1,17 +1,11 @@
 package kr.or.ssff.payment.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import kr.or.ssff.cafe.domain.CafeVO;
 import kr.or.ssff.cafe.domain.ReservationVO;
-import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
-import kr.or.ssff.payment.domain.PaymentAcntDTO;
-import kr.or.ssff.payment.domain.PaymentAuthDTO;
-import kr.or.ssff.payment.domain.PaymentDepositDTO;
+import kr.or.ssff.payment.model.PaymentAcntDTO;
+import kr.or.ssff.payment.model.PaymentAuthDTO;
 import kr.or.ssff.payment.domain.PaymentWithdrawDTO;
 import kr.or.ssff.payment.model.TransactionDTO;
 import net.sf.json.JSONArray;
@@ -22,12 +16,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /*
@@ -85,7 +77,6 @@ String id = "testJihye";
 
     return "<script>window.close();</script>";
   } // callback
-
 
 
   public void userMe(String token_type, String access_token, String user_seq_no) {
@@ -169,24 +160,24 @@ String id = "testJihye";
     log.info("service.getTempRsrv({}): ", tempRsrvIdx);
 
     TransactionDTO transactionDTO = new TransactionDTO();
-    transactionDTO.setTrnsc_idx(paymentWithdrawDTO.getApiTranId());
-    transactionDTO.setApply_idx(null);
-    transactionDTO.setRsrv_idx(tempRsrvIdx);
-    transactionDTO.setMember_name(reservationVO.getMember_name());
-    transactionDTO.setTransaction_date(paymentWithdrawDTO.getApiTranDtm());
-    transactionDTO.setTransaction_categories("출금");
-    transactionDTO.setTransaction_categorie("스터디카페예약");
+    transactionDTO.setTrnsc_idx(paymentWithdrawDTO.getApiTranId()); // 거래번호
+    transactionDTO.setApply_idx(null); // 스터디 참여 번호
+    transactionDTO.setRsrv_idx(tempRsrvIdx); // 카페 예약번호
+    transactionDTO.setMember_name(reservationVO.getMember_name()); // 닉네임
+    transactionDTO.setTransaction_date(paymentWithdrawDTO.getApiTranDtm()); // 거래일자
+    transactionDTO.setTransaction_categories("출금"); // 거래 대분류
+    transactionDTO.setTransaction_categorie("스터디카페예약"); // 거래 소분류
 //    transactionDTO.setTransaction_amount(Integer.valueOf(paymentWithdrawDTO.getTranAmt()));
 //    transactionDTO.setAmount_to_be_paid(Integer.valueOf(paymentWithdrawDTO.getTranAmt()));
-    transactionDTO.setTransaction_amount(reservationVO.getRsrv_amount());
-    transactionDTO.setClient_account_number(paymentWithdrawDTO.getAccountNumMasked());
-    transactionDTO.setClient_bank_code(Integer.valueOf(paymentWithdrawDTO.getBandCodeStd()));
-    transactionDTO.setClient_name(paymentWithdrawDTO.getAccountHolderName());
-    transactionDTO.setAmount_to_be_paid(reservationVO.getRsrv_amount());
-    transactionDTO.setPayment_completed_yn('y');
+    transactionDTO.setTransaction_amount(reservationVO.getRsrv_amount()); // 거래금액 (현재 임의 예약금액으로 set)
+    transactionDTO.setClient_account_number(paymentWithdrawDTO.getAccountNumMasked()); // 출금한 계좌번호
+    transactionDTO.setClient_bank_code(Integer.valueOf(paymentWithdrawDTO.getBandCodeStd())); // 출금 계좌의 은행코드
+    transactionDTO.setClient_name(paymentWithdrawDTO.getAccountHolderName()); // 예금주명
+    transactionDTO.setAmount_to_be_paid(reservationVO.getRsrv_amount()); // 거래 완료금액 (현재 임의 예약금액으로 set)
+    transactionDTO.setPayment_completed_yn('y'); // 거래완료여부
 
     // 거래정보 insert
-    boolean result = service.registerTrnsc(transactionDTO);
+    boolean result = service.registerTrnsc(transactionDTO); // 거래 정보 insert
     log.info("service.registerTrnsc(transactionDTO)({}): ", result);
 
 
