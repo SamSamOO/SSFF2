@@ -72,10 +72,44 @@ License: You must have a valid license purchased only from themeforest(the above
       overflow-y: auto;
     }
 
-    .datatable-body tr {
-      flex-wrap: wrap;
-      justify-content: space-between;
+    
+
+    /*---------- 모달 ----------*/
+
+    .modal-dialog.modal-80size {
+      width: 80%;
+      height: 80%;
+      margin: 0;
+      padding: 0;
     }
+
+    .modal-content.modal-80size {
+      height: auto;
+      min-height: 80%;
+    }
+
+    .modal.modal-center {
+      text-align: center;
+    }
+
+    @media screen and (min-width: 768px) {
+      .modal.modal-center:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+      }
+    }
+
+    .modal-dialog.modal-center {
+      display: inline-block;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    /*---------- 모달 end ----------*/
+
+    
   </style>
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
@@ -111,7 +145,8 @@ License: You must have a valid license purchased only from themeforest(the above
     
   
   
-        <div id="memberListModal" class="modal fade" role="dialog"
+        <div id="memberListModal" class="modal modal-center fade" role="dialog"
+             
              aria-hidden="true">
         
         
@@ -140,8 +175,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
   function set() {
     let putListModalHtml =
-            `<div class="modal-dialog modal-xl">
-            <div class="modal-content" style="min-height: 590px; ">
+            `<div class="modal-dialog modal-center modal-80size">
+            <div class="modal-content modal-80size" style="min-height: 590px; ">
               <div class="modal-header py-5" id="studyMemberTab">
                 <div id="btnMemberList" class="btn btn-success btn-lg btn-block"
                 onclick="start.callAjax('NA', '9002');">
@@ -404,7 +439,7 @@ License: You must have a valid license purchased only from themeforest(the above
       let aHtml =
 
               `<!--begin: Datatable-->
-        <div class="datatable datatable-bordered datatable-head-custom 
+        <div class="datatable datatable-bordered datatable-head-custom
         datatable-default datatable-primary datatable-scroll datatable-loaded"
         id="studyMemberList">
       <table class="datatable-table"

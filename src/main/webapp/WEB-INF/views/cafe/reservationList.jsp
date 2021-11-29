@@ -367,6 +367,7 @@
   let start = {
     param: {
       member_name : "admin", //TODO 세션 아이디로 (관리자, 멤버 구분해서 조회)
+      // member_name : "admin", //TODO 세션 아이디로 (관리자, 멤버 구분해서 조회)
       pageListSize: "웅", //TODO 추후  검색 정보 담아서 출발
     },
 
@@ -964,7 +965,7 @@
               }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
-        callAjas(obj);
+        callAjax(obj);
       } else if (result.isDenied) {
         Swal.fire('다음에 꼭 함께해요!', '', 'info')
       }
@@ -973,7 +974,7 @@
 
  
     
-    function callAjas(obj){
+    function callAjax(obj){
       var submitObj = new Object();
       let searchRsrvID = $(obj).attr('value');
       submitObj.rsrv_idx = searchRsrvID;
@@ -993,11 +994,9 @@
       // 성공시 데이터 처리
       function successCallback(data) {
         console.log("data: " + data);
-        //TODO data(닉네임 받아서 닉네임) = 세션아이디일 때만 밑에 함수 고
         
         Swal.fire('예약취소되었습니다!', '', 'success')
         
-        // start.init();
         window.location.href = '/cafe/reservationList';
 
       } // successCallback
