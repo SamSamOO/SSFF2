@@ -138,7 +138,7 @@
           
           <!------------------ 본문 시작 ------------------>
           <!--begin::Content-->
-          <div class="content flex-column-fluid">
+          <div class="content flex-column-fluid" style="max-width:1090px;">
             
             <!--begin::cardcustom-->
             <div class="card card-custom card-sticky">
@@ -254,20 +254,20 @@
                       <!-- 테이블 공통 헤드 s -->
                       <thead class="datatable-head">
                       <tr class="datatable-row">
-                        <th data-field="RecordID" class="datatable-cell-center datatable-cell ">
+                        <th data-field="RecordID" style="padding-right:0px;width:30px;" class="datatable-cell-center datatable-cell ">
                           <span style="width: 30px;"></span></th>
-                        <th data-field="ReservationID" class="datatable-cell "><span
-                          style="">Reservation ID</span></th>
+                        <th data-field="ReservationID" style="width:140px;padding-left:0px;"class="datatable-cell "><span
+                          >Reservation ID</span></th>
                         <th data-field="CafeInfo" class="datatable-cell "><span
                           style="">Cafe Info</span></th>
                         <th data-field="ReservationAmount" class="datatable-cell "><span
                           style="">Amount</span></th>
-                        <th data-field="UseDateInfo" class="datatable-cell "><span
+                        <th data-field="UseDateInfo"  style="padding-right: 80px;padding-left: 30px;"class="datatable-cell "><span
                           style="">Use Date</span></th>
-                        <th data-field="Status" data-autohide-disabled="false"
+                        <th data-field="Status" style="padding:13px 13px 13px 0px;"data-autohide-disabled="false"
                             class="datatable-cell "><span style="">Status</span></th>
                         <!--TODO 세션 값에 따라 none처리 할 수 있게 admin-> 닉네임만on!!!!!!!!!!!! -->
-                        <th data-field="cancel" class="datatable-cell "><span style="">cancel</span>
+                        <th data-field="cancel" stylr="padding:0px 15px 0px 30px;"class="datatable-cell " ><span style="">cancel</span>
                         </th>
                         
                         <th data-field="NickName" class="datatable-cell "><span
@@ -285,7 +285,7 @@
                     <!--end: table-->
                     
                     <!--begin: pager-->
-                    <div class="datatable-pager datatable-paging-loaded">
+                    <div class="datatable-pager datatable-paging-loaded" style="padding-left:280px;">
                       
                       
                       <div class="datatable-pager-info my-2 mb-sm-0">
@@ -520,38 +520,38 @@
         <!-- 일반 예약정보 s -->
         <tr data-row="` + checkNum + `" class="datatable-row mainTable">
 
-          <td class="datatable-cell-center datatable-cell" data-field="RecordID" aria-label="1">
+          <td class="datatable-cell-center datatable-cell" data-field="RecordID" style="padding-right:0px;width:30px;max-width:30px;"aria-label="1">
             <a class="datatable-toggle-subtable" data-value="1" title="Load sub table" style="width: 30px;">
               &nbsp;<i style="width: 30px;" class="fa fa-caret-right"></i></a> <!--TODO 아이콘 토글 -->
           </td>
 
-          <td data-field="ReservationID" aria-label="` + rsrv_idx
+          <td data-field="ReservationID" style="padding-left:0px;min-width:110px;" aria-label="` + rsrv_idx
                        + `" class="datatable-cell"><span style="">` + rsrv_idx + `</span></td>
-          <td data-field="CafeInfo" aria-label="` + cafeInfo
+          <td data-field="CafeInfo" style="width:141px;" aria-label="` + cafeInfo
                        + `" class="datatable-cell"><span style="">` + cafeInfo + `</span></td>
           <td data-field="ReservationAmount" aria-label="` + amount
-                       + `원" class="datatable-cell"><span style="">` + amount + `원</span></td>
+                       + `원" class="datatable-cell" style="width:86px;"><span style="">` + amount + `원</span></td>
           <td data-field="UseDateInfo" aria-label="` + useInfo
-                       + `" class="datatable-cell"><span style="">` + useInfo + `</span></td>
+                       + `" class="datatable-cell" style="min-width:212px;padding-right:0px;"><span style="">` + useInfo + `</span></td>
      
 
 <td data-field="Status" data-autohide-disabled="false" aria-label="` + rsrv_status_ynz + `"
-              class="datatable-cell"><span style="width: 110px;"><span
+              class="datatable-cell" style="padding-left:0px;"><span style="width: 60px;"><span
               class="label label-` + rsrv_status_color + ` label-dot"></span>&nbsp;
           <span class="font-weight-bold text-` + rsrv_status_color + `">` + rsrv_status_text + `</span>
           </span></td>
           
-          <td data-field="cancel" aria-label="4" class="datatable-cell"><span
-              style="">`;
+          <td data-field="cancel" aria-label="4" class="datatable-cell" style="width:100px;padding-top: 10px;padding-bottom: 10px;"><span
+               >`;
 
           if (rsrv_status_ynz == 'n') {
-            $rsrvHtml += `<button  type="button" class="btn btn-default"
-                data-toggle="modal" data-target="rsrvcancelModal-` + checkNum + `" >cansle</button>
+            $rsrvHtml += `<button  type="button" style="padding-top: 2px;padding-bottom: 2px;"class="btn btn-default"
+                data-toggle="modal" data-target="rsrvcancelModal-` + checkNum + `" >cancel</button>
 
                 <div class="modal modal-center fade" id="rsrvcancelModal-` + checkNum + `" tabindex="-1"
 																		     role="dialog" aria-labelledby="my80sizeCenterModalLabel">
 																				<div class="modal-dialog modal-80size modal-center" role="document">
-																						<div class="modal-content modal-80size">
+																						<div class="modal-content modal-80size"">
 																								<div class="modal-header " style="background-color:#ffa800;">
 																										
 																										<h4 class="modal-title" id="myModalLabel">예약취소</h4>
