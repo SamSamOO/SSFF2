@@ -47,6 +47,7 @@
                         <div class="text-muted">함께할 프로젝트원을 모집해보세요:p</div>
                     </div>
                     <form action="/member/login" method="POST" class="form" id="kt_login_signin_form">
+                        <input hidden name="referer" value="${referer}"/>
                         <div class="form-group mb-5">
                             <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" id="member_id" name="member_id" autocomplete="off" />
                         </div>
