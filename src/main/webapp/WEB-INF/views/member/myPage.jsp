@@ -53,7 +53,7 @@
 										<h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">
 											<c:choose>
 												<%-- TODO 로그인한 사람이랑 페이지 주인이 다르면 어쩌구 하고싶었어--%>
-												<c:when test="${member.member_name != member}">
+												<c:when test="${member.member_name != sessionScope.member.member_name}">
 													<title>${member.member_name}님의 마이 페이지</title>
 												</c:when>
 												<c:otherwise>
@@ -89,7 +89,8 @@
 												<div class="symbol symbol-50 symbol-lg-120">
 													<div class="image-input image-input-empty image-input-outline"
 													     id="kt_image_5"
-													     style="background-image: url(${pageContext.request.contextPath}/resources/assets/media/users/blank.png)">
+													     style="background-image: url(${member.member_Profile})">
+													<%--style="background-image: url(${pageContext.request.contextPath}/resources/assets/media/users/blank.png)">--%>
 														<div class="image-input-wrapper"></div>
 
 														<label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
@@ -125,11 +126,16 @@
 												<!--begin::Title-->
 												<div class="d-flex justify-content-between flex-wrap mt-1">
 													<div class="d-flex mr-3">
-														<a href="#"
-														   class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">${member.member_name}님</a>
-														<a href="#">
+														<span class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">
+															${member.member_name}님
+														</span>
+														<c:if test="${member.member_name == sessionScope.member.member_name}">
 															<i class="flaticon2-correct text-success font-size-h5"></i>
+
+														<a href="/">
+
 														</a>
+														</c:if>
 													</div>
 
 												</div>
