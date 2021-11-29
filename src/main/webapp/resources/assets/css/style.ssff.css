@@ -207,6 +207,14 @@ a.text-hover-ssff-orange:hover,
 }
 
 /*----디자인 설정용 단축태그----*/
+.cursor-pointer{
+    cursor: pointer !important;
+}
+
+.d-grid{
+    display: grid !important;
+}
+
 .object-cover{
     object-fit: cover !important;
     object-position: 50% 50% !important;
@@ -234,6 +242,28 @@ a.text-hover-ssff-orange:hover,
 
 .l-sp-015{
     letter-spacing: 0.15em !important;
+}
+/*----메인 화면----*/
+.main_page{
+    background-color: #FFFFFF;
+    background-image: url("/resources/assets/images/bg/bg-0.png") !important;
+    background-position:left top;
+}
+
+.main_LOGO{
+    background-image: url("/resources/assets/images/logos/ssff/logo-c2.png") !important;
+}
+.main_proj{
+    background-image: url("/resources/assets/images/icon/main/main_proj.png") !important;
+}
+.main_chal{
+    background-image: url("/resources/assets/images/icon/main/main_chal.png") !important;
+}
+.main_cafe{
+    background-image: url("/resources/assets/images/icon/main/main_cafe.png") !important;
+}
+.main_menu{
+
 }
 
 /*----로그인 화면----*/

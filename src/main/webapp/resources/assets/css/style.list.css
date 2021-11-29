@@ -30,14 +30,6 @@
     vertical-align: middle !important;
 }
 
-/*.mng_user_list td:first-child{
-    width: 3rem;
-}
-
-.mng_user_list td:last-child{
-    width: 2rem;
-}*/
-
 .user_pic_nick{
     word-break: normal !important;
 }
@@ -49,8 +41,29 @@
 }
 
 /*----관리자 스터디 리스트----*/
+.mng_study_list .label{
+    word-break: keep-all !important;
+}
+
 .mng_study_list td{
-    vertical-align: center !important;
+    vertical-align: middle !important;
+    word-break: break-word !important;
+}
+
+.study_num{
+    width: 5rem;
+}
+
+.study_nick{
+    width: 10rem;
+}
+
+.study_name{
+    width: 35%;
+}
+
+.study_date{
+    width: 7rem;
 }
 
 .mng_info {

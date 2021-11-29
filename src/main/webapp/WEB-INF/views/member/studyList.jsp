@@ -3,12 +3,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-
-<%@ page import = "java.sql.DriverManager" %>
-<%@ page import = "java.sql.Connection" %>
-<%@ page import = "java.sql.PreparedStatement" %>
-<%@ page import = "java.sql.ResultSet" %>
-<%@ page import = "java.sql.SQLException" %>
 <!DOCTYPE html>
 <!--
 Template Name: Metronic - Bootstrap 4 HTML, React, Angular 10 & VueJS Admin Dashboard Theme
@@ -24,22 +18,19 @@ License: You must have a valid license purchased only from themeforest(the above
 -->
 <html lang="en">
 <!----------------Head 시작----------------------->
-
 <head>
-    <title>내가 가입한 스터디 목록</title>
+    <title>관리자::스터디</title>
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"/>
 </head>
-
 <!----------------Head 종료----------------------->
+
 <!----------------Body 시작----------------------->
-
-
 <body id="kt_body" class="header-fixed subheader-enabled page-loading">
 <!----------------메인 시작----------------------->
 <div class="d-flex flex-column flex-root">
     <!----------------페이지 시작----------------------->
-    <form action="/member/studyList" id="actionForm" method="get">
+    <form action="/manager/study/list" id="actionForm" method="get">
         <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
         <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
 
@@ -50,7 +41,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <jsp:include page="/WEB-INF/commons/header.jsp"/>
                 <!------------------Header Wrapper : 메뉴 탭 시작------------------>
                 <!--menu.html Include-->
-                <jsp:include page="/WEB-INF/commons/menu_mypage.jsp"/>
+                <jsp:include page="/WEB-INF/commons/menu_admin.jsp"/>
                 <!------------------Header Wrapper : 메뉴 탭 종료------------------>
                 <!--컨테이너 시작-->
                 <div class="d-flex flex-row flex-column-fluid container">
@@ -65,17 +56,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="d-flex align-items-center flex-wrap mr-2">
                                     <!--begin::Title-->
                                     <i class="far fa-list-alt"></i>&nbsp;&nbsp;
-                                    <h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">내가 가입한 스터디 목록</h5>
+                                    <h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">스터디 목록</h5>
                                     <!--end::Title-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                                         <li class="breadcrumb-item">
-                                            <a href="/member/myPage" class="text-muted">마이 페이지</a>
-                                            <%-- TODO 로그인 한 사용자 페이지로 보내기--%>
+                                            <a href="/manager/member/list" class="text-muted">관리자 페이지</a>
                                         </li>
                                         <li class="breadcrumb-item">
-                                            <a href="/member/studyList" class="text-muted">나의 스터디</a>
-                                            <%-- TODO 로그인 한 사용자 페이지로 보내기--%>
+                                            <a href="/manager/study/list" class="text-muted">스터디 관리</a>
                                         </li>
                                     </ul>
                                     <!--Breadcrumb : 로드맵 종료-->
@@ -90,27 +79,28 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <!--begin::Header-->
                                 <div class="card-header flex-wrap justify-content-end zindex-1 border-0 pt-6 mb-n16">
                                     <!--begin::Search Form 검색-->
-                                    <div class="d-flex align-items-center" id="kt_subheader_search">
-                                               <span class="text-dark-50 font-weight-bold" id="kt_subheader_total">
-                                                   ${pageMaker.total} 전체  </span>
-                                        <span><a href="#" onclick="submitConfirm()"><i class="fas fa-sync-alt"></i></a></span>
+                                    <div class="d-flex align-items-start">
+                                        <div class="text-dark-50"> 전체 ${pageMaker.total}</div>
                                         <form class="ml-5">
-                                            <div class="input-group input-group-sm input-group-solid">
-                                                <input type="text" class="form-control"
-                                                       id="kt_subheader_search_form" name="keyword"
-                                                       placeholder="Search..."/>
+                                            <div class="input-group input-group-sm input-group-solid align-self-center">
+                                                <input type="text" class="form-control" name="keyword" placeholder="Search..." />
                                                 <div id="searchBtn" class="input-group-append">
-                                                           <span class="input-group-text">
-                                                               <i class="flaticon2-search-1 icon-sm"></i>
-                                                           </span>
+									                <span class="input-group-text">
+									                    <i class="flaticon2-search-1 icon-sm"></i>
+									                </span>
                                                 </div>
                                             </div>
                                         </form>
+                                        <div class="align-self-center">
+                                            <a href="" onclick="submitConfirm()">
+                                                <i class="fas fa-sync-alt icon-lg text-hover-ssff-orange mx-2"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                     <!--end::Search Form-->
                                 </div>
                                 <!--end::Header-->
-                                <!--begin::Body 북마크-->
+                                <!--begin::Body-->
                                 <div class="card-body">
                                     <!--begin::Card 카테고리 항목 접기 시작-->
                                     <%------ 모집글 -------%>
@@ -134,7 +124,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                          value="P">&nbsp;<span></span>
                                                </label>
                                             </span>
-                                                프로젝트
+                                                <span class="label label-lg label-inline mb-0 bg-ssff1">
+                                                                프로젝트
+												</span>
                                             </li>
 
                                             <li class="d-inline-flex">
@@ -144,398 +136,407 @@ License: You must have a valid license purchased only from themeforest(the above
                                                          value="C">&nbsp;<span></span>
                                                </label>
                                             </span>
-                                                챌린지
+                                                <span class="label label-lg label-inline mb-0 bg-ssff2">
+                                                                챌린지
+												</span>
                                             </li>
                                         </ul>
                                     </div>
+                                    <%--  구분선--%>
+                                    <%--<div class="separator separator-solid mb-4"></div>
+									<div id="filter_2">
+									   <h6 class="font-weight-bolder text-ssff2 mb-2">진행</h6>
+									   <ul class="list-inline checklist">
+										  <li class="d-inline-flex">
+														   <span class="mr-2 w-20px">
+															   <label class="checkbox checkbox-single checkbox-all">
+																  <input name="chk2"
+																		 id="all2"
+																		 type="checkbox"
+																		 value="전체" checked>
+																  &nbsp;<span></span>
+															   </label>
+														   </span>
+											 전체
+										  </li>
 
-                                            <%--  구분선--%>
-                                            <%--<div class="separator separator-solid mb-4"></div>
-                                            <div id="filter_2">
-                                               <h6 class="font-weight-bolder text-ssff2 mb-2">진행</h6>
-                                               <ul class="list-inline checklist">
-                                                  <li class="d-inline-flex">
-                                                                   <span class="mr-2 w-20px">
-                                                                       <label class="checkbox checkbox-single checkbox-all">
-                                                                          <input name="chk2"
-                                                                                 id="all2"
-                                                                                 type="checkbox"
-                                                                                 value="전체" checked>
-                                                                          &nbsp;<span></span>
-                                                                       </label>
-                                                                   </span>
-                                                     전체
-                                                  </li>
+										  <li class="d-inline-flex">
+											 <span class="mr-2 w-20px">
+												<label class="checkbox checkbox-single">
+												   <input name="chk2"
+														  type="checkbox"
+														  value="a">
+												   &nbsp;
+												   <span></span>
+												</label>
+											 </span>
+											 가입 신청중
+										  </li>
+										  <li class="d-inline-flex">
+											 <span class="mr-2 w-20px">
+												<label class="checkbox checkbox-single">
+												   <input name="chk2"
+														  type="checkbox"
+														  value="r">&nbsp;
+												   <span></span>
+												</label>
+											 </span>
+											 가입 거절
+										  </li>
+										  <li class="d-inline-flex">
+											 <span class="mr-2 w-20px">
+												<label class="checkbox checkbox-single">
+												   <input type="checkbox"
+														  value="c"
+														  name="chk2">&nbsp;<span></span>
+												</label>
+											 </span>
+											 가입 취소
+										  </li>
 
-                                                  <li class="d-inline-flex">
-                                                     <span class="mr-2 w-20px">
-                                                        <label class="checkbox checkbox-single">
-                                                           <input name="chk2"
-                                                                  type="checkbox"
-                                                                  value="a">
-                                                           &nbsp;
-                                                           <span></span>
-                                                        </label>
-                                                     </span>
-                                                     가입 신청중
-                                                  </li>
-                                                  <li class="d-inline-flex">
-                                                     <span class="mr-2 w-20px">
-                                                        <label class="checkbox checkbox-single">
-                                                           <input name="chk2"
-                                                                  type="checkbox"
-                                                                  value="r">&nbsp;
-                                                           <span></span>
-                                                        </label>
-                                                     </span>
-                                                     가입 거절
-                                                  </li>
-                                                  <li class="d-inline-flex">
-                                                     <span class="mr-2 w-20px">
-                                                        <label class="checkbox checkbox-single">
-                                                           <input type="checkbox"
-                                                                  value="c"
-                                                                  name="chk2">&nbsp;<span></span>
-                                                        </label>
-                                                     </span>
-                                                     가입 취소
-                                                  </li>
+										  <li class="d-inline-flex" style="width: 20%">
+											 <span class="mr-2 w-20px">
+												<label class="checkbox checkbox-single">
+												   <input type="checkbox"
+														  value="i"
+														  name="chk2">&nbsp;<span></span>
+												</label>
+											 </span>
+											 가입 중 (정상승인/ 프로젝트)
+										  </li>
 
-                                                  <li class="d-inline-flex" style="width: 20%">
-                                                     <span class="mr-2 w-20px">
-                                                        <label class="checkbox checkbox-single">
-                                                           <input type="checkbox"
-                                                                  value="i"
-                                                                  name="chk2">&nbsp;<span></span>
-                                                        </label>
-                                                     </span>
-                                                     가입 중 (정상승인/ 프로젝트)
-                                                  </li>
+										  <li class="d-inline-flex ml-n8" style="width: 20%">
+											 <span class="mr-2 w-20px">
+												<label class="checkbox checkbox-single">
+												   <input type="checkbox"
+														  value="g"
+														  name="chk2">&nbsp;<span></span>
+												</label>
+											 </span>
+											 가입 중 (승인 후 대기/ 챌린지)
+										  </li>
 
-                                                  <li class="d-inline-flex ml-n8" style="width: 20%">
-                                                     <span class="mr-2 w-20px">
-                                                        <label class="checkbox checkbox-single">
-                                                           <input type="checkbox"
-                                                                  value="g"
-                                                                  name="chk2">&nbsp;<span></span>
-                                                        </label>
-                                                     </span>
-                                                     가입 중 (승인 후 대기/ 챌린지)
-                                                  </li>
+										  <li class="d-inline-flex ml-n8">
+											 <span class="mr-2 w-20px">
+												<label class="checkbox checkbox-single">
+												   <input type="checkbox"
+														  value="w"
+														  name="chk2">&nbsp;<span></span>
+												</label>
+											 </span>
+											 탈퇴
+										  </li>
 
-                                                  <li class="d-inline-flex ml-n8">
-                                                     <span class="mr-2 w-20px">
-                                                        <label class="checkbox checkbox-single">
-                                                           <input type="checkbox"
-                                                                  value="w"
-                                                                  name="chk2">&nbsp;<span></span>
-                                                        </label>
-                                                     </span>
-                                                     탈퇴
-                                                  </li>
+										  <li class="d-inline-flex ml-n8">
+											 <span class="mr-2 w-20px">
+												<label class="checkbox checkbox-single">
+												   <input type="checkbox"
+														  value="f"
+														  name="chk2">&nbsp;<span></span>
+												</label>
+											 </span>
+											 가입실패
+										  </li>
+									   </ul>
+									   구분선
+									   <div class="separator separator-solid mb-4"></div>
+									   <table class="ml-auto mr-auto">
+										  <tr class="row">
+											 <td colspan="1" align="right">
+												<button class="btn btn-light-instagram" type="submit"
+														id="submitBtn">검색하기
+												</button>
+											 </td>
+										  </tr>
+									   </table>
+									</div>--%>
+                                    <!--end::Card 카테고리 항목 접기 종료-->
 
-                                                  <li class="d-inline-flex ml-n8">
-                                                     <span class="mr-2 w-20px">
-                                                        <label class="checkbox checkbox-single">
-                                                           <input type="checkbox"
-                                                                  value="f"
-                                                                  name="chk2">&nbsp;<span></span>
-                                                        </label>
-                                                     </span>
-                                                     가입실패
-                                                  </li>
-                                               </ul>
-                                               구분선
-                                               <div class="separator separator-solid mb-4"></div>
-                                               <table class="ml-auto mr-auto">
-                                                  <tr class="row">
-                                                     <td colspan="1" align="right">
-                                                        <button class="btn btn-light-instagram" type="submit"
-                                                                id="submitBtn">검색하기
-                                                        </button>
-                                                     </td>
-                                                  </tr>
-                                               </table>
-                                            </div>--%>
+                                    <!--begin: Datatable-->
+                                    <div class="mng_study_list  datatable-default datatable-primary overflow-auto"
+                                         id="kt_datatable">
+                                        <%------ 테이블 시작-------%>
+                                        <%------ 테이블 헤드-------%>
+                                        <table class="table table-hover">
+                                            <thead class="text-center">
+                                            <tr>
+                                                <th data-field="StudyNum"
+                                                    class="study_num">
+                                                    <i class=""/>
+                                                </th>
+                                                <th data-field="StudyBoss"
+                                                    class="study_nick">
+                                                    개설자
+                                                </th>
 
-                                </div>
+                                                <th data-field="StudyType"
+                                                    class="study_type w-90px">
+                                                    타입
+                                                </th>
 
-                                        <!--end::Card 카테고리 항목 접기 종료-->
-                                        <!--begin: Datatable-->
-                                        <div class=" datatable-default datatable-primary"
-                                             id="kt_datatable">
-                                            <%------ 테이블 시작-------%>
-                                            <%------ 테이블 헤드-------%>
-                                            <table class="mng_study_list table table-hover">
-                                                <thead class="text-center">
-                                                <tr>
-                                                    <th data-field="StudyNum"
-                                                        class="study_num">
-                                                        <i class=""/>
-                                                    </th>
-                                                    <th data-field="StudyBoss"
-                                                        class="study_nick">
-                                                        개설자
-                                                    </th>
+                                                <th data-field="StudyName"
+                                                    class="study_name">
+                                                    스터디명
+                                                </th>
 
-                                                    <th data-field="StudyType"
-                                                        class="study_type">
-                                                        스터디타입
-                                                    </th>
+                                                <th data-field="StudyDate"
+                                                    class="study_date">
+                                                    개설일자
+                                                </th>
 
-                                                    <th data-field="StudyName"
-                                                        class="study_name">
-                                                        스터디명
-                                                    </th>
+                                                <th data-field="StudyIng"
+                                                    class="list_ing w-90px">
+                                                    상태
+                                                </th>
 
-                                                    <th data-field="StudyDate"
-                                                        class="study_date">
-                                                        개설일자
-                                                    </th>
+                                                <th class="list_action">
+                                                    옵션
+                                                </th>
+                                            </thead>
 
-                                                    <th data-field="StudyIng"
-                                                        class="list_ing">
-                                                        진행
-                                                    </th>
+                                            <%------ 테이블 바디-------%>
+                                            <tbody>
+                                            <c:forEach var="list" items="${list}">
 
-                                                    <th class="list_action">
-                                                        옵션
-                                                    </th>
-                                                </thead>
+                                                <c:choose>
+                                                    <%--삭제됨--%>
+                                                    <c:when test="${list.removed_Ok == 121}">
+                                                        <tr data-row="0" aria-label="1"
+                                                        title="Load sub table"
+                                                        class="bg-dark-o-40 bg-hover-dark-o-1">
+                                                    </c:when>
+                                                    <%--종료--%>
+                                                    <c:when test="${list.dead_Ok == 121}">
+                                                        <tr data-row="0" aria-label="1"
+                                                        title="Load sub table"
+                                                        class="bg-dark-o-20 bg-hover-dark-o-1">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <tr data-row="0" aria-label="1"
+                                                        title="Load sub table"
+                                                        class="cursor-pointer">
+                                                    </c:otherwise>
+                                                </c:choose>
 
-                                                <%------ 테이블 바디-------%>
-                                                <tbody>
-                                                <c:forEach var="list" items="${list}">
-                                                    <tr data-row="0"
-                                                        aria-label="1">
+                                                <%--스터디번호--%>
+                                                <td class="study_num"
+                                                    aria-label="스터디 번호"
+                                                    data-field="StudyNum">
+                                                    <div class="text-center font-size-sm font-weight-bolder">${list.r_Idx}</div>
+                                                </td>
 
-                                                            <%--스터디번호--%>
-                                                        <td class="study_num"
-                                                            aria-label="스터디 번호"
-                                                            data-field="StudyNum">
-                                                            <div class="text-center">${list.r_Idx}</div>
-                                                        </td>
-
-
-                                                            <%--개설자--%>
-                                                        <td data-field="StudyBoss"
-                                                            aria-label="개설자"
-                                                            class="study_nick">
-                                                            <div class="d-flex align-items-center justify-content-center">
-                                                                <a href="">
-                                                       <span class="mb-0 text-hover-primary">
+                                                <%--개설자--%>
+                                                <td data-field="StudyBoss"
+                                                    aria-label="개설자"
+                                                    class="study_nick">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <a href="/member/myPage?member_Name=${list.member_Name}">
+                                                       <span class="mb-0 text-hover-primary font-size-sm">
                                                                ${list.member_Name}
                                                        </span>
-                                                                </a>
-                                                            </div>
-                                                        </td>
+                                                        </a>
+                                                    </div>
+                                                </td>
 
-
-                                                            <%--스터디 타입--%>
-                                                        <td data-field="StudyType"
-                                                            aria-label="스터디 타입"
-                                                            class="study_type">
-                                                            <div class="d-flex align-items-center justify-content-center">
-                                                   <span class="label label-inline mb-0">
-                                                           ${list.type_Pc}
+                                                <%--스터디 타입--%>
+                                                <td data-field="StudyType"
+                                                    aria-label="스터디 타입"
+                                                    class="study_type">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <c:choose>
+                                                        <c:when test="${list.type_Pc =='c'.charAt(0) or list.type_Pc == 'C'.charAt(0)}">
+                                                        <span class="label label-lg label-inline mb-0 bg-ssff2">
+                                                                챌린지
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <span class="label label-lg label-inline mb-0 bg-ssff1">
+                                                                프로젝트
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                    </span>
-                                                            </div>
-                                                        </td>
+                                                    </div>
+                                                </td>
 
-                                                            <%--스터디명--%>
-                                                        <td title="Load sub table" data-field="StudyName"
-                                                            aria-label="스터디명"
-                                                            class="study_name">
-                                                            <div class="d-flex align-items-center justify-content-center">
-                                                   <span class="text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
-                                                           ${list.teamName}
-                                                   </span>
-
-                                                            </div>
-                                                        </td>
-
-                                                            <%--개설일자--%>
-                                                        <td data-field="StudyDate"
-                                                            aria-label="개설일자"
-                                                            class="study_date">
-                                                            <div class="d-flex align-items-center justify-content-center">
-                                                   <span class="mb-0">
-                                                           ${list.writeDate}
-                                                   </span>
-                                                            </div>
-                                                        </td>
-
-                                                            <%--진행--%>
-                                                        <td data-field="StudyIng"
-                                                            aria-label="진행"
-                                                            class="list_ing">
-                                                            <div class="d-flex align-items-center justify-content-center">
-                                                   <span class="mb-0 label label-inline">
-                                                           ${list.dead_Ok}
-                                                   </span>
-                                                            </div>
-                                                        </td>
-
-                                                            <%--액션--%>
-                                                        <td data-field="Actions"
-                                                            aria-label="액션 버튼"
-                                                            class="list_action text-center">
-                                                                <%-- 스터디 모집글--%>
-                                                            <a href="javascript:;"
-                                                               class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2">
-                                                                <i class="far fa-newspaper"></i>
+                                                <%--스터디명--%>
+                                                <td data-field="StudyName"
+                                                    aria-label="스터디명"
+                                                    class="study_name">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <c:choose>
+                                                        <c:when test="${list.type_Pc =='c'.charAt(0) or list.type_Pc == 'C'.charAt(0)}">
+                                                        <a href="/study/challenge/main?rInx=${list.r_Idx}">
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                            <a href="/study/project/main?rInx=${list.r_Idx}">
+                                                                </c:otherwise>
+                                                                </c:choose>
+                                                                <span class="text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
+                                                                        ${list.teamName}
+                                                                </span>
                                                             </a>
-                                                                <%-- 가입회원 목록 --%>
-                                                            <a href="javascript:;"
-                                                               class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2">
-                                                                <i class="far fa-user-circle"></i>
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                    <%--민주누나 도와줘!--%>
-                                                    <%--민주누나 도와줘!--%>
-                                                    <%--민주누나 도와줘!--%>
-                                                    <%--민주누나 도와줘!--%>
-                                                    <%--민주누나 도와줘!--%>
-                                                    <%--민주누나 도와줘!--%>
-                                                    <%--민주누나 도와줘!--%>
-                                                    <%--민주누나 도와줘!--%>
-                                                    <%--민주누나 도와줘!--%>
+                                                    </div>
+                                                </td>
 
-                                                    <tr class="datatable-row-subtable" style="display: none;">
-                                                        <!-- display none-block  -->
-                                                        <td class="card card-custom">
-                                                            <!--begin::Header-->
-                                                            <div class="card-header flex-wrap border-0 pt-6 pb-0">
-                                                                <div class="card-title">
-                                                                    <a href="/manager/study/list">
-                                                                        <i class="fas fa-arrow-left icon-xl"></i>
-                                                                    </a>
-                                                                    <h3 class="ml-8 card-label">
-                                                                        어쩌구의 상세정보
-                                                                    </h3>
-                                                                </div>
-                                                                <div class="card-toolbar">
-                                                                    <span>현재 상태 : </span>
-                                                                    <span class="label label-inline mb-0">
-                                         <c:choose>
-                                             <c:when test="${list.removed_Ok == 121}">
-                                                 삭제됨
-                                             </c:when>
-                                             <c:when test="${list.dead_Ok == 121}">
-                                                 종료됨
-                                             </c:when>
-                                             <c:when test="${list.closed_Ok == 121}">
-                                                 마감됨
-                                             </c:when>
-                                             <c:otherwise>
-                                                 모집중
-                                             </c:otherwise>
-                                         </c:choose>
-                                     </span>
-                                                                </div>
-                                                            </div>
-                                                            <!--end::Header-->
-                                                            <!--begin::Body 북마크-->
-                                                            <div class="card-body">
-                                                                <!--begin: Datatable 내용-->
-                                                                <div class="mng_info w-75 flex-column align-items-center">
+                                                <%--개설일자--%>
+                                                <td data-field="StudyDate"
+                                                    aria-label="개설일자"
+                                                    class="study_date">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                   <span class="mb-0 font-size-sm">
+                                                       <fmt:formatDate
+                                                               value="${list.writeDate}"
+                                                               pattern="yyyy/MM/dd"/>
+                                                   </span>
+                                                    </div>
+                                                </td>
 
-                                                                    <table class=" table">
-                                                                        <tbody>
-                                                                        <tr>
-                                                                            <td> 번호</td>
-                                                                            <td>
-                                                                                    ${list.r_Idx}
-                                                                            </td>
-
-                                                                            <td> 유형</td>
-                                                                            <td>
-                                               <span class="label label-inline mb-0">
-                                                       ${list.ch_Pattern}
-                                               </span>
-                                                                            </td>
-                                                                        </tr>
-
-
-                                                                        <tr>
-                                                                            <td> 제목</td>
-                                                                            <td colspan="3">
-                                                                                <a href="">
-                                                                                        ${list.title}
-                                                                                </a>
-
-                                                                            </td>
-                                                                        </tr>
-
-
-                                                                        <tr>
-                                                                            <td> 개설자</td>
-                                                                            <td>
-                                                                                <a href="">
-                                                                                        ${list.member_Name}
-                                                                                </a>
-
-                                                                            </td>
-
-                                                                            <td> 개설일</td>
-                                                                            <td>
-                                                                                <fmt:formatDate
-                                                                                        value="${list.writeDate}"
-                                                                                        pattern="yyyy/MM/dd"/>
-                                                                            </td>
-                                                                        </tr>
-
-
-                                                                        <tr>
-                                                                            <td> 시작일</td>
-                                                                            <td>
-                                                                                <fmt:formatDate value="${list.ch_Start}"
-                                                                                                pattern="yyyy/MM/dd"/>
-                                                                            </td>
-
-                                                                            <td> 종료일</td>
-                                                                            <td>
-                                                                                <fmt:formatDate value="${list.ch_End}"
-                                                                                                pattern="yyyy/MM/dd"/>
-                                                                            </td>
-                                                                        </tr>
-
-
-                                                                        <tr>
-                                                                            <td> 챌린지 유형</td>
-                                                                            <td>
-                                                 <span class="label label-inline mb-0">
-                                                     <c:choose>
-                                                         <c:when test="${list.type_Pc =='c'.charAt(0) or list.type_Pc == 'C'.charAt(0)}">
-                                                             챌린지
+                                                <%--진행 / 상태--%>
+                                                <td data-field="StudyIng"
+                                                    aria-label="진행 상태"
+                                                    class="list_ing">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <c:choose>
+                                                        <c:when test="${list.removed_Ok == 121}">
+                                                        <span class="label label-lg label-inline ml-2 text-white bg-danger">
+                                                             삭제
+                                                         </c:when>
+                                                         <c:when test="${list.dead_Ok == 121}">
+                                                              <span class="label label-lg label-inline ml-2 bg-secondary">
+                                                             종료
+                                                         </c:when>
+                                                         <c:when test="${list.closed_Ok == 121}">
+                                                             <span class="label label-lg label-inline ml-2 bg-info text-white">
+                                                             모집마감
                                                          </c:when>
                                                          <c:otherwise>
-                                                             프로젝트
+                                                             <span class="label label-lg label-inline ml-2 bg-success text-white">
+                                                             모집중
                                                          </c:otherwise>
                                                      </c:choose>
+                                                            </span>
+                                                    </div>
+                                                </td>
+                                                <%--액션--%>
+                                                <td data-field="Actions"
+                                                    aria-label="액션 버튼"
+                                                    class="list_action text-center">
+                                                        <%-- 스터디 모집글--%>
+                                                    <a href="/study/challenge/detail?r_idx=${list.r_Idx}"
+                                                       class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2">
+                                                        <i class="far fa-newspaper"></i>
+                                                    </a>
+                                                        <%-- 가입회원 목록 TODO 가입회원 목록 빼앟ㅁ....--%>
+                                                    <a href="javascript:;"
+                                                       class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2">
+                                                        <i class="far fa-user-circle"></i>
+                                                    </a>
+                                                </td>
+                                                </tr>
 
-                                                 </span>
-                                                                            </td>
+                                                <%--클릭시 상세정보 페이지 아코디언 북마크--%>
+                                                <tr class="datatable-row-subtable bg-hover-white" style="display: none;">
+                                                    <!-- display none-block  -->
+                                                    <td colspan="7" class="pt-0 border-top-0">
+                                                        <!--begin::Body-->
+                                                        <div>
+                                                            <!--begin: Datatable 내용-->
+                                                            <div class="mng_info flex-column align-items-center">
 
-                                                                            <td> 챌린지 지역</td>
-                                                                            <td>
-                                                                                    ${list.sido}
-                                                                            </td>
-                                                                        </tr>
-                                                                        </tbody>
-                                                                    </table>
+                                                                <table class=" table">
+                                                                    <tbody>
+                                                                    <tr>
+                                                                        <td> 번호</td>
+                                                                        <td>
+                                                                                ${list.r_Idx}
+                                                                        </td>
+
+                                                                        <td> 유형</td>
+                                                                        <td>
+                                               <span class="label label-lg label-inline mb-0">
+                                                       ${list.ch_Pattern}
+                                               </span>
+                                                                        </td>
+                                                                    </tr>
 
 
-                                                                    <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle mb-8"
-                                                                         id="accordionExample7">
+                                                                    <tr>
+                                                                        <td>스터디명</td>
+                                                                        <td colspan="3" class="font-weight-bolder">
+                                                                            <a href="">
+                                                                                    ${list.title}
+                                                                            </a>
 
-                                                                        <div class="card">
+                                                                        </td>
+                                                                    </tr>
 
-                                                                            <div class="card-header" id="headingTwo7">
-                                                                                <div class="card-title collapsed"
-                                                                                     data-toggle="collapse"
-                                                                                     data-target="#collapseTwo7">
+
+                                                                    <tr>
+                                                                        <td> 개설자</td>
+                                                                        <td>
+                                                                            <a href="/member/myPage?member_Name=${list.member_Name}">
+                                                                                    ${list.member_Name}
+                                                                            </a>
+
+                                                                        </td>
+
+                                                                        <td> 개설일</td>
+                                                                        <td>
+                                                                            <fmt:formatDate
+                                                                                    value="${list.writeDate}"
+                                                                                    pattern="yyyy/MM/dd"/>
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr>
+                                                                        <td> 시작일</td>
+                                                                        <td>
+                                                                            <fmt:formatDate value="${list.ch_Start}"
+                                                                                            pattern="yyyy/MM/dd"/>
+                                                                        </td>
+
+                                                                        <td> 종료일</td>
+                                                                        <td>
+                                                                            <fmt:formatDate value="${list.ch_End}"
+                                                                                            pattern="yyyy/MM/dd"/>
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr>
+                                                                        <td> 챌린지 유형</td>
+                                                                        <td>
+                                                                            <c:choose>
+                                                                            <c:when test="${list.type_Pc =='c'.charAt(0) or list.type_Pc == 'C'.charAt(0)}">
+                                                                            <span class="label label-lg label-inline mb-0 bg-ssff2">
+                                                                챌린지
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <span class="label label-lg label-inline mb-0 bg-ssff1">
+                                                                프로젝트
+                                                            </c:otherwise>
+                                                     </c:choose>
+                                                          </span>
+                                                                        </td>
+
+                                                                        <td> 챌린지 지역</td>
+                                                                        <td>
+                                                                                ${list.sido}
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                </table>
+
+
+                                                                <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle mb-8"
+                                                                     id="accordionExample7">
+
+                                                                    <div class="card">
+
+                                                                        <div class="card-header" id="headingTwo7">
+                                                                            <div class="card-title collapsed"
+                                                                                 data-toggle="collapse"
+                                                                                 data-target="#collapseTwo7">
                                                        <span class="svg-icon svg-icon-primary">
                                                            <svg xmlns="http://www.w3.org/2000/svg" width="24px"
                                                                 height="24px" viewBox="0 0 24 24" version="1.1">
@@ -559,117 +560,103 @@ License: You must have a valid license purchased only from themeforest(the above
                                                            </path>
                                                            </g> </svg>
                                                        </span>
-                                                                                    <div class="card-label pl-4 font-weight-bolder text-hover-primary">
-                                                                                        모집글 제목
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div id="collapseTwo7" class="collapse"
-                                                                                 data-parent="#accordionExample7">
-                                                                                <div class="card-body pl-12 font-weight-light">
-                                                                                        ${list.cont}
+                                                                                <div class="card-label pl-4 font-weight-bolder text-hover-primary">
+                                                                                        ${list.title}
                                                                                 </div>
                                                                             </div>
                                                                         </div>
+
+                                                                        <div id="collapseTwo7" class="collapse"
+                                                                             data-parent="#accordionExample7">
+                                                                            <div class="card-body pl-12 font-weight-light">
+                                                                                    ${list.cont}
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                    <!--end: Datatable-->
                                                                 </div>
-                                                                <!--end::Body-->
+                                                                <!--end: Datatable-->
                                                             </div>
-                                                            <!--end::Card-->
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-                                                <tr style="background-color: white" class="align-center">
-                                                    <td colspan="8">
-                                                        <!--begin::Pagination-->
-                                                        <div class="d-flex justify-content-between align-items-center flex-wrap ">
-                                                            <h2>${pageMaker}</h2>
-                                                            <div style="width: 8%"></div>
-                                                            <div class='pull-right'>
-                                                                <ul class="pagination">
-
-
-                                                                    <c:if test="${pageMaker.prev}">
-                                                                        <li id="prev"
-                                                                            class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
-                                                                            <a
-                                                                                    class="ki ki-bold-double-arrow-back icon-xs p-4"
-                                                                                    id="prev_aa" href="1"></a>
-                                                                        </li>
-                                                                        <li id="prev"
-                                                                            class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
-                                                                            <a class="ki ki-bold-arrow-back icon-xs p-4"
-                                                                               id="prev_a"
-                                                                               href="${pageMaker.startPage -1}"></a>
-                                                                        </li>
-                                                                    </c:if>
-
-                                                                    <c:forEach var="num" begin="${pageMaker.startPage}"
-                                                                               end="${pageMaker.endPage}">
-                                                                        <li id="num"
-                                                                            class="paginate_button btn btn-icon btn-sm border-0 btn-light mr-2 my-1 ${pageMaker.criteria.pageNum == num ? "active":""} ">
-                                                                            <a class="p-4" id="num_a"
-                                                                               href="${num}">${num}</a>
-                                                                        </li>
-                                                                    </c:forEach>
-
-                                                                    <c:if test="${pageMaker.next}">
-                                                                        <c:set var="pages"
-                                                                               value="${pageMaker.total div pageMaker.criteria.amount}"/>
-                                                                        <c:set var="pages2"
-                                                                               value="${pages+((pages%1>0.5)?(1-(pages%1))%1:-(pages%1))}"/>
-                                                                        <fmt:formatNumber value="${pages2}"
-                                                                                          type="number"
-                                                                                          var="numberType"/>
-                                                                        <li id="next"
-                                                                            class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
-                                                                            <a id="next_a"
-                                                                               class="ki ki-bold-arrow-next icon-xs p-4"
-                                                                               href="${pageMaker.endPage +1 }"></a>
-                                                                        </li>
-                                                                        <li id="next"
-                                                                            class="paginate_button btn btn-icon btn-sm btn-light mr-2 my-1">
-                                                                            <a class="ki ki-bold-double-arrow-next icon-xs p-4"
-                                                                               id="next_aa" href="${numberType}"></a>
-                                                                        </li>
-                                                                    </c:if>
-
-
-                                                                </ul>
-                                                            </div>
-                                                            <div class="d-flex align-items-center py-3">
-                                                            </div>
+                                                            <!--end::Body-->
                                                         </div>
-                                                        <!--end:: Pagination-->
+                                                        <!--end::Card-->
                                                     </td>
                                                 </tr>
-                                                </tbody>
-                                            </table>
-                                            <%------ 테이블 종료-------%>
+                                            </c:forEach>
+                                            </tbody>
+                                        </table>
+                                        <%------ 테이블 종료-------%>
 
-                                            <%--------------아랫단 시작-----------%>
+                                        <%--------------아랫단 시작-----------%>
+                                        <!--begin::Pagination-->
+                                        <div class="d-flex flex-column align-items-center">
+                                            <%--<h2>${pageMaker}</h2>--%>
+                                            <ul class="pagination">
+                                                <c:if test="${pageMaker.prev}">
+                                                    <li id="prev"
+                                                        class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1">
+                                                        <a class="ki ki-bold-double-arrow-back icon-xs p-4"
+                                                           id="prev_aa" href="1"></a>
+                                                    </li>
+                                                    <li id="prev"
+                                                        class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1">
+                                                        <a class="ki ki-bold-arrow-back icon-xs p-4"
+                                                           id="prev_a" href="${pageMaker.startPage -1}"></a>
+                                                    </li>
+                                                </c:if>
+
+                                                <c:forEach var="num" begin="${pageMaker.startPage}"
+                                                           end="${pageMaker.endPage}">
+                                                    <li id="num"
+                                                        class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1 ${pageMaker.criteria.pageNum == num ? "active":""}">
+                                                        <a class="w-100 h-100 d-flex justify-content-center align-items-center"
+                                                           id="num_a" href="${num}">${num}</a>
+                                                    </li>
+                                                </c:forEach>
+
+                                                <c:if test="${pageMaker.next}">
+                                                    <c:set var="pages"
+                                                           value="${pageMaker.total div pageMaker.criteria.amount}"/>
+                                                    <c:set var="pages2"
+                                                           value="${pages+((pages%1>0.5)?(1-(pages%1))%1:-(pages%1))}"/>
+                                                    <fmt:formatNumber value="${pages2}"
+                                                                      type="number"
+                                                                      var="numberType"/>
+                                                    <li id="next"
+                                                        class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1">
+                                                        <a id="next_a" class="ki ki-bold-arrow-next icon-xs p-4"
+                                                           href="${pageMaker.endPage +1 }"></a>
+                                                    </li>
+                                                    <li id="next"
+                                                        class="paginate_button btn btn-sm btn-icon bg-hover-ssff1 mx-1 my-1">
+                                                        <a class="ki ki-bold-double-arrow-next icon-xs p-4"
+                                                           id="next_aa" href="${numberType}"></a>
+                                                    </li>
+                                                </c:if>
+
+                                            </ul>
+                                            <!--end:: Pagination-->
                                             <%--------------아랫단 종료-----------%>
                                             <!--end: Datatable-->
                                         </div>
                                         <!--end::Body-->
 
                                     </div>
-                                    <!--end::Card-->
+
                                 </div>
-                                <!--end::Content-->
+                                <!--end::Card-->
                             </div>
-                    <!--end::Content Wrapper 내용물 종료-->
+                            <!--end::Content-->
+                        </div>
+                        <!--end::Content Wrapper 내용물 종료-->
+                    </div>
                 </div>
-            </div>
-                    <!--컨테이너 종료-->
-                    <!--footer.html Include-->
-                </div>
+                <!--컨테이너 종료-->
             </div>
         </div>
+        <!--footer.html Include-->
+        <jsp:include page="/WEB-INF/commons/footer.jsp"/>
     </form>
-    <jsp:include page="/WEB-INF/commons/footer.jsp"/>
+
 
 </div>
 </body>
@@ -852,8 +839,9 @@ License: You must have a valid license purchased only from themeforest(the above
             });
 
         }
-        // 버튼 클릭을 통해 세부 룸정보 add, delete
-        $(document).on('click', "td[title='Load sub table']", function () {
+
+        // 버튼 클릭을 통해 세부 스터디정보 add, delete
+        $(document).on('click', "tr[title='Load sub table']", function () {
             $(this).closest("tr").toggleClass("datatable-row-subtable-expanded").next().fadeToggle();
 
         })
