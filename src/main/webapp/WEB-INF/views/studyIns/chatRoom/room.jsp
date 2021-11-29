@@ -133,18 +133,24 @@
         ws.onopen = function (data) {
             //소켓이 열리면 동작
         }
-
-        ws.onmessage = function (data) {
+    
+        ws.onmessage = function(data) {
             //메시지를 받으면 동작
             var msg = data.data;
+            console.log(data.data);
+        
             if (msg != null && msg.trim() != '') {
                 var d = JSON.parse(msg);
+    
                 if (d.type == "getId") {
                     var si = d.sessionId != null ? d.sessionId : "";
+        
                     if (si != '') {
                         $("#sessionId").val(si);
                     }
+        
                 } else if (d.type == "message") {
+                    
                     if (d.msg == '' || d.msg == null) {
                         Swal.fire({
                             title: '공백은 안됩니다',
@@ -158,12 +164,12 @@
                     } else {
                         $("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
                     }
-
+    
                 } else {
-                    console.warn("unknown type!")
+                    console.warn("unknown type!");
                 }
             }
-        }
+        };
         ws.onclose = e => {
             setTimeout(wsOpen, 1000);
         }

@@ -498,17 +498,23 @@
         UPDATE APPLY_MEMBER
         SET ATTENDANCE_DAYS=NVL(ATTENDANCE_DAYS + 1, 0)
         WHERE MEMBER_NAME = #{map.member_name}
-          AND R_IDX = #{map.r_Idx};
-
-
+          AND R_IDX = #{map.r_Idx}
     </update>
-    <select id="attendanceOkOneByOne" parameterType="hashMap">
-        SELECT *
+
+    <!--하루에 한번 출석하도록 하는 xml입니다-->
+    <select id="attendanceOkOneByOne" parameterType="hashMap" resultType="integer">
+        SELECT count(AT_NO)
         FROM ATTENDANCELIST
-        WHERE R_IDX = #{map.r_idx}
+        WHERE R_IDX = #{map.r_Idx}
           AND MEMBER_NAME = #{map.member_name}
           AND AT_DAY = TO_CHAR(CURRENT_DATE, 'yyyy-MM-dd')
+    </select>
 
+    <!--가입여부 확인-->
+    <select id="getMemberByR_idx" resultType="kr.or.ssff.applyMember.domain.ApplyMemberDTO">
+        SELECT apply_idx, r_idx, member_name
+        FROM apply_member
+        WHERE r_idx=#{r_idx}
     </select>
 </mapper>
 

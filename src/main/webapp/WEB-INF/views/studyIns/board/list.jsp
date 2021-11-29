@@ -300,6 +300,25 @@
 </div>
 </body>
 <script>
+     var newName, n=0;
+     
+     //팝업 창 제목 만들기 함수(다중 팝업을 위한..)
+     function newWindow(value)
+     {
+          n = n + 1;
+          newName = value + n;
+     }
+     
+     
+     
+     function MyOpenWindow()
+     {
+          newWindow("MyWindow");
+          window.open("PopupWindow.aspx", newName,
+               "width=1050,height=800,toolbar=no,location=no,status=no," +
+               
+               "menubar=no,scrollbars=yes,resizable=yes,left=200,top=50");
+     }
      let kind = $(`#category`).val();
      $(function() {
           $(`#category`).val('${category}').prop("selected", true);

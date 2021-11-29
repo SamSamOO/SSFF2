@@ -114,7 +114,7 @@ public class ChattingController {
         HashMap<String, Object> map = new HashMap<>();
         map.put("member", dto);
         map.put("r_Idx", r_Idx);
-
+        
         log.info("session = {}", session.getAttribute("member"));
 
         log.info("chating({}) is invoked", "r_Idx = " + r_Idx + ", model = " + model);

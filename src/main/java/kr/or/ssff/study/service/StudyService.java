@@ -108,6 +108,7 @@ public interface StudyService {
     //22. 가입했는지 체크
     public abstract List<ApplyMemberDTO> getMemberByR_idx(Integer r_idx);
 
+    
 
 }
 
