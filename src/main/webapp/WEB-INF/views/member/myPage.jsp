@@ -34,7 +34,7 @@
 				<jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
 				<!------------------Header Wrapper : 메뉴 탭 시작------------------>
 				<!--menu.html Include-->
-				<jsp:include page="/WEB-INF/commons/menu_main.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/commons/menu_mypage.jsp"></jsp:include>
 				<!------------------Header Wrapper : 메뉴 탭 종료------------------>
 				<!--컨테이너 시작-->
 				<div class="d-flex flex-row flex-column-fluid container">
@@ -65,10 +65,7 @@
 										<!--Breadcrumb : 로드맵 시작-->
 										<ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
 											<li class="breadcrumb-item">
-												<a href="/manager/member/list" class="text-muted">마이 페이지</a>
-											</li>
-											<li class="breadcrumb-item">
-												<a href="/manager/member/list" class="text-muted">회원 정보</a>
+												<a href="/member/myPage?r_Idx=${member.member_name}" class="text-muted">회원 정보</a>
 											</li>
 										</ul>
 										<!--Breadcrumb : 로드맵 종료-->
