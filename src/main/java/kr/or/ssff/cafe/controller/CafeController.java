@@ -74,6 +74,23 @@ public class CafeController {
     model.addAttribute("cafeInfo", cafeInfo);
   } // selectCafe
 
+  @GetMapping("/ttt")
+  public void goResiierve(
+      @ModelAttribute("roomRsrvInfoDTO") RoomRsrvInfoDTO roomRsrvInfoDTO, Model model
+  ) {
+
+    log.info("goReserve({}) is invoked", roomRsrvInfoDTO);
+
+    // String cafe_idx = roomRsrvInfoDTO.getCafe_idx();
+    CafeVO cafeVO = service.getCafe(roomRsrvInfoDTO.getCafe_idx());
+
+    model.addAttribute("cafeVO", cafeVO);
+    model.addAttribute("roomRsrvInfoDTO", roomRsrvInfoDTO);
+
+    log.info("model{}", model);
+
+  } // insertReserve
+
 
   /*
    * 스터디 카페 예약 화면을 조회
