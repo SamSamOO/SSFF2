@@ -35,7 +35,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="d-flex flex-column flex-root">
     <!----------------페이지 시작----------------------->
     <div class="d-flex flex-row flex-column-fluid page">
-        <!--begin::Wrapper-->
+        <!--begin::Wrapper ↓여기 매칭되는 div 태그부터 안닫아도 됨(footer에 있음)-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!------------------header.html Include------------------>
             <jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>

@@ -167,7 +167,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         <%--회원 사진 / 닉네임--%>
                                                     <td class="user_pic_nick">
                                                         <div class= "d-flex">
-                                                            <a href="" class="d-flex align-items-center">
+                                                            <a href="/member/myPage?r_Inx=${list.member_Name}" class="d-flex align-items-center">
                                                                 <div class="symbol symbol-45 justify-content-start align-items-center">
                                                                     <c:choose>
                                                                     <c:when test="${list.member_Profile == '/resources/assets/images/icon/profile_default_g_w.png'}">
@@ -199,7 +199,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <%--액션--%>
                                                     <td class="list_action text-center">
                                                         <div class="text-dark-75 font-weight-bolder font-size-lg mb-0 text-hover-primary">
-                                                            <a href="javascript:;"
+                                                            <a href="/member/myPage?r_Inx=${list.member_Name}"
                                                                class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2">
                                                                 <i class="far fa-user-circle"></i>
                                                             </a>
