@@ -133,18 +133,25 @@
         ws.onopen = function (data) {
             //소켓이 열리면 동작
         }
-
-        ws.onmessage = function (data) {
+    
+        ws.onmessage = function(data) {
             //메시지를 받으면 동작
+            data.member_Name ='${member.member_name}';
             var msg = data.data;
+            console.log(data.data);
+        
             if (msg != null && msg.trim() != '') {
                 var d = JSON.parse(msg);
+    
                 if (d.type == "getId") {
                     var si = d.sessionId != null ? d.sessionId : "";
+        
                     if (si != '') {
                         $("#sessionId").val(si);
                     }
+        
                 } else if (d.type == "message") {
+                    
                     if (d.msg == '' || d.msg == null) {
                         Swal.fire({
                             title: '공백은 안됩니다',
@@ -158,12 +165,12 @@
                     } else {
                         $("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
                     }
-
+    
                 } else {
-                    console.warn("unknown type!")
+                    console.warn("unknown type!");
                 }
             }
-        }
+        };
         ws.onclose = e => {
             setTimeout(wsOpen, 1000);
         }
@@ -233,7 +240,7 @@
                     <!--카드 Body 시작-->
                     <div class="card-body pt-2 pb-0 mt-n3">
                         <div id="container" class="container" align="center">
-                            <h1>${r_Idx}의 채팅방</h1>
+                            <h1>${teamName}의 채팅방</h1>
                             <input type="hidden" id="sessionId" value="">
                             <input type="hidden" id="roomNumber" value="2">
                             <input type="hidden" id="r_Idx" value="${r_Idx}">

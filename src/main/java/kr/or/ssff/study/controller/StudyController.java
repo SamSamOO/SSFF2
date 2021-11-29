@@ -2,6 +2,7 @@ package kr.or.ssff.study.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
 import kr.or.ssff.applyMember.domain.ApplyMemberVO;
@@ -10,16 +11,16 @@ import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.domain.StudyCriteria;
 import kr.or.ssff.study.service.StudyService;
+import kr.or.ssff.studyIns.domain.StudyInsVO;
+import kr.or.ssff.studyIns.model.Criteria;
+import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
@@ -34,27 +35,12 @@ public class StudyController {
 
     @Autowired
     private StudyService service;
+    @Autowired
+    private StudyInsService serviceOfStudyIns;
+    
     private String jsonData;
 
-    /*---------------------------------------------------------------*/
-    /*-----------------------------챌린지형--------------------------*/
-    /*---------------------------------------------------------------*/
-    /*챌린지형 메인으로 이동
-     * 파라메터 :
-     * 반환 : 챌린지형 스터디 메인 페이지
-     * */
-    @GetMapping("/challenge/main")
-    public String challengeMainGo(@RequestParam(value = "r_Idx", defaultValue = "9002") Integer r_Idx, Model model) {
 
-        log.info("mainGo({}) is invoked", "model = " + model);
-
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("r_Idx", r_Idx);
-
-        model.addAttribute("map", map);
-
-        return "/study/challenge/main";
-    }
 
 
 
@@ -182,9 +168,11 @@ public class StudyController {
      * */
     @GetMapping("/challenge/modifyGo")
     public void updateChallengeDetailGo(Integer r_idx, Model model) {
+        
         log.info("updateChallengeDetailGo() is invoked");
         RecruitBoardVO board = this.service.get(r_idx);
         model.addAttribute("board", board);
+        
     }
 
 
@@ -432,7 +420,35 @@ public class StudyController {
         model.addAttribute("map", map);
         return "study/project/main";
     } // updateProjectDetailGo
-
+    
+    /*---------------------------------------------------------------*/
+    /*-----------------------------챌린지형--------------------------*/
+    /*---------------------------------------------------------------*/
+    /*챌린지형 메인으로 이동
+     * 파라메터 :
+     * 반환 : 챌린지형 스터디 메인 페이지
+     * */
+    @GetMapping("/challenge/main")
+    public String challengeMainGo(@RequestParam(value = "r_Idx") Integer r_Idx, Criteria criteria, Model model) throws Exception{
+        
+        log.info("mainGo({}) is invoked", "model = " + model);
+    
+        HashMap<String, Object> map = new HashMap<>();
+        
+        map.put("r_Idx", r_Idx);
+        map.put("pageNum", criteria.getPageNum());
+        map.put("amount", criteria.getAmount());
+        map.put("category", "전체");
+        
+        Objects.requireNonNull(service);
+        List<StudyInsVO> list = this.serviceOfStudyIns.getList(map);
+        List<StudyInsVO> listOfNotice = this.serviceOfStudyIns.showNotice(map);
+        
+        model.addAttribute("map", map);
+        model.addAttribute("list", list);
+        model.addAttribute("notice", listOfNotice);
+        return "/study/challenge/main";
+    }
 
 } // end class
 

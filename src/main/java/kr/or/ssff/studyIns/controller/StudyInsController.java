@@ -349,55 +349,65 @@ public class StudyInsController implements InitializingBean, DisposableBean{
         } // make folder
         
         //make yyyy/MM/dd folder
-        
-        
+    
+    
         /*이미지의 정보를 담는 객체*/
         List<StudyInsFileDTO> list = new ArrayList<>();
-        
-        for (MultipartFile multipartFile : uploadFile){
-            log.debug("------------------------------------");
-            log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
-            log.debug("Upload File Size : " + multipartFile.getSize());
+    
+        if (studyInsDTO.getFileDTO() != null){
+            for (MultipartFile multipartFile : uploadFile){
+                log.debug("------------------------------------");
+                log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
+                log.debug("Upload File Size : " + multipartFile.getSize());
             
-            /*이미지 정보 객체입니다.*/
-            StudyInsFileDTO dto = new StudyInsFileDTO();
-            dto.setCont_No(studyInsDTO.getCont_No());
+                /*이미지 정보 객체입니다.*/
+                StudyInsFileDTO dto = new StudyInsFileDTO();
             
-            String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
+                String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
             
-            dto.setFile_Name(uploadFileName);//3 : fileName
-            dto.setUploadPath(uploadPath.toString());//4 : uploadPath
+                dto.setFile_Name(uploadFileName);//3 : fileName
+                dto.setUploadPath(uploadPath.toString());//4 : uploadPath
+                System.out.println("업로드파일+" + uploadFileName);
             
-            //IE has file path
-            uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-            log.debug("only file name : " + uploadFileName);
+                //IE has file path
+                uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
             
-            String uuid = UUID.randomUUID().toString();
-            dto.setUuid(uuid); // 5 : uuid
+                System.out.println("업로드파일+" + uploadFileName);
             
-            uploadFileName = uuid + "_" + uploadFileName;
+                log.debug("only file name : " + uploadFileName);
             
-            File saveFile = new File(uploadPath, uploadFileName);
+                String uuid = UUID.randomUUID().toString();
+                dto.setUuid(uuid); // 5 : uuid
             
-            try{
-                multipartFile.transferTo(saveFile);
+                uploadFileName = uuid + "_" + uploadFileName;
+            
+                File saveFile = new File(uploadPath, uploadFileName);
+            
+                try{
+                    multipartFile.transferTo(saveFile);
                 
-                //check image type file
-                if (UploadFileUtils.checkImageType(saveFile)){
-                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
+                    //check image type file
+                    if (UploadFileUtils.checkImageType(saveFile)){
+                        FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+                        Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
                     
-                    thumbnail.close();
-                }
-            }catch (Exception e){
-                log.error(e.getMessage());
+                        thumbnail.close();
+                    }
                 
-            } // end catch
-            list.add(dto);
-        } // end for
+                }catch (Exception e){
+                    log.error(e.getMessage());
+                
+                } // end catch
+                list.add(dto);
+            } // end for
+            studyInsDTO.setFileDTO(list);
         
-        studyInsDTO.setFileDTO(list);
+        }else{
         
+            studyInsDTO.setFileDTO(list);
+        
+        
+        }
         Objects.requireNonNull(service);
         if (service.modify(studyInsDTO, uploadFile)){
             rttrs.addFlashAttribute("result", "success");
