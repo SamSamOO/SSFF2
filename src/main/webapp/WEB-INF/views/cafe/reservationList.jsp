@@ -138,7 +138,7 @@
           
           <!------------------ 본문 시작 ------------------>
           <!--begin::Content-->
-          <div class="content flex-column-fluid" style="max-width:1090px;">
+          <div class="content flex-column-fluid" >
             
             <!--begin::cardcustom-->
             <div class="card card-custom card-sticky">
@@ -156,13 +156,13 @@
                   <!--begin: Search Form-->
                   <!--begin::Search Form-->
                   <div class="mb-7">
-                    <div class="row align-items-center">
+                    <div class="row align-items-center" style="justify-content: flex-start;">
                       <div class="col-lg-9 col-xl-8">
                         <div class="row align-items-center">
                           <div class="col-md-4 my-2 my-md-0">
                             <div class="input-icon">
                               <input type="text" class="form-control" placeholder="Search..."
-                                     id="kt_datatable_search_query">
+                                     id="searchKey">
                               <span>
 																	<i class="flaticon2-search-1 text-muted"></i>
 																</span>
@@ -173,71 +173,49 @@
                             
                             <div class="d-flex align-items-center">
                               <label class="mr-3 mb-0 d-none d-md-block">Status:</label>
-                              
+  
+<%--                              <div class="dropdown">--%>
+<%--                                <button class="btn btn-secondary dropdown-toggle"--%>
+<%--                                        type="button" id="dropdownMenuButton" data-toggle="dropdown"--%>
+<%--                                        aria-haspopup="true" aria-expanded="false">--%>
+<%--                                  Status--%>
+<%--                                </button>--%>
+<%--                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--%>
+<%--                                  <a class="dropdown-item" data-value="1" href="#">이용대기</a>--%>
+<%--                                  <a class="dropdown-item" data-value="2" href="#">이용완료</a>--%>
+<%--                                  <a class="dropdown-item" data-value="3" href="#">취소완료</a>--%>
+<%--                                </div>--%>
+<%--                              </div>--%>
+             
+  
                               <div class="dropdown bootstrap-select form-control">
-                                
-                                <select class="form-control" id="kt_datatable_search_status"
-                                        tabindex="null">
-                                  <option value="">All</option>
-                                  <option value="1">이용대기</option>
-                                  <option value="2">이용완료</option>
-                                  <option value="3">취소완료</option>
-                                
-                                </select>
-                                
-                                <button type="button" tabindex="-1"
-                                        class="btn dropdown-toggle btn-light bs-placeholder"
-                                        data-toggle="dropdown" role="combobox"
-                                        aria-owns="bs-select-1" aria-haspopup="listbox"
-                                        aria-expanded="false" data-id="kt_datatable_search_status"
-                                        title="All">
-                                  <div class="filter-option">
-                                    <div class="filter-option-inner">
-                                      <div class="filter-option-inner-inner">All</div>
-                                    </div>
-                                  </div>
-                                </button>
-                                
-                                <div class="dropdown-menu"
-                                     style="max-height: 342.281px; overflow: hidden; min-height: 127px;">
-                                  <div class="inner show" role="listbox" id="bs-select-1"
-                                       tabindex="-1" aria-activedescendant="bs-select-1-0"
-                                       style="max-height: 330.281px; overflow-y: auto; min-height: 115px;">
-                                    <ul class="dropdown-menu inner show" role="presentation"
-                                        style="margin-top: 0px; margin-bottom: 0px;">
-                                      <li class="selected active"><a role="option"
-                                                                     class="dropdown-item active selected"
-                                                                     id="bs-select-1-0" tabindex="0"
-                                                                     aria-setsize="7"
-                                                                     aria-posinset="1"
-                                                                     aria-selected="true"><span
-                                        class="text">All</span></a></li>
-                                      <li><a role="option" class="dropdown-item" id="bs-select-1-1"
-                                             tabindex="0" aria-setsize="7" aria-posinset="2"><span
-                                        class="text">이용대기</span></a></li>
-                                      <li><a role="option" class="dropdown-item" id="bs-select-1-2"
-                                             tabindex="0" aria-setsize="7" aria-posinset="3"><span
-                                        class="text">이용완료</span></a></li>
-                                      <li><a role="option" class="dropdown-item" id="bs-select-1-3"
-                                             tabindex="0" aria-setsize="7" aria-posinset="3"><span
-                                        class="text">취소완료</span></a></li>
-                                    </ul>
-                                  </div>
+                                <div class="btn-group">
+                                  <i class="dropdown-arrow dropdown-arrow-inverse"></i>
+                                  <button id="statusBtn"  data-toggle="dropdown"
+                                          class="btn btn-outline-secondary dropdown-toggle btnStatus pl-10 pr-10" >
+                                    status
+                                  </button>
+                                  <ul class="dropdown-menu dropdown-inverse pl-8">
+                                    <li><a class="text-hover-primary" data-value="a">전체</a></li>
+                                    <li><a class="text-warning" data-value="n">이용대기</a></li>
+                                    <li><a class="text-secondary" data-value="y">이용완료</a></li>
+                                    <li><a class="text-danger" data-value="z">취소완료</a></li>
+                                  </ul>
                                 </div>
                               </div>
                             </div>
                           </div>
                           <div class="col-md-4 my-2 my-md-0">
+                            <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
+                              <a href="#" class="btn btn-primary px-6 font-weight-bold" id="search">Search</a>
+                            </div>
                             <div class="d-flex align-items-center">
                             
                             
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-lg-3 col-xl-4 mt-5 mt-lg-0">
-                        <a href="#" class="btn btn-primary px-6 font-weight-bold">Search</a>
-                      </div>
+                      
                     </div>
                   </div>
                   <!--end::Search Form-->
@@ -252,13 +230,13 @@
                     
                     <table class="datatable-table" style="display: block;">
                       <!-- 테이블 공통 헤드 s -->
-                      <thead class="datatable-head">
+                      <thead class="datatable-head pt-8 h2">
                       <tr class="datatable-row">
                         <th data-field="RecordID" style="padding-right:0px;width:30px;" class="datatable-cell-center datatable-cell ">
                           <span style="width: 30px;"></span></th>
                         <th data-field="ReservationID" style="width:140px;padding-left:0px;"class="datatable-cell "><span
-                          >Reservation ID</span></th>
-                        <th data-field="CafeInfo" class="datatable-cell "><span
+                          style="">Reservation ID</span></th>
+                        <th data-field="CafeInfo" class="datatable-cell text-center " style="width:240px;"><span
                           style="">Cafe Info</span></th>
                         <th data-field="ReservationAmount" class="datatable-cell "><span
                           style="">Amount</span></th>
@@ -266,13 +244,15 @@
                           style="">Use Date</span></th>
                         <th data-field="Status" style="padding:13px 13px 13px 0px;"data-autohide-disabled="false"
                             class="datatable-cell "><span style="">Status</span></th>
-                        <!--TODO 세션 값에 따라 none처리 할 수 있게 admin-> 닉네임만on!!!!!!!!!!!! -->
+                       
                         <th data-field="cancel" stylr="padding:0px 15px 0px 30px;"class="datatable-cell " ><span style="">cancel</span>
                         </th>
-                        
+                  
+                        <c:if test="${member.member_name eq admin}">
                         <th data-field="NickName" class="datatable-cell "><span
                           style="">Nick Name</span></th>
-                      </tr>
+                        </c:if>
+                        </tr>
                       </thead>
                       <!-- 테이블 공통 헤드 e -->
                       
@@ -305,7 +285,6 @@
                           </select>
                         
                         </div>
-                        <span class="datatable-pager-detail">Showing 1 - 10 of 350</span></div>
                     </div>
                     <!--end: pager-->
                   
@@ -356,6 +335,29 @@
 
   })
 
+  // 버튼 클릭을 통해 세부 룸정보 add, delete
+  $(document).on('change', ".kt_datatable_search_status", function (e) {
+    console.log("roTLq하이하이~~kf: "+e)
+    $
+
+  })
+  search
+  // 드롭다운 status 선택 함수
+  $('.dropdown-inverse li > a').click(function(e){
+
+    $('#statusBtn').data('value', $(this).data('value'));
+    $('#statusBtn').text(this.innerHTML);
+  });
+
+  // Search 버튼 누르면 정보 가지고 ajax호출해서 새로 값 뿌려줌
+  $(document).on('click', "#search", function (e) {
+    start.param.keyword = $('#searchKey').val(); // 검색값
+    start.param.rsrv_status_ynz = $('#statusBtn').data('value'); // 카테고리 선택값
+    $('.datatable-body.putData').empty(); // 기존 테이블 비우고
+    console.log("d야야 이거 맞냐??: " + start.param.rsrv_status_ynz);
+    start.callAjax(); // 아작스 여행 출발
+  })
+  
   // 페이지 진입시 리스트 세팅
   $(document).ready(function () {
     start.init();
@@ -366,9 +368,10 @@
   // 카드 리스트를 ajax 페이지 처리하여 뿌립니다.
   let start = {
     param: {
+      /*member_name : ${member.member_name},*/
       member_name : "admin", //TODO 세션 아이디로 (관리자, 멤버 구분해서 조회)
-      // member_name : "admin", //TODO 세션 아이디로 (관리자, 멤버 구분해서 조회)
-      pageListSize: "웅", //TODO 추후  검색 정보 담아서 출발
+      rsrv_status_ynz: null, //TODO 추후  검색 정보 담아서 출발
+      keyword: null,
     },
 
     // 진입시 데이터 셋팅, 스크롤 감지 시작
@@ -428,7 +431,7 @@
     // 데이터 setting
     setListItems: function (data) {
 
-      console.log("셋팅창 떴어유~");
+      console.log("셋팅창 떴어유~" + data.reservationList.length);
 
       // 테이블 동적생성을 위해 불러온 data를 각 변수에 담아 활용
       let amount = '';
@@ -527,7 +530,7 @@
 
           <td data-field="ReservationID" style="padding-left:0px;min-width:110px;" aria-label="` + rsrv_idx
                        + `" class="datatable-cell"><span style="">` + rsrv_idx + `</span></td>
-          <td data-field="CafeInfo" style="width:141px;" aria-label="` + cafeInfo
+          <td data-field="CafeInfo" style="width:230px;" aria-label="` + cafeInfo
                        + `" class="datatable-cell"><span style="">` + cafeInfo + `</span></td>
           <td data-field="ReservationAmount" aria-label="` + amount
                        + `원" class="datatable-cell" style="width:86px;"><span style="">` + amount + `원</span></td>
@@ -540,7 +543,7 @@
               class="label label-` + rsrv_status_color + ` label-dot"></span>&nbsp;
           <span class="font-weight-bold text-` + rsrv_status_color + `">` + rsrv_status_text + `</span>
           </span></td>
-          
+       
           <td data-field="cancel" aria-label="4" class="datatable-cell" style="width:100px;padding-top: 10px;padding-bottom: 10px;"><span
                >`;
 
@@ -619,8 +622,12 @@
           }
 
           $rsrvHtml +=
-              `</span></td><td data-field="NickName" aria-label="` + member_name + `"
+              `</span></td>
+
+<c:if test="${member.member_name eq admin}">
+<td data-field="NickName" aria-label="` + member_name + `"
                 class="datatable-cell"><span style="">` + member_name + `</span></td>  <!--TODO 마이페이지 링크, 프로필사진 박아야해 -->
+                </c:if>
         </tr>
          <tr class="datatable-row-subtable" style="display: none;"> <!-- display none-block  -->
           <td class="datatable-subtable"style="width: 50% !important; height: 400px!important;" >
@@ -759,15 +766,15 @@
 
       //-------------- pager --------------//
       let totalData = checkNum; //총 데이터 수
-      let dataPerPage; //한 페이지에 나타낼 글 수
+      let dataPerPage =10; //한 페이지에 나타낼 글 수
       let pageCount = 5; //페이징에 나타낼 페이지 수
       let globalCurrentPage; //현재 페이지
       let currentPage = 1;
 
       // 드롭다운 value pix
 
-      $("#select-pager").val(10); // 그래서 강제로 줬엉..
-      dataPerPage = $("#select-pager option:selected").val(); //TODO 안댐
+      //$("#select-pager").val(10); // 그래서 강제로 줬엉..
+     // dataPerPage = $("#select-pager option:selected").val(); //TODO 안댐
       console.log(dataPerPage);
 
       //총 road된 게시글 수
@@ -1012,5 +1019,9 @@
     }
     
   }
+</script>
+<script>
+
+
 </script>
 </html>
