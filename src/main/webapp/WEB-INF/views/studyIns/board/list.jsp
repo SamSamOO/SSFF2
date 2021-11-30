@@ -134,7 +134,7 @@
                             <div class="card card-custom pt-4">
                                   <!--카드 헤더 시작-->
                                 <div class="ribbon ribbon-clip ribbon-right">
-                                    <div class="ribbon-target bg-ssff2 p-4 pr-8 align-items-end pulse"
+                                    <div class="ribbon-target bg-ssff2 p-4 pr-8 align-items-end pulse cursor-pointer"
                                          onclick="window.open('/moveChating?r_Idx=${map.get("r_Idx")}','window_name','width=500, height=700,location=no, status=no, scrollbars=yes');">
                                         <a>
                                             <span class="pulse-ring mt-n2 ml-n2 border-white"></span>
