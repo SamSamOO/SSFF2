@@ -4,7 +4,9 @@ package kr.or.ssff.payment.controller;
 
  */
 
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
+import kr.or.ssff.applyMember.service.ApplyMemberService;
 import kr.or.ssff.payment.model.PaymentDTO;
 import kr.or.ssff.payment.service.PaymentService;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -29,6 +32,12 @@ public class PaymentController {
 
   @Autowired
   private PaymentService service;
+
+  @Autowired
+  private ApplyMemberService applyMemberService;
+
+
+
 
 
 

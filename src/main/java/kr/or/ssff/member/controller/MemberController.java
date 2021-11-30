@@ -1,38 +1,27 @@
 package kr.or.ssff.member.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
-
-
-import kr.or.ssff.member.service.KaKaoService;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import kr.or.ssff.member.domain.MemberDTO;
-
+import kr.or.ssff.member.service.KaKaoService;
+import kr.or.ssff.member.service.MemberService;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import org.springframework.web.bind.annotation.*;
-
-import kr.or.ssff.member.service.MemberService;
-import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.File;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /*
 
@@ -173,7 +162,6 @@ public class MemberController {
         mav.setViewName("member/login");
         String referer = request.getHeader("Referer");
         mav.addObject("referer", referer);
-        
         // 카카오 로그인
         mav.addObject("kakao_url", kakaoUrl);
 
