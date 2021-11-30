@@ -3,6 +3,9 @@ package kr.or.ssff.payment.controller;
 import java.util.HashMap;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
+import kr.or.ssff.applyMember.service.ApplyMemberService;
 import kr.or.ssff.cafe.domain.ReservationVO;
 import kr.or.ssff.payment.model.PaymentAcntDTO;
 import kr.or.ssff.payment.model.PaymentAuthDTO;
@@ -44,6 +47,11 @@ public class PaymentRestController {
 
   @Setter(onMethod_ = {@Autowired})
   private PaymentService service;
+
+  @Setter(onMethod_ = {@Autowired})
+  private ApplyMemberService applyMemberService;
+
+
 
 
   /**
@@ -123,7 +131,7 @@ String id = "testJihye";
 
 
 
-  /**
+  /** //TODO 나중에 /withdraw/challenge랑 두개 합칠 수 있는 방법 찾아보깅
    * 카페 예약시 실시간 출금
    * withdraw
    */
@@ -132,7 +140,7 @@ String id = "testJihye";
       @RequestParam("code") String code,
       @RequestParam("state") String state,
       Authentication authentication,
-      HttpServletResponse response) {
+      HttpServletResponse response, HttpSession session) {
     log.debug("withdraw({},{},{}) is invoked",
         code, state, authentication);
 
@@ -150,7 +158,7 @@ String id = "testJihye";
     log.info("acntList({}): ", acntList);
 
 
-    PaymentWithdrawDTO paymentWithdrawDTO = service.getWithdrawDto(acntList,paymentAuthDTO ); // 핀테크 받기
+    PaymentWithdrawDTO paymentWithdrawDTO = service.getWithdrawDto(acntList,paymentAuthDTO,"스터디카페예약" ); // 핀테크 받기
     log.info("paymentWithdrawDTO({}): ", paymentWithdrawDTO);
 
 
@@ -215,15 +223,14 @@ String id = "testJihye";
 
 
   /**
-   * 챌린지 참여시
+   * 챌린지 참여시 실시간 출금
    * withdraw/challenge
    */
   @RequestMapping("/withdraw/challenge")
   public String withdrawChallenge(
       @RequestParam("code") String code,
       @RequestParam("state") String state,
-      Authentication authentication,
-      HttpServletResponse response) {
+      Authentication authentication) {
     log.debug("withdraw({},{},{}) is invoked",
         code, state, authentication);
 
@@ -232,8 +239,8 @@ String id = "testJihye";
 //    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 //    String id = userDetails.getUsername();
     String id = "testJihye";
-    String action = "withdraw";
-//     service.connectAuth(code, id); // db에 저장할지말지 결정해서 auth 저장
+    String action = "withdraw/challenge";
+////     service.connectAuth(code, id); // db에 저장할지말지 결정해서 auth 저장
 
     PaymentAuthDTO paymentAuthDTO = service.getAuth(code, id, action); // 토큰 받기
     log.info("paymentAuthDTO({}): ", paymentAuthDTO);
@@ -242,31 +249,31 @@ String id = "testJihye";
     log.info("acntList({}): ", acntList);
 
 
-    PaymentWithdrawDTO paymentWithdrawDTO = service.getWithdrawDto(acntList,paymentAuthDTO ); // 핀테크 받기
+    PaymentWithdrawDTO paymentWithdrawDTO = service.getWithdrawDto(acntList,paymentAuthDTO, "챌린지참여금" ); // 핀테크 받기
     log.info("paymentWithdrawDTO({}): ", paymentWithdrawDTO);
 
 
     // 현재 임시저장된 상태의 예약정보 idx 호출
 
-    ReservationVO reservationVO = service.getTempRsrv();
-    String tempRsrvIdx = reservationVO.getRsrv_idx();
-    log.info("service.getTempRsrv({}): ", tempRsrvIdx);
+    ApplyMemberVO applyMemberVO = service.getTempApplyMember();
+    String tempApplyIdx = applyMemberVO.getApply_idx();
+    log.info("service.getTempRsrv({}): ", tempApplyIdx);
 
     TransactionDTO transactionDTO = new TransactionDTO();
     transactionDTO.setTrnsc_idx(paymentWithdrawDTO.getApiTranId()); // 거래번호
-    transactionDTO.setApply_idx(null); // 스터디 참여 번호
-    transactionDTO.setRsrv_idx(tempRsrvIdx); // 카페 예약번호
-    transactionDTO.setMember_name(reservationVO.getMember_name()); // 닉네임
+    transactionDTO.setApply_idx(tempApplyIdx); // 스터디 참여 번호
+    transactionDTO.setRsrv_idx(null); // 카페 예약번호
+    transactionDTO.setMember_name(applyMemberVO.getMember_name()); // 닉네임
     transactionDTO.setTransaction_date(paymentWithdrawDTO.getApiTranDtm()); // 거래일자
     transactionDTO.setTransaction_categories("출금"); // 거래 대분류
     transactionDTO.setTransaction_categorie("스터디카페예약"); // 거래 소분류
 //    transactionDTO.setTransaction_amount(Integer.valueOf(paymentWithdrawDTO.getTranAmt()));
 //    transactionDTO.setAmount_to_be_paid(Integer.valueOf(paymentWithdrawDTO.getTranAmt()));
-    transactionDTO.setTransaction_amount(reservationVO.getRsrv_amount()); // 거래금액 (현재 임의 예약금액으로 set)
+    transactionDTO.setTransaction_amount(Integer.valueOf(paymentWithdrawDTO.getTranAmt())); // 거래금액 (현재 임의 예약금액으로 set)
     transactionDTO.setClient_account_number(paymentWithdrawDTO.getAccountNumMasked()); // 출금한 계좌번호
     transactionDTO.setClient_bank_code(Integer.valueOf(paymentWithdrawDTO.getBandCodeStd())); // 출금 계좌의 은행코드
     transactionDTO.setClient_name(paymentWithdrawDTO.getAccountHolderName()); // 예금주명
-    transactionDTO.setAmount_to_be_paid(reservationVO.getRsrv_amount()); // 거래 완료금액 (현재 임의 예약금액으로 set)
+    transactionDTO.setAmount_to_be_paid(Integer.valueOf(paymentWithdrawDTO.getTranAmt())); // 거래 완료금액 (현재 임의 예약금액으로 set)
     transactionDTO.setPayment_completed_yn('y'); // 거래완료여부
 
     // 거래정보 insert
@@ -274,24 +281,29 @@ String id = "testJihye";
     log.info("service.registerTrnsc(transactionDTO)({}): ", result);
 
 
+    HashMap<String, String> amem = new HashMap<>();
+    amem.put("apply_idx", applyMemberVO.getApply_idx());
+    amem.put("action", "fail");
 
-    Integer deleteRsrvRow ;
-    Integer setRsrvRow ;
+
+    boolean rollbackAmemStatus ;
+    boolean setAmemRow ;
 
     String resultHtml = "";
 
-    if(!result){  // insert 실패했다면 (== 거래실패) 예약내역도 삭제
-      deleteRsrvRow= service.deleteRsrv(tempRsrvIdx);
-      log.info("service.deleteRsrv({}): ", deleteRsrvRow);
+    if(!result){  // insert 실패했다면 (== 거래실패) 참여상태 원복
+      rollbackAmemStatus= applyMemberService.applyAction(amem);
+      log.info("service.applyMemberService({}): ", rollbackAmemStatus);
 
       resultHtml = "     Swal.fire({\n"
           + "                  icon : 'warning', \n"
-          + "                  title: '예약실패', \n"
+          + "                  title: '결제실패', \n"
           + "                  text : '다시 시도해주세요.', \n"
           + "                });";
     } else { // 거래정보 insert 성공시 예약내역에 상태 정보 정상으로 업데이트
-      setRsrvRow= service.setReservation(tempRsrvIdx);
-      log.info("service.setReservation({}): ", setRsrvRow);
+      amem.put("action", "payOK");
+      setAmemRow= applyMemberService.applyAction(amem);
+      log.info("service.setReservation({}): ", setAmemRow);
     }
 
     // userMe(paymentAuthDTO.getTokenType(), paymentAuthDTO.getAccessToken(), paymentAuthDTO.getUserSeqNo());
@@ -299,12 +311,13 @@ String id = "testJihye";
     //TODO row값 따라서 view 변경해주기 - 실패시 실패 알럿, 성공시 예약내역리스트 ㄱ
 //    return "<script>window.close();</script>";
 
-    return "<script>opener.location.replace('/cafe/list');window.close();"+resultHtml+"</script>";
-
+    // return "<script>opener.location.replace('/cafe/list');window.close();"+resultHtml+"</script>";
+return  null;
   } // withdraw
 
 
-  /* 사용 x */
+  /* 사용 x */ //TODO 이거 입금이체, 입금계좌를 어디로할지 배열중 못찾아서 지랄, for로 if 롤리면 됨
+  // 참고https://github.com/bishop130/practice/blob/a4787a0b92e7bfdcdb11986b2dd72b4e06053eda/app/src/main/java/com/suji/lj/myapplication/Adapters/OpenBanking.java
   /*@RequestMapping("/diposit")
   public String diposit(
       @RequestParam("code") String code,

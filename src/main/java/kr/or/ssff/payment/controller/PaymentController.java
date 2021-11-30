@@ -4,7 +4,9 @@ package kr.or.ssff.payment.controller;
 
  */
 
+import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
+import kr.or.ssff.applyMember.service.ApplyMemberService;
 import kr.or.ssff.payment.model.PaymentDTO;
 import kr.or.ssff.payment.service.PaymentService;
 import lombok.NoArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -29,6 +32,32 @@ public class PaymentController {
 
   @Autowired
   private PaymentService service;
+
+  @Autowired
+  private ApplyMemberService applyMemberService;
+
+
+  /*
+   * 챌리지 결제하려는 회원 상태를 임시 t로 변경
+   * 매개변수: 회원 닉네임
+   * 반환: 거래내역 리스트 뷰단
+   * */
+  @PostMapping("/challenge/applyStatusChange")
+  public void applyStatusChange( @RequestParam("apply_idx") String apply_idx){
+
+    log.debug("applyStatusChange({}) 컨트롤러에서 인풋 받아봤어영!!!!", apply_idx);
+    apply_idx = "9079";  //
+    HashMap<String, String> param = new HashMap<>();
+
+    param.put("apply_idx", apply_idx);
+    param.put("action", "pay");
+
+  boolean result= applyMemberService.applyAction(param); // 결제하려는 회원의 참여상태정보 임시 x로 변경
+    log.info("\t + result: {}", result);
+
+
+
+  } // selectTransactionList
 
 
 
