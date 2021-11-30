@@ -61,9 +61,10 @@
     var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";
 </script>
 <!--begin::Global Config(global config for global JS scripts)-->
+<!-- Channel Plugin Scripts -->
+<!-- Channel Plugin Scripts -->
 <script>
     <!-- Channel Plugin Scripts -->
-
         (function() {
         var w = window;
         if (w.ChannelIO) {
