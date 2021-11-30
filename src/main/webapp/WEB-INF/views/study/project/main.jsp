@@ -21,7 +21,7 @@
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!--이게 여기있는게 맞나 싶긴 한데.. 그래도 넣어놓음-->
     <input type="hidden" id="member_name" value="${member.member_name}"><!--이 페이지로 접근한 아이디-->
-    <input type="hidden" id="r_idx" value=129><!--이 페이지의 스터디번호-->
+    <input type="hidden" id="r_idx" value= ${map.r_Idx}><!--이 페이지의 스터디번호-->
 
     <script>
       let r_idx = ${map.r_Idx};
@@ -47,9 +47,9 @@
           initialView: 'dayGridMonth',
           // initialDate: '2021-11-07',
           headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'registAttendance,addEventButton'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
+            left: 'title',
+            center: '',
+            right: 'prev,next today'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
           },
           selectable: true,
           editable: true,
