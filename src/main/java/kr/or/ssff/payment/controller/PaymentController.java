@@ -37,27 +37,7 @@ public class PaymentController {
   private ApplyMemberService applyMemberService;
 
 
-  /*
-   * 챌리지 결제하려는 회원 상태를 임시 t로 변경
-   * 매개변수: 회원 닉네임
-   * 반환: 거래내역 리스트 뷰단
-   * */
-  @PostMapping("/challenge/applyStatusChange")
-  public void applyStatusChange( @RequestParam("apply_idx") String apply_idx){
 
-    log.debug("applyStatusChange({}) 컨트롤러에서 인풋 받아봤어영!!!!", apply_idx);
-    apply_idx = "9079";  //
-    HashMap<String, String> param = new HashMap<>();
-
-    param.put("apply_idx", apply_idx);
-    param.put("action", "pay");
-
-  boolean result= applyMemberService.applyAction(param); // 결제하려는 회원의 참여상태정보 임시 x로 변경
-    log.info("\t + result: {}", result);
-
-
-
-  } // selectTransactionList
 
 
 

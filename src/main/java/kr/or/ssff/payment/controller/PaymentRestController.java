@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -52,6 +53,36 @@ public class PaymentRestController {
   private ApplyMemberService applyMemberService;
 
 
+  /*
+   * 챌리지 결제하려는 회원 상태를 임시 t로 변경
+   * 매개변수: 회원 닉네임
+   * 반환: 거래내역 리스트 뷰단
+   * */
+  @RequestMapping(value = "/challenge/applyStatusChange",
+      method = RequestMethod.POST,
+      produces = "application/json; charset=UTF-8")
+  public void applyStatusChange(@RequestBody HashMap<String, String> filterJSON) {
+    log.debug("applyStatusChange({}) 컨트롤러에서 인풋 받아봤어영!!!!", filterJSON);
+    HashMap<String, String> param = new HashMap<>();
+    param.put("action", "rollback");
+    applyMemberService.applyAction(param); // 기존 실패건 초기화 함 해주자.
+
+
+    String applyIdx = filterJSON.get("apply_idx");
+
+    log.info("\t + pp result: {}", applyIdx);
+
+    // apply_idx = "9079";
+
+
+    param.put("apply_idx", applyIdx);
+    param.put("action", "pay");
+
+    boolean result = applyMemberService.applyAction(param); // 결제하려는 회원의 참여상태정보 임시 x로 변경
+    log.info("\t + result: {}", result);
+
+
+  } // applyStatusChange
 
 
   /**
@@ -289,30 +320,21 @@ String id = "testJihye";
     boolean rollbackAmemStatus ;
     boolean setAmemRow ;
 
-    String resultHtml = "";
+
 
     if(!result){  // insert 실패했다면 (== 거래실패) 참여상태 원복
       rollbackAmemStatus= applyMemberService.applyAction(amem);
       log.info("service.applyMemberService({}): ", rollbackAmemStatus);
 
-      resultHtml = "     Swal.fire({\n"
-          + "                  icon : 'warning', \n"
-          + "                  title: '결제실패', \n"
-          + "                  text : '다시 시도해주세요.', \n"
-          + "                });";
     } else { // 거래정보 insert 성공시 예약내역에 상태 정보 정상으로 업데이트
       amem.put("action", "payOK");
       setAmemRow= applyMemberService.applyAction(amem);
-      log.info("service.setReservation({}): ", setAmemRow);
+
+          log.info("service.setReservation({}): ", setAmemRow);
     }
 
-    // userMe(paymentAuthDTO.getTokenType(), paymentAuthDTO.getAccessToken(), paymentAuthDTO.getUserSeqNo());
+     return "<script>window.close();opener.location.reload();</script>";
 
-    //TODO row값 따라서 view 변경해주기 - 실패시 실패 알럿, 성공시 예약내역리스트 ㄱ
-//    return "<script>window.close();</script>";
-
-    // return "<script>opener.location.replace('/cafe/list');window.close();"+resultHtml+"</script>";
-return  null;
   } // withdraw
 
 

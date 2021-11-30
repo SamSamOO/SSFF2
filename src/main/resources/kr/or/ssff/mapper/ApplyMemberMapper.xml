@@ -102,16 +102,17 @@ or action == "fail"' > <!-- 챌린지가입신청->대기, 결제 실패시에�
 			SET study_join_arciwf = 'w', study_join_change_date = sysdate
 			WHERE apply_idx =#{apply_idx}
 		</if>
-<!--		<if test='action == "fail"'> &lt;!&ndash; 가입실패(결제x) &ndash;&gt;-->
-<!--			UPDATE apply_member-->
-<!--			SET study_join_arciwf = 'f', study_join_change_date = sysdate-->
-<!--			WHERE apply_idx =#{apply_idx}-->
-<!--		</if>-->
 
 		<if test='action == "pay"'> <!-- 챌린지 참여결제 전 임시 상태 -->
 			UPDATE apply_member
 			SET study_join_arciwf = 'x', study_join_change_date = sysdate
 			WHERE apply_idx =#{apply_idx}
+		</if>
+
+		<if test='action == "rollback"'> <!-- 모든 가입실패(결제x)건을 되돌리깅! -->
+			UPDATE apply_member
+			SET study_join_arciwf = 'g', study_join_change_date = sysdate
+			WHERE study_join_arciwf = 'x'
 		</if>
 
 	</update>
@@ -133,7 +134,7 @@ or action == "fail"' > <!-- 챌린지가입신청->대기, 결제 실패시에�
 		FROM
 			apply_member
 		WHERE
-			STUDY_JOIN_ARCIWF = 't'
+			STUDY_JOIN_ARCIWF = 'x'
 
 	</select>
 
