@@ -93,7 +93,7 @@
 
                                 <div class="studylist-nav d-inline-block w-100 mt-4 mb-4 pt-4 rounded-xl shadow">
                                     <!--스터디리스트 중간 로고 박힌 네비 부분-->
-                                    <ul class="logo-to-sort d-flex flex-wrap justify-content-center ">
+                                    <ul class=" logo-to-sort d-flex flex-wrap justify-content-center ">
                                         <li><img src="/resources/assets/images/logos/language/javascript.png"
                                                  width="50px" onclick="logoClicked('javascript')" id="logo_javascript"></li>
                                         <li><img src="/resources/assets/images/logos/language/typescript.png"

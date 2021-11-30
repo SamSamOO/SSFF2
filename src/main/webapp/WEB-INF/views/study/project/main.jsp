@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <!----------------Head 시작----------------------->
@@ -213,19 +214,90 @@
                                         </div>
                                     </div>
                                     <!--캘린더 섹션 end------->
-                                    <li class="mainpage_index">▶ 게시판</li>
+                                    <li class="mainpage_index"><a href="/studyIns/board/list?r_Idx=${map.get("r_Idx")}"><span>▶ 게시판 이동</span></a></li>
+    
+    
                                     <!--to 상준 : 여기 21, 22번째줄을 보면 여기 들어온 아이디랑 여기 게시글번호가 하드코딩 되어있어
                                         마이페이지 받고 마이페이지 통해서 정상적으로 들어오게되면 바꿔야 하구 그때까지는 저 하드코딩
                                         밸류값 가져오면 될듯해-->
-                                    <table border="1">
-                                        <tr>
-                                            <td>가나다</td>
-                                            <td>가나다</td>
+                                    <table class="table  table-striped table-hover">
+        
+                                        <thead>
+                                        <tr id="mytr">
+                                            <td>
+                <span class="label label-inline label-light-primary font-weight-bold ">
+                    카테고리
+                </span>
+                                            </td>
+                                            <td>
+                <span class="label label-inline label-light-primary font-weight-bold ">
+                    제목
+                </span>
+                                            </td>
+                                            <td>
+                <span class="label label-inline label-light-primary font-weight-bold">
+                    내용
+                </span>
+                                            </td>
+                                            <td>
+                <span class="label label-inline label-light-primary font-weight-bold">
+                    닉네임
+                </span>
+                                            </td>
+        
                                         </tr>
-                                        <tr>
-                                            <td>가나다</td>
-                                            <td>가나다</td>
-                                        </tr>
+                                        </thead>
+                                        <tbody>
+        
+                                        <c:forEach end="3" var="noticeList" items="${notice}">
+            
+                                            <tr style="background-color: oldlace">
+                                                <td>공지</td>
+                                                <td>공지</td>
+                                                <td><a
+                                                        href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
+                                                        <c:out value="${noticeList.title}"/><a/>
+                                                        ${map.boardPager.curPage}
+                                                </td>
+                                                <td>
+                                                    <c:out value="${fn:substring(noticeList.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
+                                                <td>${noticeList.member_Name} </td>
+            
+            
+                                            </tr>
+                                        </c:forEach>
+        
+        
+                                        <c:set value="${fn:replace(pageMaker.total,' ' ,'' ) }" var="total"/>
+        
+                                        <c:forEach items="${list}" var="list" varStatus="status" end="5">
+            
+                                            <tr>
+                                                <c:choose>
+                                                    <c:when test="${map.get('category') eq '공지'}">
+                                                        <td>공지</td>
+                                                    </c:when>
+                
+                                                </c:choose>
+                
+                                                <td>${list.category}</td>
+                                                <td><a
+                                                        href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
+                                                        <c:out value="${list.title}"/> <a/>
+                                                </td>
+                                                <td>
+                                                    <c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
+                                                <td>${list.member_Name} </td>
+                                            </tr>
+                                        </c:forEach>
+                                        <c:if test="${total eq '0'}">
+                                            <tr>
+                                                <td colspan="12" style="">
+                                                    <h2 style="font-weight: 700; text-align: center; margin-bottom: 10px; margin-top: 10px">불러올 리스트가 없습니다.</h2>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                        </tbody>
                                     </table>
 
                                 </ul>

@@ -26,10 +26,8 @@ import java.util.List;
 @Component
 public class SocketHandler extends TextWebSocketHandler{
     
-    HttpSession sessionHttp;
     
     
-    ChattingService service;
     
     //HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
     
