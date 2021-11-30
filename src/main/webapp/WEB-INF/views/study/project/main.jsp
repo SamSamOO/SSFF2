@@ -7,14 +7,16 @@
 <!----------------Head 시작----------------------->
 
 <head>
-    <link href="../../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
+    <!--head.html Include-->
+    <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+    <link href="/resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
     <title>"엮인글" 팀의 메인페이지</title><!--r_idx로 스터디 팀네임 가져올것-->
     <!--fullcalendar 관련 설정----------------------------->
-    <link href="../../../../resources/assets/fullcalendar/modal.css" rel="stylesheet"/>
-    <link href='../../../../resources/assets/fullcalendar/fullcalendar/lib/main.css'
+    <link href="/resources/assets/fullcalendar/modal.css" rel="stylesheet"/>
+    <link href='/resources/assets/fullcalendar/fullcalendar/lib/main.css'
           rel='stylesheet'/>
-    <script src='../../../../resources/assets/fullcalendar/fullcalendar/lib/main.js'></script>
-    <script src='../../../../resources/assets/fullcalendar/script.js'></script>
+    <script src='/resources/assets/fullcalendar/fullcalendar/lib/main.js'></script>
+    <script src='/resources/assets/fullcalendar/script.js'></script>
     <!--상부 js를 위한 설정-->
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!--이게 여기있는게 맞나 싶긴 한데.. 그래도 넣어놓음-->
@@ -74,11 +76,7 @@
       })
     </script>
 
-
     <!--fullcalendar 관련 설정 end---------------------------->
-
-    <!--head.html Include-->
-    <jsp:include page="../../../commons/head.jsp"/>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -93,10 +91,10 @@
         <!--begin::Wrapper-->
         <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
             <!------------------header.html Include------------------>
-            <jsp:include page="../../../commons/header.jsp"/>
+            <jsp:include page="/WEB-INF/commons/header.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 시작------------------>
             <!--menu.html Include-->
-            <jsp:include page="../../../commons/menu_main.jsp"/>
+            <jsp:include page="/WEB-INF/views/member/menu_mypage.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 종료------------------>
             <!--컨테이너 시작-->
             <div class="d-flex flex-row flex-column-fluid container">
@@ -139,24 +137,23 @@
                         <!--대시보드 시작-->
 
                         <!--풀 사이즈 카드 시작 / 카드 필요 없으면 여기서부터 밀기☆-->
-                        <div class="card card-custom gutter-b card-stretch">
+                        <div class="card card-custom">
 
                             <!--카드 Body 시작-->
-                            <div class="card-header border-0 pt-5 card-body mt-5"
+                            <div class="border-0 pt-5 card-body mt-5"
                                  id="post-body-wrapper"><!--id="post-body-wrapper" 이거 넣으면 가운데정렬-->
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
-                                <ul style="list-style: none">
-                                    <li class="mainpage_index">▶ 일정 관리</li>
+                                <div class="d-flex flex-column w-100">
+                                    <div class="mainpage_index border rounded">▶ 일정 관리</div>
                                     <!--캘린더 섹션 start------->
-                                    <div id="calendar-sec" style="width: 900px"><!--캘린더 크기 설정-->
+                                    <div id="calendar-sec" class="d-flex justify-content-center"><!--캘린더 크기 설정-->
                                         <!--calendar api-->
-                                        <div id='calendar'></div>
-
+                                        <div id='calendar' class="d-flex flex-column w-100"></div>
                                         <!--modal-->
                                         <div class="calmodal hidden">
                                             <div class="calmodal-overlay"></div>
                                             <div class="calmodal-content">
-                                                <img src="../../../../resources/assets/images/icon/close.png"
+                                                <img src="/resources/assets/images/icon/close.png"
                                                      style="width:20px;" id="close">
                                                 <!--❎이거 어케한거지..-->
                                                 <h1 id="cal-title-sec">
@@ -215,10 +212,11 @@
                                         </div>
                                     </div>
                                     <!--캘린더 섹션 end------->
-                                    <li class="mainpage_index">▶ 게시판</li>
+                                    <div class="mainpage_index rounded">▶ 게시판</div>
                                     <!--to 상준 : 여기 21, 22번째줄을 보면 여기 들어온 아이디랑 여기 게시글번호가 하드코딩 되어있어
                                         마이페이지 받고 마이페이지 통해서 정상적으로 들어오게되면 바꿔야 하구 그때까지는 저 하드코딩
                                         밸류값 가져오면 될듯해-->
+                                    <div>
                                     <table border="1">
                                         <tr>
                                             <td>가나다</td>
@@ -229,8 +227,8 @@
                                             <td>가나다</td>
                                         </tr>
                                     </table>
-
-                                </ul>
+                                    </div>
+                                </div>
                                 <!----------------------------------------------------------------------------------------------------------------------------->
                                 
                             </div>
