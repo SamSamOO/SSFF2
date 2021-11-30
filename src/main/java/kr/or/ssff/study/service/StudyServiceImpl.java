@@ -26,7 +26,15 @@ import org.springframework.stereotype.Service;
 public class StudyServiceImpl implements StudyService {
 
     private StudyMapper mapper;
-
+    
+    @Override
+    public Integer getAtd(HashMap<String, Object> map){
+        log.info("getAtd({}) is invoked", "map = " + map);
+    
+        Objects.requireNonNull(mapper);
+        return mapper.getAtd(map);
+    }
+    
     @Override
     public boolean register(RecruitBoardVO vo) {
         int affectedRows = mapper.insert(vo);
@@ -291,8 +299,13 @@ public class StudyServiceImpl implements StudyService {
 
         return applyList;
     }//getMemberByR_idx
-
-
+    
+    @Override
+    public ApplyMemberDTO getTeamName(Integer r_idx){
+    
+        return this.mapper.getTeamName(r_idx);
+    }
+    
 }//end class
 
 
