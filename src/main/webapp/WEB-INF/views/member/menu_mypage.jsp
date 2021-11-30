@@ -34,7 +34,7 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/member/studyList" class="menu-link">
+                                <a href="/member/studyList?memberName=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
@@ -42,21 +42,14 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/applyMember/reservationList" class="menu-link">
+                                <a href="/applyMember/reservationList?memberName=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
                                     <span class="menu-text">내가 예약한 스터디 카페</span>
                                 </a>
                             </li>
-                            <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/applyMember/paymentList" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">내 거래 내역</span>
-                                </a>
-                            </li>
+                            
                         </ul>
                         <!--1차 서브 메뉴 종료-->
                     </div>

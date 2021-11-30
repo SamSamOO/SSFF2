@@ -199,7 +199,7 @@
                                                             <div class="d-flex justify-content-between">
                                                                   <div><span>▶ 일정 관리 </span></div>
                                                                   <div>
-                                                                        <span style="font-weight: 700"> <span style="color: #00b300">${map.at}</span> 일 출석</span>
+                                                                        <span style="font-weight: 700"> <span style="color: #00b300"><c:choose><c:when test="${map.at eq '0'}">${map.at}</c:when><c:otherwise>0</c:otherwise></c:choose></span> 일 출석</span>
                                                                   </div>
                                                             </div>
                                                       </li>

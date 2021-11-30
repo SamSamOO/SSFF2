@@ -1,7 +1,11 @@
 package kr.or.ssff.member.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
+import kr.or.ssff.study.domain.RecruitBoardVO;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +41,17 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 
     @Autowired
     private JavaMailSender mailSender;
-
-
+    
+    @Override
+    public List<RecruitBoardVO> getMyStudyList(HashMap<String, Object> map){
+        log.info("getMyStudyList({}) is invoked", "map = " + map);
+    
+        Objects.requireNonNull(mapper);
+        List<RecruitBoardVO> list = this.mapper.getMyStudyList(map);
+        
+        return list;
+    }
+    
     // 회원가입 로직(장순형)
     @Override
     public void insertMember(MemberDTO memberDTO) throws Exception{

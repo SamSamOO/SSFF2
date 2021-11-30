@@ -449,10 +449,9 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 메인 페이지
      * */
     @GetMapping("/challenge/main")
-    public String challengeMainGo(@RequestParam(value = "r_Idx") Integer r_Idx, Criteria criteria, Model model, HttpSession session) throws Exception{
+    public String challengeMainGo(@RequestParam("r_Idx") Integer r_Idx, Criteria criteria, Model model, HttpSession session) throws Exception{
         log.info("challengeMainGo({}) is invoked", "r_Idx = " + r_Idx + ", criteria = " + criteria + ", model = " + model);
         MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
-        
         HashMap<String, Object> map = new HashMap<>();
     
         map.put("r_Idx", r_Idx);
@@ -460,9 +459,10 @@ public class StudyController {
         map.put("amount", criteria.getAmount());
         map.put("category", "전체");
         map.put("member_name", memberDTO.getMember_name());
+        log.info("map = {}", map);
         
         Objects.requireNonNull(service);
-    
+        log.info("map = {}", map);
         ApplyMemberDTO dto = this.service.getTeamName(r_Idx);
     
         log.info("dto={}", dto);
@@ -482,6 +482,7 @@ public class StudyController {
         model.addAttribute("map", map);
         model.addAttribute("list", list);
         model.addAttribute("notice", listOfNotice);
+        log.info("map = {}", map);
         
         return "/study/challenge/main";
     }
