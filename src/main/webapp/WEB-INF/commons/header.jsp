@@ -153,7 +153,7 @@
                             </c:when>
                             <c:otherwise>
                                 <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
-                                    <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default.png" />
+                                    <img alt="Profile Pic" src="/resources/assets/images/icon/profile_default_g_w.png" />
                                 </div>
                             </c:otherwise>
                         </c:choose>
