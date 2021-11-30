@@ -170,7 +170,7 @@ public class CafeController {
    * */
   @PostMapping("/reserve/insert")
   public void insertReservation(RedirectAttributes rttrs,
-      @ModelAttribute("reservationDTO") ReservationDTO reservationDTO,
+      @ModelAttribute(" ") ReservationDTO reservationDTO,
       Model model) {
     log.info("insertReservation({}) is invoked", reservationDTO);
 

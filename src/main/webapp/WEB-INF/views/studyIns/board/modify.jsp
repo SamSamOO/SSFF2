@@ -12,51 +12,51 @@
 
     <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
-<%--    <script>--%>
-<%--        <c:choose>--%>
-<%--        <c:when test="${member.member_id==null}">--%>
+    <script>
+        <c:choose>
+        <c:when test="${member.member_id==null}">
 
-<%--        Swal.fire({--%>
-<%--            icon: 'warning', // Alert 타입--%>
-<%--            title: '로그인 오류', // Alert 제목--%>
-<%--            text: '로그인 하세요', // Alert 내용--%>
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '로그인 오류', // Alert 제목
+            text: '로그인 하세요', // Alert 내용
 
-<%--            buttons: {--%>
-<%--                confirm: {--%>
-<%--                    text: '확인 ',--%>
-<%--                    value: true,--%>
-<%--                    className: 'btn btn-outline-primary'--%>
-<%--                }--%>
-<%--            }--%>
-<%--        }).then((result)=>{--%>
-<%--            if (result) {--%>
-<%--                location.href = "/member/loginGo";--%>
-<%--            }--%>
-<%--        });--%>
+            buttons: {
+                confirm: {
+                    text: '확인 ',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "/member/loginGo";
+            }
+        });
 
-<%--        </c:when>--%>
-<%--        <c:when test="${inStudy==0}">--%>
-<%--        Swal.fire({--%>
-<%--            icon: 'warning', // Alert 타입--%>
-<%--            title: '스터디원이 아닙니다.', // Alert 제목--%>
-<%--            text: '스터디원이 아닙니다.', // Alert 내용--%>
+        </c:when>
+        <c:when test="${inStudy==0}">
+        Swal.fire({
+            icon: 'warning', // Alert 타입
+            title: '스터디원이 아닙니다.', // Alert 제목
+            text: '스터디원이 아닙니다.', // Alert 내용
 
-<%--            buttons: {--%>
-<%--                confirm: {--%>
-<%--                    text: '스터디 ',--%>
-<%--                    value: true,--%>
-<%--                    className: 'btn btn-outline-primary'--%>
-<%--                }--%>
-<%--            }--%>
-<%--        }).then((result)=>{--%>
-<%--            if (result) {--%>
-<%--                location.href = "javascript:history.back()";--%>
-<%--            }--%>
-<%--        });--%>
+            buttons: {
+                confirm: {
+                    text: '스터디 ',
+                    value: true,
+                    className: 'btn btn-outline-primary'
+                }
+            }
+        }).then((result)=>{
+            if (result) {
+                location.href = "javascript:history.back()";
+            }
+        });
 
-<%--        </c:when>--%>
-<%--        </c:choose>--%>
-<%--    </script>--%>
+        </c:when>
+        </c:choose>
+    </script>
 </head>
 
 <!----------------Head 종료----------------------->

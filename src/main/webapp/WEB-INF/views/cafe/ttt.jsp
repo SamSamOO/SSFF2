@@ -446,21 +446,23 @@
   // 결제를 위해 인증창 팝업
 	  function authorize() {
 		
-		  // 참여번호를 인풋값에 담아서
-		  let $amem = $('<input>', {
-			  type: "text",
-			  name: "apply_idx",
-			  value: "9002"
-		  })
-		
-		  console.log("$amem");
-		
-		  // form에 추가해서 보냄 고고
-		  $('#formObj').append($amem);
-		
-		  $('#formObj').submit();
-				
+		  // // 참여번호를 인풋값에 담아서
+		  // let $amem = $('<input>', {
+			 //  type: "text",
+			 //  name: "apply_idx",
+			 //  value: "9002"
+		  // })
+		  //
+		  // console.log("$amem");
+		  //
+		  // // form에 추가해서 보냄 고고
+		  // $('#formObj').append($amem);
+		  //
+		  // $('#formObj').submit();
+				//
 
+		  callAjax();
+				
 		  let location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?" +
 		                 "response_type=code&" +
 		                 "client_id=" + clientID + "&" +
@@ -478,7 +480,44 @@
 	  //
   }
 
-  
+
+
+  function callAjax(obj){
+	  var submitObj = new Object();
+	  let searchID = 9079; // 여기 화면단 ap-idx 뿌리기
+	  submitObj.apply_idx = searchID;
+	
+	  console.log("submitObj.rsrv_idx: " + submitObj.rsrv_idx);
+	
+	  $.ajax({
+		         type       : 'POST',
+		         url        : '/payment/rest/challenge/applyStatusChange',
+		         data       : JSON.stringify(submitObj), // 예약번호 들고 출발
+		         dataType   : 'text', // 받을 데이터는 json
+		         contentType: "application/json; charset=utf-8",
+		         success    : successCallback,
+		         error      : errorCallback
+	         });
+	
+	  // 성공시 데이터 처리
+	  function successCallback(data) {
+		  console.log("data: " + data);
+		
+		  Swal.fire('결제요청처리완!', '', 'success')
+		
+		//  window.location.href = '/cafe/reservationList';
+		
+	  } // successCallback
+	
+	  // 실패
+	  function errorCallback() {
+		  Swal.fire({
+			            icon : 'warning', // Alert 타입
+			            title: '요청실패', // Alert 제목
+			            text : '요청에 실패하였습니다. 다시 시도해주세요!', // Alert 내용
+		            });
+	  } // errorCallback
+  }
 </script>
 
 
