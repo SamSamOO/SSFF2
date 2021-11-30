@@ -200,9 +200,7 @@ public class CafeRestController {
     log.debug("getReservationList({}) is invoked", searchKey);
     log.info("ajax 요청 도착!");
 
-//    searchKey = new HashMap<>();
-    String member_name = "";
-    // jReservationVO 모든 정보 담아내기 (중복정보 있는 상태)
+    // 예약 내역 가져오깅 `~
     List<RsrvJoinTrnscVO> list = this.service.getRsrvJoinTrnscList(searchKey);
 
     //최종 완성될 JSONObject 선언(전체)
@@ -211,7 +209,7 @@ public class CafeRestController {
     JSONArray arr = new JSONArray();
 
     jsonObject.put("reservationList", list);
-
+    log.info("list({}) is >>>>>>>>>", list);
     // log.info("jsonObject {} =", jsonObject);
 
     // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)

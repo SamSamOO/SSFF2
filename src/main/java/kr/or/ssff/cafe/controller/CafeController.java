@@ -456,7 +456,7 @@ public class CafeController {
     log.info("deleteCafe({}) is invoked", cafe_idx);
 
     service.removeCafe(cafe_idx);
-    return "redirect:/cafe/list";
+    return "redirect:/manager/cafe/list";
   } // deleteCafe
 
 
