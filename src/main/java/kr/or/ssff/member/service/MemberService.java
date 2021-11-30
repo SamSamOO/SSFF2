@@ -1,5 +1,6 @@
 package kr.or.ssff.member.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import kr.or.ssff.member.domain.MemberDTO;
