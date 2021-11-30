@@ -88,30 +88,6 @@ public class ManagerController {
         return "manager/member/info/list";
     } // selectMemberDetail
 
-    /*회원별 상세 정보 수정 페이지 이동
-     * 파라메터 : MemberVo --member --??
-     *  반환 : 멤버 상세정보 수정 페이지
-     * */
-    @GetMapping("/member/info/modifyGo")
-    public String updateMemberGo(MemberDTO member) {
-
-        log.info("updateMemberGo({}) is invoked", "member = " + member);
-
-        return "manager/member/info/modify";
-    } // updateMemberGo
-
-    //TODO 이게맞는지?
-    /*회원별 상세 정보 수정 기능 수행
-     * 파라메터 : MemberVo --member
-     * 반환 : 상세 정보 수정 페이지로 포워드
-     * */
-    @PostMapping("/member/info/modify")
-    public String updateMember(MemberVO member) {
-        log.info("updateMember({}) is invoked", "member = " + member);
-
-        return "forward:/manager/member/info/modifyGo";
-    } // updateMember
-
     //TODO 민주누나 이거 활동 내역이라는게 어떤걸 조회하는거지??
     /*회원별 활동 내역 조회
      * 파라메터 : List -- <Member>
