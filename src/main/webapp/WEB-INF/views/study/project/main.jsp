@@ -18,12 +18,14 @@
     <!--상부 js를 위한 설정-->
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <!--이게 여기있는게 맞나 싶긴 한데.. 그래도 넣어놓음-->
-    <input type="hidden" id="member_name" value="nickname55"><!--이 페이지로 접근한 아이디-->
+    <input type="hidden" id="member_name" value="${member.member_name}"><!--이 페이지로 접근한 아이디-->
     <input type="hidden" id="r_idx" value=129><!--이 페이지의 스터디번호-->
 
     <script>
-      let r_idx = document.querySelector('#r_idx').value;
-      let calendarData
+      let r_idx = ${map.r_Idx};
+      console.log(r_idx);
+          //document.querySelector('#r_idx').value;
+      let calendarData;
 
       async function doGetCalendarData() {
         calendarData = await getFullCalendarData(r_idx);
@@ -158,7 +160,7 @@
                                                      style="width:20px;" id="close">
                                                 <!--❎이거 어케한거지..-->
                                                 <h1 id="cal-title-sec">
-                                                    <span>[코벤져스]</span> <!--팀명 자동으로 들어옴-->
+                                                    <!--팀명 자동으로 들어옴-->
                                                     <input type="text" id="calendar-title"
                                                            placeholder="일정 제목을 입력하세요">
                                                 </h1>

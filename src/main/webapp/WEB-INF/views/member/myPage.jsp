@@ -1,15 +1,77 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 
 <head>
 	<meta charset="UTF-8">
-		<%-- TODO 로그인한 사람이랑 페이지 주인이 다르면 어쩌구 하고싶어--%>
-			<title>${member.member_name}님의 마이 페이지</title>
+	<!--예솔 for calendar-->
+	<link href="../../../resources/assets/css/yesol.css" rel="stylesheet" type="text/css">
+	<link href="../../../resources/assets/fullcalendar/modal.css" rel="stylesheet"/>
+	<link href='../../../resources/assets/fullcalendar/fullcalendar/lib/main.css' rel='stylesheet'/>
+	<script src='../../../resources/assets/fullcalendar/fullcalendar/lib/main.js'></script>
+	<script src='../../../resources/assets/fullcalendar/script.js'></script>
+	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<input type="hidden" id="member_name" value="${member.member_name}">
+
+	<script>
+		let member_name = document.querySelector('#member_name').value;
+		let calendarData
+
+		async function doGetCalendarData() {
+			calendarData = await getFullCalendarData(member_name);
+		}
+
+		doGetCalendarData()
+
+		if (!calendarData) {
+			calendarData = exmapleData()
+		}
+		let calendar
+		let currentEvent
+
+		document.addEventListener('DOMContentLoaded', function () {
+			let calendarEl = document.getElementById('calendar')
+			calendar = new FullCalendar.Calendar(calendarEl, {
+				initialView: 'dayGridMonth',
+				// initialDate: '2021-11-07',
+				headerToolbar: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'registAttendance,addEventButton'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
+				},
+				selectable: true,
+				editable: true,
+				customButtons: {
+					addEventButton: {
+						text: '일정 추가',
+						click: () => {
+							openModal()
+						}
+					},
+					registAttendance: {
+						text: '출석 체크',
+						click: () => {
+							openModal()
+						}
+					}
+				},
+				eventClick: (arg) => {
+					openModal(arg)
+				},
+				events: calendarData
+			})
+			calendar.render()
+		})
+	</script>
+
+	<!--예솔 for calendar end-->
+	<%-- TODO 로그인한 사람이랑 페이지 주인이 다르면 어쩌구 하고싶어--%>
+	<title>${member.member_name}님의 마이 페이지</title>
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>
+	<!--<script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>-->
 </head>
 <!----------------Head 종료----------------------->
 
@@ -185,7 +247,75 @@
 								<!--카드 헤더 종료-->
 								<!--카드 Body 시작-->
 								<div class="card-body">
-									예솔이가 꿈을 펼칠곳....
+									마이페이지 리스트 적당히 넣어줍니다.
+
+									<div id='calendar'></div>
+									<!--modal part-->
+
+									<!--modal-->
+									<div class="calmodal hidden">
+										<div class="calmodal-overlay"></div>
+										<div class="calmodal-content">
+											<img src="../../../../resources/assets/images/icon/close.png"
+												 style="width:20px;" id="close">
+											<!--❎이거 어케한거지..-->
+											<h1 id="cal-title-sec">
+												<!--<span>[코벤져스]</span> 팀명 자동으로 들어옴-->
+												<input type="text" id="calendar-title"
+													   placeholder="일정 제목을 입력하세요">
+											</h1>
+											<div id="cal-time-sec">
+												<div class="cal-index"
+													 style="display:inline-block">일시
+												</div>
+												<label>종일</label><input type="checkbox"
+																		id="allday"
+																		name="allday" checked>
+												<br>
+												<input type="date" id="calendar-start-date"
+													   name="cal_start"
+													   class="form-control inputBoxSetting1">
+												<span>&nbsp;&nbsp;~</span>
+												<input type="date" id="calendar-end-date"
+													   name="cal_end"
+													   class="form-control inputBoxSetting1">
+												<br>
+												<br>
+												<div class="timeHidden hidden">
+													<label for="calendar-start-time">시작</label><input
+														type="time" id="calendar-start-time"
+														step="900" required
+														class="form-control inputBoxSetting2">
+													<label for="calendar-end-time">종료</label><input
+														type="time" id="calendar-end-time"
+														step="900" required
+														class="form-control inputBoxSetting2">
+												</div>
+											</div>
+											<div id="cal-cont-sec">
+												<p class="cal-index">내용</p>
+												<textarea id="calendar-content"></textarea>
+											</div>
+
+											<div id="cal-button-sec">
+												<button id="modal-regist" class="cal-button"
+														onclick="eventRegist()">일정 등록하기
+												</button>
+												<button id="modal-modify"
+														class="hidden cal-button"
+														onclick="modifyEvent()">수정
+												</button>
+												<button id="modal-delete"
+														class="hidden cal-button"
+														onclick="deleteEvent()">삭제
+												</button>
+
+											</div>
+										</div>
+									</div>
+
+
+									<!--modal part end-->
 								</div>
 								<!--카드 Body 종료-->
 							</div>
@@ -200,7 +330,198 @@
 
 </form>
 </body>
+<!--script for calendar-->
+<script>
+	const modal = document.querySelector('.calmodal')
+	const modalRegist = document.querySelector('#modal-regist')
+	const modalModify = document.querySelector('#modal-modify')
+	const modalDelete = document.querySelector('#modal-delete')
 
+	const timeHidden = document.querySelector('.timeHidden')
+
+	const overlay = document.querySelector('.calmodal-overlay')
+	//모달창이 활성화되면 흐린 배경을 표현하는 요소
+
+	const closeBtn = document.getElementById('close')
+	//offModal button
+
+	const checkbox = document.querySelector("input[name=allday]");
+	let checkboxStatus = 'y' //종일이면 y, 아니면 n
+	//종일체크
+
+	const closeModal = () => {
+		modal.classList.add('hidden')
+	}
+
+	closeBtn.addEventListener('click', closeModal)
+	//모달창 내부의 닫기 버튼
+
+	overlay.addEventListener('click', (e) => {
+		if (e.target.className === 'calmodal-overlay') {
+			closeModal()
+		}
+	})
+
+	//모달창 영역 밖
+
+	function openModal(arg) {
+		if (arg) {	// detail 일때
+			currentEvent = arg.event
+			console.log('arg : ', arg)
+			console.log(calendar.getEvents())
+			console.log(arg.event.id)
+			document.getElementById('calendar-title').value = arg.event.title
+
+			let startDay = arg.event._instance.range.start;
+			let endDay = arg.event._instance.range.end;
+			let allday_ok = arg.event.extendedProps.allday_ok;
+
+			console.log(allday_ok);
+			if (allday_ok == 'n') {
+				$('#allday').removeAttr('checked');
+				timeHidden.classList.remove('hidden')
+			} else {
+				$("#allday").attr("checked", true);
+				timeHidden.classList.add('hidden')
+			}
+			document.getElementById('calendar-start-date').value = new Date(
+					startDay + 3240 * 10000).toISOString().split("T")[0];
+			document.getElementById('calendar-end-date').value = new Date(
+					endDay + 3240 * 10000).toISOString().split("T")[0];
+			document.getElementById('calendar-start-time').value = startDay.toTimeString().split(
+					" ")[0].substr(0, 5);
+			document.getElementById('calendar-end-time').value = endDay.toTimeString().split(
+					" ")[0].substr(0, 5);
+			document.getElementById('calendar-content').value = arg.event.extendedProps.cal_cont
+			modalRegist.classList.add('hidden')
+			modalModify.classList.remove('hidden')
+			modalDelete.classList.remove('hidden')
+		} else {	// 등록 일때
+			document.getElementById('calendar-title').value = ''
+			document.getElementById('calendar-start-date').value = ''
+			document.getElementById('calendar-end-date').value = ''
+			modalRegist.classList.remove('hidden')
+			modalModify.classList.add('hidden')
+			modalDelete.classList.add('hidden')
+		}
+		modal.classList.remove('hidden')
+	}
+
+	function eventRegist() {
+		let time_start = "";
+		let time_end = "";
+		if (document.getElementById('calendar-start-time').value != "" && document.getElementById(
+				'calendar-end-time').value != "") {
+			time_start = "T" + document.getElementById('calendar-start-time').value + ":00";
+			time_end = "T" + document.getElementById('calendar-end-time').value + ":00";
+		} else {
+			time_start = "T00:00:00";
+			time_end = "T23:59:59";
+		}
+		let addEvent = {
+			member_name: document.querySelector('#member_name').value,
+			allday_ok: checkboxStatus,
+			title: document.getElementById('calendar-title').value,
+			start: new Date(document.getElementById('calendar-start-date').value + time_start),
+			end: new Date(document.getElementById('calendar-end-date').value + time_end),
+			cal_cont: document.querySelector('#calendar-content').value
+		}
+		let flag = true
+		if (!addEvent.title) {
+			flag = showAlarm(0)
+		} else if (!(addEvent.start).valueOf()) {
+			flag = showAlarm(1)
+		} else if (!(addEvent.end).valueOf()) {
+			flag = showAlarm(1)
+		}
+		if (!flag) return
+		//console.log(addEvent)
+		console.log('addEvent : ', addEvent)
+		calendar.addEvent(addEvent) // front calendar update
+		console.log(calendar.getEvents())
+		setFullCalendarData(document.querySelector('#r_idx').value, calendar.getEvents()) // db update 일단 뭔지 몰라서 엎어놓음
+		// setFullCalendarData(addEvent)
+		showAlarm(2)
+		closeModal()
+	}
+
+	function deleteEvent() {
+		if (showAlarm(5)) {
+			currentEvent.remove()  // front calendar update
+			setFullCalendarData(document.querySelector('#r_idx').value, calendar.getEvents()) // db update
+			showAlarm(3)
+			closeModal()
+		} else {
+			showAlarm(4)
+		}
+	}
+
+	function modifyEvent() {
+		if (showAlarm(6)) {
+			currentEvent.remove()  // front calendar update
+			setFullCalendarData(document.querySelector('#r_idx').value, calendar.getEvents()) // db update
+			eventRegist()
+			//showAlarm(7)
+			//closeModal()
+		} else {
+			showAlarm(8)
+		}
+	}
+
+	function showAlarm(type) {
+		switch (type) {
+			case 0:
+				alert('제목을 입력해주세요');
+				return false;
+				break;
+			case 1:
+				alert('날짜를 입력해 주세요');
+				return false;
+				break;
+			case 2:
+				alert('성공적으로 완료되었습니다( ":D" )');
+				return false;
+				break;
+			case 3:
+				alert('일정이 정상적으로 삭제되었습니다');
+				return false;
+				break;
+			case 4:
+				alert('일정 삭제가 취소되었습니다');
+				return false;
+				break;
+			case 5:
+				return confirm('정말 삭제하시겠습니까?');
+				break;
+			case 6:
+				return confirm('정말 수정하시겠습니까?');
+				break;
+			case 7:
+				alert('일정이 정상적으로 수정되었습니다');
+				return false;
+				break;
+			case 8:
+				alert('일정 수정이 취소되었습니다');
+				return false;
+				break;
+		}
+	}
+
+	checkbox.addEventListener('change', function () {
+		if (this.checked) {
+			timeHidden.classList.add('hidden')
+			checkboxStatus = 'y'
+		} else {
+			timeHidden.classList.remove('hidden')
+			checkboxStatus = 'n'
+		}
+	});//종일 체크가 되어있으면 시간체크를 보여주지 않는다
+
+</script>
+
+
+
+<!--script for calendar end-->
 </html>
 <script type="text/javascript">
 	function fn_modify() {
@@ -215,4 +536,7 @@
 			url: "/member/",  // 켈린더로 가는 링크
 		})
 	}
+
+
+
 </script>
