@@ -535,7 +535,7 @@
                CLOSED_OK,
                DEAD_OK
         FROM RECRUIT_BOARD RB
-        WHERE RB.R_IDX = ${r_Idx}
+        WHERE RB.R_IDX = #{r_Idx}
     </select>
 
     <select id="getAtd" parameterType="hashMap" resultType="Integer">
