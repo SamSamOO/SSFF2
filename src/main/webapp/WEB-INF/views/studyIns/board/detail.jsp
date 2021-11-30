@@ -277,7 +277,7 @@
                                                       <table class="table table-bordered table-borderless" style="width: 100%;  border-radius: 10px; border-style: hidden ; !important;">
                                                             <tr>
                                                                   <th align="left" height="50px">
-                                                                        <a href="javascript:history.back()"><i class="fas fa-arrow-left fa-3x" id="backBtn" style=""></i></a>
+                                                                        <a href="/studyIns/board/list?r_Idx=${detail.r_Idx}"><i class="fas fa-arrow-left fa-3x" id="backBtn" style=""></i></a>
                                                                   </th>
                                                             </tr>
                                                             <tr>

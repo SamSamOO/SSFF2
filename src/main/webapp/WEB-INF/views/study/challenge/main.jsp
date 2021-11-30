@@ -268,7 +268,7 @@
                                                       <div class="d-flex">
                                                             <div class="card-body">
                                                                   <div class="mainpage_index">
-                                                                        <a href="/studyIns/board/list?r_Idx=${map.get("r_Idx")}">
+                                                                        <a href="/studyIns/board/list?r_Idx=${map.get("r_Idx")}" style="color: blue">
                                                                               <li>▶ 게시판 이동</li>
                                                                         </a>
                                                                   </div>
@@ -306,7 +306,7 @@
                                                                         </thead>
                                                                         <tbody>
                                                                         
-                                                                        <c:forEach end="2" var="noticeList" items="${notice}">
+                                                                        <c:forEach end="1" var="noticeList" items="${notice}">
                                                                               
                                                                               <tr style="background-color: oldlace">
                                                                                     <td>공지</td>
