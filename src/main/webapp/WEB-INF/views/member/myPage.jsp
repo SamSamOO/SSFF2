@@ -21,7 +21,7 @@
 		let calendarData
 
 		async function doGetCalendarData() {
-			calendarData = await getFullCalendarData(member_name);
+			calendarData = await getFullCalendarData(member_name,'/calendar/getAll');
 		}
 
 		doGetCalendarData()
@@ -38,9 +38,9 @@
 				initialView: 'dayGridMonth',
 				// initialDate: '2021-11-07',
 				headerToolbar: {
-					left: 'prev,next today',
-					center: 'title',
-					right: 'registAttendance,addEventButton'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
+					left: 'title',
+					center: '',
+					right: 'prev,next today'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
 				},
 				selectable: true,
 				editable: true,
@@ -247,7 +247,7 @@
 								<!--카드 헤더 종료-->
 								<!--카드 Body 시작-->
 								<div class="card-body">
-									마이페이지 리스트 적당히 넣어줍니다.
+
 
 									<div id='calendar'></div>
 									<!--modal part-->
@@ -408,6 +408,7 @@
 	}
 
 	function eventRegist() {
+
 		let time_start = "";
 		let time_end = "";
 		if (document.getElementById('calendar-start-time').value != "" && document.getElementById(
