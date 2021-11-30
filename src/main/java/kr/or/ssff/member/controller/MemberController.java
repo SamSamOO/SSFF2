@@ -2,12 +2,11 @@ package kr.or.ssff.member.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import kr.or.ssff.member.domain.MemberVO;
+
 import kr.or.ssff.member.service.KaKaoService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ssff.member.domain.MemberDTO;
@@ -174,6 +173,7 @@ public class MemberController {
         mav.setViewName("member/login");
         String referer = request.getHeader("Referer");
         mav.addObject("referer", referer);
+        
         // 카카오 로그인
         mav.addObject("kakao_url", kakaoUrl);
 
@@ -211,11 +211,14 @@ public class MemberController {
         kname = properties.path("nickname").asText();
         kimage = properties.path("profile_image").asText();
 
+
+
         session.setAttribute("kemail", kemail);
         session.setAttribute("kname", kname);
         session.setAttribute("kimage", kimage);
 
         mav.setViewName("/main");
+
 
         return mav;
 
@@ -261,6 +264,7 @@ public class MemberController {
 
                 return "redirect:"+referer;        // 메인페이지 이동
 
+
             } else {                    // 비밀번호가 일치하지 않을 시 (로그인 실패)
                 log.debug("pw not match");
                 rttr.addFlashAttribute("result", 0);
@@ -281,6 +285,9 @@ public class MemberController {
 
         return "/registerWait";
     } // memberMainGo
+
+
+
 
 
 
@@ -339,32 +346,6 @@ public class MemberController {
 
             return "/member/idPwFind";
         }
-
-    /*회원별 상세 정보 수정 페이지 이동
-     * 파라메터 : MemberVo --member --??
-     *  반환 : 멤버 상세정보 수정 페이지
-     * */
-    @GetMapping("/member/info/modifyGo")
-    public String updateMemberGo(kr.or.ssff.member.model.MemberDTO member) {
-
-        log.info("updateMemberGo({}) is invoked", "member = " + member);
-
-        return "member/modify";
-    } // updateMemberGo
-
-
-    //TODO 이게맞는지?
-    /*회원별 상세 정보 수정 기능 수행
-     * 파라메터 : MemberVo --member
-     * 반환 : 상세 정보 수정 페이지로 포워드
-     * */
-    @PostMapping("/member/info/modify")
-    public String updateMember(MemberVO member) {
-        log.info("updateMember({}) is invoked", "member = " + member);
-
-        return "member/modifyGo";
-    } // updateMember
-
 
     @GetMapping("/modifyGo")
     public String modifyGo (){
