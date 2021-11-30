@@ -6,7 +6,7 @@
 	<title>메인화면입니다.</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
-	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/footer.jsp"></jsp:include>
+
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/header.jsp"></jsp:include>
 
@@ -30,7 +30,8 @@
 	<hr />
 	<h3>${kemail}</h3>
 	<h3>${kname}</h3>
-	<h3>${member_id}</h3>
+	<h3>${kimage}</h3>
+	<h3>${member.member_id}</h3>
 
 
 	<div id="k_email" style="text-align:center"></div>
@@ -45,6 +46,6 @@
 	</div>
 </c:if>
 
-
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/footer.jsp"></jsp:include>
 </body>
 </html>

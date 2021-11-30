@@ -3,7 +3,6 @@ package kr.or.ssff.member.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 
 
-
 import kr.or.ssff.member.service.KaKaoService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +17,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import org.springframework.web.bind.annotation.*;
-
-import kr.or.ssff.member.domain.MemberVO;
 
 import kr.or.ssff.member.service.MemberService;
 import lombok.NoArgsConstructor;
@@ -34,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 
 /*
 
@@ -55,7 +54,6 @@ public class MemberController {
     // 장순형  시큐리티 암호화
     @Setter(onMethod_ = {@Autowired})
     private BCryptPasswordEncoder passwordEncoder;
-
 
     /* 회원가입 페이지 이동 --순형
      * 파라메터  : 없음
@@ -175,6 +173,7 @@ public class MemberController {
         mav.setViewName("member/login");
         String referer = request.getHeader("Referer");
         mav.addObject("referer", referer);
+        
         // 카카오 로그인
         mav.addObject("kakao_url", kakaoUrl);
 
@@ -203,14 +202,21 @@ public class MemberController {
 
         String kemail = null;
         String kname = null;
-
+        String kimage = null;
 
         JsonNode properties = userInfo.path("properties");
         JsonNode kakao_account = userInfo.path("kakao_account");
+
         kemail = kakao_account.path("email").asText();
         kname = properties.path("nickname").asText();
+        kimage = properties.path("profile_image").asText();
+
+
+
         session.setAttribute("kemail", kemail);
         session.setAttribute("kname", kname);
+        session.setAttribute("kimage", kimage);
+
         mav.setViewName("/main");
 
 
@@ -305,11 +311,13 @@ public class MemberController {
             return "/member/myPage";
         } // myPageGo
 
+
         /* 가입한 스터디 목록 페이지로 이동
          * 파라메터 : nickname
          * 스터디 목록 페이지
          * */
-        @GetMapping("/studyList")
+
+   @GetMapping("/studyList")
         public String selectStudyList (String nickname){
             log.debug("selectStudyList({}) is invoked", "nickname = " + nickname);
 
@@ -333,15 +341,25 @@ public class MemberController {
          * 아이디 / 비밀번호 찾기 페이지
          * */
         @GetMapping("/idPwFindGo")
-        public String idPwFindGo (String nickname){
-            log.debug("idPwFindGo({}) is invoked", "nickname = " + nickname);
+        public String idPwFindGo (){
+            log.debug("idPwFindGo({}) is invoked" );
 
             return "/member/idPwFind";
         }
 
+    @GetMapping("/modifyGo")
+    public String modifyGo (){
+        log.debug("modifyGo({}) is invoked");
 
+        return "/member/modify";
+    }
+//    @PostMapping("/uploadAjaxAction")
+//    public void uploadAjaxActionPOST(MultipartFile uploadFile){
+//        log.info("파일 이름 : " + uploadFile.getOriginalFilename());
+//        log.info("파일 타입 : " + uploadFile.getContentType());
+//        log.info("파일 크기 : " + uploadFile.getSize());
+//    }
 } // end class
-
 
 
 

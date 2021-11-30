@@ -56,7 +56,6 @@
             <props>
                 <prop key="mail.debug">true</prop>
                 <prop key="mail.smtp.starttls.ssl.enable">true</prop>
-                <prop key="mail.transport.protocol">smtp</prop>
                 <prop key="mail.smtps.ssl.checkserveridentity">true</prop>
                 <prop key="mail.smtp.auth">true</prop>
                 <prop key="mail.smtps.ssl.trust">*</prop>

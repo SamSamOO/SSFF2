@@ -105,7 +105,7 @@
 														<!--begin::Details-->
 														<div class="d-flex align-items-center flex-wrap mr-1">
 																<!--begin::Title-->
-																<h5 class="text-dark font-weight-bold mt-2 mb-2 mr-5">예약하기</h5>
+																<h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">예약하기</h5>
 																<!--end::Title-->
 																<!--begin::Separator-->
 																<div
@@ -537,7 +537,6 @@
 																											</thead>
 																											<tbody style="" class="datatable-body">
 																											
-																											
 																											<tr data-row="0" class="datatable-row" style="left: 0px;">
 																												<td class="col-4 datatable-cell-center datatable-cell" >
 																													<span
@@ -565,7 +564,7 @@
 																											<tr data-row="0" class="datatable-row" style="left: 0px;">
 																												<td class="col-4 datatable-cell-center datatable-cell
 																												font-weight-bolder" >이용 2일 전</td>
-																												<td class="text-dark-75 font-size-lg mb-0" >
+																												<td class="text-dark-75 text-center font-size-md mb-0" >
 																								
 																															총 금액의 50% 환불
 																												</td>
@@ -845,7 +844,6 @@
 		}
 	});
 
-	
 	// 개별 선택으로 전체 다 선택되었을 때, 전체선택에도 체크
 	// 체크박스 개별 선택
 	$(".checkbox_group").on("click", ".normal", function() {
