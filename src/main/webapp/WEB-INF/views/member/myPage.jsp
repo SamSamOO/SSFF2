@@ -26,7 +26,7 @@
 				<jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
 				<!------------------Header Wrapper : 메뉴 탭 시작------------------>
 				<!--menu.html Include-->
-				<jsp:include page="/WEB-INF/commons/menu_mypage.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/member/menu_mypage.jsp"></jsp:include>
 				<!------------------Header Wrapper : 메뉴 탭 종료------------------>
 				<!--컨테이너 시작-->
 				<div class="d-flex flex-row flex-column-fluid container">
