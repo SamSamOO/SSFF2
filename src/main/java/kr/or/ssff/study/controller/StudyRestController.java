@@ -190,9 +190,10 @@ public class StudyRestController {
         log.info("map = {}", map);
 
 //        int affectedRow = this.service.updateAttendance()
-
-
-        return this.service.updateAttendance(map);
+    
+        Boolean bl = this.service.updateAttendance(map);
+        log.info("bl = {}", bl);
+        return bl;
     }
 
 

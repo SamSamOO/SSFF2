@@ -60,6 +60,7 @@
         <p><a href="/cafe/reservationList">예약 내역 페이지</a></p>
         <p><a href="/studyIns/board/list?r_Idx=130">스터디내 게시판</a></p>
         <p><a href="/study/project/main">(예솔)여기 누르면 nickname55 -> 마이페이지 -> r_idx 129번 프로젝트 스터디 메인단</a></p>
+        <p><a href="/study/mypage/main">(예솔)여기 누르면 zxc -> 마이페이지 메인단 (캘린더 로직짜기용 임시)</a></p>
 
       </div>
       <!--카드 Body 종료-->

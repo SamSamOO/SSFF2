@@ -33,6 +33,7 @@
                     <!--유저 프로필 사진(비로그인시 숨김)-->
                     <c:if test="${member != null}">
                         <div class="symbol symbol-30 symbol-lg-40 symbol-circle mr-3">
+                            
                             <img alt="Profile Pic" src="/resources/assets/media/users/300_21.jpg" />
                         </div>
                     </c:if>

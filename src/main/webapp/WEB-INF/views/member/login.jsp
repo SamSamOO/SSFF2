@@ -61,29 +61,29 @@
                                     <span></span>Remember me</label>
                             </div>
                             <a class="nav-link" href="#" data-toggle="modal" data-target="#find">/비밀번호 찾기</a>
-                            <div class="modal" id="find">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
+<%--                            <div class="modal" id="find">--%>
+<%--                                <div class="modal-dialog">--%>
+<%--                                    <div class="modal-content">--%>
 
-                                        <!-- Modal Header -->
-                                        <div class="modal-header">
-                                            <h4 class="modal-title">비밀번호찾기</h4>
-                                            아이디를 입력하세요
-                                        </div>
+<%--                                        <!-- Modal Header -->--%>
+<%--                                        <div class="modal-header">--%>
+<%--                                            <h4 class="modal-title">비밀번호찾기</h4>--%>
+<%--                                            아이디를 입력하세요--%>
+<%--                                        </div>--%>
 
-                                        <!-- Modal body -->
-                                        <div class="modal-body">
-                                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" id="member_id" name="member_id" autocomplete="off" />
-                                        </div>
+<%--                                        <!-- Modal body -->--%>
+<%--                                        <div class="modal-body">--%>
+<%--                                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" id="member_id" name="member_id" autocomplete="off" />--%>
+<%--                                        </div>--%>
 
-                                        <!-- Modal footer -->
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">전송하기</button>
-                                        </div>
+<%--                                        <!-- Modal footer -->--%>
+<%--                                        <div class="modal-footer">--%>
+<%--                                            <button type="button" class="btn btn-danger" data-dismiss="modal">전송하기</button>--%>
+<%--                                        </div>--%>
 
-                                    </div>
-                                </div>
-                            </div>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
                         </div>
                         <button type="submit" id="kt_login_signin_submit" class="btn bg-ssff1 bg-hover-ssff2 font-size-lg font-weight-bolder px-9 py-4 my-3 mx-4">로그인</button>
                     </form>

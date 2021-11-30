@@ -3,12 +3,10 @@ package kr.or.ssff.member.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 
 
-import kr.or.ssff.member.Utils.UploadFileUtils;
 import kr.or.ssff.member.service.KaKaoService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ssff.member.domain.MemberDTO;
@@ -175,6 +173,7 @@ public class MemberController {
         mav.setViewName("member/login");
         String referer = request.getHeader("Referer");
         mav.addObject("referer", referer);
+        
         // 카카오 로그인
         mav.addObject("kakao_url", kakaoUrl);
 

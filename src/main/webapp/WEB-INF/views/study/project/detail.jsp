@@ -262,7 +262,7 @@
   }//getReply
 
   function replySubmit(){
-    let member_name = ${member.member_name}+"";
+    let member_name = '${member.member_name}';
     if(member_name==""){
       alert('로그인이 필요한 서비스입니다');
       return;
