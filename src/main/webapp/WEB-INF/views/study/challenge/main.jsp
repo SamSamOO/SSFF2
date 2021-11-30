@@ -195,7 +195,7 @@
                                           <div class="card-header border-0 pt-5 card-body mt-5"
                                                id="post-body-wrapper">
                                                 <ul style="list-style: none">
-                                                      <li class="mainpage_index"><span class="left-items">▶ 일정 관리 </span><span class="right-items">${}</span></li>
+                                                      <li class="mainpage_index"><div class="left-items"><span class="left-items">▶ 일정 관리 </span></div><div class="right-items"><span style="align-items: flex-end"> ${map.at} </span></div></li>
                                                       <!--캘린더 섹션 start------->
                                                       <div id="calendar-sec" style="width: 100%"><!--캘린더 크기 설정-->
                                                             <!--calendar api-->

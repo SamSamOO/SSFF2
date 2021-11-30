@@ -117,7 +117,9 @@ public interface StudyMapper{
     //가입했는지 체크
     public abstract List<ApplyMemberDTO> getMemberByR_idx(@Param("r_idx")Integer r_idx);
     
-    ApplyMemberDTO getTeamName(@Param("r_Idx") Integer r_idx);
+    public abstract ApplyMemberDTO getTeamName(@Param("r_Idx") Integer r_idx);
+    
+    public abstract Integer getAtd(@Param("map") HashMap<String, Object> map);
     
 }
 

@@ -4,8 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
 import kr.or.ssff.applyMember.domain.ApplyMemberVO;
+import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -446,15 +449,18 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 메인 페이지
      * */
     @GetMapping("/challenge/main")
-    public String challengeMainGo(@RequestParam(value = "r_Idx") Integer r_Idx, Criteria criteria, Model model) throws Exception{
+    public String challengeMainGo(@RequestParam(value = "r_Idx") Integer r_Idx, Criteria criteria, Model model, HttpSession session) throws Exception{
         log.info("challengeMainGo({}) is invoked", "r_Idx = " + r_Idx + ", criteria = " + criteria + ", model = " + model);
-    
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+        
         HashMap<String, Object> map = new HashMap<>();
     
         map.put("r_Idx", r_Idx);
         map.put("pageNum", criteria.getPageNum());
         map.put("amount", criteria.getAmount());
         map.put("category", "전체");
+        map.put("member_name", memberDTO.getMember_name());
+        
         Objects.requireNonNull(service);
     
         ApplyMemberDTO dto = this.service.getTeamName(r_Idx);
@@ -463,9 +469,15 @@ public class StudyController {
     
         List<StudyInsVO> list = this.serviceOfStudyIns.getList(map);
         log.info("list = {}", list);
+    
+        Integer at = this.service.getAtd(map);
+        log.info("at = {}", at);
+        
+        map.put("at", at);
+        
         List<StudyInsVO> listOfNotice = this.serviceOfStudyIns.showNotice(map);
         log.info("listOfNotice = {}", listOfNotice);
-    
+        
         model.addAttribute("dto", dto);
         model.addAttribute("map", map);
         model.addAttribute("list", list);
