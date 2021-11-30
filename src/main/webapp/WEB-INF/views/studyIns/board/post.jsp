@@ -260,7 +260,7 @@
                 console.log(formData);
             }
             $.ajax({
-                url: '/board/postGo',
+                url: '/studyIns/board/postGo',
                 processData: false,
                 contentType: false,
                 data: formData,

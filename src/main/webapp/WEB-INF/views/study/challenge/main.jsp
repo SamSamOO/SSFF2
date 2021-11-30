@@ -225,7 +225,7 @@
                                                 <!--begin::Page Heading-->
                                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                                       <!--Page Title : 페이지 제목 시작-->
-                                                      <h5 class="text-dark font-weight-bold my-1 mr-5">챌린지</h5>
+                                                      <h5 class="text-dark font-weight-bold my-1 mr-5">메인 페이지 :${dto.teamName}</h5>
                                                       <!--Page Title : 페이지 제목 종료-->
                                                       <!--Breadcrumb : 로드맵 시작-->
                                                       <ul

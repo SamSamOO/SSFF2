@@ -516,6 +516,11 @@
         FROM apply_member
         WHERE r_idx=#{r_idx}
     </select>
+
+    <select id="getTeamName" resultType="kr.or.ssff.applyMember.domain.ApplyMemberDTO">
+        SELECT R_IDX, MEMBER_NAME, TYPE_PC, TITLE, TEAMNAME, CONT, HIT, WRITEDATE, SIDO, CH_PATTERN, CH_START, CH_END, REMOVED_OK, CLOSED_OK, DEAD_OK
+        FROM RECRUIT_BOARD RB   WHERE RB.R_IDX=${r_Idx}
+    </select>
 </mapper>
 
 

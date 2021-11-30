@@ -453,9 +453,9 @@ public class StudyInsController implements InitializingBean, DisposableBean{
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/post")
-    public String studyBoardPost(@RequestParam("cont_No") Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile", required = false) MultipartFile[] uploadFile,
+    public String studyBoardPost( StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile", required = false) MultipartFile[] uploadFile,
                                  RedirectAttributes rttrs){
-        log.debug("studyBoardPost({} , {}) is invoked", "studyInsDTO = " + studyInsDTO, ", uploadFile = " + Arrays.deepToString(uploadFile));
+        log.info("studyBoardPost({}) is invoked", ", studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile) + ", rttrs = " + rttrs);
         
         String uploadFolder = "C:/temp/upload";
         
@@ -487,7 +487,7 @@ public class StudyInsController implements InitializingBean, DisposableBean{
                 
                 /*이미지 정보 객체입니다.*/
                 StudyInsFileDTO dto = new StudyInsFileDTO();
-                dto.setCont_No(cont_No);
+                dto.setCont_No(studyInsDTO.getCont_No());
                 
                 String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
                 
@@ -536,14 +536,14 @@ public class StudyInsController implements InitializingBean, DisposableBean{
         }
         Objects.requireNonNull(service);
         
-        if (service.register(cont_No, studyInsDTO, uploadFile)){
+        if (service.register(studyInsDTO.getCont_No(), studyInsDTO, uploadFile)){
             rttrs.addFlashAttribute("result", "success");
         } // if
         
         log.debug(service.findMaxContNo());
         
         //리다이렉트 파라미터 값 전송!
-        rttrs.addAttribute("cont_No", cont_No);
+        rttrs.addAttribute("cont_No", studyInsDTO.getCont_No());
         rttrs.addAttribute("r_Idx", studyInsDTO.getR_Idx());
         return "redirect:/studyIns/board/detail";
     } // studyBoardPost

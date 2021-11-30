@@ -411,13 +411,30 @@ public class StudyController {
      * 반환 : 프로젝트형 게시글 수정 페이지.
      * */
     @GetMapping("/project/main") //아이디와 게시글
-    public String projectMainGo(@RequestParam(value = "r_Idx",defaultValue = "9002") Integer r_idx, Model model) {
-        log.info("projectMainGo() is invoked");
+    public String projectMainGo(@RequestParam(value = "r_Idx") Integer r_Idx,Criteria criteria, Model model) throws Exception{
+        log.info("projectMainGo({}) is invoked", "r_Idx = " + r_Idx + ", criteria = " + criteria + ", model = " + model);
         HashMap<String, Object> map = new HashMap<>();
-        map.put("r_Idx", r_idx);
-        log.info("map = {}", map);
-
+    
+        map.put("r_Idx", r_Idx);
+        map.put("pageNum", criteria.getPageNum());
+        map.put("amount", criteria.getAmount());
+        map.put("category", "전체");
+        Objects.requireNonNull(service);
+    
+        ApplyMemberDTO dto = this.service.getTeamName(r_Idx);
+        
+        log.info("dto={}", dto);
+    
+        List<StudyInsVO> list = this.serviceOfStudyIns.getList(map);
+        log.info("list = {}", list);
+        List<StudyInsVO> listOfNotice = this.serviceOfStudyIns.showNotice(map);
+        log.info("listOfNotice = {}", listOfNotice);
+    
+        model.addAttribute("dto", dto);
         model.addAttribute("map", map);
+        model.addAttribute("list", list);
+        model.addAttribute("notice", listOfNotice);
+        
         return "study/project/main";
     } // updateProjectDetailGo
     
@@ -430,23 +447,30 @@ public class StudyController {
      * */
     @GetMapping("/challenge/main")
     public String challengeMainGo(@RequestParam(value = "r_Idx") Integer r_Idx, Criteria criteria, Model model) throws Exception{
-        
-        log.info("mainGo({}) is invoked", "model = " + model);
+        log.info("challengeMainGo({}) is invoked", "r_Idx = " + r_Idx + ", criteria = " + criteria + ", model = " + model);
     
         HashMap<String, Object> map = new HashMap<>();
-        
+    
         map.put("r_Idx", r_Idx);
         map.put("pageNum", criteria.getPageNum());
         map.put("amount", criteria.getAmount());
         map.put("category", "전체");
-        
         Objects.requireNonNull(service);
+    
+        ApplyMemberDTO dto = this.service.getTeamName(r_Idx);
+    
+        log.info("dto={}", dto);
+    
         List<StudyInsVO> list = this.serviceOfStudyIns.getList(map);
+        log.info("list = {}", list);
         List<StudyInsVO> listOfNotice = this.serviceOfStudyIns.showNotice(map);
-        
+        log.info("listOfNotice = {}", listOfNotice);
+    
+        model.addAttribute("dto", dto);
         model.addAttribute("map", map);
         model.addAttribute("list", list);
         model.addAttribute("notice", listOfNotice);
+        
         return "/study/challenge/main";
     }
 

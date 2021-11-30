@@ -291,8 +291,13 @@ public class StudyServiceImpl implements StudyService {
 
         return applyList;
     }//getMemberByR_idx
-
-
+    
+    @Override
+    public ApplyMemberDTO getTeamName(Integer r_idx){
+    
+        return this.mapper.getTeamName(r_idx);
+    }
+    
 }//end class
 
 
