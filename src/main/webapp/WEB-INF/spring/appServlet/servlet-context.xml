@@ -35,7 +35,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 
-    <beans:bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver" id="multipartResolver1"/>
+    <beans:bean class="org.springframework.web.multipart.support.StandardServletMultipartResolver" id="multipartResolver"/>
 
     <context:component-scan base-package="kr.or.ssff.controller"/>
 
@@ -56,7 +56,6 @@
 
 
             <mapping path="/member/modifyGo"/>
-
             <mapping path="/study/challenge/main"/>
             <mapping path="/study/challenge/postGo"/>
             <beans:ref bean="loginInterceptor"/>

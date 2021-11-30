@@ -18,6 +18,7 @@
   <typeAliases>
     <!-- payment start : 신지혜 -->
     <typeAlias alias="pAuth" type="kr.or.ssff.payment.model.PaymentAuthDTO"/>
+
     <typeAlias alias="pAcnt" type="kr.or.ssff.payment.model.PaymentAcntDTO"/>
 <!--    <typeAlias alias="pWithdraw" type="kr.or.ssff.payment.domain.PaymentWithdrawDTO"/>-->
 <!--    <typeAlias alias="pDeposit" type="kr.or.ssff.payment.domain.PaymentDipositDTO"/>-->

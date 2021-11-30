@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberVO;
 
 
@@ -15,6 +16,8 @@ import kr.or.ssff.member.domain.MemberVO;
 
 public interface ApplyMemberMapper {
 
+
+	public abstract  ApplyMemberVO selectTempApplyMember();
 
 	//-------------- 신지혜 스터디 참여멤버 관리 ---------------//
 	// 특정 스터디의 멤버 조회 : 신지혜
