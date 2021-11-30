@@ -195,7 +195,14 @@
                                           <div class="card-header border-0 pt-5 card-body mt-5"
                                                id="post-body-wrapper">
                                                 <ul style="list-style: none">
-                                                      <li class="mainpage_index"><div class="left-items"><span class="left-items">▶ 일정 관리 </span></div><div class="right-items"><span style="align-items: flex-end"> ${map.at} </span></div></li>
+                                                      <li class="mainpage_index">
+                                                            <div class="d-flex justify-content-between">
+                                                                  <div><span>▶ 일정 관리 </span></div>
+                                                                  <div>
+                                                                        <span style="font-weight: 700"> <span style="color: #00b300">${map.at}</span> 일 출석</span>
+                                                                  </div>
+                                                            </div>
+                                                      </li>
                                                       <!--캘린더 섹션 start------->
                                                       <div id="calendar-sec" style="width: 100%"><!--캘린더 크기 설정-->
                                                             <!--calendar api-->
@@ -592,22 +599,25 @@
                                         title: '출석',
                                         text: '오늘 이미 출석하셨습니다',
                                         type: "warning"
+                                        
                                    });
+     
                               } else {
                                    Swal.fire({
                                         title: '출석',
                                         text: '출석완료!',
                                         type: 'info'
                                    })
+                                   location.reload();
                               }
                          },
                          failure: function(data) {
                               console.log(data);
-                              
                          },
                     });
                     
                }
+               
                
                
                
