@@ -7,8 +7,8 @@
     <meta charset="UTF-8">
     <title>src/main/webapp/WEB-INF/views/member/myPage.jsp</title>
     <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/footer.jsp"></jsp:include>
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/header.jsp"></jsp:include>
+
+
 <%--    <script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>--%>
 
 
@@ -32,15 +32,7 @@
     </style>
 
 	<meta charset="UTF-8">
-	<c:choose>
-		<%-- TODO 로그인한 사람이랑 페이지 주인이 다르면 어쩌구 하고싶었어--%>
-		<c:when test="${member.member_name != member}">
-			<title>${member.member_name}님의 마이 페이지</title>
-		</c:when>
-		<c:otherwise>
-			<title>마이 페이지</title>
-		</c:otherwise>
-	</c:choose>
+
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>
 	<script src="/resources/assets/js/member/myPage.js"></script>
@@ -115,8 +107,6 @@
                 <!--begin: Pic-->
                 <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
                     <div class="symbol symbol-50 symbol-lg-120">
-                        <div class="image-input image-input-empty image-input-outline" id="kt_image_5"
-                             style="background-image: url(${pageContext.request.contextPath}/resources/assets/media/users/blank.png)">
 							<!--풀 사이즈 카드 시작 / 카드 필요 없으면 여기서부터 밀기☆-->
 							<div class="card card-custom">
 									<!--begin::Body 북마크-->
@@ -131,58 +121,12 @@
 													     style="background-image: url(${pageContext.request.contextPath}/resources/assets/media/users/blank.png)">
 														<div class="image-input-wrapper"></div>
 
-														<label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-														       data-action="change" data-toggle="tooltip" title=""
-														       data-original-title="Change avatar">
-                            <div class="image-input-wrapper">
-<%--                                <img src="${member_profile}"/>--%>
-                            </div>
 
-															<i class="fa fa-pen icon-sm text-muted"></i>
-															<input type="file" name="profile_avatar"
-															       accept=".png, .jpg, .jpeg"/>
-															<input type="hidden" name="profile_avatar_remove"/>
-														</label>
 
-														<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-														      data-action="cancel" data-toggle="tooltip"
-														      title="Cancel avatar">
-														  <i class="ki ki-bold-close icon-xs text-muted"></i>
-														 </span>
-
-                            <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-                                  data-action="remove" data-toggle="tooltip" title="Remove avatar">
-  <i class="ki ki-bold-close icon-xs text-muted"></i>
- </span>
-                        </div>
-                    </div>
                     <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
                         <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
                     </div>
                 </div>
-                <!--end::Pic-->
-                <!--begin::Info-->
-                <div class="flex-grow-1">
-                    <!--begin::Title-->
-                    <div class="d-flex justify-content-between flex-wrap mt-1">
-                        <div class="d-flex mr-3">
-                            <a href="#" class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">${member.member_name}님</a>
-
-                            <a href="#">
-                                <i class="flaticon2-correct text-success font-size-h5"></i>
-                            </a>
-                        </div>
-														<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow"
-														      data-action="remove" data-toggle="tooltip"
-														      title="Remove avatar">
-													  <i class="ki ki-bold-close icon-xs text-muted"></i>
-													 </span>
-													</div>
-												</div>
-												<div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
-													<span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
-												</div>
-											</div>
 											<!--end::Pic-->
 											<!--begin::Info-->
 											<div class="flex-grow-1">
@@ -204,12 +148,6 @@
                             <div class="d-flex flex-wrap mb-4">
                                 <a href="#"
                                    class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                    <c:choose>
-
-                                    </c:choose>
-                                    <i class="flaticon2-new-email mr-2 font-size-lg"></i>${member.member_id}</a>
-                                <a href="#"
-                                   class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
                                     <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>${member.member_no}</a>
 												</div>
 												<!--end::Title-->
@@ -221,10 +159,7 @@
 															   class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
 																<i class="flaticon2-new-email mr-2 font-size-lg"></i>${member.member_id}
 															</a>
-															<a href="#"
-															   class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-																<i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>${member.member_no}
-															</a>
+
 
 														</div>
 														<span class="font-weight-bold text-dark-50">여기는 자기소개(introduce)</span>
