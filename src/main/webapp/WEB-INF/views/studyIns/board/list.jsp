@@ -111,10 +111,10 @@
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                                         <li class="breadcrumb-item">
-                                            <a href="" class="text-muted">스터디 이름</a>
+                                            <a href="" class="text-muted">스터디</a>
                                         </li>
                                         <li class="breadcrumb-item">
-                                            <a href="" class="text-muted">게시판</a>
+                                            <a href="/studyIns/board/list?r_Idx=${map.get("r_Idx")}" class="text-muted">게시판</a>
                                         </li>
                                     </ul>
                                     <!--Breadcrumb : 로드맵 종료-->
