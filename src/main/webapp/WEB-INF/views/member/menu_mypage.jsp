@@ -16,15 +16,17 @@
             <ul class="menu-nav">
                 <!------------------첫번째 탭 시작------------------>
                 <li class="menu-item menu-item-submenu menu-item-rel menu-item-open menu-item-here" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="" class="menu-link menu-toggle">
-                        <span class="menu-text">마이 페이지</span>
+                    <a href="javascript:;" class="menu-link menu-toggle">
+                        <span class="menu-text">회원 정보</span>
+                        <span class="menu-desc"></span>
+                        <i class="menu-arrow"></i>
                     </a>
                     <!--서브 메뉴 시작-->
                     <div class="menu-submenu menu-submenu-classic menu-submenu-left">
                         <!--1차 서브 메뉴 시작-->
                         <ul class="menu-subnav">
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
+                                <a href="/member/myPage" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
@@ -32,7 +34,15 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
+                                <a href="/member/studyList" class="menu-link">
+                                    <i class="menu-bullet menu-bullet-dot">
+                                        <span></span>
+                                    </i>
+                                    <span class="menu-text">내가 가입한 스터디</span>
+                                </a>
+                            </li>
+                            <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
+                                <a href="/applyMember/reservationList" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
@@ -40,7 +50,7 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
+                                <a href="/applyMember/paymentList" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>

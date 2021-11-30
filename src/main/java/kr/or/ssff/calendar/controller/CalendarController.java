@@ -69,46 +69,30 @@ public class CalendarController {
     /*마이페이지에서 세션 이름으로 내가 속한 스터디의 일정 전부 뿌려줍니다
      * 작업중!*/
     @GetMapping("/getAll")
-    public @ResponseBody
-    JSONArray selectCalendarAll(String cal_id) throws ParseException{
+    public @ResponseBody JSONArray selectCalendarAll(String cal_id) throws ParseException{
 
-        String calendarData = this.service.getCalendarByCal_id(cal_id);
-        String newDatas="";
-        JSONParser parser=null;
-        Object obj=null;
-        JSONArray jsonArray=null;
+//        String calendarData = this.service.getCalendarByCal_id(cal_id);
+        JSONArray jsonArrayTotal= new JSONArray();
 
-        if(calendarData ==null){
-            //처음 불러오는 경우 아이디를 cal_id 로 갖는 json data 최초 생성
-            List<ApplyMemberDTO> applylist = this.service.getR_idxByMember_name(cal_id);
-            for(int i=0;i<applylist.size();i++){
-                String datas="";
-                if(i!= applylist.size()-1){ //마지막 열이 아니면 쉼표 붙임
-                    datas = this.service.getCalendarByCal_id((applylist.get(i).getR_idx())+"");
-                    datas.substring(0, 1); //맨처음 [ 자르기
-                    datas.substring(datas.length()-1, datas.length()); //맨뒤 ] 자르기
-                    datas+=",";
-                }else{
-                    datas = this.service.getCalendarByCal_id((applylist.get(i).getR_idx())+"");
-                    datas.substring(0, 1); //맨처음 [ 자르기
-                    datas.substring(datas.length()-1, datas.length()); //맨뒤 ] 자르기
-                }
-                newDatas+=datas;
+        //처음 불러오는 경우 아이디를 cal_id 로 갖는 json data 최초 생성
+        List<ApplyMemberDTO> applylist = this.service.getR_idxByMember_name(cal_id);
+        for(int i=0;i<applylist.size();i++) {
+            String calendarEventsData = this.service.getCalendarByCal_id(
+                (applylist.get(i).getR_idx()) + "");
+            if(calendarEventsData ==null){
+                continue;
             }
-
-            boolean result = this.service.registerNameType(cal_id,newDatas);//insert 문
-
-            parser = new JSONParser();
-            obj = parser.parse(newDatas);
-            jsonArray = (JSONArray)obj;
-
-        }else{
-            parser = new JSONParser();
-            obj = parser.parse(calendarData);
-            jsonArray = (JSONArray)obj;
+            JSONParser parser = new JSONParser();
+            JSONArray jsonArray = (JSONArray) parser.parse(calendarEventsData);
+            if (jsonArrayTotal.isEmpty()) {
+                jsonArrayTotal = jsonArray;
+            } else {
+                for (int j = 0; j < jsonArray.size(); j++) {
+                    jsonArrayTotal.add(jsonArray.get(j));
+                }
+            }
         }
-
-        return jsonArray;
+        return jsonArrayTotal;
     }
 } //end class
 
