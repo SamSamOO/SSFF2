@@ -204,9 +204,7 @@
                             <div class="d-flex flex-wrap mb-4">
                                 <a href="#"
                                    class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-                                    <c:choose>
-
-                                    </c:choose>
+                                    <!--choose 태그 있었는데 구동 테스트를 위해 지웠습니다. : 예솔-->
                                     <i class="flaticon2-new-email mr-2 font-size-lg"></i>${member.member_id}</a>
                                 <a href="#"
                                    class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
