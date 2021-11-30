@@ -79,6 +79,9 @@ public class CalendarController {
         for(int i=0;i<applylist.size();i++) {
             String calendarEventsData = this.service.getCalendarByCal_id(
                 (applylist.get(i).getR_idx()) + "");
+            if(calendarEventsData ==null){
+                continue;
+            }
             JSONParser parser = new JSONParser();
             JSONArray jsonArray = (JSONArray) parser.parse(calendarEventsData);
             if (jsonArrayTotal.isEmpty()) {
