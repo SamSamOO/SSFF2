@@ -36,8 +36,8 @@
 	<meta charset="UTF-8">
 
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
-	<script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>
-	<script src="/resources/assets/js/member/myPage.js"></script>
+
+
 </head>
 <!----------------Head 종료----------------------->
 
