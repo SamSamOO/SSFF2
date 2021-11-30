@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import kr.or.ssff.cafe.domain.*;
 import kr.or.ssff.cafe.model.CafeDTO;
 import kr.or.ssff.cafe.model.RoomDTO;
@@ -75,6 +77,69 @@ public class CafeController {
   } // selectCafe
 
 
+  //ㅅtest
+  @GetMapping("/ttt")
+  public void goResiierve(
+      @ModelAttribute("roomRsrvInfoDTO") RoomRsrvInfoDTO roomRsrvInfoDTO, Model model
+      , HttpServletRequest request
+  ) {
+    log.info("ttt({}) is invoked", roomRsrvInfoDTO);
+
+    HttpSession sessionfalse = request.getSession(false);
+    log.info("sessionfalse({}) is ", sessionfalse);
+
+
+
+    HttpSession session = request.getSession();
+    log.info("session({}) is ", session);
+
+
+
+    // String cafe_idx = roomRsrvInfoDTO.getCafe_idx();
+    CafeVO cafeVO = service.getCafe(roomRsrvInfoDTO.getCafe_idx());
+
+    model.addAttribute("cafeVO", cafeVO);
+    model.addAttribute("roomRsrvInfoDTO", roomRsrvInfoDTO);
+
+    log.info("model{}", model);
+
+  } // insertReserve
+
+  //ㅅtest
+  @GetMapping("/sTest")
+  public void s(
+
+       HttpServletRequest request
+  ) {
+    log.info("sTest({}) is invoked");
+
+    HttpSession sessionfalse = request.getSession(false);
+    log.info("sessionfalse({}) is ", sessionfalse);
+
+    String r_idx = (String) sessionfalse.getAttribute("r_idx");
+
+    String a_status = (String) sessionfalse.getAttribute("a_status");
+    String sessionId = (String) sessionfalse.getAttribute("sessionId");
+    log.info("sessionfalse({},{},{}) is ", r_idx, sessionId, a_status);
+
+    //
+//
+//
+    HttpSession session = request.getSession();
+    log.info("session({}) is ", session);
+
+//
+//
+//    // String cafe_idx = roomRsrvInfoDTO.getCafe_idx();
+//    CafeVO cafeVO = service.getCafe(roomRsrvInfoDTO.getCafe_idx());
+//
+//    model.addAttribute("cafeVO", cafeVO);
+//    model.addAttribute("roomRsrvInfoDTO", roomRsrvInfoDTO);
+//
+//    log.info("model{}", model);
+
+  } // insertReserve
+
   /*
    * 스터디 카페 예약 화면을 조회
    * 매개변수: 예약정보
@@ -105,7 +170,7 @@ public class CafeController {
    * */
   @PostMapping("/reserve/insert")
   public void insertReservation(RedirectAttributes rttrs,
-      @ModelAttribute("reservationDTO") ReservationDTO reservationDTO,
+      @ModelAttribute(" ") ReservationDTO reservationDTO,
       Model model) {
     log.info("insertReservation({}) is invoked", reservationDTO);
 

@@ -142,6 +142,7 @@
                                                         <div class="email_box">
                                                             <input type="email" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_id" name="member_id" placeholder="abcdef@email.com" value="">
                                                             <div class="d-flex justify-content-end">
+                                                                <span id="idChked"></span>
                                                                 <button type="button" class="btn bg-ssff2 text-hover-ssff-green l-sp-015 m-2" id="idChk" onclick="fn_idChk();">이메일 중복 확인</button>
                                                             </div>
                                                         </div>
@@ -154,7 +155,9 @@
 
                                                     <div class="form-group fv-plugins-icon-container">
                                                         <label class="font-size-h6 font-weight-bolder text-dark" >비밀번호</label>
+
                                                         <input type="password" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_pwd" name="member_pwd" placeholder="비밀번호를 입력해주세요." value=""/>
+                                                        <span id="pwChk"></span>
                                                         <div class="fv-plugins-message-container" ></div>
                                                     </div>
                                                     <!--end::Form Group-->
@@ -167,6 +170,7 @@
                                                 <div class="form-group fv-plugins-icon-container">
                                                     <label class="font-size-h6 font-weight-bolder text-dark">비밀번호 확인</label>
                                                     <input type="password" class="form-control h-auto p-5 border-0 rounded-lg font-size-h6" id="member_pwd1" name="member_pwd1" placeholder="비밀번호를 한 번 더 입력해주세요." value="">
+                                                    <span id="pwChk2"></span>
                                                     <div class="fv-plugins-message-container"></div></div>
                                                 <!--begin::Form Group-->
                                                 <!--end::Row-->
@@ -198,7 +202,7 @@
                                                 </div>
 
                                                 <div class="d-flex justify-content-between">
-                                                    <button type="submit" class="btn bg-ssff1 bg-hover-ssff2 l-sp-015 m-2" >회원가입</button>
+                                                    <button type="submit" class="btn bg-ssff1 bg-hover-ssff2 l-sp-015 m-2" id="submit" >회원가입</button>
                                                     <button type="button" class="btn bg-danger bg-hover-ssff2 text-white l-sp-015 m-2" >돌아가기</button>
                                                 </div>
                                                 <!--end: Wizard Actions-->
@@ -231,45 +235,122 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        $("#submit").on("click", function(){
+            if($("#member_id").val()==""){
+                alert("이메일을 입력해주세요.");
+                $("#member_id").focus();
+                return false;
+            }
+            if($("#member_pwd").val()==""){
+                alert("비밀번호를 입력해주세요.");
+                $("#member_pwd").focus();
+                return false;
+            }
+            if($("#member_pwd1").val()==""){
+                alert("비밀번호를 확인해주세요.");
+                $("#member_pwd1").focus();
+                return false;
+            }
+            if($("#member_pwd").val() != $("#member_pwd1").val()){
+                alert("비밀번호가 서로 다릅니다. 비밀번호를 확인해 주세요.");
+                $("#member_pwd").focus();
+                return false;
+            }
+            if ($("#member_pwd").val().length < 8) {
+                alert("비밀번호는 8자 이상으로 설정해야 합니다.");
+                $("#member_pwd").val("").focus();
+                return false;
+            }
+            if($("#member_name").val()==""){
+                alert("닉네임을 입력해주세요.");
+                $("#member_name").focus();
+                return false;
+            }
+
+        });
+
+    });
+    $(function() {
+        //입력값 검증 정규표현식
+        const getIdCheck = RegExp(/^((\w|[\-\.])+)@((\w|[\-\.])+)\.([A-Za-z]+)$/);
+
+        //패스워드 입력값 검증.
+        $('#member_id').on('keyup', function () {
+            if (!getIdCheck.test($("#member_id").val())) {
+                $('#idChked').html('<b style="font-size:14px;color:red;">이메일 형식에 맞게 입력해주세요.</b>');
+            } else {
+                $('#idChked').html('');
+            }
+
+        });
     });
 
-    function fn_idChk() {
-        $.ajax({
-            url     : "/member/idChk",
-            type    : "post",
-            dataType: "json",
-            data  : {"member_id": $("#member_id").val()},
-            success : function (data) {
-                if (data == 1) {
-                    alert("중복된 이메일입니다.");
-                } else if (data == 0) {
-                    $("#idChk").attr("value", "Y");
-                    alert("사용 가능한 이메일입니다.");
-                } else {
-                    alert("이메일을 입력해주세요.");
-                }
-            }
-        })
-    }
+        $(function () {
+            //입력값 검증 정규표현식
+            const getPwCheck = RegExp(/([a-zA-Z0-9].*[!,@,#,$,%,^,&,*,?,_,~])|([!,@,#,$,%,^,&,*,?,_,~].*[a-zA-Z0-9])/);
 
-    function fn_nameChk() {
-        $.ajax({
-            url     : "/member/nameChk",
-            type    : "post",
-            dataType: "json",
-            data  : {"member_name": $("#member_name").val()},
-            success : function (data) {
-                if (data == 1) {
-                    alert("중복된 닉네임입니다.");
-                } else if (data == 0) {
-                    $("#idChk").attr("value", "Y");
-                    alert("사용 가능한 닉네임입니다.");
+            //패스워드 입력값 검증.
+            $('#member_pwd').on('keyup', function () {
+                if (!getPwCheck.test($("#member_pwd").val()) || $("#member_pwd").val().length < 8) {
+                    $('#pwChk').html('<b style="font-size:14px;color:red;">특수문자 포함 8자이상 입력해주세요.</b>');
                 } else {
-                    alert("닉네임을 입력해주세요.");
+                    $('#pwChk').html('');
                 }
-            }
-        })
-    }
+
+            });
+
+            //패스워드 확인란 입력값 검증.
+            $('#member_pwd1').on('keyup', function () {
+                //비밀번호 확인란 공백 확인
+                if ($("#member_pwd").val() != $("#member_pwd1").val()) {
+                    $('#pwChk2').html('<b style="font-size:14px;color:red;">비밀번호가 일치하지 않습니다.</b>');
+                } else {
+                    $('#pwChk2').html('');
+                }
+
+            });
+        });
+
+        function fn_idChk() {
+            $.ajax({
+                url: "/member/idChk",
+                type: "post",
+                dataType: "json",
+                data: {"member_id": $("#member_id").val()},
+                success: function (data) {
+                    if (data == 1) {
+                        alert("중복된 이메일입니다.");
+                    } else if (data == 0) {
+                        $("#idChk").attr("value", "Y");
+                        alert("사용 가능한 이메일입니다.");
+                    } else {
+                        alert("이메일을 입력해주세요.");
+                    }
+                }
+            })
+        }
+
+        function fn_nameChk() {
+            $.ajax({
+                url: "/member/nameChk",
+                type: "post",
+                dataType: "json",
+                data: {"member_name": $("#member_name").val()},
+                success: function (data) {
+                    if (data == 1) {
+                        alert("중복된 닉네임입니다.");
+                    } else if (data == 0) {
+                        $("#idChk").attr("value", "Y");
+                        alert("사용 가능한 닉네임입니다.");
+                    } else {
+                        alert("닉네임을 입력해주세요.");
+                    }
+                }
+            })
+        }
+
+
+
 </script>
 <style>
     .int_mobile_area {
