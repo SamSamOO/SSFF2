@@ -14,38 +14,6 @@
       <jsp:include page="/WEB-INF/commons/head.jsp"/>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
-      <style>
-            /*다크모드*/
-            /*body {*/
-            /*    --text-color: #222;*/
-            /*    --bkg-color: #fff;*/
-            /*}*/
-            /*body.dark-theme {*/
-            /*    --text-color: #eee;*/
-            /*    --bkg-color: #121212;*/
-            /*}*/
-            /*@media (prefers-color-scheme: dark) {*/
-            /*    !* defaults to dark theme *!*/
-            /*    body {*/
-            /*        --text-color: #eee;*/
-            /*        --bkg-color: #121212;*/
-            /*    }*/
-            /*    body.light-theme {*/
-            /*        --text-color: #222;*/
-            /*        --bkg-color: #fff;*/
-            /*    }*/
-            /*}*/
-            /** {*/
-            /*    font-family: Arial, Helvetica, sans-serif;*/
-            /*}*/
-            /*body {*/
-            /*    background: var(--bkg-color);*/
-            /*}*/
-            /*h1,*/
-            /*p {*/
-            /*    color: var(--text-color);*/
-            /*}*/
-      </style>
       <script>
            $(function() {
                 <c:choose>
