@@ -30,20 +30,20 @@
 		<load-on-startup>1</load-on-startup>
 
 <!--		맥용 -->
-		<multipart-config>
-			<location>/Users/jangsunhyeong/Desktop/App/temp</location>
-			<max-file-size>20971520</max-file-size>
-			<max-request-size>41943040</max-request-size>
-			<file-size-threshold>20971520</file-size-threshold>
-		</multipart-config>
-
-<!--		윈도우용-->
 <!--		<multipart-config>-->
-<!--			<location>C:\\Temp\\upload</location>-->
+<!--			<location>/Users/jangsunhyeong/Desktop/App/temp</location>-->
 <!--			<max-file-size>20971520</max-file-size>-->
 <!--			<max-request-size>41943040</max-request-size>-->
 <!--			<file-size-threshold>20971520</file-size-threshold>-->
 <!--		</multipart-config>-->
+
+<!--		윈도우용-->
+		<multipart-config>
+			<location>C:\\Temp\\upload</location>
+			<max-file-size>20971520</max-file-size>
+			<max-request-size>41943040</max-request-size>
+			<file-size-threshold>20971520</file-size-threshold>
+		</multipart-config>
 	</servlet>
 	<error-page>
 		<error-code>404</error-code>

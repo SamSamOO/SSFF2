@@ -134,7 +134,7 @@
 										<!------------------ 본문 시작 ------------------>
 										<!--begin::Content-->
 										<div class="content flex-column-fluid" id="kt_content">
-												<form action="/cafe/reserve/insert" method="post" id="formObj">
+												<form action="/payment/challenge/applyStatusChange" method="post" id="formObj">
 										
 														
 														<!--begin::Card-->
@@ -167,9 +167,8 @@
 																						<div class="modal-content modal-80size">
 																								<div class="modal-header " style="background-color:#ffa800;">
 																										
-																										<h4 class="modal-title" id="myModalLabel">결제</h4>
-																									<button type="button" class="btn btn-default" data-dismiss="modal">X
-																								</button>
+																										<h4 class="modal-title" id="myModalLabel">챌린지 참여금 결제</h4>
+																								
 																								</div>
 																								<div class="modal-body">
 																									<div class="datatable datatable-bordered datatable-head-custom
@@ -186,7 +185,7 @@
 																											<tbody style="" class="datatable-body">
 																											
 																											<tr data-row="0" class="datatable-row" style="left: 0px;">
-																												<td class="col-4 datatable-cell-center datatable-cell
+																												<td class="col-4 pr-8 datatable-cell-right datatable-cell
 																													font-weight-bolder">스터디유형
 																												</td>
 																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">
@@ -196,7 +195,7 @@
 																											
 																											
 																											<tr data-row="0" class="datatable-row" style="left: 0px;">
-																												<td class="col-4 datatable-cell-center datatable-cell
+																												<td class="col-4 pr-8 datatable-cell-right datatable-cell
 																													font-weight-bolder">스터디명
 																												</td>
 																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">
@@ -206,7 +205,7 @@
 																											
 																											
 																											<tr data-row="0" class="datatable-row" style="left: 0px;">
-																												<td class="col-4 datatable-cell-center datatable-cell
+																												<td class="col-4 pr-8 datatable-cell-right datatable-cell
 																													font-weight-bolder">참여기간
 																												</td>
 																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">
@@ -215,9 +214,15 @@
 																											</tr>
 																											
 																											
+																											<div class="ml-4 datatable-cell-sorted ">
+																												<div class="font-weight-bolder mb-0 h3">
+																													10,000 원
+																												</div>
+																											
+																											</div>
 																											
 																											<tr data-row="0" class="datatable-row" style="left: 0px;">
-																												<td class="col-4 datatable-cell-center datatable-cell
+																												<td class="col-4 pr-8 datatable-cell-right datatable-cell
 																													font-weight-bolder">환급예정일
 																												</td>
 																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">
@@ -227,19 +232,14 @@
 																											
 																											
 																											<tr data-row="0" class="datatable-row">
-																												<td class="col-4 datatable-cell-center datatable-cell"><span
+																												<td class="col-4 pr-8 datatable-cell-right datatable-cell"><span
 																													class="font-weight-bolder">결제금액</span></td>
-																												<td class="datatable-cell-sorted datatable-cell">
-																													
-																													<div class="d-flex align-items-center">
-																														<div class="ml-4">
-																															<div class="font-weight-bolder mb-0 datatable-cell-sorted h3">
-																																10,000 원
-																															</div>
-																														
-																														</div>
-																													</div>
+																												<td class="font-weight-bolder mb-0 h3" style="color: #6b984f;">
+																												
+																													10,000 원
+																												
 																												</td>
+																												
 																											</tr>
 																											
 																											</tbody>
@@ -280,7 +280,10 @@
 																													font-weight-bolder">#2
 																													</td>
 																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">
-																														챌린지 종료일 기준의 출석률에 비례하여 환급금을 정산합니다.
+																														챌린지 종료일 기준 출석률에 비례하여
+																														<br>환급금이 정산됩니다.
+																														<br>
+																														<span class="text-danger font-size-sm">(100일 챌린지에 50일 출석시 5,000원 환급)</span>
 																													</td>
 																												</tr>
 																												
@@ -289,8 +292,10 @@
 																													font-weight-bolder">#3
 																													</td>
 																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">
-																														종료일 이후 참여 스터디 페이지에 접속하여 수령하여야합니다.
-																														<span class="text-muted font-size-sm">(자동환급되지 않습니다.)</span>
+																														환급금의 수령은 종료일 이후
+																														<br>해당 스터디 페이지에 접속하여 가능합니다.
+																														<br>
+																														<span class="text-danger font-size-sm">(자동환급되지 않습니다.)</span>
 																													</td>
 																												</tr>
 																												
@@ -299,7 +304,7 @@
 																													font-weight-bolder">#4
 																													</td>
 																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">
-																														챌린지 참여금 결제 이후 해당 챌린지의 모든 기능 이용 가능합니다.
+																														참여금 미결제시 해당 챌린지 참여가 불가합니다.
 																													</td>
 																												</tr><!--//TODO 개;;-->
 																											
@@ -395,8 +400,8 @@
 																								</div>
 																	
 																								<div class="modal-footer">
-																										<button type="button" class="btn btn-default btn-lg "
-																										        id="rsrvSubmit" style="" onclick="authorize();">예약하기</button>
+																										<button type="button" class="btn btn-primary  btn-lg "
+																										        id="rsrvSubmit" style="" onclick="authorize();">결제하기</button>
 																						
 																								</div>
 																						</div>
@@ -405,9 +410,10 @@
 																
 																
 																</div>
+												</form>
 														</div>
 														<!--end::Card-->
-												</form>
+												
 										
 										</div>
 										
@@ -440,15 +446,25 @@
   // 결제를 위해 인증창 팝업
 	  function authorize() {
 		
-		    console.log("rsrvSubmit");
-		    ('#formObj').submit();
-						
-		    console.log("t33tt");
-		  
+		  // 참여번호를 인풋값에 담아서
+		  let $amem = $('<input>', {
+			  type: "text",
+			  name: "apply_idx",
+			  value: "9002"
+		  })
+		
+		  console.log("$amem");
+		
+		  // form에 추가해서 보냄 고고
+		  $('#formObj').append($amem);
+		
+		  $('#formObj').submit();
+				
+
 		  let location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?" +
 		                 "response_type=code&" +
 		                 "client_id=" + clientID + "&" +
-																	  "redirect_uri=http://localhost:8070/payment/rest/withdraw&" +
+																	  "redirect_uri=http://localhost:8070/payment/rest/withdraw/challenge&" +
 																	  "scope=login inquiry transfer&" +
 																	  "client_info=test&" +
 																	  "state=b80BLsfigm9OokPTjy03elbJqRHOfGSY&" +
@@ -457,9 +473,9 @@
 																	  "authorized_cert_yn=Y&" +
 																	  "account_hold_auth_yn=N&" +
 																	  "register_info=A";
-				
+
 	  var popup = window.open(location, '오픈뱅킹 본인인증', 'width=700px,height=800px,scrollbars=yes');
-	  
+	  //
   }
 
   
@@ -517,41 +533,41 @@
 <script>
 	
 	
-	// 체크박스 전체 선택, 전체 해제
-	$(".checkbox_group").on("click", "#check_all", function () {
-		
-		// 전체선택이 체크가 되어있는지 확인 한 후,
-		var checked = $(this).is(":checked");
-		
-		if(checked){ // 체크가 되어 있으면 div.checkbox_group 의 input들에 모두 checked, true
-			$(this).parents(".checkbox_group").find('input').prop("checked", true);
-		} else { // 체크가 해제 되면 모두 checked, false
-			$(this).parents(".checkbox_group").find('input').prop("checked", false);
-		}
-	});
-	
-	
-	// 전체선택 후 하나만 해제했을 때, 전체선택도 해체
-	$(".checkbox_group").on("click", ".normal", function() {
-		console.log("TLqkf" +  $(this).is(":checked"))
-		//  checked 속성을 판단
-
-		if ($(this).is(":checked")==false) { // 체크 해제가 되어 있다면 전체선택의 체크박스도 해제
-			$("#check_all").prop("checked", false);
-		}
-	});
-
-	// 개별 선택으로 전체 다 선택되었을 때, 전체선택에도 체크
-	// 체크박스 개별 선택
-	$(".checkbox_group").on("click", ".normal", function() {
-		var is_checked = true;
-
-		$(".normal").each(function(){
-			is_checked = is_checked && $(this).is(":checked");
-		});
-
-		$("#check_all").prop("checked", is_checked);
-	});
+	// // 체크박스 전체 선택, 전체 해제
+	// $(".checkbox_group").on("click", "#check_all", function () {
+	//
+	// 	// 전체선택이 체크가 되어있는지 확인 한 후,
+	// 	var checked = $(this).is(":checked");
+	//
+	// 	if(checked){ // 체크가 되어 있으면 div.checkbox_group 의 input들에 모두 checked, true
+	// 		$(this).parents(".checkbox_group").find('input').prop("checked", true);
+	// 	} else { // 체크가 해제 되면 모두 checked, false
+	// 		$(this).parents(".checkbox_group").find('input').prop("checked", false);
+	// 	}
+	// });
+	//
+	//
+	// // 전체선택 후 하나만 해제했을 때, 전체선택도 해체
+	// $(".checkbox_group").on("click", ".normal", function() {
+	// 	console.log("TLqkf" +  $(this).is(":checked"))
+	// 	//  checked 속성을 판단
+	//
+	// 	if ($(this).is(":checked")==false) { // 체크 해제가 되어 있다면 전체선택의 체크박스도 해제
+	// 		$("#check_all").prop("checked", false);
+	// 	}
+	// });
+	//
+	// // 개별 선택으로 전체 다 선택되었을 때, 전체선택에도 체크
+	// // 체크박스 개별 선택
+	// $(".checkbox_group").on("click", ".normal", function() {
+	// 	var is_checked = true;
+	//
+	// 	$(".normal").each(function(){
+	// 		is_checked = is_checked && $(this).is(":checked");
+	// 	});
+	//
+	// 	$("#check_all").prop("checked", is_checked);
+	// });
 	
 </script>
 

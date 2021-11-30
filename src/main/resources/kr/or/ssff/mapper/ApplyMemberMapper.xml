@@ -81,12 +81,13 @@
 			SET study_join_arciwf = 'r', study_join_change_date = sysdate
 			WHERE apply_idx =#{apply_idx}
 		</if>
-		<if test='action == "approval" and study_type == "c"'> <!-- 가입신청->승인 -->
+		<if test='action == "approval" and study_type == "p" or action=="payOK"'> <!-- 가입신청->승인 -->
 			UPDATE apply_member
 			SET study_join_arciwf = 'i', study_join_change_date = sysdate
 			WHERE apply_idx =#{apply_idx}
 		</if>
-		<if test='action == "approval" and study_type == "p"'> <!-- 챌린지가입신청->대기 -->
+		<if test='action == "approval" and study_type == "c"
+or action == "fail"' > <!-- 챌린지가입신청->대기, 결제 실패시에도  -->
 			UPDATE apply_member
 			SET study_join_arciwf = 'g', study_join_change_date = sysdate
 			WHERE apply_idx =#{apply_idx}
@@ -101,14 +102,40 @@
 			SET study_join_arciwf = 'w', study_join_change_date = sysdate
 			WHERE apply_idx =#{apply_idx}
 		</if>
-		<if test='action == "fail"'> <!-- 가입실패(결제x) -->
+<!--		<if test='action == "fail"'> &lt;!&ndash; 가입실패(결제x) &ndash;&gt;-->
+<!--			UPDATE apply_member-->
+<!--			SET study_join_arciwf = 'f', study_join_change_date = sysdate-->
+<!--			WHERE apply_idx =#{apply_idx}-->
+<!--		</if>-->
+
+		<if test='action == "pay"'> <!-- 챌린지 참여결제 전 임시 상태 -->
 			UPDATE apply_member
-			SET study_join_arciwf = 'f', study_join_change_date = sysdate
+			SET study_join_arciwf = 'x', study_join_change_date = sysdate
 			WHERE apply_idx =#{apply_idx}
 		</if>
 
-
 	</update>
+
+
+	<!--  결제 임시상태인 참여회원 조회 : 신지혜  -->
+	<select
+		id="selectTempApplyMember"
+		resultType="kr.or.ssff.applyMember.domain.ApplyMemberVO">
+
+		SELECT
+			APPLY_IDX,
+			R_IDX,
+			MEMBER_NAME,
+      STUDY_JOIN_ARCIWF,
+      STUDY_JOIN_CHANGE_DATE,
+      STUDY_BOSS_YN,
+      ATTENDANCE_DAYS
+		FROM
+			apply_member
+		WHERE
+			STUDY_JOIN_ARCIWF = 't'
+
+	</select>
 
 
 	<!-- 회원의 참여 신청 : 신지혜  -->
