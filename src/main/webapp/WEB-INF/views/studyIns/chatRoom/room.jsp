@@ -173,7 +173,7 @@ padding: 20px;
                                    type: 'warning',
                                    buttonsStyling: false,
                                    confirmButtonText: '확인',
-                                   confirmButtonClass: 'btn btn-primary font-weight-bold'
+                                   confirmButtonClass: 'btn btn-primary font-weight-bolder'
                               });
                          } else if (d.sessionId == $("#sessionId").val()) {
                               // $("#chating").
@@ -183,14 +183,14 @@ padding: 20px;
                               $(".messages").
                                    append("<div class='d-flex flex-column mb-5 align-items-start'><div class='d-flex align-items-center'><div class='symbol symbol-circle symbol-40 mr-3'><img alt='Pic' src='" +
                                         d.userProfile +
-                                        "'></div><div><a href='#' class='text-dark-75 text-hover-primary font-weight-bold font-size-h6'>나</a><span class='text-muted font-size-sm'>"+now2+"</span></div></div><div class='mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px'>"+d.msg+"</div></div></div>");
+                                        "'></div><div><a href='#' class='text-dark-75 text-hover-primary font-weight-bolder font-size-h6'>나</a><span class='text-muted font-size-sm'>"+now2+"</span></div></div><div class='mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bolder font-size-lg text-left max-w-400px'>"+d.msg+"</div></div></div>");
                          } else {
                               $('.messages').
-                                   append("<div class='d-flex flex-column mb-5 align-items-end'><div class='d-flex align-items-center'><div><span class='text-muted font-size-sm'>"+now2+"</span><a href='#' class='text-dark-75 text-hover-primary font-weight-bold font-size-h6'>" +
+                                   append("<div class='d-flex flex-column mb-5 align-items-end'><div class='d-flex align-items-center'><div><span class='text-muted font-size-sm'>"+now2+"</span><a href='#' class='text-dark-75 text-hover-primary font-weight-bolder font-size-h6'>" +
                                         d.userName +
                                         "</a></div><div class='symbol symbol-circle symbol-40 ml-3'><img alt='Pic' src='" +
                                         d.userProfile +
-                                        "'></div></div><div class='mt-2 rounded p-5 bg-warning text-dark-50 font-weight-bold font-size-lg text-left max-w-400px'>"+d.msg+"</div></div></div>");
+                                        "'></div></div><div class='mt-2 rounded p-5 bg-warning text-dark-50 font-weight-bolder font-size-lg text-left max-w-400px'>"+d.msg+"</div></div></div>");
                          
                               // $("#chating").
                               //      append("<p align='left' style='margin: 0;padding:0><img style='width: 50px;height: 50px;border-radius: 70%;overflow: hidden;'  src=" +
@@ -306,7 +306,7 @@ padding: 20px;
                                                                          placeholder="보내실 메시지를 입력하세요....................................">
                                                             </th>
                                                             <th>
-                                                                  <button onclick="send()" id="sendBtn" class="btn btn-light-success font-weight-bold mr-2">보내기</button>
+                                                                  <button onclick="send()" id="sendBtn" class="btn btn-light-success font-weight-bolder mr-2">보내기</button>
                                                             </th>
                                                       </tr>
                                                 </table>

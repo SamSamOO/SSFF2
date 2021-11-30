@@ -17,7 +17,7 @@
 
 		insert into member(MEMBER_NO, MEMBER_ID,MEMBER_PWD,MEMBER_NAME,
 		                   MEMBER_PROFILE,MEMBER_INTRODUCE)
-		values (#{member_no},#{member_id},#{member_pwd},#{member_name},'defualt.jpg',#{member_introduce, jdbcType=VARCHAR})
+		values (#{member_no},#{member_id},#{member_pwd},#{member_name},'https://picsum.photos/300/300',#{member_introduce, jdbcType=VARCHAR})
 		]]>
 
     </insert>
@@ -72,6 +72,36 @@
     WHERE member_id = #{member_id}
     </update>
 
+    <!-- 언어 정보 / 전민주 -->
+
+    <!--insert문-->
+    <delete id="deletelang">
+        DELETE
+        FROM MEMBER_LANG
+        WHERE MEMBER_NAME = #{member_name}
+    </delete>
+
+    <!--언어정보 가져오기-->
+    <select id="getLangList" resultType="kr.or.ssff.member.domain.MemberLangVO">
+        SELECT MEMBER_NAME, LANG_NAME
+        FROM MEMBER_LANG
+    </select>
+
+    <!--언어정보 삭제하기-->
+    <select id="getMemberLangs" resultType="kr.or.ssff.member.domain.MemberLangVO">
+        SELECT MEMBER_NAME, LANG_NAME
+        FROM MEMBER_LANG
+        WHERE MEMBER_NAME = #{member_name}
+    </select>
+
+
+    <!-- 회원정보 수정 / 전민주 -->
+
+
+
+
+
+
 
     <!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->
     <resultMap type="kr.or.ssff.applyMember.domain.ApplyMemberDTO" id="applyMemberMap">
@@ -104,4 +134,3 @@
     </resultMap>
 
 </mapper>
-

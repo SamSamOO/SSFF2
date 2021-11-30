@@ -3,7 +3,11 @@ package kr.or.ssff.member.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 
 
+import kr.or.ssff.member.domain.MemberLangVO;
+import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.member.service.KaKaoService;
+import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.study.domain.RecruitBoardVO;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -33,6 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.util.List;
 
 /*
 
@@ -347,11 +352,53 @@ public class MemberController {
             return "/member/idPwFind";
         }
 
-    @GetMapping("/modifyGo")
-    public String modifyGo (){
-        log.debug("modifyGo({}) is invoked");
 
-        return "/member/modify";
+
+    /* 회원정보 수정 페이지로 이동합니다.
+     * 파라메터 :
+     * 반환 : 회원정보 수정 페이지.
+     * */
+//    @GetMapping("/modifyGo")
+//    public String updateMemberInfoGo() {
+//        log.info("updateMemberInfoGo() is invoked");
+//
+//        return "/member/modify";
+//    }//updateMemberInfoGo
+
+    @GetMapping("/modifyGo")
+    public void updateMemberInfoGo(String member_name, Model model) {
+            log.info("updateMemberInfoGo({}) is invoked", "member_name = " + member_name + ", model = " + model);
+
+            MemberVO vo = this.service.get(member_name);
+            List<MemberLangVO> langList = this.service.getLangByMemberByName(member_name);
+
+            model.addAttribute("langList", langList);
+            model.addAttribute("vo", vo);
+    }//updateMemberInfoGo
+
+
+
+    /* 회원정보 수정 기능을 수행합니다.
+     * 파라메터 :
+     * 반환 : 수정한 회원정보 페이지로 이동합니다.
+     * //TODO 파라미터??
+     * */
+    @PostMapping("/modify")
+    public String updateMemberInfo(MemberDTO dto, RedirectAttributes rttrs, HttpServletRequest request) {
+        MemberVO vo =
+                new MemberVO(
+                        dto.getMember_thumimg(),
+                        dto.getMember_name(),
+                        dto.getMember_id(),
+                        dto.getMember_introduce(),
+                        dto.getMember_pwd(),
+                        null,
+                        null,
+                );
+
+        boolean result = this.service.modify(vo);
+        rttrs.addAttribute("result", result);
+        return "redirect:/study/challenge/list
     }
 //    @PostMapping("/uploadAjaxAction")
 //    public void uploadAjaxActionPOST(MultipartFile uploadFile){
@@ -360,27 +407,3 @@ public class MemberController {
 //        log.info("파일 크기 : " + uploadFile.getSize());
 //    }
 } // end class
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

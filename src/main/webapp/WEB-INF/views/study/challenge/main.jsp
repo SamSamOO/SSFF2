@@ -225,11 +225,11 @@
                                                 <!--begin::Page Heading-->
                                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                                       <!--Page Title : 페이지 제목 시작-->
-                                                      <h5 class="text-dark font-weight-bold my-1 mr-5">챌린지</h5>
+                                                      <h5 class="text-dark font-weight-bolder my-1 mr-5">챌린지</h5>
                                                       <!--Page Title : 페이지 제목 종료-->
                                                       <!--Breadcrumb : 로드맵 시작-->
                                                       <ul
-                                                              class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                                                              class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bolder p-0 my-2 font-size-sm">
                                                             <li class="breadcrumb-item">
                                                                   <a href="" class="text-muted">프로젝트</a>
                                                             </li>
@@ -333,12 +333,12 @@
                                                             <thead>
                                                             <tr id="mytr">
                                                                   <td>
-                <span class="label label-inline label-light-primary font-weight-bold ">
+                <span class="label label-inline label-light-primary font-weight-bolder ">
                     카테고리
                 </span>
                                                                   </td>
                                                                   <td>
-                <span class="label label-inline label-light-primary font-weight-bold ">
+                <span class="label label-inline label-light-primary font-weight-bolder ">
                     제목
                 </span>
                                                                   </td>
