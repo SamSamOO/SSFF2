@@ -24,9 +24,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <!----------------Head 시작----------------------->
 
 <head>
-    <title>타이틀 입력해주세용^^</title>
+    <title>모두의 스터디 :: 삼삼오오</title>
     <!--head.html Include-->
-    <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
+    <jsp:include page="WEB-INF/commons/head.jsp"></jsp:include>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -45,10 +45,6 @@ License: You must have a valid license purchased only from themeforest(the above
             <div id="kt_header_mobile" class="header-mobile justify-content-end">
                 <!--툴바 시작-->
                 <div class="d-flex align-items-center">
-                    <button class="btn p-0 burger-icon burger-icon-left ml-4 mr-4" id="kt_header_mobile_toggle">
-                        <span></span>
-                    </button>
-
                     <!--begin::User 헤더 메뉴 시작-->
                     <div class="dropdown dropdown-inline">
                         <!--begin::Toggle-->

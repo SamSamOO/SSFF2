@@ -20,9 +20,8 @@ public interface MemberService {
     public int idChk( MemberDTO memberDTO) throws Exception;
     // 닉네임 중복체크
     public int nameChk( MemberDTO memberDTO) throws Exception;
-//    // 회원 프로필 사진 수정
-//    public void modifyUimage(String uid, String uimage) throws Exception;
-
+    // 프로필 이미지 등록
+    public void upload(MemberDTO memberDTO) throws Exception;
 
 
 
@@ -42,8 +41,6 @@ public interface MemberService {
 
     //5. 목록조회 with paging
     public abstract List<String> getListPerPage();
-
-
 
 }// end interface
 

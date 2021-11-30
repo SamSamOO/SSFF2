@@ -47,7 +47,8 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="container d-flex flex-row-fluid flex-column justify-content-md-center p-12">
             <h1 class="error-title font-weight-boldest text-info mt-10 mt-md-0 mb-12">ㅠㅠ</h1>
             <p class="font-weight-boldest display-4">여러분의 잘못이 아니에요!</p>
-            <p class="font-size-h3">서비스에 불편을 드려서 죄송합니다! 메인페이지 접속을 다시 하거나, 고객센터로 문의주시길 바랄게요!</p>
+            <p class="font-size-h3">서비스에 불편을 드려서 죄송합니다!</p>
+            <p class="font-size-h3">메인페이지 접속을 다시 하거나, 고객센터로 문의주시길 바랄게요!</p>
         </div>
         <!--end::Content-->
     </div>
