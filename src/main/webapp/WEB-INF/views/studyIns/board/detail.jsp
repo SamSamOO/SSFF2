@@ -48,6 +48,8 @@
       </style>
       <script>
            $(function() {
+     
+                $(`#contcont`).children().css('font-size', '24px');
                 <c:choose>
                 <c:when test="${member.member_id==null}">
                 
@@ -183,7 +185,7 @@
             .recommendPost_bar__3GKlv {
                   width  : 0;
                   height : 2.5rem;
-                  border : 2px solid #4482f7;
+                  border : 4px #4482f7 #4482f7;
                   
             }
             
@@ -270,8 +272,8 @@
                                                 <%--다크모드--%>
                                                 <%--<button class="btn-toggle">Toggle Dark-Mode</button>--%>
                                                 <form action="/studyIns/board/detail/modify" method="POST" style="width: 100%">
-                                                      <input type="hidden" name="cont_No" value="<c:out value='${detail.cont_No}' />">
-                                                      <input type="hidden"  id="r_Idx" name="r_Idx" value="<c:out value='${detail.r_Idx}' />">
+                                                      <input type="hidden" name="cont_No" value="<c:out value='${detail.cont_No}'/>">
+                                                      <input type="hidden"  id="r_Idx" name="r_Idx" value="<c:out value='${detail.r_Idx}'/>">
                                                       <table class="table table-bordered table-borderless" style="width: 100%;  border-radius: 10px; border-style: hidden ; !important;">
                                                             <tr>
                                                                   <th align="left" height="50px">
@@ -291,9 +293,11 @@
                                                                         <c:set var="writer" value="${detail.member_Name}"/>
                                                                         &nbsp;<c:if test="${member.member_name eq writer}">
                                                                         <button type="button" id="modifyBtn" class="btn btn-light fa-1x">수정</button>
-                                                                        <button type="button" id="removeBtn" class="btn btn-light fa-1x">삭제</button>
+                                                                        <button type="button" id="removeBtn" class="btn btn-light fa-1x" style="margin-right: 20px">삭제</button>
                                                                               </c:if>
-                                                                        ${detail.member_Name}
+                                                                        <img alt='Pic' src='${member.member_profile}' style="width: 50px; height: 50px;margin-right: 20px; border-radius: 70%;">
+
+                                                                  ${detail.member_Name}
                                                                   </td>
                                                             </tr>
                                                             <tr>
@@ -313,7 +317,7 @@
                                                                   </c:if>
                                                             </tr>
                                                             <tr style="height: 600px; border-top: lightblue ;border-style: solid">
-                                                                  <td colspan="10" style=" padding: 50px">${detail.cont}</td>
+                                                                  <td id="contcont" colspan="10" style=" padding: 50px; font-size: 14px">${detail.cont}</td>
                                                             </tr>
                                                             <tr>
                                                                   <td colspan="8">

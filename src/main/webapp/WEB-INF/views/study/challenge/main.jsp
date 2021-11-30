@@ -115,66 +115,8 @@
                           },
                           registAttendance: {
                                text: '출석 체크',
-                               click: (e) => {
-                                    let now = new Date();
-                                    var rtn = true;
-                                    
-                                    console.log(e.target + `좀 돼라`);
-                                    Swal.fire({
-                                         title: "출석",
-                                         text: now.getDate() + "일 출석하시겠습니까?",
-                                         showCancelButton: true,
-                                         buttonsStyling: true,
-                                         button: {
-                                              cancel: {
-                                                   text: '취소',
-                                                   value: false,
-                                                   className: 'btn btn-outline-primary' // 클래스 이름을 줄 수도 있다.
-                                              },
-                                              confirm: {
-                                                   text: '출석',
-                                                   value: true,
-                                                   className: 'btn btn-outline-primary'
-                                              }
-                                         }
-                                    }).then(function(result) {
-                                         if (result) {
-                                              $.ajax({
-                                                   type: "POST",
-                                                   url: "/studyRest/updateAttendance",
-                                                   data: JSON.stringify({
-                                                        'r_Idx': $(`#r_Idx`).val(),
-                                                        'member_Name': $(`#member_Name`).val()
-                                                   }),
-                                                   contentType: 'application/json; charset=utf-8',
-                                                   cache: false,
-                                                   success: function(data) {
-                                                        console.log(data);
-                                                        if (data == false) {
-                                                             Swal.fire({
-                                                                  title: '출석',
-                                                                  text: '오늘 이미 출석하셨습니다',
-                                                                  type: "warning"
-                                                             });
-                                                        } else {
-                                                             Swal.fire({
-                                                                  title: '출석',
-                                                                  text: '출석완료!',
-                                                                  type: 'info'
-                                                             })
-                                                        }
-                                                   },
-                                                   failure: function(data) {
-                                                        console.log(data);
-                                                        
-                                                   },
-                                              });
-                                              
-                                         }
-                                         
-                                         
-                                         
-                                    });
+                               click: () => {
+                                    checkAttendance();
                                }
                           }
                      },
@@ -255,7 +197,7 @@
                                                 <ul style="list-style: none">
                                                       <li class="mainpage_index">▶ 일정 관리</li>
                                                       <!--캘린더 섹션 start------->
-                                                      <div id="calendar-sec" style="width: 900px"><!--캘린더 크기 설정-->
+                                                      <div id="calendar-sec" style="width: 100%"><!--캘린더 크기 설정-->
                                                             <!--calendar api-->
                                                             <div id='calendar'></div>
                                                             
@@ -320,106 +262,119 @@
                                                                         </div>
                                                                   </div>
                                                             </div>
+                                                      
                                                       </div>
                                                       <!--캘린더 섹션 end------->
-                                                      <li class="mainpage_index"><a href="/studyIns/board/list?r_Idx=${map.get("r_Idx")}"><span>▶ 게시판 이동</span></a></li>
-                                                      
-                                                      
-                                                      <!--to 상준 : 여기 21, 22번째줄을 보면 여기 들어온 아이디랑 여기 게시글번호가 하드코딩 되어있어
-                                                          마이페이지 받고 마이페이지 통해서 정상적으로 들어오게되면 바꿔야 하구 그때까지는 저 하드코딩
-                                                          밸류값 가져오면 될듯해-->
-                                                      <table class="table  table-striped table-hover">
-                                                            
-                                                            <thead>
-                                                            <tr id="mytr">
-                                                                  <td>
+                                                      <div class="d-flex">
+                                                            <div class="card-body">
+                                                                  <div class="mainpage_index">
+                                                                        <a href="/studyIns/board/list?r_Idx=${map.get("r_Idx")}">
+                                                                              <li>▶ 게시판 이동</li>
+                                                                        </a>
+                                                                  </div>
+                                                                  
+                                                                  
+                                                                  <!--to 상준 : 여기 21, 22번째줄을 보면 여기 들어온 아이디랑 여기 게시글번호가 하드코딩 되어있어
+                                                                      마이페이지 받고 마이페이지 통해서 정상적으로 들어오게되면 바꿔야 하구 그때까지는 저 하드코딩
+                                                                      밸류값 가져오면 될듯해-->
+                                                                  <table class="table  table-striped table-hover">
+                                                                        
+                                                                        <thead>
+                                                                        <tr id="mytr">
+                                                                              <td>
                 <span class="label label-inline label-light-primary font-weight-bold ">
                     카테고리
                 </span>
-                                                                  </td>
-                                                                  <td>
+                                                                              </td>
+                                                                              <td>
                 <span class="label label-inline label-light-primary font-weight-bold ">
                     제목
                 </span>
-                                                                  </td>
-                                                                  <td>
+                                                                              </td>
+                                                                              <td>
                 <span class="label label-inline label-light-primary font-weight-bold">
                     내용
                 </span>
-                                                                  </td>
-                                                                  <td>
+                                                                              </td>
+                                                                              <td>
                 <span class="label label-inline label-light-primary font-weight-bold">
                     닉네임
                 </span>
-                                                                  </td>
-                                                            
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            
-                                                            <c:forEach end="3" var="noticeList" items="${notice}">
-                                                                  
-                                                                  <tr style="background-color: oldlace">
-                                                                        <td>공지</td>
-                                                                        <td>공지</td>
-                                                                        <td><a
-                                                                                href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
-                                                                                    <c:out value="${noticeList.title}"/><a/>
-                                                                                    ${map.boardPager.curPage}
-                                                                        </td>
-                                                                        <td>
-                                                                              <c:out value="${fn:substring(noticeList.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
-                                                                        <td>${noticeList.member_Name} </td>
-                                                                  
-                                                                  
-                                                                  </tr>
-                                                            </c:forEach>
-                                                            
-                                                            
-                                                            <c:set value="${fn:replace(pageMaker.total,' ' ,'' ) }" var="total"/>
-                                                            
-                                                            <c:forEach items="${list}" var="list" varStatus="status" end="5">
-                                                                  
-                                                                  <tr>
-                                                                        <c:choose>
-                                                                              <c:when test="${map.get('category') eq '공지'}">
+                                                                              </td>
+                                                                        
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        
+                                                                        <c:forEach end="2" var="noticeList" items="${notice}">
+                                                                              
+                                                                              <tr style="background-color: oldlace">
                                                                                     <td>공지</td>
-                                                                              </c:when>
+                                                                                    <td>공지</td>
+                                                                                    <td><a
+                                                                                            href="/studyIns/board/detail?cont_No=<c:out value="${noticeList.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
+                                                                                                <c:out value="${noticeList.title}"/><a/>
+                                                                                                ${map.boardPager.curPage}
+                                                                                    </td>
+                                                                                    <td>
+                                                                                          <c:out value="${fn:substring(noticeList.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
+                                                                                    <td>${noticeList.member_Name} </td>
+                                                                              
+                                                                              
+                                                                              </tr>
+                                                                        </c:forEach>
                                                                         
-                                                                        </c:choose>
                                                                         
-                                                                        <td>${list.category}</td>
-                                                                        <td><a
-                                                                                href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
-                                                                                    <c:out value="${list.title}"/> <a/>
-                                                                        </td>
-                                                                        <td>
-                                                                              <c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
-                                                                        <td>${list.member_Name} </td>
-                                                                  </tr>
-                                                            </c:forEach>
-                                                            <c:if test="${total eq '0'}">
-                                                                  <tr>
-                                                                        <td colspan="12" style="">
-                                                                              <h2 style="font-weight: 700; text-align: center; margin-bottom: 10px; margin-top: 10px">불러올 리스트가 없습니다.</h2>
-                                                                        </td>
-                                                                  </tr>
-                                                            </c:if>
-                                                            </tbody>
-                                                      </table>
-                                                      <li class="mainpage_index">▶출석 랭킹</li>
-                                                      <div class="container">
-                                                            <button hidden value="" id="attendance" class="btn btn-secondary">출석버튼</button>
-            
-            
-                                                            <figure class="highcharts-figure">
-                                                                  <div id="container"></div>
-                                                            </figure>
-      
-      
+                                                                        <c:set value="${fn:replace(pageMaker.total,' ' ,'' ) }" var="total"/>
+                                                                        
+                                                                        <c:forEach items="${list}" var="list" varStatus="status" end="7">
+                                                                              
+                                                                              <tr>
+                                                                                    <c:choose>
+                                                                                          <c:when test="${map.get('category') eq '공지'}">
+                                                                                                <td>공지</td>
+                                                                                          </c:when>
+                                                                                    
+                                                                                    </c:choose>
+                                                                                    
+                                                                                    <td>${list.category}</td>
+                                                                                    <td><a
+                                                                                            href="/studyIns/board/detail?cont_No=<c:out value="${list.cont_No}&curPage=${map.boardPager.curPage}&r_Idx=${map.get('r_Idx')}"/> ">
+                                                                                                <c:out value="${list.title}"/>
+                                                                                          <a/>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                          <c:out value="${fn:substring(list.cont.replaceAll('\\\<.*?\\\>',''),0, 10)}"/></td>
+                                                                                    <td>${list.member_Name} </td>
+                                                                              </tr>
+                                                                        </c:forEach>
+                                                                        <c:if test="${total eq '0'}">
+                                                                              <tr>
+                                                                                    <td colspan="12" style="">
+                                                                                          <h2 style="font-weight: 700; text-align: center; margin-bottom: 10px; margin-top: 10px">불러올 리스트가 없습니다.</h2>
+                                                                                    </td>
+                                                                              </tr>
+                                                                        </c:if>
+                                                                        </tbody>
+                                                                  </table>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                  <li class="mainpage_index">▶ 출석 랭킹</li>
+                                                                  <div class="container">
+                                                                        <button hidden value="" id="attendance" class="btn btn-secondary">출석버튼</button>
+                                                                        
+                                                                        
+                                                                        <figure class="highcharts-figure">
+                                                                              <div id="container"></div>
+                                                                        </figure>
+                                                                  
+                                                                  
+                                                                  </div>
+                                                            </div>
                                                       </div>
+                                                
                                                 </ul>
-                                              
+                                          
                                           </div>
                                           <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
                                     
@@ -437,7 +392,7 @@
       </div>
       
       <jsp:include page="../../../commons/footer.jsp"/>
-    <!----------------페이지 시작----------------------->
+      <!----------------페이지 시작----------------------->
 </div>
 
 
@@ -521,12 +476,12 @@
                 /* 차트 Y축 컬럼 명 */
                yAxis: {
                     title: '출석일',
-                    max:100
+                    max: 100
                },
                series: [{
                     type: 'column',
                     colorByPoint: true,
-                    data: [87, 79, 50, 100, 96, 100,80],
+                    data: [87, 79, 50, 100, 96, 100, 80],
                     showInLegend: false
                }]
           });
@@ -597,6 +552,67 @@
                closeModal()
           }
      })
+     
+     function checkAttendance() {
+          let now = new Date();
+          var rtn = true;
+          
+          Swal.fire({
+               title: "출석",
+               text: now.getDate() + "일 출석하시겠습니까?",
+               showCancelButton: true,
+               buttonsStyling: true,
+               button: {
+                    cancel: {
+                         text: '취소',
+                         value: false,
+                         className: 'btn btn-outline-primary' // 클래스 이름을 줄 수도 있다.
+                    },
+                    confirm: {
+                         text: '출석',
+                         value: true,
+                         className: 'btn btn-outline-primary'
+                    }
+               }
+          }).then(function(result) {
+               if (result) {
+                    $.ajax({
+                         type: "POST",
+                         url: "/studyRest/updateAttendance",
+                         data: JSON.stringify({
+                              'r_Idx': $(`#r_idx`).val(),
+                              'member_Name': $(`#member_name`).val()
+                         }),
+                         contentType: 'application/json; charset=utf-8',
+                         cache: false,
+                         success: function(data) {
+                              console.log(data);
+                              if (data == false) {
+                                   Swal.fire({
+                                        title: '출석',
+                                        text: '오늘 이미 출석하셨습니다',
+                                        type: "warning"
+                                   });
+                              } else {
+                                   Swal.fire({
+                                        title: '출석',
+                                        text: '출석완료!',
+                                        type: 'info'
+                                   })
+                              }
+                         },
+                         failure: function(data) {
+                              console.log(data);
+                              
+                         },
+                    });
+                    
+               }
+               
+               
+               
+          });
+     }
      
      //모달창 영역 밖
      

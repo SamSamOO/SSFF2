@@ -38,22 +38,23 @@
 <!--		</multipart-config>-->
 
 <!--		윈도우용-->
-<!--		<multipart-config>-->
-<!--			<location>C:\\Temp\\upload</location>-->
-<!--			<max-file-size>20971520</max-file-size>-->
-<!--			<max-request-size>41943040</max-request-size>-->
-<!--			<file-size-threshold>20971520</file-size-threshold>-->
-<!--		</multipart-config>-->
+		<multipart-config>
+			<location>C:\\Temp\\upload</location>
+			<max-file-size>20971520</max-file-size>
+			<max-request-size>41943040</max-request-size>
+			<file-size-threshold>20971520</file-size-threshold>
+		</multipart-config>
 	</servlet>
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
 	<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/views/error/error.jsp</location>
 	</error-page>
 
-	<servlet-mapping>
-		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
 
 	<session-config>
 		<session-timeout>9999999</session-timeout>

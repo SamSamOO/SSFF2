@@ -33,7 +33,6 @@ public class SocketHandler extends TextWebSocketHandler{
     
     List<HashMap<String, Object>> rls = new ArrayList<>(); //웹소켓 세션을 담아둘 리스트 ---roomListSessions
     
-    public SocketHandler(List<HashMap<String, Object>> rls){this.rls = rls;}
     
     
     private static JSONObject jsonToObjectParser(String jsonStr){

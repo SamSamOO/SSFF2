@@ -123,7 +123,7 @@
                                           <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
                                           <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
                                           <input type="hidden" name="category" value="${category}"/>
-                                          <input type="text" name="r_Idx" id="r_Idx" value="${map.get("r_Idx")}"/>
+                                          <input type="hidden" name="r_Idx" id="r_Idx" value="${map.get("r_Idx")}"/>
                                           
                                           <table class="table table-borderless">
                                                 
