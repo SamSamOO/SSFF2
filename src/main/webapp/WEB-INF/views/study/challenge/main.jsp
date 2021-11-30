@@ -100,9 +100,9 @@
                      initialView: 'dayGridMonth',
                      // initialDate: '2021-11-07',
                      headerToolbar: {
-                       left: 'title',
-                       center: '',
-                       right: 'prev,next today'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
+                          left: 'prev,next today',
+                          center: 'title',
+                          right: 'registAttendance,addEventButton'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
                      },
                      selectable: true,
                      editable: true,
@@ -195,7 +195,7 @@
                                           <div class="card-header border-0 pt-5 card-body mt-5"
                                                id="post-body-wrapper">
                                                 <ul style="list-style: none">
-                                                      <li class="mainpage_index">▶ 일정 관리</li>
+                                                      <li class="mainpage_index"><span class="left-items">▶ 일정 관리 </span><span class="right-items">${}</span></li>
                                                       <!--캘린더 섹션 start------->
                                                       <div id="calendar-sec" style="width: 100%"><!--캘린더 크기 설정-->
                                                             <!--calendar api-->
