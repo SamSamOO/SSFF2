@@ -17,7 +17,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import kr.or.ssff.Utils.RandomGenerator;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.cafe.domain.ReservationVO;
+import kr.or.ssff.mapper.ApplyMemberMapper;
 import kr.or.ssff.mapper.CafeMapper;
 import kr.or.ssff.mapper.PaymentMapper;
 import kr.or.ssff.payment.domain.PaymentWithdrawDTO;
@@ -57,6 +59,10 @@ public class PaymentServiceImpl
   @Setter(onMethod_ = {@Autowired})
   private CafeMapper cafeMapper;
 
+  @Setter(onMethod_ = {@Autowired})
+  private ApplyMemberMapper applyMemberMapper;
+
+
   private final static String CLIENT_ID = "8492614f-7af7-472e-9c00-f0b61b38ed33";
   private final static String CLIENT_SECRET = "e9366e92-5b66-450e-8299-f1ebbf9473db";
   private final static String GRANK_TYPE = "authorization_code";
@@ -76,6 +82,14 @@ public class PaymentServiceImpl
     return reservationVO;
   }
 
+  // 결제 임시상태 참여회원 정보 조회 (거래정보와 비교하기위해)
+  @Override
+  public ApplyMemberVO getTempApplyMember(){
+
+    ApplyMemberVO applyMemberVO  = applyMemberMapper.selectTempApplyMember();
+
+    return applyMemberVO;
+  }
 
   @Override
   public List<PaymentAcntDTO> getAcntList(String id) {
@@ -158,7 +172,7 @@ public class PaymentServiceImpl
   // code, id로 token 받기
   @Override
   public PaymentAuthDTO getAuth(String code, String id, String action) {
-    log.debug("getAuth({},{}) is invoked", code, id);
+    log.debug("getAuth({},{},{}) is invoked", code, id);
 
 
     // 1. 액서스 토큰 발급, 사용자 번호 발급
@@ -232,7 +246,7 @@ public class PaymentServiceImpl
 
   // fin-num으로 출금이체 시도
   @Override
-  public PaymentWithdrawDTO getWithdrawDto(List<PaymentAcntDTO> acnt, PaymentAuthDTO auth) {
+  public PaymentWithdrawDTO getWithdrawDto(List<PaymentAcntDTO> acnt, PaymentAuthDTO auth, String param) {
     log.debug("getWithdrawDto({}) is invoked", acnt);
 
     // 은행거래고유번호 생성을 위해 난수 생성
@@ -254,10 +268,10 @@ public class PaymentServiceImpl
     jsonObject.put("bank_tran_id","M202113457U" + ran);
     jsonObject.put("cntr_account_type", "N");
     jsonObject.put("cntr_account_num", CLIENT_ACCOUNT_NUM);
-    jsonObject.put("dps_print_content", "스터디카페예약");
+    jsonObject.put("dps_print_content", param);
     jsonObject.put("fintech_use_num", acnt.get(0).getFintechUseNum());
-    jsonObject.put("tran_amt", "1000");
-    jsonObject.put("wd_print_content", "스터디카페예약");
+    jsonObject.put("tran_amt", "10000");
+    jsonObject.put("wd_print_content", param);
     jsonObject.put("tran_dtime",formatStr);
     jsonObject.put("req_client_name", "신지혜");
     jsonObject.put("req_client_num", "SHINJIHYE0223");
