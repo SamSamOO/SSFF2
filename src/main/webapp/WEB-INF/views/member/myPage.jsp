@@ -4,16 +4,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+    <meta charset="UTF-8">
+    <title>src/main/webapp/WEB-INF/views/member/myPage.jsp</title>
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/footer.jsp"></jsp:include>
+
+
+<%--    <script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>--%>
+
+
+    <style>
+        .image-input-outline {
+
+            margin-left: 10px;
+        }
+        .d-flex1 {
+            margin-left: 500px;
+        }
+
+         ul{
+             list-style:none;
+         }
+        .logo-to-sort li {
+            float: left;
+            margin: 0.75rem;
+            list-style: none;
+        }
+    </style>
+
+
 	<meta charset="UTF-8">
-	<c:choose>
-		<%-- TODO 로그인한 사람이랑 페이지 주인이 다르면 어쩌구 하고싶었어--%>
-		<c:when test="${member.member_name != member}">
-			<title>${member.member_name}님의 마이 페이지</title>
-		</c:when>
-		<c:otherwise>
-			<title>마이 페이지</title>
-		</c:otherwise>
-	</c:choose>
+
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
 	<script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>
 	<script src="/resources/assets/js/member/myPage.js"></script>
@@ -78,6 +99,68 @@
 						<div class="content flex-column-fluid" id="kt_content">
 							<!--대시보드 시작-->
 
+
+    <div class="card card-custom gutter-b">
+        <div class="card-body">
+            <!--begin::Details-->
+            <div class="d-flex mb-9">
+                <!--begin: Pic-->
+                <div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
+                    <div class="symbol symbol-50 symbol-lg-120">
+							<!--풀 사이즈 카드 시작 / 카드 필요 없으면 여기서부터 밀기☆-->
+							<div class="card card-custom">
+									<!--begin::Body 북마크-->
+									<div class="card-body">
+										<!--begin::Details-->
+										<div class="d-flex mb-9">
+											<!--begin: Pic-->
+											<div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
+												<div class="symbol symbol-50 symbol-lg-120">
+													<div class="image-input image-input-empty image-input-outline"
+													     id="kt_image_5"
+													     style="background-image: url(${pageContext.request.contextPath}/resources/assets/media/users/blank.png)">
+														<div class="image-input-wrapper"></div>
+
+
+
+                    <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
+                        <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
+                    </div>
+                </div>
+											<!--end::Pic-->
+											<!--begin::Info-->
+											<div class="flex-grow-1">
+												<!--begin::Title-->
+												<div class="d-flex justify-content-between flex-wrap mt-1">
+													<div class="d-flex mr-3">
+														<a href="#"
+														   class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">${member.member_name}님</a>
+														<a href="#">
+															<i class="flaticon2-correct text-success font-size-h5"></i>
+														</a>
+													</div>
+
+                    </div>
+                    <!--end::Title-->
+                    <!--begin::Content-->
+                    <div class="d-flex flex-wrap justify-content-between mt-1">
+                        <div class="d-flex flex-column flex-grow-1 pr-8">
+                            <div class="d-flex flex-wrap mb-4">
+                                <a href="#"
+                                   class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+                                    <i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>${member.member_no}</a>
+												</div>
+												<!--end::Title-->
+												<!--begin::Content-->
+												<div class="d-flex flex-wrap justify-content-between mt-1">
+													<div class="d-flex flex-column flex-grow-1 pr-8">
+														<div class="d-flex flex-wrap mb-4">
+															<a href="#"
+															   class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+																<i class="flaticon2-new-email mr-2 font-size-lg"></i>${member.member_id}
+															</a>
+
+
 							<!--풀 사이즈 카드 시작 / 카드 필요 없으면 여기서부터 밀기☆-->
 							<div class="card card-custom">
 								<!--begin::Body 북마크-->
@@ -137,6 +220,7 @@
 														</a>
 													</c:if>
 												</div>
+
 
 											</div>
 											<!--end::Title-->
