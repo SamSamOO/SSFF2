@@ -14,25 +14,25 @@
 	<link href='../../../resources/assets/fullcalendar/fullcalendar/lib/main.css' rel='stylesheet'/>
 	<script src='../../../resources/assets/fullcalendar/fullcalendar/lib/main.js'></script>
 	<script src='../../../resources/assets/fullcalendar/script.js'></script>
-	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="http://code.jquery.com/jquery-3.5.1.min.js"/>
 	<input type="hidden" id="member_name" value="${member.member_name}">
-
+	
 	<script>
 		let member_name = document.querySelector('#member_name').value;
-		let calendarData
-
+		let calendarData = '';
+		
 		async function doGetCalendarData() {
 			calendarData = await getFullCalendarData(member_name,'/calendar/getAll');
 		}
-
+		
 		doGetCalendarData()
-
+		
 		if (!calendarData) {
 			calendarData = exmapleData()
 		}
 		let calendar
 		let currentEvent
-
+		
 		document.addEventListener('DOMContentLoaded', function () {
 			let calendarEl = document.getElementById('calendar')
 			calendar = new FullCalendar.Calendar(calendarEl, {
@@ -67,11 +67,11 @@
 			calendar.render()
 		})
 	</script>
-
+	
 	<!--예솔 for calendar end-->
 	<%-- TODO 로그인한 사람이랑 페이지 주인이 다르면 어쩌구 하고싶어--%>
 	<title>${member.member_name}님의 마이 페이지</title>
-	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
+	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"/>
 	<!--<script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>-->
 </head>
 <!----------------Head 종료----------------------->
@@ -86,10 +86,10 @@
 			<!--begin::Wrapper ↓여기 매칭되는 div 태그부터 안닫아도 됨(footer에 있음)-->
 			<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 				<!------------------header.html Include------------------>
-				<jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/commons/header.jsp"/>
 				<!------------------Header Wrapper : 메뉴 탭 시작------------------>
 				<!--menu.html Include-->
-				<jsp:include page="/WEB-INF/views/member/menu_mypage.jsp"></jsp:include>
+				<jsp:include page="/WEB-INF/views/member/menu_mypage.jsp"/>
 				<!------------------Header Wrapper : 메뉴 탭 종료------------------>
 				<!--컨테이너 시작-->
 				<div class="d-flex flex-row flex-column-fluid container">
@@ -124,7 +124,7 @@
 						</div>
 						<div class="content flex-column-fluid" id="kt_content">
 							<!--대시보드 시작-->
-
+							
 							<!--풀 사이즈 카드 시작 / 카드 필요 없으면 여기서부터 밀기☆-->
 							<div class="card card-custom">
 								<!--begin::Body 북마크-->
@@ -142,37 +142,37 @@
 										</div>
 										<!--수정기능 있는 버전-->
 										<%--<div class="flex-shrink-0 mr-7 mt-lg-0 mt-3">
-											<div class="symbol symbol-50 symbol-lg-120">
-												<div class="image-input image-input-empty image-input-outline" id="kt_image_5" style="background-image: url(${pageContext.request.contextPath}/resources/assets/media/users/blank.png)">
-													<div class="image-input-wrapper"></div>
-													<label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
-														<i class="fa fa-pen icon-sm text-muted"></i>
-														<input type="file" name="profile_avatar"
-															   accept=".png, .jpg, .jpeg"/>
-														<input type="hidden" name="profile_avatar_remove"/>
-													</label>
-													<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
-														  <i class="ki ki-bold-close icon-xs text-muted"></i>
-														 </span>
-													<span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove avatar">
-													  <i class="ki ki-bold-close icon-xs text-muted"></i>
-													 </span>
-												</div>
-											</div>
-											<div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
-												<span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
-											</div>
-										</div>--%>
+                                           <div class="symbol symbol-50 symbol-lg-120">
+                                              <div class="image-input image-input-empty image-input-outline" id="kt_image_5" style="background-image: url(${pageContext.request.contextPath}/resources/assets/media/users/blank.png)">
+                                                 <div class="image-input-wrapper"></div>
+                                                 <label class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="change" data-toggle="tooltip" title="" data-original-title="Change avatar">
+                                                    <i class="fa fa-pen icon-sm text-muted"></i>
+                                                    <input type="file" name="profile_avatar"
+                                                          accept=".png, .jpg, .jpeg"/>
+                                                    <input type="hidden" name="profile_avatar_remove"/>
+                                                 </label>
+                                                 <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="cancel" data-toggle="tooltip" title="Cancel avatar">
+                                                      <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                                     </span>
+                                                 <span class="btn btn-xs btn-icon btn-circle btn-white btn-hover-text-primary btn-shadow" data-action="remove" data-toggle="tooltip" title="Remove avatar">
+                                                   <i class="ki ki-bold-close icon-xs text-muted"></i>
+                                                  </span>
+                                              </div>
+                                           </div>
+                                           <div class="symbol symbol-50 symbol-lg-120 symbol-primary d-none">
+                                              <span class="font-size-h3 symbol-label font-weight-boldest">JM</span>
+                                           </div>
+                                        </div>--%>
 										<!--end::Pic-->
-
+										
 										<!--begin::Info-->
 										<div class="flex-grow-1">
 											<!--begin::Title-->
 											<div class="d-flex justify-content-between flex-wrap mt-1">
 												<div class="d-flex mr-3 align-items-center">
-
+													
 													<span class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">${member.member_name}님</span>
-
+													
 													<c:if test="${(sessionScope.member.member_name == member.member_name) || (sessionScope.kname == member.member_name)}">
 														<i class="flaticon2-correct text-success font-size-h5 align-self-center"></i>
 														<a href="/member/modifyGo" class="mx-4">
@@ -185,13 +185,13 @@
 													<a href="#" class="btn btn-sm bg-ssff2 bg-hover-danger-o-1 font-weight-bolder text-uppercase mr-3">스터디 찾기</a>
 												</div>
 												<%--<div class="d-flex1 align-items-center w-70 flex-fill float-right mt-lg-12 mt-8">
-													<button type="button" id="modifyMember" onclick="fn_modify();" class="btn btn-primary font-weight-bolder font-size-h5 pl-9 pr-9 py-4 my-5 ">
-														정보수정
-													</button>
-													<button type="button" id="findPJ" onclick="fn_findPJ();" class="btn btn-primary font-weight-bolder font-size-h5 pl-8 pr-7 py-4 my-5 ">
-														프로젝트찾기
-													</button>
-												</div>--%>
+                                                   <button type="button" id="modifyMember" onclick="fn_modify();" class="btn btn-primary font-weight-bolder font-size-h5 pl-9 pr-9 py-4 my-5 ">
+                                                      정보수정
+                                                   </button>
+                                                   <button type="button" id="findPJ" onclick="fn_findPJ();" class="btn btn-primary font-weight-bolder font-size-h5 pl-8 pr-7 py-4 my-5 ">
+                                                      프로젝트찾기
+                                                   </button>
+                                                </div>--%>
 											</div>
 											<!--end::Title-->
 											<!--begin::Content-->
@@ -211,16 +211,16 @@
 										<!--end::Info-->
 									</div>
 									<!--end::Details-->
-
+									
 									<div class="separator separator-solid"></div>
 									<!--begin::사용언어-->
 									<div class="d-flex align-items-center flex-wrap mt-8 member_lang">
 										<c:forEach items="" var="list">
 											<!--begin::아이콘-->
 											<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-											<span class="mr-4">
-												<i class=" display-4 text-muted font-weight-bolder"></i>
-											</span>
+                                <span class="mr-4">
+                                   <i class=" display-4 text-muted font-weight-bolder"></i>
+                                </span>
 											</div>
 											<!--end::아이콘-->
 										</c:forEach>
@@ -231,16 +231,16 @@
 										<!--end::아이콘-->
 										<!--begin::아이콘-->
 										<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-											<span class="mr-4">
-												<i class=" display-4 text-muted font-weight-bolder"></i>
-											</span>
+                                <span class="mr-4">
+                                   <i class=" display-4 text-muted font-weight-bolder"></i>
+                                </span>
 										</div>
 										<!--end::아이콘-->
 										<!--begin::아이콘-->
 										<div class="d-flex align-items-center flex-lg-fill mr-5 mb-2">
-											<span class="mr-4">
-												<i class=" display-4 text-muted font-weight-bolder"></i>
-											</span>
+                                <span class="mr-4">
+                                   <i class=" display-4 text-muted font-weight-bolder"></i>
+                                </span>
 										</div>
 										<!--end::아이콘-->
 									</div>
@@ -256,17 +256,17 @@
 										<span class="card-label font-weight-bolder text-dark">일정</span>
 									</h3>
 									<div class="card-toolbar">
-
+									
 									</div>
 								</div>
 								<!--카드 헤더 종료-->
 								<!--카드 Body 시작-->
 								<div class="card-body">
-
-
+									
+									
 									<div id='calendar'></div>
 									<!--modal part-->
-
+									
 									<!--modal-->
 									<div class="calmodal hidden">
 										<div class="calmodal-overlay"></div>
@@ -298,20 +298,20 @@
 												<br>
 												<div class="timeHidden hidden">
 													<label for="calendar-start-time">시작</label><input
-														type="time" id="calendar-start-time"
-														step="900" required
-														class="form-control inputBoxSetting2">
+													type="time" id="calendar-start-time"
+													step="900" required
+													class="form-control inputBoxSetting2">
 													<label for="calendar-end-time">종료</label><input
-														type="time" id="calendar-end-time"
-														step="900" required
-														class="form-control inputBoxSetting2">
+													type="time" id="calendar-end-time"
+													step="900" required
+													class="form-control inputBoxSetting2">
 												</div>
 											</div>
 											<div id="cal-cont-sec">
 												<p class="cal-index">내용</p>
 												<textarea id="calendar-content"></textarea>
 											</div>
-
+											
 											<div id="cal-button-sec">
 												<button id="modal-regist" class="cal-button"
 														onclick="eventRegist()">일정 등록하기
@@ -324,7 +324,7 @@
 														class="hidden cal-button"
 														onclick="deleteEvent()">삭제
 												</button>
-
+											
 											</div>
 										</div>
 									</div>
@@ -349,46 +349,46 @@
 	const modalRegist = document.querySelector('#modal-regist')
 	const modalModify = document.querySelector('#modal-modify')
 	const modalDelete = document.querySelector('#modal-delete')
-
+	
 	const timeHidden = document.querySelector('.timeHidden')
-
+	
 	const overlay = document.querySelector('.calmodal-overlay')
 	//모달창이 활성화되면 흐린 배경을 표현하는 요소
-
+	
 	const closeBtn = document.getElementById('close')
 	//offModal button
-
+	
 	const checkbox = document.querySelector("input[name=allday]");
 	let checkboxStatus = 'y' //종일이면 y, 아니면 n
 	//종일체크
-
+	
 	const closeModal = () => {
 		modal.classList.add('hidden')
 	}
-
+	
 	closeBtn.addEventListener('click', closeModal)
 	//모달창 내부의 닫기 버튼
-
+	
 	overlay.addEventListener('click', (e) => {
 		if (e.target.className === 'calmodal-overlay') {
 			closeModal()
 		}
 	})
-
+	
 	//모달창 영역 밖
-
+	
 	function openModal(arg) {
-		if (arg) {	// detail 일때
+		if (arg) { // detail 일때
 			currentEvent = arg.event
 			console.log('arg : ', arg)
 			console.log(calendar.getEvents())
 			console.log(arg.event.id)
 			document.getElementById('calendar-title').value = arg.event.title
-
+			
 			let startDay = arg.event._instance.range.start;
 			let endDay = arg.event._instance.range.end;
 			let allday_ok = arg.event.extendedProps.allday_ok;
-
+			
 			console.log(allday_ok);
 			if (allday_ok == 'n') {
 				$('#allday').removeAttr('checked');
@@ -398,18 +398,18 @@
 				timeHidden.classList.add('hidden')
 			}
 			document.getElementById('calendar-start-date').value = new Date(
-					startDay + 3240 * 10000).toISOString().split("T")[0];
+				startDay + 3240 * 10000).toISOString().split("T")[0];
 			document.getElementById('calendar-end-date').value = new Date(
-					endDay + 3240 * 10000).toISOString().split("T")[0];
+				endDay + 3240 * 10000).toISOString().split("T")[0];
 			document.getElementById('calendar-start-time').value = startDay.toTimeString().split(
-					" ")[0].substr(0, 5);
+				" ")[0].substr(0, 5);
 			document.getElementById('calendar-end-time').value = endDay.toTimeString().split(
-					" ")[0].substr(0, 5);
+				" ")[0].substr(0, 5);
 			document.getElementById('calendar-content').value = arg.event.extendedProps.cal_cont
 			modalRegist.classList.add('hidden')
 			modalModify.classList.remove('hidden')
 			modalDelete.classList.remove('hidden')
-		} else {	// 등록 일때
+		} else {   // 등록 일때
 			document.getElementById('calendar-title').value = ''
 			document.getElementById('calendar-start-date').value = ''
 			document.getElementById('calendar-end-date').value = ''
@@ -419,13 +419,13 @@
 		}
 		modal.classList.remove('hidden')
 	}
-
+	
 	function eventRegist() {
-
+		
 		let time_start = "";
 		let time_end = "";
 		if (document.getElementById('calendar-start-time').value != "" && document.getElementById(
-				'calendar-end-time').value != "") {
+			'calendar-end-time').value != "") {
 			time_start = "T" + document.getElementById('calendar-start-time').value + ":00";
 			time_end = "T" + document.getElementById('calendar-end-time').value + ":00";
 		} else {
@@ -458,7 +458,7 @@
 		showAlarm(2)
 		closeModal()
 	}
-
+	
 	function deleteEvent() {
 		if (showAlarm(5)) {
 			currentEvent.remove()  // front calendar update
@@ -469,7 +469,7 @@
 			showAlarm(4)
 		}
 	}
-
+	
 	function modifyEvent() {
 		if (showAlarm(6)) {
 			currentEvent.remove()  // front calendar update
@@ -481,7 +481,7 @@
 			showAlarm(8)
 		}
 	}
-
+	
 	function showAlarm(type) {
 		switch (type) {
 			case 0:
@@ -520,7 +520,7 @@
 				break;
 		}
 	}
-
+	
 	checkbox.addEventListener('change', function () {
 		if (this.checked) {
 			timeHidden.classList.add('hidden')
@@ -543,8 +543,8 @@
 			url: "/member/modify",  // 켈린더로 가는 링크
 		})
 	}
-
-
+	
+	
 	function fn_findPJ() {
 		$.ajax({
 			url: "/member/",  // 켈린더로 가는 링크
@@ -554,3 +554,5 @@
 
 
 </script>
+
+

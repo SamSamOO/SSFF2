@@ -24,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
 
 //        세션아이디가 null 이면
-        if (session.getAttribute("member") == null) {
+        if (session.getAttribute("member") == null)   {
 
 //             로그인페이지로 이동
             response.sendRedirect(request.getContextPath() + "/member/loginGo");

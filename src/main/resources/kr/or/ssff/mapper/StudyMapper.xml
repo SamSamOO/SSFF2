@@ -445,6 +445,7 @@
         OFFSET (#{page}-1)*15 ROW
         FETCH NEXT 15 ROWS ONLY
     </select>
+
     <!--글 총갯수 구하기(타입 받음)+로고선택-->
     <update id="update">
         UPDATE RECRUIT_BOARD
@@ -503,7 +504,7 @@
 
     <!--하루에 한번 출석하도록 하는 xml입니다-->
     <select id="attendanceOkOneByOne" parameterType="hashMap" resultType="integer">
-        SELECT count(AT_NO)
+        SELECT COUNT(AT_NO)
         FROM ATTENDANCELIST
         WHERE R_IDX = #{map.r_Idx}
           AND MEMBER_NAME = #{map.member_name}
@@ -512,9 +513,36 @@
 
     <!--가입여부 확인-->
     <select id="getMemberByR_idx" resultType="kr.or.ssff.applyMember.domain.ApplyMemberDTO">
-        SELECT apply_idx, r_idx, member_name
-        FROM apply_member
-        WHERE r_idx=#{r_idx}
+        SELECT APPLY_IDX, R_IDX, MEMBER_NAME
+        FROM APPLY_MEMBER
+        WHERE R_IDX = #{r_idx}
+    </select>
+
+    <select id="getTeamName" resultType="kr.or.ssff.applyMember.domain.ApplyMemberDTO">
+        SELECT R_IDX,
+               MEMBER_NAME,
+               TYPE_PC,
+               TITLE,
+               TEAMNAME,
+               CONT,
+               HIT,
+               WRITEDATE,
+               SIDO,
+               CH_PATTERN,
+               CH_START,
+               CH_END,
+               REMOVED_OK,
+               CLOSED_OK,
+               DEAD_OK
+        FROM RECRUIT_BOARD RB
+        WHERE RB.R_IDX = #{r_Idx}
+    </select>
+
+    <select id="getAtd" parameterType="hashMap" resultType="Integer">
+        SELECT ATTENDANCE_DAYS
+        FROM APPLY_MEMBER
+        WHERE MEMBER_NAME = #{map.member_name}
+          AND R_IDX = #{map.r_Idx}
     </select>
 </mapper>
 

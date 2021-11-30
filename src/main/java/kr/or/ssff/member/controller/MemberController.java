@@ -1,38 +1,34 @@
 package kr.or.ssff.member.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
-
-
-import kr.or.ssff.member.service.KaKaoService;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberDTO;
-
+import kr.or.ssff.member.service.KaKaoService;
+import kr.or.ssff.member.service.MemberService;
+import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.studyIns.model.Criteria;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import org.springframework.web.bind.annotation.*;
-
-import kr.or.ssff.member.service.MemberService;
-import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.io.File;
+import java.util.HashMap;
+import java.util.List;
 
 /*
 
@@ -45,7 +41,7 @@ import java.io.File;
 @RequestMapping("/member")
 @Controller
 public class MemberController {
-
+    
     KaKaoService kaKaoService;
 
     @Autowired //@Setter(onMethod_= { @Autowired })로 바꾸고 serviceimp 변경
@@ -173,7 +169,6 @@ public class MemberController {
         mav.setViewName("member/login");
         String referer = request.getHeader("Referer");
         mav.addObject("referer", referer);
-        
         // 카카오 로그인
         mav.addObject("kakao_url", kakaoUrl);
 
@@ -307,7 +302,7 @@ public class MemberController {
         @GetMapping("/myPage")
         public String myPageGo (String nickname){
             log.debug("myPageGo({}) is invoked", "nickname = " + nickname);
-
+            
             return "/member/myPage";
         } // myPageGo
 
@@ -316,13 +311,28 @@ public class MemberController {
          * 파라메터 : nickname
          * 스터디 목록 페이지
          * */
-
-   @GetMapping("/studyList")
-        public String selectStudyList (String nickname){
-            log.debug("selectStudyList({}) is invoked", "nickname = " + nickname);
-
-            return "/member/studyList";
-        } // studyListGo
+    
+    @GetMapping("/studyList")
+    public String selectStudyList(String memberName, Criteria criteria, Model model){
+        log.info("selectStudyList({}) is invoked", "memberName = " + memberName + ", criteria = " + criteria + ", model = " + model);
+        
+    
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("member_name", memberName);
+        map.put("pageNum", criteria.getPageNum());
+        map.put("amount", criteria.getAmount());
+        
+        
+        log.info("map = {}", map);
+        List<RecruitBoardVO> myStudyList = this.service.getMyStudyList(map);
+        
+        log.info("myStudyList = {}", myStudyList);
+    
+        model.addAttribute("myStudyList", myStudyList);
+        model.addAttribute("map", map);
+        
+        return "/member/studyList";
+    } // studyListGo
 
 
         /* 회원탈퇴기능을 수행합니다
