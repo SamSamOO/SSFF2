@@ -74,6 +74,22 @@
 
 	</select>
 
+	<!--  스터디 참여상태 조회 : 신지혜  -->
+	<select
+		id="selectApplyMemberStatus"
+		parameterType="hashMap"
+		resultType="kr.or.ssff.applyMember.domain.ApplyMemberVO">
+
+		SELECT
+			*
+		FROM
+			apply_member
+		WHERE
+			member_name = #{member_name}
+			AND r_idx = #{r_idx}
+
+	</select>
+
 
 	<!-- 회원의 스터디 참여 상태 정보 변경 : 신지혜  -->
 	<update id="applyAction" parameterType="hashMap" >
@@ -158,11 +174,16 @@ or action == "fail"' > <!-- 챌린지가입신청->대기, 결제 실패시에�
 		'aid_'||apply_member_sqe.NEXTVAL,
 		#{r_idx},
 		#{member_name},
-		<!-- 일반회원이라면 'a,n' 처리 -->
+		<if test='boss == "n"'> <!-- 일반회원이라면 'a,n' 처리 21.12.01 지혜 if절 추가 -->
 		'a',
 		sysdate,
 		'n'
-		<!-- 개설자라면 'i,y' 처리 -->
+		</if>
+		<if test='boss == "y"'> <!-- 개설자라면 'i,y' 처리 -->
+			'i',
+			sysdate,
+			'y'
+		</if>
 		)
 	</insert>
 

@@ -143,273 +143,273 @@
 																
 																<!--begin::Body-->
 																
-																<!--end::Body-->
-																<div class="card-body">
-																		<!--begin: Datatable-->
-																		
-																	
-																		
-																		
-																		<!--end::Body-->
-																	<div class="d-flex mb-10" style="justify-content: flex-end;">
-																		<button type="button" class="btn btn-primary font-weight-bold font-size-h6 px-10 py-4 mr-40"
-																		        data-toggle="modal" id="payBtn" onclick="checkFields();"
-																		        data-target="#my80sizeCenterModal">
-																			결제
-																		</button>
-																	</div>
-																	
-																	
-																	<!--모달시작::-->
-																		<div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1"
-																		     role="dialog" aria-labelledby="my80sizeCenterModalLabel">
-																				<div class="modal-dialog modal-80size modal-center" role="document">
-																						<div class="modal-content modal-80size">
-																								<div class="modal-header " style="background-color:#ffa800;">
-																										
-																										<h4 class="modal-title" id="myModalLabel">챌린지 참여금 결제</h4>
-																								
-																								</div>
-																								<div class="modal-body">
-																									<div class="datatable datatable-bordered datatable-head-custom
-																		datatable-default datatable-primary datatable-loaded" id="결제정보" style="">
-																										<table class="datatable-table"
-																										       style="display: block;margin-left: auto;margin-right: auto;width: 80%;">
-																											<thead class="datatable-head">
-																											<tr class="datatable-row" style="left: 0px;">
-																												<th data-field="OrderID"
-																												    class="datatable-cell datatable-cell-sorted">
-																													<span style="width: 250px;font-size: 1.3rem;">결제정보</span></th>
-																											</tr>
-																											</thead>
-																											<tbody style="" class="datatable-body">
-																											
-																											<tr data-row="0" class="datatable-row" style="left: 0px;">
-																												<td class="col-4 pr-8 datatable-cell-right datatable-cell
-																													font-weight-bolder">스터디유형
-																												</td>
-																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">
-																													Challenge
-																												</td>
-																											</tr>
-																											
-																											
-																											<tr data-row="0" class="datatable-row" style="left: 0px;">
-																												<td class="col-4 pr-8 datatable-cell-right datatable-cell
-																													font-weight-bolder">스터디명
-																												</td>
-																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">
-																													스터디명(스터디id)
-																												</td>
-																											</tr>
-																											
-																											
-																											<tr data-row="0" class="datatable-row" style="left: 0px;">
-																												<td class="col-4 pr-8 datatable-cell-right datatable-cell
-																													font-weight-bolder">참여기간
-																												</td>
-																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">
-																													시작일-총00일
-																												</td>
-																											</tr>
-																											
-																											
-																											<div class="ml-4 datatable-cell-sorted ">
-																												<div class="font-weight-bolder mb-0 h3">
-																													10,000 원
-																												</div>
-																											
-																											</div>
-																											
-																											<tr data-row="0" class="datatable-row" style="left: 0px;">
-																												<td class="col-4 pr-8 datatable-cell-right datatable-cell
-																													font-weight-bolder">환급예정일
-																												</td>
-																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">
-																													종료일자
-																												</td>
-																											</tr>
-																											
-																											
-																											<tr data-row="0" class="datatable-row">
-																												<td class="col-4 pr-8 datatable-cell-right datatable-cell"><span
-																													class="font-weight-bolder">결제금액</span></td>
-																												<td class="font-weight-bolder mb-0 h3" style="color: #6b984f;">
-																												
-																													10,000 원
-																												
-																												</td>
-																												
-																											</tr>
-																											
-																											</tbody>
-																										</table>
-																									
-																									</div>
-																									<!--end: 결제정보 -->
-																									
-																									<!--end: 환불규정 -->
-																									<div class="separator separator-dashed my-10"></div>
-																									
-																									<div class="datatable datatable-bordered datatable-head-custom
-																																					datatable-default datatable-primary datatable-loaded"
-																									     id="환불규정" style="">
-																										<table class="datatable-table"
-																										       style="display: block;margin-left: auto;margin-right: auto;width: 80%;">
-																											
-																											<thead class="datatable-head">
-																												<tr class="datatable-row" style="left: 0px;">
-																													<th class="datatable-cell datatable-cell-sorted"
-																													    data-sort="asc"><span style="width: 250px;font-size: 1.3rem;">환급규정</span></th>
-																											</tr>
-																											</thead>
-																											
-																											<tbody style="" class="datatable-body">
-																											
-																												<tr data-row="0" class="datatable-row" style="left: 0px;">
-																													<td class="col-0 pl-3 pr-0 datatable-cell-center datatable-cell
-																													font-weight-bolder">#1
-																													</td>
-																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">
-																														챌린지 종료일 이전 환불은 불가합니다.
-																													</td>
-																												</tr>
-																												
-																												<tr data-row="0" class="datatable-row" style="left: 0px;">
-																													<td class="col-0 pl-3 pr-0 datatable-cell-center datatable-cell
-																													font-weight-bolder">#2
-																													</td>
-																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">
-																														챌린지 종료일 기준 출석률에 비례하여
-																														<br>환급금이 정산됩니다.
-																														<br>
-																														<span class="text-danger font-size-sm">(100일 챌린지에 50일 출석시 5,000원 환급)</span>
-																													</td>
-																												</tr>
-																												
-																												<tr data-row="0" class="datatable-row" style="left: 0px;">
-																													<td class="col-0 pl-3 pr-0 datatable-cell-center datatable-cell
-																													font-weight-bolder">#3
-																													</td>
-																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">
-																														환급금의 수령은 종료일 이후
-																														<br>해당 스터디 페이지에 접속하여 가능합니다.
-																														<br>
-																														<span class="text-danger font-size-sm">(자동환급되지 않습니다.)</span>
-																													</td>
-																												</tr>
-																												
-																												<tr data-row="0" class="datatable-row" style="left: 0px;">
-																													<td class="col-0 pl-3 pr-0 datatable-cell-center datatable-cell
-																													font-weight-bolder">#4
-																													</td>
-																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">
-																														참여금 미결제시 해당 챌린지 참여가 불가합니다.
-																													</td>
-																												</tr><!--//TODO 개;;-->
-																											
-																											</tbody>
-																										</table>
-																									</div>
-																									
-																									
-																									<div class="separator separator-dashed my-10"></div>
-																									
-																									<div class="datatable datatable-bordered datatable-head-custom
-																		datatable-default datatable-primary datatable-loaded" style="">
-																										<table class="datatable-table"
-																										       style="display: block;margin-left: auto;margin-right: auto;width: 80%;">
-																											<thead class="datatable-head">
-																											<tr class="datatable-row" style="left: 0px;">
-																												<th data-field="PayID" style="border-bottom: 1px solid #ebedf3;"
-																												    class="datatable-cell datatable-cell-sorted"
-																												    data-sort="asc"><span style="width: 250px;font-size: 1.3rem;">결제방법</span></th>
-																											</tr>
-																											</thead>
-																											<tbody style="" class="datatable-body">
-																											
-																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
-																												<td class="datatable-cell-left datatable-cell ml-15">
-																													
-																													<label class="radio font-weight-bolder" for="cash">
-																														<input type="radio" id="cash" name="pay" value="" class="ck" title="결제방법">
-																														<span class="mr-2"></span>실시간 출금</label>
-																												
-																												</td>
-																											</tr>
-																											
-																											</tbody>
-																										</table>
-																									</div>
-																									
+<%--																<!--end::Body-->--%>
+<%--																<div class="card-body">--%>
+<%--																		<!--begin: Datatable-->--%>
+<%--																		--%>
+<%--																	--%>
+<%--																		--%>
+<%--																		--%>
+<%--																		<!--end::Body-->--%>
+<%--																	<div class="d-flex mb-10" style="justify-content: flex-end;">--%>
+<%--																		<button type="button" class="btn btn-primary font-weight-bold font-size-h6 px-10 py-4 mr-40"--%>
+<%--																		        data-toggle="modal" id="payBtn" onclick="checkFields();"--%>
+<%--																		        data-target="#my80sizeCenterModal">--%>
+<%--																			결제--%>
+<%--																		</button>--%>
+<%--																	</div>--%>
+<%--																	--%>
+<%--																	--%>
+<%--																	<!--모달시작::-->--%>
+<%--																		<div class="modal modal-center fade" id="my80sizeCenterModal" tabindex="-1"--%>
+<%--																		     role="dialog" aria-labelledby="my80sizeCenterModalLabel">--%>
+<%--																				<div class="modal-dialog modal-80size modal-center" role="document">--%>
+<%--																						<div class="modal-content modal-80size">--%>
+<%--																								<div class="modal-header " style="background-color:#ffa800;">--%>
+<%--																										--%>
+<%--																										<h4 class="modal-title" id="myModalLabel">챌린지 참여금 결제</h4>--%>
+<%--																								--%>
+<%--																								</div>--%>
+<%--																								<div class="modal-body">--%>
+<%--																									<div class="datatable datatable-bordered datatable-head-custom--%>
+<%--																		datatable-default datatable-primary datatable-loaded" id="결제정보" style="">--%>
+<%--																										<table class="datatable-table"--%>
+<%--																										       style="display: block;margin-left: auto;margin-right: auto;width: 80%;">--%>
+<%--																											<thead class="datatable-head">--%>
+<%--																											<tr class="datatable-row" style="left: 0px;">--%>
+<%--																												<th data-field="OrderID"--%>
+<%--																												    class="datatable-cell datatable-cell-sorted">--%>
+<%--																													<span style="width: 250px;font-size: 1.3rem;">결제정보</span></th>--%>
+<%--																											</tr>--%>
+<%--																											</thead>--%>
+<%--																											<tbody style="" class="datatable-body">--%>
+<%--																											--%>
+<%--																											<tr data-row="0" class="datatable-row" style="left: 0px;">--%>
+<%--																												<td class="col-4 pr-8 datatable-cell-right datatable-cell--%>
+<%--																													font-weight-bolder">스터디유형--%>
+<%--																												</td>--%>
+<%--																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">--%>
+<%--																													Challenge--%>
+<%--																												</td>--%>
+<%--																											</tr>--%>
+<%--																											--%>
+<%--																											--%>
+<%--																											<tr data-row="0" class="datatable-row" style="left: 0px;">--%>
+<%--																												<td class="col-4 pr-8 datatable-cell-right datatable-cell--%>
+<%--																													font-weight-bolder">스터디명--%>
+<%--																												</td>--%>
+<%--																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">--%>
+<%--																													스터디명(스터디id)--%>
+<%--																												</td>--%>
+<%--																											</tr>--%>
+<%--																											--%>
+<%--																											--%>
+<%--																											<tr data-row="0" class="datatable-row" style="left: 0px;">--%>
+<%--																												<td class="col-4 pr-8 datatable-cell-right datatable-cell--%>
+<%--																													font-weight-bolder">참여기간--%>
+<%--																												</td>--%>
+<%--																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">--%>
+<%--																													시작일-총00일--%>
+<%--																												</td>--%>
+<%--																											</tr>--%>
+<%--																											--%>
+<%--																											--%>
+<%--																											<div class="ml-4 datatable-cell-sorted ">--%>
+<%--																												<div class="font-weight-bolder mb-0 h3">--%>
+<%--																													10,000 원--%>
+<%--																												</div>--%>
+<%--																											--%>
+<%--																											</div>--%>
+<%--																											--%>
+<%--																											<tr data-row="0" class="datatable-row" style="left: 0px;">--%>
+<%--																												<td class="col-4 pr-8 datatable-cell-right datatable-cell--%>
+<%--																													font-weight-bolder">환급예정일--%>
+<%--																												</td>--%>
+<%--																												<td class="text-dark-75 text-left pl-4 font-size-md mb-0">--%>
+<%--																													종료일자--%>
+<%--																												</td>--%>
+<%--																											</tr>--%>
+<%--																											--%>
+<%--																											--%>
+<%--																											<tr data-row="0" class="datatable-row">--%>
+<%--																												<td class="col-4 pr-8 datatable-cell-right datatable-cell"><span--%>
+<%--																													class="font-weight-bolder">결제금액</span></td>--%>
+<%--																												<td class="font-weight-bolder mb-0 h3" style="color: #6b984f;">--%>
+<%--																												--%>
+<%--																													10,000 원--%>
+<%--																												--%>
+<%--																												</td>--%>
+<%--																												--%>
+<%--																											</tr>--%>
+<%--																											--%>
+<%--																											</tbody>--%>
+<%--																										</table>--%>
+<%--																									--%>
+<%--																									</div>--%>
+<%--																									<!--end: 결제정보 -->--%>
+<%--																									--%>
+<%--																									<!--end: 환불규정 -->--%>
+<%--																									<div class="separator separator-dashed my-10"></div>--%>
+<%--																									--%>
+<%--																									<div class="datatable datatable-bordered datatable-head-custom--%>
+<%--																																					datatable-default datatable-primary datatable-loaded"--%>
+<%--																									     id="환불규정" style="">--%>
+<%--																										<table class="datatable-table"--%>
+<%--																										       style="display: block;margin-left: auto;margin-right: auto;width: 80%;">--%>
+<%--																											--%>
+<%--																											<thead class="datatable-head">--%>
+<%--																												<tr class="datatable-row" style="left: 0px;">--%>
+<%--																													<th class="datatable-cell datatable-cell-sorted"--%>
+<%--																													    data-sort="asc"><span style="width: 250px;font-size: 1.3rem;">환급규정</span></th>--%>
+<%--																											</tr>--%>
+<%--																											</thead>--%>
+<%--																											--%>
+<%--																											<tbody style="" class="datatable-body">--%>
+<%--																											--%>
+<%--																												<tr data-row="0" class="datatable-row" style="left: 0px;">--%>
+<%--																													<td class="col-0 pl-3 pr-0 datatable-cell-center datatable-cell--%>
+<%--																													font-weight-bolder">#1--%>
+<%--																													</td>--%>
+<%--																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">--%>
+<%--																														챌린지 종료일 이전 환불은 불가합니다.--%>
+<%--																													</td>--%>
+<%--																												</tr>--%>
+<%--																												--%>
+<%--																												<tr data-row="0" class="datatable-row" style="left: 0px;">--%>
+<%--																													<td class="col-0 pl-3 pr-0 datatable-cell-center datatable-cell--%>
+<%--																													font-weight-bolder">#2--%>
+<%--																													</td>--%>
+<%--																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">--%>
+<%--																														챌린지 종료일 기준 출석률에 비례하여--%>
+<%--																														<br>환급금이 정산됩니다.--%>
+<%--																														<br>--%>
+<%--																														<span class="text-danger font-size-sm">(100일 챌린지에 50일 출석시 5,000원 환급)</span>--%>
+<%--																													</td>--%>
+<%--																												</tr>--%>
+<%--																												--%>
+<%--																												<tr data-row="0" class="datatable-row" style="left: 0px;">--%>
+<%--																													<td class="col-0 pl-3 pr-0 datatable-cell-center datatable-cell--%>
+<%--																													font-weight-bolder">#3--%>
+<%--																													</td>--%>
+<%--																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">--%>
+<%--																														환급금의 수령은 종료일 이후--%>
+<%--																														<br>해당 스터디 페이지에 접속하여 가능합니다.--%>
+<%--																														<br>--%>
+<%--																														<span class="text-danger font-size-sm">(자동환급되지 않습니다.)</span>--%>
+<%--																													</td>--%>
+<%--																												</tr>--%>
+<%--																												--%>
+<%--																												<tr data-row="0" class="datatable-row" style="left: 0px;">--%>
+<%--																													<td class="col-0 pl-3 pr-0 datatable-cell-center datatable-cell--%>
+<%--																													font-weight-bolder">#4--%>
+<%--																													</td>--%>
+<%--																													<td class="text-dark-75 text-left pl-1 font-size-md mb-0">--%>
+<%--																														참여금 미결제시 해당 챌린지 참여가 불가합니다.--%>
+<%--																													</td>--%>
+<%--																												</tr><!--//TODO 개;;-->--%>
+<%--																											--%>
+<%--																											</tbody>--%>
+<%--																										</table>--%>
+<%--																									</div>--%>
+<%--																									--%>
+<%--																									--%>
+<%--																									<div class="separator separator-dashed my-10"></div>--%>
+<%--																									--%>
+<%--																									<div class="datatable datatable-bordered datatable-head-custom--%>
+<%--																		datatable-default datatable-primary datatable-loaded" style="">--%>
+<%--																										<table class="datatable-table"--%>
+<%--																										       style="display: block;margin-left: auto;margin-right: auto;width: 80%;">--%>
+<%--																											<thead class="datatable-head">--%>
+<%--																											<tr class="datatable-row" style="left: 0px;">--%>
+<%--																												<th data-field="PayID" style="border-bottom: 1px solid #ebedf3;"--%>
+<%--																												    class="datatable-cell datatable-cell-sorted"--%>
+<%--																												    data-sort="asc"><span style="width: 250px;font-size: 1.3rem;">결제방법</span></th>--%>
+<%--																											</tr>--%>
+<%--																											</thead>--%>
+<%--																											<tbody style="" class="datatable-body">--%>
+<%--																											--%>
+<%--																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">--%>
+<%--																												<td class="datatable-cell-left datatable-cell ml-15">--%>
+<%--																													--%>
+<%--																													<label class="radio font-weight-bolder" for="cash">--%>
+<%--																														<input type="radio" id="cash" name="pay" value="" class="ck" title="결제방법">--%>
+<%--																														<span class="mr-2"></span>실시간 출금</label>--%>
+<%--																												--%>
+<%--																												</td>--%>
+<%--																											</tr>--%>
+<%--																											--%>
+<%--																											</tbody>--%>
+<%--																										</table>--%>
+<%--																									</div>--%>
+<%--																									--%>
 
-																									<div class="separator separator-dashed my-10"></div>
-																									
-																									<div class="datatable datatable-head-custom
-																		datatable-default datatable-primary datatable-loaded" style="">
-																										<table class="datatable-table mb-10"
-																										       style="display: block;margin-left: auto;margin-right: auto;width: 80%;">
-																											<thead class="datatable-head">
-																											
-																											<tr class="datatable-row" style="left: 0px;">
-																												<th class="datatable-cell datatable-cell-sorted"><span style="width: 250px;font-size: 1.3rem;">서비스 동의</span>
-																												</th>
-																											</tr>
-																											
-																											</thead>
-																											
-																											
-																											<tbody style="" class="datatable-body checkbox_group">
-																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
-																												<td class="datatable-cell-left datatable-cell ml-15"><span>
-																					
-																					<span	class="font-weight-bolder">	<label class="text-right checkbox" for="check_all">
-																						<input type="checkbox" id="check_all" name="check_all" class="ck" title="서비스동의">
-																						<span class="mr-2"></span>전체 동의</label></span></span></td>
-																											</tr>
-																											
-																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
-																												<td class="datatable-cell-left datatable-cell ml-15">
-																					<span class="font-weight-bolder">	<label class="checkbox mr-2" for="check_1">
-																										<input type="checkbox" id="check_1" class="normal">
-																										<span class="mr-2"></span>위의 안내 사항 동의 및 결제 진행 동의 <h8
-																						class="text-danger ml-1">(필수)</h8></label> </span>
-																												
-																												</td>
-																											</tr>
-																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
-																												<td class="datatable-cell-left datatable-cell ml-15"
-																												    aria-label="400"><span>
-																					<span class="font-weight-bolder">	<label class="checkbox" for="check_2">
-																										<input type="checkbox" id="check_2" class="normal">
-																										<span class="mr-2"></span>개인정보 제3자 제공 동의<h8
-																						class="text-danger ml-1">(필수)</h8></label></span></span></td>
-																											</tr>
-																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">
-																												<td class="datatable-cell-left datatable-cell ml-15"
-																												    aria-label="400"><span>
-																					<span class="font-weight-bolder"><label class="checkbox" for="check_3">
-																										<input type="checkbox" id="check_3" class="normal">
-																										<span class="mr-2"></span>개인정보 수집 및 이용 동의<h8
-																						class="text-danger ml-1">(필수)</h8></label></span></span></td>
-																											</tr>
-																											
-																											</tbody>
-																										</table>
-																									</div>
-																								</div>
-																	
-																								<div class="modal-footer">
-																										<button type="button" class="btn btn-primary  btn-lg "
-																										        id="rsrvSubmit" style="" onclick="authorize();">결제하기</button>
-																						
-																								</div>
-																						</div>
-																				</div>
-																		</div>
-																
-																
-																</div>
+<%--																									<div class="separator separator-dashed my-10"></div>--%>
+<%--																									--%>
+<%--																									<div class="datatable datatable-head-custom--%>
+<%--																		datatable-default datatable-primary datatable-loaded" style="">--%>
+<%--																										<table class="datatable-table mb-10"--%>
+<%--																										       style="display: block;margin-left: auto;margin-right: auto;width: 80%;">--%>
+<%--																											<thead class="datatable-head">--%>
+<%--																											--%>
+<%--																											<tr class="datatable-row" style="left: 0px;">--%>
+<%--																												<th class="datatable-cell datatable-cell-sorted"><span style="width: 250px;font-size: 1.3rem;">서비스 동의</span>--%>
+<%--																												</th>--%>
+<%--																											</tr>--%>
+<%--																											--%>
+<%--																											</thead>--%>
+<%--																											--%>
+<%--																											--%>
+<%--																											<tbody style="" class="datatable-body checkbox_group">--%>
+<%--																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">--%>
+<%--																												<td class="datatable-cell-left datatable-cell ml-15"><span>--%>
+<%--																					--%>
+<%--																					<span	class="font-weight-bolder">	<label class="text-right checkbox" for="check_all">--%>
+<%--																						<input type="checkbox" id="check_all" name="check_all" class="ck" title="서비스동의">--%>
+<%--																						<span class="mr-2"></span>전체 동의</label></span></span></td>--%>
+<%--																											</tr>--%>
+<%--																											--%>
+<%--																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">--%>
+<%--																												<td class="datatable-cell-left datatable-cell ml-15">--%>
+<%--																					<span class="font-weight-bolder">	<label class="checkbox mr-2" for="check_1">--%>
+<%--																										<input type="checkbox" id="check_1" class="normal">--%>
+<%--																										<span class="mr-2"></span>위의 안내 사항 동의 및 결제 진행 동의 <h8--%>
+<%--																						class="text-danger ml-1">(필수)</h8></label> </span>--%>
+<%--																												--%>
+<%--																												</td>--%>
+<%--																											</tr>--%>
+<%--																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">--%>
+<%--																												<td class="datatable-cell-left datatable-cell ml-15"--%>
+<%--																												    aria-label="400"><span>--%>
+<%--																					<span class="font-weight-bolder">	<label class="checkbox" for="check_2">--%>
+<%--																										<input type="checkbox" id="check_2" class="normal">--%>
+<%--																										<span class="mr-2"></span>개인정보 제3자 제공 동의<h8--%>
+<%--																						class="text-danger ml-1">(필수)</h8></label></span></span></td>--%>
+<%--																											</tr>--%>
+<%--																											<tr data-row="0" class="datatable-row ml-15" style="left: 0px;">--%>
+<%--																												<td class="datatable-cell-left datatable-cell ml-15"--%>
+<%--																												    aria-label="400"><span>--%>
+<%--																					<span class="font-weight-bolder"><label class="checkbox" for="check_3">--%>
+<%--																										<input type="checkbox" id="check_3" class="normal">--%>
+<%--																										<span class="mr-2"></span>개인정보 수집 및 이용 동의<h8--%>
+<%--																						class="text-danger ml-1">(필수)</h8></label></span></span></td>--%>
+<%--																											</tr>--%>
+<%--																											--%>
+<%--																											</tbody>--%>
+<%--																										</table>--%>
+<%--																									</div>--%>
+<%--																								</div>--%>
+<%--																	--%>
+<%--																								<div class="modal-footer">--%>
+<%--																										<button type="button" class="btn btn-primary  btn-lg "--%>
+<%--																										        id="rsrvSubmit" style="" onclick="authorize();">결제하기</button>--%>
+<%--																						--%>
+<%--																								</div>--%>
+<%--																						</div>--%>
+<%--																				</div>--%>
+<%--																		</div>--%>
+<%--																--%>
+<%--																--%>
+<%--																</div>--%>
 												</form>
 														</div>
 														<!--end::Card-->

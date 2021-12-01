@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberVO;
 
 /*
@@ -24,6 +25,7 @@ public interface ApplyMemberService {
     // 스터디 가입 신청 : 신지혜
     public abstract String registerApply(HashMap<String, Object> aMember);
 
+    public abstract ApplyMemberVO getApplyMember(HashMap<String, Object> aMember);
     
 }// end interface
 

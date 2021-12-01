@@ -74,5 +74,9 @@
 
 <%--로딩화면--%>
 <script src="/resources/assets/js/effects/loading.js"></script>
+<%--공통 스크립트--%>
+<script src="/resources/assets/js/scripts.ssff.js"></script>
+
+
 
 <!-- End Channel Plugin -->

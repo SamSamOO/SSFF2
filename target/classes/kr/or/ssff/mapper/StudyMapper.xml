@@ -518,6 +518,8 @@
         WHERE R_IDX = #{r_idx}
     </select>
 
+
+  <!-- r_Idx로 한개의 스터디 정보를 조회-->
     <select id="getTeamName" resultType="kr.or.ssff.applyMember.domain.ApplyMemberDTO">
         SELECT R_IDX,
                MEMBER_NAME,

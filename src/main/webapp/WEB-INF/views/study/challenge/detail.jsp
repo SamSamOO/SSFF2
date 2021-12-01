@@ -393,5 +393,71 @@ function applyChallenge(action){
 }
 
 
+function sAlert(){
+    
+    Swal.fire({
+                  title : '가입 신청하시겠습니까?',
+                  text : '스터디장의 승인 이후 가입되며\n' +
+                         '스터디장이 승인하더라도\n' +
+                         '스터디 시작일에 [ 10,000원 ]을 결제하지 않으면 \n' +
+                         '참여되지 않습니다.',
+                  showDenyButton: true,
+                  showCancelButton: true,
+                  confirmButtonText: '예',
+                  denyButtonText: `아니오`,
+              }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            callAjax();
+            setTimeout( Swal.fire('지원 신청되었습니다!', '', 'success'), 3000);
+        } else  {
+            Swal.fire('다음에 꼭 함께해요!', '', 'info')
+        }
+    })
+    
+}
+
+function callAjax(){
+    var submitObj = new Object();
+      submitObj.boss = 'n',
+      submitObj.r_idx = ${board.r_idx},
+      submitObj.member_name = '${member.member_name}'
+    
+    console.log("submitObj.boss: "+submitObj.boss);
+    console.log("submitObj.r_idx: "+submitObj.r_idx);
+    console.log("submitObj.member_name: "+ submitObj.member_name);
+    
+    $.ajax({
+               type       : 'POST',
+               url        : '/applyMemberRest/insert',
+               data       : JSON.stringify(submitObj), // 다음 페이지 번호와 페이지 사이즈를 가지고 출발
+               dataType   : 'text', // 받을 데이터는 json
+               contentType: "application/json; charset=utf-8",
+               success    : successCallback,
+               error      : errorCallback
+           });
+    
+    // 성공시 데이터 처리
+    function successCallback(data) {
+        console.log("data: " + data);
+        
+        // 참여신청 버튼 비활성화처리
+        $('#applyProject').css("background-color","gray"); //색 변경 pointer-events: none
+        
+        // 마우스 이벤트 제거
+        $('#applyProject').css("pointer-events","none");
+        
+        
+        $('#applyProject').text('지원완료'); // 글자 변경
+    } // successCallback
+    
+    // 실패
+    function errorCallback() {
+        Swal.fire('요청에 실패하였습니다. 다시 시도해주세요!', '', 'warning')
+    }
+}
+
+
+
 </script>
 </html>
