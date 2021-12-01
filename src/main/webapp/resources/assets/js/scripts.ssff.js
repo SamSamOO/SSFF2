@@ -17,3 +17,37 @@ var pageSubmitFn = function (menu) {
         location.href = "/cafe/list";
     }
 }
+
+var menuActive  = function (){
+    var GetURI = window.location.href;
+    var locat_main_menu_projct =
+    var locat_main_menu_challenge =
+    var locat_main_menu_cafe =
+
+    // 마이 페이지--------------------
+    //멤버페이지와 결제내역 조회
+    if(GetURI.includes("/member/") == true || GetURI.includes("/applyMember/reservationList") == true){
+
+
+
+        // 메인 메뉴 -------------
+        // 프로젝트
+    } else if(GetURI.includes("/study/project/list") == true || GetURI.includes("/study/project/detail") == true){
+
+
+        // 챌린지
+    } else if(GetURI.includes("/study/challenge/list") == true || GetURI.includes("/study/challenge/detail") == true){
+
+
+        // 카페
+    } else if(GetURI.includes("/cafe/list") == true || GetURI.includes("/cafe/detail") == true || GetURI.includes("/cafe/reserve") == true){
+
+
+        // 관리자 메뉴 -------------
+        // 프로젝트
+    } else if(GetURI.includes("/study/cafe/list") == true || GetURI.includes("/study/cafe/list") == true ){
+
+    } else if(GetURI.includes("/study/cafe/list") == true){
+
+    }
+}

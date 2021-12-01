@@ -16,7 +16,7 @@
       <ul class="menu-nav">
         <!------------------첫번째 탭 시작------------------>
         <li id="main_menu_projct"
-            class="menu-item menu-item-open menu-item-here"
+            class="menu-item menu-item-rel menu-item-open menu-item-here"
             onclick="pageSubmitFn('projectlist')">
           <a href="/study/project/list" class="menu-link">
             <span class="menu-text">프로젝트</span>
@@ -25,7 +25,7 @@
         <!------------------첫번째 탭 종료------------------>
         <!------------------두번째 탭 시작------------------>
         <li id="main_menu_challenge"
-            class="menu-item"
+            class="menu-item  menu-item-rel "
             onclick="pageSubmitFn('challengelist')">
           <a href="/study/challenge/list" class="menu-link">
 
@@ -37,7 +37,7 @@
         <c:choose>
         <c:when test="${member != null || kmember != null}">
           <li id="main_menu_cafe"
-              class="menu-item menu-item-submenu"
+              class="menu-item  menu-item-rel  menu-item-submenu"
               data-menu-toggle="click">
             <a href="javascript:;" class="menu-link menu-toggle">
               <span class="menu-text">스터디 카페</span>

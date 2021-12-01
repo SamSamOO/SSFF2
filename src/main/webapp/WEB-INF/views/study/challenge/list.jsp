@@ -41,23 +41,22 @@
                 <div class="main d-flex flex-column flex-row-fluid">
                     <!--Subheader : 서브헤더 페이지 제목란 시작-->
                     <div class="subheader py-2 py-lg-6" id="kt_subheader">
-                        <div
-                                class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                        <div  class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                             <!--begin::Info-->
                             <div class="d-flex align-items-center flex-wrap mr-1">
                                 <!--begin::Page Heading-->
                                 <div class="d-flex align-items-baseline flex-wrap mr-5">
                                     <!--Page Title : 페이지 제목 시작-->
-                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">프로젝트 찾기</h5>
+                                    <h5 class="text-dark font-weight-bolder my-1 mr-5">챌린지 찾기</h5>
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
                                             class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bolder p-0 my-2 font-size-sm">
                                         <li class="breadcrumb-item">
-                                            <a href="" class="text-muted">프로젝트</a>
+                                            <a href="" class="text-muted">스터디</a>
                                         </li>
                                         <li class="breadcrumb-item">
-                                            <a href="" class="text-muted">카테고리2</a>
+                                            <a href="" class="text-muted">챌린지</a>
                                         </li>
                                     </ul>
                                     <!--Breadcrumb : 로드맵 종료-->
@@ -79,7 +78,7 @@
                             <div class="card-header border-0 pt-5 card-body mt-5">
                                 <!-----------------------------------------------이 안에서 자유롭게 채우기------------------------------------------------------>
 
-                                <div class="studylist-header bg-ssff1 d-inline-block w-100 p-8 pt-40 rounded-xl text-white text-center">
+                                <div class="studylist-header bg-ssff2 d-inline-block w-100 p-8 pt-40 rounded-xl text-white text-center">
                                     <!--스터디리스트 헤더 초록색 부분-->
                                     <h1>챌린지 팀원 찾기</h1>
                                     <h3>인생을 바꿀 습관을 만들어 보세요!삼삼오오가 도와드립니다</h3>
