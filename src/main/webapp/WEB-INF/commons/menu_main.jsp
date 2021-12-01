@@ -65,20 +65,21 @@
                     <span class="menu-text">예약 내역 조회</span>
                   </a>
                 </li>
+              </ul>
+              <!--1차 서브 메뉴 종료-->
+            </div>
+          <!--서브 메뉴 종료-->
+          </li>
                 </c:when>
                 <c:otherwise>
-                  <li class="menu-item menu-item-submenu menu-item-rel">
+                  <li id="main_menu_cafe"
+                      class="menu-item menu-item-submenu menu-item-rel">
                     <a href="/cafe/list" class="menu-link">
                       <span class="menu-text">스터디 카페</span>
                     </a>
                   </li>
                 </c:otherwise>
               </c:choose>
-            </ul>
-            <!--1차 서브 메뉴 종료-->
-          </div>
-          <!--서브 메뉴 종료-->
-        </li>
         <!------------------세번째 탭 종료------------------>
       </ul>
       <!--end::Header Nav-->
@@ -87,3 +88,4 @@
   </div>
 </div>
 <!------------------메인 메뉴 종료------------------>
+

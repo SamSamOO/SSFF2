@@ -7,6 +7,7 @@
   마이페이지용 메뉴nav 파일
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!------------------메인 메뉴 시작------------------>
 <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
     <div class="container">
@@ -49,15 +50,31 @@
                                     <span class="menu-text">내가 예약한 스터디 카페</span>
                                 </a>
                             </li>
-                            
+                            <c:forEach var="list" items="${myStudyList}"
+                                       begin="1" end="5">
+                                <li id="mystudylistmenu_${list.r_idx}"
+                                    class="menu-item">
+                                    <c:choose>
+                                    <c:when
+                                      test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+                                    <a href="/study/challenge/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">
+                                        </c:when>
+                                        <c:otherwise>
+                                        <a href="/study/project/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">
+                                            </c:otherwise>
+                                            </c:choose>
+                                            <span class="menu-text">${list.teamname}</span>
+                                        </a>
+                                </li>
+                            </c:forEach>
                         </ul>
                         <!--1차 서브 메뉴 종료-->
                     </div>
                     <!--서브 메뉴 종료-->
                 </li>
-                
-                
-
+            
+            
+            
             </ul>
             <!--end::Header Nav-->
         </div>
@@ -65,3 +82,4 @@
     </div>
 </div>
 <!------------------메인 메뉴 종료------------------>
+
