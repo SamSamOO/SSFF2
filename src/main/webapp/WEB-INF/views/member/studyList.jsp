@@ -327,11 +327,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     aria-label="개설자"
                                                     class="study_nick">
                                                     <div class="d-flex align-items-center justify-content-center">
-                                                        <a href="/member/myPage?member_Name=${list.member_name}">
-                                                       <span class="mb-0 text-hover-primary font-size-sm">
-                                                               ${list.member_name}
-                                                       </span>
-                                                        </a>
+                                                        <c:choose>
+                                                            <c:when test="${list.member_name == member.member_name}">
+                                                               <span class="mb-0 text-warning font-size-sm">
+                                                                   <i class="fas fa-crown"></i>
+                                                               </span>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <a href="/member/myPage?member_Name=${list.member_name}">
+                                                                   <span class="mb-0 text-hover-primary font-size-sm">
+                                                                           ${list.member_name}
+                                                                   </span>
+                                                                </a>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </div>
                                                 </td>
 
@@ -468,10 +477,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                         <td colspan="3" class="font-weight-bolder">
                                                                             <c:choose>
                                                                             <c:when test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
-                                                                            <a href="/study/challenge/main?rInx=${list.r_idx}">
+                                                                            <a href="/study/challenge/main?r_Idx=${list.r_idx}">
                                                                                 </c:when>
                                                                                 <c:otherwise>
-                                                                                <a href="/study/project/main?rInx=${list.r_idx}">
+                                                                                <a href="/study/project/main?r_Idx=${list.r_idx}">
                                                                                     </c:otherwise>
                                                                                     </c:choose>
                                                                                         ${list.teamname}

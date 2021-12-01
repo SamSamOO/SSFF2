@@ -318,6 +318,52 @@ a.text-hover-ssff-orange:hover,
     width: 180px !important;
 }
 
+/*----헤더----*/
+
+.progress-bar-horizonal {
+    height: 5px;
+    background-color: #548a25;
+    transition: all 0.1s linear;
+    z-index: 1000;
+    display: block;
+    position: fixed;
+    top: 0px;
+    opacity: 0.2;
+}
+
+.header-fixed[data-header-scroll="on"] .progress-bar-horizonal {
+    -webkit-animation: progress-scroll-animation .5s ease 1;
+    animation: progress-scroll-animation .5s ease 1;
+    top: 70px;
+    opacity: 0.4;
+}
+
+.header-fixed[data-header-scroll="on"] .header {
+    -webkit-animation: header-scroll-animation2 .5s ease 1;
+    animation: header-scroll-animation2 .5s ease 1;
+    background: rgba(255,255,255,0.8) !important;
+}
+
+@keyframes header-scroll-animation2 {
+    from {
+        background: transparent;
+    }
+    to {
+        background: rgba(255,255,255,0.8);
+    }
+}
+
+@keyframes progress-scroll-animation {
+    from {
+        top: 0px;
+        opacity: 0.2;
+    }
+    to {
+        top: 70px;
+        opacity: 0.4;
+    }
+}
+
 
 /*----마이페이지 언어로고----*/
 .member_lang img{

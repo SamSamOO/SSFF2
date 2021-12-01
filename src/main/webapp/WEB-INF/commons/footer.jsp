@@ -61,8 +61,25 @@
     var HOST_URL = "https://preview.keenthemes.com/metronic/theme/html/tools/preview";
 </script>
 <!--begin::Global Config(global config for global JS scripts)-->
-<!-- Channel Plugin Scripts -->
-<!-- Channel Plugin Scripts -->
+
+<!-- 헤더부분 스크롤 -->
+<script>
+    function progressBarHorizonal() {
+        var scrollTop = $(window).scrollTop();
+        var footer = $('.footer');
+        var footerPosition = footer.length > 0 ? footer.offset().top : 0;
+        var currentPosition = scrollTop / (footerPosition - $(window).innerHeight());
+        var $pbv = $('.progress-bar-horizonal');
+
+        $pbv.css('width', (currentPosition * 100) + '%');
+        $pbv.css('left', $('.content-wrap').offset().left + 'px');
+        $pbv.css('opacity', 0.7 - (0.5 * currentPosition));
+    }
+    $(window).on('scroll', function () {
+        progressBarHorizonal();
+    })
+</script>
+
 <script>
     <!-- Channel Plugin Scripts -->
         (function() {
@@ -164,6 +181,7 @@
     };
 </script>
 <!--end::Global Config-->
+
 <!--begin::Global Theme Bundle(used by all pages)-->
 <script src="/resources/assets/plugins/global/plugins.bundle.js"></script>
 <script src="/resources/assets/plugins/custom/prismjs/prismjs.bundle.js"></script>
