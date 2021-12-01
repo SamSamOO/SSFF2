@@ -147,11 +147,12 @@
 								<div class="card-body">
 									<div class="d-flex">
 										
+
 										
 										<!--begin: Pic-->
 										<div class="flex-shrink-0 w-xl-150px mr-7 mt-lg-0 mt-3">
 											<div class="symbol symbol-50 symbol-lg-120">
-												<img alt="${cafeVO.cafe_image_1}" src="${cafeVO.cafe_image_1}">
+												<img alt="${cafeVO.cafe_image_1}" src="https://source.unsplash.com/featured?desk">
 											</div>
 										</div>
 										<!--end: Pic-->
@@ -174,7 +175,6 @@
 													<div style="height: 200px;">
 																										<span
 																											class="d-flex align-items-center text-dark text-hover-primary font-size-h5 font-weight-bold mr-3">
-																										
 																										<c:forEach items="${fn:split(cafeVO.cafe_details,'.')}"
 																										           var="content">
 																											&nbsp;*&nbsp; ${content}
@@ -811,7 +811,7 @@
 					
 					<!--end::Content-->
 				
-				
+
 				</div>
 				<!--end::Content Wrapper 내용물 end-->
 			</div>

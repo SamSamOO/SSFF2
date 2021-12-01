@@ -168,6 +168,21 @@
     }
 
     /*--------------- swiper [e] ---------------*/
+
+    .swiper-slide {
+	    width:650px;
+	    height:400px;
+	    overflow:hidden;
+	    margin:0 auto;
+    }
+
+    .image-thumbnail {
+	    width:100%;
+	    height:100%;
+	    object-fit:cover;
+    }
+    
+    
     html, body {
       box-sizing: border-box;
       padding: 0;
@@ -473,9 +488,9 @@
     var mySwiper = new Swiper('.cafe-img.swiper-container', {
       // Optional parameters
       // 방향
-      slidesPerView: 9, // 슬라이드를 한번에 3개를 보여준다
-      // 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
-      spaceBetween: 30, // 슬라이드간 padding 값 30px 씩 떨어뜨려줌
+      slidesPerView: 1, // 슬라이드를 한번에 3개를 보여준다
+	    slidesPerGroup: 1,// 그룹으로 묶을 수, slidesPerView 와 같은 값을 지정하는게 좋음
+      spaceBetween: 0, // 슬라이드간 padding 값 30px 씩 떨어뜨려줌
 
       // 그룹수가 맞지 않을 경우 빈칸으로 메우기
       // 3개가 나와야 되는데 1개만 있다면 2개는 빈칸으로 채워서 3개를 만듬
@@ -488,12 +503,15 @@
         el       : '.swiper-pagination',
         clickable: true, // 페이징을 클릭하면 해당 영역으로 이동, 필요시 지정해 줘야 기능 작동
       },
-
+	    navigation: {
+		    nextEl: '.swiper-button-next',
+		    prevEl: '.swiper-button-prev',
+	    },
       // 반응형
       breakpoints: {
         1280: {
-          slidesPerView : 3,
-          slidesPerGroup: 3,
+          slidesPerView : 1,
+          slidesPerGroup: 1,
         },
         720 : {
           slidesPerView : 1,
@@ -587,24 +605,46 @@
 																																<div class="cafe-img swiper-container mySwiper">
 																																		<div class="swiper-wrapper">
 																																				
-																																				<!-- 카페 이미지와 -->
+																																				<%--<!-- 카페 이미지와 -->--%>
+																																				<%--<div class="swiper-slide">--%>
+																																				<%--		<img src="${cafeInfo[0].cafe_image_1}"/>--%>
+																																				<%--</div>--%>
+																																				<%--<div class="swiper-slide">--%>
+																																				<%--		<img src="${cafeInfo[0].cafe_image_2}"/>--%>
+																																				<%--</div>--%>
+																																				<%--<div class="swiper-slide">--%>
+																																				<%--		<img src="${cafeInfo[0].cafe_image_3}"/>--%>
+																																				<%--</div>--%>
+																																				<%--<!-- 카페 룸 이미지 -->--%>
+																																				<%--<c:forEach items="${fn:split(cafeInfo[0].room_list,':')}"--%>
+																																				<%--           var="room_img">--%>
+																																				<%--		<div class="swiper-slide">--%>
+																																				<%--				<img src="${room_img}"/>--%>
+																																				<%--		</div>--%>
+																																				<%--</c:forEach>--%>
+																																		
+																																		<!-- 카페 이미지와 -->
 																																				<div class="swiper-slide">
-																																						<img src="${cafeInfo[0].cafe_image_1}"/>
+																																						<img class="image-thumbnail" src="https://source.unsplash.com/featured?office%20space"
+																																						 />
 																																				</div>
 																																				<div class="swiper-slide">
-																																						<img src="${cafeInfo[0].cafe_image_2}"/>
+																																						<img class="image-thumbnail" src="https://source.unsplash.com/featured?office"
+																																						/>
 																																				</div>
 																																				<div class="swiper-slide">
-																																						<img src="${cafeInfo[0].cafe_image_3}"/>
+																																						<img class="image-thumbnail" src="https://source.unsplash.com/featured?desk"
+																																				/>
 																																				</div>
 																																				<!-- 카페 룸 이미지 -->
 																																				<c:forEach items="${fn:split(cafeInfo[0].room_list,':')}"
 																																				           var="room_img">
 																																						<div class="swiper-slide">
-																																								<img src="${room_img}"/>
+																																								<img class="image-thumbnail" src="https://source.unsplash.com/featured?office%20room"
+																																								/>
 																																						</div>
 																																				</c:forEach>
-																																		
+																																				
 																																		</div>
 																																		<div class="swiper-button-next"><i
 																																				class="icon-2x text-dark-50 flaticon2-next"></i></div>
@@ -892,10 +932,9 @@
 																																						
 																																						<!-- begin::룸 선택 -->
 																																						<div class="form-group mb-7">
-																																								<div class="symbol-label min-w-65px min-h-120px"
-																																								     style="background-image: ${room.room_image};
-																																										     background-color: #7e62dc">룸이미지만
-																																										있다면..!
+																																								<div class="symbol-label min-w-65px min-h-120px">
+																																								     <img src="https://source.unsplash.com/featured?office"
+																																								     style="height: 120px !important;width: 260px !important;"></img>
 																																								</div>
 																																						</div>
 																																						<!-- end::룸 선택 -->

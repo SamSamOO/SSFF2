@@ -15,7 +15,18 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       <script
               src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
-      <script>
+
+    <script>
+        //따라오는 바
+        $(document).ready(function(){
+            var currentPosition = parseInt($(".recmdListBar").css("top"));
+            $(window).scroll(function() {
+                var position = $(window).scrollTop();
+                $(".quickmenu").stop().animate({"top":position+currentPosition+"px"},1000);
+            });
+        });
+    </script>
+    <script>
             $(function() {
                   <c:choose>
                   <c:when test="${member.member_id==null}">
@@ -114,71 +125,7 @@
                   imgWin.document.close();
             }
       </script>
-      <style>
-            .recommendPost_listWrapper__1Ix8x {
-                  width         : 240px;
-                  margin-left   : 2rem;
-                  padding       : 1rem 0.75rem;
-                  line-height   : 1.5;
-                  font-size     : .875rem;
-                  max-height    : calc(100vh - 128px);
-                  overflow      : hidden auto;
-                  border        : 2px solid #e2e2e2;
-                  border-radius : 1rem;
-                  margin-top    : 1.5rem;
-                  position      : fixed;
-                  top           : 400px;
-            }
 
-            .recommendPost_index__2o2jf {
-                  color        : #4b9ef4;
-                  margin-right : 0.25rem;
-            }
-
-            .recommendPost_title__38iq9 {
-                  display            : -webkit-box;
-                  -webkit-box-orient : vertical;
-                  -webkit-line-clamp : 1;
-                  overflow           : hidden;
-            }
-
-            .recommendPost_userInfoWrapper__2T6u8 {
-                  display     : flex;
-                  margin-left : 2rem;
-                  position    : fixed;
-                  top         : 350px;
-            }
-
-            .recommendPost_bar__3GKlv {
-                  width  : 0;
-                  height : 2.5rem;
-                  border : 2px solid #4482f7;
-
-            }
-
-            .recommendPost_userInfoWrapper__2T6u8 {
-                  display     : flex;
-                  margin-left : 2rem;
-                  position    : fixed;
-                  top         : 350px;
-
-            }
-
-            .recommendPost_userInfo__1Ozvo {
-                  font-size   : 20px;
-                  margin-left : 0.5rem;
-
-            }
-
-            .recommendPost_userName__2gZg6 {
-                  font-weight : 700;
-            }
-
-            #contcont  > *{
-                  font-size: 22px;
-            }
-      </style>
-</head>
 </head>
 <c:set var="fileListSize" value="${fn:length(fileList)}" />
 <c:set var="slash" value="/" />
@@ -188,7 +135,40 @@
 <body id="kt_body" class="header-fixed subheader-enabled page-loading">
 <!----------------메인 시작----------------------->
 <div class="d-flex flex-column flex-root">
-      <!----------------페이지 시작----------------------->
+
+    <!----------------.인기글 추천 시작----------------------->
+    <div class="recmdListBar position-absolute overflow-hidden">
+        <div class="recommendPost_userInfoWrapper d-flex flex-row mb-2">
+            <div class="recommendPost_bar">
+            </div>
+            <div class="recommendPost_userInfo">
+                <span class="recommendPost_userName font-weight-bolder text-ssff2">${member.member_name}</span>
+                님이<br>좋아하실 것 같아요!
+            </div>
+        </div>
+        <div class="separator separator-solid my-4"></div>
+        <div>
+            <ul class="recommendPost_listWrapper">
+            <c:forEach var="list" items="${listByHit}"
+                       begin="1" end="5"
+                       varStatus="status">
+                <li class="recommendPost_postList">
+                    <div class="recommendPost_title">
+                        <span class="mr-1">${status.count}</span>
+                        <a href="?cont_No=${list.cont_No}&r_Idx=${detail.r_Idx}"
+                           class="font-size-h6-md font-weight-bolder">
+                            <c:out value="${fn:substring(list.title.replaceAll('\\\<.*?\\\>',''),0, 10)}"/><c:if test="list.title >= 11">...</c:if>
+                        </a>
+                    </div>
+                </li>
+            </c:forEach>
+        </ul>
+        </div>
+    </div>
+
+    <!----------------.인기글 추천 종료----------------------->
+
+    <!----------------페이지 시작----------------------->
       <div class="d-flex flex-row flex-column-fluid page">
             <!--begin::Wrapper ↓여기 매칭되는 div 태그부터 안닫아도 됨(footer에 있음)-->
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
@@ -280,7 +260,20 @@
                                                                   <%--카테고리--%>
                                                                   <tr>
                                                                         <td>
-                                                                              <span class="label label-inline label-rounded">
+                                                                            <c:choose>
+                                                                            <c:when test="${detail.category == '인증'}">
+                                                                            <span class="label label-md label-primary label-inline label-rounded">
+                                                                            </c:when>
+                                                                            <c:when test="${detail.category == '잡담'}">
+                                                                                <span class="label label-md label-warning label-inline label-rounded">
+                                                                            </c:when>
+                                                                            <c:when test="${detail.category == 'QnA'}">
+                                                                                <span class="label label-md label-success label-inline label-rounded">
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <span class="label label-md label-info label-inline label-rounded">
+                                                                            </c:otherwise>
+                                                                        </c:choose>
                                                                                     ${detail.category}
                                                                               </span>
                                                                         </td>
@@ -298,7 +291,9 @@
                                                                   <%--작성자--%>
                                                                   <tr class="font-size-sm pt-0">
                                                                         <td>
-                                                                              ${detail.member_Name}
+                                                                              <a href="/member/myPage?r_Idx=?${detail.member_Name}">
+                                                                                ${detail.member_Name}
+                                                                              </a>
                                                                         </td>
                                                                   </tr>
 
@@ -322,7 +317,6 @@
                                                             </tr>
 
                                                             <%--첨부파일--%>
-
                                                             <tr>
                                                                 <td class="text-right">
                                                                    <c:if test="${fileListSize==0}">
@@ -334,7 +328,7 @@
                                                                              <div class="card">
                                                                                   <div class="card-header"
                                                                                        id="headingOne5">
-                                                                                       <div class="card-title justify-content-end text-ssff1 text-hover-ssff-orange pt-0 pr-6"
+                                                                                       <div class="card-title justify-content-end text-ssff1 text-hover-ssff-orange font-weight-bolder pt-0 pr-6"
                                                                                              data-toggle="collapse"
                                                                                             data-target="#filelistOne">
                                                                                             <i class="fas fa-download text-ssff1"></i>
@@ -348,10 +342,11 @@
                                                                                             <div class="form_section_content">
                                                                                                  <div id="uploadResult">
                                                                                                      <c:forEach var="file" items="${fileList}">
-<%--                                                                                                        <a href="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>"></a>--%>
-                                                                                                          <p>
-                                                                                                             ${file.file_Name}
-                                                                                                          </p>
+                                                                                                         <a href="<spring:url value='/image/${file.uuid}_${file.file_Name}'/>">
+                                                                                                             <p>
+                                                                                                                ${file.file_Name}
+                                                                                                            </p>
+                                                                                                         </a>
                                                                                                        </c:forEach>
                                                                                                 </div>
                                                                                             </div>
@@ -366,7 +361,7 @@
 
                                                             <tr>
                                                                   <td>
-                                                                        <div class="separator separator-solid my-4"></div>
+                                                                        <div class="separator separator-solid my-4 px-p15"></div>
                                                                   </td>
                                                             </tr>
 
@@ -391,38 +386,6 @@
                               <!--end::Content-->
                         </div>
                         <!--end::Content Wrapper 내용물 종료-->
-
-                        <div class="" style="position: relative; margin-top: 1.3rem">
-                              <div style="position:absolute; left: 100%">
-                                    <div class="recommendPost_userInfoWrapper__2T6u8">
-                                          <div class="recommendPost_bar__3GKlv"></div>
-                                          <%-- <div>${member.member_profile}
-									  </div>--%>
-                                          <div class="recommendPost_userInfo__1Ozvo">
-                                                    <span
-                                                            class="recommendPost_userName__2gZg6">${member.member_name}</span>님이<br>좋아하실
-                                                글을 모아봤어요!
-                                          </div>
-                                    </div>
-                                    <ul class="recommendPost_listWrapper__1Ix8x">
-                                          <c:forEach var="list" items="${listByHit}" begin="1" end="8"
-                                                     varStatus="status">
-                                                <li class="recommendPost_postList__S6Av-">
-                                                      <div class="recommendPost_index__2o2jf"></div>
-                                                      <div class="recommendPost_title__38iq9">
-                                                            <span style="font-size: 24px">${status.count}. </span><a
-                                                              href="?cont_No=${list.cont_No}&r_Idx=${detail.r_Idx}"
-                                                              style="font-weight: 200; font-size: 24px; overflow: hidden">
-                                                            <c:out value="${list.title}" />
-                                                      </a>
-                                                      </div>
-                                                </li>
-                                          </c:forEach>
-                                    </ul>
-
-
-                              </div>
-                        </div>
                   </div>
                   <%--컨테이너 종료--%>
                   <!--footer.html Include-->

@@ -120,7 +120,7 @@
                                     <!--Breadcrumb : 로드맵 종료-->
                                 </div>
                                 <div class="d-flex align-items-center">
-                                    <button type="button" id="regBtn" class="btn  btn-outline-primary font-weight-bolder">
+                                    <button type="button" id="regBtn" class="btn btn-outline-primary font-weight-bolder">
                                         <span class="fas fa-pen"></span> 새 글 쓰기
                                     </button>
                                 </div>
