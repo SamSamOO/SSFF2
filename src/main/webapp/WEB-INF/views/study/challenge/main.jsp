@@ -77,6 +77,17 @@
             .highcharts-data-table tr:hover {
                   background : #f1f7ff;
             }
+            
+            #floatdiv {
+                  position         : fixed;
+                  width            : 175px;
+                  display          : inline-block;
+                  right            : 0px; /* 창에서 오른쪽 길이 */
+                  top              : 94%; /* 창에서 위에서 부터의 높이 */
+                  background-color : transparent;
+                  margin           : 0;
+            }
+      
       </style>
       <script>
            let r_idx = document.querySelector('#r_idx').value;
@@ -172,12 +183,7 @@
                                                       <!--Breadcrumb : 로드맵 시작-->
                                                       <ul
                                                               class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
-                                                            <li class="breadcrumb-item">
-                                                                  <a href="" class="text-muted">프로젝트</a>
-                                                            </li>
-                                                            <li class="breadcrumb-item">
-                                                                  <a href="" class="text-muted">카테고리2</a>
-                                                            </li>
+                                                      
                                                       </ul>
                                                       <!--Breadcrumb : 로드맵 종료-->
                                                 </div>
@@ -198,8 +204,19 @@
                                                       <li class="mainpage_index">
                                                             <div class="d-flex justify-content-between">
                                                                   <div><span>▶ 일정 관리 </span></div>
+                                                                  <!--카드 헤더 시작-->
+                                                                  
                                                                   <div>
-                                                                        <span style="font-weight: 700"> <span style="color: #00b300"><c:choose><c:when test="${map.at eq '0'}">${map.at}</c:when><c:otherwise>0</c:otherwise></c:choose></span> 일 출석</span>
+                                                                        <span style="font-weight: 700">
+                                                                              <span style="color: #00b300">
+                                                                                    <c:set value="${fn:replace(fn:trim(map.at),' ','')}" var="at"/>
+                                                                                    <c:choose>
+                                                                                          
+                                                                                          <c:when test="${at==0 or at==null}">0</c:when>
+                                                                                          <c:otherwise>${at}</c:otherwise>
+                                                                                    </c:choose>
+                                                                              </span> 일 출석
+                                                                        </span>
                                                                   </div>
                                                             </div>
                                                       </li>
@@ -395,6 +412,24 @@
                   </div>
                   <!--컨테이너 종료-->
                   <!--footer.html Include-->
+                  
+                  
+                  <div id="floatdiv">
+                        <div class="ribbon ribbon-clip ribbon-right">
+                              <div class="ribbon-target bg-ssff2 p-4 pr-8 align-items-end pulse cursor-pointer"
+                                   onclick="window.open('/moveChating?r_Idx=${map.get("r_Idx")}','window_name','width=500, height=700,location=no, status=no, scrollbars=yes');">
+                                    <a>
+                                          <span class="pulse-ring mt-n2 ml-n2 border-white"></span>
+                                          <i class="fas fa-comments icon-xl text-white mr-2 position-relative"></i>
+                                    </a>
+                                    <a class="text-white text-hover-primary font-weight-bolder">
+                                            <span class="font-size-h5">
+                                                채팅방</span>
+                                          <i class="fas fa-angle-double-right text-white font-size-h5"></i>
+                                    </a>
+                              </div>
+                        </div>
+                  </div>
             </div>
       </div>
       
@@ -601,7 +636,7 @@
                                         type: "warning"
                                         
                                    });
-     
+                                   
                               } else {
                                    Swal.fire({
                                         title: '출석',

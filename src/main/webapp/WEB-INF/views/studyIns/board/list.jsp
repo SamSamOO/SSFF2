@@ -132,21 +132,7 @@
                         <div class="content flex-column-fluid" id="kt_content">
                             <!--begin::Card-->
                             <div class="card card-custom pt-4">
-                                  <!--카드 헤더 시작-->
-                                <div class="ribbon ribbon-clip ribbon-right">
-                                    <div class="ribbon-target bg-ssff2 p-4 pr-8 align-items-end pulse cursor-pointer"
-                                         onclick="window.open('/moveChating?r_Idx=${map.get("r_Idx")}','window_name','width=500, height=700,location=no, status=no, scrollbars=yes');">
-                                        <a>
-                                            <span class="pulse-ring mt-n2 ml-n2 border-white"></span>
-                                            <i class="fas fa-comments icon-xl text-white mr-2 position-relative"></i>
-                                        </a>
-                                        <a class="text-white text-hover-primary font-weight-bolder">
-                                            <span class="font-size-h5">
-                                                채팅방</span>
-                                            <i class="fas fa-angle-double-right text-white font-size-h5"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                            
 <%--                                <button onclick="window.open('/moveChating?r_Idx=${map.get("r_Idx")}','window_name','width=600,height=500,location=no,status=no,scrollbars=yes');"></button>--%>
                                 <!--end::Header-->
                                 <!--카드 헤더 종료-->

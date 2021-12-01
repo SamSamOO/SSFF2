@@ -55,43 +55,8 @@
                     </div>
                     <!--서브 메뉴 종료-->
                 </li>
-                <!------------------첫번째 탭 종료------------------>
-                <!------------------두번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디1</span>
-                    </a>
-
-                </li>
-                <!------------------두번째 탭 종료------------------>
-                <!------------------세번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디2</span>
-                    </a>
-                </li>
-                <!------------------세번째 탭 종료------------------>
-                <!------------------네번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디3</span>
-                    </a>
-                </li>
-                <!------------------네번째 탭 종료------------------>
-                <!------------------다섯번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디4</span>
-                    </a>
-                </li>
-                <!------------------다섯번째 탭 종료------------------>
-                <!------------------여섯번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디5</span>
-                    </a>
-                </li>
-                <!------------------여섯번째 탭 종료------------------>
+                
+                
 
             </ul>
             <!--end::Header Nav-->

@@ -46,7 +46,7 @@
       
 padding: 20px;
                   width            : 650px;
-                  height           : 500px;
+                  height           : 750px;
                   overflow         : auto;
             }
             
@@ -148,7 +148,7 @@ padding: 20px;
           
                console.log(typeof msg);
                msg.memberName = '${member.member_name}';
-               msg.userProfile = 'C:/Temp/upload/${member.member_profile}';
+               msg.userProfile = '${member.member_profile}';
                msg.sendTime = now2;
                console.log(data.data);
           
