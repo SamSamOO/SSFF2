@@ -143,8 +143,11 @@ License: You must have a valid license purchased only from themeforest(the above
            onclick="start.callAjax('NA', '9002');">멤버확인</a>
         
         
-        <div id="memberListModal" class="modal modal-center fade"
-             role="dialog" aria-hidden="true">
+        <div id="memberListModal" class="modal modal-center fade" role="dialog"
+        
+             aria-hidden="true">
+        
+        
         </div>
         <!--end::Modal-->
         <!---------------- 지혜:  신청자/멤버 명단 모달창 종료 -------------------->
@@ -170,14 +173,14 @@ License: You must have a valid license purchased only from themeforest(the above
     let putListModalHtml =
             `<div class="modal-dialog modal-center modal-80size">
             <div class="modal-content modal-80size" style="min-height: 400px;width:700px; ">
-             <div class="modal-header pl-7 pr-7 pt-5 pb-0" id="studyMemberTab">
-                <div id="btnMemberList" class="btn btn btn-outline-warning btn-lg btn-block"
+              <div class="modal-header py-5" id="studyMemberTab">
+                <div id="btnMemberList" class="btn btn-success btn-lg btn-block"
                 onclick="start.callAjax('NA', '9002');">
                 <h5 class="modal-title">
                   스터디 멤버 <span class="d-block text-muted font-size-sm">
 											스터디 멤버를 확인해보세요!</span>
                 </h5></div>
-                	<div id="btnApplyMemberList" class="btn btn btn-outline-primary btn-lg btn-block"
+                <div id="btnApplyMemberList" class="btn btn-primary btn-lg btn-block"
                     onclick="start.callAjax('YA', '9002');" style="margin-top: 0px;" ><h5 class="modal-title">
                   참여 신청자<span class="d-block text-muted font-size-sm">
                   가입신청한 회원을 확인해보세요!</span>
@@ -195,7 +198,6 @@ License: You must have a valid license purchased only from themeforest(the above
     $('#memberListModal').html(putListModalHtml);
   }
 
-  // 카드 리스트를 ajax 페이지 처리하여 뿌립니다.
   let start = {
 // style="visibility: hidden;"
     // 백단으로 db 달라 요청
@@ -230,17 +232,10 @@ License: You must have a valid license purchased only from themeforest(the above
 
         // 데이터가 있다면 뿌리기
         if (data.length != 0) {
-          if (applyType == "YA") {// 참여신청자 명단조회
-            $('#btnMemberList').css('background-color', 'transparent');
-            $('#btnApplyMemberList').css('background-color', '#6b984f');
-            start.setListApplyMem(data);
-
-
-          } else {// 스터디 멤버원 명단 조회
-            $('#btnMemberList').css('background-color', '#FFA800');
-            $('#btnApplyMemberList').css('background-color', 'transparent');
-            start.setListStudyMem(data);
-
+          if (applyType == "YA") {
+            start.setListApplyMem(data);  // 참여신청자 명단조회
+          } else {
+            start.setListStudyMem(data); // 스터디 멤버원 명단 조회
           } // if-else
         } // if
 
@@ -295,7 +290,7 @@ License: You must have a valid license purchased only from themeforest(the above
           <table class="datatable-table"
                  style="display: block; min-height: 300px; ">
             
-           <thead class="datatable-head" style="background-color: #6b984f33;">
+            <thead class="datatable-head">
             <tr class="datatable-row" style="left: 0px;">
            
               
@@ -443,7 +438,7 @@ License: You must have a valid license purchased only from themeforest(the above
              style="display: block; min-height: 300px; max-height: 400px;">
         
         <thead class="datatable-head">
-        <tr class="datatable-row" style="background-color: #ffa50042;left: 0px;">
+        <tr class="datatable-row" style="left: 0px;">
           <th data-field=""
               class="datatable-cell datatable-cell-sort"
               style="width: 5%; text-align: center;"><span>&nbsp;</span></th>
@@ -765,7 +760,7 @@ License: You must have a valid license purchased only from themeforest(the above
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         callAjax();
-      } else  {
+      } else if (result.isDenied) {
         Swal.fire('다음에 꼭 함께해요!', '', 'info')
       }
     })
@@ -795,17 +790,14 @@ License: You must have a valid license purchased only from themeforest(the above
 
         Swal.fire(actionName + ' 처리 되었습니다!', '', 'success')
 
-        // 3초 후 리로드
-        setTimeout(start.callAjax('YA', rId), 3000)
-        
+        start.callAjax('YA', rId);
 
       } // successCallback
 
       // 실패
       function errorCallback() {
         Swal.fire(actionName + ' 실패하였습니다!', '', 'warning')
-
-        setTimeout(start.callAjax('YA', rId), 3000)
+        start.callAjax('YA', rId);
       } // errorCallback
     } // callAjax
 
