@@ -33,7 +33,7 @@
                                 <h5 class="text-dark font-weight-bolder my-1 mr-5">회원가입</h5>
                                 <!--end::Page Title-->
                                 <!--begin::Breadcrumb-->
-                                <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                                <ul class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bolder p-0 my-2 font-size-sm">
                                     <li class="breadcrumb-item">
                                         <a class="text-muted">삼삼오오에 오신걸 환영합니다.</a>
                                     </li>
@@ -118,7 +118,7 @@
                                     <div class="wizard-content bg-gray-100 d-flex flex-column flex-row-fluid py-15 px-5 px-lg-10">
                                         <!--begin::Title-->
                                         <%--<div class="text-right mb-lg-30 mb-15 mr-xxl-10">
-                                            <span class="font-weight-bold text-muted font-size-h5">문제가 있나요?</span>
+                                            <span class="font-weight-bolder text-muted font-size-h5">문제가 있나요?</span>
 
                                             <a href="#" class="font-weight-bolder font-size-h4" id="kt_login_signup">처음으로</a>
                                         </div>--%>

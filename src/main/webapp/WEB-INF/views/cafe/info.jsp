@@ -60,7 +60,7 @@
 																<!--end::Separator-->
 																<!--begin::Search Form-->
 																<div class="d-flex align-items-center" id="kt_subheader_search">
-																		<span class="text-dark-50 font-weight-bold" id="kt_subheader_total">카페이름</span>
+																		<span class="text-dark-50 font-weight-bolder" id="kt_subheader_total">카페이름</span>
 																</div>
 																<!--end::Search Form-->
 														</div>
@@ -68,12 +68,12 @@
 														<!--begin::Toolbar-->
 														<div class="d-flex align-items-center">
 																<!--begin::Button-->
-															<a onclick="history.back();" class="btn btn-default font-weight-bold">Back</a>
+															<a onclick="history.back();" class="btn btn-default font-weight-bolder">Back</a>
 															
 															<!--end::Button-->
 																<!--begin::Dropdown-->
 																<div class="btn-group ml-2">
-																		<button type="button" class="btn btn-primary font-weight-bold">Save Changes</button>
+																		<button type="button" class="btn btn-primary font-weight-bolder">Save Changes</button>
 																</div>
 																<!--end::Dropdown-->
 														</div>

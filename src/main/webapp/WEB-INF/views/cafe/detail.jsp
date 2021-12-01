@@ -439,7 +439,7 @@
 																		<!--Page Title : 페이지 제목 종료-->
 																		<!--Breadcrumb : 로드맵 시작-->
 																		<ul
-																				class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+																				class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bolder p-0 my-2 font-size-sm">
 																				<li class="breadcrumb-item"><a href=""
 																				                               class="text-muted">스터디카페</a></li>
 																				<li class="breadcrumb-item"><a href=""
@@ -670,7 +670,7 @@
 																																<thead>
 																																<tr>
 																																		<th
-																																				class="pl-0 font-weight-bold text-muted text-uppercase">상세설명
+																																				class="pl-0 font-weight-bolder text-muted text-uppercase">상세설명
 																																		</th>
 																																</tr>
 																																</thead>
@@ -697,7 +697,7 @@
 																														<thead>
 																														<tr>
 																																<th
-																																		class="pl-0 font-weight-bold text-muted text-uppercase">운영안내
+																																		class="pl-0 font-weight-bolder text-muted text-uppercase">운영안내
 																																</th>
 																																
 																																<th></th>
@@ -772,7 +772,7 @@
 																																<thead>
 																																<tr>
 																																		<th
-																																				class="pl-0 font-weight-bold text-muted text-uppercase">이용안내
+																																				class="pl-0 font-weight-bolder text-muted text-uppercase">이용안내
 																																		</th>
 																																</tr>
 																																</thead>
@@ -910,11 +910,11 @@
 																																				type="radio" name="room" id="${room.room_idx}" value="${room.amount_hour}"
 																																				onclick="viewInfo('${room.room_idx}');" > <span></span>
 																																				<div
-																																						class="font-size-lg text-dark-75 font-weight-bold"
+																																						class="font-size-lg text-dark-75 font-weight-bolder"
 																																						id="mp-${room.room_idx}">
 																																								${room.max_people}인실
 																																				</div>
-																																				<div class="ml-auto text-muted font-weight-bold"
+																																				<div class="ml-auto text-muted font-weight-bolder"
 																																				     >
 																																				     
 																																								<fmt:formatNumber value="${room.amount_hour}"
@@ -952,7 +952,7 @@
 																																								<input
 																																										type="radio" name="time" style=""> <span
 																																								style=""></span>
-																																								<div class="font-size-lg text-dark-75 font-weight-bold"
+																																								<div class="font-size-lg text-dark-75 font-weight-bolder"
 																																								     style="">&nbsp;시간 단위(최소 1시간부터)
 																																								</div>
 																																						</label>

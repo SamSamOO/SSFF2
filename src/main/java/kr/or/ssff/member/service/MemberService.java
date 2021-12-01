@@ -28,15 +28,6 @@ public interface MemberService {
     // 프로필 이미지 등록
     public void upload(MemberDTO memberDTO) throws Exception;
 
-    //이메일발송
-    public void sendEmail(String member_id,String subject, String msg) throws Exception;
-
-    //비밀번호수정
-    public int updatePw(MemberDTO memberDTO) throws Exception;
-
-    //회원탈퇴
-    public abstract boolean withdrawl(String member_id);
-
 
 
     // 1. 새로운 게시물 등록
@@ -60,21 +51,3 @@ public interface MemberService {
     List<RecruitBoardVO> getMyStudyList(HashMap<String, Object> map);
     
 }// end interface
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
