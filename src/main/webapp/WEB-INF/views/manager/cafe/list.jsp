@@ -29,6 +29,33 @@ License: You must have a valid license purchased only from themeforest(the above
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"/>
   <link href="/resources/assets/css/style.list.css" rel="stylesheet" type="text/css"/>
+
+<style>
+
+  .datatable-pager.datatable-paging-loaded ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    text-align: left;
+    font-weight: 400;
+    font-size: 12px !important;
+    color: #3F4254;
+    word-wrap: break-word;
+    -webkit-box-direction: normal;
+  }
+
+  .datatable-pager.datatable-paging-loaded li {
+    padding: 1em;
+  }
+
+  
+
+</style>
 </head>
 
 <!----------------Head 종료----------------------->
@@ -256,7 +283,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </tbody>
                       </table>
                         <!--begin: pager-->
-                        <div class="datatable-pager datatable-paging-loaded">
+                        <div class="datatable-pager datatable-paging-loaded center" style="padding-left: 360px;">
     
     
                           <div class="datatable-pager-info my-2 mb-sm-0">
@@ -276,7 +303,8 @@ License: You must have a valid license purchased only from themeforest(the above
                               </select>
       
                             </div>
-                            <span class="datatable-pager-detail">Showing 1 - 10 of 350</span></div>
+                            <%--<span class="datatable-pager-detail">Showing 1 - 10 of 350</span>--%>
+                          </div>
                         </div>
                         <!--end: pager-->
   

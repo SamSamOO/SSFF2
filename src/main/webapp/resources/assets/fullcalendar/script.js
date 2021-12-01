@@ -36,12 +36,15 @@ function callApiService (url, jsonData, method) {
   }
 }
 
-async function getFullCalendarData (cal_id) {
+async function getFullCalendarData (cal_id, url) {
   setCal_id = {
     cal_id : cal_id
   }
+  let ajaxUrl
+  if (url) ajaxUrl = url
+  else ajaxUrl = '/calendar/get'
   let returnData
-  await callApiService('/calendar/get', setCal_id, 'GET').then((data) => {
+  await callApiService(ajaxUrl, setCal_id, 'GET').then((data) => {
     returnData = data
   })
   .catch((error) => {

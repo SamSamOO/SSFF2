@@ -11,17 +11,15 @@
 <!----------------Head 시작----------------------->
 
 <head>
-      <title>스터디 내 게시판</title>
+      <title>스터디 채팅방</title>
       <!--head.html Include-->
       <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
-      
-      
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
-      
-      
+
       <style>
             <%--        * {--%>
             <%--            margin: 0;--%>
@@ -76,7 +74,6 @@ padding: 20px;
       
       
       </style>
-
 
 </head>
 <script type="text/javascript">
@@ -253,10 +250,10 @@ padding: 20px;
             <!--begin::Wrapper-->
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
                   <!------------------header.html Include------------------>
-                  <jsp:include page="/WEB-INF/commons/header.jsp"/>
+<%--                  <jsp:include page="/WEB-INF/commons/header.jsp"/>--%>
                   <!------------------Header Wrapper : 메뉴 탭 시작------------------>
                   <!--menu.html Include-->
-                  <jsp:include page="/WEB-INF/commons/menu_main.jsp"/>
+<%--                  <jsp:include page="/WEB-INF/commons/menu_main.jsp"/>--%>
                   <!------------------Header Wrapper : 메뉴 탭 종료------------------>
                   <!--컨테이너 시작-->
                   <div class="d-flex flex-row flex-column-fluid container">

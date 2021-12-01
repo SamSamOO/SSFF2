@@ -1,12 +1,11 @@
 package kr.or.ssff.member.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
-import kr.or.ssff.member.domain.MemberLangVO;
-import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +41,17 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 
     @Autowired
     private JavaMailSender mailSender;
-
-
+    
+    @Override
+    public List<RecruitBoardVO> getMyStudyList(HashMap<String, Object> map){
+        log.info("getMyStudyList({}) is invoked", "map = " + map);
+    
+        Objects.requireNonNull(mapper);
+        List<RecruitBoardVO> list = this.mapper.getMyStudyList(map);
+        
+        return list;
+    }
+    
     // 회원가입 로직(장순형)
     @Override
     public void insertMember(MemberDTO memberDTO) throws Exception{
@@ -87,8 +95,7 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
     @Override
     public void updateAuthstatus(String member_id) throws Exception {
         mapper.updateAuthstatus(member_id);
-    } //updateAuthstatus
-
+    }
     // 아이디 중북체크 로직
     @Override
     public int idChk(MemberDTO memberDTO) throws Exception {
@@ -104,91 +111,38 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
         return result;
     }//nameChk
 
-    //프로필 사진 업로드
     @Override
     public void upload(MemberDTO memberDTO) throws Exception {
 
 
-    }//upload
+    }
 
-
-    /*--------민주 회원정보-----------*/
-    @Override
-    public List<LangVO> getLangList() {
-
-        List<LangVO> langlist = this.mapper.getLangList();
-
-        return langlist;
-    }//getLangList lang list 전체 가져오기
-
-
-    @Override
-    public boolean registerMemberLang(String member_name, String lang) {
-        String affectedRows = mapper.insertlang(member_name, lang);
-
-        return affectedRows == null;
-    }// 회원 주력언어 등록
-
-
-    //멤버 langlist 전체 가져오기
-    @Override
-    public List<MemberLangVO> getMemberLangList() {
-        List<MemberLangVO> memberLangList = this.mapper.getMemberLangList();
-
-        return memberLangList;
-    }//getLangList
-
-// 멤버 이름으로 lang 가져오기
-    @Override
-    public List<MemberLangVO> getLangByMemberByName(String member_name) {
-        List<MemberLangVO> memberLangList = new ArrayList<MemberLangVO>();
-        memberLangList = this.mapper.getMemberLangs(member_name);
-        return memberLangList;
-    }//getLangByMemberByName
-
-    //작성후 apply 등록
-    @Override
-    public boolean registerApply(String member_name) {
-        String affectedRows = mapper.insertApply(member_name);
-
-        log.info("\t + affectedRows:{}", affectedRows);
-
-        return affectedRows == null;
-    }//registerApply
-    
-    
-    // lang 지우기
-    @Override
-    public boolean deletelang(String member_name) {
-        String affectedRows = mapper.deletelang(member_name);
-        return affectedRows !=null;
-    }//deleteTag
 
     @Override
   public boolean register() {
     return false;
-  }//register
+  }
 
   @Override
   public boolean modify() {
     return false;
-  }//modify
+  }
 
   @Override
   public boolean remove() {
     return false;
-  }//remove
+  }
 
   @Override
   public String get() {
     return null;
-  } //get
+  }
 
 
   @Override
   public List<String> getListPerPage() {
     return null;
-  }//getListPerPage
+  }
 
 
 
@@ -205,7 +159,8 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
   public void afterPropertiesSet() throws Exception {
     // TODO Auto-generated method stub
 
-  } //afterPropertiesSet
+  }
 
 
-} // end class
+} // end
+

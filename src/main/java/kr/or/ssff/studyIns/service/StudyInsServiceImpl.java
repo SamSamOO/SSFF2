@@ -31,6 +31,8 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
     @Autowired
     private StudyInsMapper mapper;
     
+    
+    
     @Override
     public List<StudyInsVO> getListByHit(HashMap<String, Object> map){
         log.info("getListByHit({}) is invoked", "map = " + map);
