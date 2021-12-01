@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ssff.mapper.ChattingMapper">
+
+    <insert id="insertMsg" parameterType="hashMap">
+        INSERT INTO CHAT_MSG(MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME)
+        VALUES (CHAT_MSG_SQE.nextval, #{member_Name}, #{r_Idx}, #{msg_Cont}, CURRENT_TIMESTAMP)
+
+    </insert>
+
+    <select id="selectBySendTime" resultType="kr.or.ssff.studyIns.model.ChatMsgDTO">
+        <![CDATA[
+        SELECT /*+ INDEX_ASC(CHAT_MSG idx_chat_sendtime)*/ MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME
+        FROM CHAT_MSG
+        WHERE R_IDX = #{r_Idx}
+          AND ROWNUM <= 100
+        ORDER BY SEND_TIME
+        ]]>
+    </select>
+
+    <select id="checkYouInStudy" parameterType="hashMap" resultType="Integer">
+        SELECT RB.R_IDX,
+               RB.MEMBER_NAME,
+               TYPE_PC,
+               TITLE,
+               TEAMNAME,
+               CONT,
+               HIT,
+               WRITEDATE,
+               SIDO,
+               CH_PATTERN,
+               CH_START,
+               CH_END,
+               REMOVED_OK,
+               CLOSED_OK,
+               DEAD_OK
+        FROM RECRUIT_BOARD RB
+                 JOIN APPLY_MEMBER AM ON RB.R_IDX = AM.R_IDX
+        WHERE AM.R_IDX = #{map.r_Idx,jdbcType=INTEGER}
+          AND AM.MEMBER_NAME = #{map.member.member_name,jdbcType=VARCHAR}
+          AND AM.STUDY_JOIN_ARCIWF = 'i'
+
+
+    </select>
+
+    <select id="getStudyInfo" parameterType="Integer" resultType="String">
+        SELECT TEAMNAME
+        FROM RECRUIT_BOARD
+        WHERE R_IDX = #{r_Idx}
+    </select>
+
+</mapper>
