@@ -14,13 +14,13 @@
 	<link href='../../../resources/assets/fullcalendar/fullcalendar/lib/main.css' rel='stylesheet'/>
 	<script src='../../../resources/assets/fullcalendar/fullcalendar/lib/main.js'></script>
 	<script src='../../../resources/assets/fullcalendar/script.js'></script>
-	<script src="http://code.jquery.com/jquery-3.5.1.min.js"/>
+	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<input type="hidden" id="member_name" value="${member.member_name}">
 
 	<script>
 		let member_name = document.querySelector('#member_name').value;
-		let calendarData = '';
-
+		let calendarData
+		
 		async function doGetCalendarData() {
 			calendarData = await getFullCalendarData(member_name,'/calendar/getAll');
 		}
@@ -71,7 +71,7 @@
 	<!--예솔 for calendar end-->
 	<%-- TODO 로그인한 사람이랑 페이지 주인이 다르면 어쩌구 하고싶어--%>
 	<title>${member.member_name}님의 마이 페이지</title>
-	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"/>
+	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
 	<!--<script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>-->
 </head>
 <!----------------Head 종료----------------------->
@@ -86,10 +86,10 @@
 			<!--begin::Wrapper ↓여기 매칭되는 div 태그부터 안닫아도 됨(footer에 있음)-->
 			<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 				<!------------------header.html Include------------------>
-				<jsp:include page="/WEB-INF/commons/header.jsp"/>
+				<jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
 				<!------------------Header Wrapper : 메뉴 탭 시작------------------>
 				<!--menu.html Include-->
-				<jsp:include page="/WEB-INF/views/member/menu_mypage.jsp"/>
+				<jsp:include page="/WEB-INF/views/member/menu_mypage.jsp"></jsp:include>
 				<!------------------Header Wrapper : 메뉴 탭 종료------------------>
 				<!--컨테이너 시작-->
 				<div class="d-flex flex-row flex-column-fluid container">
@@ -106,7 +106,7 @@
 										<!--Page Title : 페이지 제목 시작-->
 										<i class="fas fa-user"></i>&nbsp;&nbsp;
 										<h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">
-											내 정보
+											<title>내 정보</title>
 										</h5>
 										<!--Page Title : 페이지 제목 종료-->
 										<!--Breadcrumb : 로드맵 시작-->
@@ -199,8 +199,10 @@
 												<div class="d-flex flex-column flex-grow-1 pr-8">
 													<div class="d-flex flex-wrap mb-4">
 														<a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-															<i class="flaticon2-new-email mr-2 font-size-lg"></i>
-															${member.member_id}
+															<i class="flaticon2-new-email mr-2 font-size-lg"></i>${member.member_id}
+														</a>
+														<a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+															<i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>${member.member_no}
 														</a>
 													</div>
 													<span class="font-weight-bold text-dark-50">${member.member_introduce}</span>
@@ -328,6 +330,8 @@
 											</div>
 										</div>
 									</div>
+									
+									
 									<!--modal part end-->
 								</div>
 								<!--카드 Body 종료-->
@@ -378,7 +382,7 @@
 	//모달창 영역 밖
 
 	function openModal(arg) {
-		if (arg) { // detail 일때
+		if (arg) {   // detail 일때
 			currentEvent = arg.event
 			console.log('arg : ', arg)
 			console.log(calendar.getEvents())
@@ -554,5 +558,3 @@
 
 
 </script>
-
-

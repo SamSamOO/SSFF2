@@ -284,8 +284,7 @@ public class MemberController {
 
             } // memberLogin
         }
-        log.debug("ㅇㅇ");
-        return "redirect:/member/main";
+        return "redirect:/member/myPage";
     }
 
 
@@ -308,7 +307,7 @@ public class MemberController {
             log.debug("memberLogout() is invoked");
             session.invalidate();
 
-            return "/main";
+            return "/member/login";
         }
 
         /* 마이 페이지 이동
