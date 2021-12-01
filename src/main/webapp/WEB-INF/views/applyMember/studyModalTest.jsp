@@ -765,7 +765,7 @@ License: You must have a valid license purchased only from themeforest(the above
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
         callAjax();
-      } else if (result.isDenied) {
+      } else  {
         Swal.fire('다음에 꼭 함께해요!', '', 'info')
       }
     })

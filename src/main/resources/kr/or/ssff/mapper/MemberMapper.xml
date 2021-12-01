@@ -108,7 +108,8 @@
 
     <select id="getMyStudyList" parameterType="hashMap" resultType="kr.or.ssff.study.domain.RecruitBoardVO">
         <![CDATA[
-        SELECT R_IDX, MEMBER_NAME, TYPE_PC, TITLE, TEAMNAME, CONT, HIT, WRITEDATE, SIDO, CH_PATTERN, CH_START, CH_END, REMOVED_OK, CLOSED_OK, DEAD_OK
+        SELECT R_IDX, MEMBER_NAME, TYPE_PC, TITLE, TEAMNAME, CONT, HIT, WRITEDATE,
+               SIDO, CH_PATTERN, CH_START, CH_END, REMOVED_OK, CLOSED_OK, DEAD_OK
         FROM RECRUIT_BOARD RB2
         WHERE RB2.R_IDX IN (SELECT AM.R_IDX
                             FROM APPLY_MEMBER AM
