@@ -218,3 +218,4 @@ out\
 !/.idea/
 !/.idea/artifacts/
 classes\
+/target/

@@ -62,12 +62,12 @@
                         </li>
                 <!------------------세번째 탭 종료------------------>
                 <!------------------네번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel"
+                <!--<li class="menu-item menu-item-submenu menu-item-rel"
                     data-menu-toggle="click" aria-haspopup="true">
                     <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
                         <span class="menu-text">거래 내역 관리</span>
                     </a>
-                </li>
+                </li>-->
                 <!------------------네번째 탭 종료------------------>
 
             </ul>

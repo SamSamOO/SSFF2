@@ -10,13 +10,10 @@
 <!-- 1. menu_main.jsp -->
 var pageSubmitFn = function (menu) {
     if (menu === "projectlist") {
-        alert("프로젝트")
         location.href = "/study/project/list";
     } else if (menu === "challengelist") {
-        alert("챌린지")
         location.href = "/study/challenge/list";
     } else if (menu === "cafelist") {
-        alert("스터디카페")
         location.href = "/cafe/list";
     }
 }

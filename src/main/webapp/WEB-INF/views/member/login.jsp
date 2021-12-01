@@ -60,7 +60,7 @@
                                     <input type="checkbox" name="remember" />
                                     <span></span>Remember me</label>
                             </div>
-                            <a class="nav-link" href="#" data-toggle="modal" data-target="#find">/비밀번호 찾기</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#find">비밀번호 찾기</a>
 <%--                            <div class="modal" id="find">--%>
 <%--                                <div class="modal-dialog">--%>
 <%--                                    <div class="modal-content">--%>

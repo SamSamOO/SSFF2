@@ -49,7 +49,23 @@
                                     <span class="menu-text">내가 예약한 스터디 카페</span>
                                 </a>
                             </li>
-                            
+<c:forEach var="list" items="${myStudyList}"
+begin="1" end="5">
+    <li id="mystudylistmenu_${list.r_Idx}"
+        class="menu-item">
+        <c:choose>
+        <c:when
+                test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+        <a href="/study/challenge/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">
+            </c:when>
+            <c:otherwise>
+            <a href="/study/project/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">
+                </c:otherwise>
+                </c:choose>
+            <span class="menu-text">${list.teamname}</span>
+        </a>
+    </li>
+</c:forEach>
                         </ul>
                         <!--1차 서브 메뉴 종료-->
                     </div>

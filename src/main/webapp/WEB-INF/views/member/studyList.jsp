@@ -532,8 +532,7 @@ License: You must have a valid license purchased only from themeforest(the above
                           </a>
                         </td>
                         </tr>
-                        ${member.member_name} 하이하이
-                        ${list.member_name} 바이바이
+
                         <!--start::Modal-->
                         <div id="memberListModal" class="modal modal-center fade"
                              role="dialog" aria-hidden="true">

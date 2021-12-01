@@ -1,9 +1,0 @@
-kr\or\ssff\payment\domain\PaymentWithdrawDTO.class
-kr\or\ssff\member\domain\MemberLangDTO.class
-kr\or\ssff\studyIns\configuration\RequestListener.class
-kr\or\ssff\member\domain\MemberLangVO.class
-kr\or\ssff\studyIns\configuration\WebSocketSessionConfigurator.class
-kr\or\ssff\payment\model\PaymentAuthDTO.class
-kr\or\ssff\payment\model\PaymentAcntDTO.class
-kr\or\ssff\payment\model\PaymentDepositDTO.class
-kr\or\ssff\payment\model\TransactionDTO.class
