@@ -299,10 +299,6 @@ a.text-hover-ssff-orange:hover,
     }
 }
 
-
-
-
-
 .main_menu{
     padding-right: 8rem;
 }
@@ -321,6 +317,14 @@ a.text-hover-ssff-orange:hover,
 #kt_login_signin_submit{
     width: 180px !important;
 }
+
+
+/*----마이페이지 언어로고----*/
+.member_lang img{
+    filter: grayscale(100%);
+    max-width: 2rem;
+}
+
 
 /*-----로딩중 페이지 효과-----*/
 #loading {

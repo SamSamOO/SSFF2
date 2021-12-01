@@ -149,7 +149,11 @@ public class ManagerController {
      *반환 :
      * */
     @GetMapping("/study/list")
-    public String selectStudyList(Criteria criteria,@RequestParam(required = false,defaultValue = "전체") List<String> chk, @RequestParam(required = false,defaultValue = "전체") List<String> chk2, @RequestParam(required = false) String keyword,Model model) {
+    public String selectStudyList(Criteria criteria,
+        @RequestParam(required = false,defaultValue = "전체") List<String> chk,
+        @RequestParam(required = false,defaultValue = "전체") List<String> chk2,
+        @RequestParam(required = false) String keyword,
+        Model model) {
 
         log.info("selectStudyList({}) is invoked", "criteria = " + criteria + ", chk = " + chk + ", chk2 = " + chk2 + ", keyword = " + keyword + ", model = " + model);
 

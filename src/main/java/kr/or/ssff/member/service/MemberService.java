@@ -28,9 +28,6 @@ public interface MemberService {
     // 프로필 이미지 등록
     public void upload(MemberDTO memberDTO) throws Exception;
 
-  
-
-
 
 
     // 1. 새로운 게시물 등록

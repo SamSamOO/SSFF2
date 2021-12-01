@@ -350,7 +350,8 @@ public class MemberController {
     } // studyListGo
 
 
-  
+
+
         /* 아이디/ 비밀번호 찾기 페이지 이동
          * 파라메터 : String nickname
          * 아이디 / 비밀번호 찾기 페이지
