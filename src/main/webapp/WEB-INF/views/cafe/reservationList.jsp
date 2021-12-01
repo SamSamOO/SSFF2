@@ -97,7 +97,16 @@
       <jsp:include page="../../commons/header.jsp"/>
       <!------------------Header Wrapper : 메뉴 탭 시작------------------>
       <!--menu.html Include-->
-      <jsp:include page="../../commons/menu_main.jsp"/>
+      <%--로그인한 사용자가 관리자일 경우엔 메뉴탭을 관리자 용으로 변환--%>
+      <c:choose>
+       <c:when test="${member.member_name == 'admin'}">
+         <jsp:include page="../../commons/menu_admin.jsp"/>
+       </c:when>
+      <c:otherwise>
+        <jsp:include page="../../commons/menu_main.jsp"/>
+      </c:otherwise>
+       </c:choose>
+
       <!------------------Header Wrapper : 메뉴 탭 종료------------------>
       <!--컨테이너 시작-->
       <div class="d-flex flex-row flex-column-fluid container">

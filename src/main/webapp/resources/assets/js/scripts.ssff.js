@@ -6,21 +6,17 @@
     $(".color-기타").css("backgroundColor", "rgb(153,102,255)");
 }//cateColorChangeCSS*/
 
-<!-- 헤더 요소 추가 -->
-$(window).ready(function () {
-    var getclass = document.getElementById('kt_header');
-    var getprogressbar = $('.progress-bar-horizonal');
-
-    if (body.hasAttribute('data-scrolltop') === true) {
-        getclass.classList.add('header_bg_white');
-        getprogressbar.classList.add('d-none');
-        alert('추가 반영');
-
-    } else {
-        if (body.hasAttribute('data-scrolltop') === false) {
-            getclass.classList.remove('header_bg_white');
-            getprogressbar.classList.remove('d-none');
-            alert('제거 반영');
-        }
+<!-- 선택 메뉴 하이라이트 -->
+<!-- 1. menu_main.jsp -->
+var pageSubmitFn = function (menu) {
+    if (menu === "projectlist") {
+        alert("프로젝트")
+        location.href = "/study/project/list";
+    } else if (menu === "challengelist") {
+        alert("챌린지")
+        location.href = "/study/challenge/list";
+    } else if (menu === "cafelist") {
+        alert("스터디카페")
+        location.href = "/cafe/list";
     }
-})();
+}

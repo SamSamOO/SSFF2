@@ -328,14 +328,13 @@ a.text-hover-ssff-orange:hover,
     display: block;
     position: fixed;
     top: 0px;
-    opacity: 0.2;
+    opacity: 0.3;
 }
 
 .header-fixed[data-header-scroll="on"] .progress-bar-horizonal {
     -webkit-animation: progress-scroll-animation .5s ease 1;
     animation: progress-scroll-animation .5s ease 1;
-    top: 70px;
-    opacity: 0.4;
+    opacity: 0.6;
 }
 
 .header-fixed[data-header-scroll="on"] .header {
@@ -355,12 +354,10 @@ a.text-hover-ssff-orange:hover,
 
 @keyframes progress-scroll-animation {
     from {
-        top: 0px;
-        opacity: 0.2;
+        opacity: 0.3;
     }
     to {
-        top: 70px;
-        opacity: 0.4;
+        opacity: 0.6;
     }
 }
 
