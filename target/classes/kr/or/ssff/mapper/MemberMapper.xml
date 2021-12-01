@@ -27,17 +27,9 @@
             id="Login"
             resultType="kr.or.ssff.member.domain.MemberDTO"
     >
-        SELECT MEMBER_NO,
-               MEMBER_ID,
-               MEMBER_PWD,
-               MEMBER_NAME,
-               MEMBER_PROFILE,
-               MEMBER_INTRODUCE,
-               MEMBER_ENABLED,
-               AUTHKEY,
-               AUTHSTATUS
-        FROM MEMBER
-        WHERE MEMBER_ID = #{member_id}
+        SELECT *
+        FROM member
+        WHERE member_id = #{member_id}
     </select>
 
     <!-- 생성된 메일 인증키 업데이트 -->
@@ -80,6 +72,8 @@
         SET MEMBER_PROFILE = #{member_profile}
         WHERE MEMBER_ID = #{member_id}
     </update>
+
+
 
 
     <!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->
