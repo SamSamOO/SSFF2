@@ -28,58 +28,58 @@
             class="menu-item"
             onclick="pageSubmitFn('challengelist')">
           <a href="/study/challenge/list" class="menu-link">
-            
+
             <span class="menu-text">챌린지</span>
           </a>
         </li>
         <!------------------두번째 탭 종료------------------>
         <!------------------세번째 탭 시작------------------>
         <c:choose>
-          <c:when test="${member != null || kmember != null}">
-            <li id="main_menu_cafe"
-                class="menu-item menu-item-submenu"
-                data-menu-toggle="click">
-              <a href="javascript:;" class="menu-link menu-toggle">
-                <span class="menu-text">스터디 카페</span>
-                <span class="menu-desc"></span>
-                <i class="menu-arrow"></i>
-              </a>
-              <!--서브 메뉴 시작-->
-              <div class="menu-submenu menu-submenu-classic menu-submenu-left">
-                <!--1차 서브 메뉴 시작-->
-                <ul class="menu-subnav">
-                  <li class="menu-item menu-item-submenu">
+        <c:when test="${member != null || kmember != null}">
+          <li id="main_menu_cafe"
+              class="menu-item menu-item-submenu"
+              data-menu-toggle="click">
+            <a href="javascript:;" class="menu-link menu-toggle">
+              <span class="menu-text">스터디 카페</span>
+              <span class="menu-desc"></span>
+              <i class="menu-arrow"></i>
+            </a>
+            <!--서브 메뉴 시작-->
+            <div class="menu-submenu menu-submenu-classic menu-submenu-left">
+              <!--1차 서브 메뉴 시작-->
+              <ul class="menu-subnav">
+                <li class="menu-item menu-item-submenu">
+                  <a href="/cafe/list" class="menu-link">
+                    <i class="menu-bullet menu-bullet-dot">
+                      <span></span>
+                    </i>
+                    <span class="menu-text">스터디 카페 리스트</span>
+                  </a>
+                </li>
+
+                <li class="menu-item menu-item-submenu">
+                  <a href="/cafe/reservationList?member=${member.member_name}" class="menu-link">
+                    <i class="menu-bullet menu-bullet-dot">
+                      <span></span>
+                    </i>
+                    <span class="menu-text">예약 내역 조회</span>
+                  </a>
+                </li>
+              </ul>
+              <!--1차 서브 메뉴 종료-->
+            </div>
+          <!--서브 메뉴 종료-->
+          </li>
+                </c:when>
+                <c:otherwise>
+                  <li id="main_menu_cafe"
+                      class="menu-item menu-item-submenu menu-item-rel">
                     <a href="/cafe/list" class="menu-link">
-                      <i class="menu-bullet menu-bullet-dot">
-                        <span></span>
-                      </i>
-                      <span class="menu-text">스터디 카페 리스트</span>
+                      <span class="menu-text">스터디 카페</span>
                     </a>
                   </li>
-                  
-                  <li class="menu-item menu-item-submenu">
-                    <a href="/cafe/reservationList?member=${member.member_name}" class="menu-link">
-                      <i class="menu-bullet menu-bullet-dot">
-                        <span></span>
-                      </i>
-                      <span class="menu-text">예약 내역 조회</span>
-                    </a>
-                  </li>
-                </ul>
-                <!--1차 서브 메뉴 종료-->
-              </div>
-              <!--서브 메뉴 종료-->
-            </li>
-          </c:when>
-          <c:otherwise>
-            <li id="main_menu_cafe"
-                class="menu-item menu-item-submenu menu-item-rel">
-              <a href="/cafe/list" class="menu-link">
-                <span class="menu-text">스터디 카페</span>
-              </a>
-            </li>
-          </c:otherwise>
-        </c:choose>
+                </c:otherwise>
+              </c:choose>
         <!------------------세번째 탭 종료------------------>
       </ul>
       <!--end::Header Nav-->

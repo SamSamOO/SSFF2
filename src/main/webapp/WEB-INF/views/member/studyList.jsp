@@ -22,7 +22,7 @@ License: You must have a valid license purchased only from themeforest(the above
   <title>가입한 스터디 목록</title>
   <!--head.html Include-->
   <jsp:include page="/WEB-INF/commons/head.jsp"/>
-  
+
   <style>
 
 
@@ -97,8 +97,8 @@ License: You must have a valid license purchased only from themeforest(the above
     }
 
     /*---------- 모달 end ----------*/
-  
-  
+
+
   </style>
 
 </head>
@@ -114,7 +114,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <input type="hidden" name="member_name" value="${member.member_name}"/>
     <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
     <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
-    
+
     <div class="d-flex flex-row flex-column-fluid page">
       <!--begin::Wrapper ↓여기 매칭되는 div 태그부터 안닫아도 됨(footer에 있음>3개)-->
       <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
@@ -127,7 +127,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!--컨테이너 시작-->
         <div class="d-flex flex-row flex-column-fluid container">
           <!--contents.html Include-->
-          
+
           <!--begin::Content Wrapper 내용물 시작-->
           <div class="main d-flex flex-column flex-row-fluid">
             <!--begin::Subheader 페이지 서브 헤더 시작-->
@@ -166,9 +166,9 @@ License: You must have a valid license purchased only from themeforest(the above
                         <input type="text" class="form-control" name="keyword"
                                placeholder="Search..."/>
                         <div id="searchBtn" class="input-group-append">
-                                           <span class="input-group-text">
-                                               <i class="flaticon2-search-1 icon-sm"></i>
-                                           </span>
+									                <span class="input-group-text">
+									                    <i class="flaticon2-search-1 icon-sm"></i>
+									                </span>
                         </div>
                       </div>
                     </form>
@@ -199,7 +199,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 </span>
                         전체
                       </li>
-                      
+
                       <li class="d-inline-flex">
                                             <span class="mr-2 w-20px">
                                                <label class="checkbox checkbox-single">
@@ -209,9 +209,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </span>
                         <span class="label label-lg label-inline mb-0 bg-ssff1">
                                                                 프로젝트
-                                    </span>
+												</span>
                       </li>
-                      
+
                       <li class="d-inline-flex">
                                             <span class="mr-2 w-20px">
                                                <label class="checkbox checkbox-single">
@@ -221,7 +221,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </span>
                         <span class="label label-lg label-inline mb-0 bg-ssff2">
                                                                 챌린지
-                                    </span>
+												</span>
                       </li>
                     </ul>
                   </div>
@@ -333,111 +333,111 @@ License: You must have a valid license purchased only from themeforest(the above
                                           </tr>
                                        </table>
                                     </div>--%>
-                  <!--end::Card 카테고리 항목 접기 종료-->
-                  
-                  <!--begin: Datatable-->
-                  <div class="mng_study_list  datatable-default datatable-primary overflow-auto"
-                       id="kt_datatable">
-                    <%------ 테이블 시작-------%>
-                    <%------ 테이블 헤드-------%>
-                    <table class="table table-hover">
-                      <thead class="text-center">
-                      <tr>
-                        <th data-field="StudyNum"
-                            class="study_num">
-                          <i class=""/>
-                        </th>
-                        <th data-field="StudyBoss"
-                            class="study_nick">
-                          개설자
-                        </th>
-                        
-                        <th data-field="StudyType"
-                            class="study_type w-90px">
-                          타입
-                        </th>
-                        
-                        <th data-field="StudyName"
-                            class="study_name">
-                          스터디명
-                        </th>
-                        
-                        <th data-field="StudyDate"
-                            class="study_date">
-                          개설일자
-                        </th>
-                        
-                        <th data-field="StudyIng"
-                            class="list_ing w-90px">
-                          상태
-                        </th>
-                        
-                        <th class="list_action w-90px">
-                          모집글 / 회원목록
-                        </th>
-                      </thead>
-                      
-                      <%------ 테이블 바디-------%>
-                      <tbody>
-                      <c:forEach var="list" items="${myStudyList}">
-                        
-                        <c:choose>
-                          <%--삭제됨--%>
-                          <c:when test="${list.dead_ok == 121}">
-                            <tr data-row="0" aria-label="1"
-                            title="Load sub table"
-                            class="bg-dark-o-40 bg-hover-dark-o-1">
-                          </c:when>
-                          <%--종료--%>
-                          <c:when test="${list.dead_ok == 121}">
-                            <tr data-row="0" aria-label="1"
-                            title="Load sub table"
-                            class="bg-dark-o-20 bg-hover-dark-o-1">
-                          </c:when>
-                          <c:otherwise>
-                            <tr data-row="0" aria-label="1"
-                            title="Load sub table"
-                            class="cursor-pointer">
-                          </c:otherwise>
-                        </c:choose>
-                        
-                        <%--스터디번호--%>
-                        <td class="study_num"
-                            aria-label="스터디 번호"
-                            data-field="StudyNum">
-                          <div class="text-center font-size-sm font-weight-bolder">${list.r_idx}</div>
-                        </td>
-                        
-                        <%--개설자--%>
-                        <td data-field="StudyBoss"
-                            aria-label="개설자"
-                            class="study_nick">
-                          <div class="d-flex align-items-center justify-content-center">
-                            <c:choose>
-                              <c:when test="${list.member_name == member.member_name}">
+                                    <!--end::Card 카테고리 항목 접기 종료-->
+
+                                    <!--begin: Datatable-->
+                                    <div class="mng_study_list  datatable-default datatable-primary overflow-auto"
+                                         id="kt_datatable">
+                                        <%------ 테이블 시작-------%>
+                                        <%------ 테이블 헤드-------%>
+                                        <table class="table table-hover">
+                                            <thead class="text-center">
+                                            <tr>
+                                                <th data-field="StudyNum"
+                                                    class="study_num">
+                                                    <i class=""/>
+                                                </th>
+                                                <th data-field="StudyBoss"
+                                                    class="study_nick">
+                                                    개설자
+                                                </th>
+
+                                                <th data-field="StudyType"
+                                                    class="study_type w-90px">
+                                                    타입
+                                                </th>
+
+                                                <th data-field="StudyName"
+                                                    class="study_name">
+                                                    스터디명
+                                                </th>
+
+                                                <th data-field="StudyDate"
+                                                    class="study_date">
+                                                    개설일자
+                                                </th>
+
+                                                <th data-field="StudyIng"
+                                                    class="list_ing w-90px">
+                                                    상태
+                                                </th>
+
+                                                <th class="list_action w-90px">
+                                                    모집글 / 회원목록
+                                                </th>
+                                            </thead>
+
+                                            <%------ 테이블 바디-------%>
+                                            <tbody>
+                                            <c:forEach var="list" items="${myStudyList}">
+
+                                                <c:choose>
+                                                    <%--삭제됨--%>
+                                                    <c:when test="${list.dead_ok == 121}">
+                                                        <tr data-row="0" aria-label="1"
+                                                        title="Load sub table"
+                                                        class="bg-dark-o-40 bg-hover-dark-o-1">
+                                                    </c:when>
+                                                    <%--종료--%>
+                                                    <c:when test="${list.dead_ok == 121}">
+                                                        <tr data-row="0" aria-label="1"
+                                                        title="Load sub table"
+                                                        class="bg-dark-o-20 bg-hover-dark-o-1">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <tr data-row="0" aria-label="1"
+                                                        title="Load sub table"
+                                                        class="cursor-pointer">
+                                                    </c:otherwise>
+                                                </c:choose>
+
+                                                <%--스터디번호--%>
+                                                <td class="study_num"
+                                                    aria-label="스터디 번호"
+                                                    data-field="StudyNum">
+                                                    <div class="text-center font-size-sm font-weight-bolder">${list.r_idx}</div>
+                                                </td>
+
+                                                <%--개설자--%>
+                                                <td data-field="StudyBoss"
+                                                    aria-label="개설자"
+                                                    class="study_nick">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <c:choose>
+                                                            <c:when test="${list.member_name == member.member_name}">
                                                                <span class="mb-0 text-warning font-size-sm">
                                                                    <i class="fas fa-crown"></i>
                                                                </span>
-                              </c:when>
-                              <c:otherwise>
-                                <a href="/member/myPage?member_Name=${list.member_name}">
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <a href="/member/myPage?member_Name=${list.member_name}">
                                                                    <span class="mb-0 text-hover-primary font-size-sm">
-                                                                       ${list.member_name}
+                                                                           ${list.member_name}
                                                                    </span>
-                                </a>
-                              </c:otherwise>
-                            </c:choose>
-                          </div>
-                        </td>
-                        
-                        <%--스터디 타입--%>
-                        <td data-field="StudyType"
-                            aria-label="스터디 타입"
-                            class="study_type">
-                          <div class="d-flex align-items-center justify-content-center">
-                            <c:choose>
-                            <c:when test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
-                            <span class="label label-lg label-inline mb-0 bg-ssff2">
+                                                                </a>
+                                                            </c:otherwise>
+                                                        </c:choose>
+                                                    </div>
+                                                </td>
+
+                                                <%--스터디 타입--%>
+                                                <td data-field="StudyType"
+                                                    aria-label="스터디 타입"
+                                                    class="study_type">
+                                                    <div class="d-flex align-items-center justify-content-center">
+                                                        <c:choose>
+                                                        <c:when test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+                                                        <span class="label label-lg label-inline mb-0 bg-ssff2">
                                                                 챌린지
                                                             </c:when>
                                                             <c:otherwise>
@@ -449,7 +449,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                    </span>
                           </div>
                         </td>
-                        
+
                         <%--스터디명--%>
                         <td data-field="StudyName"
                             aria-label="스터디명"
@@ -471,7 +471,7 @@ License: You must have a valid license purchased only from themeforest(the above
                               </a>
                           </div>
                         </td>
-                        
+
                         <%--개설일자--%>
                         <td data-field="StudyDate"
                             aria-label="개설일자"
@@ -484,7 +484,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                    </span>
                           </div>
                         </td>
-                        
+
                         <%--진행 / 상태--%>
                         <td data-field="StudyIng"
                             aria-label="진행 상태"
@@ -524,15 +524,15 @@ License: You must have a valid license purchased only from themeforest(the above
                             <i class="far fa-newspaper"></i>
                           </a>
                             <%-- 가입회원 목록 TODO 가입회원 목록 빼앟ㅁ....--%>
-                          <a href="#"
-                             class="btn btn-xs btn-default btn-text-primary btn-hover-primary btn-icon m-1"
-                             data-toggle="modal" data-target="#memberListModal"
-                             onclick="start.callAjax('NA','${list.r_idx}')">
-                            <i class="far fa-user-circle"></i>
+                              <a href="#"
+                                 class="btn btn-xs btn-default btn-text-primary btn-hover-primary btn-icon m-1"
+                                 data-toggle="modal" data-target="#memberListModal"
+                                 onclick="start.callAjax('NA','${list.r_idx}')">
+                                <i class="far fa-user-circle"></i>
                           </a>
                         </td>
                         </tr>
-                    
+
                         <!--start::Modal-->
                         <div id="memberListModal" class="modal modal-center fade"
                              role="dialog" aria-hidden="true">
@@ -540,13 +540,13 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="modal-content modal-80size" style="min-height: 400px;width:700px; ">
                               <div class="modal-header pl-7 pr-7 pt-5 pb-0" id="studyMemberTab">
                                 <div id="btnMemberList" class="btn btn btn-outline-warning btn-lg btn-block"
-                                
+
                                      onclick="start.callAjax('NA', '${list.r_idx}');">
                                   <h5 class="modal-title">
                                     스터디 멤버 <span class="d-block text-muted font-size-sm">
-                                 스터디 멤버를 확인해보세요!</span>
+											스터디 멤버를 확인해보세요!</span>
                                   </h5></div>
-                                
+
                                 <div id="btnApplyMemberList" class="btn btn btn-outline-primary btn-lg btn-block"
                                   <c:if test="${member.member_name ne list.member_name}">
                                     style="visibility: hidden; margin-top: 0px;"
@@ -565,7 +565,7 @@ License: You must have a valid license purchased only from themeforest(the above
                           </div>
                         </div>
                         <!--end::Modal-->
-                        
+
                         <%--클릭시 상세정보 페이지 아코디언 북마크--%>
                         <tr class="datatable-row-subtable bg-hover-white" style="display: none;">
                           <!-- display none-block  -->
@@ -574,7 +574,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div>
                               <!--begin: Datatable 내용-->
                               <div class="mng_info flex-column align-items-center">
-                                
+
                                 <table class="table table-sm w-75 mx-auto">
                                   <tbody>
                                   <tr>
@@ -582,7 +582,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <td>
                                         ${list.r_idx}
                                     </td>
-                                    
+
                                     <td> 유형</td>
                                     <td>
                                       <c:choose>
@@ -596,69 +596,69 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                             </c:otherwise>
                                                                         </c:choose>
                                                                           </span>
-                                    </td>
-                                  </tr>
-                                  
-                                  <tr>
-                                    <td>스터디명</td>
-                                    <td colspan="3" class="font-weight-bolder">
-                                      <c:choose>
-                                      <c:when test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
-                                      <a href="/study/challenge/main?r_Idx=${list.r_idx}">
-                                        </c:when>
-                                        <c:otherwise>
-                                        <a href="/study/project/main?r_Idx=${list.r_idx}">
-                                          </c:otherwise>
-                                          </c:choose>
-                                            ${list.teamname}
-                                        </a>
-                                    
-                                    </td>
-                                  </tr>
-                                  
-                                  
-                                  <tr>
-                                    <td> 개설자</td>
-                                    <td>
-                                      <a href="/member/myPage?member_Name=${list.member_name}">
-                                          ${list.member_name}
-                                      </a>
-                                    
-                                    </td>
-                                    
-                                    <td> 개설일</td>
-                                    <td>
-                                      <fmt:formatDate
-                                        value="${list.writedate}"
-                                        pattern="yyyy/MM/dd"/>
-                                    </td>
-                                  </tr>
-                                    
-                                    <%--이하 챌린지일 경우에만 공개--%>
-                                  <c:if test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
-                                    <tr>
-                                      <td> 시작일</td>
-                                      <td>
-                                        <fmt:formatDate value="${list.ch_start}"
-                                                        pattern="yyyy/MM/dd"/>
-                                      </td>
-                                      
-                                      <td> 종료일</td>
-                                      <td>
-                                        <fmt:formatDate value="${list.ch_end}"
-                                                        pattern="yyyy/MM/dd"/>
-                                      </td>
-                                    </tr>
-                                    
-                                    
-                                    <tr>
-                                      <td> 챌린지 유형</td>
-                                      <td>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <tr>
+                                                                        <td>스터디명</td>
+                                                                        <td colspan="3" class="font-weight-bolder">
+                                                                            <c:choose>
+                                                                            <c:when test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+                                                                            <a href="/study/challenge/main?r_Idx=${list.r_idx}">
+                                                                                </c:when>
+                                                                                <c:otherwise>
+                                                                                <a href="/study/project/main?r_Idx=${list.r_idx}">
+                                                                                    </c:otherwise>
+                                                                                    </c:choose>
+                                                                                        ${list.teamname}
+                                                                                </a>
+
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr>
+                                                                        <td> 개설자</td>
+                                                                        <td>
+                                                                            <a href="/member/myPage?member_Name=${list.member_name}">
+                                                                                    ${list.member_name}
+                                                                            </a>
+
+                                                                        </td>
+
+                                                                        <td> 개설일</td>
+                                                                        <td>
+                                                                            <fmt:formatDate
+                                                                                    value="${list.writedate}"
+                                                                                    pattern="yyyy/MM/dd"/>
+                                                                        </td>
+                                                                    </tr>
+
+                                                                    <%--이하 챌린지일 경우에만 공개--%>
+                                                                    <c:if test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+                                                                    <tr>
+                                                                        <td> 시작일</td>
+                                                                        <td>
+                                                                            <fmt:formatDate value="${list.ch_start}"
+                                                                                            pattern="yyyy/MM/dd"/>
+                                                                        </td>
+
+                                                                        <td> 종료일</td>
+                                                                        <td>
+                                                                            <fmt:formatDate value="${list.ch_end}"
+                                                                                            pattern="yyyy/MM/dd"/>
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                    <tr>
+                                                                        <td> 챌린지 유형</td>
+                                                                        <td>
                                                                            <span class="label label-lg label-inline mb-0">
                                                                                ${list.ch_pattern}
                                                                            </span>
                                       </td>
-                                      
+
                                       <td> 챌린지 지역</td>
                                       <td>
                                           ${list.sido}
@@ -667,8 +667,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                   </c:if>
                                   </tbody>
                                 </table>
-                                
-                                
+
+
                                 <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle mx-auto mb-8 w-75"
                                      id="data${list.r_idx}">
                                   <div class="card">
@@ -704,7 +704,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                       </div>
                                     </div>
-                                    
+
                                     <div id="collapse${list.r_idx}" class="collapse"
                                          data-parent="#data${list.r_idx}">
                                       <div class="card-body pl-12 font-weight-light">
@@ -724,13 +724,13 @@ License: You must have a valid license purchased only from themeforest(the above
                       </tbody>
                     </table>
                     <%------ 테이블 종료-------%>
-                    
+
                     <%--------------아랫단 시작-----------%>
                     <!--begin::Pagination-->
                     <!--end::Body-->
-                  
+
                   </div>
-                
+
                 </div>
                 <!--end::Card-->
               </div>
@@ -1565,3 +1565,5 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 </html>
+
+

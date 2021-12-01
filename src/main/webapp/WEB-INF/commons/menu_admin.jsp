@@ -16,7 +16,7 @@
             <!--begin::Header Nav-->
             <ul class="menu-nav">
                 <!------------------첫번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel menu-item-open menu-item-here"
+                <li class="menu-item menu-item-rel menu-item-open menu-item-here"
                     data-menu-toggle="click" aria-haspopup="true">
                     <a href="/manager/member/list" class="menu-link">
                         <span class="menu-text">회원 관리</span>
@@ -24,7 +24,7 @@
                 </li>
                 <!------------------첫번째 탭 종료------------------>
                 <!------------------두번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel"
+                <li class="menu-item menu-item-rel"
                     data-menu-toggle="click" aria-haspopup="true">
                     <a href="/manager/study/list" class="menu-link">
                         <span class="menu-text">스터디 관리</span>
@@ -32,7 +32,9 @@
                 </li>
                 <!------------------두번째 탭 종료------------------>
                 <!------------------세번째 탭 시작------------------>
-                
+                <li
+                    class="menu-item  menu-item-rel  menu-item-submenu"
+                    data-menu-toggle="click">
                 <a href="javascript:;" class="menu-link menu-toggle">
                     <span class="menu-text">스터디 카페 관리</span>
                     <span class="menu-desc"></span>
@@ -51,7 +53,7 @@
                                 <span class="menu-text">스터디 카페 리스트</span>
                             </a>
                         </li>
-                        
+
                         <li class="menu-item menu-item-submenu"
                             data-menu-toggle="hover" aria-haspopup="true">
                             <a href="/cafe/reservationList" class="menu-link">
@@ -61,21 +63,24 @@
                                 <span class="menu-text">예약 내역 조회</span>
                             </a>
                         </li>
-                        <!------------------세번째 탭 종료------------------>
-                        <!------------------네번째 탭 시작------------------>
-                        <!--<li class="menu-item menu-item-submenu menu-item-rel"
-                            data-menu-toggle="click" aria-haspopup="true">
-                            <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                                <span class="menu-text">거래 내역 관리</span>
-                            </a>
-                        </li>-->
-                        <!------------------네번째 탭 종료------------------>
-                    
-                    </ul>
-                    <!--end::Header Nav-->
+                <!------------------세번째 탭 종료------------------>
+                <!------------------네번째 탭 시작------------------>
+                <!--<li class="menu-item menu-item-submenu menu-item-rel"
+                    data-menu-toggle="click" aria-haspopup="true">
+                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
+                        <span class="menu-text">거래 내역 관리</span>
+                    </a>
+                </li>-->
+                <!------------------네번째 탭 종료------------------>
+
+            </ul>
                 </div>
-                <!--end::Header Menu-->
+                </li>
+            <!--end::Header Nav-->
         </div>
+        <!--end::Header Menu-->
     </div>
-    <!------------------메인 메뉴 종료------------------>
+</div>
+<!------------------메인 메뉴 종료------------------>
+
 
