@@ -26,7 +26,7 @@
                         <!--1차 서브 메뉴 시작-->
                         <ul class="menu-subnav">
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/member/myPage" class="menu-link">
+                                <a href="/member/myPage?memberName=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
