@@ -44,7 +44,7 @@
                 <div class="login-signin">
                     <div class="mb-20">
                         <span class="font-size-h3 font-weight-bolder">SamSamOO</span>
-                        <div class="text-muted">함께할 프로젝트원을 모집해보세요:p</div
+                        <div class="text-muted">함께할 프로젝트원을 모집해보세요:p</div>
                     </div>
                     <form action="/member/login" method="POST" class="form" id="kt_login_signin_form">
                         <input hidden name="referer" value="${referer}"/>
