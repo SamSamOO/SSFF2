@@ -565,7 +565,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div>
                               <!--begin: Datatable 내용-->
                               <div class="mng_info flex-column align-items-center">
-                                
+          
                                 <table class="table table-sm w-75 mx-auto">
                                   <tbody>
                                   <tr>
@@ -573,21 +573,28 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <td>
                                         ${list.r_idx}
                                     </td>
-                                    
+              
                                     <td> 유형</td>
                                     <td>
-                                               <span class="label label-lg label-inline mb-0">
-                                                   ${list.ch_pattern}
-                                               </span>
+                                      <c:choose>
+                                      <c:when test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+                                      <span class="label label-lg label-inline mb-0 bg-ssff2">
+                                                                                챌린지
+                                                                            </c:when>
+                                                                            <c:otherwise>
+                                                                                <span class="label label-lg label-inline mb-0 bg-ssff1">
+                                                                                프로젝트
+                                                                            </c:otherwise>
+                                                                        </c:choose>
+                                                                          </span>
                                     </td>
                                   </tr>
-                                  
+            
                                   <tr>
                                     <td>스터디명</td>
                                     <td colspan="3" class="font-weight-bolder">
                                       <c:choose>
-                                      <c:when
-                                        test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+                                      <c:when test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
                                       <a href="/study/challenge/main?rInx=${list.r_idx}">
                                         </c:when>
                                         <c:otherwise>
@@ -596,20 +603,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                           </c:choose>
                                             ${list.teamname}
                                         </a>
-                                    
+              
                                     </td>
                                   </tr>
-                                  
-                                  
+            
+            
                                   <tr>
                                     <td> 개설자</td>
                                     <td>
                                       <a href="/member/myPage?member_Name=${list.member_name}">
                                           ${list.member_name}
                                       </a>
-                                    
+              
                                     </td>
-                                    
+              
                                     <td> 개설일</td>
                                     <td>
                                       <fmt:formatDate
@@ -617,68 +624,55 @@ License: You must have a valid license purchased only from themeforest(the above
                                         pattern="yyyy/MM/dd"/>
                                     </td>
                                   </tr>
-                                  
-                                  
-                                  <tr>
-                                    <td> 시작일</td>
-                                    <td>
-                                      <fmt:formatDate value="${list.ch_start}"
-                                                      pattern="yyyy/MM/dd"/>
-                                    </td>
-                                    
-                                    <td> 종료일</td>
-                                    <td>
-                                      <fmt:formatDate value="${list.ch_end}"
-                                                      pattern="yyyy/MM/dd"/>
-                                    </td>
-                                  </tr>
-                                  
-                                  
-                                  <tr>
-                                    <td> 챌린지 유형</td>
-                                    <td>
-                                      <c:choose>
-                                      <c:when
-                                        test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
-                                      <span class="label label-lg label-inline mb-0 bg-ssff2">
-                                                                챌린지
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <span
-                                                                  class="label label-lg label-inline mb-0 bg-ssff1">
-                                                                프로젝트
-                                                            </c:otherwise>
-                                                     </c:choose>
-                                                          </span>
-                                    </td>
-                                    
-                                    <td> 챌린지 지역</td>
-                                    <td>
-                                        ${list.sido}
-                                    </td>
-                                  </tr>
+              
+                                    <%--이하 챌린지일 경우에만 공개--%>
+                                  <c:if test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+                                    <tr>
+                                      <td> 시작일</td>
+                                      <td>
+                                        <fmt:formatDate value="${list.ch_start}"
+                                                        pattern="yyyy/MM/dd"/>
+                                      </td>
+                
+                                      <td> 종료일</td>
+                                      <td>
+                                        <fmt:formatDate value="${list.ch_end}"
+                                                        pattern="yyyy/MM/dd"/>
+                                      </td>
+                                    </tr>
+              
+              
+                                    <tr>
+                                      <td> 챌린지 유형</td>
+                                      <td>
+                                                                           <span class="label label-lg label-inline mb-0">
+                                                                               ${list.ch_pattern}
+                                                                           </span>
+                                      </td>
+                
+                                      <td> 챌린지 지역</td>
+                                      <td>
+                                          ${list.sido}
+                                      </td>
+                                    </tr>
+                                  </c:if>
                                   </tbody>
                                 </table>
-                                
-                                
-                                <div
-                                  class="accordion accordion-light accordion-light-borderless accordion-svg-toggle mb-8"
-                                  id="data${list.r_idx}">
+          
+          
+                                <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle mx-auto mb-8 w-75"
+                                     id="data${list.r_idx}">
                                   <div class="card">
                                     <div class="card-header" id="headingTwo7">
                                       <div class="card-title collapsed"
                                            data-toggle="collapse"
                                            data-target="#collapse${list.r_idx}">
                                                        <span class="svg-icon svg-icon-primary">
-                                                           <svg xmlns="http://www.w3.org/2000/svg"
-                                                                width="24px"
-                                                                height="24px" viewBox="0 0 24 24"
-                                                                version="1.1">
-                                                           <g stroke="none" stroke-width="1"
-                                                              fill="none"
+                                                           <svg xmlns="http://www.w3.org/2000/svg" width="24px"
+                                                                height="24px" viewBox="0 0 24 24" version="1.1">
+                                                           <g stroke="none" stroke-width="1" fill="none"
                                                               fill-rule="evenodd">
-                                                           <polygon
-                                                             points="0 0 24 0 24 24 0 24"></polygon>
+                                                           <polygon points="0 0 24 0 24 24 0 24"></polygon>
                                                            <path d="M12.2928955,6.70710318 C11.9023712,6.31657888 11.9023712,5.68341391
                                                            12.2928955,5.29288961 C12.6834198,4.90236532 13.3165848,4.90236532 13.7071091,5.29288961
                                                            L19.7071091,11.2928896 C20.085688,11.6714686 20.0989336,12.281055 19.7371564,12.675721 L14.2371564,18.675721
@@ -696,13 +690,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                                            </path>
                                                            </g> </svg>
                                                        </span>
-                                        <div
-                                          class="card-label pl-4 font-weight-bolder text-hover-primary">
+                                        <div class="card-label pl-4 font-weight-bolder text-hover-primary">
                                             ${list.title}
                                         </div>
                                       </div>
                                     </div>
-                                    
+              
                                     <div id="collapse${list.r_idx}" class="collapse"
                                          data-parent="#data${list.r_idx}">
                                       <div class="card-body pl-12 font-weight-light">
