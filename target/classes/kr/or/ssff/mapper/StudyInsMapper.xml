@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ssff.mapper.StudyInsMapper">
+    <delete id="remove">
+
+        UPDATE SI_BOARD
+        SET REMOVED_OK='y'
+        WHERE CONT_NO = #{cont_No}
+
+    </delete>
+
+    <delete id="delete">
+
+        DELETE
+        FROM STUDY_INS_FILE
+        WHERE CONT_NO = #{cont_No}
+
+    </delete>
+
+    <delete id="deleteFiles" parameterType="kr.or.ssff.studyIns.model.StudyInsFileDTO">
+        DELETE
+        FROM STUDY_INS_FILE
+        WHERE CONT_NO = #{cont_No}
+    </delete>
+
+    <insert id="insertBoard">
+        INSERT INTO SI_BOARD(CONT_NO, MEMBER_NAME, R_IDX, CONT, CATEGORY, TITLE, REMOVED_OK, WRITE_DATE)
+        VALUES (#{cont_No}, #{member_Name}, #{r_Idx}, #{cont}, #{category}, #{title}, 'n', CURRENT_TIMESTAMP)
+    </insert>
+
+
+    <insert id="insertFiles" parameterType="java.util.List">
+
+        insert into STUDY_INS_FILE(FILENO, CONT_NO,filename, uploadpath, uuid) select
+        STUDY_INS_FILE_SQE.nextval, A.*from(
+        <foreach collection="list" item="item" separator="UNION ALL ">
+            select #{item.cont_No} as CONT_NO, #{item.file_Name} as FILE_NAME , #{item.uploadPath} as
+            UPLOADPATH, #{item.uuid} as UUID from dual
+        </foreach>) A
+
+    </insert>
+
+
+    <!-- 검색 조건 sql -->
+    <select id="findMaxContNo" resultType="integer">
+        SELECT MAX(NVL2(CONT_NO, CONT_NO, 0))
+        FROM SI_BOARD
+
+    </select>
+
+    <!-- 페이징 sql -->
+    <select id="read" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+
+		<![CDATA[
+        SELECT CONT_NO,
+               MEMBER_NAME,
+               R_IDX,
+               WRITE_DATE,
+               MODIFY_DATE,
+               REMOVED_OK,
+               CONT,
+               CATEGORY,
+               TITLE,
+               HIT
+        FROM SI_BOARD
+        WHERE CONT_NO = #{cont_No}
+          AND REMOVED_OK = 'n'
+        ]]>
+
+	</select>
+    <select id="getFileList" resultType="kr.or.ssff.studyIns.domain.StudyInsFileVO">
+        SELECT CONT_NO, FILENO, FILENAME, UPLOADPATH, UUID
+        FROM STUDY_INS_FILE
+        WHERE CONT_NO = #{cont_No}
+    </select>
+
+
+    <select id="countArticle" parameterType="hashMap" resultType="integer">
+        <choose>
+            <when test="map.category=='전체'">
+                select count(*)
+                from SI_BOARD
+                where REMOVED_OK = 'n' and CATEGORY!='공지' and R_IDX=#{map.r_Idx,jdbcType=INTEGER}
+            </when>
+            <otherwise>
+                select count(*)
+                from SI_BOARD where REMOVED_OK='n' and CATEGORY=#{map.category,jdbcType=VARCHAR} and CATEGORY!='공지' and
+                R_IDX=#{map.r_Idx,jdbcType=INTEGER}
+            </otherwise>
+        </choose>
+
+    </select>
+
+
+    <select id="getListWithPaging" parameterType="hashMap" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+        <choose>
+
+
+            <when test="map.category =='전체'">
+                <![CDATA[
+        select CONT_NO,
+               MEMBER_NAME,
+               R_IDX,
+               WRITE_DATE,
+               MODIFY_DATE,
+               REMOVED_OK,
+               CONT,
+               CATEGORY,
+               TITLE,
+               HIT
+        from (select /*+INDEX_DESC(si_board pk_si_board) */
+                  rownum rn,
+                  CONT_NO,
+                  MEMBER_NAME,
+                  R_IDX,
+                  WRITE_DATE,
+                  MODIFY_DATE,
+                  REMOVED_OK,
+                  CONT,
+                  CATEGORY,
+                  TITLE,
+                  HIT
+              from SI_BOARD
+              where rownum <= #{map.pageNum,jdbcType=INTEGER} * #{map.amount,jdbcType=INTEGER} and REMOVED_OK='n' and CATEGORY!='공지' and R_IDX=#{map.r_Idx,jdbcType=INTEGER})
+        where rn > (#{map.pageNum,jdbcType=INTEGER} - 1) * #{map.amount,jdbcType=INTEGER}
+        ]]>
+            </when>
+            <otherwise>
+                <![CDATA[
+        select CONT_NO,
+               MEMBER_NAME,
+               R_IDX,
+               WRITE_DATE,
+               MODIFY_DATE,
+               REMOVED_OK,
+               CONT,
+               CATEGORY,
+               TITLE,
+               HIT
+        from (select /*+INDEX_DESC(si_board pk_si_board) */
+                  rownum rn,
+                  CONT_NO,
+                  MEMBER_NAME,
+                  R_IDX,
+                  WRITE_DATE,
+                  MODIFY_DATE,
+                  REMOVED_OK,
+                  CONT,
+                  CATEGORY,
+                  TITLE,
+                  HIT
+              from SI_BOARD
+              where rownum <= #{map.pageNum,jdbcType=INTEGER} * #{map.amount,jdbcType=INTEGER}
+                and CATEGORY = #{map.category,jdbcType=VARCHAR} and REMOVED_OK='n' and R_IDX=#{map.r_Idx,jdbcType=INTEGER})
+        where rn > (#{map.pageNum,jdbcType=INTEGER} - 1) * #{map.amount,jdbcType=INTEGER}
+        ]]>
+            </otherwise>
+        </choose>
+
+    </select>
+
+
+    <select id="showNotice" parameterType="hashMap" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+        SELECT /*+INDEX_DESC(si_board pk_si_board) */
+            CONT_NO,
+            MEMBER_NAME,
+            R_IDX,
+            WRITE_DATE,
+            MODIFY_DATE,
+            REMOVED_OK,
+            CONT,
+            CATEGORY,
+            TITLE,
+            HIT
+        FROM SI_BOARD
+        WHERE CATEGORY = '공지'
+          AND REMOVED_OK = 'n'
+          AND R_IDX = #{map.r_Idx,jdbcType=INTEGER}
+
+    </select>
+
+    <select id="getChatList" resultType="kr.or.ssff.studyIns.model.ChatMsgDTO">
+        SELECT /*+INDEX_ASC(chat_msg pk_chat_msg) */ MSG_NO, MEMBER_NAME, R_IDX, MSG_CONT, SEND_TIME
+        FROM CHAT_MSG
+        WHERE R_IDX = #{r_Idx}
+    </select>
+
+    <select id="getListByHit" parameterType="hashMap" resultType="kr.or.ssff.studyIns.domain.StudyInsVO">
+        SELECT CONT_NO,
+               MEMBER_NAME,
+               R_IDX,
+               WRITE_DATE,
+               MODIFY_DATE,
+               REMOVED_OK,
+               CONT,
+               CATEGORY,
+               TITLE,
+               HIT
+        FROM SI_BOARD
+        WHERE R_IDX = #{map.r_Idx,jdbcType=INTEGER}
+        ORDER BY HIT DESC
+
+    </select>
+
+    <update id="update">
+        UPDATE SI_BOARD
+        SET TITLE=#{title},
+            CONT=#{cont},
+            MODIFY_DATE=SYSDATE,
+            CATEGORY=#{category}
+        WHERE CONT_NO = #{cont_No}
+    </update>
+    <update id="updateHit">
+        UPDATE SI_BOARD
+        SET HIT = HIT + 1
+        WHERE CONT_NO = #{cont_No}
+
+    </update>
+</mapper>

@@ -986,7 +986,7 @@
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {
                 callAjax(obj);
-            } else if (result.isDenied) {
+            } else  {
                 Swal.fire('다음에 꼭 함께해요!', '', 'info')
             }
         })
