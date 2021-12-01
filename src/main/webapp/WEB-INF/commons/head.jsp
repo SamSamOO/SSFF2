@@ -74,3 +74,5 @@
 
 <%--로딩화면--%>
 <script src="/resources/assets/js/effects/loading.js"></script>
+
+<!-- End Channel Plugin -->

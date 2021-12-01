@@ -120,8 +120,6 @@
                                 <div class="d-flex flex-row flex-column-fluid container">
                                     <form action="/studyIns/board/detail/modify" method="post" id="formObj" style="width: 100%" enctype="multipart/form-data">
                                         <input type="hidden" name="cont_No" value="${detail.cont_No}">
-                                        <c:out value="${detail.cont_No}"/>
-                                        <p>cont_No 출력</p>
                                         <input type="hidden" name="r_Idx" value="${detail.r_Idx}"/>
 
                                         <table style="width: 100%">

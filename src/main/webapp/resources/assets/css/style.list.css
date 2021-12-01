@@ -1,3 +1,44 @@
+/*----추천글 리스트 바----*/
+.recmdListBar{
+    top: 50%;
+    background-color: rgba(255, 255, 255,0.7);
+    box-sizing: border-box;
+    border: whitesmoke 1px solid;
+    border-radius: 3rem;
+    margin: 2rem;
+    padding: 2rem;
+}
+
+.recmdListBar ul,
+.recmdListBar li,
+.recmdListBar div {
+    list-style: none !important;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding:0;
+    margin: 0;
+}
+
+.recmdListBar ul li{
+    padding-top: 0.1rem;
+}
+
+.recmdListBar .recommendPost_bar {
+    width: 0;
+    height: 3rem;
+    border: 2px solid #ceb9ff;
+    margin-right: 0.7rem;
+}
+
+.recmdListBar .recommendPost_title {
+    font-size: 0.8rem;
+}
+
+.recmdListBar .recommendPost_title a {
+    color: #8950FC !important;
+}
+
 /*----페이지네이션----*/
 .pagination .active,
 .pagination li:hover{

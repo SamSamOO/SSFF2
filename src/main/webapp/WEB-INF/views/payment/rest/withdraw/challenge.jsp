@@ -4,9 +4,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>/WEB-INF/views/manager/member/info/modify.jsp</title>
+    <title></title>
 </head>
 <body>
 
+<h1>/WEB-INF/views/payment/rest/w/chg.jsp = <%= request.getRequestURI() %></h1>
+
+
 </body>
+
+<script>
+
+</script>
+
+
 </html>

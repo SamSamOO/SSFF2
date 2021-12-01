@@ -26,7 +26,15 @@ import org.springframework.stereotype.Service;
 public class StudyServiceImpl implements StudyService {
 
     private StudyMapper mapper;
-
+    
+    @Override
+    public Integer getAtd(HashMap<String, Object> map){
+        log.info("getAtd({}) is invoked", "map = " + map);
+    
+        Objects.requireNonNull(mapper);
+        return mapper.getAtd(map);
+    }
+    
     @Override
     public boolean register(RecruitBoardVO vo) {
         int affectedRows = mapper.insert(vo);
@@ -262,11 +270,26 @@ public class StudyServiceImpl implements StudyService {
     @Override
     public boolean updateAttendance(HashMap<String, Object> map) {
         log.info("updateAttendance({}) is invoked", "map = " + map);
-
+        Integer affectedRows = 0;
+        Integer afrow;
+    
         Objects.requireNonNull(mapper);
-        int affectedRows = this.mapper.updateAttendance(map);
+        log.info("중간확인 ");
+        
+        affectedRows = this.mapper.attendanceOkOneByOne(map);
         log.info("affectedRows = {}", affectedRows);
-        return affectedRows==1;
+        if(affectedRows==0){
+            affectedRows = this.mapper.updateAttendance(map);
+            afrow = this.mapper.updateTotalAttendance(map);
+            log.info("afrow = {}", afrow);
+    
+            log.info("affectedRows = {}", affectedRows);
+        }
+
+        log.info("affectedRows = {}", affectedRows);
+    
+        
+        return affectedRows==1?false:true;
     } // updateAttendance
 
     @Override
@@ -276,8 +299,13 @@ public class StudyServiceImpl implements StudyService {
 
         return applyList;
     }//getMemberByR_idx
-
-
+    
+    @Override
+    public ApplyMemberDTO getTeamName(Integer r_idx){
+    
+        return this.mapper.getTeamName(r_idx);
+    }
+    
 }//end class
 
 

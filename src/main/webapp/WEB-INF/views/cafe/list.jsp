@@ -387,8 +387,8 @@
 
           let $div = $('<div>').addClass("carousel-caption")
           let $item = $('<div>').addClass("item")
-                                .append($('<img>').attr("src", data.cafeList[i].roomImgs[j]
-                                                        /*http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg*/))
+                                .append($('<img>').attr(/*"src", data.cafeList[i].roomImgs[j]*/
+                                                        "src", "https://source.unsplash.com/featured?office&office%20space"))
                                 .append($div);
 
           $('.carousel-inner').eq(num).append($item);

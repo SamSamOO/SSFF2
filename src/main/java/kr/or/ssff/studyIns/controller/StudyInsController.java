@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,11 +38,12 @@ import java.util.*;
 @Controller("studyInsController")
 
 public class StudyInsController implements InitializingBean, DisposableBean{
-    
-    HttpSession session;
     ChattingService service1;
+    HttpSession session;
+    
     @Autowired
     private StudyInsService service;
+    
     
     @Override
     public void destroy() throws Exception{
@@ -353,48 +355,50 @@ public class StudyInsController implements InitializingBean, DisposableBean{
         
         /*이미지의 정보를 담는 객체*/
         List<StudyInsFileDTO> list = new ArrayList<>();
-        
-        for (MultipartFile multipartFile : uploadFile){
-            log.debug("------------------------------------");
-            log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
-            log.debug("Upload File Size : " + multipartFile.getSize());
+        if (studyInsDTO.getFileDTO() != null){
             
-            /*이미지 정보 객체입니다.*/
-            StudyInsFileDTO dto = new StudyInsFileDTO();
-            dto.setCont_No(studyInsDTO.getCont_No());
-            
-            String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
-            
-            dto.setFile_Name(uploadFileName);//3 : fileName
-            dto.setUploadPath(uploadPath.toString());//4 : uploadPath
-            
-            //IE has file path
-            uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
-            log.debug("only file name : " + uploadFileName);
-            
-            String uuid = UUID.randomUUID().toString();
-            dto.setUuid(uuid); // 5 : uuid
-            
-            uploadFileName = uuid + "_" + uploadFileName;
-            
-            File saveFile = new File(uploadPath, uploadFileName);
-            
-            try{
-                multipartFile.transferTo(saveFile);
+            for (MultipartFile multipartFile : uploadFile){
+                log.debug("------------------------------------");
+                log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
+                log.debug("Upload File Size : " + multipartFile.getSize());
                 
-                //check image type file
-                if (UploadFileUtils.checkImageType(saveFile)){
-                    FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-                    Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
+                /*이미지 정보 객체입니다.*/
+                StudyInsFileDTO dto = new StudyInsFileDTO();
+                dto.setCont_No(studyInsDTO.getCont_No());
+                
+                String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
+                
+                dto.setFile_Name(uploadFileName);//3 : fileName
+                dto.setUploadPath(uploadPath.toString());//4 : uploadPath
+                
+                //IE has file path
+                uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
+                log.debug("only file name : " + uploadFileName);
+                
+                String uuid = UUID.randomUUID().toString();
+                dto.setUuid(uuid); // 5 : uuid
+                
+                uploadFileName = uuid + "_" + uploadFileName;
+                
+                File saveFile = new File(uploadPath, uploadFileName);
+                
+                try{
+                    multipartFile.transferTo(saveFile);
                     
-                    thumbnail.close();
-                }
-            }catch (Exception e){
-                log.error(e.getMessage());
-                
-            } // end catch
-            list.add(dto);
-        } // end for
+                    //check image type file
+                    if (UploadFileUtils.checkImageType(saveFile)){
+                        FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+                        Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
+                        
+                        thumbnail.close();
+                    }
+                }catch (Exception e){
+                    log.error(e.getMessage());
+                    
+                } // end catch
+                list.add(dto);
+            } // end for
+        }
         
         studyInsDTO.setFileDTO(list);
         
@@ -443,9 +447,11 @@ public class StudyInsController implements InitializingBean, DisposableBean{
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/post")
-    public String studyBoardPost(@RequestParam("cont_No") Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile", required = false) MultipartFile[] uploadFile,
+    public String studyBoardPost(@RequestParam(value = "cont_No", required = false) Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile", required = false) MultipartFile[] uploadFile,
                                  RedirectAttributes rttrs){
-        log.debug("studyBoardPost({} , {}) is invoked", "studyInsDTO = " + studyInsDTO, ", uploadFile = " + Arrays.deepToString(uploadFile));
+    
+        log.info("studyBoardPost({}) is invoked", "cont_No = " + cont_No + ", studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile) + ", rttrs = " + rttrs);
+        
         
         String uploadFolder = "C:/temp/upload";
         
@@ -468,8 +474,7 @@ public class StudyInsController implements InitializingBean, DisposableBean{
         
         /*이미지의 정보를 담는 객체*/
         List<StudyInsFileDTO> list = new ArrayList<>();
-        
-        if (studyInsDTO.getFileDTO() != null){
+        if (uploadFile != null){
             for (MultipartFile multipartFile : uploadFile){
                 log.debug("------------------------------------");
                 log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
@@ -518,12 +523,9 @@ public class StudyInsController implements InitializingBean, DisposableBean{
             } // end for
             studyInsDTO.setFileDTO(list);
             
-        }else{
-            
-            studyInsDTO.setFileDTO(list);
-            
-            
-        }
+        } // if
+        
+        
         Objects.requireNonNull(service);
         
         if (service.register(cont_No, studyInsDTO, uploadFile)){

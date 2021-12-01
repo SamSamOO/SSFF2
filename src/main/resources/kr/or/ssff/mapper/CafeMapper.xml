@@ -423,6 +423,16 @@
       WHERE
       a.member_name = #{member_name, jdbcType=VARCHAR}
     </if>
+    <if test='rsrv_status_ynz != null and rsrv_status_ynz != "a"'>
+      AND
+      a.rsrv_status_ynz = #{rsrv_status_ynz, jdbcType=VARCHAR}
+    </if>
+    <if test='keyword != null'>
+      AND (a.member_name like '%' || #{keyword} || '%' or  a.use_date like '%' || #{keyword} || '%'
+      or   a.rsrv_amount like '%' || #{keyword} || '%' or d.cafe_name like '%' || #{keyword} || '%')
+    </if>
+
+    ORDER BY use_date desc
 
   </select>
 

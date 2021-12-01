@@ -201,6 +201,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-messaging</artifactId>
@@ -294,7 +295,12 @@
 			<version>2.0.6</version>
 		</dependency>
 
-
+		<!--javax-websocket-->
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.1</version>
+		</dependency>
 
 		<!-- HikariCP -->
 		<dependency>
