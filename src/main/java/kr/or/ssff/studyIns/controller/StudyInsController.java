@@ -281,7 +281,8 @@ public class StudyInsController implements InitializingBean, DisposableBean{
      * 반환: 스터디 게시글 리스트화면.
      * */
     @PostMapping("/board/detail/remove")
-    public String studyBoardDetailRemove(@RequestParam("cont_No") Integer cont_No, RedirectAttributes rttrs){
+    public String studyBoardDetailRemove(@RequestParam("cont_No") Integer cont_No,
+        @RequestParam("r_Idx") Integer r_Idx, RedirectAttributes rttrs){
         
         log.info("studyBoardDetailRemove({} , {}) is invoked", "cont_No = " + cont_No, ", rttrs = " + rttrs);
         
@@ -290,7 +291,7 @@ public class StudyInsController implements InitializingBean, DisposableBean{
         if (service.remove(cont_No)){
             rttrs.addFlashAttribute("result", "success");
         } // if
-        
+        rttrs.addAttribute("r_Idx", r_Idx);
         return "redirect:/studyIns/board/list";
     } // studyBoardDetailRemove
     

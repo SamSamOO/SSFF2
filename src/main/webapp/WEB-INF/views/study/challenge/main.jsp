@@ -899,12 +899,13 @@
                  contentType: 'application/json; charset=utf-8',
                  cache      : false,
                  success    : function (data) {
-                   console.log(data);
-                   if (data == false) {
+                   console.log("data" + data); // false
+                   console.log("data: " + JSON.stringify(data)); // false
+                   if (data===false ||data==='false') {
                      Swal.fire({
                                  title: '출석',
                                  text : '오늘 이미 출석하셨습니다',
-                                 type : "warning"
+                                 type : 'info'
 
                                });
 
@@ -913,9 +914,9 @@
                                  title: '출석',
                                  text : '출석완료!',
                                  type : 'info'
-                               })
+                               });
                      location.reload();
-                   }
+                   };
                  },
                  failure    : function (data) {
                    console.log(data);

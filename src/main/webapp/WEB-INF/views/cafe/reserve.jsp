@@ -134,13 +134,14 @@
 					<!------------------ 본문 시작 ------------------>
 					<!--begin::Content-->
 					<div class="content flex-column-fluid" id="kt_content">
+						
 						<form action="/cafe/reserve/insert" method="post" id="formObj">
-							<input type="hidden" name="member_name" value="${member.member_name}">
-							<input type="hidden" name="use_date" value="${roomRsrvInfoDTO.use_date}">
-							<input type="hidden" name="use_start_time" value="${roomRsrvInfoDTO.use_start_time}">
-							<input type="hidden" name="use_end_time" value="${roomRsrvInfoDTO.use_end_time}">
-							<input type="hidden" name="room_idx" value="${roomRsrvInfoDTO.room_idx}">
-							<input type="hidden" name="rsrv_amount" value="${roomRsrvInfoDTO.total_amount}">
+							<input type="hidden" name="member_name" id="member_name" value="${member.member_name}">
+							<input type="hidden" name="use_date" id="use_date" value="${roomRsrvInfoDTO.use_date}">
+							<input type="hidden" name="use_start_time"  id="use_start_time" value="${roomRsrvInfoDTO.use_start_time}">
+							<input type="hidden" name="use_end_time" id="use_end_time" value="${roomRsrvInfoDTO.use_end_time}">
+							<input type="hidden" name="room_idx" id="room_idx" value="${roomRsrvInfoDTO.room_idx}">
+							<input type="hidden" name="rsrv_amount"  id="rsrv_amount" value="${roomRsrvInfoDTO.total_amount}">
 							
 							<!--begin::Card-->
 							<div class="card card-custom gutter-b">
@@ -352,7 +353,7 @@
 												<label class="col-xl-3 col-lg-3 col-form-label text-right">Memo</label>
 												<div class="col-lg-9 col-xl-6">
 																														<textarea class="form-control form-control-lg form-control-solid"
-																														          id="rsrv_message" rows="3" name="rsrv_message"
+																														          id="rsrv_message" rows="3" name="rsrv_message" id="rsrv_message"
 																														          placeholder="요청사항을 입력해주세요.">
 																														</textarea>
 												</div>
@@ -838,10 +839,12 @@
 	// 결제를 위해 인증창 팝업
 	function authorize() {
 		
-		console.log("rsrvSubmit");
-		$('#formObj').submit();
+		// console.log("rsrvSubmit");
+		// $('#formObj').submit();
 		
-		console.log("t33tt");
+		callAjax();
+		
+		console.log("t33tt" + submitObj );
 		
 		let location = "https://testapi.openbanking.or.kr/oauth/2.0/authorize?" +
 		               "response_type=code&" +
@@ -859,8 +862,54 @@
 		var popup = window.open(location, '오픈뱅킹 본인인증', 'width=700px,height=800px,scrollbars=yes');
 		
 	}
+	
+	
+	function callAjax(obj){
+		var submitObj = new Object();
 
-
+		submitObj.room_idx = $('#room_idx').val();
+		submitObj.member_name = $('#member_name').val();
+		submitObj.use_date =  $('#use_date').val();
+		submitObj.use_start_time =  $('#use_start_time').val();
+		submitObj.use_end_time =  $('#use_end_time').val();
+		
+		submitObj.rsrv_name =  $('#rname').val();
+		submitObj.rsrv_phone_number = $('#rnum').val();
+		submitObj.rsrv_email = $('#remail').val();
+		submitObj.rsrv_amount =  $('#rsrv_amount').val();
+		submitObj.rsrv_message =  $('#rsrv_message').val();
+		
+		console.log("submitObj.rsrv_idx: " + submitObj.rsrv_idx);
+		
+		$.ajax({
+			       type       : 'POST',
+			       url        : '/cafeRest/reserve/insert',
+			       data       : JSON.stringify(submitObj), // 예약번호 들고 출발
+			       dataType   : 'json', // 받을 데이터는 json
+			       contentType: "application/json; charset=utf-8",
+			       success    : successCallback,
+			       error      : errorCallback
+		       });
+		
+		// 성공시 데이터 처리
+		function successCallback(data) {
+			console.log("data: " + data);
+			
+			Swal.fire('결제요청처리완!', '', 'success')
+		
+			
+		} // successCallback
+		
+		// 실패
+		function errorCallback() {
+			Swal.fire({
+				          icon : 'warning', // Alert 타입
+				          title: '요청실패', // Alert 제목
+				          text : '요청에 실패하였습니다. 다시 시도해주세요!', // Alert 내용
+			          });
+		} // errorCallback
+	}
+	
 </script>
 
 

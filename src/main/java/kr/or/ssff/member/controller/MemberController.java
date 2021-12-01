@@ -328,12 +328,12 @@ public class MemberController {
          * */
 // 21.12.02 @param memberName-> member_name으로 수정
     @GetMapping("/studyList")
-    public String selectStudyList(String member_name, Criteria criteria, Model model){
-        log.info("selectStudyList({}) is invoked", "memberName = " + member_name + ", criteria = " + criteria + ", model = " + model);
+    public String selectStudyList(String memberName, Criteria criteria, Model model){
+        log.info("selectStudyList({}) is invoked", "memberName = " + memberName + ", criteria = " + criteria + ", model = " + model);
 
 
         HashMap<String, Object> map = new HashMap<>();
-        map.put("member_name", member_name);
+        map.put("member_name", memberName);
         map.put("pageNum", criteria.getPageNum());
         map.put("amount", criteria.getAmount());
 
