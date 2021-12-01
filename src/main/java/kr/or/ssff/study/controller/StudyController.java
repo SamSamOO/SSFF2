@@ -7,8 +7,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
+import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
 import kr.or.ssff.applyMember.domain.ApplyMemberVO;
+import kr.or.ssff.applyMember.service.ApplyMemberService;
 import kr.or.ssff.member.domain.MemberDTO;
+import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -40,6 +43,10 @@ public class StudyController {
     private StudyService service;
     @Autowired
     private StudyInsService serviceOfStudyIns;
+
+    @Autowired
+    private ApplyMemberService applyMemberService;
+
     
     private String jsonData;
 
@@ -423,7 +430,7 @@ public class StudyController {
         map.put("amount", criteria.getAmount());
         map.put("category", "전체");
         Objects.requireNonNull(service);
-    
+
         ApplyMemberDTO dto = this.service.getTeamName(r_Idx);
         
         log.info("dto={}", dto);
@@ -449,30 +456,33 @@ public class StudyController {
      * 반환 : 챌린지형 스터디 메인 페이지
      * */
     @GetMapping("/challenge/main")
-    public String challengeMainGo(@RequestParam("r_Idx") Integer r_Idx, Criteria criteria, Model model, HttpSession session) throws Exception{
+    public String challengeMainGo(@RequestParam("r_Idx") Integer r_Idx,
+        @RequestParam("member_name") String member_name,
+        Criteria criteria, Model model, HttpSession session) throws Exception{
         log.info("challengeMainGo({}) is invoked", "r_Idx = " + r_Idx + ", criteria = " + criteria + ", model = " + model);
-        MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
+       //  MemberDTO memberDTO = (MemberDTO) session.getAttribute("member");
         HashMap<String, Object> map = new HashMap<>();
-    
+
         map.put("r_Idx", r_Idx);
         map.put("pageNum", criteria.getPageNum());
         map.put("amount", criteria.getAmount());
         map.put("category", "전체");
-        map.put("member_name", memberDTO.getMember_name());
+        map.put("member_name", member_name);
         log.info("map = {}", map);
-        
+
         Objects.requireNonNull(service);
         log.info("map = {}", map);
         ApplyMemberDTO dto = this.service.getTeamName(r_Idx);
-    
+
+
         log.info("dto={}", dto);
-    
+
         List<StudyInsVO> list = this.serviceOfStudyIns.getList(map);
         log.info("list = {}", list);
-    
+
         Integer at = this.service.getAtd(map);
         log.info("at = {}", at);
-        
+
         map.put("at", at);
         
         List<StudyInsVO> listOfNotice = this.serviceOfStudyIns.showNotice(map);
@@ -483,7 +493,20 @@ public class StudyController {
         model.addAttribute("list", list);
         model.addAttribute("notice", listOfNotice);
         log.info("map = {}", map);
-        
+
+        // 21.12.01 결제단 붙이기위해서 지혜 작업,
+        HashMap<String, Object> amem = new HashMap<>();
+
+        amem.put("member_name",member_name);
+        amem.put("r_idx",r_Idx);
+
+        ApplyMemberVO applyMemberVO = applyMemberService.getApplyMember(amem);
+        log.info("applyMemberVO = {}", applyMemberVO);
+        model.addAttribute("amem", applyMemberVO);
+
+        RecruitBoardVO recruitBoardVO = service.get(r_Idx);
+        model.addAttribute("rList", recruitBoardVO);
+
         return "/study/challenge/main";
     }
 

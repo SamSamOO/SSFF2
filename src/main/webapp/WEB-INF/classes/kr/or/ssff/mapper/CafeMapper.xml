@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ssff.mapper.CafeMapper">
+
+  <!-- 신규 카페정보 등록 : 신지혜  -->
+  <insert id="insertCafe" parameterType="kr.or.ssff.cafe.model.CafeDTO">
+
+    <selectKey keyProperty="cafe_idx" order="BEFORE" resultType="String">
+      SELECT 'c'||cafe_sqe.NEXTVAL
+      FROM dual
+    </selectKey>
+
+    INSERT INTO
+    CAFE (
+    cafe_idx,
+    cafe_name,
+    cafe_telephone_number,
+    cafe_location,
+    cafe_open_time,
+    cafe_close_time,
+    cafe_contact_phone_number,
+    cafe_contact_email,
+    cafe_main_title,
+    cafe_sub_title,
+    cafe_details,
+    cafe_remove_yn,
+    cafe_image_1,
+    cafe_image_2,
+    cafe_image_3,
+    boss_name,
+    business_number
+    )
+    VALUES(
+    #{cafe_idx},
+    #{cafe_name},
+    #{cafe_telephone_number},
+    #{cafe_location},
+    #{cafe_open_time},
+    #{cafe_close_time},
+    #{cafe_contact_phone_number},
+    #{cafe_contact_email},
+    #{cafe_main_title},
+    #{cafe_sub_title},
+    #{cafe_details},
+    'n',
+    #{cafe_image_1},
+    #{cafe_image_2},
+    #{cafe_image_3},
+    #{boss_name},
+    #{business_number}
+    )
+
+  </insert>
+
+
+  <!-- 신규 룸 등록 : 신지혜  -->
+  <insert id="insertRoom" parameterType="java.util.List">
+
+    <foreach item="item" collection="list"
+      separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+
+      INTO
+      room (
+      room_idx,
+      cafe_idx,
+      max_people,
+      total_room_number,
+      amount_hour,
+      room_image
+      )
+      VALUES(
+      #{item.cafe_idx} || 'r' || get_room_seq,
+      #{item.cafe_idx},
+      #{item.max_people},
+      #{item.amount_hour},
+      #{item.total_room_number},
+      #{item.room_image}
+      )
+
+    </foreach>
+
+  </insert>
+
+
+  <!-- 카페 정보 수정 : 신지혜  -->
+  <update id="updateCafe" parameterType="kr.or.ssff.cafe.model.CafeDTO">
+
+    UPDATE cafe
+    SET cafe_name                 = #{cafe_name},
+        cafe_telephone_number     = #{cafe_telephone_number},
+        cafe_location             = #{cafe_location},
+        cafe_open_time            = #{cafe_open_time},
+        cafe_close_time           = #{cafe_close_time},
+        cafe_contact_phone_number = #{cafe_contact_phone_number},
+        cafe_contact_email        = #{cafe_contact_email},
+        cafe_main_title           = #{cafe_main_title},
+        cafe_sub_title            = #{cafe_sub_title},
+        cafe_details              = #{cafe_details},
+        cafe_image_1              = #{cafe_image_1},
+        cafe_image_2              = #{cafe_image_2},
+        cafe_image_3              = #{cafe_image_3},
+        boss_name                 = #{boss_name},
+        business_number           = #{business_number}
+    WHERE cafe_idx = #{cafe_idx}
+
+  </update>
+
+
+  <!-- 카페 리스트단 VIEW를 위한 카페 리스트 & 상세 룸 조회 : 신지혜 -->
+  <select id="selectCafeList" resultType="kr.or.ssff.cafe.domain.CafeListVO">
+
+    SELECT c.cafe_main_title,
+           c.cafe_sub_title,
+           c.cafe_image_1,
+           c.cafe_image_2,
+           c.cafe_image_3,
+           c.cafe_location,
+           c.cafe_idx,
+           r.max_people,
+           r.amount_hour,
+           r.room_list
+    FROM cafe c
+           JOIN (
+      SELECT cafe_idx,
+             MAX(max_people)  AS      max_people,
+             MIN(amount_hour) AS      amount_hour,
+             LISTAGG(room_image, ':') WITHIN GROUP (ORDER BY cafe_idx) AS room_list
+      FROM
+        room
+      WHERE
+        room_remove_yn = 'n'
+      GROUP BY
+        cafe_idx
+    ) r ON c.cafe_idx = r.cafe_idx
+    WHERE c.cafe_remove_yn = 'n'
+
+  </select>
+
+
+  <!-- 카페 리스트 & 상세 룸 정보 전부 조회 : 신지혜 -->
+  <select id="selectCafeJoinRoom"
+    parameterType="String"
+    resultType="kr.or.ssff.cafe.domain.CafeInfoVO">
+
+    SELECT d.cafe_idx,
+           d.cafe_name,
+           d.cafe_telephone_number,
+           d.cafe_location,
+           d.cafe_open_time,
+           d.cafe_close_time,
+           d.cafe_contact_phone_number,
+           d.cafe_contact_email,
+           d.cafe_main_title,
+           d.cafe_sub_title,
+           d.cafe_details,
+           d.cafe_remove_yn,
+           d.cafe_image_1,
+           d.cafe_image_2,
+           d.cafe_image_3,
+           c.room_idx,
+           c.max_people,
+           c.amount_hour,
+           c.total_room_number,
+           c.room_image,
+           c.room_list
+    FROM (
+           SELECT a.cafe_idx,
+                  a.room_idx,
+                  a.max_people,
+                  a.amount_hour,
+                  a.total_room_number,
+                  a.room_image,
+                  b.room_list
+           FROM room a
+                  JOIN (
+             SELECT cafe_idx,
+                    LISTAGG(room_image, ':') WITHIN GROUP (
+            ORDER BY
+              cafe_idx
+          ) AS room_list
+             FROM
+               room
+             WHERE
+               room_remove_yn = 'n'
+             GROUP BY
+               cafe_idx
+           ) b ON a.cafe_idx = b.cafe_idx
+           WHERE a.room_remove_yn = 'n'
+         ) c
+           JOIN cafe d ON c.cafe_idx = d.cafe_idx
+    WHERE d.cafe_remove_yn = 'n'
+      AND d.cafe_idx = #{cafe_idx}
+    ORDER BY c.max_people, c.amount_hour
+  </select>
+
+
+  <!-- 온전히 카페 테이블 하나의 모든 정보 조회 : 신지혜 -->
+  <select id="selectCafe"
+    parameterType="String"
+    resultType="kr.or.ssff.cafe.domain.CafeVO">
+
+    SELECT cafe_idx,
+           cafe_name,
+           cafe_telephone_number,
+           cafe_location,
+           cafe_open_time,
+           cafe_close_time,
+           cafe_contact_phone_number,
+           cafe_contact_email,
+           cafe_main_title,
+           cafe_sub_title,
+           cafe_details,
+           cafe_remove_yn,
+           cafe_image_1,
+           cafe_image_2,
+           cafe_image_3,
+           boss_name,
+           business_number
+
+    FROM cafe
+
+    WHERE cafe_idx = #{cafe_idx}
+  </select>
+
+  <!-- 카페 테이블 하나의 모든 정보를 리스트로 조회 : 신지혜 -->
+  <select id="selectManagerCafeList"
+    parameterType="hashMap"
+    resultType="kr.or.ssff.cafe.domain.CafeVO">
+
+    SELECT cafe_idx,
+           cafe_name,
+           cafe_telephone_number,
+           cafe_location,
+           cafe_open_time,
+           cafe_close_time,
+           cafe_contact_phone_number,
+           cafe_contact_email,
+           cafe_main_title,
+           cafe_sub_title,
+           cafe_details,
+           cafe_remove_yn,
+           cafe_image_1,
+           cafe_image_2,
+           cafe_image_3,
+           boss_name,
+           business_number
+
+    FROM cafe
+  </select>
+
+
+  <!-- 카페 하나의 모든 룸 정보 조회 : 신지혜 -->
+  <select id="selectRoom"
+    parameterType="String"
+    resultType="kr.or.ssff.cafe.domain.RoomVO">
+
+    SELECT room_idx,
+           cafe_idx,
+           max_people,
+           amount_hour,
+           total_room_number,
+           room_image
+    FROM room
+    WHERE cafe_idx = #{cafe_idx}
+      AND room_remove_yn = 'n'
+  </select>
+
+
+  <!-- 카페 삭제(숨김) : 신지혜 -->
+  <update id="deleteCafe" parameterType="String">
+
+    UPDATE cafe
+    SET cafe_remove_yn = 'y'
+    WHERE cafe_idx = #{cafe_idx}
+  </update>
+
+  <!-- 룸 삭제(숨김) : 신지혜 -->
+  <update id="deleteRoom" parameterType="String">
+
+    UPDATE room
+    SET room_remove_yn = 'y'
+    WHERE room_idx = #{cafe_idx}
+  </update>
+
+
+  <!-- 예약관리 -->
+
+
+  <!-- 신규 예약정보 등록 : 신지혜  -->
+  <insert id="insertReservation"
+    parameterType="kr.or.ssff.cafe.domain.ReservationDTO">
+
+
+    INSERT INTO RSRV (rsrv_idx,
+                      room_idx,
+                      member_name,
+                      use_date,
+                      use_start_time,
+                      use_end_time,
+                      rsrv_status_ynz,
+                      rsrv_name,
+                      rsrv_phone_number,
+                      rsrv_email,
+                      rsrv_message,
+                      rsrv_amount)
+    VALUES ('rid_' || rsrv_sqe.NEXTVAL,
+            #{room_idx},
+            #{member_name},
+            #{use_date},
+            #{use_start_time},
+            #{use_end_time},
+            't',
+            #{rsrv_name},
+            #{rsrv_phone_number},
+            #{rsrv_email},
+            #{rsrv_message , jdbcType = VARCHAR },
+            #{rsrv_amount})
+
+  </insert>
+
+  <!-- 임시 등록된 예약정보 조회 : 신지혜 -->
+  <select id="selectTempRsrv"
+    resultType="kr.or.ssff.cafe.domain.ReservationVO">
+
+    select  rsrv_idx,
+            room_idx,
+            member_name,
+            use_date,
+            use_start_time,
+            use_end_time,
+            rsrv_status_ynz,
+            rsrv_name,
+            rsrv_phone_number,
+            rsrv_email,
+            rsrv_message,
+            rsrv_amount
+    FROM rsrv
+    WHERE rsrv_status_ynz = 't'
+
+  </select>
+
+  <!-- 정상예약처리 : 신지혜 -->
+  <update id="setReservation" parameterType="String">
+
+    UPDATE rsrv
+    SET rsrv_status_ynz = 'n'
+    WHERE rsrv_idx = #{rsrv_idx}
+  </update>
+
+
+  <!-- 거래등록 실패시 관련 예약정보도 삭제 : 신지혜 -->
+  <delete id="deleteReservation" parameterType="String">
+
+    DELETE rsrv
+    WHERE rsrv_idx = #{rsrv_idx}
+  </delete>
+
+  <!-- 특정일자, 특정 room 예약정보만 조회 : 신지혜 -->
+  <select id="selectRoomRsrvList"
+
+    resultType="kr.or.ssff.cafe.domain.RoomRsrvVO">
+
+    SELECT a.room_idx,
+           a.use_date,
+           a.use_start_time,
+           a.use_end_time,
+           b.total_room_number
+    FROM rsrv a
+           JOIN room b ON a.room_idx = b.room_idx
+    WHERE a.room_idx = #{room_idx}
+      AND a.use_date = #{use_date}
+      AND a.rsrv_status_ynz = 'y'
+
+  </select>
+
+
+  <!-- 예약정보 리스트 출력을 위해 예약정보&거래내역 조회 : 신지혜 -->
+  <!--TODO 거래부 구현후 RsrvJoinTrnscVO, where절, 수정예정 -->
+  <select id="selectRsrvJoinTrnscList"
+    parameterType="hashMap"
+    resultType="kr.or.ssff.cafe.domain.RsrvJoinTrnscVO">
+
+    SELECT
+      d.cafe_name,
+      d.max_people,
+      a.rsrv_idx,
+      a.room_idx,
+      a.member_name,
+      a.use_date,
+      a.use_start_time,
+      a.use_end_time,
+      a.rsrv_status_ynz,
+      a.rsrv_name,
+      a.rsrv_phone_number,
+      a.rsrv_email,
+      a.rsrv_message,
+      a.rsrv_amount,
+      b.trnsc_idx,
+      b.transaction_date,
+      b.transaction_categories,
+      b.transaction_categorie,
+      b.transaction_amount,
+      b.client_account_number,
+      b.client_bank_code,
+      b.client_name,
+      b.amount_to_be_paid,
+      b.payment_completed_yn
+    FROM (
+      SELECT
+        c.cafe_name,
+        c.cafe_idx,
+        r.room_idx,
+        r.max_people
+      FROM
+          cafe c
+      JOIN room r ON c.cafe_idx = r.cafe_idx
+      ) d
+    JOIN rsrv a ON d.room_idx = a.room_idx
+    JOIN trnsc b ON a.rsrv_idx = b.rsrv_idx
+    <if test='member_name != "admin"'>
+      WHERE
+      a.member_name = #{member_name, jdbcType=VARCHAR}
+    </if>
+    <if test='rsrv_status_ynz != null and rsrv_status_ynz != "a"'>
+      AND
+      a.rsrv_status_ynz = #{rsrv_status_ynz, jdbcType=VARCHAR}
+    </if>
+    <if test='keyword != null'>
+      AND (a.member_name like '%' || #{keyword} || '%' or  a.use_date like '%' || #{keyword} || '%'
+      or   a.rsrv_amount like '%' || #{keyword} || '%' or d.cafe_name like '%' || #{keyword} || '%')
+    </if>
+
+    ORDER BY use_date desc
+
+  </select>
+
+
+  <!-- 예약취소 : 신지혜 -->
+  <update id="cancelReservation" parameterType="hashMap">
+
+    UPDATE rsrv
+    SET rsrv_status_ynz = 'z'
+    WHERE rsrv_idx = #{rsrv_idx}
+  </update>
+
+</mapper>
+
+

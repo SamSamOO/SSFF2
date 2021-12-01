@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.ssff.mapper.PaymentMapper">
+
+  <insert id="insertTrnsc" parameterType="kr.or.ssff.payment.model.TransactionDTO">
+    INSERT INTO trnsc (trnsc_idx,
+                       rsrv_idx,
+                       apply_idx,
+                       member_name,
+                       transaction_date,
+                       transaction_categories,
+                       transaction_categorie,
+                       transaction_amount,
+                       client_account_number,
+                       client_bank_code,
+                       client_name,
+                       amount_to_be_paid,
+                       payment_completed_yn)
+    VALUES (
+            'tid_'||trnsc_sqe.NEXTVAL,
+            #{rsrv_idx, jdbcType = VARCHAR},
+            #{apply_idx, jdbcType = VARCHAR},
+            #{member_name},
+            #{transaction_date},
+            #{transaction_categories},
+            #{transaction_categorie},
+            #{transaction_amount},
+            #{client_account_number},
+            #{client_bank_code},
+            #{client_name},
+            #{amount_to_be_paid},
+            #{payment_completed_yn})
+
+
+  </insert>
+
+</mapper>
+
+

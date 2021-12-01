@@ -116,7 +116,8 @@ public interface StudyMapper{
     public abstract Integer attendanceOkOneByOne(@Param("map") HashMap<String, Object> map);
     //가입했는지 체크
     public abstract List<ApplyMemberDTO> getMemberByR_idx(@Param("r_idx")Integer r_idx);
-    
+
+    // 스터디 id로 스터디 하나의 정보를 온전히 조회
     public abstract ApplyMemberDTO getTeamName(@Param("r_Idx") Integer r_idx);
     
     public abstract Integer getAtd(@Param("map") HashMap<String, Object> map);

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ssff.mapper.MemberMapper">
+
+    <!-- 회원가입 로직 - 장순형 -->
+    <insert id="insertMember"
+            parameterType="kr.or.ssff.member.domain.MemberDTO">
+
+        <selectKey keyProperty="member_no" order="BEFORE" resultType="int">
+            SELECT MEMBER_SQE.NEXTVAL
+            FROM dual
+        </selectKey>
+        <![CDATA[
+
+		insert into member(MEMBER_NO, MEMBER_ID,MEMBER_PWD,MEMBER_NAME,
+		                   MEMBER_PROFILE,MEMBER_INTRODUCE)
+		values (#{member_no},#{member_id},#{member_pwd},#{member_name},'defualt.jpg',#{member_introduce, jdbcType=VARCHAR})
+		]]>
+
+    </insert>
+
+    <!-- 로그인 -->
+    <select
+            id="Login"
+            resultType="kr.or.ssff.member.domain.MemberDTO"
+    >
+        SELECT *
+        FROM member
+        WHERE member_id = #{member_id}
+    </select>
+
+    <!-- 생성된 메일 인증키 업데이트 -->
+    <update id="createAuthkey">
+        UPDATE MEMBER
+        SET AUTHKEY = #{param2}
+        WHERE MEMBER_ID = #{param1}
+    </update>
+
+
+    <!-- authstatus 컬럼을  0 에서 1로 업데이트-->
+    <update id="updateAuthstatus">
+        UPDATE MEMBER
+        SET AUTHSTATUS = 1
+        WHERE MEMBER_ID = #{param1}
+    </update>
+
+    <!-- 이메일 중복 체크 -->
+    <select id="idChk" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE MEMBER_ID = #{member_id}
+    </select>
+
+    <!-- 닉네임 중복 체크 -->
+    <select id="nameChk" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER
+        WHERE MEMBER_NAME = #{member_name}
+    </select>
+    <!-- 비밀번호 찾기 -->
+    <update id="updatePw">
+        UPDATE MEMBER
+        SET MEMBER_PWD = #{member_pwd}
+        WHERE MEMBER_ID = #{member_pwd}
+    </update>
+    <!--회원 프로필 이미지 변경-->
+    <update id="upload">
+        UPDATE MEMBER
+        SET MEMBER_PROFILE = #{member_profile}
+        WHERE MEMBER_ID = #{member_id}
+    </update>
+
+
+
+
+    <!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->
+    <resultMap type="kr.or.ssff.applyMember.domain.ApplyMemberDTO" id="applyMemberMap">
+        <id column="APPLY_IDX" property="apply_idx"/>
+        <result column="R_IDX" property="r_idx"/>
+        <result column="MEMBER_NAME" property="member_name"/>
+        <result column="STUDY_JOIN_ARCIWF" property="study_join_arciwf"/>
+        <result column="STUDY_JOIN_CHANGE_DATE" property="study_join_change_date"/>
+        <result column="STUDY_BOSS_YN" property="study_boss_yn"/>
+        <result column="ATTENDANCE_DAYS" property="attendance_days"/>
+
+
+        <association javaType="kr.or.ssff.study.domain.RecruitBoardDTO" property="recruitBoardDTO">
+            <id column="R_IDX" property="r_idx"/>
+            <result column="MEMBER_NAME" property="member_name"/>
+            <result column="TYPE_PC" property="type_pc"/>
+            <result column="TITLE" property="title"/>
+            <result column="TEAMNAME" property="teamname"/>
+            <result column="CONT" property="cont"/>
+            <result column="HIT" property="hit"/>
+            <result column="WRITEDATE" property="writedate"/>
+            <result column="SIDO" property="sido"/>
+            <result column="CH_PATTERN" property="ch_pattern"/>
+            <result column="CH_START" property="ch_start"/>
+            <result column="CH_END" property="ch_end"/>
+            <result column="REMOVED_OK" property="removed_ok"/>
+            <result column="CLOSED_OK" property="closed_ok"/>
+            <result column="DEAD_OK" property="dead_ok"/>
+        </association>
+    </resultMap>
+
+    <select id="getMyStudyList" parameterType="hashMap" resultType="kr.or.ssff.study.domain.RecruitBoardVO">
+        <![CDATA[
+        SELECT R_IDX, MEMBER_NAME, TYPE_PC, TITLE, TEAMNAME, CONT, HIT, WRITEDATE,
+               SIDO, CH_PATTERN, CH_START, CH_END, REMOVED_OK, CLOSED_OK, DEAD_OK
+        FROM RECRUIT_BOARD RB2
+        WHERE RB2.R_IDX IN (SELECT AM.R_IDX
+                            FROM APPLY_MEMBER AM
+                                     JOIN RECRUIT_BOARD RB ON RB.R_IDX = AM.R_IDX
+                            WHERE AM.MEMBER_NAME = #{map.member_name})
+        ORDER BY R_IDX
+        ]]>
+    </select>
+
+</mapper>
+

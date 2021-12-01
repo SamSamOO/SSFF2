@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
-import kr.or.ssff.applyMember.domain.ApplyMemberVO;
+import kr.or.ssff.mapper.ApplyMemberMapper;
 import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.domain.ReplyCountVO;
@@ -17,6 +18,7 @@ import kr.or.ssff.study.domain.ReplyVO;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Log4j2
@@ -26,6 +28,7 @@ import org.springframework.stereotype.Service;
 public class StudyServiceImpl implements StudyService {
 
     private StudyMapper mapper;
+    private ApplyMemberMapper applyMemberMapper;
     
     @Override
     public Integer getAtd(HashMap<String, Object> map){
@@ -34,12 +37,25 @@ public class StudyServiceImpl implements StudyService {
         Objects.requireNonNull(mapper);
         return mapper.getAtd(map);
     }
-    
+
+    @Transactional // 21.12.01 지혜 추가 : 개설자 글 insert시 a_mem insert
     @Override
     public boolean register(RecruitBoardVO vo) {
         int affectedRows = mapper.insert(vo);
         log.info("\t + affectedRows:{}", affectedRows);
-        return affectedRows == 1;
+
+        // 21.12.01 지혜 추가 : 개설자 글 insert시 a_mem insert
+        log.info("register>>>>>>>>" + vo.getR_idx()); // 방금 insert된 r_idx 가져와서
+        HashMap<String, Object> param = new HashMap<>();
+
+        param.put("boss","y"); // applymem insert할 정보 채움
+        param.put("r_idx", vo.getR_idx());
+        param.put("member_name",vo.getMember_name());
+
+        Integer num = this.applyMemberMapper.insertApply(param);
+        log.info("\t + insertApply({}) ", num);
+
+        return (affectedRows == 1 && num ==1);
     }//register
 
     @Override
