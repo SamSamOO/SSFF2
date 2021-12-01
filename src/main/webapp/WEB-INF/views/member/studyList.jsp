@@ -47,7 +47,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!--컨테이너 시작-->
                         <div class="d-flex flex-row flex-column-fluid container">
                               <!--contents.html Include-->
-                              
+
                               <!--begin::Content Wrapper 내용물 시작-->
                               <div class="main d-flex flex-column flex-row-fluid">
                                     <!--begin::Subheader 페이지 서브 헤더 시작-->
@@ -137,118 +137,113 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                 챌린지
 												</span>
                                                                   </li>
+                                                                  <button class="btn btn-light-instagram" type="submit"
+                                                                          id="submitBtn" style="margin-top: 10px">검색하기
+                                                                  </button>
                                                             </ul>
                                                       </div>
-                                                      <%--  구분선--%>
-                                                      <%--<div class="separator separator-solid mb-4"></div>
-                                                      <div id="filter_2">
-                                                         <h6 class="font-weight-bolder text-ssff2 mb-2">진행</h6>
-                                                         <ul class="list-inline checklist">
-                                                            <li class="d-inline-flex">
-                                                                             <span class="mr-2 w-20px">
-                                                                                 <label class="checkbox checkbox-single checkbox-all">
-                                                                                    <input name="chk2"
-                                                                                           id="all2"
-                                                                                           type="checkbox"
-                                                                                           value="전체" checked>
-                                                                                    &nbsp;<span></span>
-                                                                                 </label>
-                                                                             </span>
-                                                               전체
-                                                            </li>
-                  
-                                                            <li class="d-inline-flex">
-                                                               <span class="mr-2 w-20px">
-                                                                  <label class="checkbox checkbox-single">
-                                                                     <input name="chk2"
-                                                                            type="checkbox"
-                                                                            value="a">
-                                                                     &nbsp;
-                                                                     <span></span>
-                                                                  </label>
-                                                               </span>
-                                                               가입 신청중
-                                                            </li>
-                                                            <li class="d-inline-flex">
-                                                               <span class="mr-2 w-20px">
-                                                                  <label class="checkbox checkbox-single">
-                                                                     <input name="chk2"
-                                                                            type="checkbox"
-                                                                            value="r">&nbsp;
-                                                                     <span></span>
-                                                                  </label>
-                                                               </span>
-                                                               가입 거절
-                                                            </li>
-                                                            <li class="d-inline-flex">
-                                                               <span class="mr-2 w-20px">
-                                                                  <label class="checkbox checkbox-single">
-                                                                     <input type="checkbox"
-                                                                            value="c"
-                                                                            name="chk2">&nbsp;<span></span>
-                                                                  </label>
-                                                               </span>
-                                                               가입 취소
-                                                            </li>
-                  
-                                                            <li class="d-inline-flex" style="width: 20%">
-                                                               <span class="mr-2 w-20px">
-                                                                  <label class="checkbox checkbox-single">
-                                                                     <input type="checkbox"
-                                                                            value="i"
-                                                                            name="chk2">&nbsp;<span></span>
-                                                                  </label>
-                                                               </span>
-                                                               가입 중 (정상승인/ 프로젝트)
-                                                            </li>
-                  
-                                                            <li class="d-inline-flex ml-n8" style="width: 20%">
-                                                               <span class="mr-2 w-20px">
-                                                                  <label class="checkbox checkbox-single">
-                                                                     <input type="checkbox"
-                                                                            value="g"
-                                                                            name="chk2">&nbsp;<span></span>
-                                                                  </label>
-                                                               </span>
-                                                               가입 중 (승인 후 대기/ 챌린지)
-                                                            </li>
-                  
-                                                            <li class="d-inline-flex ml-n8">
-                                                               <span class="mr-2 w-20px">
-                                                                  <label class="checkbox checkbox-single">
-                                                                     <input type="checkbox"
-                                                                            value="w"
-                                                                            name="chk2">&nbsp;<span></span>
-                                                                  </label>
-                                                               </span>
-                                                               탈퇴
-                                                            </li>
-                  
-                                                            <li class="d-inline-flex ml-n8">
-                                                               <span class="mr-2 w-20px">
-                                                                  <label class="checkbox checkbox-single">
-                                                                     <input type="checkbox"
-                                                                            value="f"
-                                                                            name="chk2">&nbsp;<span></span>
-                                                                  </label>
-                                                               </span>
-                                                               가입실패
-                                                            </li>
-                                                         </ul>
-                                                         구분선
-                                                         <div class="separator separator-solid mb-4"></div>
-                                                         <table class="ml-auto mr-auto">
-                                                            <tr class="row">
-                                                               <td colspan="1" align="right">
-                                                                  <button class="btn btn-light-instagram" type="submit"
-                                                                          id="submitBtn">검색하기
-                                                                  </button>
-                                                               </td>
-                                                            </tr>
-                                                         </table>
-                                                      </div>--%>
-                                                      <!--end::Card 카테고리 항목 접기 종료-->
+<%--                                                        구분선--%>
+<%--                                                      <div class="separator separator-solid mb-4"></div>--%>
+                                                     <div id="filter_2">
+<%--                                                         <h6 class="font-weight-bolder text-ssff2 mb-2">진행</h6>--%>
+<%--                                                         <ul class="list-inline checklist">--%>
+<%--                                                            <li class="d-inline-flex">--%>
+<%--                                                                             <span class="mr-2 w-20px">--%>
+<%--                                                                                 <label class="checkbox checkbox-single checkbox-all">--%>
+<%--                                                                                    <input name="chk2"--%>
+<%--                                                                                           id="all2"--%>
+<%--                                                                                           type="checkbox"--%>
+<%--                                                                                           value="전체" checked>--%>
+<%--                                                                                    &nbsp;<span></span>--%>
+<%--                                                                                 </label>--%>
+<%--                                                                             </span>--%>
+<%--                                                               전체--%>
+<%--                                                            </li>--%>
+<%--                  --%>
+<%--                                                            <li class="d-inline-flex">--%>
+<%--                                                               <span class="mr-2 w-20px">--%>
+<%--                                                                  <label class="checkbox checkbox-single">--%>
+<%--                                                                     <input name="chk2"--%>
+<%--                                                                            type="checkbox"--%>
+<%--                                                                            value="a">--%>
+<%--                                                                     &nbsp;--%>
+<%--                                                                     <span></span>--%>
+<%--                                                                  </label>--%>
+<%--                                                               </span>--%>
+<%--                                                               가입 신청중--%>
+<%--                                                            </li>--%>
+<%--                                                            <li class="d-inline-flex">--%>
+<%--                                                               <span class="mr-2 w-20px">--%>
+<%--                                                                  <label class="checkbox checkbox-single">--%>
+<%--                                                                     <input name="chk2"--%>
+<%--                                                                            type="checkbox"--%>
+<%--                                                                            value="r">&nbsp;--%>
+<%--                                                                     <span></span>--%>
+<%--                                                                  </label>--%>
+<%--                                                               </span>--%>
+<%--                                                               가입 거절--%>
+<%--                                                            </li>--%>
+<%--                                                            <li class="d-inline-flex">--%>
+<%--                                                               <span class="mr-2 w-20px">--%>
+<%--                                                                  <label class="checkbox checkbox-single">--%>
+<%--                                                                     <input type="checkbox"--%>
+<%--                                                                            value="c"--%>
+<%--                                                                            name="chk2">&nbsp;<span></span>--%>
+<%--                                                                  </label>--%>
+<%--                                                               </span>--%>
+<%--                                                               가입 취소--%>
+<%--                                                            </li>--%>
+<%--                  --%>
+<%--                                                            <li class="d-inline-flex" style="width: 20%">--%>
+<%--                                                               <span class="mr-2 w-20px">--%>
+<%--                                                                  <label class="checkbox checkbox-single">--%>
+<%--                                                                     <input type="checkbox"--%>
+<%--                                                                            value="i"--%>
+<%--                                                                            name="chk2">&nbsp;<span></span>--%>
+<%--                                                                  </label>--%>
+<%--                                                               </span>--%>
+<%--                                                               가입 중 (정상승인/ 프로젝트)--%>
+<%--                                                            </li>--%>
+<%--                  --%>
+<%--                                                            <li class="d-inline-flex ml-n8" style="width: 20%">--%>
+<%--                                                               <span class="mr-2 w-20px">--%>
+<%--                                                                  <label class="checkbox checkbox-single">--%>
+<%--                                                                     <input type="checkbox"--%>
+<%--                                                                            value="g"--%>
+<%--                                                                            name="chk2">&nbsp;<span></span>--%>
+<%--                                                                  </label>--%>
+<%--                                                               </span>--%>
+<%--                                                               가입 중 (승인 후 대기/ 챌린지)--%>
+<%--                                                            </li>--%>
+<%--                  --%>
+<%--                                                            <li class="d-inline-flex ml-n8">--%>
+<%--                                                               <span class="mr-2 w-20px">--%>
+<%--                                                                  <label class="checkbox checkbox-single">--%>
+<%--                                                                     <input type="checkbox"--%>
+<%--                                                                            value="w"--%>
+<%--                                                                            name="chk2">&nbsp;<span></span>--%>
+<%--                                                                  </label>--%>
+<%--                                                               </span>--%>
+<%--                                                               탈퇴--%>
+<%--                                                            </li>--%>
+<%--                  --%>
+<%--                                                            <li class="d-inline-flex ml-n8">--%>
+<%--                                                               <span class="mr-2 w-20px">--%>
+<%--                                                                  <label class="checkbox checkbox-single">--%>
+<%--                                                                     <input type="checkbox"--%>
+<%--                                                                            value="f"--%>
+<%--                                                                            name="chk2">&nbsp;<span></span>--%>
+<%--                                                                  </label>--%>
+<%--                                                               </span>--%>
+<%--                                                               가입실패--%>
+<%--                                                            </li>--%>
+<%--                                                         </ul>--%>
+<%--                                                         구분선--%>
                                                       
+                                                      
+                                                      </div>
+                                                      <!--end::Card 카테고리 항목 접기 종료-->
+
                                                       <!--begin: Datatable-->
                                                       <div class="mng_study_list  datatable-default datatable-primary overflow-auto"
                                                            id="kt_datatable">
@@ -314,14 +309,14 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                     class="cursor-pointer">
                                                                               </c:otherwise>
                                                                         </c:choose>
-                                                                        
+      
                                                                         <%--스터디번호--%>
                                                                         <td class="study_num"
                                                                             aria-label="스터디 번호"
                                                                             data-field="StudyNum">
                                                                               <div class="text-center font-size-sm font-weight-bolder">${list.r_idx}</div>
                                                                         </td>
-                                                                        
+      
                                                                         <%--개설자--%>
                                                                         <td data-field="StudyBoss"
                                                                             aria-label="개설자"
@@ -334,7 +329,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                     </a>
                                                                               </div>
                                                                         </td>
-                                                                        
+      
                                                                         <%--스터디 타입--%>
                                                                         <td data-field="StudyType"
                                                                             aria-label="스터디 타입"
@@ -353,7 +348,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                    </span>
                                                                               </div>
                                                                         </td>
-                                                                        
+      
                                                                         <%--스터디명--%>
                                                                         <td data-field="StudyName"
                                                                             aria-label="스터디명"
@@ -373,7 +368,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                           </a>
                                                                               </div>
                                                                         </td>
-                                                                        
+      
                                                                         <%--개설일자--%>
                                                                         <td data-field="StudyDate"
                                                                             aria-label="개설일자"
@@ -386,7 +381,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                    </span>
                                                                               </div>
                                                                         </td>
-                                                                        
+      
                                                                         <%--진행 / 상태--%>
                                                                         <td data-field="StudyIng"
                                                                             aria-label="진행 상태"
@@ -429,7 +424,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                               </a>
                                                                         </td>
                                                                         </tr>
-                                                                        
+      
                                                                         <%--클릭시 상세정보 페이지 아코디언 북마크--%>
                                                                         <tr class="datatable-row-subtable bg-hover-white" style="display: none;">
                                                                               <!-- display none-block  -->
@@ -615,37 +610,37 @@ License: You must have a valid license purchased only from themeforest(the above
 
 <script>
      function submitConfirm() {
-          
-          $('#actionForm').submit();
-          
-     }
      
+          $('#actionForm').submit();
+     
+     }
+
      $(function() {
           let sch = location.search;
           console.log(sch);
-          
+     
           let params = new URLSearchParams(sch);
           let sch_keyword = "";
-          
+     
           let array = []; //배열1의 선언
           let array2 = []; //배열2의 선언
-          
+     
           let chk = [];
           let chk2 = [];
-          
+     
           let actionForm = $("#actionForm");
-          
+     
           $(`#searchBtn`).on('click', function(e) {
-               
-               e.preventDefault(); //기본 동작 제한
-               
-               location.href = '/manager/study/list?pageNum=1&amount=20&keyword=${keyword}&chk=${chk}';
-          });
           
+               e.preventDefault(); //기본 동작 제한
+          
+               location.href = '/member/studyList?memberName='+${member_name};
+          });
+     
           $("input[name='keyword']").on("keyup", function(key) {
                let aa = "";
                if (key.keyCode == 13) {
-                    
+               
                     key.preventDefault(); //기본 동작 제한
                     $(`input:checkbox[name='chk']`).each(function() {
                          if ($(this).val() == "전체") {
@@ -655,96 +650,96 @@ License: You must have a valid license purchased only from themeforest(the above
                          }
                          aa += `&chk=` + $(this).val();
                     });
-                    
+               
                     location.href = '/manager/study/list?pageNum=1&amount=20&keyword=' +
                          $(`input[name='keyword']`).val() + aa;
                }
           });
-          
+     
           $(".paginate_button a").on("click", function(e) {
-               
-               e.preventDefault(); //기본 동작 제한
-               
-               actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-               
-               actionForm.submit();
-               
-          });
           
+               e.preventDefault(); //기본 동작 제한
+          
+               actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+          
+               actionForm.submit();
+          
+          });
+     
           $("#all").on('click', function() {
-               
+          
                console.log("all2클릭");
-               
+          
                $(`input:checkbox[name='chk']`).prop('checked', false); // 체크박스 전체 뺴고 해제합니다.
-               
+          
                if ($(`input:checkbox[id='all']`).is(':checked')) {
-                    
+               
                     console.log(`체크`);
                     console.log($(`#all`).attr("checked"));
                     $(`#all`).prop("checked", false);
-                    
+               
                } else {
-                    
+               
                     console.log(`체크안됨`)
                     $(`#all`).prop("checked", true);
-                    
+               
                }
-               
-          });
           
+          });
+     
           $("#all2").on('click', function() {
-               
+          
                console.log("all2 클릭");
-               
+          
                $(`input:checkbox[name='chk2']`).prop('checked', false); // 체크박스 전체 뺴고 해제합니다.
-               
+          
                if ($(`input:checkbox[id='all2']`).is(':checked')) {
-                    
+               
                     console.log(`체크`);
                     console.log($(`#all2`).attr("checked"));
                     $(`#all2`).prop("checked", false);
-                    
+               
                } else {
-                    
+               
                     console.log(`체크안됨`)
                     $(`#all2`).prop("checked", true);
-                    
+               
                }
           });
-          
+     
           $(`input:checkbox[name='chk']`).on(`click`, function() {
                console.log(`체크체크체크체크11`)
                if ($(this).val() != "전체") {
                     $(`#all`).prop(`checked`, false);
                }
-               
+          
                if ($(`input:checkbox[name='chk']:checked`).length == 0 && $(this).val() != "전체") {
                     console.log(`체크체크체크체크`)
                     $(`#all`).prop('checked', true);
                }
           });
-          
+     
           $(`input:checkbox[name='chk2']`).on(`click`, function() {
                console.log(`체크체크체크체크11`)
                if ($(this).val() != "전체") {
                     $(`#all2`).prop(`checked`, false);
                }
-               
+          
                if ($(`input:checkbox[name='chk2']:checked`).length == 0 && $(this).val() != "전체") {
                     console.log(`체크체크체크체크`)
                     $(`#all2`).prop('checked', true);
                }
           });
-          
+     
           <c:forEach var="list" items="${map.get('chk')}">
-          
+     
           chk.push(`${list}`);
           </c:forEach>
-          
+     
           <c:forEach var="list2" items="${map.get('chk2')}">
-          
+     
           chk2.push(`${list2}`);
-          
+     
           </c:forEach>
           console.log("chk" + chk);
           console.log("chk2" + chk2);
@@ -752,51 +747,51 @@ License: You must have a valid license purchased only from themeforest(the above
                $(`input:checkbox[name='chk']`).prop("checked", false);
                $(`#all`).prop("checked", true);
           }
-          
+     
           if (chk2[0] == '전체') {
                $(`input:checkbox[name='chk2']`).prop("checked", false);
                $(`#all2`).prop("checked", true);
           }
-          
+     
           for (let i = 0; i < chk.length; i++) {
                $(`input:checkbox[name='chk']`).each(function() {
                     console.log($(this).val());
-                    
+               
                     if (chk[i] == $(this).val()) {
-                         
+                    
                          $(this).prop("checked", true);
                          $(`#all`).prop("checked", false);
-                         
+                    
                     } else if (chk[i] == "전체") {
-                         
+                    
                          $(this).prop("checked", false);
                          $(`#all`).prop("checked", true);
-                         
+                    
                     }
                });
-               
+          
           }
           for (let i = 0; i < chk2.length; i++) {
                $(`input:checkbox[name='chk2']`).each(function() {
                     if (chk2[i] == $(this).val()) {
-                         
+                    
                          $(this).prop("checked", true);
                          $(`#all2`).prop("checked", false);
-                         
+                    
                     } else if (chk2[i] == "전체") {
-                         
+                    
                          $(this).prop("checked", false);
                          $(`#all2`).prop("checked", true);
-                         
+                    
                     }
                });
-               
-          }
           
+          }
+     
           // 버튼 클릭을 통해 세부 스터디정보 add, delete
           $(document).on('click', "tr[title='Load sub table']", function() {
                $(this).closest("tr").toggleClass("datatable-row-subtable-expanded").next().fadeToggle();
-               
+          
           })
      });
 </script>

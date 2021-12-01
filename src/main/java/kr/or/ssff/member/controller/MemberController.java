@@ -350,21 +350,7 @@ public class MemberController {
     } // studyListGo
 
 
-        /* 회원탈퇴기능을 수행합니다
-         * 파라메터 : String nickname
-         *탈퇴기능 수행 후 메인페이지
-         * */
-        @PostMapping("/withdrawal")
-        public String withdrawal (String member_id){
-            log.debug("withdrawal({}) is invoked", "member_id = " + member_id);
-
-            boolean user = service.withdrawl(member_id);
-
-
-
-            return "redirect:/main";
-        } // withdrawal
-
+  
         /* 아이디/ 비밀번호 찾기 페이지 이동
          * 파라메터 : String nickname
          * 아이디 / 비밀번호 찾기 페이지
