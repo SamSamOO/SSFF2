@@ -518,16 +518,15 @@ License: You must have a valid license purchased only from themeforest(the above
                             <i class="far fa-newspaper"></i>
                           </a>
                             <%-- 가입회원 목록 TODO 가입회원 목록 빼앟ㅁ....--%>
-                              <a href="#"
-                                 class="btn btn-xs btn-default btn-text-primary btn-hover-primary btn-icon m-1"
-                                 data-toggle="modal" data-target="#memberListModal"
-                                 onclick="start.callAjax('NA','${list.r_idx}')">
-                                <i class="far fa-user-circle"></i>
-                          </a>
-                        </td>
+                            <a href="#"
+                               class="btn btn-xs btn-default btn-text-primary btn-hover-primary btn-icon m-1"
+                               data-toggle="modal" data-target="#memberListModal"
+                               onclick="start.callAjax('NA','${list.r_idx}')">
+                              <i class="far fa-user-circle"></i>
+                            </a>
+                          </td>
                         </tr>
-                        ${member.member_name} 하이하이
-                        ${list.member_name} 바이바이
+                       
                         <!--start::Modal-->
                         <div id="memberListModal" class="modal modal-center fade"
                              role="dialog" aria-hidden="true">
@@ -539,7 +538,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                      onclick="start.callAjax('NA', '${list.r_idx}');">
                                   <h5 class="modal-title">
                                     스터디 멤버 <span class="d-block text-muted font-size-sm">
-											스터디 멤버를 확인해보세요!</span>
+										          	스터디 멤버를 확인해보세요!</span>
                                   </h5></div>
                                
                                 <div id="btnApplyMemberList" class="btn btn btn-outline-primary btn-lg btn-block"
