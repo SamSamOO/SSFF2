@@ -14,25 +14,25 @@
 	<link href='../../../resources/assets/fullcalendar/fullcalendar/lib/main.css' rel='stylesheet'/>
 	<script src='../../../resources/assets/fullcalendar/fullcalendar/lib/main.js'></script>
 	<script src='../../../resources/assets/fullcalendar/script.js'></script>
-	<script src="http://code.jquery.com/jquery-3.5.1.min.js"/>
+	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<input type="hidden" id="member_name" value="${member.member_name}">
-	
+
 	<script>
 		let member_name = document.querySelector('#member_name').value;
-		let calendarData = '';
+		let calendarData
 		
 		async function doGetCalendarData() {
 			calendarData = await getFullCalendarData(member_name,'/calendar/getAll');
 		}
-		
+
 		doGetCalendarData()
-		
+
 		if (!calendarData) {
 			calendarData = exmapleData()
 		}
 		let calendar
 		let currentEvent
-		
+
 		document.addEventListener('DOMContentLoaded', function () {
 			let calendarEl = document.getElementById('calendar')
 			calendar = new FullCalendar.Calendar(calendarEl, {
@@ -67,11 +67,11 @@
 			calendar.render()
 		})
 	</script>
-	
+
 	<!--예솔 for calendar end-->
 	<%-- TODO 로그인한 사람이랑 페이지 주인이 다르면 어쩌구 하고싶어--%>
 	<title>${member.member_name}님의 마이 페이지</title>
-	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"/>
+	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
 	<!--<script src="${pageContext.request.contextPath}/resources/assets/js/member/myPage.js"></script>-->
 </head>
 <!----------------Head 종료----------------------->
@@ -86,10 +86,10 @@
 			<!--begin::Wrapper ↓여기 매칭되는 div 태그부터 안닫아도 됨(footer에 있음)-->
 			<div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
 				<!------------------header.html Include------------------>
-				<jsp:include page="/WEB-INF/commons/header.jsp"/>
+				<jsp:include page="/WEB-INF/commons/header.jsp"></jsp:include>
 				<!------------------Header Wrapper : 메뉴 탭 시작------------------>
 				<!--menu.html Include-->
-				<jsp:include page="/WEB-INF/views/member/menu_mypage.jsp"/>
+				<jsp:include page="/WEB-INF/views/member/menu_mypage.jsp"></jsp:include>
 				<!------------------Header Wrapper : 메뉴 탭 종료------------------>
 				<!--컨테이너 시작-->
 				<div class="d-flex flex-row flex-column-fluid container">
@@ -106,7 +106,7 @@
 										<!--Page Title : 페이지 제목 시작-->
 										<i class="fas fa-user"></i>&nbsp;&nbsp;
 										<h5 class="text-dark font-weight-bolder mt-2 mb-2 mr-5">
-											내 정보
+											<title>내 정보</title>
 										</h5>
 										<!--Page Title : 페이지 제목 종료-->
 										<!--Breadcrumb : 로드맵 시작-->
@@ -124,7 +124,7 @@
 						</div>
 						<div class="content flex-column-fluid" id="kt_content">
 							<!--대시보드 시작-->
-							
+
 							<!--풀 사이즈 카드 시작 / 카드 필요 없으면 여기서부터 밀기☆-->
 							<div class="card card-custom">
 								<!--begin::Body 북마크-->
@@ -164,15 +164,15 @@
                                            </div>
                                         </div>--%>
 										<!--end::Pic-->
-										
+
 										<!--begin::Info-->
 										<div class="flex-grow-1">
 											<!--begin::Title-->
 											<div class="d-flex justify-content-between flex-wrap mt-1">
 												<div class="d-flex mr-3 align-items-center">
-													
+
 													<span class="text-dark-75 text-hover-primary font-size-h5 font-weight-bold mr-3">${member.member_name}님</span>
-													
+
 													<c:if test="${(sessionScope.member.member_name == member.member_name) || (sessionScope.kname == member.member_name)}">
 														<i class="flaticon2-correct text-success font-size-h5 align-self-center"></i>
 														<a href="/member/modifyGo" class="mx-4">
@@ -199,8 +199,10 @@
 												<div class="d-flex flex-column flex-grow-1 pr-8">
 													<div class="d-flex flex-wrap mb-4">
 														<a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
-															<i class="flaticon2-new-email mr-2 font-size-lg"></i>
-															${member.member_id}
+															<i class="flaticon2-new-email mr-2 font-size-lg"></i>${member.member_id}
+														</a>
+														<a href="#" class="text-dark-50 text-hover-primary font-weight-bold mr-lg-8 mr-5 mb-lg-0 mb-2">
+															<i class="flaticon2-calendar-3 mr-2 font-size-lg"></i>${member.member_no}
 														</a>
 													</div>
 													<span class="font-weight-bold text-dark-50">${member.member_introduce}</span>
@@ -211,7 +213,7 @@
 										<!--end::Info-->
 									</div>
 									<!--end::Details-->
-									
+
 									<div class="separator separator-solid"></div>
 									<!--begin::사용언어-->
 									<div class="d-flex align-items-center flex-wrap mt-8 member_lang">
@@ -256,17 +258,17 @@
 										<span class="card-label font-weight-bolder text-dark">일정</span>
 									</h3>
 									<div class="card-toolbar">
-									
+
 									</div>
 								</div>
 								<!--카드 헤더 종료-->
 								<!--카드 Body 시작-->
 								<div class="card-body">
-									
-									
+
+
 									<div id='calendar'></div>
 									<!--modal part-->
-									
+
 									<!--modal-->
 									<div class="calmodal hidden">
 										<div class="calmodal-overlay"></div>
@@ -311,7 +313,7 @@
 												<p class="cal-index">내용</p>
 												<textarea id="calendar-content"></textarea>
 											</div>
-											
+
 											<div id="cal-button-sec">
 												<button id="modal-regist" class="cal-button"
 														onclick="eventRegist()">일정 등록하기
@@ -324,10 +326,12 @@
 														class="hidden cal-button"
 														onclick="deleteEvent()">삭제
 												</button>
-											
+
 											</div>
 										</div>
 									</div>
+									
+									
 									<!--modal part end-->
 								</div>
 								<!--카드 Body 종료-->
@@ -349,46 +353,46 @@
 	const modalRegist = document.querySelector('#modal-regist')
 	const modalModify = document.querySelector('#modal-modify')
 	const modalDelete = document.querySelector('#modal-delete')
-	
+
 	const timeHidden = document.querySelector('.timeHidden')
-	
+
 	const overlay = document.querySelector('.calmodal-overlay')
 	//모달창이 활성화되면 흐린 배경을 표현하는 요소
-	
+
 	const closeBtn = document.getElementById('close')
 	//offModal button
-	
+
 	const checkbox = document.querySelector("input[name=allday]");
 	let checkboxStatus = 'y' //종일이면 y, 아니면 n
 	//종일체크
-	
+
 	const closeModal = () => {
 		modal.classList.add('hidden')
 	}
-	
+
 	closeBtn.addEventListener('click', closeModal)
 	//모달창 내부의 닫기 버튼
-	
+
 	overlay.addEventListener('click', (e) => {
 		if (e.target.className === 'calmodal-overlay') {
 			closeModal()
 		}
 	})
-	
+
 	//모달창 영역 밖
-	
+
 	function openModal(arg) {
-		if (arg) { // detail 일때
+		if (arg) {   // detail 일때
 			currentEvent = arg.event
 			console.log('arg : ', arg)
 			console.log(calendar.getEvents())
 			console.log(arg.event.id)
 			document.getElementById('calendar-title').value = arg.event.title
-			
+
 			let startDay = arg.event._instance.range.start;
 			let endDay = arg.event._instance.range.end;
 			let allday_ok = arg.event.extendedProps.allday_ok;
-			
+
 			console.log(allday_ok);
 			if (allday_ok == 'n') {
 				$('#allday').removeAttr('checked');
@@ -419,9 +423,9 @@
 		}
 		modal.classList.remove('hidden')
 	}
-	
+
 	function eventRegist() {
-		
+
 		let time_start = "";
 		let time_end = "";
 		if (document.getElementById('calendar-start-time').value != "" && document.getElementById(
@@ -458,7 +462,7 @@
 		showAlarm(2)
 		closeModal()
 	}
-	
+
 	function deleteEvent() {
 		if (showAlarm(5)) {
 			currentEvent.remove()  // front calendar update
@@ -469,7 +473,7 @@
 			showAlarm(4)
 		}
 	}
-	
+
 	function modifyEvent() {
 		if (showAlarm(6)) {
 			currentEvent.remove()  // front calendar update
@@ -481,7 +485,7 @@
 			showAlarm(8)
 		}
 	}
-	
+
 	function showAlarm(type) {
 		switch (type) {
 			case 0:
@@ -520,7 +524,7 @@
 				break;
 		}
 	}
-	
+
 	checkbox.addEventListener('change', function () {
 		if (this.checked) {
 			timeHidden.classList.add('hidden')
@@ -543,8 +547,8 @@
 			url: "/member/modify",  // 켈린더로 가는 링크
 		})
 	}
-	
-	
+
+
 	function fn_findPJ() {
 		$.ajax({
 			url: "/member/",  // 켈린더로 가는 링크
@@ -554,5 +558,3 @@
 
 
 </script>
-
-

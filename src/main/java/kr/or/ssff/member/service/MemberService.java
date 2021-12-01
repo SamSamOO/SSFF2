@@ -8,6 +8,8 @@ import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 
+import javax.servlet.http.HttpServletResponse;
+
 /*
 
  */
@@ -25,6 +27,15 @@ public interface MemberService {
     public int nameChk( MemberDTO memberDTO) throws Exception;
     // 프로필 이미지 등록
     public void upload(MemberDTO memberDTO) throws Exception;
+
+    //이메일발송
+    public void sendEmail(String member_id,String subject, String msg) throws Exception;
+
+    //비밀번호수정
+    public int updatePw(MemberDTO memberDTO) throws Exception;
+
+    //회원탈퇴
+    public abstract boolean withdrawl(String member_id);
 
 
 

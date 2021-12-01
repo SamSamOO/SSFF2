@@ -127,7 +127,6 @@
       </script>
 
 </head>
-</head>
 <c:set var="fileListSize" value="${fn:length(fileList)}" />
 <c:set var="slash" value="/" />
 <!----------------Head 종료----------------------->
@@ -368,7 +367,7 @@
 
                                                             <%--내용--%>
                                                             <tr>
-                                                                  <td class="text-left px-p15">
+                                                                  <td  id="contcont" class="text-left px-p15">
                                                                         ${detail.cont}
                                                                   </td>
                                                             </tr>

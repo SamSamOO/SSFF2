@@ -15,6 +15,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.Resource;
+
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletResponse;
+
+import kr.or.ssff.member.domain.MemberDTO;
+
+
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +37,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,7 +57,7 @@ import java.util.List;
 @RequestMapping("/member")
 @Controller
 public class MemberController {
-    
+
     KaKaoService kaKaoService;
 
     @Autowired //@Setter(onMethod_= { @Autowired })로 바꾸고 serviceimp 변경
@@ -105,7 +121,7 @@ public class MemberController {
         }//catch
 
 
-        return "redirect:/member/registerWait";
+        return "/member/registerWait";
     } // memberJoin
 
 
@@ -219,7 +235,7 @@ public class MemberController {
 
     }
 
-    @RequestMapping(value= "/login", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value= "/login.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String memberLogin(@RequestParam("referer") String referer,
             MemberDTO memberDTO,
             HttpServletRequest request,
@@ -268,13 +284,12 @@ public class MemberController {
 
             } // memberLogin
         }
-        log.debug("시발");
-        return "redirect:/member/main";
+        return "redirect:/member/myPage";
     }
 
 
 
-    @GetMapping("/registerWait")
+    @GetMapping("/registerWaitGo")
     public String registerWaitGo() {
         log.debug("registerWaitGo() is invoked");
 
@@ -289,10 +304,10 @@ public class MemberController {
         //로그아웃.
         @RequestMapping(value= "/logout", method = {RequestMethod.GET, RequestMethod.POST})
         public String memberLogout (HttpSession session){
-            log.debug("loginGo() is invoked");
+            log.debug("memberLogout() is invoked");
             session.invalidate();
 
-            return "/main";
+            return "/member/login";
         }
 
         /* 마이 페이지 이동
@@ -302,7 +317,7 @@ public class MemberController {
         @GetMapping("/myPage")
         public String myPageGo (String nickname){
             log.debug("myPageGo({}) is invoked", "nickname = " + nickname);
-            
+
             return "/member/myPage";
         } // myPageGo
 
@@ -311,26 +326,26 @@ public class MemberController {
          * 파라메터 : nickname
          * 스터디 목록 페이지
          * */
-    
+
     @GetMapping("/studyList")
     public String selectStudyList(String memberName, Criteria criteria, Model model){
         log.info("selectStudyList({}) is invoked", "memberName = " + memberName + ", criteria = " + criteria + ", model = " + model);
-        
-    
+
+
         HashMap<String, Object> map = new HashMap<>();
         map.put("member_name", memberName);
         map.put("pageNum", criteria.getPageNum());
         map.put("amount", criteria.getAmount());
-        
-        
+
+
         log.info("map = {}", map);
         List<RecruitBoardVO> myStudyList = this.service.getMyStudyList(map);
-        
+
         log.info("myStudyList = {}", myStudyList);
-    
+
         model.addAttribute("myStudyList", myStudyList);
         model.addAttribute("map", map);
-        
+
         return "/member/studyList";
     } // studyListGo
 
@@ -340,8 +355,12 @@ public class MemberController {
          *탈퇴기능 수행 후 메인페이지
          * */
         @PostMapping("/withdrawal")
-        public String withdrawal (String nickname){
-            log.debug("withdrawal({}) is invoked", "nickname = " + nickname);
+        public String withdrawal (String member_id){
+            log.debug("withdrawal({}) is invoked", "member_id = " + member_id);
+
+            boolean user = service.withdrawl(member_id);
+
+
 
             return "redirect:/main";
         } // withdrawal
@@ -363,12 +382,7 @@ public class MemberController {
 
         return "/member/modify";
     }
-//    @PostMapping("/uploadAjaxAction")
-//    public void uploadAjaxActionPOST(MultipartFile uploadFile){
-//        log.info("파일 이름 : " + uploadFile.getOriginalFilename());
-//        log.info("파일 타입 : " + uploadFile.getContentType());
-//        log.info("파일 크기 : " + uploadFile.getSize());
-//    }
+
 } // end class
 
 
