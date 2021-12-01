@@ -51,3 +51,21 @@ public interface MemberService {
     List<RecruitBoardVO> getMyStudyList(HashMap<String, Object> map);
     
 }// end interface
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

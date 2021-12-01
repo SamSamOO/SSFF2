@@ -92,7 +92,6 @@
         RB.CLOSED_OK
         from RECRUIT_BOARD RB
         join APPLY_MEMBER AM on RB.R_IDX = AM.R_IDX
-        join MEMBER M on M.MEMBER_NAME = AM.MEMBER_NAME
         where ROWNUM <![CDATA[<= #{map.pageNum} * #{map.amount}
                 and am.STUDY_BOSS_YN = 'y']]>
         <if test="map!=null">
