@@ -16,12 +16,9 @@ import kr.or.ssff.mapper.MemberMapper;
 import kr.or.ssff.member.Utils.MailHandler;
 import kr.or.ssff.member.Utils.TempKey;
 import kr.or.ssff.member.domain.MemberDTO;
-import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 /*
@@ -41,17 +38,17 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
 
     @Autowired
     private JavaMailSender mailSender;
-    
+
     @Override
     public List<RecruitBoardVO> getMyStudyList(HashMap<String, Object> map){
         log.info("getMyStudyList({}) is invoked", "map = " + map);
-    
+
         Objects.requireNonNull(mapper);
         List<RecruitBoardVO> list = this.mapper.getMyStudyList(map);
-        
+
         return list;
     }
-    
+
     // 회원가입 로직(장순형)
     @Override
     public void insertMember(MemberDTO memberDTO) throws Exception{
