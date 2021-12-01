@@ -36,6 +36,6 @@ public interface ApplyMemberMapper {
 	// 스터디 참여여부확인 : 신지혜
 	public abstract String selectApplyMember(HashMap<String, Object> aMember);
 
-
-	
+	// 참여회원정보 조회
+  ApplyMemberVO selectApplyMemberStatus(HashMap<String, Object> aMember);
 } // end interface

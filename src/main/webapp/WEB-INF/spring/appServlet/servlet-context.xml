@@ -57,8 +57,8 @@
 
             <mapping path="/member/login.do"/>
             <mapping path="/member/modifyGo"/>
-            <mapping path="/study/challenge/main"/>
-            <mapping path="/study/challenge/postGo"/>
+<!--            <mapping path="/study/challenge/main"/>-->
+<!--            <mapping path="/study/challenge/postGo"/>-->
             <beans:ref bean="loginInterceptor"/>
 		</interceptor>
 
