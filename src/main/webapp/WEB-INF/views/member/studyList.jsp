@@ -110,7 +110,8 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="d-flex flex-column flex-root">
   <!----------------페이지 시작----------------------->
   <form action="/manager/study/list" id="actionForm" method="get">
-    <input hidden name="member" value="${member}"/>
+    <input type="hidden" name="member" value="${member}"/>
+    <input type="hidden" name="member_name" value="${member.member_name}"/>
     <input type="hidden" name="pageNum" value="${pageMaker.criteria.pageNum}"/>
     <input type="hidden" name="amount" value="${pageMaker.criteria.amount}"/>
     
@@ -451,10 +452,10 @@ License: You must have a valid license purchased only from themeforest(the above
                             <c:choose>
                             <c:when
                               test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
-                            <a href="/study/challenge/main?r_Idx=${list.r_idx}">
+                            <a href="/study/challenge/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">
                               </c:when>
                               <c:otherwise>
-                              <a href="/study/project/main?r_Idx=${list.r_idx}">
+                              <a href="/study/project/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">
                                 </c:otherwise>
                                 </c:choose>
                                 <span
@@ -544,6 +545,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div id="btnApplyMemberList" class="btn btn btn-outline-primary btn-lg btn-block"
                                   <c:if test="${member.member_name ne list.member_name}">
                                     style="visibility: hidden; margin-top: 0px;"
+                                  </c:if>
+                                  <c:if test="${member.member_name eq list.member_name}">
+                                    style="visibility: visible; margin-top: 0px;"
                                   </c:if>
                                      onclick="start.callAjax('YA','${list.r_idx}');" ><h5 class="modal-title">
                                   참여 신청자<span class="d-block text-muted font-size-sm">

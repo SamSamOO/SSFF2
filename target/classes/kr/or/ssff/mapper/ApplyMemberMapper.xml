@@ -74,6 +74,22 @@
 
 	</select>
 
+	<!--  스터디 참여상태 조회 : 신지혜  -->
+	<select
+		id="selectApplyMemberStatus"
+		parameterType="hashMap"
+		resultType="kr.or.ssff.applyMember.domain.ApplyMemberVO">
+
+		SELECT
+			*
+		FROM
+			apply_member
+		WHERE
+			member_name = #{member_name}
+			AND r_idx = #{r_idx}
+
+	</select>
+
 
 	<!-- 회원의 스터디 참여 상태 정보 변경 : 신지혜  -->
 	<update id="applyAction" parameterType="hashMap" >

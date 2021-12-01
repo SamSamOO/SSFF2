@@ -115,6 +115,7 @@
                             FROM APPLY_MEMBER AM
                                      JOIN RECRUIT_BOARD RB ON RB.R_IDX = AM.R_IDX
                             WHERE AM.MEMBER_NAME = #{map.member_name})
+        ORDER BY R_IDX
         ]]>
     </select>
 
