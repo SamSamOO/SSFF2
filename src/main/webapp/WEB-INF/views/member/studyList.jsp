@@ -100,7 +100,7 @@ License: You must have a valid license purchased only from themeforest(the above
   
   
   </style>
-  
+
 </head>
 <!----------------Head 종료----------------------->
 
@@ -166,9 +166,9 @@ License: You must have a valid license purchased only from themeforest(the above
                         <input type="text" class="form-control" name="keyword"
                                placeholder="Search..."/>
                         <div id="searchBtn" class="input-group-append">
-									                <span class="input-group-text">
-									                    <i class="flaticon2-search-1 icon-sm"></i>
-									                </span>
+                                           <span class="input-group-text">
+                                               <i class="flaticon2-search-1 icon-sm"></i>
+                                           </span>
                         </div>
                       </div>
                     </form>
@@ -209,7 +209,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </span>
                         <span class="label label-lg label-inline mb-0 bg-ssff1">
                                                                 프로젝트
-												</span>
+                                    </span>
                       </li>
                       
                       <li class="d-inline-flex">
@@ -221,7 +221,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </span>
                         <span class="label label-lg label-inline mb-0 bg-ssff2">
                                                                 챌린지
-												</span>
+                                    </span>
                       </li>
                     </ul>
                   </div>
@@ -310,29 +310,29 @@ License: You must have a valid license purchased only from themeforest(the above
                            탈퇴
                         </li>
 
-                        <li class="d-inline-flex ml-n8">
-                           <span class="mr-2 w-20px">
-                              <label class="checkbox checkbox-single">
-                                 <input type="checkbox"
-                                        value="f"
-                                        name="chk2">&nbsp;<span></span>
-                              </label>
-                           </span>
-                           가입실패
-                        </li>
-                     </ul>
-                     구분선
-                     <div class="separator separator-solid mb-4"></div>
-                     <table class="ml-auto mr-auto">
-                        <tr class="row">
-                           <td colspan="1" align="right">
-                              <button class="btn btn-light-instagram" type="submit"
-                                      id="submitBtn">검색하기
-                              </button>
-                           </td>
-                        </tr>
-                     </table>
-                  </div>--%>
+                                          <li class="d-inline-flex ml-n8">
+                                             <span class="mr-2 w-20px">
+                                                <label class="checkbox checkbox-single">
+                                                   <input type="checkbox"
+                                                          value="f"
+                                                          name="chk2">&nbsp;<span></span>
+                                                </label>
+                                             </span>
+                                             가입실패
+                                          </li>
+                                       </ul>
+                                       구분선
+                                       <div class="separator separator-solid mb-4"></div>
+                                       <table class="ml-auto mr-auto">
+                                          <tr class="row">
+                                             <td colspan="1" align="right">
+                                                <button class="btn btn-light-instagram" type="submit"
+                                                        id="submitBtn">검색하기
+                                                </button>
+                                             </td>
+                                          </tr>
+                                       </table>
+                                    </div>--%>
                   <!--end::Card 카테고리 항목 접기 종료-->
                   
                   <!--begin: Datatable-->
@@ -405,8 +405,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <td class="study_num"
                             aria-label="스터디 번호"
                             data-field="StudyNum">
-                          <div
-                            class="text-center font-size-sm font-weight-bolder">${list.r_idx}</div>
+                          <div class="text-center font-size-sm font-weight-bolder">${list.r_idx}</div>
                         </td>
                         
                         <%--개설자--%>
@@ -414,12 +413,20 @@ License: You must have a valid license purchased only from themeforest(the above
                             aria-label="개설자"
                             class="study_nick">
                           <div class="d-flex align-items-center justify-content-center">
-                            <a href="/member/myPage?member_Name=${list.member_name}">
-                                                       <span
-                                                         class="mb-0 text-hover-primary font-size-sm">
-                                                           ${list.member_name}
-                                                       </span>
-                            </a>
+                            <c:choose>
+                              <c:when test="${list.member_name == member.member_name}">
+                                                               <span class="mb-0 text-warning font-size-sm">
+                                                                   <i class="fas fa-crown"></i>
+                                                               </span>
+                              </c:when>
+                              <c:otherwise>
+                                <a href="/member/myPage?member_Name=${list.member_name}">
+                                                                   <span class="mb-0 text-hover-primary font-size-sm">
+                                                                       ${list.member_name}
+                                                                   </span>
+                                </a>
+                              </c:otherwise>
+                            </c:choose>
                           </div>
                         </td>
                         
@@ -429,8 +436,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             class="study_type">
                           <div class="d-flex align-items-center justify-content-center">
                             <c:choose>
-                            <c:when
-                              test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+                            <c:when test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
                             <span class="label label-lg label-inline mb-0 bg-ssff2">
                                                                 챌린지
                                                             </c:when>
@@ -518,15 +524,15 @@ License: You must have a valid license purchased only from themeforest(the above
                             <i class="far fa-newspaper"></i>
                           </a>
                             <%-- 가입회원 목록 TODO 가입회원 목록 빼앟ㅁ....--%>
-                            <a href="#"
-                               class="btn btn-xs btn-default btn-text-primary btn-hover-primary btn-icon m-1"
-                               data-toggle="modal" data-target="#memberListModal"
-                               onclick="start.callAjax('NA','${list.r_idx}')">
-                              <i class="far fa-user-circle"></i>
-                            </a>
-                          </td>
+                          <a href="#"
+                             class="btn btn-xs btn-default btn-text-primary btn-hover-primary btn-icon m-1"
+                             data-toggle="modal" data-target="#memberListModal"
+                             onclick="start.callAjax('NA','${list.r_idx}')">
+                            <i class="far fa-user-circle"></i>
+                          </a>
+                        </td>
                         </tr>
-                       
+                    
                         <!--start::Modal-->
                         <div id="memberListModal" class="modal modal-center fade"
                              role="dialog" aria-hidden="true">
@@ -538,9 +544,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                      onclick="start.callAjax('NA', '${list.r_idx}');">
                                   <h5 class="modal-title">
                                     스터디 멤버 <span class="d-block text-muted font-size-sm">
-										          	스터디 멤버를 확인해보세요!</span>
+                                 스터디 멤버를 확인해보세요!</span>
                                   </h5></div>
-                               
+                                
                                 <div id="btnApplyMemberList" class="btn btn btn-outline-primary btn-lg btn-block"
                                   <c:if test="${member.member_name ne list.member_name}">
                                     style="visibility: hidden; margin-top: 0px;"
@@ -568,7 +574,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div>
                               <!--begin: Datatable 내용-->
                               <div class="mng_info flex-column align-items-center">
-          
+                                
                                 <table class="table table-sm w-75 mx-auto">
                                   <tbody>
                                   <tr>
@@ -576,7 +582,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <td>
                                         ${list.r_idx}
                                     </td>
-              
+                                    
                                     <td> 유형</td>
                                     <td>
                                       <c:choose>
@@ -592,34 +598,34 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                           </span>
                                     </td>
                                   </tr>
-            
+                                  
                                   <tr>
                                     <td>스터디명</td>
                                     <td colspan="3" class="font-weight-bolder">
                                       <c:choose>
                                       <c:when test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
-                                      <a href="/study/challenge/main?rInx=${list.r_idx}">
+                                      <a href="/study/challenge/main?r_Idx=${list.r_idx}">
                                         </c:when>
                                         <c:otherwise>
-                                        <a href="/study/project/main?rInx=${list.r_idx}">
+                                        <a href="/study/project/main?r_Idx=${list.r_idx}">
                                           </c:otherwise>
                                           </c:choose>
                                             ${list.teamname}
                                         </a>
-              
+                                    
                                     </td>
                                   </tr>
-            
-            
+                                  
+                                  
                                   <tr>
                                     <td> 개설자</td>
                                     <td>
                                       <a href="/member/myPage?member_Name=${list.member_name}">
                                           ${list.member_name}
                                       </a>
-              
+                                    
                                     </td>
-              
+                                    
                                     <td> 개설일</td>
                                     <td>
                                       <fmt:formatDate
@@ -627,7 +633,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         pattern="yyyy/MM/dd"/>
                                     </td>
                                   </tr>
-              
+                                    
                                     <%--이하 챌린지일 경우에만 공개--%>
                                   <c:if test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
                                     <tr>
@@ -636,15 +642,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                         <fmt:formatDate value="${list.ch_start}"
                                                         pattern="yyyy/MM/dd"/>
                                       </td>
-                
+                                      
                                       <td> 종료일</td>
                                       <td>
                                         <fmt:formatDate value="${list.ch_end}"
                                                         pattern="yyyy/MM/dd"/>
                                       </td>
                                     </tr>
-              
-              
+                                    
+                                    
                                     <tr>
                                       <td> 챌린지 유형</td>
                                       <td>
@@ -652,7 +658,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                                                ${list.ch_pattern}
                                                                            </span>
                                       </td>
-                
+                                      
                                       <td> 챌린지 지역</td>
                                       <td>
                                           ${list.sido}
@@ -661,8 +667,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                   </c:if>
                                   </tbody>
                                 </table>
-          
-          
+                                
+                                
                                 <div class="accordion accordion-light accordion-light-borderless accordion-svg-toggle mx-auto mb-8 w-75"
                                      id="data${list.r_idx}">
                                   <div class="card">
@@ -698,7 +704,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                       </div>
                                     </div>
-              
+                                    
                                     <div id="collapse${list.r_idx}" class="collapse"
                                          data-parent="#data${list.r_idx}">
                                       <div class="card-body pl-12 font-weight-light">
@@ -1036,11 +1042,11 @@ License: You must have a valid license purchased only from themeforest(the above
             id="applyMemberList" style="display:block;">
           <table class="datatable-table"
                  style="display: block; min-height: 300px; ">
-            
+
             <thead class="datatable-head" style="background-color: #6b984f33;">
             <tr class="datatable-row" style="left: 0px;">
-           
-              
+
+
               <th data-field="number"
                   class="datatable-cell datatable-cell-sort"
                   style="width: 5%;"><span style="text-align: center;">#</span></th>
@@ -1051,24 +1057,24 @@ License: You must have a valid license purchased only from themeforest(the above
                   class="datatable-cell datatable-cell-sort"
                   style="width: 25%;"><span
                   style="text-align: center;">study Team Name</span></th>
-              
+
               <th data-field="nickName"
                   class="datatable-cell datatable-cell-sort"
                   style="width: 25%;"><span style="text-align: center;">NickName</span></th>
-              
-              
+
+
               <th data-field="action"
                   class="datatable-cell datatable-cell-sort"
                   style="width: 20%;"><span style="text-align: center;">action</span></th>
             </tr>
             </thead>
-            
+
             <tbody class="datatable-body ps" id="aMemTBody">
               <!-- 대기a97, 거절r72, 취소c99, 가입중i105, 탈퇴w119, 실패(결제x)f114 -->
-              
+
             </tbody>
           </table>
-        
+
         </div>
         <div id="s-dtbl-pager" style="padding-left: 230px;"  class="datatable-pager datatable-paging-loaded">
         </div>`;
@@ -1093,7 +1099,7 @@ License: You must have a valid license purchased only from themeforest(the above
         aHtml +=
             `
             <tr data-row="` + (i + 1) + `" class="datatable-row">
-  
+
             <td class="datatable-cell" data-field="Number"
                 aria-label="` + (i + 1) + `" style="width: 5%;"><span style="text-align: center;">`
             + (i + 1) + `</span>
@@ -1108,7 +1114,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 style="width: 25%;">
               <span style="text-align: center;">` + teamname + `</span>
             </td>
-            
+
             <td data-field="NickName"
                 aria-label="` + member_name + `"
                 class="datatable-cell" style="width: 25%;">
@@ -1119,7 +1125,7 @@ License: You must have a valid license purchased only from themeforest(the above
                style="width: 10px; height: 10px;"><!--//TODO 크기안먹음 -->
           ` + member_name + `
            </span></td>
-            
+
             <td class="datatable-cell" data-field="action"
                 aria-label="action"
                 style="width: 20%; text-align: center;">
@@ -1183,34 +1189,34 @@ License: You must have a valid license purchased only from themeforest(the above
         id="studyMemberList">
       <table class="datatable-table"
              style="display: block; min-height: 300px; max-height: 400px;">
-        
+
         <thead class="datatable-head">
         <tr class="datatable-row" style="background-color: #ffa50042;left: 0px;C">
           <th data-field=""
               class="datatable-cell datatable-cell-sort"
               style="width: 5%; text-align: center;"><span>&nbsp;</span></th>
-          
+
           <th data-field="Number"
               class="datatable-cell datatable-cell-sort"
               style="width: 10%;"><span>#</span></th>
-          
+
           <th data-field="studyTeamName"
               class="datatable-cell datatable-cell-sort"
               style="width: 45%;"><span style="text-align: center;">study&nbsp;Team&nbsp;Name</span>
           </th>
-          
+
           <th data-field="NickName"
               class="datatable-cell datatable-cell-sort"
               style="width: 40%;"><span style="text-align: center;">NickName</span></th>
         </tr>
         </thead>
-        
+
         <tbody class="datatable-body ps" id="sMemberTbody">
               <!-- 대기a97, 거절r72, 취소c99, 가입중i105, 탈퇴w119, 실패(결제x)f114 -->
-              
+
             </tbody>
           </table>
-        
+
         </div>
         <div id="s-dtbl-pager" style="padding-left: 230px;" class="datatable-pager datatable-paging-loaded">
         </div>`;
@@ -1237,19 +1243,19 @@ License: You must have a valid license purchased only from themeforest(the above
             <tr data-row="` + (i + 1) + `" class="datatable-row" style="left: 0px;">
             <td class="datatable-cell" data-field=""
                 style="width: 5%;"><span>&nbsp;</span></td>
-            
+
             <td class="datatable-cell" data-field="Number"
                 aria-label="` + (i + 1) + `" style="width: 10%;padding: 0px 45px 0px 16px;"><span>`
             + (i + 1) + `</span>
             </td>
-            
+
             <td class="datatable-cell" data-field="studyTeamName"
                 aria-label="` + teamname + `"
                 style="width: 45%;padding-right:45px;">
               <span>` + teamname + `</span>
             </td>
-            
-            
+
+
             <td data-field="NickName"
                 aria-label="` + member_name + `"
                 class="datatable-cell" style="width: 40%;"><span>
@@ -1259,7 +1265,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     ` + member_name + `
                 </span></td>
           </tr>
-          
+
             `;
 
       } // for
