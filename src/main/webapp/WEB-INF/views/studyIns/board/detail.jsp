@@ -174,7 +174,9 @@
                   font-weight : 700;
             }
 
-
+            #contcont  > *{
+                  font-size: 22px;
+            }
       </style>
 </head>
 </head>
@@ -370,7 +372,7 @@
 
                                                             <%--내용--%>
                                                             <tr>
-                                                                  <td class="text-left px-p15">
+                                                                  <td  id="contcont" class="text-left px-p15">
                                                                         ${detail.cont}
                                                                   </td>
                                                             </tr>
