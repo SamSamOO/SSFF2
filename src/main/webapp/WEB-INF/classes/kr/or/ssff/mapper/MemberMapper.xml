@@ -27,8 +27,7 @@
             id="Login"
             resultType="kr.or.ssff.member.domain.MemberDTO"
     >
-        SELECT MEMBER_NO, MEMBER_ID,MEMBER_PWD,MEMBER_NAME,
-               MEMBER_PROFILE,MEMBER_INTRODUCE,MEMBER_ENABLED,AUTHKEY,AUTHSTATUS
+        SELECT *
         FROM member
         WHERE member_id = #{member_id}
     </select>
@@ -63,7 +62,7 @@
     </select>
 <!-- 비밀번호 찾기 -->
     <update id="updatePw" >
-        update member set member_pwd = #{member_pwd} where member_id = #{member_pwd}
+        update member set member_pwd = #{member_pwd} where member_id = #{member_id}
     </update>
     <!--회원 프로필 이미지 변경-->
     <update id="upload">
@@ -71,6 +70,8 @@
     SET member_profile = #{member_profile}
     WHERE member_id = #{member_id}
     </update>
+
+
 
 
     <!--  RecruitBoard와 ApplyMember멤버, 기본 member table 조인을 위해 result Mqp생성  : 신지혜 -->

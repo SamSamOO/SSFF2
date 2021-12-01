@@ -3,16 +3,19 @@ package kr.or.ssff.member.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 
 
-import kr.or.ssff.member.Utils.UploadFileUtils;
 import kr.or.ssff.member.service.KaKaoService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
+
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ssff.member.domain.MemberDTO;
 
+
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +38,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
+import java.util.Random;
 
 /*
 
@@ -111,7 +116,7 @@ public class MemberController {
         }//catch
 
 
-        return "redirect:/member/registerWait";
+        return "/member/registerWait";
     } // memberJoin
 
 
@@ -225,7 +230,7 @@ public class MemberController {
 
     }
 
-    @RequestMapping(value= "/login", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value= "/login.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String memberLogin(@RequestParam("referer") String referer,
             MemberDTO memberDTO,
             HttpServletRequest request,
@@ -274,13 +279,13 @@ public class MemberController {
 
             } // memberLogin
         }
-        log.debug("시발");
+        log.debug("ㅇㅇ");
         return "redirect:/member/main";
     }
 
 
 
-    @GetMapping("/registerWait")
+    @GetMapping("/registerWaitGo")
     public String registerWaitGo() {
         log.debug("registerWaitGo() is invoked");
 
@@ -295,7 +300,7 @@ public class MemberController {
         //로그아웃.
         @RequestMapping(value= "/logout", method = {RequestMethod.GET, RequestMethod.POST})
         public String memberLogout (HttpSession session){
-            log.debug("loginGo() is invoked");
+            log.debug("memberLogout() is invoked");
             session.invalidate();
 
             return "/main";
@@ -311,6 +316,8 @@ public class MemberController {
 
             return "/member/myPage";
         } // myPageGo
+
+    //회원탈퇴
 
 
         /* 가입한 스터디 목록 페이지로 이동
@@ -331,8 +338,12 @@ public class MemberController {
          *탈퇴기능 수행 후 메인페이지
          * */
         @PostMapping("/withdrawal")
-        public String withdrawal (String nickname){
-            log.debug("withdrawal({}) is invoked", "nickname = " + nickname);
+        public String withdrawal (String member_id){
+            log.debug("withdrawal({}) is invoked", "member_id = " + member_id);
+
+            boolean user = service.withdrawl(member_id);
+
+
 
             return "redirect:/main";
         } // withdrawal
@@ -354,12 +365,7 @@ public class MemberController {
 
         return "/member/modify";
     }
-//    @PostMapping("/uploadAjaxAction")
-//    public void uploadAjaxActionPOST(MultipartFile uploadFile){
-//        log.info("파일 이름 : " + uploadFile.getOriginalFilename());
-//        log.info("파일 타입 : " + uploadFile.getContentType());
-//        log.info("파일 크기 : " + uploadFile.getSize());
-//    }
+
 } // end class
 
 

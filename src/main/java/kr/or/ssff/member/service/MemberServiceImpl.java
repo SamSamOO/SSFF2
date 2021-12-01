@@ -1,7 +1,9 @@
 package kr.or.ssff.member.service;
 
+import java.io.PrintWriter;
 import java.util.List;
 
+import org.apache.commons.mail.HtmlEmail;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +14,9 @@ import kr.or.ssff.mapper.MemberMapper;
 import kr.or.ssff.member.Utils.MailHandler;
 import kr.or.ssff.member.Utils.TempKey;
 import kr.or.ssff.member.domain.MemberDTO;
-import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 /*
@@ -102,6 +101,54 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
     public void upload(MemberDTO memberDTO) throws Exception {
 
 
+    }
+
+    @Override
+    public void sendEmail(String member_id,String subject, String msg) throws Exception {
+        // Mail Server 설정
+        String charSet = "utf-8";
+        String hostSMTP = "smtp.naver.com"; //네이버 이용시 smtp.naver.com
+        String hostSMTPid = "tnsgud2358@naver.com";
+        String hostSMTPpwd = "wkdtns!#57";
+
+        // 보내는 사람 EMail, 제목, 내용
+        String fromEmail = "tnsgud2358@naver.com";
+        String fromName = "삼삼오오";
+
+
+        try {
+            HtmlEmail email = new HtmlEmail();
+            email.setDebug(true);
+            email.setCharset(charSet);
+            email.setSSL(true);
+            email.setHostName(hostSMTP);
+            email.setSmtpPort(587); //네이버 이용시 587
+
+            email.setAuthentication(hostSMTPid, hostSMTPpwd);
+            email.setTLS(true);
+            email.addTo(member_id);
+            email.setFrom(fromEmail, fromName, charSet);
+            email.setSubject(subject);
+            email.setHtmlMsg(msg);
+            email.send();
+        } catch (Exception e) {
+            System.out.println("메일발송 실패 : " + e);
+        }
+    }
+
+    @Override
+    public int updatePw(MemberDTO memberDTO) throws Exception {
+
+        return 0;
+    }
+
+    @Override
+    public boolean withdrawl(String member_id) {
+
+
+        int affectedRows = this.mapper.withdrawlMember(member_id);
+
+        return  affectedRows > 0;
     }
 
 

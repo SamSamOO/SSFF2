@@ -162,10 +162,10 @@
 
 
 														</div>
-														<span class="font-weight-bold text-dark-50">여기는 자기소개(introduce)</span>
+														<span class="font-weight-bold text-dark-50">${member.member_introduce}</span>
 													</div>
 													<div class="d-flex1 align-items-center w-70 flex-fill float-right mt-lg-12 mt-8">
-														<button type="button" id="modifyMember" onclick="fn_modify();"
+														<button type="button" id="modifyMember" onclick="location.href='/member/modifyGo';"
 														        class="btn btn-primary font-weight-bolder font-size-h5 pl-9 pr-9 py-4 my-5 ">
 															정보수정
 														</button>

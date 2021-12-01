@@ -15,10 +15,11 @@
     <link href="${pageContext.request.contextPath}/resources/assets/css/pages/login/classic/login-4.css" rel="stylesheet" type="text/css" />
     <!--end::Page Custom Styles-->
     <!--begin::Global Theme Styles(used by all pages)-->
+    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
 
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/commons/head.jsp"></jsp:include>
+
 
 </head>
 
@@ -44,12 +45,12 @@
                 <div class="login-signin">
                     <div class="mb-20">
                         <span class="font-size-h3 font-weight-bolder">SamSamOO</span>
-                        <div class="text-muted">함께할 프로젝트원을 모집해보세요:p</div
+                        <div class="text-muted">함께할 프로젝트원을 모집해보세요:p</div>
                     </div>
-                    <form action="/member/login" method="POST" class="form" id="kt_login_signin_form">
+                    <form action="/member/login.do" method="POST" class="form" id="kt_login_signin_form">
                         <input hidden name="referer" value="${referer}"/>
                         <div class="form-group mb-5">
-                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" id="member_id" name="member_id" autocomplete="off" />
+                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" name="member_id" autocomplete="off" />
                         </div>
                         <div class="form-group mb-5">
                             <input class="form-control h-auto form-control-solid py-4 px-8" type="password" placeholder="Password" id="member_pwd" name="member_pwd" />
@@ -60,11 +61,10 @@
                                     <input type="checkbox" name="remember" />
                                     <span></span>Remember me</label>
                             </div>
-                            <a class="nav-link" href="#" data-toggle="modal" data-target="#find">/비밀번호 찾기</a>
+                            <a class="nav-link" href="#" data-toggle="modal" data-target="#find" >/비밀번호 찾기</a>
                             <div class="modal" id="find">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
-
                                         <!-- Modal Header -->
                                         <div class="modal-header">
                                             <h4 class="modal-title">비밀번호찾기</h4>
@@ -73,17 +73,20 @@
 
                                         <!-- Modal body -->
                                         <div class="modal-body">
-                                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" id="member_id" name="member_id" autocomplete="off" />
+                                            <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Email" id="member_id" autocomplete="off" />
                                         </div>
 
                                         <!-- Modal footer -->
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-danger" data-dismiss="modal">전송하기</button>
+                                            <input type="button" class="btn btn-danger" value="전송하기" onclick="location.href='/member/findpw'">
+
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                         <button type="submit" id="kt_login_signin_submit" class="btn bg-ssff1 bg-hover-ssff2 font-size-lg font-weight-bolder px-9 py-4 my-3 mx-4">로그인</button>
                     </form>
@@ -104,11 +107,20 @@
 
             <!--end::Main-->
             <!--begin::Global Theme Bundle(used by all pages)-->
-            <script src="${pageContext.request.contextPath}/resources/assets/js/scripts.bundle.js"></script>
+<%--            <script src="${pageContext.request.contextPath}/resources/assets/js/scripts.bundle.js"></script>--%>
             <!--end::Global Theme Bundle-->
             <!--begin::Page Scripts(used by this page)-->
             <%--<script src="${pageContext.request.contextPath}/resources/assets/js/pages/custom/login/login-general.js"></script>--%>
             <!--end::Page Scripts-->
+
+
+
+
+
+            <script>
+
+            </script>
+
 </body>
 <!--end::Body-->
 </html>
