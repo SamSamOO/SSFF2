@@ -172,6 +172,7 @@ public class CafeController {
   public void insertReservation(RedirectAttributes rttrs,
       @ModelAttribute(" ") ReservationDTO reservationDTO,
       Model model) {
+
     log.info("insertReservation({}) is invoked", reservationDTO);
 
 //    Integer rsrv_phone_number = reservationDTO.getRsrv_phone_number();

@@ -243,7 +243,7 @@ padding: 20px;
 <body id="kt_body" class="header-fixed subheader-enabled page-loading">
 <!----------------메인 시작----------------------->
 <input hidden id="userName" name="userName" value="${member.member_name}"/>
-<img src="<spring:url value='/image/${member.member_profile}'/>" hidden id="userProfile"/>
+<img src="<spring:url value='${member.member_profile}'/>" hidden id="userProfile"/>
 <div class="d-flex flex-column flex-root">
       <!----------------페이지 시작----------------------->
       <div class="d-flex flex-row flex-column-fluid page">

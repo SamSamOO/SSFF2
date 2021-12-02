@@ -320,6 +320,9 @@
 
   </insert>
 
+
+
+
   <!-- 임시 등록된 예약정보 조회 : 신지혜 -->
   <select id="selectTempRsrv"
     resultType="kr.or.ssff.cafe.domain.ReservationVO">

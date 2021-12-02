@@ -50,20 +50,20 @@
     <beans:bean id="loginInterceptor"
                 class="kr.or.ssff.member.Interceptor.LoginInterceptor"/>
 
-	<interceptors>
-		<!-- 로그인을 처리하는 인터셉터  -->
-		<interceptor>
+<!--	<interceptors>-->
+<!--		&lt;!&ndash; 로그인을 처리하는 인터셉터  &ndash;&gt;-->
+<!--		<interceptor>-->
 
 
-            <mapping path="/member/login.do"/>
-            <mapping path="/member/modifyGo"/>
-<!--            <mapping path="/study/challenge/main"/>-->
-<!--            <mapping path="/study/challenge/postGo"/>-->
-            <beans:ref bean="loginInterceptor"/>
-		</interceptor>
+<!--            <mapping path="/member/login.do"/>-->
+<!--            <mapping path="/member/modifyGo"/>-->
+<!--&lt;!&ndash;            <mapping path="/study/challenge/main"/>&ndash;&gt;-->
+<!--&lt;!&ndash;            <mapping path="/study/challenge/postGo"/>&ndash;&gt;-->
+<!--            <beans:ref bean="loginInterceptor"/>-->
+<!--		</interceptor>-->
 
 
-	</interceptors>
+<!--	</interceptors>-->
 
 
 
