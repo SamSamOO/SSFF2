@@ -320,37 +320,7 @@
 
   </insert>
 
-  <!-- 신규 예약정보 등록 : 신지혜  -->
-  <insert id="insertReservation"
-    parameterType="hashMap">
 
-
-    INSERT INTO RSRV (rsrv_idx,
-                      room_idx,
-                      member_name,
-                      use_date,
-                      use_start_time,
-                      use_end_time,
-                      rsrv_status_ynz,
-                      rsrv_name,
-                      rsrv_phone_number,
-                      rsrv_email,
-                      rsrv_message,
-                      rsrv_amount)
-    VALUES ('rid_' || rsrv_sqe.NEXTVAL,
-            #{room_idx},
-            #{member_name},
-            #{use_date},
-            #{use_start_time},
-            #{use_end_time},
-            't',
-            #{rsrv_name},
-            #{rsrv_phone_number},
-            #{rsrv_email},
-            #{rsrv_message , jdbcType = VARCHAR },
-            #{rsrv_amount})
-
-  </insert>
 
 
   <!-- 임시 등록된 예약정보 조회 : 신지혜 -->

@@ -69,40 +69,40 @@ public class CafeRestController {
    * 매개변수: ajax로 전송받은 검색키워드
    * 반환: 스터디 카페 리스트 정보를 담은 JSON객체
    * */
-  @RequestMapping(value= "/reserve/insert",
-      method = RequestMethod.POST,
-      produces = "application/json; charset=UTF-8")
-  //없으면 AJAX 통신 안됨
-  public  JSONObject insertReservation(
-      @RequestBody HashMap<String, Object> filterJSON
-  ) throws Exception {
-    log.debug("insertReservation({}) is invoked", filterJSON);
-    log.info("ajax 요청 도착!");
-
-
-    ReservationDTO reservationDTO = new ReservationDTO();
-
-    reservationDTO.setMember_name((String) filterJSON.get("member_name"));
-    reservationDTO.setRoom_idx((String) filterJSON.get("room_idx"));
-    reservationDTO.setUse_date((Date) filterJSON.get("use_date"));
-    reservationDTO.setUse_start_time((Integer) filterJSON.get("use_start_time"));
-    reservationDTO.setUse_end_time((Integer) filterJSON.get("use_end_time"));
-    reservationDTO.setRsrv_idx((String) filterJSON.get("rsrv_name"));
-
-    reservationDTO.setRsrv_phone_number((String) filterJSON.get("rsrv_phone_number"));
-    reservationDTO.setRsrv_email((String) filterJSON.get("rsrv_email"));
-    reservationDTO.setRsrv_amount((Integer) filterJSON.get("rsrv_amount"));
-    reservationDTO.setRsrv_message((String) filterJSON.get("rsrv_message"));
-
-    log.info("reservationDTO({})!",reservationDTO );
-
-    JSONObject jsonObject = new JSONObject();
-    if (service.registerReservation(reservationDTO)) {
-      jsonObject.put("key", "true");
-    } // insertReservation
-
-    return jsonObject;
-  } // insertReservation
+//  @RequestMapping(value= "/reserve/insert",
+//      method = RequestMethod.POST,
+//      produces = "application/json; charset=UTF-8")
+//  //없으면 AJAX 통신 안됨
+//  public  JSONObject insertReservation(
+//      @RequestBody HashMap<String, Object> filterJSON
+//  ) throws Exception {
+//    log.debug("insertReservation({}) is invoked", filterJSON);
+//    log.info("ajax 요청 도착!");
+//
+//
+//    ReservationDTO reservationDTO = new ReservationDTO();
+//
+//    reservationDTO.setMember_name((String) filterJSON.get("member_name"));
+//    reservationDTO.setRoom_idx((String) filterJSON.get("room_idx"));
+//    reservationDTO.setUse_date((Date) filterJSON.get("use_date"));
+//    reservationDTO.setUse_start_time((Integer) filterJSON.get("use_start_time"));
+//    reservationDTO.setUse_end_time((Integer) filterJSON.get("use_end_time"));
+//    reservationDTO.setRsrv_idx((String) filterJSON.get("rsrv_name"));
+//
+//    reservationDTO.setRsrv_phone_number((String) filterJSON.get("rsrv_phone_number"));
+//    reservationDTO.setRsrv_email((String) filterJSON.get("rsrv_email"));
+//    reservationDTO.setRsrv_amount((Integer) filterJSON.get("rsrv_amount"));
+//    reservationDTO.setRsrv_message((String) filterJSON.get("rsrv_message"));
+//
+//    log.info("reservationDTO({})!",reservationDTO );
+//
+//    JSONObject jsonObject = new JSONObject();
+//    if (service.registerReservation(reservationDTO)) {
+//      jsonObject.put("key", "true");
+//    } // insertReservation
+//
+//    return jsonObject;
+//  } // insertReservation
 
   /*
    * 스터디 카페 리스트를 비동기 조회
