@@ -25,9 +25,9 @@
         <beans:property name="suffix" value=".jsp"/>
     </beans:bean>
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
-	<resources mapping="/resources/**" location="/resources/"/>
+	<resources mapping="/resources/**" location="/resources/" />
 	<!--상준 : 로컬에서 이미지 불러오기 (우회)-->
-	<resources mapping="/image/**" location="file:///C:/Temp/upload/"/>
+<!--	<resources mapping="/image/**" location="file:///C:/Temp/upload/"/>-->
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -50,20 +50,20 @@
     <beans:bean id="loginInterceptor"
                 class="kr.or.ssff.member.Interceptor.LoginInterceptor"/>
 
-<!--	<interceptors>-->
-<!--		&lt;!&ndash; 로그인을 처리하는 인터셉터  &ndash;&gt;-->
-<!--		<interceptor>-->
+	<interceptors>
+		<!-- 로그인을 처리하는 인터셉터  -->
+		<interceptor>
 
 
-<!--&lt;!&ndash;            <mapping path="/member/login.do"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <mapping path="/member/modifyGo"/>&ndash;&gt;-->
+<!--            <mapping path="/member/login.do"/>-->
+<!--            <mapping path="/member/modifyGo"/>-->
 <!--&lt;!&ndash;            <mapping path="/study/challenge/main"/>&ndash;&gt;-->
 <!--&lt;!&ndash;            <mapping path="/study/challenge/postGo"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <beans:ref bean="loginInterceptor"/>&ndash;&gt;-->
+<!--            <beans:ref bean="loginInterceptor"/>-->
 <!--		</interceptor>-->
 
 
-<!--	</interceptors>-->
+	</interceptors>
 
 
 

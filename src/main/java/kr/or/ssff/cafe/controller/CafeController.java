@@ -128,42 +128,43 @@ public class CafeController{
 //    model.addAttribute("roomRsrvInfoDTO", roomRsrvInfoDTO);
 //
 //    log.info("model{}", model);
-    
-    } // insertReserve
-    
-    /*
-     * 스터디 카페 예약 화면을 조회
-     * 매개변수: 예약정보
-     * 반환: 스터디 카페 단일 상세화면 뷰단
-     * */
-    @PostMapping("/reserve")
-    public void goReserve(
-            @ModelAttribute("roomRsrvInfoDTO") RoomRsrvInfoDTO roomRsrvInfoDTO, Model model
-    ){
-        
-        log.info("goReserve({}) is invoked", roomRsrvInfoDTO);
-        
-        // String cafe_idx = roomRsrvInfoDTO.getCafe_idx();
-        CafeVO cafeVO = service.getCafe(roomRsrvInfoDTO.getCafe_idx());
-        
-        model.addAttribute("cafeVO", cafeVO);
-        model.addAttribute("roomRsrvInfoDTO", roomRsrvInfoDTO);
-        
-        log.info("model{}", model);
-        
-    } // insertReserve
-    
-    
-    /*
-     * 스터디 카페 예약 백단 작업
-     * 매개변수: 새로 저장할 예약정보
-     * 반환: 우선 카페리스트
-     * */
-    @PostMapping("/reserve/insert")
-    public void insertReservation(RedirectAttributes rttrs,
-                                  @ModelAttribute(" ") ReservationDTO reservationDTO,
-                                  Model model){
-        log.info("insertReservation({}) is invoked", reservationDTO);
+
+  } // insertReserve
+
+  /*
+   * 스터디 카페 예약 화면을 조회
+   * 매개변수: 예약정보
+   * 반환: 스터디 카페 단일 상세화면 뷰단
+   * */
+  @PostMapping("/reserve")
+  public void goReserve(
+      @ModelAttribute("roomRsrvInfoDTO") RoomRsrvInfoDTO roomRsrvInfoDTO, Model model
+  ) {
+
+    log.info("goReserve({}) is invoked", roomRsrvInfoDTO);
+
+    // String cafe_idx = roomRsrvInfoDTO.getCafe_idx();
+    CafeVO cafeVO = service.getCafe(roomRsrvInfoDTO.getCafe_idx());
+
+    model.addAttribute("cafeVO", cafeVO);
+    model.addAttribute("roomRsrvInfoDTO", roomRsrvInfoDTO);
+
+    log.info("model{}", model);
+
+  } // insertReserve
+
+
+  /*
+   * 스터디 카페 예약 백단 작업
+   * 매개변수: 새로 저장할 예약정보
+   * 반환: 우선 카페리스트
+   * */
+  @PostMapping("/reserve/insert")
+  public void insertReservation(RedirectAttributes rttrs,
+      @ModelAttribute(" ") ReservationDTO reservationDTO,
+      Model model) {
+
+    log.info("insertReservation({}) is invoked", reservationDTO);
 
 //    Integer rsrv_phone_number = reservationDTO.getRsrv_phone_number();
 //    reservationDTO.setRsrv_phone_number(rsrv_phone_number); // 형변환 자꾸 오류나서..

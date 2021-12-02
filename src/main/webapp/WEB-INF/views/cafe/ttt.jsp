@@ -446,20 +446,7 @@
   // 결제를 위해 인증창 팝업
 	  function authorize() {
 		
-		  // // 참여번호를 인풋값에 담아서
-		  // let $amem = $('<input>', {
-			 //  type: "text",
-			 //  name: "apply_idx",
-			 //  value: "9002"
-		  // })
-		  //
-		  // console.log("$amem");
-		  //
-		  // // form에 추가해서 보냄 고고
-		  // $('#formObj').append($amem);
-		  //
-		  // $('#formObj').submit();
-				//
+
 
 		  callAjax();
 				

@@ -308,11 +308,13 @@
                                                                   <c:if
                                                                           test="${ not empty detail.modify_Date }">
                                                                         <%--<th colspan="1">수정일자</th>--%>
-                                                                        <td>
+                                                                    <tr class="font-size-xs text-dark-25">
+                                                                    <td>
                                                                               <fmt:formatDate
                                                                                       value="${detail.modify_Date}"
                                                                                       pattern="yyyy/MM/dd hh:mm" />
                                                                         </td>
+                                                                  </tr>
                                                                   </c:if>
                                                             </tr>
 

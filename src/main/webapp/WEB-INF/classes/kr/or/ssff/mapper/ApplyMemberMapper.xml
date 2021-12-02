@@ -40,9 +40,9 @@
 				<if test='applyType == "NA"'>
 					AND a.study_join_arciwf = 'i'
 				</if>
-		<if test='memName != "admin"'>
-			AND a.member_name = #{memName}
-		</if>
+<!--		<if test='memName != "admin"'>-->
+<!--			AND a.member_name = #{memName}-->
+<!--		</if>-->
 		<!-- //TODO WHERE절 Test를 위해 and 조건 / 추후 단항조건으로 변경예정-->
 	</select>
 
