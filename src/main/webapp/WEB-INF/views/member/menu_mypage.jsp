@@ -35,7 +35,7 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/member/studyList?memberName=${member.member_name}" class="menu-link">
+                                <a href="/member/studyList?member_name=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
@@ -43,7 +43,7 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/applyMember/reservationList?memberName=${member.member_name}" class="menu-link">
+                                <a href="/applyMember/reservationList?member_name=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>

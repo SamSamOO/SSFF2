@@ -19,6 +19,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -174,7 +175,7 @@ String id = "testJihye";
     log.debug("withdraw({},{},{}) is invoked",
         code, state, authentication);
 
-    //TODO 세션 회원이름 받아오기 - 순형 !
+//    TODO 세션 회원이름 받아오기 - 순형 !
 //    UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 //    String id = userDetails.getUsername();
     String id = "testJihye";

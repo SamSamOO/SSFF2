@@ -305,7 +305,7 @@ public class StudyServiceImpl implements StudyService {
         log.info("affectedRows = {}", affectedRows);
     
         
-        return affectedRows==1?false:true;
+        return affectedRows==1? false:true;
     } // updateAttendance
 
     @Override

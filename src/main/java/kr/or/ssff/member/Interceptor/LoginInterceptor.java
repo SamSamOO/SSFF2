@@ -49,6 +49,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (member == null || member.getAuthStatus() == 0) {
             log.info("member invoked.({},{})", session, member);
             log.debug("실패타냐");
+            log.info("member = {}", member.getAuthStatus());
 //             로그인페이지로 이동
             modelAndView.setViewName("/member/login");
 

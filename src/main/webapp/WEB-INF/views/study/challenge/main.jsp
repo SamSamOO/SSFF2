@@ -905,7 +905,6 @@
                                  title: '출석',
                                  text : '오늘 이미 출석하셨습니다',
                                  type : "warning"
-
                                });
 
                    } else {
@@ -913,7 +912,7 @@
                                  title: '출석',
                                  text : '출석완료!',
                                  type : 'info'
-                               })
+                               });
                      location.reload();
                    }
                  },

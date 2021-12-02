@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -307,7 +306,6 @@ public class StudyInsController implements InitializingBean, DisposableBean{
         map.put("r_Idx", r_Idx);
         map.put("member", dto);
         
-        
         log.debug("studyBoardDetailModifyGo({}) is invoked", "cont_No = " + cont_No);
         
         Objects.requireNonNull(service);
@@ -331,17 +329,19 @@ public class StudyInsController implements InitializingBean, DisposableBean{
      * 반환: 스터디 게시물 상세 뷰단
      * */
     @PostMapping("/board/detail/modify")
-    public String studyBoardDetailModify(StudyInsDTO studyInsDTO, @RequestParam(required = false) MultipartFile[] uploadFile, RedirectAttributes rttrs){
-        log.debug("studyBoardDetailModify({}) is invoked", "studyIns = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile) + ", rttrs = " + rttrs);
+    public String studyBoardDetailModify(@RequestParam(value = "cont_No", required = false) Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile", required = false) MultipartFile[] uploadFile, RedirectAttributes rttrs){
+    
+        log.info("studyBoardDetailModify({}) is invoked", "cont_No = " + cont_No + ", studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile) + ", rttrs = " + rttrs);
         
         String uploadFolder = "C:/temp/upload";
         
-        
         /*폴더 만들기*/
         File uploadPath = new File(uploadFolder);
+        log.info("uploadPath = {}", uploadPath);
         
         /*날짜 경로입니다.*/
         String datePath = UploadFileUtils.getFolder();
+        log.info("datePath = {}", datePath);
         
         log.debug("upload path : " + uploadPath);
         
@@ -349,63 +349,64 @@ public class StudyInsController implements InitializingBean, DisposableBean{
             uploadPath.mkdirs();
             
         } // make folder
-        
         //make yyyy/MM/dd folder
-        
         
         /*이미지의 정보를 담는 객체*/
         List<StudyInsFileDTO> list = new ArrayList<>();
-        if (studyInsDTO.getFileDTO() != null){
+        if (uploadFile != null){
             
             for (MultipartFile multipartFile : uploadFile){
                 log.debug("------------------------------------");
                 log.debug("Upload File Name : " + multipartFile.getOriginalFilename());
                 log.debug("Upload File Size : " + multipartFile.getSize());
-                
+    
                 /*이미지 정보 객체입니다.*/
                 StudyInsFileDTO dto = new StudyInsFileDTO();
-                dto.setCont_No(studyInsDTO.getCont_No());
-                
+                dto.setCont_No(cont_No);
+    
                 String uploadFileName = multipartFile.getOriginalFilename().replace(' ', '_');
-                
+    
                 dto.setFile_Name(uploadFileName);//3 : fileName
                 dto.setUploadPath(uploadPath.toString());//4 : uploadPath
-                
+    
                 //IE has file path
                 uploadFileName = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1);
                 log.debug("only file name : " + uploadFileName);
-                
+    
                 String uuid = UUID.randomUUID().toString();
                 dto.setUuid(uuid); // 5 : uuid
-                
+    
                 uploadFileName = uuid + "_" + uploadFileName;
-                
+    
                 File saveFile = new File(uploadPath, uploadFileName);
-                
+    
                 try{
                     multipartFile.transferTo(saveFile);
-                    
+        
                     //check image type file
                     if (UploadFileUtils.checkImageType(saveFile)){
                         FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
                         Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100); // 오류나서 잠시 막았어용 : 지혜
-                        
+            
                         thumbnail.close();
                     }
                 }catch (Exception e){
                     log.error(e.getMessage());
-                    
+        
                 } // end catch
                 list.add(dto);
             } // end for
-        }
-        
-        studyInsDTO.setFileDTO(list);
-        
+            studyInsDTO.setFileDTO(list);
+            
+        } // if
+    
+    
         Objects.requireNonNull(service);
-        if (service.modify(studyInsDTO, uploadFile)){
+        
+        if (service.modify(cont_No,studyInsDTO, uploadFile)){
             rttrs.addFlashAttribute("result", "success");
         }
+        
         rttrs.addAttribute("cont_No", studyInsDTO.getCont_No());
         rttrs.addAttribute("r_Idx", studyInsDTO.getR_Idx());
         return "redirect:/studyIns/board/detail";
@@ -425,6 +426,8 @@ public class StudyInsController implements InitializingBean, DisposableBean{
         HashMap<String, Object> map = new HashMap<>();
         map.put("member", dto);
         map.put("r_Idx", r_Idx);
+    
+        log.info("map = {}", map);
         
         Objects.requireNonNull(service);
         Integer maxNumber = service.findMaxContNo();
@@ -449,17 +452,20 @@ public class StudyInsController implements InitializingBean, DisposableBean{
     @PostMapping("/board/post")
     public String studyBoardPost(@RequestParam(value = "cont_No", required = false) Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile", required = false) MultipartFile[] uploadFile,
                                  RedirectAttributes rttrs){
-    
+        
         log.info("studyBoardPost({}) is invoked", "cont_No = " + cont_No + ", studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile) + ", rttrs = " + rttrs);
-        
-        
+    
+    
         String uploadFolder = "C:/temp/upload";
+        log.info("uploadFolder = {}", uploadFolder);
         
         /*폴더 만들기*/
         File uploadPath = new File(uploadFolder);
+        log.info("uploadPath = {}", uploadPath);
         
         /*날짜 경로입니다.*/
         String datePath = UploadFileUtils.getFolder();
+        log.info("datePath = {}", datePath);
         
         log.debug("upload path : " + uploadPath);
         
@@ -467,7 +473,6 @@ public class StudyInsController implements InitializingBean, DisposableBean{
             uploadPath.mkdirs();
             
         } // make folder
-        
         //make yyyy/MM/dd folder
         
         log.info("uploadFile = {}", (Object) uploadFile);
