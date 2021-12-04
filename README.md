@@ -11,7 +11,7 @@
   Database: Oracle cloud 19c <br>
   Backend: Java, Spring Framework<br>
   Frontend: Bootstrap, Javascript<br>
-* 프로젝트 기간 : 2021. 10 ~
+* 프로젝트 기간 : 2021. 10 ~ 진행중
 * 프로젝트 참여 인원 : 5인
 
 ## 1. 주요 기능
