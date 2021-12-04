@@ -35,7 +35,7 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/member/studyList?memberName=${member.member_name}" class="menu-link">
+                                <a href="/member/studyList?member_name=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
@@ -43,7 +43,7 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/applyMember/reservationList?memberName=${member.member_name}" class="menu-link">
+                                <a href="/applyMember/reservationList?member_name=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
@@ -57,7 +57,7 @@
                                     <c:choose>
                                     <c:when
                                       test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
-                                    <a href="/study/challenge/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">
+                                    <a href="/study/challenge/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">ㅈ
                                         </c:when>
                                         <c:otherwise>
                                         <a href="/study/project/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">

@@ -98,7 +98,7 @@
                                                                               
                                                                               <input type="hidden" id="member_Name" maxlength="20" value="${member.member_name}"
                                                                                      name="member_Name">
-                                                                              <img alt='Pic' src='${member.member_profile}' style="width: 50px; height: 50px;padding-right: 20; border-radius: 70%;">
+                                                                              <img alt='Pic' src='${member.member_profile}' style="width: 50px; height: 50px;padding-right: 20px; border-radius: 70%;">
                                                                               <span class="text-body btn-light-instagram">${member.member_name}</span>
                                                                         
                                                                         </td>

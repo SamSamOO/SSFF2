@@ -29,7 +29,7 @@ public interface StudyInsService {
     public abstract boolean remove(Integer cont_no);
 
     //04. 게시물 수정 : 박상준
-    public abstract boolean modify(StudyInsDTO studyIns, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile);
+    public abstract boolean modify(@RequestParam("cont_No")Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile",required = false) MultipartFile[] uploadFile);
 
     //05. 게시물 등록 : 박상준
     public abstract boolean register(@RequestParam("cont_No") Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile",required = false) MultipartFile[] uploadFile);

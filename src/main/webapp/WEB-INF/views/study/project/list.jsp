@@ -36,7 +36,7 @@
             <jsp:include page="../../../commons/menu_main.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 종료------------------>
             <!--컨테이너 시작-->
-            <div class="d-flex flex-row flex-column-fluid container">
+            <div class="d-flex flex-column container">
                 <!--contents.html Include-->
                 <!--begin::Content Wrapper 내용물 시작-->
                 <div class="main d-flex flex-column flex-row-fluid">
@@ -186,14 +186,15 @@
                         <!--대시보드 종료-->
                     </div>
                     <!--end::Content-->
+
                 </div>
                 <!--end::Content Wrapper 내용물 종료-->
 
+                                <jsp:include page="../../../commons/footer.jsp"/>
 
             </div>
             <!--컨테이너 종료-->
             <!--footer.html Include-->
-            <jsp:include page="../../../commons/footer.jsp"/>
 </body>
 <!----------------Body 종료----------------------->
 <script>

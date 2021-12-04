@@ -123,7 +123,6 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      * 반환	:  해당 게시물
      * 작성자	: 박상준
      */
-    @Transactional(rollbackFor = Exception.class)
     @Override
     public boolean register(Integer cont_No, StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile){
         log.info("register({}) is invoked", "cont_No = " + cont_No + ", studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
@@ -157,18 +156,18 @@ public class StudyInsServiceImpl implements StudyInsService, InitializingBean, D
      * 반환	:  해당 게시판
      * 작성자	: 박상준
      */
-    @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean modify(StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile){
-        
-        log.info("uploadFile = {}", Arrays.stream(uploadFile).toArray());
+    public boolean modify(Integer cont_No,StudyInsDTO studyInsDTO, @RequestParam(value = "uploadFile") MultipartFile[] uploadFile){
+    
+        log.info("modify({}) is invoked", "cont_No = " + cont_No + ", studyInsDTO = " + studyInsDTO + ", uploadFile = " + Arrays.deepToString(uploadFile));
         
         Objects.requireNonNull(mapper);
-    
+        studyInsDTO.setCont_No(cont_No);
+        
         List<StudyInsFileDTO> listOfFiles = new ArrayList<>();
         listOfFiles = studyInsDTO.getFileDTO();
-        
-        log.info("listOfFiles = {}", listOfFiles.toArray());
+    
+        log.info("listOfFiles = {}", listOfFiles);
         int affectedRows = mapper.update(studyInsDTO);
         
         /*파일 삭제후 다시 넣어줘야할 거같습니다....*/
