@@ -13,6 +13,7 @@ import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import net.coobird.thumbnailator.Thumbnailator;
+import org.apache.commons.logging.LogConfigurationException;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -376,13 +377,14 @@ public class StudyInsController implements InitializingBean, DisposableBean{
     
                 String uuid = UUID.randomUUID().toString();
                 dto.setUuid(uuid); // 5 : uuid
-    
+                
                 uploadFileName = uuid + "_" + uploadFileName;
-    
+                
                 File saveFile = new File(uploadPath, uploadFileName);
     
                 try{
                     multipartFile.transferTo(saveFile);
+                    log.info("saveFile = {}", saveFile);
         
                     //check image type file
                     if (UploadFileUtils.checkImageType(saveFile)){
@@ -395,9 +397,13 @@ public class StudyInsController implements InitializingBean, DisposableBean{
                     log.error(e.getMessage());
         
                 } // end catch
+                log.info("saveFile = {}", saveFile);
+                log.info("list = {}", list);
+                
                 list.add(dto);
             } // end for
             studyInsDTO.setFileDTO(list);
+            log.info("studyInsDTO = {}", studyInsDTO);
             
         } // if
     

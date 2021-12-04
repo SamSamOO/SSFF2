@@ -62,23 +62,23 @@
 </script>
 <!--begin::Global Config(global config for global JS scripts)-->
 
-<!-- 헤더부분 스크롤 -->
-<script>
-    function progressBarHorizonal() {
-        var scrollTop = $(window).scrollTop();
-        var footer = $('.footer');
-        var footerPosition = footer.length > 0 ? footer.offset().top : 0;
-        var currentPosition = scrollTop / (footerPosition - $(window).innerHeight());
-        var $pbv = $('.progress-bar-horizonal');
-        
-        $pbv.css('width', (currentPosition * 100) + '%');
-        $pbv.css('left', $('.content-wrap').offset().left + 'px');
-        $pbv.css('opacity', 0.7 - (0.5 * currentPosition));
-    }
-    $(window).on('scroll', function () {
-        progressBarHorizonal();
-    })
-</script>
+<%--<!-- 헤더부분 스크롤 -->--%>
+<%--<script>--%>
+<%--    function progressBarHorizonal() {--%>
+<%--        var scrollTop = $(window).scrollTop();--%>
+<%--        var footer = $('.footer');--%>
+<%--        var footerPosition = footer.length > 0 ? footer.offset().top : 0;--%>
+<%--        var currentPosition = scrollTop / (footerPosition - $(window).innerHeight());--%>
+<%--        var $pbv = $('.progress-bar-horizonal');--%>
+<%--        --%>
+<%--        $pbv.css('width', (currentPosition * 100) + '%');--%>
+<%--        $pbv.css('left', $('.content-wrap').offset().left + 'px');--%>
+<%--        $pbv.css('opacity', 0.7 - (0.5 * currentPosition));--%>
+<%--    }--%>
+<%--    $(window).on('scroll', function () {--%>
+<%--        progressBarHorizonal();--%>
+<%--    })--%>
+<%--</script>--%>
 
 <%--메뉴 바꾸기--%>
 <script>
