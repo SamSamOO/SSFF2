@@ -47,9 +47,9 @@
           initialView: 'dayGridMonth',
           // initialDate: '2021-11-07',
           headerToolbar: {
-            left: 'title',
-            center: '',
-            right: 'prev,next today'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
+            left: 'prev,next today',
+            center:'title',
+            right: 'addEventButton'//addEventButton,dayGridMonth,timeGridWeek,timeGridDay
           },
           selectable: true,
           editable: true,
