@@ -73,7 +73,7 @@
 
     ul, breadcrumb.breadcrumb-transparent.breadcrumb-dot.font-weight-bold.p-0.my-2.font-size-sm{
       list-style: none !important;
-    } /* TODO 블릿은 왜 안 없어집니까 */
+    }
     
   
     body{
@@ -129,6 +129,8 @@
     }
 
     section.awSlider > img{
+     
+      object-fit: cover;
       position:absolute;
       top:30px;
       z-i:1;
@@ -143,6 +145,15 @@
       transform: scale(1.1);
       opacity:.5;
     }
+    
+
+    .itme, .item.active {
+      max-height: 220px !important;
+      max-width: 340px !important;
+      height: 220px !important;
+      width: 340px !important;
+             }
+
     /* ---------- carousel ---------- */
 
     /* ---------- card-body ---------- */
@@ -355,8 +366,8 @@
                 <!--begin::Card-->
                 <div class="card card-custom gutter-b card-stretch">
                   <section class="awSlider">
-                    <div  class="carousel slide" data-ride="carousel"
-                          id="myCarousel`+i+`">
+                    <div  class="carousel slide max-h-220px max-w-340px" data-ride="carousel"
+                          id="myCarousel`+i+`" data-interval="false">
                       <!-- Indicators -->
                       <ol class="carousel-indicators">
                       </ol>
@@ -387,8 +398,9 @@
 
           let $div = $('<div>').addClass("carousel-caption")
           let $item = $('<div>').addClass("item")
-                                .append($('<img>').attr("src", data.cafeList[i].roomImgs[j]
-                                                        /*http://www.adobewordpress.com/wp-content/uploads/2014/02/wallpaper-thumb-1051.jpg*/))
+                                .append($('<img>').attr(/*"src", data.cafeList[i].roomImgs[j]*/
+                                                        "src", "https://source.unsplash.com/featured?office%20space" +i+j +"/340/220")
+                                .attr('style', 'width=340px !important; height=220px !important;'))
                                 .append($div);
 
           $('.carousel-inner').eq(num).append($item);

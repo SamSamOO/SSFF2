@@ -190,7 +190,7 @@ License: You must have a valid license purchased only from themeforest(the above
                
               </div>
              <div class="modal-body pt-1">
->
+
     
               </div>
             </div>
@@ -198,7 +198,6 @@ License: You must have a valid license purchased only from themeforest(the above
     $('#memberListModal').html(putListModalHtml);
   }
 
-  // 카드 리스트를 ajax 페이지 처리하여 뿌립니다.
   let start = {
 // style="visibility: hidden;"
     // 백단으로 db 달라 요청
@@ -527,7 +526,6 @@ License: You must have a valid license purchased only from themeforest(the above
     } // setListItem
   } // start
 
-  // 접속자의 권한을 확인하는 함수
 
 
 </script>

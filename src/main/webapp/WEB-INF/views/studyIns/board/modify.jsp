@@ -1,4 +1,3 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -8,50 +7,50 @@
 
 <head>
     <title>게시물 상세 페이지입니다</title>
-
-
-    <!--head.html Include-->
+      
+      
+      <!--head.html Include-->
     <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
     <script>
         <c:choose>
         <c:when test="${member.member_id==null}">
 
         Swal.fire({
-            icon: 'warning', // Alert 타입
-            title: '로그인 오류', // Alert 제목
-            text: '로그인 하세요', // Alert 내용
-
-            buttons: {
-                confirm: {
-                    text: '확인 ',
-                    value: true,
-                    className: 'btn btn-outline-primary'
-                }
-            }
-        }).then((result)=>{
-            if (result) {
-                location.href = "/member/loginGo";
-            }
+             icon: 'warning', // Alert 타입
+             title: '로그인 오류', // Alert 제목
+             text: '로그인 하세요', // Alert 내용
+     
+             buttons: {
+                  confirm: {
+                       text: '확인 ',
+                       value: true,
+                       className: 'btn btn-outline-primary'
+                  }
+             }
+        }).then((result) => {
+             if (result) {
+                  location.href = "/member/loginGo";
+             }
         });
 
         </c:when>
         <c:when test="${inStudy==0}">
         Swal.fire({
-            icon: 'warning', // Alert 타입
-            title: '스터디원이 아닙니다.', // Alert 제목
-            text: '스터디원이 아닙니다.', // Alert 내용
-
-            buttons: {
-                confirm: {
-                    text: '스터디 ',
-                    value: true,
-                    className: 'btn btn-outline-primary'
-                }
-            }
-        }).then((result)=>{
-            if (result) {
-                location.href = "javascript:history.back()";
-            }
+             icon: 'warning', // Alert 타입
+             title: '스터디원이 아닙니다.', // Alert 제목
+             text: '스터디원이 아닙니다.', // Alert 내용
+     
+             buttons: {
+                  confirm: {
+                       text: '스터디 ',
+                       value: true,
+                       className: 'btn btn-outline-primary'
+                  }
+             }
+        }).then((result) => {
+             if (result) {
+                  location.href = "javascript:history.back()";
+             }
         });
 
         </c:when>
@@ -83,7 +82,7 @@
                     <!--Subheader : 서브헤더 페이지 제목란 시작-->
                     <div class="subheader py-2 py-lg-6" id="kt_subheader">
                         <div
-                            class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
+                                class="w-100 d-flex align-items-center justify-content-between flex-wrap flex-sm-nowrap">
                             <!--begin::Info-->
                             <div class="d-flex align-items-center flex-wrap mr-1">
                                 <!--begin::Page Heading-->
@@ -93,7 +92,7 @@
                                     <!--Page Title : 페이지 제목 종료-->
                                     <!--Breadcrumb : 로드맵 시작-->
                                     <ul
-                                        class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
+                                            class="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2 font-size-sm">
                                         <li class="breadcrumb-item">
                                             <a href="" class="text-muted">프로젝트</a>
                                         </li>
@@ -120,8 +119,6 @@
                                 <div class="d-flex flex-row flex-column-fluid container">
                                     <form action="/studyIns/board/detail/modify" method="post" id="formObj" style="width: 100%" enctype="multipart/form-data">
                                         <input type="hidden" name="cont_No" value="${detail.cont_No}">
-                                        <c:out value="${detail.cont_No}"/>
-                                        <p>cont_No 출력</p>
                                         <input type="hidden" name="r_Idx" value="${detail.r_Idx}"/>
 
                                         <table style="width: 100%">
@@ -180,7 +177,7 @@
 
                                                         <div class="card-body">
                                                             <div id="kt_quil_2" style="height: 325px">
-                                                                ${detail.cont}
+                                                                  ${detail.cont}
                                                             </div>
                                                             <textarea required name="cont" style="display:none" id="cont"></textarea>
                                                         </div>
@@ -219,7 +216,7 @@
 
 
                                 </div>
-                                <!--카드 바디 종료-->
+                                  <!--카드 바디 종료-->
 
                             </div>
                             <!--풀 사이즈 카드 종료 / 카드 필요 없으면 여기서까지 밀기☆-->
@@ -239,165 +236,169 @@
 <script>
     let regex = new RegExp(`(.*?).(jpg|jpeg|png|gif|bmp)$`, `i`);
     let maxSize = 5242880; //5MB
-    $(function () {
-        console.clear();
-        console.debug("제이쿼리 시작");
-        <%--for (let i = 0; i <${listOfFiles.length}; i++) {--%>
-        <%--    $(`#uploadFile`).val()--%>
 
-        <%--}--%>
-        $(`#listBtn`).on(`click`, function (e) {
-
-            console.log('목록버튼이 클릭됨!');
-
-            const formElement = $("#formObj");
-
-            formElement.attr("action", "/studyIns/board/list");
-            formElement.attr("method", "get");
-
-            formElement.submit();
-
-        });
-        //TODO 파일이 없는 경우 파일업로드를 안하게 해줘야합니다.
-        $(`#cont`).val($(`.ql-editor`).html());
-        $(`#uploadFile`).val()
-        $(`#uploadFile`).on('click', function () {
-            $(`#fileList`).children("p").remove();
-        });
-        $(`#uploadFile`).on("change", function (e) {
-
-            let formData = new FormData();
-            let inputFile = $("input[name='uploadFile']");
-            let files = inputFile[0].files;
-            let str = '';
-
-            console.log(files);
-            for (let i = 0; i < files.length; i++) {
-                console.log(files.length);
-                str = `<p>` + files[i].name + `</p>`;
-                if (!checkExtensionName((files[i].name))) {
-                    console.log((files[i].name).toLowerCase());
-
-                    //파일 업로드 부분 초기화
-                    console.log('확장자 에러입니다.');
-                    $(`#uploadFile`).val('');
-                    str = '';
-                } else if (!checkExtensionSize(files[i].size)) {
-
-                    console.log(files[i].size);
-
-                    $(`#uploadFile`).val(``);
-                    str = '';
-                } else {
-                    console.log(`append 완료`);
-                    $(`#fileList`).append(str);
-                }
-
-                formData.append("uploadFile", files[i]);
-
-                console.log(formData);
-            }
-            $.ajax({
-                url: '/board/detail/modifyGo',
-                processData: false,
-                contentType: false,
-                data: formData,
-                type: 'POST',
-                dataType: 'json'
-            });
-
-        });
-
+    $(function() {
+         console.clear();
+         console.debug("제이쿼리 시작");
+         <%--for (let i = 0; i <${listOfFiles.length}; i++) {--%>
+         <%--    $(`#uploadFile`).val()--%>
+     
+         $(`#listBtn`).on(`click`, function(e) {
+          
+              console.log('목록버튼이 클릭됨!');
+          
+              const formElement = $("#formObj");
+          
+              formElement.attr("action", "/studyIns/board/list");
+              formElement.attr("method", "get");
+          
+              formElement.submit();
+          
+         });
+         //TODO 파일이 없는 경우 파일업로드를 안하게 해줘야합니다.
+         $(`#cont`).val($(`.ql-editor`).html());
+     
+         $(`#uploadFile`).val()
+         $(`#uploadFile`).on('click', function() {
+              $(`#fileList`).children("p").remove();
+         });
+         $(`#uploadFile`).on('change', function(e) {
+          
+              let formData = new FormData();
+              let inputFile = $("input[name='uploadFile']");
+              let files = inputFile[0].files;
+              let str = '';
+          
+              console.log(files);
+              for (let i = 0; i < files.length; i++) {
+                   console.log(files.length);
+                   str = `<p>` + files[i].name + `</p>`;
+                   if (!checkExtensionName((files[i].name))) {
+                        console.log((files[i].name).toLowerCase());
+                    
+                        //파일 업로드 부분 초기화
+                        console.log('확장자 에러입니다.');
+                    
+                        $(`#uploadFile`).val('');
+                        str = '';
+                    
+                   } else if (!checkExtensionSize(files[i].size)) {
+                    
+                        console.log(files[i].size);
+                    
+                        $(`#uploadFile`).val(``);
+                        str = '';
+                    
+                   } else {
+                        console.log(`append 완료`);
+                        $(`#fileList`).append(str);
+                   }
+               
+                   formData.append("uploadFile", files[i]);
+               
+                   console.log(formData);
+              }
+              // $.ajax({
+              //      url: '/studyIns/board/detail/modifyGo',
+              //      processData: false,
+              //      contentType: false,
+              //      data: formData,
+              //      type: 'POST',
+              //      dataType: 'json'
+              // });
+          
+         });
+     
     });
 
     // Class definition
-    var KTQuilDemos = function () {
-        // Private functions
-        var demo2 = function () {
-            var Delta = Quill.import('delta');
-            var quill = new Quill('#kt_quil_2', {
-                modules: {
-                    toolbar: true
-                },
-                placeholder: 'Type your text here...',
-                theme: 'snow'
-            });
-            // Store accumulated changes
-            var change = new Delta();
-            let content = quill.getContents();
-            console.log("content : " + content);
-            $(`#cont`).val($(`#kt_quil_2`).children('div').html())
-            quill.on('text-change', function (delta) {
-                change = change.compose(delta);
-                console.log($(`#cont`).val($(`#kt_quil_2`).children('div').html()));
-
-            });
-
-            // Save periodically
-            setInterval(function () {
-                if (change.length() > 0) {
-                    console.log('Saving changes', change);
-                    /*
-                    Send partial changes
-                    $.post('/your-endpoint', {
-                    partial: JSON.stringify(change)
-                    });
-                    Send entire document
-                    $.post('/your-endpoint', {
-                    doc: JSON.stringify(quill.getContents())
-                    });
-                    */
-                    change = new Delta();
-                }
-            }, 5 * 1000);
-            // Check for unsaved data
-            window.onbeforeunload = function () {
-                if (change.length() > 0) {
-                    return 'There are unsaved changes. Are you sure you want to leave?';
-                }
-            }
-        };
-        return {
-            // public functions
-            init: function () {
-                demo2();
-            }
-        };
+    var KTQuilDemos = function() {
+         // Private functions
+         var demo2 = function() {
+              var Delta = Quill.import('delta');
+              var quill = new Quill('#kt_quil_2', {
+                   modules: {
+                        toolbar: true
+                   },
+                   placeholder: 'Type your text here...',
+                   theme: 'snow'
+              });
+              // Store accumulated changes
+              var change = new Delta();
+              let content = quill.getContents();
+              console.log("content : " + content);
+              $(`#cont`).val($(`#kt_quil_2`).children('div').html())
+              quill.on('text-change', function(delta) {
+                   change = change.compose(delta);
+                   console.log($(`#cont`).val($(`#kt_quil_2`).children('div').html()));
+               
+              });
+          
+              // Save periodically
+              setInterval(function() {
+                   if (change.length() > 0) {
+                        console.log('Saving changes', change);
+                         /*
+                          Send partial changes
+                          $.post('/your-endpoint', {
+                          partial: JSON.stringify(change)
+                          });
+                          Send entire document
+                          $.post('/your-endpoint', {
+                          doc: JSON.stringify(quill.getContents())
+                          });
+                          */
+                        change = new Delta();
+                   }
+              }, 5 * 1000);
+              // Check for unsaved data
+              window.onbeforeunload = function() {
+                   if (change.length() > 0) {
+                        return 'There are unsaved changes. Are you sure you want to leave?';
+                   }
+              }
+         };
+         return {
+              // public functions
+              init: function() {
+                   demo2();
+              }
+         };
     }();
 
-    jQuery(document).ready(function () {
-        KTQuilDemos.init();
+    jQuery(document).ready(function() {
+         KTQuilDemos.init();
     });
 
     function checkExtensionName(fileName) {
-
-        if (!regex.test(fileName)) { //이미지 확장자가 아닌경우
-            alert('이미지만 가능합니다.');
-            console.log(fileName);
-
-            return false; //이미지 확장자가 아니라면 .. false 리턴합니다.
-        }
-        return true;
+     
+         if (!regex.test(fileName)) { //이미지 확장자가 아닌경우
+              alert('이미지만 가능합니다.');
+              console.log(fileName);
+          
+              return false; //이미지 확장자가 아니라면 .. false 리턴합니다.
+         }
+         return true;
     }
 
     function checkExtensionSize(fileSize) {
-
-        if (fileSize >= maxSize) {
-            alert('파일 사이즈 초과');
-            console.log('......파일 사이즈')
-            return false; //사이즈 초과시 false 리턴합니다.
-        }
-        return true;
-
+     
+         if (fileSize >= maxSize) {
+              alert('파일 사이즈 초과');
+              console.log('......파일 사이즈')
+              return false; //사이즈 초과시 false 리턴합니다.
+         }
+         return true;
+     
     }
 
     function showUploadImage(uploadResultArr) {
-        /*전달 받은 데이터 검증*/
-        if (!uploadResultArr || uploadResultArr.length == 0) {
-            return
-        }
-
-        let uploadResut = $('')
+          /*전달 받은 데이터 검증*/
+         if (!uploadResultArr || uploadResultArr.length == 0) {
+              return
+         }
+     
+         let uploadResut = $('')
     }
 
     // $(document).ready(function () {

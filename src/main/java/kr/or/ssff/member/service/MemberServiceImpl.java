@@ -1,7 +1,11 @@
 package kr.or.ssff.member.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
+import kr.or.ssff.study.domain.RecruitBoardVO;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +16,9 @@ import kr.or.ssff.mapper.MemberMapper;
 import kr.or.ssff.member.Utils.MailHandler;
 import kr.or.ssff.member.Utils.TempKey;
 import kr.or.ssff.member.domain.MemberDTO;
-import kr.or.ssff.member.domain.MemberVO;
 import lombok.AllArgsConstructor;
-import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
 /*
@@ -38,6 +39,15 @@ public class MemberServiceImpl implements MemberService, InitializingBean, Dispo
     @Autowired
     private JavaMailSender mailSender;
 
+    @Override
+    public List<RecruitBoardVO> getMyStudyList(HashMap<String, Object> map){
+        log.info("getMyStudyList({}) is invoked", "map = " + map);
+
+        Objects.requireNonNull(mapper);
+        List<RecruitBoardVO> list = this.mapper.getMyStudyList(map);
+
+        return list;
+    }
 
     // 회원가입 로직(장순형)
     @Override

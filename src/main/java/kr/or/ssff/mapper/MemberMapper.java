@@ -1,10 +1,15 @@
 package kr.or.ssff.mapper;
 
 import java.util.HashMap;
+import java.util.List;
+
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberDTO;
 
 import kr.or.ssff.member.domain.MemberVO;
+import kr.or.ssff.study.domain.RecruitBoardVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 
 /*
@@ -30,6 +35,14 @@ public interface MemberMapper {
 	public int nameChk( MemberDTO memberDTO) throws Exception;
 	// 이미지 수정
 	public void upload(MemberDTO memberDTO) throws Exception;
+
+    //이미지 ..
+    List<RecruitBoardVO> getMyStudyList(@Param("map") HashMap<String, Object> map);
+
+	//비밀번호수정
+	public int updatePw(MemberDTO memberDTO) throws Exception;
+	//회원탈퇴
+	public abstract Integer withdrawlMember(String member_id);
 
 
 

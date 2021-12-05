@@ -29,6 +29,7 @@ public class ApplyMemberDTO {
 	private Date study_join_change_date;
 	private Character study_boss_yn;
 	private Integer attendance_days;
+	private String teamName;
 	
 	private RecruitBoardDTO recruitBoardDTO;
 	private MemberDTO memberDTO;

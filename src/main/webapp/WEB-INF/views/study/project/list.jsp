@@ -36,7 +36,7 @@
             <jsp:include page="../../../commons/menu_main.jsp"/>
             <!------------------Header Wrapper : 메뉴 탭 종료------------------>
             <!--컨테이너 시작-->
-            <div class="d-flex flex-row flex-column-fluid container">
+            <div class="d-flex flex-column container">
                 <!--contents.html Include-->
                 <!--begin::Content Wrapper 내용물 시작-->
                 <div class="main d-flex flex-column flex-row-fluid">
@@ -93,7 +93,7 @@
 
                                 <div class="studylist-nav d-inline-block w-100 mt-4 mb-4 pt-4 rounded-xl shadow">
                                     <!--스터디리스트 중간 로고 박힌 네비 부분-->
-                                    <ul class="logo-to-sort d-flex flex-wrap justify-content-center ">
+                                    <ul class=" logo-to-sort d-flex flex-wrap justify-content-center ">
                                         <li><img src="/resources/assets/images/logos/language/javascript.png"
                                                  width="50px" onclick="logoClicked('javascript')" id="logo_javascript"></li>
                                         <li><img src="/resources/assets/images/logos/language/typescript.png"
@@ -186,14 +186,15 @@
                         <!--대시보드 종료-->
                     </div>
                     <!--end::Content-->
+
                 </div>
                 <!--end::Content Wrapper 내용물 종료-->
 
+                                <jsp:include page="../../../commons/footer.jsp"/>
 
             </div>
             <!--컨테이너 종료-->
             <!--footer.html Include-->
-            <jsp:include page="../../../commons/footer.jsp"/>
 </body>
 <!----------------Body 종료----------------------->
 <script>

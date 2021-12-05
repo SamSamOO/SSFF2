@@ -7,6 +7,7 @@
   마이페이지용 메뉴nav 파일
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!------------------메인 메뉴 시작------------------>
 <div class="header-menu-wrapper header-menu-wrapper-left" id="kt_header_menu_wrapper">
     <div class="container">
@@ -26,7 +27,7 @@
                         <!--1차 서브 메뉴 시작-->
                         <ul class="menu-subnav">
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/member/myPage" class="menu-link">
+                                <a href="/member/myPage?memberName=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
@@ -34,7 +35,7 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/member/studyList" class="menu-link">
+                                <a href="/member/studyList?member_name=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
@@ -42,64 +43,38 @@
                                 </a>
                             </li>
                             <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/applyMember/reservationList" class="menu-link">
+                                <a href="/applyMember/reservationList?member_name=${member.member_name}" class="menu-link">
                                     <i class="menu-bullet menu-bullet-dot">
                                         <span></span>
                                     </i>
                                     <span class="menu-text">내가 예약한 스터디 카페</span>
                                 </a>
                             </li>
-                            <li class="menu-item menu-item-submenu" data-menu-toggle="hover" aria-haspopup="true">
-                                <a href="/applyMember/paymentList" class="menu-link">
-                                    <i class="menu-bullet menu-bullet-dot">
-                                        <span></span>
-                                    </i>
-                                    <span class="menu-text">내 거래 내역</span>
-                                </a>
-                            </li>
+                            <c:forEach var="list" items="${myStudyList}"
+                                       begin="1" end="5">
+                                <li id="mystudylistmenu_${list.r_idx}"
+                                    class="menu-item">
+                                    <c:choose>
+                                    <c:when
+                                      test="${list.type_pc =='c'.charAt(0) or list.type_pc == 'C'.charAt(0)}">
+                                    <a href="/study/challenge/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">ㅈ
+                                        </c:when>
+                                        <c:otherwise>
+                                        <a href="/study/project/main?r_Idx=${list.r_idx}&member_name=${member.member_name}">
+                                            </c:otherwise>
+                                            </c:choose>
+                                            <span class="menu-text">${list.teamname}</span>
+                                        </a>
+                                </li>
+                            </c:forEach>
                         </ul>
                         <!--1차 서브 메뉴 종료-->
                     </div>
                     <!--서브 메뉴 종료-->
                 </li>
-                <!------------------첫번째 탭 종료------------------>
-                <!------------------두번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디1</span>
-                    </a>
-
-                </li>
-                <!------------------두번째 탭 종료------------------>
-                <!------------------세번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디2</span>
-                    </a>
-                </li>
-                <!------------------세번째 탭 종료------------------>
-                <!------------------네번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디3</span>
-                    </a>
-                </li>
-                <!------------------네번째 탭 종료------------------>
-                <!------------------다섯번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디4</span>
-                    </a>
-                </li>
-                <!------------------다섯번째 탭 종료------------------>
-                <!------------------여섯번째 탭 시작------------------>
-                <li class="menu-item menu-item-submenu menu-item-rel" data-menu-toggle="click" aria-haspopup="true">
-                    <a href="https://trello.com/b/vb3ivabk/3355" class="menu-link">
-                        <span class="menu-text">스터디5</span>
-                    </a>
-                </li>
-                <!------------------여섯번째 탭 종료------------------>
-
+            
+            
+            
             </ul>
             <!--end::Header Nav-->
         </div>
@@ -107,3 +82,4 @@
     </div>
 </div>
 <!------------------메인 메뉴 종료------------------>
+

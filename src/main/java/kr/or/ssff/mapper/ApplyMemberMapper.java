@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberVO;
 
 
@@ -15,6 +16,8 @@ import kr.or.ssff.member.domain.MemberVO;
 
 public interface ApplyMemberMapper {
 
+
+	public abstract  ApplyMemberVO selectTempApplyMember();
 
 	//-------------- 신지혜 스터디 참여멤버 관리 ---------------//
 	// 특정 스터디의 멤버 조회 : 신지혜
@@ -33,6 +36,6 @@ public interface ApplyMemberMapper {
 	// 스터디 참여여부확인 : 신지혜
 	public abstract String selectApplyMember(HashMap<String, Object> aMember);
 
-
-	
+	// 참여회원정보 조회
+  ApplyMemberVO selectApplyMemberStatus(HashMap<String, Object> aMember);
 } // end interface

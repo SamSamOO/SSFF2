@@ -1,38 +1,50 @@
 package kr.or.ssff.member.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
+import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.service.KaKaoService;
+import kr.or.ssff.member.service.MemberService;
+import kr.or.ssff.study.domain.RecruitBoardVO;
+import kr.or.ssff.studyIns.model.Criteria;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
+
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.or.ssff.member.domain.MemberDTO;
 
+
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import org.springframework.web.bind.annotation.*;
-
-import kr.or.ssff.member.service.MemberService;
-import lombok.NoArgsConstructor;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.IOException;
+import java.util.Random;
+import java.util.HashMap;
+import java.util.List;
 
 /*
 
@@ -109,7 +121,7 @@ public class MemberController {
         }//catch
 
 
-        return "redirect:/member/registerWait";
+        return "/member/registerWait";
     } // memberJoin
 
 
@@ -173,7 +185,6 @@ public class MemberController {
         mav.setViewName("member/login");
         String referer = request.getHeader("Referer");
         mav.addObject("referer", referer);
-        
         // 카카오 로그인
         mav.addObject("kakao_url", kakaoUrl);
 
@@ -224,7 +235,7 @@ public class MemberController {
 
     }
 
-    @RequestMapping(value= "/login", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value= "/login.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String memberLogin(@RequestParam("referer") String referer,
             MemberDTO memberDTO,
             HttpServletRequest request,
@@ -273,13 +284,12 @@ public class MemberController {
 
             } // memberLogin
         }
-        log.debug("시발");
-        return "redirect:/member/main";
+        return "redirect:/member/myPage";
     }
 
 
 
-    @GetMapping("/registerWait")
+    @GetMapping("/registerWaitGo")
     public String registerWaitGo() {
         log.debug("registerWaitGo() is invoked");
 
@@ -294,10 +304,10 @@ public class MemberController {
         //로그아웃.
         @RequestMapping(value= "/logout", method = {RequestMethod.GET, RequestMethod.POST})
         public String memberLogout (HttpSession session){
-            log.debug("loginGo() is invoked");
+            log.debug("memberLogout() is invoked");
             session.invalidate();
 
-            return "/main";
+            return "/member/login";
         }
 
         /* 마이 페이지 이동
@@ -316,25 +326,31 @@ public class MemberController {
          * 파라메터 : nickname
          * 스터디 목록 페이지
          * */
-
-   @GetMapping("/studyList")
-        public String selectStudyList (String nickname){
-            log.debug("selectStudyList({}) is invoked", "nickname = " + nickname);
-
-            return "/member/studyList";
-        } // studyListGo
+// 21.12.02 @param memberName-> member_name으로 수정
+    @GetMapping("/studyList")
+    public String selectStudyList(String member_name, Criteria criteria, Model model){
+        log.info("selectStudyList({}) is invoked", "memberName = " + member_name + ", criteria = " + criteria + ", model = " + model);
 
 
-        /* 회원탈퇴기능을 수행합니다
-         * 파라메터 : String nickname
-         *탈퇴기능 수행 후 메인페이지
-         * */
-        @PostMapping("/withdrawal")
-        public String withdrawal (String nickname){
-            log.debug("withdrawal({}) is invoked", "nickname = " + nickname);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("member_name", member_name);
+        map.put("pageNum", criteria.getPageNum());
+        map.put("amount", criteria.getAmount());
 
-            return "redirect:/main";
-        } // withdrawal
+
+        log.info("map = {}", map);
+        List<RecruitBoardVO> myStudyList = this.service.getMyStudyList(map);
+
+        log.info("myStudyList = {}", myStudyList);
+
+        model.addAttribute("myStudyList", myStudyList);
+        model.addAttribute("map", map);
+
+        return "/member/studyList";
+    } // studyListGo
+
+
+
 
         /* 아이디/ 비밀번호 찾기 페이지 이동
          * 파라메터 : String nickname
@@ -353,12 +369,7 @@ public class MemberController {
 
         return "/member/modify";
     }
-//    @PostMapping("/uploadAjaxAction")
-//    public void uploadAjaxActionPOST(MultipartFile uploadFile){
-//        log.info("파일 이름 : " + uploadFile.getOriginalFilename());
-//        log.info("파일 타입 : " + uploadFile.getContentType());
-//        log.info("파일 크기 : " + uploadFile.getSize());
-//    }
+
 } // end class
 
 

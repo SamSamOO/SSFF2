@@ -70,20 +70,28 @@ public class CalendarController {
      * 작업중!*/
     @GetMapping("/getAll")
     public @ResponseBody JSONArray selectCalendarAll(String cal_id) throws ParseException{
-
+        log.info("selectCalendarAll({}) is invoked", "cal_id = " + cal_id);
+        
 //        String calendarData = this.service.getCalendarByCal_id(cal_id);
-        JSONArray jsonArrayTotal= new JSONArray();
-
+        JSONArray jsonArrayTotal = new JSONArray();
+        log.info("jsonArrayTotal = {}", jsonArrayTotal);
+        
         //처음 불러오는 경우 아이디를 cal_id 로 갖는 json data 최초 생성
         List<ApplyMemberDTO> applylist = this.service.getR_idxByMember_name(cal_id);
+        log.info("applylist = {}", applylist);
+        
         for(int i=0;i<applylist.size();i++) {
             String calendarEventsData = this.service.getCalendarByCal_id(
-                (applylist.get(i).getR_idx()) + "");
+                    (applylist.get(i).getR_idx()) + "");
+            log.info("calendarEventsData = {}", calendarEventsData);
+            
             if(calendarEventsData ==null){
                 continue;
             }
             JSONParser parser = new JSONParser();
+            log.info("parser = {}", parser);
             JSONArray jsonArray = (JSONArray) parser.parse(calendarEventsData);
+            log.info("jsonArray = {}", jsonArray);
             if (jsonArrayTotal.isEmpty()) {
                 jsonArrayTotal = jsonArray;
             } else {

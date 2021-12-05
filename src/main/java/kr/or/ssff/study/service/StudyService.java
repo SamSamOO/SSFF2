@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
-import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.study.domain.LangVO;
+import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.domain.ReplyCountVO;
@@ -107,9 +107,11 @@ public interface StudyService {
 
     //22. 가입했는지 체크
     public abstract List<ApplyMemberDTO> getMemberByR_idx(Integer r_idx);
-
     
-
+    public abstract ApplyMemberDTO getTeamName(Integer r_idx);
+    
+    public abstract Integer getAtd(HashMap<String, Object> map);
+    
 }
 
 

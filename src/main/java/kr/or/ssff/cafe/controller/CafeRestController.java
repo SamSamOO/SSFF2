@@ -2,10 +2,12 @@ package kr.or.ssff.cafe.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import kr.or.ssff.cafe.domain.CafeListVO;
 import kr.or.ssff.cafe.domain.CafeVO;
+import kr.or.ssff.cafe.domain.ReservationDTO;
 import kr.or.ssff.cafe.domain.RoomRsrvVO;
 import kr.or.ssff.cafe.domain.RsrvJoinTrnscVO;
 import kr.or.ssff.cafe.service.CafeService;
@@ -60,6 +62,47 @@ public class CafeRestController {
     return jsonObject;
   } // getManagerCafeList
 
+
+  /*
+   * 스터디 카페 비동기 insert
+   * 매니저 단에서 활용
+   * 매개변수: ajax로 전송받은 검색키워드
+   * 반환: 스터디 카페 리스트 정보를 담은 JSON객체
+   * */
+//  @RequestMapping(value= "/reserve/insert",
+//      method = RequestMethod.POST,
+//      produces = "application/json; charset=UTF-8")
+//  //없으면 AJAX 통신 안됨
+//  public  JSONObject insertReservation(
+//      @RequestBody HashMap<String, Object> filterJSON
+//  ) throws Exception {
+//    log.debug("insertReservation({}) is invoked", filterJSON);
+//    log.info("ajax 요청 도착!");
+//
+//
+//    ReservationDTO reservationDTO = new ReservationDTO();
+//
+//    reservationDTO.setMember_name((String) filterJSON.get("member_name"));
+//    reservationDTO.setRoom_idx((String) filterJSON.get("room_idx"));
+//    reservationDTO.setUse_date((Date) filterJSON.get("use_date"));
+//    reservationDTO.setUse_start_time((Integer) filterJSON.get("use_start_time"));
+//    reservationDTO.setUse_end_time((Integer) filterJSON.get("use_end_time"));
+//    reservationDTO.setRsrv_idx((String) filterJSON.get("rsrv_name"));
+//
+//    reservationDTO.setRsrv_phone_number((String) filterJSON.get("rsrv_phone_number"));
+//    reservationDTO.setRsrv_email((String) filterJSON.get("rsrv_email"));
+//    reservationDTO.setRsrv_amount((Integer) filterJSON.get("rsrv_amount"));
+//    reservationDTO.setRsrv_message((String) filterJSON.get("rsrv_message"));
+//
+//    log.info("reservationDTO({})!",reservationDTO );
+//
+//    JSONObject jsonObject = new JSONObject();
+//    if (service.registerReservation(reservationDTO)) {
+//      jsonObject.put("key", "true");
+//    } // insertReservation
+//
+//    return jsonObject;
+//  } // insertReservation
 
   /*
    * 스터디 카페 리스트를 비동기 조회
@@ -200,9 +243,7 @@ public class CafeRestController {
     log.debug("getReservationList({}) is invoked", searchKey);
     log.info("ajax 요청 도착!");
 
-//    searchKey = new HashMap<>();
-    String member_name = "";
-    // jReservationVO 모든 정보 담아내기 (중복정보 있는 상태)
+    // 예약 내역 가져오깅 `~
     List<RsrvJoinTrnscVO> list = this.service.getRsrvJoinTrnscList(searchKey);
 
     //최종 완성될 JSONObject 선언(전체)
@@ -211,7 +252,7 @@ public class CafeRestController {
     JSONArray arr = new JSONArray();
 
     jsonObject.put("reservationList", list);
-
+    log.info("list({}) is >>>>>>>>>", list);
     // log.info("jsonObject {} =", jsonObject);
 
     // 페이지 처리한 JSON객체를 요청온 AJAX 보내주기 (list단)

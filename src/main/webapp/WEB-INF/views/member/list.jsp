@@ -103,7 +103,7 @@
 		}
 
 		#pagination ul {
-			float: rigth;
+			float: right;
 		}
 
 		#pagination li {

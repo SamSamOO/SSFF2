@@ -3,8 +3,12 @@ package kr.or.ssff.member.service;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.member.domain.MemberDTO;
 import kr.or.ssff.member.domain.MemberVO;
+import kr.or.ssff.study.domain.RecruitBoardVO;
+
+import javax.servlet.http.HttpServletResponse;
 
 /*
 
@@ -42,7 +46,10 @@ public interface MemberService {
 
     //5. 목록조회 with paging
     public abstract List<String> getListPerPage();
-
+    
+    //6. 내 스터디 목록 조회~
+    List<RecruitBoardVO> getMyStudyList(HashMap<String, Object> map);
+    
 }// end interface
 
 

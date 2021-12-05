@@ -11,17 +11,15 @@
 <!----------------Head 시작----------------------->
 
 <head>
-      <title>스터디 내 게시판</title>
+      <title>스터디 채팅방</title>
       <!--head.html Include-->
       <jsp:include page="/WEB-INF/commons/head.jsp"></jsp:include>
-      
-      
+
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.3.2/jquery-migrate.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
-      
-      
+
       <style>
             <%--        * {--%>
             <%--            margin: 0;--%>
@@ -48,7 +46,7 @@
       
 padding: 20px;
                   width            : 650px;
-                  height           : 500px;
+                  height           : 750px;
                   overflow         : auto;
             }
             
@@ -76,7 +74,6 @@ padding: 20px;
       
       
       </style>
-
 
 </head>
 <script type="text/javascript">
@@ -151,7 +148,7 @@ padding: 20px;
           
                console.log(typeof msg);
                msg.memberName = '${member.member_name}';
-               msg.userProfile = 'C:/Temp/upload/${member.member_profile}';
+               msg.userProfile = '${member.member_profile}';
                msg.sendTime = now2;
                console.log(data.data);
           
@@ -173,7 +170,7 @@ padding: 20px;
                                    type: 'warning',
                                    buttonsStyling: false,
                                    confirmButtonText: '확인',
-                                   confirmButtonClass: 'btn btn-primary font-weight-bold'
+                                   confirmButtonClass: 'btn btn-primary font-weight-bolder'
                               });
                          } else if (d.sessionId == $("#sessionId").val()) {
                               // $("#chating").
@@ -183,14 +180,14 @@ padding: 20px;
                               $(".messages").
                                    append("<div class='d-flex flex-column mb-5 align-items-start'><div class='d-flex align-items-center'><div class='symbol symbol-circle symbol-40 mr-3'><img alt='Pic' src='" +
                                         d.userProfile +
-                                        "'></div><div><a href='#' class='text-dark-75 text-hover-primary font-weight-bold font-size-h6'>나</a><span class='text-muted font-size-sm'>"+now2+"</span></div></div><div class='mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bold font-size-lg text-left max-w-400px'>"+d.msg+"</div></div></div>");
+                                        "'></div><div><a href='#' class='text-dark-75 text-hover-primary font-weight-bolder font-size-h6'>나</a><span class='text-muted font-size-sm'>"+now2+"</span></div></div><div class='mt-2 rounded p-5 bg-light-success text-dark-50 font-weight-bolder font-size-lg text-left max-w-400px'>"+d.msg+"</div></div></div>");
                          } else {
                               $('.messages').
-                                   append("<div class='d-flex flex-column mb-5 align-items-end'><div class='d-flex align-items-center'><div><span class='text-muted font-size-sm'>"+now2+"</span><a href='#' class='text-dark-75 text-hover-primary font-weight-bold font-size-h6'>" +
+                                   append("<div class='d-flex flex-column mb-5 align-items-end'><div class='d-flex align-items-center'><div><span class='text-muted font-size-sm'>"+now2+"</span><a href='#' class='text-dark-75 text-hover-primary font-weight-bolder font-size-h6'>" +
                                         d.userName +
                                         "</a></div><div class='symbol symbol-circle symbol-40 ml-3'><img alt='Pic' src='" +
                                         d.userProfile +
-                                        "'></div></div><div class='mt-2 rounded p-5 bg-warning text-dark-50 font-weight-bold font-size-lg text-left max-w-400px'>"+d.msg+"</div></div></div>");
+                                        "'></div></div><div class='mt-2 rounded p-5 bg-warning text-dark-50 font-weight-bolder font-size-lg text-left max-w-400px'>"+d.msg+"</div></div></div>");
                          
                               // $("#chating").
                               //      append("<p align='left' style='margin: 0;padding:0><img style='width: 50px;height: 50px;border-radius: 70%;overflow: hidden;'  src=" +
@@ -246,17 +243,17 @@ padding: 20px;
 <body id="kt_body" class="header-fixed subheader-enabled page-loading">
 <!----------------메인 시작----------------------->
 <input hidden id="userName" name="userName" value="${member.member_name}"/>
-<img src="<spring:url value='/image/${member.member_profile}'/>" hidden id="userProfile"/>
+<img src="<spring:url value='${member.member_profile}'/>" hidden id="userProfile"/>
 <div class="d-flex flex-column flex-root">
       <!----------------페이지 시작----------------------->
       <div class="d-flex flex-row flex-column-fluid page">
             <!--begin::Wrapper-->
             <div class="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
                   <!------------------header.html Include------------------>
-                  <jsp:include page="/WEB-INF/commons/header.jsp"/>
+<%--                  <jsp:include page="/WEB-INF/commons/header.jsp"/>--%>
                   <!------------------Header Wrapper : 메뉴 탭 시작------------------>
                   <!--menu.html Include-->
-                  <jsp:include page="/WEB-INF/commons/menu_main.jsp"/>
+<%--                  <jsp:include page="/WEB-INF/commons/menu_main.jsp"/>--%>
                   <!------------------Header Wrapper : 메뉴 탭 종료------------------>
                   <!--컨테이너 시작-->
                   <div class="d-flex flex-row flex-column-fluid container">
@@ -306,7 +303,7 @@ padding: 20px;
                                                                          placeholder="보내실 메시지를 입력하세요....................................">
                                                             </th>
                                                             <th>
-                                                                  <button onclick="send()" id="sendBtn" class="btn btn-light-success font-weight-bold mr-2">보내기</button>
+                                                                  <button onclick="send()" id="sendBtn" class="btn btn-light-success font-weight-bolder mr-2">보내기</button>
                                                             </th>
                                                       </tr>
                                                 </table>
