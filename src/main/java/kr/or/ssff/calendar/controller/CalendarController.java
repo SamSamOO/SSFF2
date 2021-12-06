@@ -33,7 +33,7 @@ public class CalendarController {
 
     /*일정 생성페이지에서 가져온 정보를 DB에 입력합니다.
      *이때, 최초작성일 경우 insert , 추가작성일경우 update를 수행합니다.
-     * */
+     */
     @PostMapping("/add")
     public  @ResponseBody boolean insertCal(@RequestBody Map<String, String> jsonData) {
         log.info("insertCal({}) is invoked", jsonData);
@@ -51,7 +51,7 @@ public class CalendarController {
     }//insertCal
 
     /*cal_id에 해당하는 일정 정보를 던져줍니다.
-     * */
+     */
     @GetMapping("/get")
     public @ResponseBody
     JSONArray selectCalendar(String cal_id) throws ParseException {
@@ -67,12 +67,11 @@ public class CalendarController {
     }//selectCalendar
 
     /*마이페이지에서 세션 이름으로 내가 속한 스터디의 일정 전부 뿌려줍니다
-     * 작업중!*/
+     */
     @GetMapping("/getAll")
     public @ResponseBody JSONArray selectCalendarAll(String cal_id) throws ParseException{
         log.info("selectCalendarAll({}) is invoked", "cal_id = " + cal_id);
-        
-//        String calendarData = this.service.getCalendarByCal_id(cal_id);
+
         JSONArray jsonArrayTotal = new JSONArray();
         log.info("jsonArrayTotal = {}", jsonArrayTotal);
         
@@ -101,7 +100,7 @@ public class CalendarController {
             }
         }
         return jsonArrayTotal;
-    }
+    }//selectCalendarAll
 } //end class
 
 

@@ -17,4 +17,4 @@ public class StudyCriteria {
         this.pagePerBlock=3;
         this.currentBlock=1;
     }
-}
+}//end class

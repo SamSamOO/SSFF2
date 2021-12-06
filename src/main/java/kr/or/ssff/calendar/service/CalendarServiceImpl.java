@@ -20,39 +20,27 @@ public class CalendarServiceImpl implements CalendarService {
         String type = "study";
         Integer result = this.mapper.insert(cal_id,calendarData,type);
         return result==1;
-    }
-
-    @Override
-    public boolean registerNameType(String cal_id, String calendarData) {
-        String type = "member";
-        Integer result = this.mapper.insert(cal_id,calendarData,type);
-        return result==1;
-    }
+    }//register
 
     @Override
     public boolean modify(String cal_id, String calendarData) {
         Integer result = this.mapper.update(cal_id,calendarData);
         return result==1;
-    }
-
-    @Override
-    public boolean remove(String str) {
-        return false;
-    }
+    }//modify
 
     @Override
     public String getCalendarByCal_id(String cal_id) {
         String calendarData = this.mapper.getCalendarByCal_id(cal_id);
         System.out.println(calendarData);
         return calendarData;
-    }
+    }//getCalendarByCal_id
+
     @Override
     public List<ApplyMemberDTO> getR_idxByMember_name(String cal_id) {
-
         List<ApplyMemberDTO> applyList = this.mapper.getR_idxByMember_name(cal_id);
-
         return applyList;
-    }
+    }//getR_idxByMember_name
+
 }//end-class
 
 

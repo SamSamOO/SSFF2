@@ -5,10 +5,10 @@ import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
 import org.apache.ibatis.annotations.Param;
 
 public interface CalendarMapper {
-    //글등록하기
+    //일정 등록하기
     public abstract Integer insert(@Param("cal_id")String cal_id, @Param("cal_events")String calendarData,@Param("type")String type);
 
-    //글수정하기
+    //일정 수정하기
     public abstract Integer update(@Param("cal_id")String cal_id, @Param("cal_events")String calendarData);
 
     //cal_id 로 json 데이터 가져오기
