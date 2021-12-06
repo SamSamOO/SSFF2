@@ -24,26 +24,26 @@ import org.springframework.web.bind.annotation.RestController;
 @NoArgsConstructor
 @RestController
 public class StudyRestController {
+
     @Autowired
     public StudyService service;
     public String jsonData;
 
-
+    /*---------------------------------------------------------------*/
+    //비동기 댓글 컨트롤러
+    //작업자 : 제예솔
+    /*---------------------------------------------------------------*/
     @RequestMapping(value="/comment/get",method = RequestMethod.POST)
     public @ResponseBody
     List<ReplyVO> getComment(@RequestBody Map<String, Integer> jsonData) {
         log.debug("getComment({}) invoked.", jsonData);
-
 
         List<ReplyVO> list = this.service.getReplyList(jsonData.get("r_idx"));
 
         return list;
     } // getComment
 
-
     /*댓글 작성 기능 수행
-     * 파라메터 :
-     * 반환 : //TODO --예솔
      * */
     @PostMapping("/comment/post")
     public @ResponseBody boolean insertComment(@RequestBody Map<String, String> jsonData) {
@@ -56,15 +56,12 @@ public class StudyRestController {
             jsonData.get("c_cont"),
             null,null
         );
-
         boolean result = this.service.replyRegister(vo);
-
         return true;
-    }
+
+    }//insertComment
 
     /*댓글 수정 기능 수행
-     * 파라메터 :
-     * 반환 : //TODO --예솔
      * */
     @PostMapping("/comment/modify")
     public @ResponseBody boolean updateComment(@RequestBody Map<String, String> jsonData) {
@@ -76,19 +73,23 @@ public class StudyRestController {
     }//updateComment
 
     /*댓글삭제 기능 수행
-     *파라메터 :
-     * 반환 :
-     * //TODO --예솔
      * */
     @PostMapping("/comment/remove")
     public @ResponseBody boolean deleteComment(@RequestBody Map<String, Integer> jsonData) {
         log.info("deleteComment({}) is invoked",jsonData);
 
         boolean result = this.service.replyRemove(jsonData.get("no"));
-
         return true;
+
     }//deleteComment
 
+    /*---------------------------------------------------------------*/
+    //비동기 paging&sorting 컨트롤러
+    //작업자 : 제예솔
+    /*---------------------------------------------------------------*/
+    
+    /*챌린지 리스트 paging&sorting
+    * */
     @PostMapping("/challenge/list")
     public @ResponseBody Map<String, Object> getChallengeListByPageNum(@RequestBody Map<String, String> jsonData) {
         log.info("getChallengeListByPageNum({}) is invoked",jsonData);
@@ -129,7 +130,8 @@ public class StudyRestController {
         return data;
     }//getChallengeListByPageNum
 
-
+    /*프로젝트 리스트 paging&sorting
+     * */
     @PostMapping("/project/list")
     public @ResponseBody Map<String, Object> getProjectListByPageNum(@RequestBody Map<String, String> jsonData) {
         log.info("getProjectListByPageNum({}) is invoked",jsonData);
@@ -169,9 +171,13 @@ public class StudyRestController {
         data.put("boardList", listMap);
         data.put("boardTotal", boardTotal);
         return data;
+        
     }//getChallengeListByPageNum
 
-
+    /*---------------------------------------------------------------*/
+    //스터디 출석 컨트롤러
+    //작업자 : 박상준
+    /*---------------------------------------------------------------*/
 
     /* 스터디 메인에서 출석버튼 클릭시 >> swal 확인 >> 출석됩니다 >> 출석하지 않는 경우 뭐 본인이 불이익이기에.. 별도로 처리하지 않는 걸로 하는 것이 옳다고 생각합니다
     >> 출석일자의 +1 만 해주면 됩니다. /studyRest/updateAttendance

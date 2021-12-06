@@ -5,17 +5,19 @@ import java.util.List;
 import java.util.Map;
 import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
 import kr.or.ssff.study.domain.LangVO;
-import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
 
-/*
+/**************************************/
+//study service
+//작업자 : 제예솔
+//협업의 경우, 함수 옆에 작업자 이름 별도 기재
+/**************************************/
 
- */
 public interface StudyService {
-    // 1. 새로운 게시물 등록 - 정상동작중!
+    // 1. 새로운 게시물 등록
     public abstract boolean register(RecruitBoardVO vo);
 
     // 2. 기존 게시글 수정
@@ -47,9 +49,6 @@ public interface StudyService {
 
     //5-4 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외
     public abstract List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(String type, Integer page);
-
-    //5. 목록조회 with paging
-    public abstract List<RecruitBoardVO> getListPerPage();
 
     //6. 게시글 총개수 구하기
     public abstract Integer getTotal(String type);
@@ -102,17 +101,19 @@ public interface StudyService {
     //19. 게시물번호에 해당하는 댓글 수 가져오기
     public abstract Integer getReplyCountByR_idx(Integer r_idx);
 
-    //21. 출석테이블에 언제 출석한지 기록하는 함수입니다.--상준
+    //20. 출석테이블에 언제 출석한지 기록하는 함수--박상준
     public abstract boolean updateAttendance(HashMap<String, Object> map);
 
-    //22. 가입했는지 체크
+    //21. 가입했는지 체크
     public abstract List<ApplyMemberDTO> getMemberByR_idx(Integer r_idx);
-    
+
+    //22. 스터디 번호로 팀네임 가져오기--박상준
     public abstract ApplyMemberDTO getTeamName(Integer r_idx);
-    
+
+    //23. atd 반환--박상준
     public abstract Integer getAtd(HashMap<String, Object> map);
     
-}
+}//end interface
 
 
 
