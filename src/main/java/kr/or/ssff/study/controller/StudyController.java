@@ -7,11 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
-import kr.or.ssff.applyMember.domain.ApplyMemberListVO;
 import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.applyMember.service.ApplyMemberService;
-import kr.or.ssff.member.domain.MemberDTO;
-import kr.or.ssff.member.domain.MemberVO;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
@@ -23,15 +20,11 @@ import kr.or.ssff.studyIns.service.StudyInsService;
 import lombok.NoArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/*
-
- */
 @RequestMapping("/study")
 @Log4j2
 
@@ -43,103 +36,62 @@ public class StudyController {
   private StudyService service;
   @Autowired
   private StudyInsService serviceOfStudyIns;
-
   @Autowired
   private ApplyMemberService applyMemberService;
-
-
-  private String jsonData;
-
-
+  
+  /*---------------------------------------------------------------*/
+  //챌린지형 스터디 컨트롤러
+  //작업자 : 제예솔
+  /*---------------------------------------------------------------*/
+  
   /*챌린지형 스터디 리스트 조회
-   * 파라메터 :
-   * 반환 : 챌린지형 스터디 리스트 페이지
-   * ToDo 매핑 O , DB O , paging X
+   * 반환 : 챌린지형 스터디 리스트 페이지 주소
    * */
   @GetMapping("/challenge/list") //첫화면 기준으로 세팅
   public String selectChallengeListGo(Model model) {
     log.info("challengeListGo({}) is invoked.", model);
-
-    //1. 해당 페이지에 속하는 데이터만 뿌리기(비동기 작업중으로 막아놓음)
-    //List<RecruitBoardJoinReplyVO> list= this.service.getListWithJoinReply("C",page);
-
-    //2. 페이징에 관한 설정
-    //2-1. 게시물 갯수 세기
-    Integer totalCount = this.service.getTotal("C");
-
-    //Criteria 생성
-    StudyCriteria sc = new StudyCriteria();
-
-    //Criteria 채우기(x7)
-    sc.setTotalPost(totalCount);
-    //postPerPage=15
-    sc.setTotalPage((int) Math.ceil(sc.getTotalPost() / 15.0));
-    sc.setCurrentPage(1);
-    //pagePerBlock=3
-    sc.setCurrentBlock(1);
-    sc.setTotalBlock(
-        (int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
-
-    //sc.setCurrentBlock(1) 에 대한 추가 설정
-    if (sc.getCurrentPage() > sc.getPagePerBlock()) {
-      for (int i = 1; i <= sc.getTotalBlock(); i++) {
-        if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1
-            && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)) {
-          sc.setCurrentBlock(i + 1);
-          i = sc.getTotalBlock() + 1;
-        }
-      }
-    }
-
-    //모델에다 전달해주기
-    model.addAttribute("studyCriteria", sc);//비동기 처리로 쓸모없음
-
     return "study/challenge/list";
+
   } //  selectChallengeListGo
 
-
-  /*챌린지형 스터디 게시물 상세 +
-   * 파라메터 :
+  /*챌린지형 스터디 게시물 상세 
+   * 파라메터 : 게시물 번호
    * 반환 : 챌린지형 스터디 게시물 상세보기 페이지
    * */
   @GetMapping("/challenge/detail")
   public void selectChallengeDetailGo(Integer r_idx, Model model) {
     log.info("challengeDetailGo() is invoked");
 
-    RecruitBoardVO board = this.service.get(r_idx);
-
-    Integer replyCount = this.service.getReplyCountByR_idx(r_idx);
-
-    List<ApplyMemberDTO> applylist = this.service.getMemberByR_idx(r_idx);
-
+    RecruitBoardVO board = this.service.get(r_idx);//게시글내 정보
+    Integer replyCount = this.service.getReplyCountByR_idx(r_idx);//게시글 댓글수 정보
+    List<ApplyMemberDTO> applylist = this.service.getMemberByR_idx(r_idx);//해당 게시물의 지원자 여부를 가져가는 로직
+    
     if (replyCount == null) {
       model.addAttribute("replyCount", 0);
     } else {
       model.addAttribute("replyCount", replyCount);
-    }
+    }//댓글 수를 함께 가져가는 로직
+    
     model.addAttribute("board", board);
     model.addAttribute("applylist", applylist);
+
   } // selectChallengeDetailGo
 
 
   /*챌린지형 게시글 등록 페이지로 이동합니다
-   * 파라메터 :
    * 반환 : 챌린지형 스터디 게시글 등록 페이지
-   * //ToDo 완성
    * */
   @GetMapping("/challenge/postGo")
   public String insertChallengeDetailGo() {
-
     log.info("insertChallengeDetailGo() is invoked");
 
     return "study/challenge/post";
+
   } // insertChallengeDetailGo
 
 
   /*챌린지형 게시글 등록 기능을 수행합니다
-   * 파라메터 :
    * 반환 : 등록한 게시글 페이지로 이동합니다
-   * //ToDo 글등록 가능하며 로그인 연동이 필요합니다.
    * */
   @PostMapping("/challenge/post")
   public String insertChallengeDetail(RecruitBoardDTO dto, RedirectAttributes rttrs) {
@@ -160,34 +112,28 @@ public class StudyController {
             null, null, null
         );
 
-    boolean result = this.service.register(vo);
-    //방금쓴 게시물 댓글번호 가져오기
-    //Integer currentR_idx = this.service.getCurrentR_idx();
-    //스터디번호와 닉네임을 넣어서 applymember 테이블 데이터 추가하기(지혜 로직 나오는대로)
-    //boolean result2 = this.service.registerApply(currentR_idx, "nickname55");
+    boolean result = this.service.register(vo);//게시글 등록
 
     return "redirect:/study/challenge/list";
+
   } // insertChallengeDetail
 
 
   /*챌린지형 게시글 수정 페이지로 이동합니다.
-   * 파라메터 :
    * 반환 : 챌린지형 게시글 수정 페이지.
    * */
   @GetMapping("/challenge/modifyGo")
   public void updateChallengeDetailGo(Integer r_idx, Model model) {
-
     log.info("updateChallengeDetailGo() is invoked");
-    RecruitBoardVO board = this.service.get(r_idx);
+    
+    RecruitBoardVO board = this.service.get(r_idx);//기존 게시글 정보
     model.addAttribute("board", board);
 
-  }
+  }//updateChallengeDetailGo
 
 
   /*챌린지형 게시글 수정 기능을 수행합니다.
-   * 파라메터 :
    * 반환 : 수정한 게시글 페이지로 이동합니다.
-   * //TODO 파라미터??
    * */
   @PostMapping("/challenge/modify")
   public String updateChallengeDetail(RecruitBoardDTO dto, RedirectAttributes rttrs) {
@@ -210,6 +156,7 @@ public class StudyController {
     boolean result = this.service.modify(vo);
     rttrs.addAttribute("result", result);
     return "redirect:/study/challenge/list";
+
   } // updateChallengeDetail
 
 
@@ -223,62 +170,30 @@ public class StudyController {
     boolean result = this.service.remove(r_idx);
 
     return "redirect:/study/challenge/list";
+
   } // deleteChallengeDetail
 
 
 
   /*---------------------------------------------------------------*/
-  /*----------------------------프로젝트형-------------------------*/
+  //프로젝트형 스터디 컨트롤러
+  //작업자 : 제예솔
   /*---------------------------------------------------------------*/
 
   /*프로젝트형 스터디 리스트 조회
-   * 파라메터 :
-   * 반환 : 프로젝트형 스터디 리스트 페이지
-   * */
-  /*프로젝트형 스터디 리스트 조회
-   * 파라메터 :
    * 반환 : 프로젝트형 스터디 리스트 페이지
    * */
   @GetMapping("/project/list")
   public String selectProjectListGo(Model model) {
     log.info("selectProjectListGo() is invoked");
 
-    //2. 페이징에 관한 설정
-    //2-1. 게시물 갯수 세기
-    Integer totalCount = this.service.getTotal("P");
-    //Criteria 생성
-    StudyCriteria sc = new StudyCriteria();
-    //Criteria 채우기(x7)
-    sc.setTotalPost(totalCount);
-    //postPerPage=15
-    sc.setTotalPage((int) Math.ceil(sc.getTotalPost() / 15.0));
-    sc.setCurrentPage(1);
-    //pagePerBlock=3
-    sc.setCurrentBlock(1);
-    sc.setTotalBlock(
-        (int) Math.ceil((double) (sc.getTotalPage()) / (double) (sc.getPagePerBlock())));
-
-    //sc.setCurrentBlock(1) 에 대한 추가 설정
-    if (sc.getCurrentPage() > sc.getPagePerBlock()) {
-      for (int i = 1; i <= sc.getTotalBlock(); i++) {
-        if (sc.getCurrentPage() >= i * sc.getPagePerBlock() + 1
-            && sc.getCurrentPage() <= sc.getPagePerBlock() * (i + 1)) {
-          sc.setCurrentBlock(i + 1);
-          i = sc.getTotalBlock() + 1;
-        }
-      }
-    }
-
-    //model.addAttribute("list", listMap);
-    model.addAttribute("studyCriteria", sc);//비동기 처리로 쓸모없음
-
     return "study/project/list";
 
   } // selectProjectListGo
 
 
-  /*프로젝트형 스터디 게시물 상세 +
-   * 파라메터 :
+  /*프로젝트형 스터디 게시물 상세
+   * 파라메터 : 게시글 번호
    * 반환 : 프로젝트형 스터디 게시물 상세보기 페이지
    * */
   @GetMapping("/project/detail")
@@ -295,28 +210,28 @@ public class StudyController {
     } else {
       model.addAttribute("replyCount", replyCount);
     }
+    
     model.addAttribute("applylist", applylist);
     model.addAttribute("board", board);
     model.addAttribute("langList", langList);
+
   } // selectProjectDetailGo
 
 
-  /*프로젝트형 게시글 등록 페이지로 이동합니다
+  /*프로젝트형 게시글 등록 페이지로 이동
    * 파라메터 :
    * 반환 : 프로젝트형 스터디 게시글 등록 페이지
    * */
   @GetMapping("/project/postGo")
   public String insertProjectDetailGo() {
-
     log.info("insertProjectDetailGo() is invoked");
 
     return "study/project/post";
+
   } // insertProjectDetailGo
 
-  /*프로젝트형 게시글 등록 기능을 수행합니다
-   * 파라메터 :
-   * 반환 : 등록한 게시글 페이지로 이동합니다
-   * //TODO 해당 작성한 게시글의 게시물번호를 파라메터로 전송해야합니다.
+  /*프로젝트형 게시글 등록 기능을 수행
+   * 반환 : 등록한 게시글 페이지로 이동
    * */
   @PostMapping("/project/post")
   public String insertProjectDetail(RecruitBoardDTO dto, RedirectAttributes rttrs,
@@ -350,11 +265,12 @@ public class StudyController {
     }
 
     return "redirect:/study/project/list";
+
   } // insertProjectDetail
 
 
   /*프로젝트형 게시글 수정 페이지로 이동합니다.
-   * 파라메터 :
+   * 파라메터 : 게시글 번호
    * 반환 : 프로젝트형 게시글 수정 페이지.
    * */
   @GetMapping("/project/modifyGo")
@@ -366,12 +282,11 @@ public class StudyController {
 
     model.addAttribute("langList", langList);
     model.addAttribute("board", board);
+
   } // updateProjectDetailGo
 
   /*프로젝트형 게시글 수정 기능을 수행합니다.
-   * 파라메터 :
    * 반환 : 수정한 게시글 페이지로 이동합니다.
-   * //TODO 파라미터??
    * */
   @PostMapping("/project/modify")
   public String updateProjectDetail(RecruitBoardDTO dto, RedirectAttributes rttrs,
@@ -403,11 +318,12 @@ public class StudyController {
     }
 
     return "redirect:/study/project/list";
+
   } // updateProjectDetail
 
 
   /*프로젝트형 게시글을 삭제합니다
-   * 파라메터 :
+   * 파라메터 : 게시글 번호
    * 반환 : 챌린지형 리스트 페이지
    * */
   @GetMapping("/project/remove")
@@ -416,12 +332,15 @@ public class StudyController {
     boolean result = this.service.remove(r_idx);
 
     return "redirect:/study/challenge/list";
+
   } // removeProjectDetail
 
-  /*프로젝트형 게시글 수정 페이지로 이동합니다.
-   * 파라메터 :
-   * 반환 : 프로젝트형 게시글 수정 페이지.
-   * */
+  /*---------------------------------------------------------------*/
+  //프로젝트 &챌린지형 스터디 메인페이지 컨트롤러
+  //작업자 : 박상준, 신지혜
+  /*---------------------------------------------------------------*/
+  
+  /*프로젝트 스터디 메인페이지*/
   @GetMapping("/project/main") //아이디와 게시글
   public String projectMainGo(@RequestParam(value = "r_Idx") Integer r_Idx, Criteria criteria,
       Model model) throws Exception {
@@ -452,13 +371,8 @@ public class StudyController {
     return "study/project/main";
   } // updateProjectDetailGo
 
-  /*---------------------------------------------------------------*/
-  /*-----------------------------챌린지형--------------------------*/
-  /*---------------------------------------------------------------*/
-  /*챌린지형 메인으로 이동
-   * 파라메터 :
-   * 반환 : 챌린지형 스터디 메인 페이지
-   * */
+
+  /*챌린지 스터디 메인페이지*/
   @GetMapping("/challenge/main")
   public String challengeMainGo(@RequestParam("r_Idx") Integer r_Idx,
       @RequestParam("member_name") String member_name,
@@ -512,7 +426,7 @@ public class StudyController {
     model.addAttribute("rList", recruitBoardVO);
 
     return "/study/challenge/main";
-  }
+  }//challengeMainGo
 
 } // end class
 

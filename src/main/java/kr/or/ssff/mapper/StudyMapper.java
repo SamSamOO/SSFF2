@@ -1,22 +1,15 @@
 package kr.or.ssff.mapper;
 
-import kr.or.ssff.study.domain.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
-import kr.or.ssff.applyMember.domain.ApplyMemberVO;
 import kr.or.ssff.study.domain.LangVO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.domain.ReplyCountVO;
 import kr.or.ssff.study.domain.ReplyVO;
-import org.apache.ibatis.annotations.Lang;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.security.access.prepost.PreAuthorize;
 
-import java.util.HashMap;
-import java.util.List;
 
 public interface StudyMapper{
     //글등록하기
@@ -102,10 +95,7 @@ public interface StudyMapper{
     
     //글번호에 해당하는 댓글 수 구하기
     public abstract Integer replyCountByR_idx(@Param("r_idx") Integer r_idx);
-    
-    //logoset을 쓰는 게시글 번호들을 받아오기
-    //public abstract ArrayList<Integer> getR_idxListUsingLogoset(@Param("arr")String[] arr);
-    
+
     //출석 테이블에 언제 출석한지 기록하는 함수 입니다 : 박상준
     public abstract Integer updateAttendance(@Param("map") HashMap<String, Object> map);
     
@@ -114,13 +104,15 @@ public interface StudyMapper{
     
     //이미 출석한 경우 막아야합니다  : r_Idx와 member_name 활용 : 박상준
     public abstract Integer attendanceOkOneByOne(@Param("map") HashMap<String, Object> map);
+
     //가입했는지 체크
     public abstract List<ApplyMemberDTO> getMemberByR_idx(@Param("r_idx")Integer r_idx);
 
     // 스터디 id로 스터디 하나의 정보를 온전히 조회
     public abstract ApplyMemberDTO getTeamName(@Param("r_Idx") Integer r_idx);
-    
+
+    //atd 반환 : 박상준
     public abstract Integer getAtd(@Param("map") HashMap<String, Object> map);
     
-}
+}//end interface
 

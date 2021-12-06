@@ -10,7 +10,6 @@ import kr.or.ssff.applyMember.domain.ApplyMemberDTO;
 import kr.or.ssff.mapper.ApplyMemberMapper;
 import kr.or.ssff.mapper.StudyMapper;
 import kr.or.ssff.study.domain.LangVO;
-import kr.or.ssff.study.domain.RecruitBoardDTO;
 import kr.or.ssff.study.domain.RecruitBoardJoinReplyVO;
 import kr.or.ssff.study.domain.RecruitBoardVO;
 import kr.or.ssff.study.domain.ReplyCountVO;
@@ -29,15 +28,9 @@ public class StudyServiceImpl implements StudyService {
 
     private StudyMapper mapper;
     private ApplyMemberMapper applyMemberMapper;
-    
-    @Override
-    public Integer getAtd(HashMap<String, Object> map){
-        log.info("getAtd({}) is invoked", "map = " + map);
-    
-        Objects.requireNonNull(mapper);
-        return mapper.getAtd(map);
-    }
 
+
+    // 1. 새로운 게시물 등록
     @Transactional // 21.12.01 지혜 추가 : 개설자 글 insert시 a_mem insert
     @Override
     public boolean register(RecruitBoardVO vo) {
@@ -58,6 +51,7 @@ public class StudyServiceImpl implements StudyService {
         return (affectedRows == 1 && num ==1);
     }//register
 
+    // 2. 기존 게시글 수정
     @Override
     public boolean modify(RecruitBoardVO vo) {
         int affectedRows = mapper.update(vo);
@@ -65,12 +59,14 @@ public class StudyServiceImpl implements StudyService {
         return affectedRows == 1;
     }//modify
 
+    // 3. 기존 게시글 삭제
     @Override
     public boolean remove(Integer r_idx) {
         int affectedRows = mapper.delete(r_idx);
         return affectedRows == 1;
     }//remove
 
+    // 4. 특정 게시글 상세조회 + 조회수 1업
     @Override
     public RecruitBoardVO get(Integer r_idx) {
         Integer hitup = this.mapper.hitUp(r_idx);
@@ -80,6 +76,7 @@ public class StudyServiceImpl implements StudyService {
 
     }; //get
 
+    // 5. 전체 목록 조회 (쓰지 않음)
     @Override
     public List<RecruitBoardVO> getList(String type,Integer page) {
 
@@ -88,18 +85,21 @@ public class StudyServiceImpl implements StudyService {
         return allBoard;
     }//getList(글 전체반환)
 
+    //5-1 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음
     @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReply(String type, Integer page) {
         List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReply(type,page);
         return allBoard;
     }//getListWithJoinReply
 
+    //5-1-1(챌린지) 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 검색기능
     @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddSearch(String type, Integer page,String text) {
         List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyAddSearch(type,page,text);
         return allBoard;
     }//getListWithJoinReplyAddSearch
 
+    //5-1-2.(프로젝트) 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외없음 + 로고조회기능
     @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReplyAddLogo(String type, Integer page,
         String text) {
@@ -108,12 +108,14 @@ public class StudyServiceImpl implements StudyService {
         return allBoard;
     }//getListWithJoinReplyAddLogo
 
+    //5-2 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외없음
     @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHit(String type, Integer page) {
         List<RecruitBoardJoinReplyVO> allBoard = this.mapper.getListWithJoinReplyOrderByHit(type,page);
         return allBoard;
     }//getListWithJoinReplyOrderByHit
 
+    //5-3 글목록 페이징 + 댓글 조인 + 최신순 + 마감제외
     @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReplyExceptClosed(String type,
         Integer page) {
@@ -121,6 +123,7 @@ public class StudyServiceImpl implements StudyService {
         return allBoard;
     }//getListWithJoinReplyExceptClosed
 
+    //5-4 글목록 페이징 + 댓글 조인+ 인기순 + 마감제외
     @Override
     public List<RecruitBoardJoinReplyVO> getListWithJoinReplyOrderByHitExceptClosed(String type,
         Integer page) {
@@ -128,35 +131,36 @@ public class StudyServiceImpl implements StudyService {
         return allBoard;
     }//getListWithJoinReplyOrderByHitExceptClosed
 
-    @Override
-    public List<RecruitBoardVO> getListPerPage() {
-        return null;
-    }
-
+    //6. 게시글 총개수 구하기
     @Override
     public Integer getTotal(String type) {
         int totalCount = mapper.getPostCount(type);
         return totalCount;
     }//getTotal
 
+    //6-1. 게시글 총개수 구하기(마감 제외)
     @Override
     public Integer getTotalExceptClosed(String type) {
         int totalCount = mapper.getPostCountExceptClosed(type);
         return totalCount;
     }//getTotalExceptClosed
 
+    //6-1. 게시글 총개수 구하기(검색어필터)
     @Override
     public Integer getTotalAddSearch(String type, String searchText) {
         int totalCount = mapper.getPostCountAddSearch(type,searchText);
         return totalCount;
     }//getTotalAddSearch
 
-    @Override //작업중
+    //6-2. 게시글 총개수 구하기(로고선택필터)
+    @Override
     public Integer getTotalAddLogo(String type, String selectedLogoSet) {
         String[] arr = selectedLogoSet.split(",");
         int totalCount = mapper.getPostCountAddLogo(type,arr);
         return totalCount;
     }//getTotalAddLogo
+
+    //7. 태그 입력하기
     @Override
     public boolean registerLangTag(Integer r_idx,String tag) {
         int affectedRows = mapper.insertTag(r_idx,tag);
@@ -165,6 +169,7 @@ public class StudyServiceImpl implements StudyService {
 
     }//registerLangTag(프로젝트 - 언어태그 삽입)
 
+    //8. P에서 최근에 등록한 글 번호 가져오기
     @Override
     public Integer getCurrentR_idx() {
 
@@ -173,6 +178,7 @@ public class StudyServiceImpl implements StudyService {
         return currentR_idx;
     }//getCurrentR_idx(가장 마지막에 쓴 게시글 번호 가져오기(프로젝트))
 
+    //9. p에서 lang list 가져오기(전체)
     @Override
     public List<LangVO> getLangList() {
 
@@ -181,6 +187,7 @@ public class StudyServiceImpl implements StudyService {
         return langlist;
     }//getLangList lang list 전체 가져오기
 
+    //10. list에 억지로 언어태그 넣기
     @Override
     public List<Map<String, Object>> getRecruitBoardMap(List<RecruitBoardJoinReplyVO> list, List<LangVO> langList) {
         List<Map<String, Object>> rcBoardList = new ArrayList<Map<String, Object>>();
@@ -215,6 +222,7 @@ public class StudyServiceImpl implements StudyService {
         return rcBoardList;
     }//getRecruitBoardMap
 
+    //11. p에서 번호로 언어태그 가져오기
     @Override
     public List<LangVO> getLangTagByR_idx(Integer r_idx) {
         List<LangVO> langTagList = new ArrayList<LangVO>();
@@ -222,6 +230,7 @@ public class StudyServiceImpl implements StudyService {
         return langTagList;
     }//getLangTagByR_idx
 
+    //12. 방장이 글씀과 동시에 apply table 에 들어가기
     @Override
     public boolean registerApply(Integer r_idx, String member_name) {
         int affectedRows = mapper.insertApply(r_idx,member_name);
@@ -231,58 +240,56 @@ public class StudyServiceImpl implements StudyService {
         return affectedRows == 1;
     }//registerApply
 
+    //13. P에서 글수정시 새태그 등록을 위해 기존 태그 버리기
     @Override
     public boolean deleteTag(Integer r_idx) {
         int affectedRows = mapper.deleteTag(r_idx);
         return affectedRows !=0;
     }//deleteTag
 
+    //14. 댓글 달기
     @Override
     public boolean replyRegister(ReplyVO vo) {
         int affectedRows = mapper.insertReply(vo);
         return affectedRows == 1;
     }//replyPost
 
+    //15. 글번호로 댓글 다 가져오기
     @Override
     public List<ReplyVO> getReplyList(Integer r_idx) {
         List<ReplyVO> allBoard = this.mapper.getReplyList(r_idx);
         return allBoard;
     }//getReplyList
 
+    //16. 댓글 삭제하기
     @Override
     public boolean replyRemove(Integer no) {
         int affectedRows = mapper.replyDelete(no);
         return affectedRows == 1;
     }//replyRemove
 
+    //17. 댓글 수정하기
     @Override
     public boolean replyModify(Integer no, String c_cont) {
         int affectedRows = mapper.replyUpdate(no,c_cont);
         return affectedRows == 1;
     }//replyModify
 
+    //18. 댓글 개수 가져오기
     @Override
     public List<ReplyCountVO> getReplyCount() {
         List<ReplyCountVO> replyCount = mapper.replyCount();
         return replyCount;
     }//getReplyCount
 
+    //19. 게시물번호에 해당하는 댓글 수 가져오기
     @Override
     public Integer getReplyCountByR_idx(Integer r_idx) {
         Integer reply = mapper.replyCountByR_idx(r_idx);
         return reply;
     }//getReplyCountByR_idx
 
-    /*@Override(안되는 코드 일단 냅둘것)
-    public ArrayList<Integer> getR_idxListUsingLogoset(String selectedLogoSet) {
-        String str = selectedLogoSet;
-        String[] arr = str.split(",");
-
-        ArrayList<Integer> r_idxList = mapper.getR_idxListUsingLogoset(arr);
-
-        return r_idxList;
-    }*/
-
+    //20. 출석테이블에 언제 출석한지 기록하는 함수
     @Override
     public boolean updateAttendance(HashMap<String, Object> map) {
         log.info("updateAttendance({}) is invoked", "map = " + map);
@@ -309,6 +316,7 @@ public class StudyServiceImpl implements StudyService {
         return result==0?false:true;
     } // updateAttendance
 
+    //21. 가입했는지 체크
     @Override
     public List<ApplyMemberDTO> getMemberByR_idx(Integer r_idx) {
 
@@ -316,13 +324,22 @@ public class StudyServiceImpl implements StudyService {
 
         return applyList;
     }//getMemberByR_idx
-    
+
+    //22. 스터디 번호로 팀네임 가져오기
     @Override
     public ApplyMemberDTO getTeamName(Integer r_idx){
     
         return this.mapper.getTeamName(r_idx);
-    }
-    
+    }//getTeamName
+
+    //23. atd 반환
+    @Override
+    public Integer getAtd(HashMap<String, Object> map){
+        log.info("getAtd({}) is invoked", "map = " + map);
+
+        Objects.requireNonNull(mapper);
+        return mapper.getAtd(map);
+    }//getAtd
 }//end class
 
 
