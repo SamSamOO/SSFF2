@@ -67,7 +67,7 @@
 <br>
 <br>
 
-## 4. 구현 결과
+## 4. 구현 결과 
 
 >
 ![image](https://user-images.githubusercontent.com/60432062/125256323-4da07580-e337-11eb-8104-4b14bd5c0a8d.png)
