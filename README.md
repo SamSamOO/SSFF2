@@ -69,7 +69,7 @@
 
 ## 4. 구현 결과 
 
->
+>메인 페이지
 ![image](https://user-images.githubusercontent.com/60432062/125256323-4da07580-e337-11eb-8104-4b14bd5c0a8d.png)
 ![image](https://user-images.githubusercontent.com/60432062/125256505-76c10600-e337-11eb-9b11-f271a1a42c9c.png)
 <br>
