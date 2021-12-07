@@ -13,6 +13,7 @@
   Frontend: Bootstrap, Javascript<br>
 * 프로젝트 기간 : 2021. 10 ~ 진행중
 * 프로젝트 참여 인원 : 5인
+<hr>
 
 ## 1. 주요 기능
 
@@ -25,6 +26,7 @@
 - 스터디 검색 및 분류 기능
 - 스터디 카페 결제 및 예약 기능
 - 스터디 내부 채팅 기능
+<hr>
 
 ## 2. 요구되는 페이지
 
@@ -58,6 +60,7 @@
  <br>`(DB는 성능상의 문제로 구현하지 않았습니다)`
 
 <a href="https://ibb.co/M8qp6kY"><img src="https://i.ibb.co/7g7V4tw/3-er.png" alt="3-er" border="0"></a>
+<hr>
 
 ## 3. 필요한 데이터베이스 정보
 
@@ -66,8 +69,27 @@
 <a href="https://ibb.co/TvYPqD6"><img src="https://i.ibb.co/bWQNRjT/Kakao-Talk-20211205-033450699.png" alt="Kakao-Talk-20211205-033450699" border="0"></a>
 <br>
 <br>
+<hr>
 
 ## 4. 구현 결과 
 
 - 시연 영상 : <a href="https://drive.google.com/file/d/1T5jRf1lQ13_xyCjD2DP1XVRggUePxt4O/view">시연영상</a>
  ```1080p 화질을 권장합니다.```
+<br>
+
+<img src='https://user-images.githubusercontent.com/80584060/144974123-9fddc685-5f14-433e-96db-112839d8d0a6.gif' alt='' border='0'/>
+
+>**회원가입 (이메일 중복검증 - 닉네임 중복 검증 - 이메일 인증번호 발송)**
+
+
+<img src='https://user-images.githubusercontent.com/80584060/144974129-df2d788c-9ecc-4ead-91f1-12a61f619412.gif' alt='영상' border='0'/>
+
+>**로그인 및 챌린지 리스트 페이지**
+> <br>1. 챌린지 리스트 (카드형) <br>2. 언어 태그 , 최신순 인기순 정렬<br>3. 게시물 작성<br>4. 내가 작성한 글인 경우 수정/삭제 표시 및 타인 게시물인 경우 지원하기 버튼이 표시 >> 내가 이미 지원한 경우 ```지원완료```버튼이 SHOW
+> 
+> 
+<img src='https://user-images.githubusercontent.com/80584060/144974149-6446e2e7-ec21-4412-8d47-a97227cf4e63.gif' border='0' alt=""/>
+
+>**프로젝트 리스트 페이지**
+> <br>1. 프로젝트 리스트 (카드형) <br>2. 
+
