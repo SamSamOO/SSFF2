@@ -91,5 +91,7 @@
 <img src='https://user-images.githubusercontent.com/80584060/144974149-6446e2e7-ec21-4412-8d47-a97227cf4e63.gif' border='0' alt=""/>
 
 >**프로젝트 리스트 페이지**
-> <br>1. 프로젝트 리스트 (카드형) <br>2. 
+> <br>1. 프로젝트 리스트 (카드형) <br>2. 검색기능<br>3. 글 작성 및 수정 삭제<br>4. 댓글 비동기 작성, 수정, 삭제
+
+<img src='
 
