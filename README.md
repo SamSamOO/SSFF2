@@ -81,17 +81,38 @@
 
 >**회원가입 (이메일 중복검증 - 닉네임 중복 검증 - 이메일 인증번호 발송)**
 
+<hr>
 
 <img src='https://user-images.githubusercontent.com/80584060/144974129-df2d788c-9ecc-4ead-91f1-12a61f619412.gif' alt='영상' border='0'/>
 
 >**로그인 및 챌린지 리스트 페이지**
 > <br>1. 챌린지 리스트 (카드형) <br>2. 언어 태그 , 최신순 인기순 정렬<br>3. 게시물 작성<br>4. 내가 작성한 글인 경우 수정/삭제 표시 및 타인 게시물인 경우 지원하기 버튼이 표시 >> 내가 이미 지원한 경우 ```지원완료```버튼이 SHOW
->  
-> 
+
+<hr>
+
 <img src='https://user-images.githubusercontent.com/80584060/144974149-6446e2e7-ec21-4412-8d47-a97227cf4e63.gif' border='0' alt=""/>
 
 >**프로젝트 리스트 페이지**
 > <br>1. 프로젝트 리스트 (카드형) <br>2. 검색기능<br>3. 글 작성 및 수정 삭제<br>4. 댓글 비동기 작성, 수정, 삭제
 
-<img src='
+<hr>
+
+<img src='https://user-images.githubusercontent.com/80584060/144974106-6157db77-50dd-4264-8952-17c8b30f2a52.gif' alt='' border='0'/>
+
+>**스터디 내부 게시판 페이지**
+> <br>1. 목록형 게시글 리스트<br>2. 게시물 작성, 삭제<br>3. 파일 업로드
+
+<hr>
+
+<img src='https://user-images.githubusercontent.com/80584060/144974121-4de7cb1c-d92e-4b18-9815-01435f5b866d.gif' alt='' border='0'/><img src='https://user-images.githubusercontent.com/80584060/144974125-c7a76d86-f051-41f0-b47c-bf1b2ed22d25.gif' alt='' border='0'/>
+
+>**챌린지 메인 페이지**
+> <br>1. 챌린지 처음 접근시 결제창 표시 <br>2. 캘린더에 일정 추가, 수정, 삭제 <br>3. 출석하기( 하루에 한번 )<br>4. 게시판 미니 리스트<br>5. 출석랭킹 (미구현)
+
+<hr>
+
+<img src='https://user-images.githubusercontent.com/80584060/144974135-3aa11ef3-ebe2-4386-bcf2-d3c0455b4dd7.gif' alt='' border='0'/>
+
+>**마이 페이지**
+> <br>1. 예약리스트 출력 <br>2. 마이페이지 정보 출력 <br>3. 내가 가입한 스터디 일정 모두 표시 <br>4. 내가 가입한 스터디 목록 표시 <br>5. 내가 예약한 카페리스트 표시
 
