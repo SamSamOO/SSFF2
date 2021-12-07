@@ -11,8 +11,9 @@
   Database: Oracle cloud 19c <br>
   Backend: Java, Spring Framework<br>
   Frontend: Bootstrap, Javascript<br>
-* 프로젝트 기간 : 2021. 10 ~
+* 프로젝트 기간 : 2021. 10 ~ 진행중
 * 프로젝트 참여 인원 : 5인
+<hr>
 
 ## 1. 주요 기능
 
@@ -25,6 +26,7 @@
 - 스터디 검색 및 분류 기능
 - 스터디 카페 결제 및 예약 기능
 - 스터디 내부 채팅 기능
+<hr>
 
 ## 2. 요구되는 페이지
 
@@ -58,6 +60,7 @@
  <br>`(DB는 성능상의 문제로 구현하지 않았습니다)`
 
 <a href="https://ibb.co/M8qp6kY"><img src="https://i.ibb.co/7g7V4tw/3-er.png" alt="3-er" border="0"></a>
+<hr>
 
 ## 3. 필요한 데이터베이스 정보
 
@@ -66,68 +69,50 @@
 <a href="https://ibb.co/TvYPqD6"><img src="https://i.ibb.co/bWQNRjT/Kakao-Talk-20211205-033450699.png" alt="Kakao-Talk-20211205-033450699" border="0"></a>
 <br>
 <br>
+<hr>
 
-## 4. 구현 결과
+## 4. 구현 결과 
 
->
-![image](https://user-images.githubusercontent.com/60432062/125256323-4da07580-e337-11eb-8104-4b14bd5c0a8d.png)
-![image](https://user-images.githubusercontent.com/60432062/125256505-76c10600-e337-11eb-9b11-f271a1a42c9c.png)
+- 시연 영상 : <a href="https://drive.google.com/file/d/1T5jRf1lQ13_xyCjD2DP1XVRggUePxt4O/view">시연영상</a>
+ ```1080p 화질을 권장합니다.```
 <br>
 
-- 메인페이지이자 게시판 기능을 가진 화면이다. 스터디를 만들고 싶은 사람들이 글을 올리면 목록에 보여진다. 게시글의 목록은 스터디 카테고리 분류에 따라 나눠서 조회할 수 있도록 하였다.
-- 로그인이 되지 않은 상태에서 글쓰기나 스터디 모집글에 접근할 경우 로그인 페이지로 넘어가도록 하였다. Spring Security를 사용하여 접근 권한을 제한하였다.<br>
+<img src='https://user-images.githubusercontent.com/80584060/144974123-9fddc685-5f14-433e-96db-112839d8d0a6.gif' alt='' border='0'/>
 
-![image](https://user-images.githubusercontent.com/60432062/125256629-95bf9800-e337-11eb-824a-7ae2ecd921e3.png)
-<br>
+>**회원가입 (이메일 중복검증 - 닉네임 중복 검증 - 이메일 인증번호 발송)**
 
-- 로그인 후에는 글쓰기/게시글 조회/마이페이지/로그아웃 기능이 활성화된다.<br>
+<hr>
 
-![image](https://user-images.githubusercontent.com/60432062/125256698-a6700e00-e337-11eb-9d09-e08cf99e8570.png)
-<br>
-게시글을 눌러 글을 조회해 보았다.
+<img src='https://user-images.githubusercontent.com/80584060/144974129-df2d788c-9ecc-4ead-91f1-12a61f619412.gif' alt='영상' border='0'/>
 
-- 본인이 등록한 글에서는 댓글창이 활성화 되지 않는다. 오직 다른 회원에 의해서만 신청 댓글을 받을 수 있기 때문이다.<br>
+>**로그인 및 챌린지 리스트 페이지**
+> <br>1. 챌린지 리스트 (카드형) <br>2. 언어 태그 , 최신순 인기순 정렬<br>3. 게시물 작성<br>4. 내가 작성한 글인 경우 수정/삭제 표시 및 타인 게시물인 경우 지원하기 버튼이 표시 >> 내가 이미 지원한 경우 ```지원완료```버튼이 SHOW
 
-![image](https://user-images.githubusercontent.com/60432062/125256804-c3a4dc80-e337-11eb-8d45-6a36e0b38e1e.png)
-<br>
-다른 회원으로 로그인 하여 참여 신청 댓글을 달았다.<br>
+<hr>
 
-![image](https://user-images.githubusercontent.com/60432062/125256844-cc95ae00-e337-11eb-8a0f-3224837097e5.png)
-<br>
+<img src='https://user-images.githubusercontent.com/80584060/144974149-6446e2e7-ec21-4412-8d47-a97227cf4e63.gif' border='0' alt=""/>
 
-- 게시자 계정에서 내가 쓴 글을 조회하면 신청 댓글 수락 버튼이 활성화된다. 오직 게시자 계정만이 신청 댓글의 수락하기 버튼이 보인다.<br>
+>**프로젝트 리스트 페이지**
+> <br>1. 프로젝트 리스트 (카드형) <br>2. 검색기능<br>3. 글 작성 및 수정 삭제<br>4. 댓글 비동기 작성, 수정, 삭제
 
-![image](https://user-images.githubusercontent.com/60432062/125256911-dae3ca00-e337-11eb-93af-bd7ad4774605.png)
-<br>
+<hr>
 
-- 수락하기 버튼을 누르면 취소하기가 가능한데, 이는 스터디 그룹 최종 생성 전 스터디원의 구성을 바꿀 수 있음을 의미한다.
-- 취소하기 후에 다시 수락하기도 가능하다.<br>
+<img src='https://user-images.githubusercontent.com/80584060/144974106-6157db77-50dd-4264-8952-17c8b30f2a52.gif' alt='' border='0'/>
 
-![image](https://user-images.githubusercontent.com/60432062/125256995-efc05d80-e337-11eb-8f6c-3d17d2b07dc2.png)
-<br>
+>**스터디 내부 게시판 페이지**
+> <br>1. 목록형 게시글 리스트<br>2. 게시물 작성, 삭제<br>3. 파일 업로드
 
-- 마이페이지에서 스터디 팀 개설을 완료시킬 수 있다.
-- 내가 개설한 스터디 리스트와 참여 신청 댓글을 달았던 스터디 리스트를 보여준다.
-- 내가 개설한 스터디 목록에서 관리 버튼을 누르게되면 참여를 수락했던 팀원들 목록을 보여준다.
-- 내가 개설한 스터디 목록에서 팀 개설을 완료시켰다면 관리버튼이 리뷰버튼으로 바뀌게 된다.
-- 스터디 개설자가 팀 개설을 완료시키지 않았다면 참여 신청한 스터디 리스트의 버튼이 생성 대기중으로 뜨고, 개설을 완료시켰다면 리뷰 버튼으로 바뀌게 된다.<br>
+<hr>
 
-![image](https://user-images.githubusercontent.com/60432062/125257060-023a9700-e338-11eb-8a69-647761c7eaea.png)
-<br>
-팀 개설 완료 후 마이페이지로 돌아오면 리뷰버튼으로 전환된다.<br>
+<img src='https://user-images.githubusercontent.com/80584060/144974121-4de7cb1c-d92e-4b18-9815-01435f5b866d.gif' alt='' border='0'/><img src='https://user-images.githubusercontent.com/80584060/144974125-c7a76d86-f051-41f0-b47c-bf1b2ed22d25.gif' alt='' border='0'/>
 
-![image](https://user-images.githubusercontent.com/60432062/125257158-1aaab180-e338-11eb-8d8e-582b96ddefc7.png)
-<br>
+>**챌린지 메인 페이지**
+> <br>1. 챌린지 처음 접근시 결제창 표시 <br>2. 캘린더에 일정 추가, 수정, 삭제 <br>3. 출석하기( 하루에 한번 )<br>4. 게시판 미니 리스트<br>5. 출석랭킹 (미구현)
 
-- 리뷰페이지에는 처음 모집게시글을 올릴 때 설정했던 스터디 기간의 주 수만큼 리뷰칸이 생성된다.
-- 한 주가 끝날때마다 팀원별로 리뷰를 등록하여 피드백을 받을 수 있다.<br>
+<hr>
 
-![image](https://user-images.githubusercontent.com/60432062/125257225-2b5b2780-e338-11eb-8c2a-85be6942e7db.png)
-<br>
+<img src='https://user-images.githubusercontent.com/80584060/144974135-3aa11ef3-ebe2-4386-bcf2-d3c0455b4dd7.gif' alt='' border='0'/>
 
-- 리뷰를 위한 팀원 리스트는 스터디에 참여한 팀원 중 본인을 제외하여 넣었다.
-- 별점은 1점부터 5점까지 줄 수 있으며 한 회원에 대한 별점은 모든 스터디에 대한 누적 평균 점수이다.
-- 나의 활동 별점은 마이페이지에서 확인이 가능하다.<br>
+>**마이 페이지**
+> <br>1. 예약리스트 출력 <br>2. 마이페이지 정보 출력 <br>3. 내가 가입한 스터디 일정 모두 표시 <br>4. 내가 가입한 스터디 목록 표시 <br>5. 내가 예약한 카페리스트 표시
 
-![image](https://user-images.githubusercontent.com/60432062/125257294-3ca43400-e338-11eb-94b8-c354a64b9179.png)
-![image](https://user-images.githubusercontent.com/60432062/125257307-42017e80-e338-11eb-86f9-ea6ce68a0e4b.png)
