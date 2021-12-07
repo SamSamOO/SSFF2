@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.or.ssff.mapper.CalendarMapper">
-  <!--insert문-->
+  <!--일정 등록하기-->
   <insert id="insert">
     INSERT INTO CALENDAR_S (
     cal_id,cal_type,cal_events,update_time
@@ -13,12 +13,7 @@
     #{cal_id}, #{type}, #{cal_events}, sysdate)
   </insert>
 
-  <!--cal_id로 json data 가져오기-->
-  <select id="getCalendarByCal_id" resultType="String">
-    SELECT cal_events FROM calendar_s WHERE cal_id=#{cal_id}
-  </select>
-
-  <!--update문-->
+  <!--일정 수정하기-->
   <update id="update">
     UPDATE calendar_s
     SET
@@ -26,6 +21,11 @@
     WHERE
       cal_id = #{cal_id}
   </update>
+
+  <!--cal_id로 json data 가져오기-->
+  <select id="getCalendarByCal_id" resultType="String">
+    SELECT cal_events FROM calendar_s WHERE cal_id=#{cal_id}
+  </select>
 
   <!--cal_id로 json data 가져오기-->
   <select id="getR_idxByMember_name" resultType="kr.or.ssff.applyMember.domain.ApplyMemberDTO">
