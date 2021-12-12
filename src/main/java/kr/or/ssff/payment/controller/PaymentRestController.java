@@ -50,7 +50,7 @@ public class PaymentRestController {
   @Setter(onMethod_ = {@Autowired})
   private PaymentService service;
 
-  @Setter(onMethod_ = {@Autowired})
+  @Setter(onMethod_ = {@Autowired}) 
   private ApplyMemberService applyMemberService;
 
 
