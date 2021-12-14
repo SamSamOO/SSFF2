@@ -73,7 +73,7 @@
 
 ## 4. 구현 결과 
 
-- 시연 영상 : <a href="https://drive.google.com/file/d/1T5jRf1lQ13_xyCjD2DP1XVRggUePxt4O/view">시연영상</a>
+- 시연 영상 : <a href="https://youtu.be/wdWq0gOh-Nk">시연영상</a>
  ```1080p 화질을 권장합니다.```
 <br>
 
